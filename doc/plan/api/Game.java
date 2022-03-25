@@ -1,5 +1,4 @@
 
 public class Game {
 
-  public
 }
