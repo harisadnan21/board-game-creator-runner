@@ -1,0 +1,150 @@
+{
+	"metadata": {
+		"name": "Checkers",
+		"author": "Mr. Checkers",
+		"creationDate": "1648158653",
+		"lastModifiedDate": "1648158780",
+	},
+	"basicInfo": {
+		"players": [
+			{
+				"name": "Black"
+			},
+			{
+				"name": "White"
+			}
+		],
+		"firstMove": {
+			"type": "fixed",
+			"name": "White"
+		}
+	},
+	"board": {
+		"type": "square",
+		"width": 8,
+		"height": 8,
+		"background": "checkers"
+	},
+	"pieces": {
+		"normalPiece": {},
+		"kingedPiece": {}
+	},
+	"regions": {
+		"endZone": {
+			"type": "relativeToBoard",
+			"spaces": [
+				[0, 0],
+				[1, 0],
+				[2, 0],
+				[3, 0],
+				[4, 0],
+				[5, 0],
+				[6, 0],
+				[7, 0],
+				[8, 0]
+			]
+		}
+	},
+	"moves": [
+		{
+			"pieces": ["normalPiece", "kingedPiece"],
+			"type": "path",
+			"path": [
+				[1, 1],
+				[2, 2]
+			],
+			"collisionAction": "capture",
+			"condition": {
+				"type": "pieceOnPath",
+				"pieces": ["normalPiece", "kingedPiece"]
+			}
+		},
+		{
+			"pieces": ["normalPiece", "kingedPiece"],
+			"type": "path",
+			"path": [
+				[-1, 1],
+				[-2, 2]
+			],
+			"collisionAction": "capture",
+			"condition": {
+				"type": "pieceOnPath",
+				"pieces": ["normalPiece", "kingedPiece"]
+			}
+		},
+		{
+			"pieces": ["kingedPiece"],
+			"type": "path",
+			"path": [
+				[1, -1],
+				[2, -2]
+			],
+			"collisionAction": "capture",
+			"condition": {
+				"type": "pieceOnPath",
+				"pieces": ["normalPiece", "kingedPiece"]
+			}
+		},
+		{
+			"pieces": ["kingedPiece"],
+			"type": "path",
+			"path": [
+				[-1, -1],
+				[-2, -2]
+			],
+			"collisionAction": "capture",
+			"condition": {
+				"type": "pieceOnPath",
+				"pieces": ["normalPiece", "kingedPiece"]
+			}
+		},
+		{
+			"pieces": ["normalPiece", "kingedPiece"],
+			"type": "pointToPoint",
+			"path": [
+				[1, 1]
+			],
+			"collisionAction": "none"
+		},
+		{
+			"pieces": ["normalPiece", "kingedPiece"],
+			"type": "pointToPoint",
+			"path": [
+				[-1, 1]
+			],
+			"collisionAction": "none"
+		},
+		{
+			"pieces": ["kingedPiece"],
+			"type": "pointToPoint",
+			"path": [
+				[1, -1]
+			],
+			"collisionAction": "none"
+		},
+		{
+			"pieces": ["kingedPiece"],
+			"type": "pointToPoint",
+			"path": [
+				[-1, -1]
+			],
+			"collisionAction": "none"
+		}
+	],
+	"endConditions": [
+		{
+			"type": "noMovesAvailable",
+			"winnerDetermination": [
+				"morePiecesPresent"
+			]
+		}
+	],
+	"rules": [
+		{
+			"type": "transformInRegion",
+			"region": "endZone",
+			"from": ["normalPiece"],
+			"to": "kingedPiece"
+		}
+	]
+}
