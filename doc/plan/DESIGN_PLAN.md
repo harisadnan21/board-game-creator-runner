@@ -67,6 +67,12 @@ are only needed by the model for JSON serialization).
 
 [Engine Wireframe](https://www.figma.com/file/elSvqbmKfwfxeVuz4IesDq/Untitled?node-id=0%3A1)
 
+<video width="320" height="240" controls>
+  <source src="engine_wireframe_demo.mov" type="video/mp4">
+</video>
+
+[Engine Wireframe Demo](engine_wireframe_demo.mov "wireframe walkthrough")
+
 We imagine our game engine to be a generalized class which has functionalities like generating
 possible actions for next moves, determining if a move obeys the rules.
 
