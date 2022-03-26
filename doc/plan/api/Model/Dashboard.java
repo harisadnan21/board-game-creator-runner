@@ -12,5 +12,13 @@ public class Dashboard {
     public Dashboard() {
     }
 
+    public plalyGame(){
+
+    }
+
+    public createGame(){
+
+    }
+
 
 }

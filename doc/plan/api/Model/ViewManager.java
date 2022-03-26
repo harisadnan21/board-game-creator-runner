@@ -9,7 +9,7 @@ public class ViewManager {
     /**
      * Default constructor
      */
-    public ViewManager() {
+    public ViewManager(String availableGames) {
     }
 
 
