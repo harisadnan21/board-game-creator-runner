@@ -21,7 +21,7 @@ allowing users to play the games.
 
 ### Builder
 
-![Design of our game builder](INSERT_BUILDER_UML_HERE.png "Design of our game builder")
+![Design of our game builder](builder_design.png "Design of our game builder")
 
 The builder is responsible for allowing users to create custom game configurations. The basic 
 game elements that the user will be allowed to create are to the board, the pieces, the rules, and
