@@ -16,7 +16,7 @@ public class GameElementFactory {
      * @param properties 
      * @return
      */
-    public T createElement(Collection<Property> properties) {
+    public T createElement(String name, Collection<Property> properties) {
         // TODO implement here
         return null;
     }
