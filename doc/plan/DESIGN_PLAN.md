@@ -65,6 +65,17 @@ are only needed by the model for JSON serialization).
 
 ![Design of our game engine](engine_design.png "Design of our game engine")
 
+We imagine our game engine to be a generalized class which has functionalities like generating
+possible actions for next moves, determining if a move obeys the rules.
+
+The engine uses a Game class which contains the game loop, telling each player to play their turn.
+
+Next there is the Board class, which contains all the Piece instances in the appropriate places on
+the board.
+
+After any change to the board state send an update to the controller, so that the front can reflect on
+this change.
+
 ## Design Considerations
 
 ### Communication Between Builder and Engine
