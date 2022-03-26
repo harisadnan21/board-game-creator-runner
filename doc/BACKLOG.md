@@ -84,11 +84,20 @@
 10. Instructions/splash screen based on user's input
 
 ### Mike
-1. Specify and choose board shape and size in the builder
-2. Declare specifc piece types and choose what each looks like / their names. (Choose images from files)
-3. Declare how each piece moves by clicking on each piece and specify its movement pattern on a sample board (like path movement / jump)
-4. Also add how each piece type can be added / removed from the board.
-5. Declare win conditions for the game by either choosing from a few options/
+1. Specify and choose board dimensions in the builder and background options and colors. (checkers, GO, uploaded image)
+2. Declare specifc piece types and choose what each looks like / their names. (Choose images from files and use the name to correlate it to its properties)
+3. Specify the properties for a specific piece. Click on it and then a pop up shows that allows you to set specific properties:
+
+    
+4. Setting movement - Grid where you can choose movement type and select where a piece can move (clicking) and then the backend processors that information. 
+5. Setting colision options - a drop down to select what pieces do when they collide
+6. Set capturing options - both what capture means (flip like othello or take like checkers) and how it can be done
+7. Set how each piece type can be added / removed from the board (connect 4 from top only and it falls, othello has to be a valid flip).
+
+
+8. Declare win conditions for the game by choosing from a few options and then filling in parameters. (X in a row wins. Set 4 as x)
+9. Specify the stargin positions of the pieces by clicking and adding each piece to the specific squares and then whenever you save, the shown board is the starting positions.
+10. Upload a file and fill the builder with the correct parameters from the file. Should be able to upload a game and then be able to make adjustments to it.
 
 ### Shaan
 1. Place a piece on the board at location (i, j)
