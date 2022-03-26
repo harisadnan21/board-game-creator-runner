@@ -2,8 +2,7 @@
 ### NAMES : Ricky Weerts, Jake Heller, Robert Cranston, Haris Adnan, Alexander Bildner, Thivya Sivarajah, Cynthia France, Mike Keohane, Shaan Gondalia
 ### TEAM : OOGABOOGA
 
-
-## Goals
+## Overview
 
 In our project, we hope to create an application which allows users
 to create strategy games in the following domain:
@@ -22,6 +21,8 @@ allowing users to play the games.
 
 ### Builder
 
+![Design of our game builder](INSERT_BUILDER_UML_HERE.png "Design of our game builder")
+
 The builder is responsible for allowing users to create custom game configurations. The basic 
 game elements that the user will be allowed to create are to the board, the pieces, the rules, and
 the winning conditions of a game. 
@@ -34,7 +35,9 @@ likewise be a tab for rules, the board, and winning conditions.
 Each of these tabs is responsible for displaying an intuitive UI for creating game elements, which 
 are stored in the back end as game elements. When the view wishes to display the properties of 
 existing game elements, it will receive a record that describes the piece (instead of passing 
-pieces directly to the view).
+pieces directly to the view). Game elements are open to extension, meaning any aspect of the game
+that we want the user to be able to customize can be a game element. Potential extensions include 
+turn lengths, timers, etc.
 
 Once the user has described the game elements, they will be prompted to place pieces on the board,
 defining the starting position of the pieces. This starting configuration will be stored in the
@@ -59,14 +62,6 @@ are only needed by the model for JSON serialization).
 ### Engine
 
 ![Design of our game engine](engine_design.png "Design of our game engine")
-
-
-## User Interface
-
-### Builder
-
-### Engine
-
 
 ## Design Considerations
 
