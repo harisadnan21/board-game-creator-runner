@@ -65,6 +65,8 @@ are only needed by the model for JSON serialization).
 
 ![Design of our game engine](engine_design.png "Design of our game engine")
 
+[Engine Wireframe](https://www.figma.com/file/elSvqbmKfwfxeVuz4IesDq/Untitled?node-id=0%3A1)
+
 We imagine our game engine to be a generalized class which has functionalities like generating
 possible actions for next moves, determining if a move obeys the rules.
 
