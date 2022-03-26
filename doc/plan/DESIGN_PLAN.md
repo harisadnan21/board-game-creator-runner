@@ -23,6 +23,8 @@ allowing users to play the games.
 
 ![Design of our game builder](builder_design.png "Design of our game builder")
 
+[Builder Wireframe](https://www.figma.com/file/R75cgz0MIS9m1zZj4H3HDi/Figma-Wireframing-Kit-(Community)?node-id=1009%3A489)
+
 The builder is responsible for allowing users to create custom game configurations. The basic 
 game elements that the user will be allowed to create are to the board, the pieces, the rules, and
 the winning conditions of a game. 
