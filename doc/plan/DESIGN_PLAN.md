@@ -23,7 +23,8 @@ We intend two create two functionally separate application, a builder and a game
 
 #### Examples
 
-Here is a graphical look at our design:
+Here is a graphical look at the design of our game engine:
+![Design of our game engine](engine_design.png "Design of our game engine")
 
 
 ## Introduction
