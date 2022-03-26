@@ -61,7 +61,7 @@ opponents pieces. To outflank means to place a piece on the board so that your o
 rows) of disc(s) is bordered at each end by a disc of your colour. (A "row" may be made up of one or
 more discs). These "rows" can be horizontal, vertical, or at a 45 degree diagonal in any direction.
 
-For a visual dsecription of this ruleset,
+For a visual description of this ruleset,
 see [this link](https://www.worldothello.org/about/about-othello/othello-rules/official-rules/english)
 .
 
