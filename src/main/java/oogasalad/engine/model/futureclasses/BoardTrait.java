@@ -1,4 +1,6 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.futureclasses;
+
+import oogasalad.engine.model.Board;
 
 @FunctionalInterface
 public interface BoardTrait {
