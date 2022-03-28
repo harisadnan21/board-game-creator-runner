@@ -6,7 +6,7 @@ public class Controller {
 
   private Board myBoard;
   public Controller() {
-    myBoard = new Board();
+    myBoard = new Board(1, 1);
   }
 
 

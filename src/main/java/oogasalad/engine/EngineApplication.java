@@ -13,11 +13,15 @@ public class EngineApplication extends Application {
 
     Controller controller = new Controller();
 
-    BoardView board = new BoardView(3, 3);
+    BoardView board = new BoardView(1, 1, 300, 300);
 
     Group root = new Group();
+    root.getChildren().add(board.getRoot());
 
     Scene scene = new Scene(root, 400, 400);
 
+    stage.setTitle("OOGABOOGA Engine");
+    stage.setScene(scene);
+    stage.show();
   }
 }
