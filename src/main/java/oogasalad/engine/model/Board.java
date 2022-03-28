@@ -2,9 +2,9 @@ package oogasalad.engine.model;
 
 import java.util.List;
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 
-public class Board extends Observable<List>{
+
+public class Board extends Observable<Integer[][]>{
 
   private int myHeight;
   private int myWidth;
@@ -16,9 +16,7 @@ public class Board extends Observable<List>{
     myBoard = new int[height][width];
   }
 
-  public Board selectCell(int x, int y){
 
-  }
 
 
 }
