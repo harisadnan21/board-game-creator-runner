@@ -1,3 +1,5 @@
+package oogasalad.engine.model;
+
 @FunctionalInterface
 public interface LegalMove {
 
