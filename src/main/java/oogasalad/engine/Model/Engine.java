@@ -15,8 +15,9 @@ public class Engine {
   }
 
   /**
-   * a general method that will be overriden by other class
+   * a general method that will be overriden by other classes(calls execute method in Action Class)
    */
-  public void generateActions() {
+  private void generateActions() {
+
   }
 }

@@ -15,7 +15,7 @@ public class GameCenterPage {
   }
 
   /**
-   * Function to diplay the page
+   * Function to display the page
    */
   public void displayGamesPage() {
   }
