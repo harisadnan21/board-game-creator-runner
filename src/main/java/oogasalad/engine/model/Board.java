@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.beans.InvalidationListener;
 
-
 public class Board extends Observable<Piece[][]> implements Iterable<Piece> {
 
   private int myHeight;
@@ -27,7 +26,19 @@ public class Board extends Observable<Piece[][]> implements Iterable<Piece> {
     myBoard[x][y] = new Piece("Knight", 1);
   }
 
-// Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
+  public Boolean isValid(Position position){
+    return isValidX(position.getI()) && isValidY(position.getJ());
+  }
+
+  private boolean isValidY(int j) {
+    return Utilities.isPositive(j) && (j <= myHeight);
+  }
+
+  private Boolean isValidX(int i) {
+    return Utilities.isPositive(i) && (i <= myWidth);
+  }
+
+  // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
 // 1. We can use built in functionality for streams
 // 2. Very easy to make code parallel/concurrent
 // 3. Open-Closed -> we won't have to change implemenation if we decide to change how to represent Board because it will still be a Stream
