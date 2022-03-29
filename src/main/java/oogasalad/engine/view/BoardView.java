@@ -26,37 +26,36 @@ public class BoardView implements PropertyChangeListener{
 
   private Controller myController;
 
-  private Pane[][] myGrid;
+  private Cell[][] myGrid;
 
   private Group myRoot;
 
   public BoardView(int rows, int columns, double width, double height) {
 
     myRoot = new Group();
-    myGrid = new Pane[rows][columns];
+    myGrid = new Cell[rows][columns];
 
     double cellWidth = width / columns;
     double cellHeight = height / rows;
 
+    double x = 0;
+    double y = 0;
+
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
-        myGrid[i][j] = new StackPane();
-        Rectangle rect = new Rectangle(cellWidth, cellHeight, Color.GREEN);
-        Image horseIMG = new Image(BLACK_KNIGHT);
-        ImageView piece = new ImageView(horseIMG);
-        piece.setFitHeight(cellHeight);
-        piece.setFitWidth(cellWidth);
-        myGrid[i][j].getChildren().addAll(rect, piece);
-
-        //rect.applyCss();
-        //myGrid[i][j];
+        myGrid[i][j] = new Cell(x, y, cellWidth, cellHeight);
 
         int finalI = i;
         int finalJ = j;
+
         myGrid[i][j].addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {cellClicked(e, finalI, finalJ);});
 
         myRoot.getChildren().add(myGrid[i][j]);
+
+        x += cellWidth;
       }
+      x = 0;
+      y += cellHeight;
     }
   }
 
@@ -64,14 +63,20 @@ public class BoardView implements PropertyChangeListener{
     myController.click(i, j);
   }
 
+  public void addController(Controller c) {
+    myController = c;
+  }
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    Board newBoard = (Board) evt.getNewValue();
+    Board newBoard = (Board) evt.getSource();
     int index = 0;
-    for (Piece piece: newBoard) {
-      if (piece != null) {
-        Position pos = getIndices(index);
-        //myGrid[pos.getI()][pos.getJ()].getChildren().add(horse);
+    for (Pair<Position, Piece> piece: newBoard) {
+      Position pos = piece.getKey();
+      if (piece.getValue() != null) {
+        myGrid[pos.getI()][pos.getJ()].addPiece(BLACK_KNIGHT);
+      }
+      else {
+        myGrid[pos.getI()][pos.getJ()].removePiece();
       }
       index++;
     }

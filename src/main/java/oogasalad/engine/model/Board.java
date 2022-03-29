@@ -1,19 +1,18 @@
 package oogasalad.engine.model;
 
 import java.util.Iterator;
-import java.util.List;
-import javafx.beans.InvalidationListener;
+import javafx.util.Pair;
 
-public class Board extends Observable<Piece[][]> implements Iterable<Piece> {
+public class Board extends Observable<Piece[][]> implements Iterable<Pair<Position, Piece>> {
 
-  private int myHeight;
-  private int myWidth;
+  private int myRows;
+  private int myColumns;
   private Piece[][] myBoard;
 
-  public Board(int width, int height) {
-    myHeight = height;
-    myWidth = width;
-    myBoard = new Piece[height][width];
+  public Board(int rows, int columns) {
+    myRows = rows;
+    myColumns = columns;
+    myBoard = new Piece[rows][columns];
   }
 
   public void selectCell(int x, int y){
@@ -31,11 +30,11 @@ public class Board extends Observable<Piece[][]> implements Iterable<Piece> {
   }
 
   private boolean isValidY(int j) {
-    return Utilities.isPositive(j) && (j <= myHeight);
+    return Utilities.isPositive(j) && (j <= myRows);
   }
 
   private Boolean isValidX(int i) {
-    return Utilities.isPositive(i) && (i <= myWidth);
+    return Utilities.isPositive(i) && (i <= myColumns);
   }
 
   // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
@@ -43,7 +42,7 @@ public class Board extends Observable<Piece[][]> implements Iterable<Piece> {
 // 2. Very easy to make code parallel/concurrent
 // 3. Open-Closed -> we won't have to change implemenation if we decide to change how to represent Board because it will still be a Stream
   @Override
-  public Iterator<Piece> iterator() {
+  public Iterator<Pair<Position, Piece>> iterator() {
     return new BoardIterator(myBoard);
   }
 }

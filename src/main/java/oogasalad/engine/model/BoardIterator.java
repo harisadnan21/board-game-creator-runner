@@ -1,8 +1,10 @@
 package oogasalad.engine.model;
 
 import java.util.Iterator;
+import javafx.util.Pair;
 
-public class BoardIterator<Piece> implements Iterator<Piece> {
+public class BoardIterator implements Iterator {
+
 
   private Piece[][] myPieces;
   private int myRows;
@@ -26,7 +28,7 @@ public class BoardIterator<Piece> implements Iterator<Piece> {
   }
 
   @Override
-  public Piece next() {
+  public Pair<Position, Piece> next() {
     if (currColumn + 1 == myColumns) {
       currRow++;
       currColumn = 0;
@@ -34,6 +36,8 @@ public class BoardIterator<Piece> implements Iterator<Piece> {
     else {
       currColumn++;
     }
-    return myPieces[currRow][currColumn];
+    Piece piece = myPieces[currRow][currColumn];
+    Position position = new Position(currRow, currColumn);
+    return new Pair<>(position, piece);
   }
 }
