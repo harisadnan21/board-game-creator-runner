@@ -2,20 +2,13 @@ package oogasalad.engine.view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.EventListener;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 import oogasalad.engine.Controller;
-import oogasalad.engine.model.Board;
+import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.Piece;
-import oogasalad.engine.model.Position;
+import oogasalad.engine.model.board.Position;
 
 public class BoardView implements PropertyChangeListener{
 

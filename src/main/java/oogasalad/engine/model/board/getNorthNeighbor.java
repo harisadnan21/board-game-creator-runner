@@ -1,4 +1,4 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.board;
 
 import java.util.Optional;
 

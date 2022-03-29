@@ -1,6 +1,6 @@
 package oogasalad.engine;
 
-import oogasalad.engine.model.Board;
+import oogasalad.engine.model.board.Board;
 import oogasalad.engine.view.BoardView;
 
 public class Controller {

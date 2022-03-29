@@ -1,7 +1,8 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.board;
 
 import java.util.Iterator;
 import javafx.util.Pair;
+import oogasalad.engine.model.Piece;
 
 public class BoardIterator implements Iterator {
 

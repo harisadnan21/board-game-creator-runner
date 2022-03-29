@@ -1,6 +1,6 @@
 package oogasalad.engine.model.futureclasses;
 
-import oogasalad.engine.model.Board;
+import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.Player;
 import oogasalad.engine.model.Rule;

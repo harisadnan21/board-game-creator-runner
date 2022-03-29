@@ -1,7 +1,10 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.board;
 
 import java.util.Iterator;
 import javafx.util.Pair;
+import oogasalad.engine.model.Observable;
+import oogasalad.engine.model.Piece;
+import oogasalad.engine.model.Utilities;
 
 public class Board extends Observable<Piece[][]> implements Iterable<Pair<Position, Piece>> {
 
