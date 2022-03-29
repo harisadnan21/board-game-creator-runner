@@ -34,7 +34,8 @@ public class GameConfiguration {
      * @return
      */
     public void putGameElement(String type, GameElement element) {
-        // TODO implement here
+        // TODO: Check if collection exists (create it if not)
+        elements.get(type).add(element);
     }
 
     /**
@@ -45,8 +46,9 @@ public class GameConfiguration {
      * @param name the name of the piece to place
      * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
      */
-    public void placeBoardPiece(int x, int y, String name) {
-        // TODO implement here
+    public void placeBoardPiece(int x, int y, String name) throws OccupiedCellException {
+        // TODO: Throw exception if board is null
+        board.placePiece(x, y, name);
     }
 
     /**
@@ -57,8 +59,8 @@ public class GameConfiguration {
      * @return the name of the piece
      */
     public String findBoardPieceAt(int x, int y) {
-        // TODO implement here
-        return "";
+        // TODO: Throw exception if board is null
+        return board.findPieceAt(x, y);
     }
 
 }
