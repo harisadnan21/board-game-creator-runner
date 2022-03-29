@@ -17,7 +17,12 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
 
   public void selectCell(int x, int y){
     Piece[][] oldBoard = myBoard;
-    place(x, y);
+    if (myBoard[x][y] != null) {
+      myBoard[x][y] = null;
+    }
+    else {
+      place(x, y);
+    }
     notifyListeners("UPDATE", oldBoard, myBoard);
   }
 

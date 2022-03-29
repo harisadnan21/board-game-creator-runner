@@ -56,7 +56,7 @@ public class Cell extends Group {
     myPiece.setY(myY);
     this.getChildren().add(myPiece);
 
-    System.out.println("Piece added");
+    // System.out.println("Piece added");
   }
 
   public void removePiece() {
