@@ -1,17 +1,18 @@
 package oogasalad.builder.model.element.factory;
 
-import java.util.*;
+import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.element.Piece;
 
-/**
- * 
- */
-public class PieceFactory {
+import java.util.Set;
 
-    /**
-     * Default constructor
-     */
+public class PieceFactory extends GameElementFactory<Piece> {
+
     public PieceFactory() {
+        super("/elements/Piece.properties");
     }
 
-
+    @Override
+    public Piece createElement(String name, Set<Property> properties) {
+        return new Piece(name, properties);
+    }
 }

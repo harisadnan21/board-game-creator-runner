@@ -1,29 +1,38 @@
 package oogasalad.builder.model.element;
 
-import java.util.*;
+import oogasalad.builder.controller.Property;
 
-/**
- * 
- */
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 public class GameElement {
 
-    /**
-     * Default constructor
-     */
-    public GameElement() {
+    private String name;
+
+    private Set<Property> properties = new HashSet<>();
+
+    public GameElement(String name, Set<Property> properties) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(properties);
+        this.name = name;
+        this.properties.addAll(properties);
     }
 
-    /**
-     * 
-     */
-    private String name;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * @return
      */
-    public Collection<Property> getProperties() {
-        // TODO implement here
-        return null;
+    public Set<Property> getProperties() {
+        return properties;
     }
 
     /**
@@ -31,8 +40,7 @@ public class GameElement {
      * @return
      */
     public void putProperty(Property property) {
-        // TODO implement here
-        return null;
+        properties.add(property);
     }
 
 }

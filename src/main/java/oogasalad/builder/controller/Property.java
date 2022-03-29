@@ -3,39 +3,21 @@ package oogasalad.builder.controller;
 import java.util.*;
 
 /**
- * 
+ * An immutable class that stores a value of a specified type as a String under a given name
  */
-public class Property<T> {
-    private Class<T> type;
+public record Property(Class<?> type, String name, String value) {
 
-    private String name;
-
-    private T value;
-
-    public Property(Class<T> type, String name) {
-        Objects.requireNonNull(type);
-        Objects.requireNonNull(name);
-        this.type = type;
+    public <T> Property(Class<T> type, String name, T value) {
+        this(type, name, Objects.requireNonNull(value).toString());
     }
 
-    public Class<T> getType() {
-        return type;
+    public Property withValue(Object newValue) {
+        return withValueAsString(Objects.requireNonNull(newValue).toString());
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
-    public void setValue(T newValue) {
+    public Property withValueAsString(String newValue) {
         Objects.requireNonNull(newValue);
-        if(!type.equals(newValue.getClass())) {
-            throw new IllegalArgumentException(ExceptionResourcesSingleton.getInstance().getString("BadPropertyValueType"));
-        }
-        value = newValue;
+        return new Property(type, name, newValue);
     }
 
     @Override
@@ -46,8 +28,12 @@ public class Property<T> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Property<?> property = (Property<?>) o;
+        Property property = (Property) o;
         return type.equals(property.type) && name.equals(property.name);
+    }
+
+    public boolean fullEquals(Object o) {
+        return equals(o) && ((Property)o).value.equals(value);
     }
 
     @Override

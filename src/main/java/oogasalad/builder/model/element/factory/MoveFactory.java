@@ -1,17 +1,19 @@
 package oogasalad.builder.model.element.factory;
 
-import java.util.*;
+import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.element.GameElement;
+import oogasalad.builder.model.element.Move;
 
-/**
- * 
- */
-public class MoveFactory {
+import java.util.Set;
 
-    /**
-     * Default constructor
-     */
+public class MoveFactory extends GameElementFactory<Move> {
+
     public MoveFactory() {
+        super("/elements/Move.properties");
     }
 
-
+    @Override
+    public Move createElement(String name, Set<Property> properties) {
+        return new Move(name, properties);
+    }
 }
