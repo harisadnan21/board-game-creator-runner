@@ -27,6 +27,10 @@ public class Board extends Observable<Piece[][]> implements Iterable<Piece> {
     myBoard[x][y] = new Piece("Knight", 1);
   }
 
+// Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
+// 1. We can use built in functionality for streams
+// 2. Very easy to make code parallel/concurrent
+// 3. Open-Closed -> we won't have to change implemenation if we decide to change how to represent Board because it will still be a Stream
   @Override
   public Iterator<Piece> iterator() {
     return new BoardIterator(myBoard);
