@@ -1,6 +1,7 @@
 package oogasalad.engine.model.futureclasses;
 
-import oogasalad.engine.model.Action;
+import oogasalad.engine.model.action.Action;
+import oogasalad.engine.model.action.ActionType;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.Player;
 import oogasalad.engine.model.Rule;

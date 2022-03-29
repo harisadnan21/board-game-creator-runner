@@ -2,7 +2,7 @@ package oogasalad.engine.model;
 
 public class Utilities {
 
-  public static Boolean isPositive(int num){
+  public static boolean isPositive(int num){
     return num >= 0;
   }
 

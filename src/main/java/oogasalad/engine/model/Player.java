@@ -1,6 +1,7 @@
 package oogasalad.engine.model;
 
-import java.util.*;
+import oogasalad.engine.model.action.Action;
+import oogasalad.engine.model.action.ActionType;
 
 /**
  * 

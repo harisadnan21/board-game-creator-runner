@@ -1,6 +1,6 @@
 package oogasalad.engine.model.futureclasses;
 
-import oogasalad.engine.model.Action;
+import oogasalad.engine.model.action.ActionType;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.Player;
 import oogasalad.engine.model.Rule;
@@ -8,6 +8,6 @@ import oogasalad.engine.model.Rule;
 @FunctionalInterface
 public interface LegalMove {
 
-public Boolean legalMove(Board board, Action action, Player currentPlayer, Rule[] rules);
+public Boolean legalMove(Board board, ActionType action, Player currentPlayer, Rule[] rules);
 
 }

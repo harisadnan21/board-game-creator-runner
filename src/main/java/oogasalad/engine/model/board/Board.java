@@ -24,13 +24,23 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
       myBoard[x][y] = null;
     }
     else {
-      place(x, y);
+      place(x, y, new Piece("Knight", 1));
     }
     notifyListeners("UPDATE", oldBoard, myBoard);
   }
 
-  private void place(int x, int y){
-    myBoard[x][y] = new Piece("Knight", 1);
+  public void place(int i, int j, Piece piece){
+    myBoard[i][j] = piece;
+  }
+
+  /**
+   *
+   * @param i end i position
+   * @param j end j position
+   * @param piece
+   */
+  public void move(int i, int j, Piece piece) {
+
   }
 
   public Boolean isValid(Position position){
@@ -41,7 +51,7 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     return Utilities.isPositive(j) && (j <= myRows);
   }
 
-  private Boolean isValidX(int i) {
+  private boolean isValidX(int i) {
     return Utilities.isPositive(i) && (i <= myColumns);
   }
 
