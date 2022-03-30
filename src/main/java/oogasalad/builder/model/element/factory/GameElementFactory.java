@@ -1,6 +1,7 @@
 package oogasalad.builder.model.element.factory;
 
 
+import java.util.Collection;
 import oogasalad.builder.controller.ExceptionResourcesSingleton;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.GameElement;
@@ -8,12 +9,11 @@ import oogasalad.builder.model.element.GameElement;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public abstract class GameElementFactory<T extends GameElement> {
+public abstract class GameElementFactory implements ElementFactory{
+
     private static final int PROPERTY_PARTS = 3;
-
     private ResourceBundle propertiesResources;
-
-    private Set<Property> properties;
+    private Collection<Property> properties;
 
     public GameElementFactory(String propertiesPath) {
         propertiesResources = ResourceBundle.getBundle(propertiesPath);
@@ -34,16 +34,19 @@ public abstract class GameElementFactory<T extends GameElement> {
                 });
     }
 
-    /**
-     * @param properties 
-     * @return
-     */
-    public abstract T createElement(String name, Set<Property> properties);
+  /**
+   * Creates a game element based on the given parameters
+   *
+   * @param name the name of the game element
+   * @param properties the properties of the game element
+   * @return a game element with the given name and properties
+   */
+    public abstract GameElement createElement(String name, Collection<Property> properties);
 
     /**
      * @return
      */
-    public Set<Property> getProperties() {
+    public Set<Property> getRequiredProperties() {
         return Set.copyOf(properties);
     }
 

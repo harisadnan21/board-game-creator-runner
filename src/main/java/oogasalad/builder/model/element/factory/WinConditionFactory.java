@@ -5,14 +5,14 @@ import oogasalad.builder.model.element.WinCondition;
 
 import java.util.*;
 
-public class WinConditionFactory extends GameElementFactory<WinCondition> {
+public class WinConditionFactory extends GameElementFactory {
 
     public WinConditionFactory() {
         super("/elements/WinCondition.properties");
     }
 
     @Override
-    public WinCondition createElement(String name, Set<Property> properties) {
+    public WinCondition createElement(String name, Collection<Property> properties) {
         return new WinCondition(name, properties);
     }
 }
