@@ -13,5 +13,19 @@ public class PiecesTab {
     public PiecesTab() {
     }
 
+    /**
+     * Default constructor
+     */
+    private void choosePieceImage() {
+
+    }
+
+    /**
+     * Default constructor
+     */
+    private void choosePieceMovement() {
+
+    }
+
 
 }

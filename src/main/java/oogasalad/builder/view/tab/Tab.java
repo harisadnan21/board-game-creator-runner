@@ -13,4 +13,8 @@ public class Tab {
     public Tab() {
     }
 
+    private void addButton() {
+
+    }
+
 }
