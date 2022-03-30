@@ -71,7 +71,7 @@ public class RectangularBoard implements Board{
 
     // Checks whether the requested indices are empty
     private void checkEmpty(int x, int y) throws OccupiedCellException {
-        if (cells[x][y].equals(EMPTY)){
+        if (!cells[x][y].equals(EMPTY)){
             throw new OccupiedCellException();
         }
     }
