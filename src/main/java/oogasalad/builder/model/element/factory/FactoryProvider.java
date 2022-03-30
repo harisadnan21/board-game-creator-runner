@@ -15,9 +15,9 @@ public class FactoryProvider {
   public GameElementFactory getFactory(String type) {
     // TODO: Replace this with reflection
     return switch (type) {
-      case "piece" -> new RuleFactory();
+      case "piece" -> new PieceFactory();
       case "move" -> new MoveFactory();
-      case "rule" -> new PieceFactory();
+      case "rule" -> new RuleFactory();
       case "win condition" -> new WinConditionFactory();
       default -> null; // TODO: Throw an exception if type is unknown
     };

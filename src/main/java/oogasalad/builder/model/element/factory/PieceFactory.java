@@ -9,7 +9,7 @@ import java.util.Set;
 public class PieceFactory extends GameElementFactory {
 
     public PieceFactory() {
-        super("/elements/Piece.properties");
+        super("elements.Piece");
     }
 
     @Override

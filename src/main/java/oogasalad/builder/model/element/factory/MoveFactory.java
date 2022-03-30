@@ -10,7 +10,7 @@ import java.util.Set;
 public class MoveFactory extends GameElementFactory {
 
     public MoveFactory() {
-        super("/elements/Move.properties");
+        super("elements.Move");
     }
 
     @Override

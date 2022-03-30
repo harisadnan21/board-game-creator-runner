@@ -8,7 +8,7 @@ import java.util.*;
 public class WinConditionFactory extends GameElementFactory {
 
     public WinConditionFactory() {
-        super("/elements/WinCondition.properties");
+        super("elements.WinCondition");
     }
 
     @Override
