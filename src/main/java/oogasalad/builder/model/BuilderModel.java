@@ -1,48 +1,40 @@
 package oogasalad.builder.model;
 
 import java.util.*;
+import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.exception.OccupiedCellException;
 
 /**
- * 
+ * Describes the external API of the Builder Model.
  */
-public class BuilderModel {
+public interface BuilderModel {
 
     /**
-     * Default constructor
+     * Adds a Game Element to the game.
+     *
+     * @param type the type of the game element
+     * @param name the name of the game element
+     * @param properties the properties of the game element
      */
-    public BuilderModel() {
-    }
+    public void addGameElement(String type, String name, Collection<Property> properties);
 
     /**
-     * @param type 
-     * @param name 
-     * @param properties 
-     * @return
+     * Attempts to place a piece at the given coordinates
+     *
+     * @param x the x location to place
+     * @param y the y location to place
+     * @param name the name of the piece to place
+     * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
      */
-    public void putGameElement(String type, String name, Collection<Property> properties) {
-        // TODO implement here
-        return null;
-    }
+    public void placeBoardPiece(int x, int y, String name) throws OccupiedCellException;
 
     /**
-     * @param x 
-     * @param y 
-     * @param name 
-     * @return
+     * Finds the name of the piece at the given coordinates
+     *
+     * @param x the x location to query
+     * @param y the y location to query
+     * @return the name of the piece
      */
-    public void placeBoardPiece(int x, int y, String name) {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @param x 
-     * @param y 
-     * @return
-     */
-    public String getBoardPieceAt(int x, int y) {
-        // TODO implement here
-        return "";
-    }
+    public String findBoardPieceAt(int x, int y);
 
 }
