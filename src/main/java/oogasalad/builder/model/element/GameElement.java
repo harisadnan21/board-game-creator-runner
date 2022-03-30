@@ -1,5 +1,7 @@
 package oogasalad.builder.model.element;
 
+import oogasalad.builder.controller.Property;
+
 import java.util.*;
 
 /**
@@ -32,7 +34,7 @@ public class GameElement {
      */
     public void putProperty(Property property) {
         // TODO implement here
-        return null;
+        //return null;
     }
 
 }

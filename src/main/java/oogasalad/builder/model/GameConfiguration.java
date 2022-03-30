@@ -1,5 +1,7 @@
 package oogasalad.builder.model;
 
+import oogasalad.builder.model.element.GameElement;
+
 import java.util.*;
 
 /**
@@ -15,12 +17,12 @@ public class GameConfiguration {
 
     /**
      * @param type 
-     * @param GameElement element 
+     * @paramGameElement element
      * @return
      */
-    public void putGameElement(String type, void GameElement element) {
+    public void putGameElement(String type, GameElement element) {
         // TODO implement here
-        return null;
+        //return null;
     }
 
     /**
@@ -31,7 +33,7 @@ public class GameConfiguration {
      */
     public void placeBoardPiece(int x, int y, String name) {
         // TODO implement here
-        return null;
+        //return null;
     }
 
     /**

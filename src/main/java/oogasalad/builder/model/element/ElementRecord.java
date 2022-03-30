@@ -1,5 +1,7 @@
 package oogasalad.builder.model.element;
 
+import oogasalad.builder.controller.Property;
+
 import java.util.*;
 
 /**
