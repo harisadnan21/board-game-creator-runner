@@ -1,32 +1,14 @@
 package oogasalad.builder.model.element;
 
-import java.util.*;
+import java.util.Collection;
+import oogasalad.builder.controller.Property;
+
 
 /**
- * 
+ * Record that describes a Game Element
+ *
+ * @author Shaan Gondalia
  */
-public class ElementRecord {
-
-    /**
-     * Default constructor
-     */
-    public ElementRecord() {
-    }
-
-    /**
-     * 
-     */
-    private String type;
-
-    /**
-     * 
-     */
-    private String name;
-
-    /**
-     * 
-     */
-    private Collection<Property> properties;
-
+public record ElementRecord(String type, String name, Collection<Property> properties) {
 
 }
