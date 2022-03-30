@@ -5,7 +5,7 @@ import oogasalad.builder.controller.Property;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
 
 /**
  * Abstract class that represents a game element. Keeps track of properties of the game element.
