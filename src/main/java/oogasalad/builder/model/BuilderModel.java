@@ -3,6 +3,7 @@ package oogasalad.builder.model;
 import java.util.*;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 
@@ -26,7 +27,7 @@ public interface BuilderModel {
      * @param name the name of the element to find
      * @return an element record containing information about the game element
      */
-    public ElementRecord findElementInfo(String type, String name);
+    public ElementRecord findElementInfo(String type, String name) throws ElementNotFoundException;
 
     /**
      * Adds a Game Element to the game, updating an existing element if possible

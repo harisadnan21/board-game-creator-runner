@@ -8,10 +8,11 @@ import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
+import oogasalad.builder.model.element.factory.FactoryProvider;
 import oogasalad.builder.model.element.factory.GameElementFactory;
+import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.engine.Game;
 
 /**
  * The GameConfiguration stores all data about the game elements and board. This serves as a central
@@ -24,6 +25,7 @@ public class GameConfiguration implements BuilderModel {
 
     private RectangularBoard board;
     private Map<String, Collection<GameElement>> elements;
+    private FactoryProvider provider;
 
     /**
      * Creates an empty GameConfiguration
@@ -31,6 +33,7 @@ public class GameConfiguration implements BuilderModel {
     public GameConfiguration() {
         board = null; // Board is unknown without initial setup
         elements = new HashMap<>();
+        provider = new FactoryProvider();
     }
 
     /**
@@ -52,14 +55,13 @@ public class GameConfiguration implements BuilderModel {
      * @return an element record containing information about the game element
      */
     @Override
-    public ElementRecord findElementInfo(String type, String name) {
+    public ElementRecord findElementInfo(String type, String name) throws ElementNotFoundException {
         for (GameElement element : elements.get(type)) {
             if (element.checkName(name)) {
                 return element.toRecord();
             }
         }
-        // TODO: Throw exception if element is not found
-        return null;
+        throw new ElementNotFoundException();
     }
 
     /**
@@ -71,18 +73,13 @@ public class GameConfiguration implements BuilderModel {
      */
     @Override
     public void addGameElement(String type, String name, Collection<Property> properties){
-        // TODO: Call GameElementFactory Here
-        GameElement ge = new GameElement(name, properties);
+        GameElementFactory factory = provider.getFactory(type);
+        GameElement newElement = factory.createElement(name, properties);
         if (!elements.containsKey(type)) {
             elements.put(type, new HashSet<>());
         }
-        for (GameElement element : elements.get(type)) {
-            if (element.checkName(name)) {
-                // TODO: Update Game Element
-                return;
-            }
-        }
-        elements.get(type).add(ge);
+        elements.get(type).removeIf(e -> e.checkName(name));
+        elements.get(type).add(newElement);
     }
 
     /**
