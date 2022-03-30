@@ -16,16 +16,16 @@ public class Property {
     /**
      * 
      */
-    private void String type;
+    //private void String type;
 
     /**
      * 
      */
-    private void String name;
+    //private void String name;
 
     /**
      * 
      */
-    private void T value;
+    //private void T value;
 
 }

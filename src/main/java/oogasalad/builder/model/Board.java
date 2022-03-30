@@ -22,11 +22,12 @@ public class Board {
     public void placePiece(int x, int y, String name) {
         // TODO implement here
         // return null;
+        //return null;
     }
 
     /**
-     * @paramint
-     * @paramint
+     * @param x
+     * @param y
      * @return
      */
     public String getPieceAt(int x, int y) {
