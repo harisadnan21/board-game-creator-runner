@@ -56,6 +56,9 @@ public class GameConfiguration implements BuilderModel {
      */
     @Override
     public ElementRecord findElementInfo(String type, String name) throws ElementNotFoundException {
+        if (!elements.containsKey(type)) {
+            throw new ElementNotFoundException();
+        }
         for (GameElement element : elements.get(type)) {
             if (element.checkName(name)) {
                 return element.toRecord();
