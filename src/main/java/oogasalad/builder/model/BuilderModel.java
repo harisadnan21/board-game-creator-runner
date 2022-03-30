@@ -2,6 +2,7 @@ package oogasalad.builder.model;
 
 import java.util.*;
 import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.OccupiedCellException;
 
 /**
@@ -18,7 +19,16 @@ public interface BuilderModel {
     public void makeBoard(int width, int height);
 
     /**
-     * Adds a Game Element to the game.
+     * Returns an Element Record that contains information of the element with the given type/name
+     *
+     * @param type the type of the element to find
+     * @param name the name of the element to find
+     * @return an element record containing information about the game element
+     */
+    public ElementRecord findElementInfo(String type, String name);
+
+    /**
+     * Adds a Game Element to the game, updating an existing element if possible
      *
      * @param type the type of the game element
      * @param name the name of the game element
