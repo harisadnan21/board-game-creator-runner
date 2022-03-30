@@ -1,11 +1,12 @@
 package oogasalad.builder.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import oogasalad.builder.model.Board;
+import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.GameElement;
+import oogasalad.builder.model.element.factory.GameElementFactory;
 import oogasalad.builder.model.exception.OccupiedCellException;
 
 /**
@@ -15,13 +16,13 @@ import oogasalad.builder.model.exception.OccupiedCellException;
  *
  * @author Shaan Gondalia
  */
-public class GameConfiguration {
+public class GameConfiguration implements BuilderModel{
 
-    private Board board;
+    private RectangularBoard board;
     private Map<String, Collection<GameElement>> elements;
 
     /**
-     * Default constructor f
+     * Creates an empty GameConfiguration
      */
     public GameConfiguration() {
         board = null; // Board is unknown without initial setup
@@ -29,13 +30,15 @@ public class GameConfiguration {
     }
 
     /**
-     * @param type 
-     * @param element
-     * @return
+     * Adds a Game Element to the game.
+     *
+     * @param type the type of the game element
+     * @param name the name of the game element
+     * @param properties the properties of the game element
      */
-    public void putGameElement(String type, GameElement element) {
-        // TODO: Check if collection exists (create it if not)
-        elements.get(type).add(element);
+    public void addGameElement(String type, String name, Collection<Property> properties){
+        // TODO: Call GameElementFactory Here
+        // TODO: Create Game Element and add it to HashMap
     }
 
     /**
