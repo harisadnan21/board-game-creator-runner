@@ -1,12 +1,14 @@
 package oogasalad.builder.model.element.factory;
 
-
 import java.util.Collection;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.GameElement;
 
+
 /**
+ * API For creating a game element based on its properties.
  *
+ * @Author Shaan Gondalia
  */
 public interface ElementFactory {
 

@@ -58,6 +58,7 @@ public class RectangularBoard implements Board{
      * @param y the y location to clear
      */
     public void clearCell(int x, int y) {
+        checkInBounds(x, y);
         cells[x][y] = EMPTY;
     }
 

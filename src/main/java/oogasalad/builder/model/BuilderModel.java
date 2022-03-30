@@ -18,7 +18,7 @@ public interface BuilderModel {
      * @param width the width of the board (in cells)
      * @param height the height of the board (in cells)
      */
-    public void makeBoard(int width, int height);
+    void makeBoard(int width, int height);
 
     /**
      * Returns an Element Record that contains information of the element with the given type/name
@@ -27,7 +27,7 @@ public interface BuilderModel {
      * @param name the name of the element to find
      * @return an element record containing information about the game element
      */
-    public ElementRecord findElementInfo(String type, String name) throws ElementNotFoundException;
+    ElementRecord findElementInfo(String type, String name) throws ElementNotFoundException;
 
     /**
      * Adds a Game Element to the game, updating an existing element if possible
@@ -36,7 +36,7 @@ public interface BuilderModel {
      * @param name the name of the game element
      * @param properties the properties of the game element
      */
-    public void addGameElement(String type, String name, Collection<Property> properties);
+    void addGameElement(String type, String name, Collection<Property> properties);
 
     /**
      * Attempts to place a piece at the given coordinates
@@ -47,7 +47,7 @@ public interface BuilderModel {
      * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
      * @throws NullBoardException if the board has not been initialized
      */
-    public void placeBoardPiece(int x, int y, String name)
+    void placeBoardPiece(int x, int y, String name)
         throws OccupiedCellException, NullBoardException;
 
     /**
@@ -58,6 +58,14 @@ public interface BuilderModel {
      * @return the name of the piece
      * @throws NullBoardException if the board has not been initialized
      */
-    public String findBoardPieceAt(int x, int y) throws NullBoardException;
+    String findBoardPieceAt(int x, int y) throws NullBoardException;
+
+    /**
+     * Clears the cell on the board at the given coordinates
+     *
+     * @param x the x location to clear
+     * @param y the y location to clear
+     */
+    void clearBoardCell(int x, int y) throws NullBoardException;
 
 }

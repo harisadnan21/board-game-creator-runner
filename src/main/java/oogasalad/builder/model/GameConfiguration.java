@@ -112,6 +112,17 @@ public class GameConfiguration implements BuilderModel {
         return board.findPieceAt(x, y);
     }
 
+    /**
+     * Clears the cell on the board at the given coordinates
+     *
+     * @param x the x location to clear
+     * @param y the y location to clear
+     */
+    public void clearBoardCell(int x, int y) throws NullBoardException {
+        checkBoardCreated();
+        board.clearCell(x, y);
+    }
+
     // Checks if the board has been initialized
     private void checkBoardCreated() throws NullBoardException {
         if (board == null) {
