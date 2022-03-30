@@ -1,5 +1,7 @@
 package oogasalad.builder.view;
 
+import oogasalad.builder.controller.Property;
+
 import java.util.*;
 
 /**
@@ -19,7 +21,7 @@ public class PropertyEditor {
      */
     public void setProperties(Collection<Property> properties) {
         // TODO implement here
-        return null;
+        // return null;
     }
 
     /**

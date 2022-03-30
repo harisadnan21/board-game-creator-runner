@@ -1,5 +1,7 @@
 package oogasalad.builder.view;
 
+import oogasalad.builder.model.element.ElementRecord;
+
 import java.util.*;
 
 /**
@@ -21,7 +23,7 @@ public class BuilderView {
      */
     public void putGameElement(ElementRecord element) {
         // TODO implement here
-        return null;
+        //return null;
     }
 
 }
