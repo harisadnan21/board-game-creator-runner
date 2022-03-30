@@ -1,5 +1,7 @@
 package oogasalad.builder.view.tab;
 
+import oogasalad.builder.model.element.ElementRecord;
+
 import java.util.*;
 
 /**
@@ -20,7 +22,7 @@ public class GameElementTab {
      */
     public void putGameElement(ElementRecord element) {
         // TODO implement here
-        return null;
+        //return null;
     }
 
     /**

@@ -21,15 +21,16 @@ public class Board {
      */
     public void placePiece(int x, int y, String name) {
         // TODO implement here
-        return null;
+        // return null;
+        //return null;
     }
 
     /**
-     * @param int 
-     * @param int 
+     * @param x
+     * @param y
      * @return
      */
-    public String getPieceAt(x int, y int) {
+    public String getPieceAt(int x, int y) {
         // TODO implement here
         return "";
     }

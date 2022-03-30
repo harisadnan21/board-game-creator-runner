@@ -5,16 +5,13 @@ import java.util.*;
 /**
  * 
  */
-public class Tab {
+public class BoardTab {
 
     /**
      * Default constructor
      */
-    public Tab() {
+    public BoardTab() {
     }
 
-    private void addButton() {
-
-    }
 
 }
