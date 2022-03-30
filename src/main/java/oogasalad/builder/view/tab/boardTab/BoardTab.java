@@ -15,7 +15,7 @@ public class BoardTab {
         boardPane = new BorderPane();
 
         // TODO : Make this not magic
-        setupBoard(18, 12, "Checkers");
+        setupBoard(8, 8, "Checkers");
     }
 
     public Node toNode(){
