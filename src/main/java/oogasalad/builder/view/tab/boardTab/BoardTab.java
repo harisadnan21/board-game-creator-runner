@@ -15,14 +15,14 @@ public class BoardTab {
         boardPane = new BorderPane();
 
         // TODO : Make this not magic
-        setupCanvas(8, 8, "Checkers");
+        setupBoard(18, 12, "Checkers");
     }
 
     public Node toNode(){
         return boardPane;
     }
 
-    private void setupCanvas(int xSize, int ySize, String boardType){
+    private void setupBoard(int xSize, int ySize, String boardType){
         BoardCanvas boardCanvas = new BoardCanvas(xSize, ySize);
         boardPane.setCenter(boardCanvas.toNode());
     }
