@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.board.RectangularBoard;
+import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.GameElementFactory;
 import oogasalad.builder.model.exception.OccupiedCellException;
@@ -40,8 +41,14 @@ public class GameConfiguration implements BuilderModel {
         board = new RectangularBoard(width, height);
     }
 
+    @Override
+    public ElementRecord findElementInfo(String type, String name) {
+        // TODO: Implement Element Information Searching
+        return null;
+    }
+
     /**
-     * Adds a Game Element to the game.
+     * Adds a Game Element to the game, updating an existing element if needed.
      *
      * @param type the type of the game element
      * @param name the name of the game element
