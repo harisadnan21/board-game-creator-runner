@@ -5,10 +5,11 @@ import java.util.*;
 /**
  * An immutable class that stores a value of a specified type as a String under a given name
  */
-public record Property(Class<?> type, String name, String value) {
+public record Property(Class type, String name, String value) {
 
-    public <T> Property(Class<T> type, String name, T value) {
-        this(type, name, Objects.requireNonNull(value).toString());
+    // Implemented as static method rather than constructor because constructor conflicts with the one made by the record
+    public static <T> Property newInstance(Class<T> type, String name, T value) {
+        return new Property(type, name, Objects.requireNonNull(value).toString());
     }
 
     public Property withValue(Object newValue) {
