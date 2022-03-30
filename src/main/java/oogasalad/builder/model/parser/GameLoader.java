@@ -1,6 +1,8 @@
 package oogasalad.builder.model.parser;
 
+import java.io.File;
 import java.util.*;
+import oogasalad.builder.model.GameConfiguration;
 
 /**
  * 
