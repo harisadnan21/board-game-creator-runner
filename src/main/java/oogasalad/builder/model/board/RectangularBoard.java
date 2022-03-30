@@ -1,13 +1,13 @@
-package oogasalad.builder.model;
+package oogasalad.builder.model.board;
 
 import oogasalad.builder.model.exception.OccupiedCellException;
 
 /**
- * The Board keeps track of the names and placement of pieces in the board configuration
+ * Describes the behavior of a rectangular board.
  *
  * @author Shaan Gondalia
  */
-public class Board {
+public class RectangularBoard implements Board{
 
     private static final String EMPTY = "empty";
     private final String[][] cells;
@@ -20,7 +20,7 @@ public class Board {
      * @param height the number of rows in the board
      * @param width the number of cols in the board
      */
-    public Board(int width, int height) {
+    public RectangularBoard(int width, int height) {
         this.width = width;
         this.height = height;
         cells = new String[width][height];
@@ -32,7 +32,7 @@ public class Board {
      * @param x the x location to place
      * @param y the y location to place
      * @param name the name of the piece to place
-     * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
+     * @throws OccupiedCellException if the requested indices are already occupied by a piece
      */
     public void placePiece(int x, int y, String name) throws OccupiedCellException {
         checkInBounds(x, y);
