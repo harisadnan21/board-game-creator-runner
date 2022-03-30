@@ -23,7 +23,7 @@ public class RectangularBoard implements Board{
     public RectangularBoard(int width, int height) {
         this.width = width;
         this.height = height;
-        cells = new String[width][height];
+        cells = initializeCells(width, height);
     }
 
     /**
@@ -74,5 +74,16 @@ public class RectangularBoard implements Board{
         if (!cells[x][y].equals(EMPTY)){
             throw new OccupiedCellException();
         }
+    }
+
+    // Initializes the cells to be empty
+    private String[][] initializeCells(int width, int height) {
+        String[][] cells = new String[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                cells[i][j] = EMPTY;
+            }
+        }
+        return cells;
     }
 }

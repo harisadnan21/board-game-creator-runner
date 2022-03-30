@@ -30,12 +30,12 @@ public class RectangularBoardTest {
 
   @Test
   void testOutOfBounds(){
-    assertThrows(ElementNotFoundException.class, () -> board.placePiece(HEIGHT+1, WIDTH + 1, PIECE_NAME));
-    assertThrows(ElementNotFoundException.class, () -> board.clearCell(HEIGHT+1, WIDTH + 1));
-    assertThrows(ElementNotFoundException.class, () -> board.findPieceAt(HEIGHT+1, WIDTH + 1));
-    assertThrows(ElementNotFoundException.class, () -> board.placePiece(-1, WIDTH + 1, PIECE_NAME));
-    assertThrows(ElementNotFoundException.class, () -> board.clearCell(-1, WIDTH + 1));
-    assertThrows(ElementNotFoundException.class, () -> board.findPieceAt(-1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> board.placePiece(HEIGHT+1, WIDTH + 1, PIECE_NAME));
+    assertThrows(IndexOutOfBoundsException.class, () -> board.clearCell(HEIGHT+1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> board.findPieceAt(HEIGHT+1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> board.placePiece(-1, WIDTH + 1, PIECE_NAME));
+    assertThrows(IndexOutOfBoundsException.class, () -> board.clearCell(-1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> board.findPieceAt(-1, WIDTH + 1));
   }
 
   @Test
