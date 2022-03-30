@@ -16,7 +16,7 @@ import oogasalad.builder.model.exception.OccupiedCellException;
  *
  * @author Shaan Gondalia
  */
-public class GameConfiguration implements BuilderModel{
+public class GameConfiguration implements BuilderModel {
 
     private RectangularBoard board;
     private Map<String, Collection<GameElement>> elements;
@@ -30,12 +30,24 @@ public class GameConfiguration implements BuilderModel{
     }
 
     /**
+     * Creates a new board with the given dimensions.
+     *
+     * @param width the width of the board (in cells)
+     * @param height the height of the board (in cells)
+     */
+    @Override
+    public void makeBoard(int width, int height) {
+        board = new RectangularBoard(width, height);
+    }
+
+    /**
      * Adds a Game Element to the game.
      *
      * @param type the type of the game element
      * @param name the name of the game element
      * @param properties the properties of the game element
      */
+    @Override
     public void addGameElement(String type, String name, Collection<Property> properties){
         // TODO: Call GameElementFactory Here
         // TODO: Create Game Element and add it to HashMap
@@ -49,6 +61,7 @@ public class GameConfiguration implements BuilderModel{
      * @param name the name of the piece to place
      * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
      */
+    @Override
     public void placeBoardPiece(int x, int y, String name) throws OccupiedCellException {
         // TODO: Throw exception if board is null
         board.placePiece(x, y, name);
@@ -61,6 +74,7 @@ public class GameConfiguration implements BuilderModel{
      * @param y the y location to query
      * @return the name of the piece
      */
+    @Override
     public String findBoardPieceAt(int x, int y) {
         // TODO: Throw exception if board is null
         return board.findPieceAt(x, y);

@@ -10,6 +10,14 @@ import oogasalad.builder.model.exception.OccupiedCellException;
 public interface BuilderModel {
 
     /**
+     * Creates a new board with the given dimensions.
+     *
+     * @param width the width of the board (in cells)
+     * @param height the height of the board (in cells)
+     */
+    public void makeBoard(int width, int height);
+
+    /**
      * Adds a Game Element to the game.
      *
      * @param type the type of the game element
