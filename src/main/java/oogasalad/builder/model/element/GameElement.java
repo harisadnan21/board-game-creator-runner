@@ -7,11 +7,22 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public abstract class GameElement {
+/**
+ * Abstract class that represents a game element. Keeps track of properties of the game element.
+ *
+ * @author Ricky Weerts and Shaan Gondalia
+ */
+public abstract class GameElement implements Element {
 
-    private String name;
-    private Collection<Property> properties = new HashSet<>();
+    private final String name;
+    private final Collection<Property> properties = new HashSet<>();
 
+    /**
+     * Creates a new Game Element with the given parameters.
+     *
+     * @param name the name of the game element
+     * @param properties the properties of the game element
+     */
     public GameElement(String name, Collection<Property> properties) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(properties);
