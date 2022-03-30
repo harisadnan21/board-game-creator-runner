@@ -11,6 +11,7 @@ import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.GameElementFactory;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.engine.Game;
 
 /**
  * The GameConfiguration stores all data about the game elements and board. This serves as a central
@@ -43,9 +44,21 @@ public class GameConfiguration implements BuilderModel {
         board = new RectangularBoard(width, height);
     }
 
+    /**
+     * Returns an Element Record that contains information of the element with the given type/name
+     *
+     * @param type the type of the element to find
+     * @param name the name of the element to find
+     * @return an element record containing information about the game element
+     */
     @Override
     public ElementRecord findElementInfo(String type, String name) {
-        // TODO: Implement Element Information Searching
+        for (GameElement element : elements.get(type)) {
+            if (element.checkName(name)) {
+                return element.toRecord();
+            }
+        }
+        // TODO: Throw exception if element is not found
         return null;
     }
 
@@ -62,6 +75,12 @@ public class GameConfiguration implements BuilderModel {
         GameElement ge = new GameElement(name, properties);
         if (!elements.containsKey(type)) {
             elements.put(type, new HashSet<>());
+        }
+        for (GameElement element : elements.get(type)) {
+            if (element.checkName(name)) {
+                // TODO: Update Game Element
+                return;
+            }
         }
         elements.get(type).add(ge);
     }
