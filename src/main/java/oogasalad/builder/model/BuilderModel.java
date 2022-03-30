@@ -3,6 +3,7 @@ package oogasalad.builder.model;
 import java.util.*;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 
 /**
@@ -43,8 +44,10 @@ public interface BuilderModel {
      * @param y the y location to place
      * @param name the name of the piece to place
      * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
+     * @throws NullBoardException if the board has not been initialized
      */
-    public void placeBoardPiece(int x, int y, String name) throws OccupiedCellException;
+    public void placeBoardPiece(int x, int y, String name)
+        throws OccupiedCellException, NullBoardException;
 
     /**
      * Finds the name of the piece at the given coordinates
@@ -52,7 +55,8 @@ public interface BuilderModel {
      * @param x the x location to query
      * @param y the y location to query
      * @return the name of the piece
+     * @throws NullBoardException if the board has not been initialized
      */
-    public String findBoardPieceAt(int x, int y);
+    public String findBoardPieceAt(int x, int y) throws NullBoardException;
 
 }

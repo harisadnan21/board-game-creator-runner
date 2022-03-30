@@ -2,12 +2,14 @@ package oogasalad.builder.model;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.GameElementFactory;
+import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 
 /**
@@ -57,7 +59,11 @@ public class GameConfiguration implements BuilderModel {
     @Override
     public void addGameElement(String type, String name, Collection<Property> properties){
         // TODO: Call GameElementFactory Here
-        // TODO: Create Game Element and add it to HashMap
+        GameElement ge = new GameElement(name, properties);
+        if (!elements.containsKey(type)) {
+            elements.put(type, new HashSet<>());
+        }
+        elements.get(type).add(ge);
     }
 
     /**
@@ -67,10 +73,12 @@ public class GameConfiguration implements BuilderModel {
      * @param y the y location to place
      * @param name the name of the piece to place
      * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
+     * @throws NullBoardException if the board has not been initialized
      */
     @Override
-    public void placeBoardPiece(int x, int y, String name) throws OccupiedCellException {
-        // TODO: Throw exception if board is null
+    public void placeBoardPiece(int x, int y, String name)
+        throws OccupiedCellException, NullBoardException {
+        checkBoardCreated();
         board.placePiece(x, y, name);
     }
 
@@ -80,11 +88,19 @@ public class GameConfiguration implements BuilderModel {
      * @param x the x location to query
      * @param y the y location to query
      * @return the name of the piece
+     * @throws NullBoardException if the board has not been initialized
      */
     @Override
-    public String findBoardPieceAt(int x, int y) {
-        // TODO: Throw exception if board is null
+    public String findBoardPieceAt(int x, int y) throws NullBoardException {
+        checkBoardCreated();
         return board.findPieceAt(x, y);
+    }
+
+    // Checks if the board has been initialized
+    private void checkBoardCreated() throws NullBoardException {
+        if (board == null) {
+            throw new NullBoardException();
+        }
     }
 
 }
