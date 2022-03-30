@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class GameElement {
+public abstract class GameElement {
 
     private String name;
     private Collection<Property> properties = new HashSet<>();
@@ -27,14 +27,6 @@ public class GameElement {
      */
     public boolean checkName(String desiredName) {
         return name.equals(desiredName);
-    }
-
-    /**
-     * @param property
-     * @return
-     */
-    public void putProperty(Property property) {
-        properties.add(property);
     }
 
     /**

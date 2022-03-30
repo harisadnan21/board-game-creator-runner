@@ -1,5 +1,6 @@
 package oogasalad.builder.model.element;
 
+import java.util.Collection;
 import oogasalad.builder.controller.Property;
 
 import java.util.Set;
@@ -10,7 +11,7 @@ import java.util.Set;
 public class Move extends GameElement {
 
 
-    public Move(String name, Set<Property> properties) {
+    public Move(String name, Collection<Property> properties) {
         super(name, properties);
     }
 }

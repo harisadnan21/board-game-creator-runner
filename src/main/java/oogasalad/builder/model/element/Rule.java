@@ -1,5 +1,6 @@
 package oogasalad.builder.model.element;
 
+import java.util.Collection;
 import oogasalad.builder.controller.Property;
 
 import java.util.Set;
@@ -9,7 +10,7 @@ import java.util.Set;
  */
 public class Rule extends GameElement {
 
-    public Rule(String name, Set<Property> properties) {
+    public Rule(String name, Collection<Property> properties) {
         super(name, properties);
     }
 }
