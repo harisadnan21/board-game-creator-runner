@@ -1,6 +1,8 @@
 package oogasalad.builder.controller;
 
+import java.io.File;
 import java.util.*;
+import oogasalad.builder.model.element.ElementRecord;
 
 /**
  * 
@@ -28,25 +30,20 @@ public class BuilderController {
      */
     private void update(ElementRecord element) {
         // TODO implement here
-        return null;
     }
 
     /**
-     * @param file 
-     * @return
+     * @param file
      */
     private void save(File file) {
         // TODO implement here
-        return null;
     }
 
     /**
-     * @param file 
-     * @return
+     * @param file
      */
     private void load(File file) {
         // TODO implement here
-        return null;
     }
 
 }

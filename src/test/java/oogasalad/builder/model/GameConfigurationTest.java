@@ -66,12 +66,12 @@ public class GameConfigurationTest {
   @Test
   void testOutOfBounds(){
     game.makeBoard(WIDTH, HEIGHT);
-    assertThrows(ElementNotFoundException.class, () -> game.placeBoardPiece(HEIGHT+1, WIDTH + 1, PIECE_NAME));
-    assertThrows(ElementNotFoundException.class, () -> game.clearBoardCell(HEIGHT+1, WIDTH + 1));
-    assertThrows(ElementNotFoundException.class, () -> game.findBoardPieceAt(HEIGHT+1, WIDTH + 1));
-    assertThrows(ElementNotFoundException.class, () -> game.placeBoardPiece(-1, WIDTH + 1, PIECE_NAME));
-    assertThrows(ElementNotFoundException.class, () -> game.clearBoardCell(-1, WIDTH + 1));
-    assertThrows(ElementNotFoundException.class, () -> game.findBoardPieceAt(-1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> game.placeBoardPiece(HEIGHT+1, WIDTH + 1, PIECE_NAME));
+    assertThrows(IndexOutOfBoundsException.class, () -> game.clearBoardCell(HEIGHT+1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> game.findBoardPieceAt(HEIGHT+1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> game.placeBoardPiece(-1, WIDTH + 1, PIECE_NAME));
+    assertThrows(IndexOutOfBoundsException.class, () -> game.clearBoardCell(-1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> game.findBoardPieceAt(-1, WIDTH + 1));
   }
 
   @Test
