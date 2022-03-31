@@ -59,6 +59,7 @@ class GameElementFactoryTest {
         Move res = testMoveFactory.createElement("test", testMoveFactory.getRequiredProperties());
         assertTrue(res.checkName("test"));
         assertEquals(res.toRecord().properties(), testMoveFactory.getRequiredProperties());
+        factories.forEach((clazz, factory) -> assertEquals(factory.createElement("", factory.getRequiredProperties()).getClass(), clazz));
     }
 
 }
