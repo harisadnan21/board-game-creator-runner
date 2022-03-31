@@ -4,9 +4,8 @@ import java.util.Collection;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.Piece;
 
-import java.util.Set;
 
-public class PieceFactory extends GameElementFactory {
+public class PieceFactory extends GameElementFactory<Piece> {
 
     public PieceFactory() {
         super("elements.Piece");

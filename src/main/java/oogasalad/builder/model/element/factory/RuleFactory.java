@@ -6,7 +6,7 @@ import oogasalad.builder.model.element.Rule;
 
 import java.util.Set;
 
-public class RuleFactory extends GameElementFactory {
+public class RuleFactory extends GameElementFactory<Rule> {
 
     public RuleFactory() {
         super("elements.Rule");

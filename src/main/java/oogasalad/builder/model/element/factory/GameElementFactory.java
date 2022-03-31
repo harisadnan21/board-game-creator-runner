@@ -6,13 +6,14 @@ import oogasalad.builder.controller.ExceptionResourcesSingleton;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.GameElement;
 
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public abstract class GameElementFactory implements ElementFactory{
+public abstract class GameElementFactory<T extends GameElement> implements ElementFactory {
 
     private static final int PROPERTY_PARTS = 3;
-    private ResourceBundle propertiesResources;
+    private final ResourceBundle propertiesResources;
     private Collection<Property> properties;
 
     public GameElementFactory(String propertiesPath) {
@@ -20,6 +21,7 @@ public abstract class GameElementFactory implements ElementFactory{
     }
 
     private void loadProperties() {
+        properties = new HashSet<>();
         propertiesResources.getKeys().asIterator()
                 .forEachRemaining(key -> {
                     String[] propertyParts = propertiesResources.getString(key).split("\\|");
@@ -41,7 +43,7 @@ public abstract class GameElementFactory implements ElementFactory{
    * @param properties the properties of the game element
    * @return a game element with the given name and properties
    */
-    public abstract GameElement createElement(String name, Collection<Property> properties);
+    public abstract T createElement(String name, Collection<Property> properties);
 
     /**
      * @return

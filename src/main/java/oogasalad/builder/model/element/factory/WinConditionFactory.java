@@ -5,7 +5,7 @@ import oogasalad.builder.model.element.WinCondition;
 
 import java.util.*;
 
-public class WinConditionFactory extends GameElementFactory {
+public class WinConditionFactory extends GameElementFactory<WinCondition> {
 
     public WinConditionFactory() {
         super("elements.WinCondition");

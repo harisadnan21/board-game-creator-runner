@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PropertyTest {
-    private Property prop1 = new Property(String.class, "field name", "some value"),
+    private final Property prop1 = new Property(String.class, "field name", "some value"),
             prop2 = new Property(String.class, "field name", "other value"),
             prop3 = new Property(String.class, "different field name", "some value"),
             prop4 = new Property(Integer.class, "different field name", "123");
@@ -40,7 +40,7 @@ public class PropertyTest {
 
     void assertNotFullEquals(Property expected, Property actual) {
         if(expected.fullEquals(actual)) {
-            fail("Expected not equals but was " + actual);
+            fail("Expected not full equals but was " + actual);
         }
     }
 }
