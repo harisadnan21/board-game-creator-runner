@@ -2,10 +2,8 @@ package oogasalad.engine.model.rules;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.util.Pair;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
 
 public class Validity {
   private List<Rule> myRules;
