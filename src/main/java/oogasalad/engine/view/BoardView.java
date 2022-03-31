@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.util.Pair;
 import oogasalad.engine.Controller;
 import oogasalad.engine.model.board.Board;
@@ -22,9 +23,11 @@ public class BoardView implements PropertyChangeListener{
   private Cell[][] myGrid;
 
   private Group myRoot;
+  private Pair<Pair<Position, Piece>, String> change;
+  private GameUpdateText text;
 
   public BoardView(int rows, int columns, double width, double height) {
-
+    text = new GameUpdateText();
     myRoot = new Group();
     myGrid = new Cell[rows][columns];
 
@@ -54,11 +57,17 @@ public class BoardView implements PropertyChangeListener{
 
   public void cellClicked(MouseEvent e, int i, int j) {
     myController.click(i, j);
+    text.updateText(i, j);
   }
 
   public void addController(Controller c) {
     myController = c;
   }
+
+  public Text getText() {
+    return text.getUpdateText();
+  }
+
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     Board newBoard = (Board) evt.getSource();
@@ -73,6 +82,10 @@ public class BoardView implements PropertyChangeListener{
       }
       index++;
     }
+  }
+
+  public Pair<Pair<Position, Piece>, String> getChange() {
+    return change;
   }
 
   private Position getIndices(int index) {
