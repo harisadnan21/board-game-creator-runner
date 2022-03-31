@@ -4,8 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import oogasalad.engine.controller.Controller;
 import oogasalad.engine.view.BoardView;
-import oogasalad.engine.view.GameView;
 import oogasalad.engine.view.ViewManager;
 
 public class EngineApplication extends Application {

@@ -4,8 +4,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.util.Pair;
-import oogasalad.engine.Controller;
+import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Position;
@@ -22,9 +23,11 @@ public class BoardView implements PropertyChangeListener{
   private Cell[][] myGrid;
 
   private Group myRoot;
+  private Pair<Pair<Position, Piece>, String> change;
+  private GameUpdateText text;
 
   public BoardView(int rows, int columns, double width, double height) {
-
+    text = new GameUpdateText();
     myRoot = new Group();
     myGrid = new Cell[rows][columns];
 
@@ -53,17 +56,27 @@ public class BoardView implements PropertyChangeListener{
   }
 
   public void cellClicked(MouseEvent e, int i, int j) {
-    myController.click(i, j);
+    Board nextState = myController.click(i, j);
+    updateBoard(nextState);
+    text.updateText(i, j);
   }
 
   public void addController(Controller c) {
     myController = c;
   }
+
+  public Text getText() {
+    return text.getUpdateText();
+  }
+
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    Board newBoard = (Board) evt.getSource();
-    int index = 0;
-    for (Pair<Position, Piece> piece: newBoard) {
+    Board board = (Board) evt.getSource();
+    updateBoard(board);
+  }
+
+  private void updateBoard(Board board) {
+    for (Pair<Position, Piece> piece: board) {
       Position pos = piece.getKey();
       if (piece.getValue() != null) {
         myGrid[pos.getI()][pos.getJ()].addPiece(BLACK_KNIGHT);
@@ -71,8 +84,11 @@ public class BoardView implements PropertyChangeListener{
       else {
         myGrid[pos.getI()][pos.getJ()].removePiece();
       }
-      index++;
     }
+  }
+
+  public Pair<Pair<Position, Piece>, String> getChange() {
+    return change;
   }
 
   private Position getIndices(int index) {

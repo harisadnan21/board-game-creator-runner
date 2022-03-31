@@ -22,4 +22,8 @@ public class Piece {
         // TODO implement here
     }
 
+    public Piece deepCopy() {
+        Piece piece = new Piece(myType, myOwner);
+        return piece;
+    }
 }

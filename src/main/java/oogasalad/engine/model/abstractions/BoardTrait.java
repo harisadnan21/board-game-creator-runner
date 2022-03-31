@@ -1,4 +1,4 @@
-package oogasalad.engine.model.futureclasses;
+package oogasalad.engine.model.abstractions;
 
 import oogasalad.engine.model.board.Board;
 

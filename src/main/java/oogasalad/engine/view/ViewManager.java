@@ -1,6 +1,6 @@
 package oogasalad.engine.view;
 
-import oogasalad.engine.Controller;
+import oogasalad.engine.controller.Controller;
 
 public class ViewManager {
 
