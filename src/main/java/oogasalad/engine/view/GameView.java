@@ -4,7 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import oogasalad.engine.Controller;
+import oogasalad.engine.controller.Controller;
 
 public class GameView {
   public static double WIDTH = 600;

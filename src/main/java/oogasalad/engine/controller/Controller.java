@@ -1,4 +1,4 @@
-package oogasalad.engine;
+package oogasalad.engine.controller;
 
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.view.BoardView;

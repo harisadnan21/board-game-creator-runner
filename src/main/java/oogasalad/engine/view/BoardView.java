@@ -6,7 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.util.Pair;
-import oogasalad.engine.Controller;
+import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Position;
