@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import oogasalad.engine.controller.Controller;
 import oogasalad.engine.view.BoardView;
+import oogasalad.engine.view.ViewManager;
 
 public class EngineApplication extends Application {
 
@@ -20,7 +22,9 @@ public class EngineApplication extends Application {
     Group root = new Group();
     root.getChildren().add(board.getRoot());
 
-    Scene scene = new Scene(root, 400, 400);
+    ViewManager manager = new ViewManager();
+
+    Scene scene = manager.createGameView(board, controller).makeScene();
 
     stage.setTitle("OOGABOOGA Engine");
     stage.setScene(scene);

@@ -50,7 +50,8 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
    * @param piece
    */
   public void move(int i, int j, Piece piece) {
-
+    place(i, j, piece);
+    remove(i, j);
   }
 
   public Boolean isValid(Position position){

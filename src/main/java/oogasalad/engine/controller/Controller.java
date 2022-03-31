@@ -1,4 +1,4 @@
-package oogasalad.engine;
+package oogasalad.engine.controller;
 
 import oogasalad.engine.model.Engine;
 import oogasalad.engine.model.Game;
