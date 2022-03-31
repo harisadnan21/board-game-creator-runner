@@ -14,12 +14,9 @@ public class Validity {
 
   public List<int[]> checkValidity(Piece piece, Board board){
     Piece[][] boardGrid = board.getMyBoard();
-    Rule currentRule;
+    //TODO: Remove this
     List<int[]> validSpaces = new ArrayList<>();
-    for(Rule rule : myRules){
-      if(!rule.checkValidity(piece, board)) return null;
-    }
-
     return validSpaces;
+    //TODO: Fix this to stream of Board
   }
 }
