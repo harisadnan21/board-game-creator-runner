@@ -32,6 +32,8 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
   public void place(int i, int j, Piece piece){
     myBoard[i][j] = piece;
   }
+  public void remove(int i, int j){myBoard[i][j] =null;};
+
 
   /**
    *
@@ -40,7 +42,8 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
    * @param piece
    */
   public void move(int i, int j, Piece piece) {
-
+    place(i, j, piece);
+    remove(i, j);
   }
 
   public Boolean isValid(Position position){

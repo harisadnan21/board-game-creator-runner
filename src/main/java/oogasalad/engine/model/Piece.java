@@ -1,5 +1,7 @@
 package oogasalad.engine.model;
 
+import java.util.List;
+
 /**
  * 
  */
@@ -10,21 +12,13 @@ public class Piece {
     public Piece(String type, int player){
         myType = type;
         myOwner = player;
+
     }
 
     /**
-     * @param i 
-     * @param j
+     * @param newType: new Piece Type
      */
-    public void move(int i, int j) {
-        // TODO implement here
-    }
-
-    /**
-     * @param i
-     */
-    public void changeType(int i) {
-
+    public void changeType(String newType) {
         // TODO implement here
     }
 
