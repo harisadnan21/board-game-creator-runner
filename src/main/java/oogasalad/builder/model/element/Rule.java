@@ -1,17 +1,16 @@
 package oogasalad.builder.model.element;
 
-import java.util.*;
+import java.util.Collection;
+import oogasalad.builder.controller.Property;
+
+import java.util.Set;
 
 /**
- * 
+ * Represents a rule governing how the game works
  */
-public class Rule {
+public class Rule extends GameElement {
 
-    /**
-     * Default constructor
-     */
-    public Rule() {
+    public Rule(String name, Collection<Property> properties) {
+        super(name, properties);
     }
-
-
 }

@@ -2,39 +2,50 @@ package oogasalad.builder.model.element;
 
 import oogasalad.builder.controller.Property;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
+
 
 /**
- * 
+ * Abstract class that represents a game element. Keeps track of properties of the game element.
+ *
+ * @author Ricky Weerts and Shaan Gondalia
  */
-public class GameElement {
+public abstract class GameElement implements Element {
+
+    private final String name;
+    private final Collection<Property> properties = new HashSet<>();
 
     /**
-     * Default constructor
+     * Creates a new Game Element with the given parameters.
+     *
+     * @param name the name of the game element
+     * @param properties the properties of the game element
      */
-    public GameElement() {
+    public GameElement(String name, Collection<Property> properties) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(properties);
+        this.name = name;
+        this.properties.addAll(properties);
     }
 
     /**
-     * 
+     * Returns whether the parameter matches the name of the game element
+     *
+     * @param desiredName the name to match to
+     * @return whether the parameter matches the name of the game element
      */
-    private String name;
-
-    /**
-     * @return
-     */
-    public Collection<Property> getProperties() {
-        // TODO implement here
-        return null;
+    public boolean checkName(String desiredName) {
+        return name.equals(desiredName);
     }
 
     /**
-     * @param property 
-     * @return
+     * Returns an immutable record containing the GameElement's data
+     * @return an immutable record containing the GameElement's data
      */
-    public void putProperty(Property property) {
-        // TODO implement here
-        //return null;
+    public ElementRecord toRecord() {
+        return new ElementRecord(name, properties);
     }
 
 }

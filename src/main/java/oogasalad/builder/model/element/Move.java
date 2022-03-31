@@ -1,17 +1,17 @@
 package oogasalad.builder.model.element;
 
-import java.util.*;
+import java.util.Collection;
+import oogasalad.builder.controller.Property;
+
+import java.util.Set;
 
 /**
- * 
+ * Represents a move the player can make
  */
-public class Move {
+public class Move extends GameElement {
 
-    /**
-     * Default constructor
-     */
-    public Move() {
+
+    public Move(String name, Collection<Property> properties) {
+        super(name, properties);
     }
-
-
 }
