@@ -29,11 +29,24 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     notifyListeners("UPDATE", oldBoard, myBoard);
   }
 
-  public void place(int i, int j, Piece piece){
+
+  /**
+   * returns true if there is a piece at location Board[row][column]. else, false
+   * @param row
+   * @param column
+   * @return
+   */
+  private boolean isPieceAtLocation(int row, int column){
+    return myBoard[row][column] != null;
+
+  }
+  public void placeNewPiece(int row, int column, Piece piece){
+    place(row, column, piece);
+  }
+  private void place(int i, int j, Piece piece){
     myBoard[i][j] = piece;
   }
-  public void remove(int i, int j){myBoard[i][j] =null;};
-
+  private void remove(int i, int j){myBoard[i][j] =null;};
 
   /**
    *
@@ -42,8 +55,10 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
    * @param piece
    */
   public void move(int i, int j, Piece piece) {
-    place(i, j, piece);
-    remove(i, j);
+    if (!isPieceAtLocation(i,j)){
+      place(i, j, piece);
+      remove(i, j);
+    }
   }
 
   public Boolean isValid(Position position){

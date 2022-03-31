@@ -9,7 +9,7 @@ public class Engine {
 
   public Engine() {
 
-    ActionType place = (i, j, piece) -> myBoard.place(i, j, piece);
+    ActionType place = (i, j, piece) -> myBoard.placeNewPiece(i, j, piece);
     ActionType move = (i, j, piece) -> myBoard.move(i, j, piece);
   }
 
