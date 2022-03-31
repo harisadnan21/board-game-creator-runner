@@ -5,6 +5,7 @@ import java.util.Collection;
 import oogasalad.builder.controller.ExceptionResourcesSingleton;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.GameElement;
+import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -18,6 +19,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
 
     public GameElementFactory(String propertiesPath) {
         propertiesResources = ResourceBundle.getBundle(propertiesPath);
+        loadProperties();
     }
 
     private void loadProperties() {

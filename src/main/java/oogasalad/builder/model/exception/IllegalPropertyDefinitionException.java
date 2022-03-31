@@ -1,4 +1,4 @@
-package oogasalad.builder.model.element.factory;
+package oogasalad.builder.model.exception;
 
 public class IllegalPropertyDefinitionException extends RuntimeException {
     public IllegalPropertyDefinitionException(String msg) {
