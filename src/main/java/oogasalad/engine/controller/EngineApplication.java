@@ -1,4 +1,4 @@
-package oogasalad.engine;
+package oogasalad.engine.controller;
 
 import javafx.application.Application;
 import javafx.scene.Group;
