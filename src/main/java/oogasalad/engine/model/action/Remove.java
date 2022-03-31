@@ -4,13 +4,13 @@ import oogasalad.engine.model.Game;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Board;
 
-public class Place implements Action {
+public class Remove implements Action {
 
   private Board myResultantBoard;
 
-  public Place(Board initialBoard, int i, int j, Piece piece) {
+  public Remove(Board initialBoard, int i, int j) {
     Board copy = initialBoard.deepCopy();
-    copy.placeNewPiece(i, j, piece);
+    copy.remove(i, j);
     myResultantBoard = copy;
   }
 
@@ -19,8 +19,8 @@ public class Place implements Action {
     game.setBoard(myResultantBoard);
   }
 
-  @Override
   public Board getNextState() {
     return myResultantBoard;
   }
+
 }
