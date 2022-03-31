@@ -5,7 +5,7 @@ import java.util.Optional;
 public class getWestNeighbor extends getDirectionNeighbor {
   @Override
   public Optional<Position> getNeighbor(Position pos, Board board) {
-    Position west = new Position(pos.getI(), pos.getI()-1);
+    Position west = new Position(pos.getI() - 1, pos.getJ());
     return checkIfValid(board, west);
   }
 
