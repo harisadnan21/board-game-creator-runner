@@ -1,6 +1,7 @@
 package oogasalad.engine.model.board;
 
 import java.util.Iterator;
+import java.util.Optional;
 import javafx.util.Pair;
 import oogasalad.engine.model.Observable;
 import oogasalad.engine.model.Piece;
@@ -33,6 +34,15 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     myBoard[i][j] = piece;
   }
 
+  public void remove(int i, int j){
+    myBoard[i][j] = null;
+  }
+
+  public Piece getPiece(int i, int j) {
+    //return Optional.of(myBoard[i][j]);
+    return myBoard[i][j];
+  }
+
   /**
    *
    * @param i end i position
@@ -53,6 +63,21 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
 
   private boolean isValidX(int i) {
     return Utilities.isPositive(i) && (i <= myColumns);
+  }
+
+  public Board deepCopy() {
+    Board board = new Board(myRows, myColumns);
+    for (Pair<Position, Piece> piece: this) {
+      Piece copyPiece;
+      if (piece.getValue() == null) {
+        copyPiece = null;
+      }
+      else {
+        copyPiece = piece.getValue().deepCopy();
+      }
+      board.place(piece.getKey().getI(), piece.getKey().getJ(), copyPiece);
+    }
+    return board;
   }
 
   // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:

@@ -53,7 +53,8 @@ public class BoardView implements PropertyChangeListener{
   }
 
   public void cellClicked(MouseEvent e, int i, int j) {
-    myController.click(i, j);
+    Board nextState = myController.click(i, j);
+    updateBoard(nextState);
   }
 
   public void addController(Controller c) {
@@ -61,9 +62,12 @@ public class BoardView implements PropertyChangeListener{
   }
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    Board newBoard = (Board) evt.getSource();
-    int index = 0;
-    for (Pair<Position, Piece> piece: newBoard) {
+    Board board = (Board) evt.getSource();
+    updateBoard(board);
+  }
+
+  private void updateBoard(Board board) {
+    for (Pair<Position, Piece> piece: board) {
       Position pos = piece.getKey();
       if (piece.getValue() != null) {
         myGrid[pos.getI()][pos.getJ()].addPiece(BLACK_KNIGHT);
@@ -71,7 +75,6 @@ public class BoardView implements PropertyChangeListener{
       else {
         myGrid[pos.getI()][pos.getJ()].removePiece();
       }
-      index++;
     }
   }
 
