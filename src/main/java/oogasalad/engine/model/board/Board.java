@@ -11,27 +11,27 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
 
   private int myRows;
   private int myColumns;
-  private Piece[][] myBoard;
+  private Piece[][] pieceLocations;
 
   public Board(int rows, int columns) {
     myRows = rows;
     myColumns = columns;
-    myBoard = new Piece[rows][columns];
+    pieceLocations = new Piece[rows][columns];
   }
 
   public Piece[][] getMyBoard(){
-    return myBoard;
+    return pieceLocations;
   }
 
   public void selectCell(int x, int y){
-    Piece[][] oldBoard = myBoard;
-    if (myBoard[x][y] != null) {
-      myBoard[x][y] = null;
+    Piece[][] oldBoard = pieceLocations;
+    if (pieceLocations[x][y] != null) {
+      pieceLocations[x][y] = null;
     }
     else {
       place(x, y, new Piece("...", 1));
     }
-    notifyListeners("UPDATE", oldBoard, myBoard);
+    notifyListeners("UPDATE", oldBoard, pieceLocations);
   }
 
 
@@ -42,21 +42,21 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
    * @return
    */
   private boolean isPieceAtLocation(int row, int column){
-    return myBoard[row][column] != null;
+    return pieceLocations[row][column] != null;
 
   }
   public void placeNewPiece(int row, int column, Piece piece){
     place(row, column, piece);
   }
   private void place(int i, int j, Piece piece){
-    myBoard[i][j] = piece;
+    pieceLocations[i][j] = piece;
   }
 
-  public void remove(int i, int j){myBoard[i][j] =null;};
+  public void remove(int i, int j){pieceLocations[i][j] =null;};
 
   public Piece getPiece(int i, int j) {
     //return Optional.of(myBoard[i][j]);
-    return myBoard[i][j];
+    return pieceLocations[i][j];
   }
 
 
@@ -106,6 +106,6 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
 // 3. Open-Closed -> we won't have to change implemenation if we decide to change how to represent Board because it will still be a Stream
   @Override
   public Iterator<Pair<Position, Piece>> iterator() {
-    return new BoardIterator(myBoard);
+    return new BoardIterator(pieceLocations);
   }
 }
