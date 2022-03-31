@@ -1,9 +1,6 @@
 package oogasalad.engine.view;
 
 import javafx.scene.text.Text;
-import javafx.util.Pair;
-import oogasalad.engine.model.Piece;
-import oogasalad.engine.model.board.Position;
 
 public class GameUpdateText {
   private String updateText;
