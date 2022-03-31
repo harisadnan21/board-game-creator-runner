@@ -25,7 +25,7 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
       myBoard[x][y] = null;
     }
     else {
-      place(x, y, new Piece("Knight", 1));
+      place(x, y, new Piece("..., 1));
     }
     notifyListeners("UPDATE", oldBoard, myBoard);
   }
