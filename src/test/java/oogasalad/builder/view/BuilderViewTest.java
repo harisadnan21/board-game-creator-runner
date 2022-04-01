@@ -20,10 +20,10 @@ class BuilderViewTest extends DukeApplicationTest {
   @Test
   public void clickAddPieceTest() {
 
-  //  clickOn(0, 0, MouseButton.PRIMARY);
-  //  int[][] boardConfig = builderView.getBoardConfig();
+    clickOn(0, 0, MouseButton.PRIMARY);
+    int[][] boardConfig = builderView.getBoardConfig();
 
-  //  assertEquals(1, boardConfig[0][0]);
+    assertEquals(1, boardConfig[0][0]);
 
   }
 
