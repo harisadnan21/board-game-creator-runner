@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import oogasalad.engine.model.Observable;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.Utilities;
@@ -51,21 +53,6 @@ public class Board extends Observable<Piece[][]> implements Iterable<PositionSta
     return positionStates;
   }
 
-  public Ray getRay(Position position){
-   return null;
-  }
-
-//  public void selectCell(int x, int y){
-//    Piece[][] oldBoard = myBoard;
-//    if (myBoard[x][y] != null) {
-//      myBoard[x][y] = null;
-//    }
-//    else {
-//      place(x, y, new Piece("...", 1));
-//    }
-//    notifyListeners("UPDATE", oldBoard, myBoard);
-//  }
-
 
   /**
    * returns true if there is a piece at location Board[row][column]. else, false
@@ -110,11 +97,37 @@ public class Board extends Observable<Piece[][]> implements Iterable<PositionSta
     return isValidX(column);
   }
 
-
   @Override
   public Iterator<PositionState> iterator() {
     return myBoard.valuesIterator();
   }
+
+  public Stream<PositionState> getPositionStatesStream() {
+    return myBoard.values().toJavaStream();
+  }
+
+  public Stream<PositionState> getSatisfyingPositionStatesStream(Predicate<PositionState> positionStatePredicate){
+    return getPositionStatesStream().filter(positionStatePredicate);
+  }
+
+  public Stream<PositionState> getNotSatisfyingPositionStatesStream(Predicate<PositionState> positionStatePredicate){
+    return myBoard.values().filterNot(positionStatePredicate).toJavaStream();
+  }
+
+
+
+
+
+//  public void selectCell(int x, int y){
+//    Piece[][] oldBoard = myBoard;
+//    if (myBoard[x][y] != null) {
+//      myBoard[x][y] = null;
+//    }
+//    else {
+//      place(x, y, new Piece("...", 1));
+//    }
+//    notifyListeners("UPDATE", oldBoard, myBoard);
+//  }
 
 //  public void placeNewPiece(int row, int column, Piece piece){
 //    place(row, column, piece);
