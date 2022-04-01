@@ -15,7 +15,7 @@ import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
 import org.jooq.lambda.Seq;
 
-public class Board extends Observable<Piece[][]> implements Iterable<PositionState> {
+public class Board extends Observable<Piece[][]> implements Cloneable, Iterable<PositionState> {
 
   private int numRows;
   private int numColumns;
@@ -25,6 +25,33 @@ public class Board extends Observable<Piece[][]> implements Iterable<PositionSta
     this.numRows = positionStates.length;
     this.numColumns = Board.getNumColumnsInLongestRow(positionStates);
     this.myBoard = getPositionPositionStateMap(positionStates);
+  }
+  @Override
+  protected Board clone() throws CloneNotSupportedException {
+    return (Board) super.clone();
+  }
+
+  public Board removePiece(Position position) throws CloneNotSupportedException {
+    Board returnBoard = this.clone();
+    returnBoard.myBoard = returnBoard.myBoard.put(position, new PositionState(position, null, null));
+    return returnBoard;
+  }
+
+  public Board placePiece(PositionState positionState) throws CloneNotSupportedException {
+    Board returnBoard = this.clone();
+    returnBoard.myBoard = returnBoard.myBoard.put(positionState.position(), positionState);
+    return returnBoard;
+  }
+
+  public Board movePiece(Position oldPosition, Position newPosition) throws CloneNotSupportedException {
+    PositionState oldPositionState = this.getPositionStateAt(oldPosition);
+    Board returnBoard = this.clone();
+    returnBoard.myBoard = returnBoard.myBoard.put(oldPosition, new PositionState(oldPosition, null, null)).put(newPosition, new PositionState(newPosition, oldPositionState.player(), oldPositionState.pieceType()));
+    return returnBoard;
+  }
+
+  private PositionState getPositionStateAt(Position position) {
+    return this.getPositionStateAt(position.x(), position.y());
   }
 
   private TreeMap<Position, PositionState> getPositionPositionStateMap(
