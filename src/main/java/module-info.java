@@ -5,8 +5,8 @@ open module oogasalad_app {
     requires javafx.base;
     requires javafx.media;
     requires javafx.web;
-  requires moshi;
+    requires org.json;
 
-  // allow other classes to access listed packages in your project
+    // allow other classes to access listed packages in your project
     exports oogasalad;
 }
