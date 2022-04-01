@@ -1,4 +1,4 @@
-package oogasalad.engine.model.abstractions;
+package oogasalad.engine.model;
 
 import oogasalad.engine.model.board.Board;
 

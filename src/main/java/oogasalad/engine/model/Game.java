@@ -22,4 +22,6 @@ public class Game {
   public Board getBoard() {
     return myBoard;
   }
+
+  public getPotentiallyLegalActions()
 }

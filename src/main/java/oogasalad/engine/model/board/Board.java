@@ -2,6 +2,7 @@ package oogasalad.engine.model.board;
 
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.stream.Stream;
 import javafx.util.Pair;
 import oogasalad.engine.model.Observable;
 import oogasalad.engine.model.Piece;
@@ -18,6 +19,7 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     myColumns = columns;
     myBoard = new Piece[rows][columns];
   }
+
 
   public void selectCell(int x, int y){
     Piece[][] oldBoard = myBoard;
@@ -104,4 +106,6 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
   public Iterator<Pair<Position, Piece>> iterator() {
     return new BoardIterator(myBoard);
   }
+
+
 }
