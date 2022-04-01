@@ -1,5 +1,7 @@
 package oogasalad.builder.model.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Collection;
 import java.util.HashSet;
 import oogasalad.builder.controller.Property;
@@ -25,6 +27,7 @@ public class SerializationTest {
   private static final String PROPERTY_NAME_2 = "test property name";
   private static final String PROPERTY_VALUE = "test property value";
   private static final String TEST_JSON = "test";
+  private static final String EXPECTED_JSON = "{\"test property name\":\"test property value\"}";
   private Collection<Property> properties;
 
   @BeforeEach
@@ -39,9 +42,9 @@ public class SerializationTest {
     Piece piece = new Piece(PIECE_NAME, properties);
     Rule rule = new Rule(RULE_NAME, properties);
     WinCondition winCondition = new WinCondition(WIN_CONDITION_NAME, properties);
-    piece.toJSON();
-    rule.toJSON();
-    winCondition.toJSON();
+    assertEquals(EXPECTED_JSON, piece.toJSON());
+    assertEquals(EXPECTED_JSON, rule.toJSON());
+    assertEquals(EXPECTED_JSON, winCondition.toJSON());
   }
 
   @Test
