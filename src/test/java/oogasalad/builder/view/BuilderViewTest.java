@@ -18,7 +18,6 @@ import util.DukeApplicationTest;
 
 class BuilderViewTest extends DukeApplicationTest {
 
-<<<<<<< HEAD
 
     private BuilderView builderView;
 
@@ -27,15 +26,15 @@ class BuilderViewTest extends DukeApplicationTest {
         builderView = new BuilderView(stage);
     }
 
-    @Test
-    public void clickAddPieceTest() {
+//    @Test
+//    public void clickAddPieceTest() {
 
 //          clickOn(0, 0, MouseButton.PRIMARY);
 //        int[][] boardConfig = builderView.getBoardConfig();
 //
 //        assertEquals(1, boardConfig[0][0]);
 
-    }
+    //}
 }
 
 //  public static final String TITLE = "Slogo Application";
@@ -218,28 +217,28 @@ class BuilderViewTest extends DukeApplicationTest {
 //  void testUploadFile() {
 //
 //  }
-=======
-  private BuilderView builderView;
-  private BorderPane boardTab;
-
-  @Override
-  public void start(Stage stage) {
-    builderView =  new BuilderView(stage);
-
-    boardTab = lookup("#boardTab").query();
-  }
-
-  @Test
-  public void clickAddPieceTest() {
-
-    clickOn(boardTab, 1,1);
-    sleep(500);
-    int[][] boardConfig = builderView.getBoardConfig();
-
-    assertEquals(1, boardConfig[0][0]);
-
-  }
-
-}
->>>>>>> master
+//=======
+//  private BuilderView builderView;
+//  private BorderPane boardTab;
+//
+//  @Override
+//  public void start(Stage stage) {
+//    builderView =  new BuilderView(stage);
+//
+//    boardTab = lookup("#boardTab").query();
+//  }
+//
+//  @Test
+//  public void clickAddPieceTest() {
+//
+//    clickOn(boardTab, 1,1);
+//    sleep(500);
+//    int[][] boardConfig = builderView.getBoardConfig();
+//
+//    assertEquals(1, boardConfig[0][0]);
+//
+//  }
+//
+//}
+//>>>>>>> master
 

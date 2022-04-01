@@ -2,7 +2,7 @@ package oogasalad.builder.view.tab.pieceTab;
 
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
-import oogasalad.builder.view.tab.boardTab.BoardCanvas;
+import oogasalad.builder.view.tab.pieceTab.Piece;
 
 import java.util.*;
 
@@ -12,6 +12,7 @@ import java.util.*;
 public class PiecesTab {
 
     private BorderPane boardPane;
+    private String pieceType;
 
     /**
      * Default constructor
@@ -28,8 +29,9 @@ public class PiecesTab {
     }
 
     private void setupPiece(int xSize, int ySize, String boardType){
-        BoardCanvas boardCanvas = new BoardCanvas(xSize, ySize);
-        //boardPane.setLeft(boardCanvas.toNode());
+
+        Piece gamePiece = new Piece(pieceType, xSize, ySize);
+        //boardPane.setLeft(gamePiece.toNode())
     }
 
 }
