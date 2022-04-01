@@ -22,6 +22,7 @@ public class BuilderView {
   public static double SCENE_HEIGHT = 650;
 
   private Stage stage;
+  private BoardTab boardTabPane;
 
   public BuilderView(Stage mainStage) {
     stage = mainStage;
@@ -51,7 +52,7 @@ public class BuilderView {
   private void setupTabs() {
     TabPane tabPane = new TabPane();
 
-    BoardTab boardTabPane = new BoardTab();
+    boardTabPane = new BoardTab();
     Tab boardTab = new Tab("Board", boardTabPane.toNode());
 
     Tab tab2 = new Tab();
@@ -67,4 +68,7 @@ public class BuilderView {
     stage.setScene(myTabScene);
   }
 
+  public int[][] getBoardConfig(){
+    return boardTabPane.getBoardConfig();
+  }
 }

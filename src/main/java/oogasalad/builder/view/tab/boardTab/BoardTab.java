@@ -37,4 +37,8 @@ public class BoardTab {
     private void saveBoardConfig(){
         System.out.println(boardCanvas.printBoardConfig());
     }
+
+    public int[][] getBoardConfig(){
+       return boardCanvas.getBoardConfig();
+    }
 }

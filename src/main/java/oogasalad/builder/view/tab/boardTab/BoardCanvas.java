@@ -63,11 +63,6 @@ public class BoardCanvas {
     return ret;
   }
 
-  public Node getPieceCanvasNode() {
-    return pieceCanvas;
-  }
-
-
   private Map populateBoardTypeMap() {
     // TODO: Pull the Bank of Boards and create Map?
     return null;
