@@ -114,6 +114,10 @@ public class Board extends Observable<Piece[][]> implements Iterable<PositionSta
     return myBoard.values().filterNot(positionStatePredicate).toJavaStream();
   }
 
+  public PositionState getPositionStateAt(int x, int y){
+    return myBoard.get(new Position(x,y)).get();
+  }
+
 
 
 
