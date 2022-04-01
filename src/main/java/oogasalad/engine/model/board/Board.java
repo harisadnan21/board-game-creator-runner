@@ -52,7 +52,9 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
 
   private void place(int i, int j, Piece piece)throws OutOfBoardException {
     if(i <= myRows && j <= myColumns){
-      piece.movePiece(i, j);
+      if (piece != null) {
+        piece.movePiece(i, j);
+      }
     }
     else{
       throw new OutOfBoardException("Piece out of Board");
