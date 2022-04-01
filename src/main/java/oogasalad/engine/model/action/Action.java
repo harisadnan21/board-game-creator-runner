@@ -1,6 +1,6 @@
 package oogasalad.engine.model.action;
 
-import oogasalad.engine.model.Game;
+import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.board.Board;
 
 public interface Action {

@@ -1,4 +1,4 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.driver;
 
 import java.util.Stack;
 import oogasalad.engine.model.board.Board;

@@ -1,4 +1,4 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.conditionals;
 
 import oogasalad.engine.model.board.Position;
 

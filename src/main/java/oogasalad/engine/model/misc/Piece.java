@@ -1,6 +1,4 @@
-package oogasalad.engine.model;
-
-import java.util.List;
+package oogasalad.engine.model.misc;
 
 /**
  * 

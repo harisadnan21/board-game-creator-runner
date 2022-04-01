@@ -1,7 +1,7 @@
 package oogasalad.engine.controller;
 
-import oogasalad.engine.model.Engine;
-import oogasalad.engine.model.Game;
+import oogasalad.engine.model.driver.Engine;
+import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.view.BoardView;
 

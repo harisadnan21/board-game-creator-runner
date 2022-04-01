@@ -1,4 +1,4 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.misc;
 
 import oogasalad.engine.model.action.Action;
 import oogasalad.engine.model.action.ActionType;

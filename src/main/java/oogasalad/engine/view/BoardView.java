@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.Piece;
+import oogasalad.engine.model.misc.Piece;
 import oogasalad.engine.model.board.Position;
 
 public class BoardView implements PropertyChangeListener{

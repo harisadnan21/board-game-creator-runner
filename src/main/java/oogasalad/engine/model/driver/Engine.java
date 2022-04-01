@@ -1,7 +1,7 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.driver;
 
+import oogasalad.engine.model.misc.Piece;
 import oogasalad.engine.model.action.Action;
-import oogasalad.engine.model.action.ActionType;
 import oogasalad.engine.model.action.Place;
 import oogasalad.engine.model.action.Remove;
 import oogasalad.engine.model.board.Board;

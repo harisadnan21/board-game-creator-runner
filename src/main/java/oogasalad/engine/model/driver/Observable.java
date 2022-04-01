@@ -1,4 +1,4 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.driver;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
