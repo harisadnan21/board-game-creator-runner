@@ -1,0 +1,103 @@
+{
+	"metadata": {
+		"name": "Checkers",
+		"author": "Mr. Checkers",
+		"creationDate": "1648158653",
+		"lastModifiedDate": "1648158780",
+	},
+	"basicInfo": {
+		"players": [
+			{
+				"name": "Black"
+			},
+			{
+				"name": "White"
+			}
+		],
+		"firstMove": "White",
+	},
+	"pieces": [
+		{
+			"name": "normal",
+			"image": "pieces/normal.png"
+		},
+		{
+			"name": "king",
+			"image": "pieces/king.png"
+		}
+	],
+	"board": {
+		"shape": "square",
+		"width": 8,
+		"height": 8,
+		"pieceConfiguration": [["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"],
+			["empty", "normal", "empty", "normal", "empty", "normal", "empty", "normal"],
+			["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"],
+			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+			["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"],
+			["empty", "normal", "empty", "normal", "empty", "normal", "empty", "normal"],
+			["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"]],
+		"playerConfiguration": [["Black", "empty", "Black", "empty", "Black", "empty", "Black", "empty"],
+			["empty", "Black", "empty", "Black", "empty", "Black", "empty", "Black"],
+			["Black", "empty", "Black", "empty", "Black", "empty", "Black", "empty"],
+			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+			["White", "empty", "White", "empty", "White", "empty", "White", "empty"],
+			["empty", "White", "empty", "White", "empty", "White", "empty", "White"],
+			["White", "empty", "White", "empty", "White", "empty", "White", "empty"]],
+		"background": "checkers"
+	},
+	"conditions": [
+		{
+			"name": "emptyDoubleTopRight",
+			"type": "emptyAt",
+			"parameters": [2, 2]
+		},
+		{
+			"name": "pieceAtTopRight",
+			"type": "pieceAt",
+			"parameters": [1, 1]
+		},
+		{
+			"name": "emptyTopRight",
+			"type": "emptyAt",
+			"parameters": [1, 1]
+		}
+	],
+	"actions": [
+		{
+			"name": "moveTopRight",
+			"type": "moveTo",
+			"parameters": [1, 1]
+		},
+		{
+			"name": "moveDoubleTopRight",
+			"type": "moveTo",
+			"parameters": [2, 2]
+		}
+	],
+	"consequences": [
+		{
+			"name": "captureTopRight",
+			"type": "remove",
+			"parameters": [1, 1]
+		}
+	],
+	"rules": [
+		{
+			"name": "jumpTopRight",
+			"pieces": ["normal", "king"],
+			"conditions": ["emptyDoubleTopRight", "pieceAtTopRight"],
+			"actions": ["moveDoubleTopRight"],
+			"consequences": ["captureTopRight"]
+		},
+		{
+			"name": "slideTopRight",
+			"pieces": ["normal", "king"],
+			"conditions": ["emptyTopRight"],
+			"actions": ["moveTopRight"],
+			"consequences": []
+		}
+	]
+}

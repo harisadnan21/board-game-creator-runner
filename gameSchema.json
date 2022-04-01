@@ -33,12 +33,14 @@
     },
     "basicInfo":
     {
-      "numPlayers":
-      {
-				"type": "integer",
-				"minimum": 1,
-				"maximum ": 2
-      },
+      "players":
+			{
+				"properties":
+				{
+					"name": "string"
+				}
+			},
+			"firstMove": {"type": "string"},
       "gameName":
       {
 				"type": "string"
@@ -67,9 +69,10 @@
       "properties":
       {
 				"shape": {"type":  "string"},
-        "numColumns": {"type": "integer"},
-        "numRows": {"type": "integer"},
-				"configuration": {"type":  "array"},
+        "width": {"type": "integer"},
+        "height": {"type": "integer"},
+				"pieceConfiguration": {"type":  "array"},
+				"playerConfiguration": {"type":  "array"},
 				"background": {"type":  "string"}
 			}
     },
