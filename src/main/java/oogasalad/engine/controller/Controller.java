@@ -2,6 +2,7 @@ package oogasalad.engine.controller;
 
 import oogasalad.engine.model.Engine;
 import oogasalad.engine.model.Game;
+import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.view.BoardView;
 
@@ -18,7 +19,7 @@ public class Controller {
     myEngine = new Engine(myGame);
   }
 
-  public Board click(int i, int j) {
+  public Board click(int i, int j) throws OutOfBoardException {
     return myEngine.selectCell(i, j);
   }
 }

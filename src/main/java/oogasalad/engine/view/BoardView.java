@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
+import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Position;
@@ -44,7 +45,13 @@ public class BoardView implements PropertyChangeListener{
         int finalI = i;
         int finalJ = j;
 
-        myGrid[i][j].addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {cellClicked(e, finalI, finalJ);});
+        myGrid[i][j].addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+          try {
+            cellClicked(e, finalI, finalJ);
+          } catch (OutOfBoardException ex) {
+            ex.printStackTrace();
+          }
+        });
 
         myRoot.getChildren().add(myGrid[i][j]);
 
@@ -55,7 +62,7 @@ public class BoardView implements PropertyChangeListener{
     }
   }
 
-  public void cellClicked(MouseEvent e, int i, int j) {
+  public void cellClicked(MouseEvent e, int i, int j) throws OutOfBoardException {
     Board nextState = myController.click(i, j);
     updateBoard(nextState);
     text.updateText(i, j);

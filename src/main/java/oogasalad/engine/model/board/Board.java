@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import javafx.util.Pair;
 import oogasalad.engine.model.Observable;
+import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.Utilities;
 
@@ -23,13 +24,13 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     return pieceLocations;
   }
 
-  public void selectCell(int x, int y){
+  public void selectCell(int x, int y) throws OutOfBoardException {
     Piece[][] oldBoard = pieceLocations;
     if (pieceLocations[x][y] != null) {
       pieceLocations[x][y] = null;
     }
     else {
-      place(x, y, new Piece("...", 1));
+      place(x, y, new Piece("...", 1, 0, 0));
     }
     notifyListeners("UPDATE", oldBoard, pieceLocations);
   }
@@ -45,10 +46,17 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     return pieceLocations[row][column] != null;
 
   }
-  public void placeNewPiece(int row, int column, Piece piece){
+  public void placeNewPiece(int row, int column, Piece piece) throws OutOfBoardException {
     place(row, column, piece);
   }
-  private void place(int i, int j, Piece piece){
+
+  private void place(int i, int j, Piece piece)throws OutOfBoardException {
+    if(i <= myRows && j <= myColumns){
+      piece.movePiece(i, j);
+    }
+    else{
+      throw new OutOfBoardException("Piece out of Board");
+    }
     pieceLocations[i][j] = piece;
   }
 
@@ -66,7 +74,7 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
    * @param j end j position
    * @param piece
    */
-  public void move(int i, int j, Piece piece) {
+  public void move(int i, int j, Piece piece) throws OutOfBoardException {
     if (!isPieceAtLocation(i,j)){
       place(i, j, piece);
       remove(i, j);
@@ -85,7 +93,7 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     return Utilities.isPositive(i) && (i <= myColumns);
   }
 
-  public Board deepCopy() {
+  public Board deepCopy() throws OutOfBoardException {
     Board board = new Board(myRows, myColumns);
     for (Pair<Position, Piece> piece: this) {
       Piece copyPiece;

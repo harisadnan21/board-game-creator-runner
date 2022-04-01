@@ -16,14 +16,14 @@ public class Engine {
     //ActionType move = (i, j, piece) -> myBoard.move(i, j, piece);
   }
 
-  public Board selectCell(int x, int y){
+  public Board selectCell(int x, int y) throws OutOfBoardException {
     Board board = myGame.getBoard();
     Action action;
     if (board.getPiece(x, y) != null) {
       action = new Remove(board, x, y);
     }
     else {
-      Piece p = new Piece("Knight", 1);
+      Piece p = new Piece("Knight", 1, 0, 0);
       action = new Place(board, x, y, p);
     }
     // notifyListeners("UPDATE", oldBoard, myBoard);

@@ -1,6 +1,7 @@
 package oogasalad.engine.model.action;
 
 import oogasalad.engine.model.Game;
+import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Board;
 
@@ -8,7 +9,7 @@ public class Remove implements Action {
 
   private Board myResultantBoard;
 
-  public Remove(Board initialBoard, int i, int j) {
+  public Remove(Board initialBoard, int i, int j) throws OutOfBoardException {
     Board copy = initialBoard.deepCopy();
     copy.remove(i, j);
     myResultantBoard = copy;
