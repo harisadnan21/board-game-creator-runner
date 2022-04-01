@@ -10,46 +10,46 @@
     {
       "creationType":
       {
-	"enum": ["built-in", "expansion", "custom"]
+				"enum": ["built-in", "expansion", "custom"]
       },
       "author":
       {
-	"type": "string"
+				"type": "string"
       },
       "originalCreationDate":
       {
-	"type": "string",
-	"format": "date-time"
+				"type": "string",
+				"format": "date-time"
       },
       "lastModifiedDate":
       {
-	"type": "string",
-	"format": "date-time"
+				"type": "string",
+				"format": "date-time"
       },
       "currentUserGenerated":
       {
-	"type": "boolean"
+				"type": "boolean"
       }
     },
     "basicInfo":
     {
       "numPlayers":
       {
-	"type": "integer",
-	"minimum": 1,
-	"maximum ": 2
+				"type": "integer",
+				"minimum": 1,
+				"maximum ": 2
       },
       "gameName":
       {
-	"type": "string"
+				"type": "string"
       },
       "gameNameAlias":
       {
-	"type": "string"
+				"type": "string"
       },
       "gameID":
       {
-	"type": "integer"
+				"type": "integer"
       }
     },
     "pieces":
@@ -58,127 +58,58 @@
       "minProperties": 1,
       "properties":
       {
-        "FullPieceName": {"type": "string"},
-        "Alias": {"type": "string"}
+        "name": {"type": "string"},
+				"image": {"type":  "string"}
       }
     },
     "board":
     {
       "properties":
       {
-        "NumColumns": {"type": "integer"},
-        "NumRows": {"type": "integer"}
-      }
+				"shape": {"type":  "string"},
+        "numColumns": {"type": "integer"},
+        "numRows": {"type": "integer"},
+				"configuration": {"type":  "array"},
+				"background": {"type":  "string"}
+			}
     },
-    "roles":
-    {
-      "type": "array",
-      "items":
-      {
-	"type": "string"
-      },
-      "if": 
-      {
-        "properties": { "numPlayers": { "const": 1} }
-      },
-      "then": 
-      {
-	"minItems": 1,
-	"maxItems": 1
-      },
-      "else": 
-      {
-	"minItems": 2,
-	"maxItems": 2
-      }
-    },
-    "moving":
-    {
-      "properties":
-      {
-	"orderDetermination":
-	{
-	  "type": "array",
-	  "properties":
-	  {
-	    "FirstMoveProbability":
-	    {
-	      "type": "number",
-	      "minimum": 0,
-	      "maximum": 1
-	    }
-	  },
-	  "if": 
-	  {
-	    "properties": { "numPlayers": { "const": 1} }
-	  },
-	  "then": 
-	  {
-	    "minItems": 1,
-	    "maxItems": 1,
-	    "FirstMoveProbability":
-	    {
-	      "minimum": 1
-	    }
-	  },
-	  "else": 
-	  {
-	    "minItems": 2,
-	    "maxItems": 2
-	  }
-	},
-	"validMoves":
-	{
-	  "type": "object",
-	  "properties":
-	  {
-	    "TypeOfValidMoves":
-	    {
-	      "enum": ["placeholder"]
-	    },
-	    "Parameters":{}
-	  }
+		"rules":
+		{
+			"properties":
+			{
+				"name": {"type": "string"},
+				"pieces": {"type":  "array"},
+				"conditions": {"type":  "array"},
+				"actions": {"type":  "array"},
+				"consequences": {"type":  "array"}
+			}
+		},
+		"conditions":
+		{
+			"properties":
+			{
+				"name": {"type": "string"},
+				"type": {"type":  "string"},
+				"parameters": {"type":  "array"}
+			}
+		},
+		"actions":
+		{
+			"properties":
+			{
+				"name": {"type": "string"},
+				"type": {"type":  "string"},
+				"parameters": {"type":  "array"}
+			}
+		},
+		"consequences":
+		{
+			"properties":
+			{
+				"name": {"type": "string"},
+				"type": {"type":  "string"},
+				"parameters": {"type":  "array"}
+			}
+		}
 	}
-      }
-    },
-    "gameTermination":
-    {
-      "properties":
-      {
-	"possibleOutcomes":
-	{
-	  "type": "array",
-	  "items":
-	  {
-	    "enum": ["Player1Wins", "Player2Wins", "Tie", "Stalemate"]
-	  }
-	},
-	"terminationConditons":
-	{
-	  "type": "array",
-	  "items":
-	  {
-	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCapture", "SpecialState"]
-	  }
-	},
-	"winnerDetermination":
-	{
-	  "type": "array",
-	  "items":
-	  {
-	    "enum": [
-	      "mostPoints",
-	      "fewestPoints",
-	      "featurePresent",
-	      "morePiecesPresent",
-	      "fewerPiecesPresent",
-	      "movedLast",
-	      "notMovedLast"
-	    ]
-	  }
-	  
-	}
-      }
-    }
-  }
 }
