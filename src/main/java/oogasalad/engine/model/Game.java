@@ -23,5 +23,5 @@ public class Game {
     return myBoard;
   }
 
-  public getPotentiallyLegalActions()
+//  public getPotentiallyLegalActions()
 }

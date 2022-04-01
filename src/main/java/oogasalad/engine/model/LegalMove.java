@@ -8,8 +8,8 @@ import oogasalad.engine.model.Rules;
 
 public class LegalMove {
 
-public Boolean legalMove(Board board, ActionType action, Player currentPlayer, Rules[] rules){
-  Arrays.stream(rules).map(rule()
-}
+//public Boolean legalMove(Board board, ActionType action, Player currentPlayer, Rules[] rules){
+//  Arrays.stream(rules).map(rule()
+//}
 
 }

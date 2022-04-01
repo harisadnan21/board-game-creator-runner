@@ -1,20 +1,21 @@
 package oogasalad.engine.model.board;
 
-public class Position {
+import org.jooq.lambda.tuple.Tuple2;
 
-  private int myI;
-  private int myJ;
+public record Position (int x, int y) implements Comparable<Position> {
 
-  public Position(int i, int j) {
-    myI = i;
-    myJ = j;
+  public Position(Tuple2<Integer,Integer> tuple2) {
+    this(tuple2.v1(), tuple2.v2());
   }
 
-  public int getI() {
-    return myI;
+  @Override
+  public int compareTo(Position position) {
+    if(this.x() != position.x()) {
+      return this.x() - position.x();
+    }
+    return this.y() - position.y();
   }
 
-  public int getJ() {
-    return myJ;
-  }
+
 }
+

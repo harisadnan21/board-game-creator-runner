@@ -8,10 +8,10 @@ import oogasalad.engine.model.board.Board;
 
 public class AvailableActions {
 
-  public Collection<Action> getPotentiallyLegalActions(Board board, Player player, Rules[] rules){
-    Action availableActions = board.getStream().
-
-  }
+//  public Collection<Action> getPotentiallyLegalActions(Board board, Player player, Rules[] rules){
+//    Action availableActions = board.getStream().
+//
+//  }
 
 //    public Collection<Action> getAvailableActions(Board board, ActionTypes[] actionTypes, Player player, Rules[] rules) {
 //       Action[] possibilities = getActionPossibilities(actionTypes, board, player, rules);

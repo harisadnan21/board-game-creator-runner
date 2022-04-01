@@ -7,7 +7,9 @@ open module oogasalad_app {
     requires javafx.web;
     //requires java.datatransfer;
     requires java.desktop;
+    requires io.vavr;
+    requires org.jooq.jool;
 
-    // allow other classes to access listed packages in your project
+  // allow other classes to access listed packages in your project
     exports oogasalad;
 }
