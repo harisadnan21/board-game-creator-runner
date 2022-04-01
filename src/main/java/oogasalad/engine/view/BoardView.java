@@ -94,10 +94,6 @@ public class BoardView implements PropertyChangeListener{
     }
   }
 
-  public Pair<Pair<Position, Piece>, String> getChange() {
-    return change;
-  }
-
   private Position getIndices(int index) {
     int i = index / myGrid.length;
     int j = index % myGrid[0].length;
