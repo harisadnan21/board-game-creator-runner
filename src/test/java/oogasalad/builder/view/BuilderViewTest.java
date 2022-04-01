@@ -26,15 +26,15 @@ class BuilderViewTest extends DukeApplicationTest {
         builderView = new BuilderView(stage);
     }
 
-//    @Test
-//    public void clickAddPieceTest() {
+    @Test
+    public void clickAddPieceTest() {
 
-//          clickOn(0, 0, MouseButton.PRIMARY);
-//        int[][] boardConfig = builderView.getBoardConfig();
-//
-//        assertEquals(1, boardConfig[0][0]);
+          clickOn(0, 0, MouseButton.PRIMARY);
+        int[][] boardConfig = builderView.getBoardConfig();
 
-    //}
+        assertEquals(1, boardConfig[0][0]);
+
+    }
 }
 
 //  public static final String TITLE = "Slogo Application";
