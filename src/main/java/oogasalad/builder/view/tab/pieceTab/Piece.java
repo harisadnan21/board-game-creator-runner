@@ -1,16 +1,16 @@
-package oogasalad.builder.view.tab;
+package oogasalad.builder.view.tab.pieceTab;
 
 import java.util.*;
 
 /**
- * 
+ *
  */
-public class PiecesTab {
+public class Piece {
 
     /**
      * Default constructor
      */
-    public PiecesTab() {
+    public Piece() {
     }
 
     /**
