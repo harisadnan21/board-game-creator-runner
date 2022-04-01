@@ -27,10 +27,9 @@ public interface Element extends JSONSerializable<Element> {
   /**
    * Converts an Object into a String representing the object's JSON Format
    *
-   * @param t the object to convert
    * @return a String representation of the objects JSON Format
    */
-  String toJSON(Element t);
+  String toJSON();
 
   /**
    * Converts a JSON String into an object

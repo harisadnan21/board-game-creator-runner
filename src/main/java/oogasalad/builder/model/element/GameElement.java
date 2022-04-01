@@ -51,11 +51,10 @@ public abstract class GameElement implements Element {
     /**
      * Converts an Element into a String representing the object's JSON Format
      *
-     * @param element the element to serialize
      * @return a String representation of the objects JSON Format
      */
     @Override
-    public abstract String toJSON(Element element);
+    public abstract String toJSON();
 
     /**
      * Converts a JSON String into an element
