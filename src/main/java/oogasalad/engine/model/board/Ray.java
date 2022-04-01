@@ -19,20 +19,20 @@ public class Ray {
   public static final Tuple2<Integer, Integer> SOUTHWEST = Tuple.tuple(-1, -1);
 
 
-  public static Stream<PositionState> getDirectionalRay(Board board, Position position, Directions direction)
+  public static Stream<PositionState> getDirectionalRay(Board board, Position position, Direction direction)
       throws NoSuchFieldException, IllegalAccessException {
     return Ray.getDirectionalRayWhileCondition(board, position, direction, positionState -> true);
   }
 
 
-  public static Stream<PositionState> getDirectionalRayWhileCondition(Board board, Position position, Directions direction, Predicate<PositionState> positionStatePredicate)
+  public static Stream<PositionState> getDirectionalRayWhileCondition(Board board, Position position, Direction direction, Predicate<PositionState> positionStatePredicate)
       throws NoSuchFieldException, IllegalAccessException {
     List<Predicate<PositionState>> positionStatePredicates = List.of(positionStatePredicate, positionState -> true);
     return getDirectionalRayWhileConditions(board, position, direction, positionStatePredicates);
   }
 
 
-  public static Stream<PositionState> getDirectionalRayWhileConditions(Board board, Position position, Directions direction, List<Predicate<PositionState>> positionStatePredicates)
+  public static Stream<PositionState> getDirectionalRayWhileConditions(Board board, Position position, Direction direction, List<Predicate<PositionState>> positionStatePredicates)
       throws NoSuchFieldException, IllegalAccessException {
     Builder<PositionState> ray = Stream.<PositionState>builder();
     int x = position.x();
@@ -50,12 +50,12 @@ public class Ray {
 
   }
 
-  public static Stream<PositionState> getDirectionalRayUntilCondition(Board board, Position position, Directions direction, Predicate<PositionState> positionStatePredicate)
+  public static Stream<PositionState> getDirectionalRayUntilCondition(Board board, Position position, Direction direction, Predicate<PositionState> positionStatePredicate)
       throws NoSuchFieldException, IllegalAccessException {
     return getDirectionalRayWhileCondition(board, position,direction, positionStatePredicate.negate());
   }
 
-  public static Stream<PositionState> getDirectionalRayUntilAnyOfConditions(Board board, Position position, Directions direction, List<Predicate<PositionState>> positionStatePredicates)
+  public static Stream<PositionState> getDirectionalRayUntilAnyOfConditions(Board board, Position position, Direction direction, List<Predicate<PositionState>> positionStatePredicates)
       throws NoSuchFieldException, IllegalAccessException {
     Predicate<PositionState> positionStatePredicate = positionStatePredicates.stream().reduce(positionState -> false,
         Predicate::or);

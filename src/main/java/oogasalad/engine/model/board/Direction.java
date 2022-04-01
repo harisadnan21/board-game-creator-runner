@@ -1,5 +1,5 @@
 package oogasalad.engine.model.board;
 
-public enum Directions {
+public enum Direction {
   NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST
 }
