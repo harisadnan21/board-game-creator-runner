@@ -53,6 +53,7 @@ public class BuilderView {
     TabPane tabPane = new TabPane();
 
     boardTabPane = new BoardTab();
+    boardTabPane.toNode().setId("boardTab");
     Tab boardTab = new Tab("Board", boardTabPane.toNode());
 
     Tab tab2 = new Tab();
