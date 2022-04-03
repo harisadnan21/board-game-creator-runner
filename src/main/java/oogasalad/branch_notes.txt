@@ -1,0 +1,4 @@
+Branches idea:
+    Master = "Finished" code
+    Staging = working code "staged" and ready to be approved/verified before being added to Master
+    Engine = game engine development branch
