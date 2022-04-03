@@ -91,6 +91,36 @@ public class BuilderController {
     }
 
     /**
+     * Gets the properties of an element specified by its type and name
+     *
+     * @param type the type of the element
+     * @param name the name of the element
+     * @return the properties of an element
+     */
+    public String getElementPropertyByKey(String type, String name, String key)
+        throws ElementNotFoundException {
+        ElementRecord elementRecord = gameConfig.findElementInfo(type, name);
+        for (Property prop : elementRecord.properties()) {
+            if (prop.name().equals(key)) {
+                return prop.value();
+            }
+        }
+        throw new ElementNotFoundException();
+    }
+
+
+
+    /**
+     * Provides a list of element names that are of the given type
+     *
+     * @param type the type of the elements to name
+     * @return a collection of names that are of a certain type (e.g. piece)
+     */
+    public Collection<String> getElementNames(String type) throws ElementNotFoundException {
+        return gameConfig.getElementNames(type);
+    }
+
+    /**
      * Updates the game configuration with an element record, either adding or modifying a game
      * element based on the parameters
      *
