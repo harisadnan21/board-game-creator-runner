@@ -1,6 +1,7 @@
 package oogasalad.engine.view;
 
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
@@ -10,7 +11,7 @@ import util.DukeApplicationTest;
 
 public class BoardViewTest extends DukeApplicationTest {
 
-  Group root;
+  Node root;
   BoardView board;
   Controller controller;
   Scene scene;

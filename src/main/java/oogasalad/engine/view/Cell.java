@@ -30,14 +30,25 @@ public class Cell extends Group {
    * @param width cell width
    * @param height cell height
    */
-  public Cell(double x, double y, double width, double height) {
+//  public Cell(double x, double y, double width, double height) {
+//    myWidth = width;
+//    myHeight = height;
+//    myX = x;
+//    myY = y;
+//    myRoot = new Group();
+//    myShape = new Rectangle(x, y, 0.95* width, 0.95* height);
+//    myShape.setFill(Color.GREEN);
+//    this.getChildren().add(myShape);
+//  }
+
+  public Cell(int x, int y, double width, double height) {
     myWidth = width;
     myHeight = height;
     myX = x;
     myY = y;
     myRoot = new Group();
-    myShape = new Rectangle(x, y, 0.95* width, 0.95* height);
-    myShape.setFill(Color.GREEN);
+    myShape = new Rectangle(width, height);
+    setColor();
     this.getChildren().add(myShape);
   }
 
@@ -62,6 +73,15 @@ public class Cell extends Group {
   public void removePiece() {
     if (myPiece != null) {
       this.getChildren().remove(myPiece);
+    }
+  }
+
+  private void setColor() {
+    if ((myX+myY)%2 == 0) {
+      myShape.setFill(Color.web("#BEDDDB"));
+    }
+    else {
+      myShape.setFill(Color.web("#97CDC9"));
     }
   }
 }
