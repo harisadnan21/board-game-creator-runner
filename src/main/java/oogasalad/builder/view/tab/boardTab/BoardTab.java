@@ -11,8 +11,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -27,8 +27,6 @@ import oogasalad.builder.view.tab.TitlePane;
  */
 public class BoardTab {
 
-  public static String RESOURCE_PATH = "/view/";
-  public static String LANGUAGE_TEMP = "English";
   private BorderPane boardPane;
   private BoardCanvas boardCanvas;
   private ResourceBundle resources;
@@ -127,13 +125,45 @@ public class BoardTab {
   private Node setupButtonBar() {
     VBox buttonBox = new VBox();
     Button saveButton = makeButton("saveBoard", e -> saveBoardConfig());
-    Button addPieceButton = makeButton("placePiece", e -> addBoardPiece());
+
+   // Button eraseButton = makeButton("eraser", e -> boardCanvas.setClickToErase());
+
+
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
 
-    buttonBox.getChildren().addAll(saveButton, addPieceButton, resetPiecesButton);
+
+    buttonBox.getChildren().addAll(saveButton, setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");
     return buttonBox;
+  }
+
+  private ToggleButton createEraserButton(){
+    ToggleButton eraseButton  = new ToggleButton(resources.getString("eraser"));
+    eraseButton.setOnAction(e -> toggleErase(eraseButton));
+
+    return eraseButton;
+  }
+
+  private void toggleErase(ToggleButton eraser){
+    if (eraser.isSelected()){
+      boardCanvas.setClickToErase();
+    }
+    else{
+      boardCanvas.setClickToPlace();
+    }
+  }
+
+
+  private ComboBox setupPieceChoiceBox(){
+    ComboBox<String> choosePieceBox = new ComboBox<>();
+    // How do I get the pieces to add to the box?
+    choosePieceBox.getItems().add(resources.getString("checkers"));
+    choosePieceBox.setPromptText(resources.getString("placePiece"));
+    choosePieceBox.valueProperty().addListener(
+        (observableValue, s, t1) -> boardCanvas.setCurrentPiece(t1));
+
+    return choosePieceBox;
   }
 
 

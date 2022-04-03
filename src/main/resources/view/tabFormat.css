@@ -55,6 +55,13 @@ HBox {
   -fx-min-height: 400;
 }
 
+ToggleButton {
+  -fx-padding: 10;
+  -fx-alignment: center;
+  -fx-border-radius: 20;
+  -fx-background-radius: 20;
+}
+
 .button {
   -fx-padding: 10;
   -fx-alignment: center;

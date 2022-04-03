@@ -33,5 +33,4 @@ public class PiecesTab extends GameElementTab {
     public PiecesTab(BuilderController controller) {
         super(controller, PIECE);
     }
-
 }

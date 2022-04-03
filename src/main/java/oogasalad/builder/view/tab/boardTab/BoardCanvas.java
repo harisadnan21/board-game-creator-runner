@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -30,6 +31,7 @@ public class BoardCanvas {
   private double rectHeight;
   private int[][] containsPiece;
   private BorderPane borderPane;
+  private String currentPiece;
 
   private BuilderController controller; //FIXME: Use Event handlers instead of this
 
@@ -40,7 +42,6 @@ public class BoardCanvas {
 
     setupBoard();
     populateBoardTypeMap();
-    addClickHandeling();
   }
 
   public void setColor(Paint color, int colorNum){
@@ -63,6 +64,7 @@ public class BoardCanvas {
 
     if (boardTypeFunctionMap.containsKey(type)){
       boardTypeFunctionMap.get(type).accept(new int[]{xDim, yDim});
+      setClickToPlace();
     }
     else{
       //TODO : THROW EXCEPTION
@@ -131,28 +133,50 @@ public class BoardCanvas {
     }
   }
 
-  private void addClickHandeling(){
+
+  public void setCurrentPiece(String pieceName){
+    currentPiece = pieceName;
+  }
+
+  public void setClickToErase(){
+    pieceCanvas.setOnMouseClicked(e -> erasePiece(e));
+  }
+  public void setClickToPlace(){
     pieceCanvas.setOnMouseClicked(e -> addPiece(e));
   }
 
+
+  private void erasePiece(MouseEvent click){
+    int[] blockIndex = findSquare(click.getX(), click.getY());
+    pieceGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
+  }
+
   private void addPiece(MouseEvent click){
+
+    if (currentPiece == null){
+      System.out.println("No piece Selected");
+      return;
+    }
+
     double clickX = click.getX();
     double clickY = click.getY();
 
     int[] blockIndex = findSquare(clickX, clickY);
     System.out.println(" xPos: " + blockIndex[0] + " yPos: " + blockIndex[1]);
 
-    // TODO: ADD OPTIONS FOR ADDING PIECES THEN ACTUALLY ADD PIECES
-    if (containsPiece[blockIndex[0]][blockIndex[1]] > 0){
-      pieceGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
-      containsPiece[blockIndex[0]][blockIndex[1]] = 0;
-    }
-    else{
-      pieceGraphics.setFill(Color.BLUE);
-      pieceGraphics.fillOval(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
-      containsPiece[blockIndex[0]][blockIndex[1]] = 1;
 
-    }
+     // pieceGraphics.drawImage(currentPiece.getImage());
+    // TODO: ADD OPTIONS FOR ADDING PIECES THEN ACTUALLY ADD PIECES
+//    if (containsPiece[blockIndex[0]][blockIndex[1]] > 0){
+//      pieceGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
+//      containsPiece[blockIndex[0]][blockIndex[1]] = 0;
+//
+//    }
+
+    pieceGraphics.setFill(Color.BLUE);
+    pieceGraphics.fillOval(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
+    containsPiece[blockIndex[0]][blockIndex[1]] = 1;
+
 
   }
 
