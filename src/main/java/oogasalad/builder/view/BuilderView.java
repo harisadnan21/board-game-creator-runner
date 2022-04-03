@@ -20,6 +20,9 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import oogasalad.builder.view.tab.ActionsTab;
+import oogasalad.builder.view.tab.ConditionsTab;
+import oogasalad.builder.view.tab.RulesTab;
 import oogasalad.builder.view.tab.SplashLogin;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
 import oogasalad.builder.view.tab.pieceTab.PiecesTab;
@@ -39,12 +42,12 @@ public class BuilderView {
   private Stage stage;
   private BoardTab boardTabPane;
   private PiecesTab pieceTabPane;
-  private SplashLogin loginPage;
+  private ActionsTab actionsTabPane;
+  private ConditionsTab conditionsTabPane;
+  private RulesTab rulesTabPane;
   private Label myWelcome;
-  private ResourceBundle myResources;
   private BorderPane boardPane;
   private HBox buttonHolder;
-  private static BorderPane loginRoot;
   private ResourceBundle splashResources;
   private ResourceBundle tabResources;
 
@@ -87,14 +90,23 @@ public class BuilderView {
     TabPane tabPane = new TabPane();
 
     boardTabPane = new BoardTab(tabResources, controller);
-    boardTabPane.toNode().setId("boardTab");
-    Tab boardTab = new Tab("Board", boardTabPane.toNode());
+    boardTabPane.setId("boardTab");
+    Tab boardTab = new Tab("Board", boardTabPane);
 
     pieceTabPane = new PiecesTab(controller);
     pieceTabPane.setId("pieceTab");
     Tab pieceTab = new Tab("Piece", pieceTabPane);
+    actionsTabPane = new ActionsTab(controller);
+    actionsTabPane.setId("actionTab");
+    Tab actionTab = new Tab("Action", actionsTabPane);
+    conditionsTabPane = new ConditionsTab(controller);
+    conditionsTabPane.setId("conditionTab");
+    Tab conditionsTab = new Tab("Condition", conditionsTabPane);
+    rulesTabPane = new RulesTab(controller);
+    rulesTabPane.setId("ruleTab");
+    Tab rulesTab = new Tab("Rule", rulesTabPane);
 
-    tabPane.getTabs().addAll(boardTab, pieceTab);
+    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab);
 
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 

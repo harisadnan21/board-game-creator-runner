@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -58,6 +59,7 @@ public class BoardCanvas {
 
 
   public void drawBoard(int xDim, int yDim, String type) throws NullBoardException {
+    boardGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
     calculateAndChangeCanvasSize();
     controller.makeBoard(xDim, yDim);
 
@@ -105,16 +107,6 @@ public class BoardCanvas {
         controller.clearCell(j, i);
       }
     }
-  }
-
-  public StringBuilder printBoardConfig(){
-    StringBuilder ret = new StringBuilder();
-    for (int x = 0; x < containsPiece[0].length; x++){
-      for (int y = 0; y < containsPiece.length; y++) {
-        ret.append(x + "," + y + ": " + containsPiece[x][y] +"\n");
-      }
-    }
-    return ret;
   }
 
   public Pane getCanvasPane() {
@@ -177,9 +169,11 @@ public class BoardCanvas {
     System.out.println(" xPos: " + blockIndex[0] + " yPos: " + blockIndex[1]);
 
     controller.placePiece(blockIndex[0], blockIndex[1], currentPiece);
-    pieceGraphics.setFill(Color.BLUE);
-    pieceGraphics.fillOval(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
-    containsPiece[blockIndex[0]][blockIndex[1]] = 1;
+
+    String filePath =  controller.getElementPropertyByKey("piece", currentPiece, "image");
+
+    Image pieceImage = new Image(filePath);
+    pieceGraphics.drawImage(pieceImage,blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
 
   }
 
