@@ -1,10 +1,12 @@
 package oogasalad.engine.view;
 
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -15,7 +17,7 @@ import javafx.scene.shape.Shape;
 public class Cell extends Group {
 
   private Shape myShape;
-  private Group myRoot;
+  private StackPane myRoot;
   private ImageView myPiece;
 
   private double myWidth;
@@ -46,14 +48,15 @@ public class Cell extends Group {
     myHeight = height;
     myX = x;
     myY = y;
-    myRoot = new Group();
+    myRoot = new StackPane();
+    myRoot.setAlignment(Pos.CENTER);
     myShape = new Rectangle(width, height);
     setColor();
     this.getChildren().add(myShape);
   }
 
   @Deprecated
-  public Group getRoot() {
+  public Node getRoot() {
     return myRoot;
   }
 
@@ -61,10 +64,10 @@ public class Cell extends Group {
     removePiece();
     Image image = new Image(imagePath);
     myPiece = new ImageView(image);
-    myPiece.setFitWidth(myWidth);
-    myPiece.setFitHeight(myHeight);
-    myPiece.setX(myX);
-    myPiece.setY(myY);
+    myPiece.setFitWidth(myWidth-2);
+    myPiece.setFitHeight(myHeight-2);
+//    myPiece.setX(myX);
+//    myPiece.setY(myY);
     this.getChildren().add(myPiece);
 
     // System.out.println("Piece added");
