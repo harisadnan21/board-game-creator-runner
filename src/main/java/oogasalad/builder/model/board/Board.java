@@ -1,7 +1,9 @@
 package oogasalad.builder.model.board;
 
 
+import oogasalad.builder.model.element.Element;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.parser.JSONSerializable;
 
 /**
  * The Board interface describes the API for accessing and modifying the state of the board.
@@ -9,7 +11,7 @@ import oogasalad.builder.model.exception.OccupiedCellException;
  *
  * @author Shaan Gondalia
  */
-public interface Board {
+public interface Board extends JSONSerializable<Board> {
 
   /**
    * Attempts to place a piece at the given coordinates in the Board
@@ -37,5 +39,20 @@ public interface Board {
    * @param y the y location to clear
    */
   void clearCell(int x, int y);
+
+  /**
+   * Converts a Board into a String representing the board's JSON Format
+   *
+   * @return a String representation of the board's JSON Format
+   */
+  String toJSON();
+
+  /**
+   * Converts a JSON String into a Board
+   *
+   * @param json the JSON string
+   * @return a board of type T made from the JSON string
+   */
+  Board fromJSON(String json);
 
 }
