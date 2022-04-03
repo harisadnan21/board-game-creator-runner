@@ -159,9 +159,10 @@ public class BoardTab {
 
   private ComboBox setupPieceChoiceBox(){
     ComboBox<String> choosePieceBox = new ComboBox<>();
-    //TODO: Remove Magic Value
-    Collection<String> pieceNames = controller.getElementNames("piece");
-    choosePieceBox.getItems().setAll(pieceNames);
+
+
+    choosePieceBox.setOnMouseEntered(e -> updatePieceOptions(choosePieceBox));
+
     choosePieceBox.setPromptText(resources.getString("placePiece"));
     choosePieceBox.valueProperty().addListener(
         (observableValue, s, t1) -> boardCanvas.setCurrentPiece(t1));
@@ -169,6 +170,11 @@ public class BoardTab {
     return choosePieceBox;
   }
 
+  private void updatePieceOptions(ComboBox<String> pieceBox){
+    //TODO: Remove Magic Value
+    Collection<String> pieceNames = controller.getElementNames("piece");
+    pieceBox.getItems().setAll(pieceNames);
+  }
 
   private void saveBoardConfig() {
     Stage stage = new Stage();
