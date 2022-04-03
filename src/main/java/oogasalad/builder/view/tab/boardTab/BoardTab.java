@@ -52,7 +52,7 @@ public class BoardTab {
   }
 
   private void setupTitle() {
-    boardPane.setTop(new TitlePane("boardTitle", resources).toNode());
+    boardPane.setTop(new TitlePane("boardTitle").toNode());
   }
 
   private void setupBlankBoard() {
