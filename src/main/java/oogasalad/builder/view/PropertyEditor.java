@@ -36,8 +36,9 @@ public class PropertyEditor extends VBox {
         TextField valueField = new TextField(property.value());
         fields.put(property, valueField);
 
+        String[] propertyNameParts = property.name().split("-");
         propertyBox.getChildren().addAll(
-                new Label(property.name()),
+                new Label(propertyNameParts[propertyNameParts.length - 1]),
                 valueField
         );
         getChildren().add(propertyBox);
@@ -60,7 +61,10 @@ public class PropertyEditor extends VBox {
         // TODO Use Property.withValue() if we add that back
         return fields.entrySet().stream()
                 .filter(entry -> entry.getKey().name().equals(name))
-                .map(entry -> new Property(entry.getKey().name(), entry.getValue().getText()))
+                .map(entry -> {
+                    String[] propertyNameParts = entry.getKey().name().split("-");
+                    return new Property(propertyNameParts[propertyNameParts.length - 1], entry.getValue().getText());
+                })
                 .findFirst()
                 .orElseThrow();
     }
