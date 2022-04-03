@@ -1,9 +1,8 @@
 package oogasalad.builder.model.board;
 
 
-import oogasalad.builder.model.element.Element;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.builder.model.parser.JSONSerializable;
+import oogasalad.builder.model.JSONSerializable;
 
 /**
  * The Board interface describes the API for accessing and modifying the state of the board.

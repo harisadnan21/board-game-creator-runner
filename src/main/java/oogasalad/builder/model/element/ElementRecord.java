@@ -3,7 +3,7 @@ package oogasalad.builder.model.element;
 import java.util.Collection;
 import java.util.Set;
 import oogasalad.builder.controller.Property;
-import oogasalad.builder.model.parser.JSONSerializable;
+import oogasalad.builder.model.JSONSerializable;
 import org.json.JSONObject;
 
 

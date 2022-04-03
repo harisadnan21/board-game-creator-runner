@@ -6,7 +6,6 @@ import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.builder.model.parser.JSONSerializable;
 
 /**
  * Describes the external API of the Builder Model.

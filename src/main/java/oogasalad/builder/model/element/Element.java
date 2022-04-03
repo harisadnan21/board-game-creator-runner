@@ -1,7 +1,7 @@
 package oogasalad.builder.model.element;
 
 
-import oogasalad.builder.model.parser.JSONSerializable;
+import oogasalad.builder.model.JSONSerializable;
 
 /**
  * API for a generic game element.
