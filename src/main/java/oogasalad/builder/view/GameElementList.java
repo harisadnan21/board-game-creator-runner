@@ -36,9 +36,10 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
 
     private void setup() {
         setEditable(true);
-        setCellFactory(elementData -> new ListCell<GameElementData>() {
+        setCellFactory(elementData -> new ListCell<>() {
             @Override
             protected void updateItem(GameElementData gameElementData, boolean b) {
+                super.updateItem(gameElementData, b);
                 if(gameElementData == null) {
                     return;
                 }
@@ -57,7 +58,7 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
             }
         });
         getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal) -> {
-            selectElementCallback.accept(oldVal.name(), newVal.name());
+            selectElementCallback.accept(oldVal == null ? null : oldVal.name(), newVal == null ? null : newVal.name());
         });
     }
 
@@ -67,7 +68,14 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
      * @return
      */
     public void putGameElement(String name, Collection<Property> properties) {
-        getItems().add(new GameElementData(name, properties));
+        GameElementData elementData = new GameElementData(name, properties);
+        for(int i = 0; i < getItems().size(); i++) {
+            if(getItems().get(i).name().equals(name)) {
+                getItems().set(i, elementData);
+                return;
+            }
+        }
+        getItems().add(elementData);
     }
 
 }

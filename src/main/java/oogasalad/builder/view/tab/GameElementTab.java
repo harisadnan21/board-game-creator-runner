@@ -78,8 +78,10 @@ public class GameElementTab extends BorderPane {
 
     private void elementSelected(String oldElement, String newElement) {
         saveCurrentElement();
-        nameField.setText(newElement);
-        propertyEditor.setElementProperties(controller.getElementProperties(type, newElement));
+        if(newElement != null) {
+            nameField.setText(newElement);
+            propertyEditor.setElementProperties(controller.getElementProperties(type, newElement));
+        }
     }
 
     private void saveCurrentElement() {
