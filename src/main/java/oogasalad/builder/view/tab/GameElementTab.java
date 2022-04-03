@@ -12,6 +12,7 @@ import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.view.GameElementList;
 import oogasalad.builder.view.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
 
@@ -24,6 +25,8 @@ public class GameElementTab extends BorderPane {
     // FIXME Remove this
     private BuilderController controller;
 
+    private GameElementList elementList;
+
     private final String type;
     private TextField nameField;
     private PropertyEditor propertyEditor;
@@ -35,8 +38,14 @@ public class GameElementTab extends BorderPane {
         this.controller = controller;
         this.type = type;
 
+        setupCenterPane();
         setupRightPane();
         setupTitle();
+    }
+
+    private void setupCenterPane() {
+        elementList = new GameElementList(this::elementSelected);
+        setCenter(elementList);
     }
 
     private void setupRightPane() {
@@ -59,14 +68,26 @@ public class GameElementTab extends BorderPane {
     // FIXME handle error
     private void createPiece() {
         try {
-            if(propertyEditor.hasProperties()) {
-                controller.update(type, nameField.getText(), propertyEditor.getElementProperties());
-            }
+            saveCurrentElement();
             Collection<Property> properties = controller.getRequiredProperties(type);
             propertyEditor.setElementProperties(properties);
         } catch(InvalidTypeException | MissingRequiredPropertyException e) {
             e.printStackTrace();
         }
+    }
+
+    private void elementSelected(String oldElement, String newElement) {
+        saveCurrentElement();
+        nameField.setText(newElement);
+        propertyEditor.setElementProperties(controller.getElementProperties(type, newElement));
+    }
+
+    private void saveCurrentElement() {
+        if(!propertyEditor.hasProperties()) {
+            return;
+        }
+        controller.update(type, nameField.getText(), propertyEditor.getElementProperties());
+        elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
     }
 
     public static Button makeButton(String property, EventHandler<ActionEvent> handler) {

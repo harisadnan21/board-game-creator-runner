@@ -1,27 +1,73 @@
 package oogasalad.builder.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.cell.ChoiceBoxListCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import oogasalad.builder.model.element.GameElement;
+import oogasalad.builder.model.property.Property;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.function.BiConsumer;
 
 /**
  * 
  */
-public class GameElementList {
+public class GameElementList extends ListView<GameElementList.GameElementData> {
+    protected record GameElementData(String name, Collection<Property> properties) {}
+    private static final String IMAGE_PROPERTY_NAME = "image";
+    private final BiConsumer<String, String> selectElementCallback;
 
     /**
      * Default constructor
      */
-    public GameElementList() {
+    public GameElementList(BiConsumer<String, String> selectElement) {
+        selectElementCallback = selectElement;
+        setup();
+    }
+
+    private void setup() {
+        setEditable(true);
+        setCellFactory(elementData -> new ListCell<GameElementData>() {
+            @Override
+            protected void updateItem(GameElementData gameElementData, boolean b) {
+                if(gameElementData == null) {
+                    return;
+                }
+                setText(gameElementData.name);
+                var cell = this;
+                gameElementData.properties().stream()
+                        .filter(property -> property.name().equals(IMAGE_PROPERTY_NAME) || property.name().endsWith("-" + IMAGE_PROPERTY_NAME))
+                        .findFirst()
+                        .ifPresent(prop -> {
+                            try {
+                                cell.setGraphic(new ImageView(new Image(new FileInputStream(prop.value()))));
+                            } catch (FileNotFoundException e) {
+                                // Simply don't display the image if it's not valid
+                            }
+                        });
+            }
+        });
+        getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal) -> {
+            selectElementCallback.accept(oldVal.name(), newVal.name());
+        });
     }
 
     /**
-     * @param element 
+     * @param name
+     * @param properties
      * @return
      */
-    public void putGameElement(GameElement element) {
-        // TODO implement here
-        //return null;
+    public void putGameElement(String name, Collection<Property> properties) {
+        getItems().add(new GameElementData(name, properties));
     }
 
 }
