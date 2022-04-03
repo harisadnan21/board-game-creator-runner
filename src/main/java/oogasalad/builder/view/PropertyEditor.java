@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import oogasalad.builder.model.property.Property;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -50,16 +51,21 @@ public class PropertyEditor extends VBox {
      * @return
      */
     public Property getElementProperty(String name) {
-        // TODO implement here
-        return null;
+        // TODO Use Property.withValue() if we add that back
+        return fields.entrySet().stream()
+                .filter(entry -> entry.getKey().name().equals(name))
+                .map(entry -> new Property(entry.getKey().name(), entry.getValue().getText()))
+                .findFirst()
+                .orElseThrow();
     }
 
     /**
      * @return
      */
     public Collection<Property> getElementProperties() {
-        // TODO implement here
-        return null;
+        return fields.keySet().stream()
+                .map(prop -> getElementProperty(prop.name()))
+                .collect(Collectors.toList());
     }
 
 }
