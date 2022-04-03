@@ -1,17 +1,15 @@
 package oogasalad.builder.model.element;
 
-import java.util.*;
+import java.util.Collection;
+import oogasalad.builder.model.property.Property;
 
 /**
- * 
+ * Represents a piece in the game
  */
-public class Piece {
+public class Piece extends GameElement {
 
-    /**
-     * Default constructor
-     */
-    public Piece() {
-    }
-
+  public Piece(String name, Collection<Property> properties) {
+    super(name, properties);
+  }
 
 }

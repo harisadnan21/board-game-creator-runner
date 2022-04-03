@@ -1,0 +1,71 @@
+{
+	"metadata": {
+		"name": "Othello",
+		"author": "Mr. Othello",
+		"creationDate": "1648158653",
+		"lastModifiedDate": "1648158780"
+	},
+	"players": [
+		{"name": "White"},
+		{"name": "Black"}
+	],
+	"pieces": [
+		{
+			"name": "white",
+			"image": "pieces/white.png",
+			"player": "White"
+		},
+		{
+			"name": "black",
+			"image": "pieces/black.png",
+			"player": "Black"
+		}
+	],
+	"board": {
+		"shape": "square",
+		"width": 8,
+		"height": 8,
+		"pieceConfiguration": [["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+			["empty", "empty", "empty", "white", "black", "empty", "empty", "empty"],
+			["empty", "empty", "empty", "black", "white", "empty", "empty", "empty"],
+			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]],
+		"background": "black",
+		"selectionsRequired": false
+	},
+	"conditions": [
+		{
+			"name": "outflanksOpponent",
+			"type": "outflank"
+		},
+		{
+			"name": "emptyPlacementSquare",
+			"type": "isEmpty",
+			"x": 0,
+			"y": 0
+		}
+	],
+	"actions": [
+		{
+			"name": "placeOutflankingPiece",
+			"type": "place",
+			"x": 0,
+			"y": 0
+		},
+		{
+			"name": "captureOutflankedPieces",
+			"type": "captureOutflank"
+		}
+	],
+	"rules": [
+		{
+			"name": "placeAPiece",
+			"pieces": ["white", "black"],
+			"conditions": ["outflanksOpponent", "emptyPlacementSquare"],
+			"actions": ["placeOutflankingPiece", "captureOutflankedPieces"]
+		}
+	]
+}

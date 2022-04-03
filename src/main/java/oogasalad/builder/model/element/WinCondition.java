@@ -1,17 +1,15 @@
 package oogasalad.builder.model.element;
 
-import java.util.*;
+
+import java.util.Collection;
+import oogasalad.builder.model.property.Property;
 
 /**
- * 
+ * Represents some way that the game can end
  */
-public class WinCondition {
+public class WinCondition extends GameElement {
 
-    /**
-     * Default constructor
-     */
-    public WinCondition() {
-    }
-
-
+  public WinCondition(String name, Collection<Property> properties) {
+    super(name, properties);
+  }
 }

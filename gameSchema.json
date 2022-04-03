@@ -8,177 +8,82 @@
   {
     "metadata":
     {
-      "creationType":
-      {
-	"enum": ["built-in", "expansion", "custom"]
-      },
+			"name":
+			{
+				"type": "string"
+			},
       "author":
       {
-	"type": "string"
+				"type": "string"
       },
       "originalCreationDate":
       {
-	"type": "string",
-	"format": "date-time"
+				"type": "string",
+				"format": "date-time"
       },
       "lastModifiedDate":
       {
-	"type": "string",
-	"format": "date-time"
-      },
-      "currentUserGenerated":
-      {
-	"type": "boolean"
+				"type": "string",
+				"format": "date-time"
       }
     },
-    "basicInfo":
-    {
-      "numPlayers":
-      {
-	"type": "integer",
-	"minimum": 1,
-	"maximum ": 2
-      },
-      "gameName":
-      {
-	"type": "string"
-      },
-      "gameNameAlias":
-      {
-	"type": "string"
-      },
-      "gameID":
-      {
-	"type": "integer"
-      }
-    },
+		"players":
+		{
+			"properties":
+			{
+				"name": {"type": "string"},
+				"id": {"type": "integer"}
+			}
+		},
     "pieces":
     {
       "type":"object",
       "minProperties": 1,
       "properties":
       {
-        "FullPieceName": {"type": "string"},
-        "Alias": {"type": "string"}
+        "name": {"type": "string"},
+				"image": {"type":  "string"},
+				"id": {"type": "integer"},
+				"player": {"type":  "integer"}
       }
     },
     "board":
     {
       "properties":
       {
-        "NumColumns": {"type": "integer"},
-        "NumRows": {"type": "integer"}
-      }
+				"shape": {"type":  "string"},
+        "width": {"type": "integer"},
+        "height": {"type": "integer"},
+				"pieceConfiguration": {"type":  "array"},
+				"background": {"type":  "string"},
+				"activePlayer": {"type": "integer"},
+				"selectionsRequired": {"type": "boolean"}
+			}
     },
-    "roles":
-    {
-      "type": "array",
-      "items":
-      {
-	"type": "string"
-      },
-      "if": 
-      {
-        "properties": { "numPlayers": { "const": 1} }
-      },
-      "then": 
-      {
-	"minItems": 1,
-	"maxItems": 1
-      },
-      "else": 
-      {
-	"minItems": 2,
-	"maxItems": 2
-      }
-    },
-    "moving":
-    {
-      "properties":
-      {
-	"orderDetermination":
-	{
-	  "type": "array",
-	  "properties":
-	  {
-	    "FirstMoveProbability":
-	    {
-	      "type": "number",
-	      "minimum": 0,
-	      "maximum": 1
-	    }
-	  },
-	  "if": 
-	  {
-	    "properties": { "numPlayers": { "const": 1} }
-	  },
-	  "then": 
-	  {
-	    "minItems": 1,
-	    "maxItems": 1,
-	    "FirstMoveProbability":
-	    {
-	      "minimum": 1
-	    }
-	  },
-	  "else": 
-	  {
-	    "minItems": 2,
-	    "maxItems": 2
-	  }
-	},
-	"validMoves":
-	{
-	  "type": "object",
-	  "properties":
-	  {
-	    "TypeOfValidMoves":
-	    {
-	      "enum": ["placeholder"]
-	    },
-	    "Parameters":{}
-	  }
+		"rules":
+		{
+			"properties":
+			{
+				"name": {"type": "string"},
+				"conditions": {"type":  "array"},
+				"actions": {"type":  "array"}
+			}
+		},
+		"conditions":
+		{
+			"properties":
+			{
+				"name": {"type": "string"},
+				"type": {"type":  "string"}
+			}
+		},
+		"actions":
+		{
+			"properties":
+			{
+				"name": {"type": "string"},
+				"type": {"type":  "string"}
+			}
+		}
 	}
-      }
-    },
-    "gameTermination":
-    {
-      "properties":
-      {
-	"possibleOutcomes":
-	{
-	  "type": "array",
-	  "items":
-	  {
-	    "enum": ["Player1Wins", "Player2Wins", "Tie", "Stalemate"]
-	  }
-	},
-	"terminationConditons":
-	{
-	  "type": "array",
-	  "items":
-	  {
-	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCapture", "SpecialState"]
-	  }
-	},
-	"winnerDetermination":
-	{
-	  "type": "array",
-	  "items":
-	  {
-	    "enum": [
-	      "mostPoints",
-	      "fewestPoints",
-	      "featurePresent",
-	      "morePiecesPresent",
-	      "fewerPiecesPresent",
-	      "movedLast",
-	      "notMovedLast"
-	    ]
-	  }
-	  
-	}
-      }
-    }
-  }
 }

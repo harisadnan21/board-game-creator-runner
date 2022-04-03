@@ -1,0 +1,126 @@
+{
+	"metadata": {
+		"name": "Checkers",
+		"author": "Mr. Checkers",
+		"creationDate": "1648158653",
+		"lastModifiedDate": "1648158780"
+	},
+	"players": [
+		{
+			"name": "White",
+			"id": 0
+		},
+		{
+			"name": "Black",
+			"id": 1
+		}
+	],
+	"pieces": [
+		{
+			"name": "normalWhite",
+			"image": "pieces/normalWhite.png",
+			"id": 0,
+			"player": 0
+		},
+		{
+			"name": "normalBlack",
+			"image": "pieces/normalBlack.png",
+			"id": 1,
+			"player": 1
+		},
+		{
+			"name": "kingWhite",
+			"image": "pieces/kingWhite.png",
+			"id": 2,
+			"player": 0
+		},
+		{
+			"name": "kingBlack",
+			"image": "pieces/kingBlack.png",
+			"id": 3,
+			"player": 1
+		}
+	],
+	"board": {
+		"shape": "square",
+		"width": 8,
+		"height": 8,
+		"pieceConfiguration": [[1, -1, 1, -1, 1, -1, 1, -1],
+			[-1, 1, -1, 1, -1, 1, -1, 1],
+			[1, -1, 1, -1, 1, -1, 1, -1],
+			[-1, -1, -1, -1, -1, -1, -1],
+			[-1, -1, -1, -1, -1, -1, -1],
+			[0, -1, 0, -1, 0, -1, 0, -1],
+			[-1, 0, -1, 0, -1, 0, -1, 0],
+			[0, -1, 0, -1, 0, -1, 0, -1]],
+		"background": "checkers",
+		"activePlayer": 0,
+		"selectionsRequired": true
+	},
+	"conditions": [
+		{
+			"name": "emptyDoubleTopRight",
+			"type": "isEmpty",
+			"x": 2,
+			"y": 2
+		},
+		{
+			"name": "pieceAtTopRight",
+			"type": "isOccupied",
+			"x": 1,
+			"y": 1
+		},
+		{
+			"name": "emptyTopRight",
+			"type": "isEmpty",
+			"x": 1,
+			"y": 1
+		},
+		{
+			"name": "belongsToWhite",
+			"type": "isPlayerPiece",
+			"x": 0,
+			"y": 0,
+			"player": 0
+		},
+		{
+			"name": "topRightBelongsToBlack",
+			"type": "isPlayerPiece",
+			"x": 1,
+			"y": 1,
+			"player": 1
+		}
+	],
+	"actions": [
+		{
+			"name": "moveTopRight",
+			"type": "move",
+			"x": 1,
+			"y": 1
+		},
+		{
+			"name": "moveDoubleTopRight",
+			"type": "move",
+			"x": 2,
+			"y": 2
+		},
+		{
+			"name": "captureTopRight",
+			"type": "remove",
+			"x": 1,
+			"y": 1
+		},
+	],
+	"rules": [
+		{
+			"name": "jumpTopRightWhite",
+			"conditions": ["belongsToWhite","topRightBelongsToBlack","emptyDoubleTopRight", "pieceAtTopRight"],
+			"actions": ["moveDoubleTopRight", "captureTopRight"]
+		},
+		{
+			"name": "slideTopRightWhite",
+			"conditions": ["belongsToWhite","emptyTopRight"],
+			"actions": ["moveTopRight"]
+		}
+	]
+}
