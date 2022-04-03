@@ -10,7 +10,6 @@ public class GameControlPanel extends ControlPanel {
   public static String BACK_IMAGE = IMAGES_FOLDER + "back.png";
   public static String PAUSE_IMAGE = IMAGES_FOLDER + "pause.png";
 
-  VBox root;
   Button home;
   Button restart;
   Button undo;

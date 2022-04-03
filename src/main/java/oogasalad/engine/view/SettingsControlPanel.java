@@ -7,8 +7,7 @@ import javafx.scene.layout.VBox;
 public class SettingsControlPanel extends ControlPanel {
   public static String INFO_IMAGE = IMAGES_FOLDER + "info.png";
   public static String SETTINGS_IMAGE = IMAGES_FOLDER + "gear.png";
-
-  VBox root;
+  
   Button info;
   Button settings;
 
