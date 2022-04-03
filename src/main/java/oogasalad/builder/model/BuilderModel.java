@@ -74,7 +74,7 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
      * Converts a Builder Model into a String representing the model's JSON Format
      * @return a String representation of the model's JSON Format
      */
-    String toJSON();
+    String toJSON() throws NullBoardException, ElementNotFoundException;
 
     /**
      * Converts a JSON String into a Builder Model

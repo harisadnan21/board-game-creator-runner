@@ -134,7 +134,8 @@ public class GameConfiguration implements BuilderModel {
      * @return a String representation of the configuration's JSON Format
      */
     @Override
-    public String toJSON() {
+    public String toJSON() throws NullBoardException, ElementNotFoundException {
+        checkBoardCreated();
         JSONObject obj = new JSONObject();
         // TODO: Remove magic values
         obj.put("board", board.toJSON());
@@ -162,7 +163,10 @@ public class GameConfiguration implements BuilderModel {
     }
 
     // Converts all elements of a certain type to a JSONArray
-    private JSONArray elementsToJSONArray(String type){
+    private JSONArray elementsToJSONArray(String type) throws ElementNotFoundException {
+        if (!elements.containsKey(type)) {
+            throw new ElementNotFoundException();
+        }
         JSONArray arr = new JSONArray();
         for (GameElement element : elements.get(type)) {
             arr.put(element.toJSON());
