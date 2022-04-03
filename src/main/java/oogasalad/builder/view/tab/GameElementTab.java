@@ -4,11 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
@@ -22,7 +24,8 @@ public class GameElementTab extends BorderPane {
     // FIXME Remove this
     private BuilderController controller;
 
-    private String type;
+    private final String type;
+    private TextField nameField;
     private PropertyEditor propertyEditor;
 
     /**
@@ -38,20 +41,15 @@ public class GameElementTab extends BorderPane {
 
     private void setupRightPane() {
         VBox rightBox = new VBox();
-
-        rightBox.getChildren().addAll(setupButtonBar());
-        rightBox.setId("rightPane");
-        setRight(rightBox);
-    }
-
-    private Node setupButtonBar() {
-        VBox buttonBox = new VBox();
-        Button newButton = makeButton("new-" + type, e -> createPiece());
         propertyEditor = new PropertyEditor();
 
-        buttonBox.getChildren().addAll(newButton, propertyEditor);
-        buttonBox.setId("buttonBox");
-        return buttonBox;
+        rightBox.getChildren().addAll(
+                makeButton("new-" + type, e -> createPiece()),
+                nameField = new TextField(ViewResourcesSingleton.getInstance().getString("defaultName-" + type)),
+                propertyEditor
+        );
+        rightBox.setId("rightPane");
+        setRight(rightBox);
     }
 
     private void setupTitle() {
@@ -61,9 +59,12 @@ public class GameElementTab extends BorderPane {
     // FIXME handle error
     private void createPiece() {
         try {
+            if(propertyEditor.hasProperties()) {
+                controller.update(type, nameField.getText(), propertyEditor.getElementProperties());
+            }
             Collection<Property> properties = controller.getRequiredProperties(type);
             propertyEditor.setElementProperties(properties);
-        } catch(InvalidTypeException e) {
+        } catch(InvalidTypeException | MissingRequiredPropertyException e) {
             e.printStackTrace();
         }
     }

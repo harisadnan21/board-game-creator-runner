@@ -16,8 +16,13 @@ import java.util.stream.Collectors;
 public class PropertyEditor extends VBox {
 
     private final Map<Property, TextField> fields = new HashMap<>();
+    private boolean hasProperties = false;
 
     public PropertyEditor() {
+    }
+
+    public boolean hasProperties() {
+        return hasProperties;
     }
 
     private void setup(Collection<Property> properties) {
@@ -43,6 +48,7 @@ public class PropertyEditor extends VBox {
      * @return
      */
     public void setElementProperties(Collection<Property> properties) {
+        hasProperties = true;
         setup(properties);
     }
 
