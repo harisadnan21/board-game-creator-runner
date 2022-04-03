@@ -120,9 +120,9 @@ public class RectangularBoard implements Board{
     // Converts the piece configuration to a JSON array
     private JSONArray pieceConfigToJSON() {
         JSONArray config = new JSONArray();
-        for (int i = 0; i < height; i++){
+        for (int i = 0; i < width; i++){
             JSONArray row = new JSONArray();
-            for (int j =0; j<5; j++){
+            for (int j = 0; j < height; j++){
                 row.put(cells[i][j]);
             }
             config.put(row);

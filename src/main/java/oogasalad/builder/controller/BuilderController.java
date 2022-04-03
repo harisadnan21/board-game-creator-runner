@@ -7,6 +7,8 @@ import java.util.*;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.exception.ElementNotFoundException;
+import oogasalad.builder.model.exception.NullBoardException;
 
 /**
  * Controller for the Builder. Interfaces between the Builder View and Builder Model.
@@ -51,7 +53,7 @@ public class BuilderController {
             FileWriter writer = new FileWriter(file);
             writer.write(gameConfig.toJSON());
             writer.close();
-        } catch (IOException e) {
+        } catch (IOException | NullBoardException | ElementNotFoundException e) {
             // TODO: Exception Handling
             e.printStackTrace();
         }
