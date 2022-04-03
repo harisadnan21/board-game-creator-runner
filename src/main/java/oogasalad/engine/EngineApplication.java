@@ -14,9 +14,9 @@ public class EngineApplication extends Application {
   public void start(Stage stage) throws Exception {
 
 
-    BoardView board = new BoardView(3, 3, 300, 300);
+    BoardView board = new BoardView(8, 8, 350, 350);
 
-    Controller controller = new Controller(board, 3, 3);
+    Controller controller = new Controller(board, 8, 8);
 
     board.addController(controller);
     Group root = new Group();

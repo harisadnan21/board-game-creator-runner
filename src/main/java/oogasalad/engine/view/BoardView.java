@@ -23,6 +23,7 @@ public class BoardView implements PropertyChangeListener{
   public static String IMAGES_FOLDER = "images/";
   public static String BLACK_KNIGHT = IMAGES_FOLDER + "black_knight.png";
   public static String WHITE_KNIGHT = IMAGES_FOLDER + "white_knight.png";
+  public static double BOARD_OUTLINE_SIZE = 4;
 
 
   private Controller myController;
@@ -30,41 +31,28 @@ public class BoardView implements PropertyChangeListener{
   private Cell[][] myGrid;
 
   private StackPane root;
-  private Group myRoot;
   private GridPane gridRoot;
-  //private Pair<Pair<Position, Piece>, String> change;
   private GameUpdateText text;
 
   public BoardView(int rows, int columns, double width, double height) {
     text = new GameUpdateText();
     root = new StackPane();
     gridRoot = new GridPane();
-    //gridRoot.setGridLinesVisible(true);
-    myRoot = new Group();
     myGrid = new Cell[rows][columns];
-    //myRoot.getChildren().add(gridRoot);
-
-//    double cellWidth = width / columns;
-//    double cellHeight = height / rows;
 
     Pair<Double, Double> cellSize = calcCellSize(rows, columns, width, height);
     double cellWidth = cellSize.getKey();
     double cellHeight = cellSize.getValue();
 
-    makeBoardBacking(width, height, cellSize);
+    makeBoardBacking(width, height, cellSize, rows, columns);
 //    double x = 0;
 //    double y = 0;
 
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
-        //myGrid[i][j] = new Cell(x, y, cellWidth, cellHeight);
         Cell temp = new Cell(i, j, cellWidth, cellHeight);
         gridRoot.add(temp, i, j);
         myGrid[i][j] = temp;
-
-//        myGrid[i][j] = new Cell(i, j, cellWidth, cellHeight);
-//        gridRoot.add(new Cell(i, j, cellWidth, cellHeight), i, j);
-
 
         int finalI = i;
         int finalJ = j;
@@ -76,16 +64,11 @@ public class BoardView implements PropertyChangeListener{
             ex.printStackTrace();
           }
         });
-
-        //myRoot.getChildren().add(myGrid[i][j]);
-
-       // x += cellWidth;
       }
-//      x = 0;
-//      y += cellHeight;
     }
     root.getChildren().add(gridRoot);
     gridRoot.setAlignment(Pos.CENTER);
+
     root.setAlignment(Pos.CENTER);
   }
 
@@ -109,9 +92,13 @@ public class BoardView implements PropertyChangeListener{
     updateBoard(board);
   }
 
-  private void makeBoardBacking(double width, double height, Pair<Double, Double> cellSize) {
+  private void makeBoardBacking(double width, double height, Pair<Double, Double> cellSize, int rows, int cols) {
     Rectangle foundation = new Rectangle(width, height, Color.web("#BEDDDB"));
-    Rectangle outline = new Rectangle(width-cellSize.getKey()+4, height-cellSize.getValue()+4, Color.web("#97CDC9"));
+    System.out.println(cellSize.toString());
+    double cellW = cellSize.getKey();
+    double cellH = cellSize.getValue();
+
+    Rectangle outline = new Rectangle((cellW*cols)+BOARD_OUTLINE_SIZE, (cellH*rows)+BOARD_OUTLINE_SIZE, Color.web("#97CDC9"));
     root.getChildren().addAll(foundation, outline);
   }
 
