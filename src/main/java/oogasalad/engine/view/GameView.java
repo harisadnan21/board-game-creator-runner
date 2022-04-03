@@ -39,6 +39,6 @@ public class GameView {
     root.setHgap(10);
     root.setVgap(10);
     root.setPadding(new Insets(10, 10, 10, 10));
-    //sroot.setGridLinesVisible(true);
+    //root.setGridLinesVisible(true);
   }
 }
