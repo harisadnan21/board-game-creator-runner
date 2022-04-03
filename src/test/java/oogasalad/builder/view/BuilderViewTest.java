@@ -2,23 +2,40 @@ package oogasalad.builder.view;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.Dimension;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
+import javafx.scene.Node;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import org.junit.jupiter.api.Test;
+import util.DukeApplicationTest;
+import static org.junit.jupiter.api.Assertions.*;
+
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-/**
- * @author Eric Xie
- * @author Mike Keohane
- */
+
 class BuilderViewTest extends DukeApplicationTest {
+
+
+    private BuilderView builderView;
+
+    @Override
+    public void start(Stage stage) {
+        builderView = new BuilderView(stage);
+    }
+
+    @Test
+    public void clickAddPieceTest() {
+
+          clickOn(0, 0, MouseButton.PRIMARY);
+        int[][] boardConfig = builderView.getBoardConfig();
+
+        assertEquals(1, boardConfig[0][0]);
+
+    }
+}
 
 //  public static final String TITLE = "Slogo Application";
 //  public static final String LANGUAGE = "English";
@@ -200,5 +217,28 @@ class BuilderViewTest extends DukeApplicationTest {
 //  void testUploadFile() {
 //
 //  }
+//=======
+//  private BuilderView builderView;
+//  private BorderPane boardTab;
+//
+//  @Override
+//  public void start(Stage stage) {
+//    builderView =  new BuilderView(stage);
+//
+//    boardTab = lookup("#boardTab").query();
+//  }
+//
+//  @Test
+//  public void clickAddPieceTest() {
+//
+//    clickOn(boardTab, 1,1);
+//    sleep(500);
+//    int[][] boardConfig = builderView.getBoardConfig();
+//
+//    assertEquals(1, boardConfig[0][0]);
+//
+//  }
+//
+//}
+//>>>>>>> master
 
-}
