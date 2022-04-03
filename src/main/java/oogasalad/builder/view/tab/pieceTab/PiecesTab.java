@@ -12,6 +12,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
+import oogasalad.builder.controller.BuilderController;
+import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.property.Property;
+import oogasalad.builder.view.PropertyEditor;
+import oogasalad.builder.view.tab.GameElementTab;
 import oogasalad.builder.view.tab.TitlePane;
 import oogasalad.builder.view.tab.boardTab.BoardCanvas;
 import oogasalad.builder.view.tab.pieceTab.Piece;
@@ -22,7 +27,7 @@ import java.util.*;
 /**
  * 
  */
-public class PiecesTab {
+public class PiecesTab extends GameElementTab {
 
     public static double DEFAULT_CANVAS_HEIGHT = 600;
     public static double DEFAULT_CANVAS_WIDTH = 600;
@@ -30,16 +35,21 @@ public class PiecesTab {
     private HBox buttonHolder;
     private String pieceType;
     private Piece pieceCanvas;
-    private GraphicsContext pieceGraphics;
+    private PropertyEditor propertyEditor;
     private ColorPicker myColorPicker;
     public static String RESOURCE_PATH = "/view/";
     public static String LANGUAGE_TEMP = "English";
+    public static String PIECE = "piece";
     private ResourceBundle resources;
+
+    // FIXME Remove this
+    private BuilderController controller;
 
     /**
      * Default constructor
      */
-    public PiecesTab() {
+    public PiecesTab(BuilderController controller) {
+        this.controller = controller;
 //        boardPane = new BorderPane();
 //
 //        // TODO : Make this not magic
@@ -65,7 +75,6 @@ public class PiecesTab {
 
     public void changeColor(ActionEvent event) {
         Color myColor = myColorPicker.getValue();
-        pieceGraphics.setFill(myColor);
     }
 
     private void setupPiece(int xSize, int ySize){
@@ -91,36 +100,36 @@ public class PiecesTab {
 
     }
 
-    private Node setupBoardConfigInput() {
-        VBox boardConfigBox = new VBox();
-
-        HBox colorChoiceBox = new HBox();
-
-        ColorPicker colorPickerA = new ColorPicker();
-        //ColorPicker colorPickerB = new ColorPicker(Color.BLACK);
-        colorChoiceBox.getChildren().addAll(colorPickerA);
-
-        //TODO : get the boardTypes from somewhere good
-        List<String> boardTypeList = List.of(new String[]{resources.getString("checkers")});
-        ObservableList<String> boardTypes = FXCollections.observableArrayList(boardTypeList);
-
-        ComboBox<String> boardTypeBox = new ComboBox<>(boardTypes);
-        // boardTypeBox.getItems().add(resources.getString("checkers"));
-        boardTypeBox.setPromptText(resources.getString("pieceTypePicker"));
-
-
-        boardConfigBox.getChildren()
-                .addAll(colorChoiceBox, boardTypeBox);
-        boardConfigBox.getChildren()
-                .addAll(setupButtonBar());
-        boardConfigBox.setId("boardConfigBox");
-        return boardConfigBox;
-    }
+//    private Node setupBoardConfigInput() {
+//        VBox boardConfigBox = new VBox();
+//
+//        HBox colorChoiceBox = new HBox();
+//
+//        ColorPicker colorPickerA = new ColorPicker();
+//        //ColorPicker colorPickerB = new ColorPicker(Color.BLACK);
+//        colorChoiceBox.getChildren().addAll(colorPickerA);
+//
+//        //TODO : get the boardTypes from somewhere good
+//        List<String> boardTypeList = List.of(new String[]{resources.getString("checkers")});
+//        ObservableList<String> boardTypes = FXCollections.observableArrayList(boardTypeList);
+//
+//        ComboBox<String> boardTypeBox = new ComboBox<>(boardTypes);
+//        // boardTypeBox.getItems().add(resources.getString("checkers"));
+//        boardTypeBox.setPromptText(resources.getString("pieceTypePicker"));
+//
+//
+//        boardConfigBox.getChildren()
+//                .addAll(colorChoiceBox, boardTypeBox);
+//        boardConfigBox.getChildren()
+//                .addAll(setupButtonBar());
+//        boardConfigBox.setId("boardConfigBox");
+//        return boardConfigBox;
+//    }
 
     private void setupRightPane() {
         VBox rightBox = new VBox();
 
-        rightBox.getChildren().addAll(setupButtonBar(), setupBoardConfigInput());
+        rightBox.getChildren().addAll(setupButtonBar());
         rightBox.setId("rightPane");
         boardPane.setRight(rightBox);
     }
@@ -149,10 +158,10 @@ public class PiecesTab {
 
     private Node setupButtonBar() {
         VBox buttonBox = new VBox();
-        Button saveButton = makeButton("savePiece", e -> clearPieces(), resources);
-        Button resetPiecesButton = makeButton("clearPieces", e -> clearPieces(), resources);
+        Button newButton = makeButton("newPiece", e -> createPiece(), resources);
+        propertyEditor = new PropertyEditor();
 
-        buttonBox.getChildren().addAll(saveButton, resetPiecesButton);
+        buttonBox.getChildren().addAll(newButton, propertyEditor);
         buttonBox.setId("buttonBox");
         return buttonBox;
     }
@@ -166,8 +175,14 @@ public class PiecesTab {
         return result;
     }
 
-    public void clearPieces(){
-        pieceGraphics.clearRect(0, 0, Integer.parseInt(resources.getString("boardSizeX")), Integer.parseInt(resources.getString("boardSizeY")));
+    // FIXME handle error
+    private void createPiece() {
+        try {
+            Collection<Property> properties = controller.getRequiredProperties(PIECE);
+            propertyEditor.setElementProperties(properties);
+        } catch(InvalidTypeException e) {
+            e.printStackTrace();
+        }
     }
 
 

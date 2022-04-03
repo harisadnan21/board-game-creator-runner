@@ -90,7 +90,7 @@ public class BuilderView {
     boardTabPane.toNode().setId("boardTab");
     Tab boardTab = new Tab("Board", boardTabPane.toNode());
 
-    pieceTabPane = new PiecesTab();
+    pieceTabPane = new PiecesTab(controller);
     pieceTabPane.toNode().setId("pieceTab");
     Tab pieceTab = new Tab("Piece", pieceTabPane.toNode());
 
