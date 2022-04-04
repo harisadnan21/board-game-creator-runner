@@ -5,6 +5,7 @@ open module oogasalad_app {
     requires javafx.base;
     requires javafx.media;
     requires javafx.web;
+    requires org.json;
     //requires java.datatransfer;
     requires java.desktop;
 

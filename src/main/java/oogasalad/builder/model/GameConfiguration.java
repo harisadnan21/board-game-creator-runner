@@ -13,6 +13,8 @@ import oogasalad.builder.model.element.factory.GameElementFactory;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * The GameConfiguration stores all data about the game elements and board. This serves as a central
@@ -126,11 +128,50 @@ public class GameConfiguration implements BuilderModel {
         board.clearCell(x, y);
     }
 
+    /**
+     * Converts a Configuration into a String representing the model's JSON Format
+     *
+     * @return a String representation of the configuration's JSON Format
+     */
+    @Override
+    public String toJSON() throws NullBoardException, ElementNotFoundException {
+        checkBoardCreated();
+        JSONObject obj = new JSONObject();
+        // TODO: Remove magic values
+        obj.put("board", board.toJSON());
+        obj.put("pieces", elementsToJSONArray("piece"));
+        obj.put("rules", elementsToJSONArray("rule"));
+        return obj.toString();
+    }
+
+    /**
+     * Converts a JSON String into a Game Configuration
+     *
+     * @param json the JSON string
+     * @return a Builder Model made from the JSON string
+     */
+    @Override
+    public BuilderModel fromJSON(String json) {
+        return null;
+    }
+
     // Checks if the board has been initialized
     private void checkBoardCreated() throws NullBoardException {
         if (board == null) {
             throw new NullBoardException();
         }
+    }
+
+    // Converts all elements of a certain type to a JSONArray
+    private JSONArray elementsToJSONArray(String type) throws ElementNotFoundException {
+        if (!elements.containsKey(type)) {
+            throw new ElementNotFoundException();
+        }
+        JSONArray arr = new JSONArray();
+        for (GameElement element : elements.get(type)) {
+            arr.put(element.toJSON());
+        }
+        return arr;
     }
 
 }
