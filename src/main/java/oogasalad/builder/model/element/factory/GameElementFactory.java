@@ -8,6 +8,7 @@ import oogasalad.builder.controller.ExceptionResourcesSingleton;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 
 /**
  * Abstract class that represents a generic Game Element Factory. Has methods for retrieving
@@ -40,7 +41,8 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
    * @param properties the properties of the game element
    * @return a game element with the given name and properties
    */
-  public abstract T createElement(String name, Collection<Property> properties);
+  public abstract T createElement(String name, Collection<Property> properties)
+      throws MissingRequiredPropertyException;
 
   /**
    * Returns the required properties of a game element
@@ -50,6 +52,52 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   @Override
   public Collection<Property> getRequiredProperties() {
     return Set.copyOf(properties);
+  }
+
+  /**
+   * Checks whether a property with the given name exists, returning the value if found
+   *
+   * @param target the target name for the property
+   * @param properties the properties passed during element creation
+   * @return the value of the property if found
+   * @throws MissingRequiredPropertyException if the property is not found
+   */
+  private String findProperty(String target, Collection<Property> properties)
+      throws MissingRequiredPropertyException {
+    for (Property property : properties) {
+      if (property.name().equals(target)) {
+        return property.value();
+      }
+    }
+    throw new MissingRequiredPropertyException();
+  }
+
+  // Validates that the given properties are correct
+  protected void validate(Collection<Property> properties) throws MissingRequiredPropertyException {
+    String type = null;
+    for (Property property : getRequiredProperties()) {
+      String namespace = property.name().split("-")[0];
+      String target = property.name().split("-")[1];
+      if (namespace.equals("required")) {
+        String value = findProperty(target, properties);
+        if (target.equals("type")) {
+          type = value;
+        }
+      }
+    }
+    validateNamespace(type, properties);
+  }
+
+  // Validates properties in a given namespace
+  private void validateNamespace(String type, Collection<Property> properties)
+      throws MissingRequiredPropertyException {
+    for (Property property : getRequiredProperties()) {
+      String namespace = property.name().split("-")[0];
+      String target = property.name().split("-")[1];
+      if (namespace.equals(type)) {
+        findProperty(target, properties);
+      }
+    }
   }
 
   // Loads the required properties based on the resource file provided in the constructor
