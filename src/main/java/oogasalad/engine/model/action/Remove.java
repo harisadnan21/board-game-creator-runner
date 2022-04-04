@@ -5,6 +5,10 @@ import oogasalad.engine.model.board.Board;
 
 public class Remove extends Action {
 
+  /**
+   *
+   * @param parameters size 2 array [i, j]
+   */
   public Remove(int[] parameters) {
     super(parameters);
   }

@@ -13,6 +13,7 @@ class BoardTest {
   void setup() {
     myBoard = new Board(3, 3);
   }
+
   @Test
   void getMyBoard() {
     //assertEquals(TestBoard, TestBoard.getMyBoard());

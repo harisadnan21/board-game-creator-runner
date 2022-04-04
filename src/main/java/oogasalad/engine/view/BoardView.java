@@ -2,6 +2,8 @@ package oogasalad.engine.view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +26,7 @@ public class BoardView implements PropertyChangeListener{
   public static String WHITE_KNIGHT = IMAGES_FOLDER + "white_knight.png";
   public static double BOARD_OUTLINE_SIZE = 4;
 
+  public static Map<Integer, String> PIECE_TYPES = new HashMap<>();
 
   private Controller myController;
 
@@ -34,6 +37,10 @@ public class BoardView implements PropertyChangeListener{
   private GameUpdateText text;
 
   public BoardView(int rows, int columns, double width, double height) {
+    // TODO: extract this code to read data file
+    PIECE_TYPES.put(0, WHITE_KNIGHT);
+    PIECE_TYPES.put(1, BLACK_KNIGHT);
+
     text = new GameUpdateText();
     root = new StackPane();
     gridRoot = new GridPane();
@@ -112,7 +119,7 @@ public class BoardView implements PropertyChangeListener{
     for (Pair<Position, Piece> piece: board) {
       Position pos = piece.getKey();
       if (piece.getValue() != null) {
-        myGrid[pos.i()][pos.j()].addPiece(BLACK_KNIGHT);
+        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getOwner()));
       }
       else {
         myGrid[pos.i()][pos.j()].removePiece();
