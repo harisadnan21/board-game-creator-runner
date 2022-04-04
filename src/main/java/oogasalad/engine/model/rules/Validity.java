@@ -13,10 +13,7 @@ public class Validity {
   }
 
   public List<int[]> checkValidity(Piece piece, Board board){
-    Piece[][] boardGrid = board.getMyBoard();
-    //TODO: Remove this
-    List<int[]> validSpaces = new ArrayList<>();
-    return validSpaces;
-    //TODO: Fix this to stream of Board
+    myRules.stream.filter(rule -> rule
+        .pieces.contains(piece));
   }
 }

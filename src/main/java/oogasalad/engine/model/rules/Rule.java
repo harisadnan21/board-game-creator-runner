@@ -6,5 +6,7 @@ import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Board;
 
 public interface Rule {
+
   List<Pair<Integer, Integer>> checkValidity(Piece piece, Board board);
+
 }
