@@ -7,6 +7,7 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.StringUtils;
 
 /**
  * Tests for RectangularBoard
@@ -60,6 +61,37 @@ public class RectangularBoardTest {
   void testOccupiedCell() throws OccupiedCellException {
     board.placePiece(X, Y, PIECE_NAME);
     assertThrows(OccupiedCellException.class, () -> board.placePiece(X, Y, PIECE_NAME));
+  }
+
+  @Test
+  void testSerialization() throws OccupiedCellException {
+    String json = board.toJSON();
+    assertEquals(WIDTH * HEIGHT, countMatches(json, EMPTY));
+
+    board.placePiece(X, Y, PIECE_NAME);
+    json = board.toJSON();
+    assertEquals(WIDTH * HEIGHT - 1, countMatches(json, EMPTY));
+    assertEquals(1, countMatches(json, PIECE_NAME));
+  }
+
+  @Test
+  void testLoad() throws OccupiedCellException {
+    // TODO: Change test when loading is implemented
+    Board b = board.fromJSON(EMPTY);
+  }
+
+  private int countMatches(String str, String target) {
+    int lastIndex = 0;
+    int count = 0;
+
+    while (lastIndex != -1) {
+      lastIndex = str.indexOf(target, lastIndex);
+      if (lastIndex != -1) {
+        count++;
+        lastIndex += target.length();
+      }
+    }
+    return count;
   }
 
 }

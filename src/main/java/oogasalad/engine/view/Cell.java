@@ -5,7 +5,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -15,6 +14,8 @@ import javafx.scene.shape.Shape;
  * @author Jake Heller
  */
 public class Cell extends Group {
+
+  public static int BUFFER = 2;
 
   private Shape myShape;
   private StackPane myRoot;
@@ -27,22 +28,11 @@ public class Cell extends Group {
 
   /**
    *
-   * @param x top left x
-   * @param y top left y
+   * @param x x index in board
+   * @param y y index in board
    * @param width cell width
    * @param height cell height
    */
-//  public Cell(double x, double y, double width, double height) {
-//    myWidth = width;
-//    myHeight = height;
-//    myX = x;
-//    myY = y;
-//    myRoot = new Group();
-//    myShape = new Rectangle(x, y, 0.95* width, 0.95* height);
-//    myShape.setFill(Color.GREEN);
-//    this.getChildren().add(myShape);
-//  }
-
   public Cell(int x, int y, double width, double height) {
     myWidth = width;
     myHeight = height;
@@ -64,13 +54,9 @@ public class Cell extends Group {
     removePiece();
     Image image = new Image(imagePath);
     myPiece = new ImageView(image);
-    myPiece.setFitWidth(myWidth-2);
-    myPiece.setFitHeight(myHeight-2);
-//    myPiece.setX(myX);
-//    myPiece.setY(myY);
+    myPiece.setFitWidth(myWidth-BUFFER);
+    myPiece.setFitHeight(myHeight-BUFFER);
     this.getChildren().add(myPiece);
-
-    // System.out.println("Piece added");
   }
 
   public void removePiece() {

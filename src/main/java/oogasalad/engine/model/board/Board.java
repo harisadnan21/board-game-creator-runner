@@ -5,10 +5,9 @@ import java.util.Optional;
 import javafx.util.Pair;
 import oogasalad.engine.model.Observable;
 import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.Utilities;
 
-public class Board extends Observable<Piece[][]> implements Iterable<Pair<Position, Piece>> {
+public class Board implements Iterable<Pair<Position, Piece>> {
 
   private int myRows;
   private int myColumns;
@@ -24,18 +23,6 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     return pieceLocations;
   }
 
-  public void selectCell(int x, int y) throws OutOfBoardException {
-    Piece[][] oldBoard = pieceLocations;
-    if (pieceLocations[x][y] != null) {
-      pieceLocations[x][y] = null;
-    }
-    else {
-      place(x, y, new Piece("...", 1, 0, 0));
-    }
-    notifyListeners("UPDATE", oldBoard, pieceLocations);
-  }
-
-
   /**
    * returns true if there is a piece at location Board[row][column]. else, false
    * @param row
@@ -46,45 +33,63 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     return pieceLocations[row][column] != null;
 
   }
-  public void placeNewPiece(int row, int column, Piece piece) throws OutOfBoardException {
+  public void placeNewPiece(int row, int column, int type, int player) throws OutOfBoardException {
+    Piece piece = new Piece(type, player, row, column);
     place(row, column, piece);
   }
 
-  private void place(int i, int j, Piece piece)throws OutOfBoardException {
+  private void place(int i, int j, Piece piece) throws OutOfBoardException {
     if(i <= myRows && j <= myColumns){
       if (piece != null) {
         piece.movePiece(i, j);
       }
+      pieceLocations[i][j] = piece;
     }
     else{
       throw new OutOfBoardException("Piece out of Board");
     }
-    pieceLocations[i][j] = piece;
   }
 
-  public void remove(int i, int j){pieceLocations[i][j] =null;};
+  public void remove(int i, int j){
+    pieceLocations[i][j] =null;
+  }
 
-  public Piece getPiece(int i, int j) {
+  public boolean isEmpty(int i, int j) {
+    return pieceLocations[i][j] == null;
+  }
+
+  public Optional<Piece> getPiece(int i, int j) {
     //return Optional.of(myBoard[i][j]);
-    return pieceLocations[i][j];
+    Optional<Piece> piece;
+    if (pieceLocations[i][j] == null) {
+      piece = Optional.empty();
+    }
+    else {
+      piece = Optional.of(pieceLocations[i][j]);
+    }
+    return piece;
   }
 
 
   /**
-   *
-   * @param i end i position
-   * @param j end j position
-   * @param piece
+   * If piece exists at (i1, j1), moves that piece
+   * to (i2, j2)
+   * @param i1
+   * @param j1
+   * @param i2
+   * @param j2
+   * @throws OutOfBoardException
    */
-  public void move(int i, int j, Piece piece) throws OutOfBoardException {
-    if (!isPieceAtLocation(i,j)){
-      place(i, j, piece);
-      remove(i, j);
+  public void move(int i1, int j1, int i2, int j2) throws OutOfBoardException {
+    if (isPieceAtLocation(i1,j1)){
+      Piece piece = pieceLocations[i1][j1];
+      place(i2, j2, piece);
+      pieceLocations[i1][j1] = null;
     }
   }
 
   public Boolean isValid(Position position){
-    return isValidX(position.getI()) && isValidY(position.getJ());
+    return isValidX(position.i()) && isValidY(position.j());
   }
 
   private boolean isValidY(int j) {
@@ -97,15 +102,12 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
 
   public Board deepCopy() throws OutOfBoardException {
     Board board = new Board(myRows, myColumns);
-    for (Pair<Position, Piece> piece: this) {
+    for (Pair<Position, Piece> pair: this) {
       Piece copyPiece;
-      if (piece.getValue() == null) {
-        copyPiece = null;
+      if (pair.getValue() != null) {
+        Piece piece = pair.getValue();
+        board.placeNewPiece(piece.getI(), piece.getJ(), piece.getType(), piece.getOwner());
       }
-      else {
-        copyPiece = piece.getValue().deepCopy();
-      }
-      board.place(piece.getKey().getI(), piece.getKey().getJ(), copyPiece);
     }
     return board;
   }

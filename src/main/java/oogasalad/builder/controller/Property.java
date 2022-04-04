@@ -9,11 +9,14 @@ public record Property(Class type, String name, String value) {
 
     // Implemented as static method rather than constructor because constructor conflicts with the one made by the record
     public static <T> Property newInstance(Class<T> type, String name, T value) {
+        checkValueType(value, type);
         return new Property(type, name, Objects.requireNonNull(value).toString());
     }
 
     public Property withValue(Object newValue) {
-        return withValueAsString(Objects.requireNonNull(newValue).toString());
+        Objects.requireNonNull(newValue);
+        checkValueType(newValue, type);
+        return withValueAsString(newValue.toString());
     }
 
     public Property withValueAsString(String newValue) {
@@ -40,5 +43,11 @@ public record Property(Class type, String name, String value) {
     @Override
     public int hashCode() {
         return Objects.hash(type, name);
+    }
+
+    private static void checkValueType(Object value, Class<?> type) {
+        if(value.getClass() != type) {
+            throw new IllegalArgumentException(ExceptionResourcesSingleton.getInstance().getString("BadPropertyNewValue", type.getName()));
+        }
     }
 }

@@ -2,8 +2,8 @@ package oogasalad.engine.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import oogasalad.engine.controller.Controller;
 
 public class GameView {
@@ -12,33 +12,31 @@ public class GameView {
 
   BoardView myBoard;
   Controller myController;
+  GameControlPanel myGameControl;
+  SettingsControlPanel mySettingsControl;
 
-  GridPane root;
-  Text updateText;
-  Inventory pInventory;
+  BorderPane root;
 
   public GameView(BoardView board, Controller controller) {
     myBoard = board;
     myController = controller;
-    updateText = myBoard.getText();
-    pInventory = new Inventory();
-    setUpGrid();
+    myGameControl = new GameControlPanel();
+    mySettingsControl = new SettingsControlPanel();
+    setUpRoot();
     board.addController(myController);
   }
 
   public Scene makeScene() {
-    root.add(myBoard.getRoot(), 0, 0, 4, 4);
-    root.add(updateText, 5, 2);
-    root.add(pInventory.getRoot(), 5, 3, 6, 4);
+    root.setCenter(myBoard.getRoot());
+    root.setLeft(myGameControl.getRoot());
+    root.setRight(mySettingsControl.getRoot());
     Scene scene = new Scene(root, WIDTH, HEIGHT);
+    scene.setFill(Color.web("#EEEEEE"));
     return scene;
   }
 
-  private void setUpGrid() {
-    root = new GridPane();
-    root.setHgap(10);
-    root.setVgap(10);
+  private void setUpRoot() {
+    root = new BorderPane();
     root.setPadding(new Insets(10, 10, 10, 10));
-    //root.setGridLinesVisible(true);
   }
 }
