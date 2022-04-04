@@ -1,5 +1,7 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.engine;
 
+import oogasalad.engine.model.Game;
+import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.action.Action;
 import oogasalad.engine.model.action.Place;
 import oogasalad.engine.model.board.Board;
@@ -7,25 +9,22 @@ import oogasalad.engine.model.conditions.Condition;
 import oogasalad.engine.model.conditions.IsEmpty;
 import oogasalad.engine.model.move.Movement;
 
-public class Engine {
+public class NoSelectionEngine extends Engine {
 
-  private Game myGame;
-
-  private Movement myMove;
-
-  public Engine(Game game) {
-    myGame = game;
+  public NoSelectionEngine(Game game) {
+    super(game);
     createTicTacToeMove();
   }
 
-  public Board selectCell(int x, int y) throws OutOfBoardException {
-    Board board = myGame.getBoard();
+  public Board onCellSelect(int x, int y) throws OutOfBoardException {
+    Board board = getGame().getBoard();
 
-//    System.out.printf("Cell %d, %d\n", x, y);
-//    System.out.printf("Move is %b\n", myMove.isValid(board, x, y));
-    if (myMove.isValid(board, x, y)) {
-      board = myMove.doMovement(board, x, y);
-      myGame.setBoard(board);
+    for (Movement move: getMoves()) {
+      if (move.isValid(board, x, y)) {
+        board = move.doMovement(board, x, y);
+        getGame().setBoard(board);
+        return board;
+      }
     }
     return board;
   }
@@ -35,6 +34,6 @@ public class Engine {
     Condition[] conditions = new Condition[]{new IsEmpty(new int[]{0, 0})};
     Action[] actions = new Action[]{new Place(new int[]{0, 0, 0, 0})};
 
-    myMove = new Movement(conditions, actions);
+    getMoves().add(new Movement(conditions, actions, 0, 0));
   }
 }

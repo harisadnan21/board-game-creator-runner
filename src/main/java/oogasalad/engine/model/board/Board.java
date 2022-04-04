@@ -5,10 +5,9 @@ import java.util.Optional;
 import javafx.util.Pair;
 import oogasalad.engine.model.Observable;
 import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.Utilities;
 
-public class Board extends Observable<Piece[][]> implements Iterable<Pair<Position, Piece>> {
+public class Board implements Iterable<Pair<Position, Piece>> {
 
   private int myRows;
   private int myColumns;
@@ -55,6 +54,10 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
     pieceLocations[i][j] =null;
   }
 
+  public boolean isEmpty(int i, int j) {
+    return pieceLocations[i][j] == null;
+  }
+
   public Optional<Piece> getPiece(int i, int j) {
     //return Optional.of(myBoard[i][j]);
     Optional<Piece> piece;
@@ -86,7 +89,7 @@ public class Board extends Observable<Piece[][]> implements Iterable<Pair<Positi
   }
 
   public Boolean isValid(Position position){
-    return isValidX(position.getI()) && isValidY(position.getJ());
+    return isValidX(position.i()) && isValidY(position.j());
   }
 
   private boolean isValidY(int j) {

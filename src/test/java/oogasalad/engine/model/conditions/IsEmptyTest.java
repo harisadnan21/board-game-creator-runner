@@ -1,9 +1,8 @@
 package oogasalad.engine.model.conditions;
 
 import static org.junit.jupiter.api.Assertions.*;
-import com.sun.prism.RectShadowGraphics;
+
 import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Board;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

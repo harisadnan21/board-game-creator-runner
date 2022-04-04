@@ -3,7 +3,6 @@ package oogasalad.engine.view;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -15,7 +14,7 @@ import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.Piece;
+import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
 
 public class BoardView implements PropertyChangeListener{
@@ -113,10 +112,10 @@ public class BoardView implements PropertyChangeListener{
     for (Pair<Position, Piece> piece: board) {
       Position pos = piece.getKey();
       if (piece.getValue() != null) {
-        myGrid[pos.getI()][pos.getJ()].addPiece(BLACK_KNIGHT);
+        myGrid[pos.i()][pos.j()].addPiece(BLACK_KNIGHT);
       }
       else {
-        myGrid[pos.getI()][pos.getJ()].removePiece();
+        myGrid[pos.i()][pos.j()].removePiece();
       }
     }
   }

@@ -27,7 +27,7 @@ public class IsEmpty extends Condition {
 //    boolean cond = board.getPiece(myParameters[0]+refI, myParameters[1]+refJ).isPresent();
 //    System.out.printf("Checking if (%d, %d) is occupied: %b\n", myParameters[0]+refI, myParameters[1]+refJ, cond);
 
-    return !board.getPiece(myParameters[0]+refI, myParameters[1]+refJ).isPresent();
+    return board.isEmpty(myParameters[0]+refI, myParameters[1]+refJ);
   }
 
 }
