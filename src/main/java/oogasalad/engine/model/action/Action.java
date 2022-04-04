@@ -1,11 +1,29 @@
 package oogasalad.engine.model.action;
 
 import oogasalad.engine.model.Game;
+import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Board;
 
-public interface Action {
+/**
+ * Every action subclass constructor receives all the parameters
+ * it needs to run from a relative position
+ *
+ * @author Jake Heller
+ */
+public abstract class Action {
 
-  public void execute(Game game);
+  protected int[] myParameters;
+  public Action(int[] parameters) {
+    myParameters = parameters;
+  }
 
-  public Board getNextState();
+  /**
+   *
+   * @param board
+   * @param refI reference i
+   * @param refJ reference j
+   * @throws OutOfBoardException
+   */
+  public abstract void execute(Board board, int refI, int refJ) throws OutOfBoardException;
 }

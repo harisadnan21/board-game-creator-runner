@@ -5,23 +5,19 @@ import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Board;
 
-public class Place implements Action {
+public class Place extends Action {
 
-  private Board myResultantBoard;
-
-  public Place(Board initialBoard, int i, int j, Piece piece) throws OutOfBoardException {
-    Board copy = initialBoard.deepCopy();
-    copy.placeNewPiece(i, j, piece);
-    myResultantBoard = copy;
+  /**
+   *
+   * @param parameters size 4 array [i, j, type, player]
+   */
+  public Place(int[] parameters) {
+    super(parameters);
   }
 
   @Override
-  public void execute(Game game) {
-    game.setBoard(myResultantBoard);
-  }
-
-  @Override
-  public Board getNextState() {
-    return myResultantBoard;
+  public void execute(Board board, int refI, int refJ) throws OutOfBoardException {
+    board.placeNewPiece(myParameters[0]+refI, myParameters[1]+refJ,
+        myParameters[2], myParameters[3]);
   }
 }

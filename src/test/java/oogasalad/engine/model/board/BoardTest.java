@@ -4,11 +4,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.sun.prism.RectShadowGraphics;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Piece;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class BoardTest {
-  Board TestBoard = new Board(3, 3);
+  Board myBoard = new Board(3, 3);
 
+  @BeforeEach
+  void setup() {
+    myBoard = new Board(3, 3);
+  }
   @Test
   void getMyBoard() {
     //assertEquals(TestBoard, TestBoard.getMyBoard());
@@ -20,32 +25,40 @@ class BoardTest {
 
   @Test
   void placeNewPiece() throws OutOfBoardException {
-    TestBoard.placeNewPiece(1,1, new Piece("...", 1,0,0));
-    assertNotNull(TestBoard.getMyBoard()[1][1]);
+    myBoard.placeNewPiece(1,1, 0, 0);
+    assertNotNull(myBoard.getMyBoard()[1][1]);
   }
 
   @Test
   void remove() throws OutOfBoardException {
-    TestBoard.placeNewPiece(1,1, new Piece("...", 1,0,0));
-    assertNotNull(TestBoard.getMyBoard()[1][1]);
-    TestBoard.remove(1,1);
-    assertNull(TestBoard.getMyBoard()[1][1]);
+    myBoard.placeNewPiece(1,1, 0, 0);
+    assertNotNull(myBoard.getMyBoard()[1][1]);
+    myBoard.remove(1,1);
+    assertNull(myBoard.getMyBoard()[1][1]);
   }
 
   @Test
   void getPiece() throws OutOfBoardException {
-    TestBoard.placeNewPiece(1,1, new Piece("...", 1,0,0));
-    Piece testPiece = TestBoard.getPiece(1,1);
+    myBoard.placeNewPiece(1,1, 0, 0);
+    Piece testPiece = myBoard.getPiece(1,1).get();
     assertNotNull(testPiece);
   }
 
   @Test
   void move() throws OutOfBoardException {
-    Piece TestPiece = new Piece("...", 1, 0, 0 );
+    Piece TestPiece = new Piece(0, 1, 0, 0 );
 
-    TestBoard.move(2,2, TestPiece);
-    assertNotNull(TestBoard.getPiece(2,2));
+    myBoard.move(0, 0, 2,2);
+    assertNotNull(myBoard.getPiece(2,2));
 
+  }
+
+  @Test
+  void deepCopyTest() throws OutOfBoardException {
+    myBoard.placeNewPiece(1, 1, 0, 0);
+    Board copyBoard = myBoard.deepCopy();
+    assertTrue(copyBoard.getPiece(1, 1).isPresent());
+    assertFalse(copyBoard.getPiece(0, 1).isPresent());
   }
 
   @Test

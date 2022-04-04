@@ -1,17 +1,20 @@
 package oogasalad.engine.model.action;
 
 import oogasalad.engine.model.Game;
+import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.Piece;
 import oogasalad.engine.model.board.Board;
 
-public class ChangePieceType implements Action{
+// TODO: implement class
+public class ChangePieceType extends Action{
 
-  @Override
-  public void execute(Game game) {
 
+  public ChangePieceType(int[] parameters) {
+    super(parameters);
   }
 
   @Override
-  public Board getNextState() {
-    return null;
+  public void execute(Board board, int refI, int refJ) throws OutOfBoardException {
+
   }
 }
