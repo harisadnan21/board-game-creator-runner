@@ -15,7 +15,7 @@ public interface ElementFactory {
   /**
    * Creates a game element based on the given parameters
    *
-   * @param name the name of the game element
+   * @param name       the name of the game element
    * @param properties the properties of the game element
    * @return a game element with the given name and properties
    */

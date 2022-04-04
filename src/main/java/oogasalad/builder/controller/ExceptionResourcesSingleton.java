@@ -1,7 +1,5 @@
 package oogasalad.builder.controller;
 
-import java.util.ResourceBundle;
-
 /**
  * A singleton to get localized strings from the exception resources file.
  * Falls back to English when no language is set or the key being asked for can't be found.
