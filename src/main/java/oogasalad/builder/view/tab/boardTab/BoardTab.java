@@ -30,7 +30,7 @@ public class BoardTab {
         saveButton.setMaxWidth(200); // ADD TO PROPERTIES FILE
 
         Button addPiece = new Button("Add Game Piece");
-        saveButton.setOnAction(e -> saveBoardConfig());
+        saveButton.setOnAction(e -> addBoardPiece());
         HBox.setHgrow(addPiece, Priority.ALWAYS);
         addPiece.setMaxWidth(200); // ADD TO PROPERTIES FILE
 
@@ -51,6 +51,10 @@ public class BoardTab {
     }
 
     private void saveBoardConfig(){
+        System.out.println(boardCanvas.printBoardConfig());
+    }
+
+    private void addBoardPiece(){
         System.out.println(boardCanvas.printBoardConfig());
     }
 
