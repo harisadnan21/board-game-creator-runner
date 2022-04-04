@@ -6,9 +6,10 @@ import oogasalad.builder.model.element.GameElement;
 
 
 /**
- * API For creating a game element based on its properties.
+ * API For creating a game element based on its properties. Provides methods for creating elements
+ * and listing required properties.
  *
- * @Author Shaan Gondalia
+ * @author Shaan Gondalia
  */
 public interface ElementFactory {
 
@@ -20,4 +21,11 @@ public interface ElementFactory {
    * @return a game element with the given name and properties
    */
   GameElement createElement(String name, Collection<Property> properties);
+
+  /**
+   * Gets the required properties of a specific type of game element
+   *
+   * @return a collection of properties for the specific game element
+   */
+  Collection<Property> getRequiredProperties();
 }
