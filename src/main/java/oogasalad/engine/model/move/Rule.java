@@ -11,7 +11,7 @@ import oogasalad.engine.model.conditions.Condition;
  *
  * @author Jake Heller
  */
-public class Movement {
+public class Rule {
 
   private Board myNextState;
 
@@ -27,7 +27,7 @@ public class Movement {
    * @param repI
    * @param repJ
    */
-  public Movement(Condition[] conditions, Action[] actions, int repI, int repJ) {
+  public Rule(Condition[] conditions, Action[] actions, int repI, int repJ) {
     myConditions = conditions;
     myActions = actions;
     myRepI = repI;
@@ -64,6 +64,7 @@ public class Movement {
       for (Action action: myActions) {
         action.execute(boardCopy, refI, refJ);
       }
+      boardCopy.setPlayer((board.getPlayer() + 1) % 2);
       return boardCopy;
     }
     return null;
