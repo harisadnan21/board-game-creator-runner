@@ -70,6 +70,24 @@ public class GameConfiguration implements BuilderModel {
   }
 
   /**
+   * Provides a list of element names that are of the given type
+   *
+   * @param type the type of the elements to name
+   * @return a collection of names that are of a certain type (e.g. piece)
+   */
+  @Override
+  public Collection<String> getElementNames(String type) throws ElementNotFoundException {
+    if (!elements.containsKey(type)) {
+      throw new ElementNotFoundException();
+    }
+    Collection<String> names = new HashSet<>();
+    for (GameElement element : elements.get(type)) {
+      names.add(element.toRecord().name());
+    }
+    return names;
+  }
+
+  /**
    * Adds a Game Element to the game, updating an existing element if needed.
    *
    * @param type       the type of the game element

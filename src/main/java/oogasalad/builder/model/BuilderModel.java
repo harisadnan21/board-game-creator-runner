@@ -1,8 +1,10 @@
 package oogasalad.builder.model;
 
 import java.util.Collection;
+import java.util.HashSet;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
@@ -30,6 +32,14 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    * @return an element record containing information about the game element
    */
   ElementRecord findElementInfo(String type, String name) throws ElementNotFoundException;
+
+  /**
+   * Provides a list of element names that are of the given type
+   *
+   * @param type the type of the elements to name
+   * @return a collection of names that are of a certain type (e.g. piece)
+   */
+  Collection<String> getElementNames(String type) throws ElementNotFoundException;
 
   /**
    * Adds a Game Element to the game, updating an existing element if possible
