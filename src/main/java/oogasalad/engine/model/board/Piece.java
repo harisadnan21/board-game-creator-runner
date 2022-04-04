@@ -1,17 +1,15 @@
-package oogasalad.engine.model;
-
-import java.util.List;
+package oogasalad.engine.model.board;
 
 /**
  * 
  */
 public class Piece {
-    private String myType;
+    private int myType;
     private int myOwner;
     private int rowVal;
     private int colVal;
 
-    public Piece(String type, int player, int rowNum, int colNum){
+    public Piece(int type, int player, int rowNum, int colNum){
         myType = type;
         myOwner = player;
         rowVal = rowNum;
@@ -20,22 +18,38 @@ public class Piece {
     }
     public void movePiece(int newRow, int newCol)  {
         setPieceRow(newRow);
-        setPeiceColumn(newCol);
+        setPieceColumn(newCol);
     }
 
     private void setPieceRow(int rowNum){
         rowVal = rowNum;
     }
-    private void setPeiceColumn(int ColumnNum) {
 
+    private void setPieceColumn(int ColumnNum) {
         colVal = ColumnNum;
     }
 
     /**
      * @param newType: new Piece Type
      */
-    public void changeType(String newType) {
-        // TODO implement here
+    public void changeType(int newType) {
+        myType = newType;
+    }
+
+    public int getI() {
+        return rowVal;
+    }
+
+    public int getJ() {
+        return colVal;
+    }
+
+    public int getOwner() {
+        return myOwner;
+    }
+
+    public int getType() {
+        return myType;
     }
 
     public Piece deepCopy() {
