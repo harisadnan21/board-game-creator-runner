@@ -22,17 +22,17 @@ public class BoardTab {
         // TODO : Make this not magic
         setupBoard(8, 8, "Checkers");
 
-        //TODO : Make a section for buttons and do this right
+        // section for buttons
+        // TODO: Make this a function
         Button saveButton = new Button("Print Config");
         saveButton.setOnAction(e -> saveBoardConfig());
         HBox.setHgrow(saveButton, Priority.ALWAYS);
-        saveButton.setMaxWidth(200);
+        saveButton.setMaxWidth(200); // ADD TO PROPERTIES FILE
 
-        //TODO : Make a section for buttons and do this right
         Button addPiece = new Button("Add Game Piece");
         saveButton.setOnAction(e -> saveBoardConfig());
         HBox.setHgrow(addPiece, Priority.ALWAYS);
-        addPiece.setMaxWidth(200);
+        addPiece.setMaxWidth(200); // ADD TO PROPERTIES FILE
 
 
         buttonHolder.getChildren().addAll(saveButton, addPiece);
