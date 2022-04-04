@@ -20,6 +20,7 @@ public interface Element extends JSONSerializable<Element> {
 
   /**
    * Returns an immutable record containing the GameElement's data
+   *
    * @return an immutable record containing the GameElement's data
    */
   ElementRecord toRecord();

@@ -10,7 +10,8 @@ public class FactoryProvider {
   /**
    * Creates a new factory provider
    */
-  public FactoryProvider(){}
+  public FactoryProvider() {
+  }
 
   public GameElementFactory getFactory(String type) {
     // TODO: Replace this with reflection

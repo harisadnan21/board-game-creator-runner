@@ -14,6 +14,7 @@ import org.json.JSONObject;
  */
 public record ElementRecord(String name, Collection<Property> properties) implements
     JSONSerializable<ElementRecord> {
+
   public ElementRecord {
     properties = Set.copyOf(properties);
   }
@@ -26,7 +27,7 @@ public record ElementRecord(String name, Collection<Property> properties) implem
   @Override
   public String toJSON() {
     JSONObject obj = new JSONObject();
-    for (Property property: properties) {
+    for (Property property : properties) {
       obj.put(property.name(), property.value());
     }
     return obj.toString();

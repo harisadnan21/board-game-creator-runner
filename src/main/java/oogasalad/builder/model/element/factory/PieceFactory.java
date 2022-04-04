@@ -7,12 +7,12 @@ import oogasalad.builder.model.element.Piece;
 
 public class PieceFactory extends GameElementFactory<Piece> {
 
-    public PieceFactory() {
-        super("elements.Piece");
-    }
+  public PieceFactory() {
+    super("elements.Piece");
+  }
 
-    @Override
-    public Piece createElement(String name, Collection<Property> properties) {
-        return new Piece(name, properties);
-    }
+  @Override
+  public Piece createElement(String name, Collection<Property> properties) {
+    return new Piece(name, properties);
+  }
 }
