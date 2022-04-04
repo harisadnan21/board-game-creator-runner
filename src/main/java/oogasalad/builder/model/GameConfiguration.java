@@ -9,8 +9,8 @@ import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.FactoryProvider;
-import oogasalad.builder.model.element.factory.GameElementFactory;
 import oogasalad.builder.model.exception.ElementNotFoundException;
+import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import org.json.JSONArray;
@@ -95,9 +95,9 @@ public class GameConfiguration implements BuilderModel {
    * @param properties the properties of the game element
    */
   @Override
-  public void addGameElement(String type, String name, Collection<Property> properties) {
-    GameElementFactory factory = provider.getFactory(type);
-    GameElement newElement = factory.createElement(name, properties);
+  public void addGameElement(String type, String name, Collection<Property> properties)
+      throws InvalidTypeException {
+    GameElement newElement = provider.createElement(type, name, properties);
     if (!elements.containsKey(type)) {
       elements.put(type, new HashSet<>());
     }
@@ -144,6 +144,16 @@ public class GameConfiguration implements BuilderModel {
   public void clearBoardCell(int x, int y) throws NullBoardException {
     checkBoardCreated();
     board.clearCell(x, y);
+  }
+
+  /**
+   * Returns the required properties of a game element
+   *
+   * @return the required properties of a game element
+   */
+  @Override
+  public Collection<Property> getRequiredProperties(String type) throws InvalidTypeException {
+    return provider.getRequiredProperties(type);
   }
 
   /**
