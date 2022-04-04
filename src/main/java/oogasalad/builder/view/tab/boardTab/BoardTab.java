@@ -4,6 +4,8 @@ import java.util.*;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /**
  * 
@@ -11,9 +13,11 @@ import javafx.scene.layout.BorderPane;
 public class BoardTab {
 
     private BorderPane boardPane;
+    private HBox buttonHolder;
     private BoardCanvas boardCanvas;
     public BoardTab() {
         boardPane = new BorderPane();
+        buttonHolder = new HBox();
 
         // TODO : Make this not magic
         setupBoard(8, 8, "Checkers");
@@ -21,7 +25,19 @@ public class BoardTab {
         //TODO : Make a section for buttons and do this right
         Button saveButton = new Button("Print Config");
         saveButton.setOnAction(e -> saveBoardConfig());
-        boardPane.setRight(saveButton);
+        HBox.setHgrow(saveButton, Priority.ALWAYS);
+        saveButton.setMaxWidth(200);
+
+        //TODO : Make a section for buttons and do this right
+        Button addPiece = new Button("Add Game Piece");
+        saveButton.setOnAction(e -> saveBoardConfig());
+        HBox.setHgrow(addPiece, Priority.ALWAYS);
+        addPiece.setMaxWidth(200);
+
+
+        buttonHolder.getChildren().addAll(saveButton, addPiece);
+        boardPane.setRight(buttonHolder);
+
 
     }
 
