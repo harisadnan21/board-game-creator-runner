@@ -9,8 +9,10 @@ import oogasalad.builder.model.exception.OccupiedCellException;
 
 /**
  * Describes the external API of the Builder Model.
+ *
+ * @author Shaan Gondalia
  */
-public interface BuilderModel {
+public interface BuilderModel extends JSONSerializable<BuilderModel> {
 
     /**
      * Creates a new board with the given dimensions.
@@ -67,5 +69,19 @@ public interface BuilderModel {
      * @param y the y location to clear
      */
     void clearBoardCell(int x, int y) throws NullBoardException;
+
+    /**
+     * Converts a Builder Model into a String representing the model's JSON Format
+     * @return a String representation of the model's JSON Format
+     */
+    String toJSON() throws NullBoardException, ElementNotFoundException;
+
+    /**
+     * Converts a JSON String into a Builder Model
+     *
+     * @param json the JSON string
+     * @return a model made from the JSON string
+     */
+    BuilderModel fromJSON(String json);
 
 }

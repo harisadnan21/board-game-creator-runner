@@ -1,6 +1,8 @@
 package oogasalad.builder.model.board;
 
 import oogasalad.builder.model.exception.OccupiedCellException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Describes the behavior of a rectangular board.
@@ -62,6 +64,34 @@ public class RectangularBoard implements Board{
         cells[x][y] = EMPTY;
     }
 
+    /**
+     * Converts a Board into a String representing the board's JSON Format
+     *
+     * @return a String representation of the board's JSON Format
+     */
+    @Override
+    public String toJSON(){
+        JSONObject obj = new JSONObject();
+        // TODO: Remove magic values
+        obj.put("shape", "rectangle");
+        obj.put("width", width);
+        obj.put("height", height);
+        obj.put("pieceConfiguration", pieceConfigToJSON());
+        return obj.toString();
+    }
+
+    /**
+     * Converts a JSON String into a Board
+     *
+     * @param json the JSON string
+     * @return a board of type T made from the JSON string
+     */
+    @Override
+    public Board fromJSON(String json){
+        // TODO: Implement JSON parsing
+        return null;
+    }
+
     // Checks whether the requested indices are inbounds
     private void checkInBounds(int x, int y) {
         if (x < 0 || x > width || y < 0 || y > height) {
@@ -85,5 +115,18 @@ public class RectangularBoard implements Board{
             }
         }
         return cells;
+    }
+
+    // Converts the piece configuration to a JSON array
+    private JSONArray pieceConfigToJSON() {
+        JSONArray config = new JSONArray();
+        for (int i = 0; i < width; i++){
+            JSONArray row = new JSONArray();
+            for (int j = 0; j < height; j++){
+                row.put(cells[i][j]);
+            }
+            config.put(row);
+        }
+        return config;
     }
 }

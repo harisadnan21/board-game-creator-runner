@@ -5,6 +5,7 @@ import oogasalad.builder.controller.Property;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
+import org.json.JSONObject;
 
 
 /**
@@ -47,5 +48,28 @@ public abstract class GameElement implements Element {
     public ElementRecord toRecord() {
         return new ElementRecord(name, properties);
     }
+
+    /**
+     * Converts an Element into a String representing the object's JSON Format
+     *
+     * @return a String representation of the objects JSON Format
+     */
+    @Override
+    public String toJSON(){
+        JSONObject obj = new JSONObject();
+        return this.toRecord().toJSON();
+    }
+
+    /**
+     * Converts a JSON String into an element
+     *
+     * @param json the JSON string
+     * @return an element made from the JSON string
+     */
+    @Override
+    public Element fromJSON(String json){
+        return null;
+    }
+
 
 }

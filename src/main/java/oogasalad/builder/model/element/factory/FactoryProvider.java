@@ -16,7 +16,6 @@ public class FactoryProvider {
     // TODO: Replace this with reflection
     return switch (type) {
       case "piece" -> new PieceFactory();
-      case "move" -> new MoveFactory();
       case "rule" -> new RuleFactory();
       case "win condition" -> new WinConditionFactory();
       default -> null; // TODO: Throw an exception if type is unknown
