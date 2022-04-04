@@ -37,6 +37,8 @@ public class PieceSelectionEngine extends Engine {
     Board board = getGame().getBoard();
     Position cellClicked = new Position(x, y);
     if (!myIsPieceSelected) {
+      // also needs to check that the piece belongs to the active player before selecting it
+      // should piece selection be controlled by player?
       if (!board.isEmpty(x, y)) {
         myIsPieceSelected = true;
         mySelectedCell = new Position(x, y);

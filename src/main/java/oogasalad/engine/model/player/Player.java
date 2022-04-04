@@ -6,20 +6,16 @@ import oogasalad.engine.model.action.ActionType;
 /**
  * 
  */
-public class Player {
+public interface Player {
 
     /**
      * 
      */
-    public void playTurn() {
-        // TODO implement here
-    }
+    public void playTurn();
 
     /**
      * @param PossibleActions
      */
-    public void chooseAction(Action[] PossibleActions) {
-        // TODO implement here
-    }
+    public void chooseAction(Action[] PossibleActions);
 
 }

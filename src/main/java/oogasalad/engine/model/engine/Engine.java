@@ -12,12 +12,15 @@ import oogasalad.engine.model.conditions.Condition;
 import oogasalad.engine.model.conditions.IsEmpty;
 import oogasalad.engine.model.conditions.IsOccupied;
 import oogasalad.engine.model.move.Movement;
+import oogasalad.engine.model.player.Player;
 
 public abstract class Engine {
 
   private Game myGame;
 
   private List<Movement> myMoves;
+
+  private List<Player> players;
 
   public Engine(Game game) {
     myGame = game;
@@ -26,6 +29,16 @@ public abstract class Engine {
 
   protected List<Movement> getMoves() {
     return myMoves;
+  }
+
+  /**
+   *
+   * @param player player requesting possible actions
+   * @return
+   */
+  public Movement[] getPossibleActions(int player) {
+
+    return null;
   }
 
   protected Game getGame() {
