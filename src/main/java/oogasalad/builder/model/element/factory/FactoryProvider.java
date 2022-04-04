@@ -19,6 +19,8 @@ public class FactoryProvider {
       case "piece" -> new PieceFactory();
       case "rule" -> new RuleFactory();
       case "win condition" -> new WinConditionFactory();
+      case "action" -> new ActionFactory();
+      case "condition" -> new ConditionFactory();
       default -> null; // TODO: Throw an exception if type is unknown
     };
   }
