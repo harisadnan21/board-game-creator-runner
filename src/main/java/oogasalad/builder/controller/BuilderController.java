@@ -110,12 +110,12 @@ public class BuilderController {
      *
      * @param file the File to save the Game Configuration to.
      */
-    public void save(File file) {
+    public void save(File file) throws NullBoardException {
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(gameConfig.toJSON());
             writer.close();
-        } catch (IOException | NullBoardException | ElementNotFoundException e) {
+        } catch (IOException | ElementNotFoundException e) {
             // TODO: Exception Handling
             e.printStackTrace();
         }
