@@ -106,6 +106,15 @@ public class BuilderController {
     }
 
     /**
+     * Returns the required properties of a game element
+     *
+     * @return the required properties of a game element
+     */
+    public Collection<Property> getRequiredProperties(String type) {
+        return gameConfig.getRequiredProperties(type);
+    }
+
+    /**
      * Saves the existing Game Configuration to a JSON file
      *
      * @param file the File to save the Game Configuration to.

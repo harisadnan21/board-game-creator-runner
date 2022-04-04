@@ -81,6 +81,13 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
   void clearBoardCell(int x, int y) throws NullBoardException;
 
   /**
+   * Returns the required properties of a game element
+   *
+   * @return the required properties of a game element
+   */
+  Collection<Property> getRequiredProperties(String type);
+
+  /**
    * Converts a Builder Model into a String representing the model's JSON Format
    *
    * @return a String representation of the model's JSON Format

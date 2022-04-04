@@ -9,7 +9,6 @@ import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.FactoryProvider;
-import oogasalad.builder.model.element.factory.GameElementFactory;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
@@ -143,6 +142,16 @@ public class GameConfiguration implements BuilderModel {
   public void clearBoardCell(int x, int y) throws NullBoardException {
     checkBoardCreated();
     board.clearCell(x, y);
+  }
+
+  /**
+   * Returns the required properties of a game element
+   *
+   * @return the required properties of a game element
+   */
+  @Override
+  public Collection<Property> getRequiredProperties(String type) {
+    return provider.getRequiredProperties(type);
   }
 
   /**
