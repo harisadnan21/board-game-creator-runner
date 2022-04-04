@@ -32,7 +32,7 @@ public class FactoryProviderTest {
   private static final String PIECE_IMAGE = "normal.png";
   private static final String CONDITION = "condition";
   private static final String CONDITION_NAME = "emptyAtTopRight";
-  private static final String CONDITION_TYPE = "emptyAt";
+  private static final String CONDITION_TYPE = "isEmpty";
   private static final String WIN_CONDITION = "win condition";
   private static final String WIN_CONDITION_NAME = "winIfCaptured";
   private static final String RULE = "rule";

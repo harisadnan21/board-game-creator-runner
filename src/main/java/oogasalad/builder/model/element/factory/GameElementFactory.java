@@ -1,5 +1,6 @@
 package oogasalad.builder.model.element.factory;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -85,6 +86,9 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
         }
       }
     }
+    if (!validateType(type)) {
+      throw new MissingRequiredPropertyException();
+    }
     validateNamespace(type, properties);
   }
 
@@ -98,6 +102,22 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
         findProperty(target, properties);
       }
     }
+  }
+
+  // Checks whether a game element's type is valid
+  private boolean validateType(String type) {
+    if (type == null) {
+      return true;
+    }
+    for (Property property : getRequiredProperties()) {
+      String namespace = property.name().split("-")[0];
+      String target = property.name().split("-")[1];
+      if (namespace.equals("required") && target.equals("type")) {
+        String[] validTypes = property.value().split("-");
+        return Arrays.asList(validTypes).contains(type);
+      }
+    }
+    return false;
   }
 
   // Loads the required properties based on the resource file provided in the constructor
