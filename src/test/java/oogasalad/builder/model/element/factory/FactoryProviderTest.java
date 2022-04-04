@@ -9,6 +9,7 @@ import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +49,7 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreateAction() throws InvalidTypeException {
+  void testCreateAction() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     properties.add(new Property(String.class, TYPE, ACTION_TYPE));
     properties.add(new Property(Integer.class, COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
@@ -60,7 +61,7 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreatePiece() throws InvalidTypeException {
+  void testCreatePiece() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     properties.add(new Property(String.class, IMAGE, PIECE_IMAGE));
     GameElement piece = provider.createElement(PIECE, PIECE_NAME, properties);
@@ -70,7 +71,7 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreateCondition() throws InvalidTypeException {
+  void testCreateCondition() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     properties.add(new Property(String.class, TYPE, CONDITION_TYPE));
     properties.add(new Property(Integer.class, COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
@@ -82,7 +83,7 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreateWinCondition() throws InvalidTypeException {
+  void testCreateWinCondition() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     GameElement winCondition = provider.createElement(WIN_CONDITION, WIN_CONDITION_NAME, properties);
     ElementRecord record = winCondition.toRecord();
@@ -91,7 +92,7 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreateRule() throws InvalidTypeException {
+  void testCreateRule() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     GameElement rule = provider.createElement(RULE, RULE_NAME, properties);
     ElementRecord record = rule.toRecord();

@@ -4,6 +4,7 @@ import java.util.Collection;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 
 /**
  * Class that provides a specific GameElementFactory based on the type of the desired game element.
@@ -38,7 +39,7 @@ public class FactoryProvider {
    * @return a game element with the given name and properties
    */
   public GameElement createElement(String type, String name, Collection<Property> properties)
-      throws InvalidTypeException {
+      throws InvalidTypeException, MissingRequiredPropertyException {
     return getFactory(type).createElement(name, properties);
   }
 

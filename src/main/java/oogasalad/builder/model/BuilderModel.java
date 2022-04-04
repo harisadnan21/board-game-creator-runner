@@ -7,6 +7,7 @@ import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 
@@ -50,7 +51,7 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    * @param properties the properties of the game element
    */
   void addGameElement(String type, String name, Collection<Property> properties)
-      throws InvalidTypeException;
+      throws InvalidTypeException, MissingRequiredPropertyException;
 
   /**
    * Attempts to place a piece at the given coordinates

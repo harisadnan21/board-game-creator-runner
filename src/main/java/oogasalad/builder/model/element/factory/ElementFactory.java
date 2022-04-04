@@ -3,6 +3,7 @@ package oogasalad.builder.model.element.factory;
 import java.util.Collection;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.GameElement;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 
 
 /**
@@ -20,7 +21,8 @@ public interface ElementFactory {
    * @param properties the properties of the game element
    * @return a game element with the given name and properties
    */
-  GameElement createElement(String name, Collection<Property> properties);
+  GameElement createElement(String name, Collection<Property> properties)
+      throws MissingRequiredPropertyException;
 
   /**
    * Gets the required properties of a specific type of game element

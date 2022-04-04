@@ -11,6 +11,7 @@ import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +50,8 @@ public class GameConfigurationTest {
   }
 
   @Test
-  void testGameElementFound() throws ElementNotFoundException, InvalidTypeException {
+  void testGameElementFound()
+      throws ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
     properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
@@ -109,7 +111,7 @@ public class GameConfigurationTest {
 
   @Test
   void testSerialization()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException {
+      throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     game.makeBoard(WIDTH, HEIGHT);
 
     Collection<Property> properties = new HashSet<>();
