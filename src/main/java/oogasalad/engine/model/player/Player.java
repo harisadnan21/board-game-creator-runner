@@ -1,21 +1,20 @@
 package oogasalad.engine.model.player;
 
 import oogasalad.engine.model.action.Action;
-import oogasalad.engine.model.action.ActionType;
 
 /**
- * 
+ * Abstract class that defines a player and has methods that exeutes a player's turn.
+ * @Author Haris Adnan
  */
-public interface Player {
 
-    /**
-     * 
-     */
-    public void playTurn();
+public abstract class Player implements PlayerInterface{
 
-    /**
-     * @param PossibleActions
-     */
-    public void chooseAction(Action[] PossibleActions);
+  @Override
+  public void playTurn() {
 
+  }
+  @Override
+  public void chooseAction(Action[] PossibleActions) {
+
+  }
 }
