@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
+
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
@@ -42,6 +44,7 @@ public class GameConfigurationTest {
   @Test
   void testGameElementNotFound() {
     assertThrows(ElementNotFoundException.class, () -> game.findElementInfo(PIECE_TYPE, PIECE_NAME));
+    assertThrows(ElementNotFoundException.class, () -> game.findElementInfo(PIECE_TYPE, "not the name"));
   }
 
   @Test
