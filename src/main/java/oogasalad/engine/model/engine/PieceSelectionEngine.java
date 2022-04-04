@@ -44,13 +44,7 @@ public class PieceSelectionEngine extends Engine {
     Board board = getGame().getBoard();
     Position cellClicked = new Position(x, y);
     if (!myIsPieceSelected) {
-      // also needs to check that the piece belongs to the active player before selecting it
-      // should piece selection be controlled by player?
-      if (!board.isEmpty(x, y)) {
-        myIsPieceSelected = true;
-        mySelectedCell = new Position(x, y);
-        myValidMoves = getValidMoves();
-      }
+      makePieceSelected(x, y);
     }
     else {
       for (Rule move: getMoves()) {
@@ -61,8 +55,20 @@ public class PieceSelectionEngine extends Engine {
           return newBoard;
         }
       }
+      makePieceSelected(x, y);
     }
     return board;
+  }
+
+  private void makePieceSelected(int x, int y) {
+    Board board = getGame().getBoard();
+
+    if (!board.isEmpty(x, y) && board.getPiece(x, y).get().getOwner() == board.getPlayer()) {
+      myIsPieceSelected = true;
+      mySelectedCell = new Position(x, y);
+      myValidMoves = getValidMoves();
+      System.out.printf("%d valid moves for this piece\n", myValidMoves.size());
+    }
   }
 
   private boolean hasValidMove(int x, int y) {
@@ -94,6 +100,7 @@ public class PieceSelectionEngine extends Engine {
     Condition empty0 = new IsEmpty(new int[]{1, 1});
     Condition occupied0 = new IsOccupied(new int[]{0, 0});
     Condition isPlayer0 = new IsPlayer(new int[]{0});
+    Condition isPlayersPiece = new IsPlayerPiece(new int[]{0, 0, 0});
     Condition[] conditions = new Condition[]{empty0, occupied0, isPlayer0};
     Action[] actions = new Action[]{new Move(new int[]{0, 0, 1, 1})};
 
@@ -119,9 +126,9 @@ public class PieceSelectionEngine extends Engine {
     Condition occupied0 = new IsOccupied(new int[]{0, 0});
     Condition isPlayer0 = new IsPlayer(new int[]{1});
     Condition[] conditions = new Condition[]{empty0, occupied0, isPlayer0};
-    Action[] actions = new Action[]{new Move(new int[]{0, 0, 1, 1})};
+    Action[] actions = new Action[]{new Move(new int[]{0, 0, -1, -1})};
 
-    getMoves().add(new Rule(conditions, actions, 1, 1));
+    getMoves().add(new Rule(conditions, actions, -1, -1));
 
     Condition empty1 = new IsEmpty(new int[]{-2, -2});
     Condition isPlayer1 = new IsPlayer(new int[]{1});
