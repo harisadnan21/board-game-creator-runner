@@ -38,6 +38,10 @@ public class FactoryProviderTest {
   private static final String RULE = "rule";
   private static final String RULE_NAME = "knightMoveTopRight";
 
+  private static final String PIECES = "pieces";
+  private static final String ACTIONS = "actions";
+  private static final String CONDITIONS = "conditions";
+
   private static final String COORDINATE_NAME_ONE = "x";
   private static final String COORDINATE_VALUE_ONE = "1";
   private static final String COORDINATE_NAME_TWO = "y";
@@ -94,6 +98,9 @@ public class FactoryProviderTest {
   @Test
   void testCreateRule() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
+    properties.add(new Property(Collection.class, PIECES, PIECE_NAME));
+    properties.add(new Property(Collection.class, ACTIONS, ACTION_NAME));
+    properties.add(new Property(Collection.class, CONDITIONS, CONDITION_NAME));
     GameElement rule = provider.createElement(RULE, RULE_NAME, properties);
     ElementRecord record = rule.toRecord();
     assertEquals(properties, record.properties());

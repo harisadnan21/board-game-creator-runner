@@ -9,6 +9,7 @@ import java.util.Set;
 
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -26,15 +27,23 @@ public class GameConfigurationTest {
 
   private static final int HEIGHT = 8;
   private static final int WIDTH = 10;
-  private static final String PIECE_NAME = "checker";
-  private static final String PIECE_TYPE = "piece";
-  private static final String RULE_TYPE = "rule";
-  private static final String RULE_NAME = "jump";
+  private static final String PIECE = "piece";
+  private static final String PIECE_NAME = "moveTopRight";
+  private static final String RULE = "rule";
+  private static final String RULE_NAME = "knightMoveTopRight";
   private static final String EMPTY = "empty";
   private static final String PROPERTY_NAME = "test property name";
   private static final String PROPERTY_VALUE = "test property value";
   private static final int X = 5;
   private static final int Y = 7;
+  private static final String IMAGE = "image";
+  private static final String ACTION_NAME = "moveTopRight";
+  private static final String PIECE_IMAGE = "normal.png";
+  private static final String CONDITION_NAME = "atTopRight";
+
+  private static final String PIECES = "pieces";
+  private static final String ACTIONS = "actions";
+  private static final String CONDITIONS = "conditions";
 
   private BuilderModel game;
 
@@ -45,22 +54,21 @@ public class GameConfigurationTest {
 
   @Test
   void testGameElementNotFound() {
-    assertThrows(ElementNotFoundException.class, () -> game.findElementInfo(PIECE_TYPE, PIECE_NAME));
-    assertThrows(ElementNotFoundException.class, () -> game.findElementInfo(PIECE_TYPE, "not the name"));
+    assertThrows(ElementNotFoundException.class, () -> game.findElementInfo(PIECE, PIECE_NAME));
+    assertThrows(ElementNotFoundException.class, () -> game.findElementInfo(PIECE, "not the name"));
   }
 
   @Test
   void testGameElementFound()
       throws ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
-    game.addGameElement(PIECE_TYPE, PIECE_NAME, properties);
-    ElementRecord record = game.findElementInfo(PIECE_TYPE, PIECE_NAME);
+    properties.add(new Property(String.class, IMAGE, PIECE_IMAGE));
+    game.addGameElement(PIECE, PIECE_NAME, properties);
+    ElementRecord record = game.findElementInfo(PIECE, PIECE_NAME);
     assertEquals(PIECE_NAME, record.name());
     for (Property prop : record.properties()){
-      assertEquals(PROPERTY_NAME, prop.name());
-      assertEquals(PROPERTY_VALUE, prop.value());
+      assertEquals(IMAGE, prop.name());
+      assertEquals(PIECE_IMAGE, prop.value());
     }
   }
 
@@ -115,17 +123,22 @@ public class GameConfigurationTest {
     game.makeBoard(WIDTH, HEIGHT);
 
     Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
-    game.addGameElement(PIECE_TYPE, PIECE_NAME, properties);
-    game.addGameElement(RULE_TYPE, RULE_NAME, properties);
+    properties.add(new Property(Collection.class, PIECES, PIECE_NAME));
+    properties.add(new Property(Collection.class, ACTIONS, ACTION_NAME));
+    properties.add(new Property(Collection.class, CONDITIONS, CONDITION_NAME));
+    game.addGameElement(RULE, RULE_NAME, properties);
+
+    properties = new HashSet<>();
+    properties.add(new Property(String.class, IMAGE, PIECE_IMAGE));
+
+    game.addGameElement(PIECE, PIECE_NAME, properties);
     String json = game.toJSON();
     assertEquals(WIDTH * HEIGHT, countMatches(json, EMPTY));
 
     game.placeBoardPiece(X, Y, PIECE_NAME);
     json = game.toJSON();
     assertEquals(WIDTH * HEIGHT - 1, countMatches(json, EMPTY));
-    assertEquals(1, countMatches(json, PIECE_NAME));
+    assertEquals(3, countMatches(json, PIECE_NAME));
     System.out.println(json);
   }
 

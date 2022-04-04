@@ -7,6 +7,7 @@ import java.util.HashSet;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.Condition;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,7 @@ public class ConditionFactoryTest {
   }
 
   @Test
-  void testConditionCreated() {
+  void testConditionCreated() throws MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     properties.add(new Property(Integer.class, PROPERTY_NAME_TYPE, CONDITION_TYPE));
     properties.add(new Property(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));

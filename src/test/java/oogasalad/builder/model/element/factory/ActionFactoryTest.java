@@ -7,6 +7,7 @@ import java.util.HashSet;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.Action;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,7 @@ public class ActionFactoryTest {
   }
 
   @Test
-  void testActionCreated() {
+  void testActionCreated() throws MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     properties.add(new Property(Integer.class, PROPERTY_NAME_TYPE, ACTION_TYPE));
     properties.add(new Property(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
