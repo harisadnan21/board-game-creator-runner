@@ -22,6 +22,9 @@ import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 public abstract class GameElementFactory<T extends GameElement> implements ElementFactory {
 
   private static final int PROPERTY_PARTS = 2;
+  private static final String DELIMITER = "-";
+  private static final String REQUIRED = "required";
+  private static final String TYPE = "type";
   private final ResourceBundle propertiesResources;
   private Collection<Property> properties;
 
@@ -77,11 +80,11 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   protected void validate(Collection<Property> properties) throws MissingRequiredPropertyException {
     String type = null;
     for (Property property : getRequiredProperties()) {
-      String namespace = property.name().split("-")[0];
-      String target = property.name().split("-")[1];
-      if (namespace.equals("required")) {
+      String namespace = property.name().split(DELIMITER)[0];
+      String target = property.name().split(DELIMITER)[1];
+      if (namespace.equals(REQUIRED)) {
         String value = findProperty(target, properties);
-        if (target.equals("type")) {
+        if (target.equals(TYPE)) {
           type = value;
         }
       }
@@ -96,8 +99,8 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   private void validateNamespace(String type, Collection<Property> properties)
       throws MissingRequiredPropertyException {
     for (Property property : getRequiredProperties()) {
-      String namespace = property.name().split("-")[0];
-      String target = property.name().split("-")[1];
+      String namespace = property.name().split(DELIMITER)[0];
+      String target = property.name().split(DELIMITER)[1];
       if (namespace.equals(type)) {
         findProperty(target, properties);
       }
@@ -110,14 +113,14 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       return true;
     }
     for (Property property : getRequiredProperties()) {
-      String namespace = property.name().split("-")[0];
-      String target = property.name().split("-")[1];
-      if (namespace.equals("required") && target.equals("type")) {
-        String[] validTypes = property.value().split("-");
+      String namespace = property.name().split(DELIMITER)[0];
+      String target = property.name().split(DELIMITER)[1];
+      if (namespace.equals(REQUIRED) && target.equals(TYPE)) {
+        String[] validTypes = property.value().split(DELIMITER);
         return Arrays.asList(validTypes).contains(type);
       }
     }
-    return false;
+    return false; // TODO: Remove unreachable statement by making code smarter
   }
 
   // Loads the required properties based on the resource file provided in the constructor

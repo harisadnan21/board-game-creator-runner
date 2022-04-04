@@ -23,6 +23,7 @@ public class ConditionFactoryTest {
   private static final String CONDITION_NAME = "emptyTopRight";
   private static final String PROPERTY_NAME_TYPE = "type";
   private static final String CONDITION_TYPE = "isEmpty";
+  private static final String INVALID_CONDITION_TYPE = "emptyAt";
   private static final String PROPERTY_NAME_ONE = "x";
   private static final String PROPERTY_VALUE_ONE = "1";
   private static final String PROPERTY_NAME_TWO = "y";
@@ -50,6 +51,15 @@ public class ConditionFactoryTest {
   void testConditionMissingRequired() {
     Collection<Property> properties = new HashSet<>();
     properties.add(new Property(Integer.class, PROPERTY_NAME_TYPE, CONDITION_TYPE));
+    properties.add(new Property(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
+    assertThrows(MissingRequiredPropertyException.class, () ->
+        conditionFactory.createElement(CONDITION_NAME, properties));
+  }
+
+  @Test
+  void testConditionInvalidType() {
+    Collection<Property> properties = new HashSet<>();
+    properties.add(new Property(Integer.class, PROPERTY_NAME_TYPE, INVALID_CONDITION_TYPE));
     properties.add(new Property(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
     assertThrows(MissingRequiredPropertyException.class, () ->
         conditionFactory.createElement(CONDITION_NAME, properties));
