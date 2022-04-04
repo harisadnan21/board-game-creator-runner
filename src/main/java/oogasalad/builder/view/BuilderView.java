@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
+import oogasalad.builder.view.tab.pieceTab.PiecesTab;
 
 /**
  *
@@ -23,6 +24,7 @@ public class BuilderView {
 
   private Stage stage;
   private BoardTab boardTabPane;
+  private PiecesTab pieceTabPane;
 
   public BuilderView(Stage mainStage) {
     stage = mainStage;
@@ -56,11 +58,15 @@ public class BuilderView {
     boardTabPane.toNode().setId("boardTab");
     Tab boardTab = new Tab("Board", boardTabPane.toNode());
 
-    Tab tab2 = new Tab();
-    tab2.setText("tab2");
-    tab2.setContent(new Rectangle(600, 600, Color.GREEN));
+//    Tab tab2 = new Tab();
+//    tab2.setText("tab2");
+//    tab2.setContent(new Rectangle(600, 600, Color.GREEN));
 
-    tabPane.getTabs().addAll(boardTab, tab2);
+    pieceTabPane = new PiecesTab();
+    pieceTabPane.toNode().setId("boardTab");
+    Tab pieceTab = new Tab("Piece", pieceTabPane.toNode());
+
+    tabPane.getTabs().addAll(boardTab, pieceTab);
 
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
