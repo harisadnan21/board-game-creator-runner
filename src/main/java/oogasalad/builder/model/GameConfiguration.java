@@ -96,8 +96,7 @@ public class GameConfiguration implements BuilderModel {
    */
   @Override
   public void addGameElement(String type, String name, Collection<Property> properties) {
-    GameElementFactory factory = provider.getFactory(type);
-    GameElement newElement = factory.createElement(name, properties);
+    GameElement newElement = provider.createElement(type, name, properties);
     if (!elements.containsKey(type)) {
       elements.put(type, new HashSet<>());
     }
