@@ -7,7 +7,7 @@ import oogasalad.engine.model.action.Place;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.conditions.Condition;
 import oogasalad.engine.model.conditions.IsEmpty;
-import oogasalad.engine.model.move.Movement;
+import oogasalad.engine.model.move.Rule;
 
 public class NoSelectionEngine extends Engine {
 
@@ -19,7 +19,7 @@ public class NoSelectionEngine extends Engine {
   public Board onCellSelect(int x, int y) throws OutOfBoardException {
     Board board = getGame().getBoard();
 
-    for (Movement move: getMoves()) {
+    for (Rule move: getMoves()) {
       if (move.isValid(board, x, y)) {
         board = move.doMovement(board, x, y);
         getGame().setBoard(board);
@@ -34,6 +34,6 @@ public class NoSelectionEngine extends Engine {
     Condition[] conditions = new Condition[]{new IsEmpty(new int[]{0, 0})};
     Action[] actions = new Action[]{new Place(new int[]{0, 0, 0, 0})};
 
-    getMoves().add(new Movement(conditions, actions, 0, 0));
+    getMoves().add(new Rule(conditions, actions, 0, 0));
   }
 }

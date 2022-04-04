@@ -12,11 +12,13 @@ public class Board implements Iterable<Pair<Position, Piece>> {
   private int myRows;
   private int myColumns;
   private Piece[][] pieceLocations;
+  private int activePlayer;
 
   public Board(int rows, int columns) {
     myRows = rows;
     myColumns = columns;
     pieceLocations = new Piece[rows][columns];
+    activePlayer = 0;
   }
 
   public Piece[][] getMyBoard(){
@@ -88,7 +90,19 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     }
   }
 
-  public Boolean isValid(Position position){
+  public void setPlayer(int player) {
+    activePlayer = player;
+  }
+
+  public int getPlayer() {
+    return activePlayer;
+  }
+
+  public boolean isValid(int i, int j) {
+    return isValidX(i) && isValidY(j);
+  }
+
+  public boolean isValid(Position position){
     return isValidX(position.i()) && isValidY(position.j());
   }
 
@@ -102,6 +116,7 @@ public class Board implements Iterable<Pair<Position, Piece>> {
 
   public Board deepCopy() throws OutOfBoardException {
     Board board = new Board(myRows, myColumns);
+    board.setPlayer(this.getPlayer());
     for (Pair<Position, Piece> pair: this) {
       Piece copyPiece;
       if (pair.getValue() != null) {
