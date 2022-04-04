@@ -10,6 +10,7 @@ import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.FactoryProvider;
 import oogasalad.builder.model.exception.ElementNotFoundException;
+import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import org.json.JSONArray;
@@ -94,7 +95,8 @@ public class GameConfiguration implements BuilderModel {
    * @param properties the properties of the game element
    */
   @Override
-  public void addGameElement(String type, String name, Collection<Property> properties) {
+  public void addGameElement(String type, String name, Collection<Property> properties)
+      throws InvalidTypeException {
     GameElement newElement = provider.createElement(type, name, properties);
     if (!elements.containsKey(type)) {
       elements.put(type, new HashSet<>());
@@ -150,7 +152,7 @@ public class GameConfiguration implements BuilderModel {
    * @return the required properties of a game element
    */
   @Override
-  public Collection<Property> getRequiredProperties(String type) {
+  public Collection<Property> getRequiredProperties(String type) throws InvalidTypeException {
     return provider.getRequiredProperties(type);
   }
 

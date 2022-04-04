@@ -10,6 +10,7 @@ import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
+import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.view.BuilderView;
@@ -101,7 +102,8 @@ public class BuilderController {
      * @param name the name of the element to update
      * @param properties the properties of the element
      */
-    public void update(String type, String name, Collection<Property> properties) {
+    public void update(String type, String name, Collection<Property> properties)
+        throws InvalidTypeException {
        gameConfig.addGameElement(type, name, properties);
     }
 
@@ -110,7 +112,7 @@ public class BuilderController {
      *
      * @return the required properties of a game element
      */
-    public Collection<Property> getRequiredProperties(String type) {
+    public Collection<Property> getRequiredProperties(String type) throws InvalidTypeException {
         return gameConfig.getRequiredProperties(type);
     }
 

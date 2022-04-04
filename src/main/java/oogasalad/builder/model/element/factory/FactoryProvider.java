@@ -3,6 +3,7 @@ package oogasalad.builder.model.element.factory;
 import java.util.Collection;
 import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.GameElement;
+import oogasalad.builder.model.exception.InvalidTypeException;
 
 /**
  * Class that provides a specific GameElementFactory based on the type of the desired game element.
@@ -11,11 +12,11 @@ import oogasalad.builder.model.element.GameElement;
  */
 public class FactoryProvider {
 
-  final PieceFactory pieceFactory;
-  final RuleFactory ruleFactory;
-  final WinConditionFactory winConditionFactory;
-  final ActionFactory actionFactory;
-  final ConditionFactory conditionFactory;
+  private final PieceFactory pieceFactory;
+  private final RuleFactory ruleFactory;
+  private final WinConditionFactory winConditionFactory;
+  private final ActionFactory actionFactory;
+  private final ConditionFactory conditionFactory;
 
   /**
    * Creates a new factory provider
@@ -36,7 +37,8 @@ public class FactoryProvider {
    * @param properties the properties of the game element
    * @return a game element with the given name and properties
    */
-  public GameElement createElement(String type, String name, Collection<Property> properties){
+  public GameElement createElement(String type, String name, Collection<Property> properties)
+      throws InvalidTypeException {
     return getFactory(type).createElement(name, properties);
   }
 
@@ -45,7 +47,7 @@ public class FactoryProvider {
    *
    * @return the required properties of a game element
    */
-  public Collection<Property> getRequiredProperties(String type) {
+  public Collection<Property> getRequiredProperties(String type) throws InvalidTypeException {
     return getFactory(type).getRequiredProperties();
   }
 
@@ -55,7 +57,7 @@ public class FactoryProvider {
    * @param type the type of element requested
    * @return a GameElementFactory based on the given type
    */
-  private GameElementFactory getFactory(String type) {
+  private GameElementFactory getFactory(String type) throws InvalidTypeException {
     // TODO: Replace this with reflection
     return switch (type) {
       case "piece" -> pieceFactory;
@@ -63,7 +65,7 @@ public class FactoryProvider {
       case "win condition" -> winConditionFactory;
       case "action" -> actionFactory;
       case "condition" -> conditionFactory;
-      default -> null; // TODO: Throw an exception if type is unknown
+      default -> throw new InvalidTypeException();
     };
   }
 
