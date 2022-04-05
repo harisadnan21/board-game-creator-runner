@@ -167,9 +167,11 @@ public class GameConfiguration implements BuilderModel {
     checkBoardCreated();
     JSONObject obj = new JSONObject();
     // TODO: Remove magic values
-    obj.put("board", board.toJSON());
     obj.put("pieces", elementsToJSONArray("piece"));
+    obj.put("board", board.toJSON());
     obj.put("rules", elementsToJSONArray("rule"));
+    obj.put("conditions", elementsToJSONArray("piece"));
+    obj.put("properties", elementsToJSONArray("rule"));
     return obj.toString();
   }
 
