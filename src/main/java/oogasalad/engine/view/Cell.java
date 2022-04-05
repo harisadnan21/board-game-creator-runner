@@ -43,7 +43,6 @@ public class Cell {
     myX = x;
     myY = y;
     myRoot = new StackPane();
-    myRoot.setAlignment(Pos.CENTER);
     myRoot.getStyleClass().add("cell");
     myShape = new Rectangle(width, height);
     setColor();
