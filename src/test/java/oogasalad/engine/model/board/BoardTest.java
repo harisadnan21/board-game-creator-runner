@@ -63,6 +63,15 @@ class BoardTest {
   }
 
   @Test
+  void copyConstructorTest() throws OutOfBoardException {
+    myBoard.placeNewPiece(1, 1, 0, 0);
+
+    Board board = new Board(myBoard);
+    assertTrue(board.getPieceRecord(1, 1).isPresent());
+    assertFalse(board.getPieceRecord(0, 1).isPresent());
+  }
+
+  @Test
   void isValid() {
   }
 
