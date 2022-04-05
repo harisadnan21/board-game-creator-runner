@@ -128,6 +128,10 @@ public class BoardView implements PropertyChangeListener{
     }
   }
 
+  /**
+   * Adds a marker to all the cells that are valid moves for the currently selected piece
+   * @param board - current Game Board
+   */
   private void setValidMarkers(Board board) {
     if(board.getValidMoves()==null){
       clearValidMarks();
@@ -139,6 +143,10 @@ public class BoardView implements PropertyChangeListener{
     }
   }
 
+  /**
+   * Removes all the current valid moves markers from the scene. Called after selecting a move
+   * or clicking off a selected piece
+   */
   private void clearValidMarks(){
     for (Cell[] row : myGrid){
       for(Cell cell : row){

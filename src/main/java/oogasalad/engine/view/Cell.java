@@ -61,6 +61,13 @@ public class Cell extends Group {
     this.getChildren().add(myPiece);
   }
 
+  /**
+   * Creates in Image View object given a path, width and height
+   * @param imagePath - String of path to image being created
+   * @param width - Double of desired width of image
+   * @param height - Double of desired height of image
+   * @return - ImageView created from image path
+   */
   private ImageView createImageView(String imagePath, double width, double height) {
     ImageView myImageView = new ImageView( new Image(imagePath));
     myImageView.setFitWidth(width);
@@ -77,10 +84,17 @@ public class Cell extends Group {
 
   }
 
+  /**
+   * Adds marker to cell showing it is valid
+   */
   public void addValidMarker(){
     myValidMarker = createImageView(VALID_MARKER_PATH, (myWidth-BUFFER)/3, (myHeight-BUFFER)/3);
     this.getChildren().add(myValidMarker);
   }
+
+  /**
+   * Removes valid marker from cell if there is one present
+   */
   public void removeValidMarker(){
     if(myValidMarker!= null) {
       this.getChildren().remove(myValidMarker);
