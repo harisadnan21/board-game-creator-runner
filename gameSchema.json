@@ -8,10 +8,10 @@
   {
     "metadata":
     {
-      "creationType":
-      {
-				"enum": ["built-in", "expansion", "custom"]
-      },
+			"name":
+			{
+				"type": "string"
+			},
       "author":
       {
 				"type": "string"
@@ -25,35 +25,15 @@
       {
 				"type": "string",
 				"format": "date-time"
-      },
-      "currentUserGenerated":
-      {
-				"type": "boolean"
       }
     },
-    "basicInfo":
-    {
-      "players":
+		"players":
+		{
+			"properties":
 			{
-				"properties":
-				{
-					"name": "string"
-				}
-			},
-			"firstMove": {"type": "string"},
-      "gameName":
-      {
-				"type": "string"
-      },
-      "gameNameAlias":
-      {
-				"type": "string"
-      },
-      "gameID":
-      {
-				"type": "integer"
-      }
-    },
+				"name": {"type": "string"}
+			}
+		},
     "pieces":
     {
       "type":"object",
@@ -61,7 +41,8 @@
       "properties":
       {
         "name": {"type": "string"},
-				"image": {"type":  "string"}
+				"image": {"type":  "string"},
+				"player": {"type":  "string"}
       }
     },
     "board":
@@ -72,8 +53,9 @@
         "width": {"type": "integer"},
         "height": {"type": "integer"},
 				"pieceConfiguration": {"type":  "array"},
-				"playerConfiguration": {"type":  "array"},
-				"background": {"type":  "string"}
+				"background": {"type":  "string"},
+				"activePlayer": {"type": "string"},
+				"selectionsRequired": {"type": "boolean"}
 			}
     },
 		"rules":
@@ -83,8 +65,7 @@
 				"name": {"type": "string"},
 				"pieces": {"type":  "array"},
 				"conditions": {"type":  "array"},
-				"actions": {"type":  "array"},
-				"consequences": {"type":  "array"}
+				"actions": {"type":  "array"}
 			}
 		},
 		"conditions":
@@ -92,8 +73,7 @@
 			"properties":
 			{
 				"name": {"type": "string"},
-				"type": {"type":  "string"},
-				"parameters": {"type":  "array"}
+				"type": {"type":  "string"}
 			}
 		},
 		"actions":
@@ -101,17 +81,7 @@
 			"properties":
 			{
 				"name": {"type": "string"},
-				"type": {"type":  "string"},
-				"parameters": {"type":  "array"}
-			}
-		},
-		"consequences":
-		{
-			"properties":
-			{
-				"name": {"type": "string"},
-				"type": {"type":  "string"},
-				"parameters": {"type":  "array"}
+				"type": {"type":  "string"}
 			}
 		}
 	}
