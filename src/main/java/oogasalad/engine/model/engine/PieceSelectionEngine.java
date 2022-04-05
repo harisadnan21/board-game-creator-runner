@@ -28,7 +28,7 @@ public class PieceSelectionEngine extends Engine {
       Board board = getGame().getBoard();
       board.placeNewPiece(5, 5, 0, 0);
       board.placeNewPiece(4, 4, 0, 1);
-      board.placeNewPiece(3, 3, 0, 0);
+      board.placeNewPiece(3, 1, 0, 0);
       board.placeNewPiece(3, 4, 0, 1);
       board.placeNewPiece(0, 1, 0, 0);
       board.placeNewPiece(1, 2, 0, 1);
@@ -45,18 +45,24 @@ public class PieceSelectionEngine extends Engine {
     Position cellClicked = new Position(x, y);
     if (!myIsPieceSelected) {
       makePieceSelected(x, y);
+
     }
     else {
       for (Rule move: getMoves()) {
         if (move.isValid(board, mySelectedCell.i(), mySelectedCell.j()) && move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()).equals(cellClicked)) {
           Board newBoard = move.doMovement(board, mySelectedCell.i(), mySelectedCell.j());
           getGame().setBoard(newBoard);
-          resetSelected();
+
           return newBoard;
         }
       }
-      makePieceSelected(x, y);
+      resetSelected();
+      board.setValidMoves(null);
+      //So you have to reselect the piece
+      //makePieceSelected(x, y);
+
     }
+    System.out.println(board.getValidMoves());
     return board;
   }
 
@@ -67,6 +73,7 @@ public class PieceSelectionEngine extends Engine {
       myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
       myValidMoves = getValidMoves();
+      board.setValidMoves(myValidMoves);
       System.out.printf("%d valid moves for this piece\n", myValidMoves.size());
     }
   }

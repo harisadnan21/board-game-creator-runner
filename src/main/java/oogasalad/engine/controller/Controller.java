@@ -24,7 +24,7 @@ public class Controller {
   public Board click(int i, int j) throws OutOfBoardException {
     Board board = myEngine.onCellSelect(i, j);
     System.out.printf("Player %d's turn\n", board.getPlayer());
-    return myEngine.onCellSelect(i, j);
+    return board;
   }
   //TODO: Add functionality to have turns and have the program run.
 
