@@ -1,6 +1,6 @@
 package oogasalad.builder.view;
 
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 
 import java.util.*;
 

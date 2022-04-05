@@ -14,6 +14,7 @@ import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.BuilderView;
 
 /**

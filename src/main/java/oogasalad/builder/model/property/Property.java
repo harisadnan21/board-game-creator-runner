@@ -1,6 +1,7 @@
-package oogasalad.builder.controller;
+package oogasalad.builder.model.property;
 
 import java.util.*;
+import oogasalad.builder.controller.ExceptionResourcesSingleton;
 
 /**
  * An immutable class that stores a value of a specified type as a String under a given name
@@ -47,7 +48,8 @@ public record Property(Class type, String name, String value) {
 
     private static void checkValueType(Object value, Class<?> type) {
         if(value.getClass() != type) {
-            throw new IllegalArgumentException(ExceptionResourcesSingleton.getInstance().getString("BadPropertyNewValue", type.getName()));
+            throw new IllegalArgumentException(
+                ExceptionResourcesSingleton.getInstance().getString("BadPropertyNewValue", type.getName()));
         }
     }
 }

@@ -6,18 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 import javafx.stage.Stage;
-import oogasalad.builder.controller.Property;
-import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.builder.view.BuilderView;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 

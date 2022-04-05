@@ -1,5 +1,7 @@
-package oogasalad.builder.controller;
+package oogasalad.builder.model.property;
 
+import java.util.Collection;
+import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

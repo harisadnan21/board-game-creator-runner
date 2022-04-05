@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.builder.controller.Property;
-import oogasalad.builder.model.GameConfiguration;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.Piece;
 import oogasalad.builder.model.element.Rule;
 import oogasalad.builder.model.element.WinCondition;

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;

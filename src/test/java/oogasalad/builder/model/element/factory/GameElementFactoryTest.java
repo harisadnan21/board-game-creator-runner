@@ -1,6 +1,6 @@
 package oogasalad.builder.model.element.factory;
 
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.*;
 import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;

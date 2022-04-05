@@ -1,7 +1,7 @@
 package oogasalad.builder.model.element;
 
 import java.util.Collection;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 
 /**
  * Represents a Condition in the game. Examples of conditions are emptyAt, pieceAt, etc.

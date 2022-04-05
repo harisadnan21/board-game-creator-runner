@@ -1,7 +1,7 @@
 package oogasalad.builder.model.element.factory;
 
 import java.util.Collection;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;

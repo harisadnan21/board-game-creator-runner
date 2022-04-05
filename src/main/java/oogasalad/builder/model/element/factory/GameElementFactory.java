@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import oogasalad.builder.controller.ExceptionResourcesSingleton;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
