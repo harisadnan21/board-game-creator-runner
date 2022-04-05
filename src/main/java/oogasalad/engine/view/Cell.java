@@ -16,10 +16,12 @@ import javafx.scene.shape.Shape;
 public class Cell extends Group {
 
   public static int BUFFER = 2;
+  public static String VALID_MARKER_PATH = BoardView.IMAGES_FOLDER + "valid_marker";
 
   private Shape myShape;
   private StackPane myRoot;
   private ImageView myPiece;
+  private ImageView myValidMarker;
 
   private double myWidth;
   private double myHeight;
@@ -52,17 +54,36 @@ public class Cell extends Group {
 
   public void addPiece(String imagePath) {
     removePiece();
-    Image image = new Image(imagePath);
-    myPiece = new ImageView(image);
-    myPiece.setFitWidth(myWidth-BUFFER);
-    myPiece.setFitHeight(myHeight-BUFFER);
+    myPiece = createImageView(imagePath, myWidth-BUFFER, myHeight-BUFFER);
     this.getChildren().add(myPiece);
+  }
+
+  private ImageView createImageView(String imagePath, double width, double height) {
+    ImageView myImageView = new ImageView( new Image(imagePath));
+    myImageView.setFitWidth(width);
+    myImageView.setFitHeight(height);
+    return myImageView;
+
   }
 
   public void removePiece() {
     if (myPiece != null) {
       this.getChildren().remove(myPiece);
     }
+    myPiece = null;
+
+  }
+
+  public void addValidMarker(){
+    myValidMarker = createImageView(VALID_MARKER_PATH, (myWidth-BUFFER)/3, (myHeight-BUFFER)/3);
+    this.getChildren().add(myValidMarker);
+  }
+  public void removeValidMarker(){
+    if(myValidMarker!= null) {
+      this.getChildren().remove(myValidMarker);
+    }
+    myValidMarker = null;
+
   }
 
   private void setColor() {

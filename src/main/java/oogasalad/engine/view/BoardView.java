@@ -127,6 +127,15 @@ public class BoardView implements PropertyChangeListener{
     }
   }
 
+  private void clearValidMarks(){
+    for (Cell[] row : myGrid){
+      for(Cell cell : row){
+        cell.removeValidMarker();
+      }
+    }
+  }
+
+
   private Position getIndices(int index) {
     int i = index / myGrid.length;
     int j = index % myGrid[0].length;

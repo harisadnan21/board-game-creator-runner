@@ -2,6 +2,7 @@ package oogasalad.engine.model.board;
 
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.Set;
 import javafx.util.Pair;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Utilities;
@@ -12,6 +13,7 @@ public class Board implements Iterable<Pair<Position, Piece>> {
   private int myColumns;
   private Piece[][] pieceLocations;
   private int activePlayer;
+  private Set<Position> currentValidMoves;
 
   public Board(int rows, int columns) {
     myRows = rows;
@@ -128,6 +130,7 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     }
     return board;
   }
+  public void setValidMoves(Set<Position> validMoves) { currentValidMoves = validMoves; }
 
   // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
 // 1. We can use built in functionality for streams
@@ -137,4 +140,6 @@ public class Board implements Iterable<Pair<Position, Piece>> {
   public Iterator<Pair<Position, Piece>> iterator() {
     return new BoardIterator(pieceLocations);
   }
+
+
 }
