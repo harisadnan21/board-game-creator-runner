@@ -170,8 +170,8 @@ public class GameConfiguration implements BuilderModel {
     obj.put("pieces", elementsToJSONArray("piece"));
     obj.put("board", board.toJSON());
     obj.put("rules", elementsToJSONArray("rule"));
-    obj.put("conditions", elementsToJSONArray("piece"));
-    obj.put("properties", elementsToJSONArray("rule"));
+    obj.put("conditions", elementsToJSONArray("condition"));
+    obj.put("actions", elementsToJSONArray("action"));
     return obj.toString();
   }
 
@@ -195,10 +195,10 @@ public class GameConfiguration implements BuilderModel {
 
   // Converts all elements of a certain type to a JSONArray
   private JSONArray elementsToJSONArray(String type) throws ElementNotFoundException {
-    if (!elements.containsKey(type)) {
-      throw new ElementNotFoundException();
-    }
     JSONArray arr = new JSONArray();
+    if (!elements.containsKey(type)) {
+      return arr;
+    }
     for (GameElement element : elements.get(type)) {
       arr.put(element.toJSON());
     }

@@ -32,13 +32,13 @@ public class GameConfigurationTest {
   private static final String RULE = "rule";
   private static final String RULE_NAME = "knightMoveTopRight";
   private static final String EMPTY = "empty";
-  private static final String PROPERTY_NAME = "test property name";
-  private static final String PROPERTY_VALUE = "test property value";
+  private static final String PLAYER = "player";
   private static final int X = 5;
   private static final int Y = 7;
   private static final String IMAGE = "image";
   private static final String ACTION_NAME = "moveTopRight";
   private static final String PIECE_IMAGE = "normal.png";
+  private static final String PIECE_PLAYER = "white";
   private static final String CONDITION_NAME = "atTopRight";
 
   private static final String PIECES = "pieces";
@@ -63,13 +63,12 @@ public class GameConfigurationTest {
       throws ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     properties.add(new Property(String.class, IMAGE, PIECE_IMAGE));
+    properties.add(new Property(String.class, PLAYER, PIECE_PLAYER));
     game.addGameElement(PIECE, PIECE_NAME, properties);
+
     ElementRecord record = game.findElementInfo(PIECE, PIECE_NAME);
     assertEquals(PIECE_NAME, record.name());
-    for (Property prop : record.properties()){
-      assertEquals(IMAGE, prop.name());
-      assertEquals(PIECE_IMAGE, prop.value());
-    }
+    assertEquals(properties, record.properties());
   }
 
   @Test
@@ -130,6 +129,7 @@ public class GameConfigurationTest {
 
     properties = new HashSet<>();
     properties.add(new Property(String.class, IMAGE, PIECE_IMAGE));
+    properties.add(new Property(String.class, PLAYER, PIECE_PLAYER));
 
     game.addGameElement(PIECE, PIECE_NAME, properties);
     String json = game.toJSON();
@@ -138,15 +138,14 @@ public class GameConfigurationTest {
     game.placeBoardPiece(X, Y, PIECE_NAME);
     json = game.toJSON();
     assertEquals(WIDTH * HEIGHT - 1, countMatches(json, EMPTY));
-    assertEquals(3, countMatches(json, PIECE_NAME));
     System.out.println(json);
+    assertEquals(3, countMatches(json, PIECE_NAME));
   }
 
   @Test
   void testSerializationException() {
     assertThrows(NullBoardException.class, () -> game.toJSON());
     game.makeBoard(WIDTH, HEIGHT);
-    assertThrows(ElementNotFoundException.class, () -> game.toJSON());
   }
 
   @Test

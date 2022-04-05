@@ -24,12 +24,14 @@ public class FactoryProviderTest {
   private static final String INVALID_TYPE = "gibberish";
   private static final String TYPE = "type";
   private static final String IMAGE = "image";
+  private static final String PLAYER = "player";
   private static final String ACTION = "action";
   private static final String ACTION_NAME = "moveTopRight";
   private static final String ACTION_TYPE = "move";
   private static final String PIECE = "piece";
   private static final String PIECE_NAME = "moveTopRight";
   private static final String PIECE_IMAGE = "normal.png";
+  private static final String PIECE_PLAYER = "white";
   private static final String CONDITION = "condition";
   private static final String CONDITION_NAME = "emptyAtTopRight";
   private static final String CONDITION_TYPE = "isEmpty";
@@ -68,6 +70,7 @@ public class FactoryProviderTest {
   void testCreatePiece() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     properties.add(new Property(String.class, IMAGE, PIECE_IMAGE));
+    properties.add(new Property(String.class, PLAYER, PIECE_PLAYER));
     GameElement piece = provider.createElement(PIECE, PIECE_NAME, properties);
     ElementRecord record = piece.toRecord();
     assertEquals(properties, record.properties());
