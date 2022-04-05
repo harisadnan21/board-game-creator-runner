@@ -51,8 +51,6 @@ public class BoardView implements PropertyChangeListener{
     double cellHeight = cellSize.getValue();
 
     makeBoardBacking(width, height, cellSize, rows, columns);
-//    double x = 0;
-//    double y = 0;
 
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
@@ -82,7 +80,7 @@ public class BoardView implements PropertyChangeListener{
     Board nextState = myController.click(i, j);
     selectCell(i, j);
     updateBoard(nextState);
-    text.updateText(i, j);
+    text.updateText(nextState.getPlayer());
   }
 
   public void addController(Controller c) {
