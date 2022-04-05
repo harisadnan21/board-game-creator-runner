@@ -13,7 +13,7 @@ import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.builder.model.property.GenericProperty;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.BuilderView;
 
 /**
@@ -89,7 +89,7 @@ public class BuilderController {
      * @param name the name of the element
      * @return the properties of an element
      */
-    public Collection<GenericProperty> getElementProperties(String type, String name)
+    public Collection<Property> getElementProperties(String type, String name)
         throws ElementNotFoundException {
         ElementRecord elementRecord = gameConfig.findElementInfo(type, name);
         return elementRecord.properties();
@@ -103,7 +103,7 @@ public class BuilderController {
      * @param name the name of the element to update
      * @param properties the properties of the element
      */
-    public void update(String type, String name, Collection<GenericProperty> properties)
+    public void update(String type, String name, Collection<Property> properties)
         throws InvalidTypeException, MissingRequiredPropertyException {
        gameConfig.addGameElement(type, name, properties);
     }
@@ -113,7 +113,7 @@ public class BuilderController {
      *
      * @return the required properties of a game element
      */
-    public Collection<GenericProperty> getRequiredProperties(String type) throws InvalidTypeException {
+    public Collection<Property> getRequiredProperties(String type) throws InvalidTypeException {
         return gameConfig.getRequiredProperties(type);
     }
 

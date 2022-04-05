@@ -6,13 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Collection;
 import java.util.HashSet;
 
-import oogasalad.builder.model.property.GenericProperty;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.property.PropertyFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,9 +60,9 @@ public class GameConfigurationTest {
   @Test
   void testGameElementFound()
       throws ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
-    Collection<GenericProperty> properties = new HashSet<>();
-    properties.add(new GenericProperty(String.class, IMAGE, PIECE_IMAGE));
-    properties.add(new GenericProperty(String.class, PLAYER, PIECE_PLAYER));
+    Collection<Property> properties = new HashSet<>();
+    properties.add(PropertyFactory.makeProperty(IMAGE, PIECE_IMAGE));
+    properties.add(PropertyFactory.makeProperty(PLAYER, PIECE_PLAYER));
     game.addGameElement(PIECE, PIECE_NAME, properties);
 
     ElementRecord record = game.findElementInfo(PIECE, PIECE_NAME);
@@ -119,15 +120,15 @@ public class GameConfigurationTest {
       throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     game.makeBoard(WIDTH, HEIGHT);
 
-    Collection<GenericProperty> properties = new HashSet<>();
-    properties.add(new GenericProperty(Collection.class, PIECES, PIECE_NAME));
-    properties.add(new GenericProperty(Collection.class, ACTIONS, ACTION_NAME));
-    properties.add(new GenericProperty(Collection.class, CONDITIONS, CONDITION_NAME));
+    Collection<Property> properties = new HashSet<>();
+    properties.add(PropertyFactory.makeProperty(PIECES, PIECE_NAME));
+    properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
+    properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     game.addGameElement(RULE, RULE_NAME, properties);
 
     properties = new HashSet<>();
-    properties.add(new GenericProperty(String.class, IMAGE, PIECE_IMAGE));
-    properties.add(new GenericProperty(String.class, PLAYER, PIECE_PLAYER));
+    properties.add(PropertyFactory.makeProperty(IMAGE, PIECE_IMAGE));
+    properties.add(PropertyFactory.makeProperty(PLAYER, PIECE_PLAYER));
 
     game.addGameElement(PIECE, PIECE_NAME, properties);
     String json = game.toJSON();

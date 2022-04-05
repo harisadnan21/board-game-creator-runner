@@ -5,11 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.builder.model.property.GenericProperty;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
+import oogasalad.builder.model.property.PropertyFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -56,10 +57,10 @@ public class FactoryProviderTest {
 
   @Test
   void testCreateAction() throws InvalidTypeException, MissingRequiredPropertyException {
-    Collection<GenericProperty> properties = new HashSet<>();
-    properties.add(new GenericProperty(String.class, TYPE, ACTION_TYPE));
-    properties.add(new GenericProperty(Integer.class, COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
-    properties.add(new GenericProperty(Integer.class, COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
+    Collection<Property> properties = new HashSet<>();
+    properties.add(PropertyFactory.makeProperty(TYPE, ACTION_TYPE));
+    properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
+    properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
     GameElement action = provider.createElement(ACTION, ACTION_NAME, properties);
     ElementRecord record = action.toRecord();
     assertEquals(properties, record.properties());
@@ -68,9 +69,9 @@ public class FactoryProviderTest {
 
   @Test
   void testCreatePiece() throws InvalidTypeException, MissingRequiredPropertyException {
-    Collection<GenericProperty> properties = new HashSet<>();
-    properties.add(new GenericProperty(String.class, IMAGE, PIECE_IMAGE));
-    properties.add(new GenericProperty(String.class, PLAYER, PIECE_PLAYER));
+    Collection<Property> properties = new HashSet<>();
+    properties.add(PropertyFactory.makeProperty(IMAGE, PIECE_IMAGE));
+    properties.add(PropertyFactory.makeProperty(PLAYER, PIECE_PLAYER));
     GameElement piece = provider.createElement(PIECE, PIECE_NAME, properties);
     ElementRecord record = piece.toRecord();
     assertEquals(properties, record.properties());
@@ -79,10 +80,10 @@ public class FactoryProviderTest {
 
   @Test
   void testCreateCondition() throws InvalidTypeException, MissingRequiredPropertyException {
-    Collection<GenericProperty> properties = new HashSet<>();
-    properties.add(new GenericProperty(String.class, TYPE, CONDITION_TYPE));
-    properties.add(new GenericProperty(Integer.class, COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
-    properties.add(new GenericProperty(Integer.class, COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
+    Collection<Property> properties = new HashSet<>();
+    properties.add(PropertyFactory.makeProperty(TYPE, CONDITION_TYPE));
+    properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
+    properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
     GameElement condition = provider.createElement(CONDITION, CONDITION_NAME, properties);
     ElementRecord record = condition.toRecord();
     assertEquals(properties, record.properties());
@@ -91,7 +92,7 @@ public class FactoryProviderTest {
 
   @Test
   void testCreateWinCondition() throws InvalidTypeException, MissingRequiredPropertyException {
-    Collection<GenericProperty> properties = new HashSet<>();
+    Collection<Property> properties = new HashSet<>();
     GameElement winCondition = provider.createElement(WIN_CONDITION, WIN_CONDITION_NAME, properties);
     ElementRecord record = winCondition.toRecord();
     assertEquals(properties, record.properties());
@@ -100,10 +101,10 @@ public class FactoryProviderTest {
 
   @Test
   void testCreateRule() throws InvalidTypeException, MissingRequiredPropertyException {
-    Collection<GenericProperty> properties = new HashSet<>();
-    properties.add(new GenericProperty(Collection.class, PIECES, PIECE_NAME));
-    properties.add(new GenericProperty(Collection.class, ACTIONS, ACTION_NAME));
-    properties.add(new GenericProperty(Collection.class, CONDITIONS, CONDITION_NAME));
+    Collection<Property> properties = new HashSet<>();
+    properties.add(PropertyFactory.makeProperty(PIECES, PIECE_NAME));
+    properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
+    properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     GameElement rule = provider.createElement(RULE, RULE_NAME, properties);
     ElementRecord record = rule.toRecord();
     assertEquals(properties, record.properties());
@@ -112,13 +113,13 @@ public class FactoryProviderTest {
 
   @Test
   void testGetRequiredProperties() throws InvalidTypeException {
-    Collection<GenericProperty> required = provider.getRequiredProperties(RULE);
+    Collection<Property> required = provider.getRequiredProperties(RULE);
     //TODO: Add more rigorous tests
   }
   
   @Test
   void testInvalidTypeException() {
-    Collection<GenericProperty> properties = new HashSet<>();
+    Collection<Property> properties = new HashSet<>();
     assertThrows(InvalidTypeException.class, () -> provider.getRequiredProperties(INVALID_TYPE));
     assertThrows(InvalidTypeException.class, () -> provider.createElement(INVALID_TYPE, RULE_NAME, properties));
   }

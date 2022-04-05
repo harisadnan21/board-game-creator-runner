@@ -1,7 +1,7 @@
 package oogasalad.builder.model.element;
 
 import java.util.Collection;
-import oogasalad.builder.model.property.GenericProperty;
+import oogasalad.builder.model.property.Property;
 
 /**
  * Represents a Condition in the game. Examples of conditions are emptyAt, pieceAt, etc.
@@ -18,7 +18,7 @@ public class Condition extends GameElement{
    * @param name       the name of the game element
    * @param properties the properties of the game element
    */
-  public Condition(String name, Collection<GenericProperty> properties) {
+  public Condition(String name, Collection<Property> properties) {
     super(name, properties);
   }
 }

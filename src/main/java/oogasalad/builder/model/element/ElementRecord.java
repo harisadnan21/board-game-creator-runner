@@ -2,7 +2,7 @@ package oogasalad.builder.model.element;
 
 import java.util.Collection;
 import java.util.Set;
-import oogasalad.builder.model.property.GenericProperty;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.JSONSerializable;
 import org.json.JSONObject;
 
@@ -12,7 +12,7 @@ import org.json.JSONObject;
  *
  * @author Shaan Gondalia
  */
-public record ElementRecord(String name, Collection<GenericProperty> properties) implements
+public record ElementRecord(String name, Collection<Property> properties) implements
     JSONSerializable<ElementRecord> {
 
   public ElementRecord {
@@ -27,7 +27,7 @@ public record ElementRecord(String name, Collection<GenericProperty> properties)
   @Override
   public String toJSON() {
     JSONObject obj = new JSONObject();
-    for (GenericProperty property : properties) {
+    for (Property property : properties) {
       obj.put(property.name(), property.value());
     }
     return obj.toString();
