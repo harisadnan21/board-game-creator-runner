@@ -3,7 +3,7 @@ package oogasalad.builder.model.element;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 
 
 /**
@@ -14,7 +14,7 @@ import oogasalad.builder.model.property.Property;
 public abstract class GameElement implements Element {
 
   private final String name;
-  private final Collection<Property> properties = new HashSet<>();
+  private final Collection<GenericProperty> properties = new HashSet<>();
 
   /**
    * Creates a new Game Element with the given parameters.
@@ -22,7 +22,7 @@ public abstract class GameElement implements Element {
    * @param name       the name of the game element
    * @param properties the properties of the game element
    */
-  public GameElement(String name, Collection<Property> properties) {
+  public GameElement(String name, Collection<GenericProperty> properties) {
     Objects.requireNonNull(name);
     Objects.requireNonNull(properties);
     this.name = name;

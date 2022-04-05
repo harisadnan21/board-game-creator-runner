@@ -1,6 +1,6 @@
 package oogasalad.builder.model.element.factory;
 
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 import oogasalad.builder.model.element.*;
 import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -14,8 +14,8 @@ import java.util.*;
 class GameElementFactoryTest {
     private Map<Class<? extends GameElement>, GameElementFactory> factories;
     private TestRuleFactory testRuleFactory;
-    private Collection<Property> testProperties = Set.of(new Property(String.class, "thingy", "hello there"),
-            new Property(Integer.class, "name", "123"));
+    private Collection<GenericProperty> testProperties = Set.of(new GenericProperty(String.class, "thingy", "hello there"),
+            new GenericProperty(Integer.class, "name", "123"));
 
     private class TestRuleFactory extends GameElementFactory<Rule> {
         public TestRuleFactory(String path) {
@@ -23,7 +23,7 @@ class GameElementFactoryTest {
         }
 
         @Override
-        public Rule createElement(String name, Collection<Property> properties) {
+        public Rule createElement(String name, Collection<GenericProperty> properties) {
             return new Rule(name, properties);
         }
     }
@@ -49,7 +49,7 @@ class GameElementFactoryTest {
 
     @Test
     void testLoadProperties() {
-        Collection<Property> props = testRuleFactory.getRequiredProperties();
+        Collection<GenericProperty> props = testRuleFactory.getRequiredProperties();
         assertEquals(testProperties, props);
         testProperties.forEach(prop -> assertTrue(props.stream().anyMatch(prop::fullEquals)));
     }

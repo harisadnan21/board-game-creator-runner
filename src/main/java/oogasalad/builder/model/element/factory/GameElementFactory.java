@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import oogasalad.builder.controller.ExceptionResourcesSingleton;
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -26,7 +26,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   private static final String REQUIRED = "required";
   private static final String TYPE = "type";
   private final ResourceBundle propertiesResources;
-  private Collection<Property> properties;
+  private Collection<GenericProperty> properties;
 
   /**
    * Creates a new GameElementFactory with the given properties file
@@ -45,7 +45,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
    * @param properties the properties of the game element
    * @return a game element with the given name and properties
    */
-  public abstract T createElement(String name, Collection<Property> properties)
+  public abstract T createElement(String name, Collection<GenericProperty> properties)
       throws MissingRequiredPropertyException;
 
   /**
@@ -54,7 +54,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
    * @return the required properties of a game element
    */
   @Override
-  public Collection<Property> getRequiredProperties() {
+  public Collection<GenericProperty> getRequiredProperties() {
     return Set.copyOf(properties);
   }
 
@@ -66,9 +66,9 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
    * @return the value of the property if found
    * @throws MissingRequiredPropertyException if the property is not found
    */
-  private String findProperty(String target, Collection<Property> properties)
+  private String findProperty(String target, Collection<GenericProperty> properties)
       throws MissingRequiredPropertyException {
-    for (Property property : properties) {
+    for (GenericProperty property : properties) {
       if (property.name().equals(target)) {
         return property.value();
       }
@@ -77,9 +77,9 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   }
 
   // Validates that the given properties are correct
-  protected void validate(Collection<Property> properties) throws MissingRequiredPropertyException {
+  protected void validate(Collection<GenericProperty> properties) throws MissingRequiredPropertyException {
     String type = null;
-    for (Property property : getRequiredProperties()) {
+    for (GenericProperty property : getRequiredProperties()) {
       String namespace = property.name().split(DELIMITER)[0];
       String target = property.name().split(DELIMITER)[1];
       if (namespace.equals(REQUIRED)) {
@@ -96,9 +96,9 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   }
 
   // Validates properties in a given namespace
-  private void validateNamespace(String type, Collection<Property> properties)
+  private void validateNamespace(String type, Collection<GenericProperty> properties)
       throws MissingRequiredPropertyException {
-    for (Property property : getRequiredProperties()) {
+    for (GenericProperty property : getRequiredProperties()) {
       String namespace = property.name().split(DELIMITER)[0];
       String target = property.name().split(DELIMITER)[1];
       if (namespace.equals(type)) {
@@ -112,7 +112,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     if (type == null) {
       return true;
     }
-    for (Property property : getRequiredProperties()) {
+    for (GenericProperty property : getRequiredProperties()) {
       String namespace = property.name().split(DELIMITER)[0];
       String target = property.name().split(DELIMITER)[1];
       if (namespace.equals(REQUIRED) && target.equals(TYPE)) {
@@ -134,7 +134,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
           }
           try {
             properties.add(
-                new Property(Class.forName(propertyParts[0]), key, propertyParts[1]));
+                new GenericProperty(Class.forName(propertyParts[0]), key, propertyParts[1]));
           } catch (ClassNotFoundException e) {
             throw new IllegalPropertyDefinitionException(ExceptionResourcesSingleton.getInstance()
                 .getString("BadPropertyClass", propertyParts[0]));

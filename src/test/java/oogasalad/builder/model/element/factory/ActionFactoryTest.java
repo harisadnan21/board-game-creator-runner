@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 import oogasalad.builder.model.element.Action;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -36,10 +36,10 @@ public class ActionFactoryTest {
 
   @Test
   void testActionCreated() throws MissingRequiredPropertyException {
-    Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(Integer.class, PROPERTY_NAME_TYPE, ACTION_TYPE));
-    properties.add(new Property(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
-    properties.add(new Property(Integer.class, PROPERTY_NAME_TWO, PROPERTY_VALUE_TWO));
+    Collection<GenericProperty> properties = new HashSet<>();
+    properties.add(new GenericProperty(Integer.class, PROPERTY_NAME_TYPE, ACTION_TYPE));
+    properties.add(new GenericProperty(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
+    properties.add(new GenericProperty(Integer.class, PROPERTY_NAME_TWO, PROPERTY_VALUE_TWO));
     Action action = actionFactory.createElement(ACTION_NAME, properties);
 
     ElementRecord record = action.toRecord();
@@ -49,18 +49,18 @@ public class ActionFactoryTest {
 
   @Test
   void testConditionMissingRequired() {
-    Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(Integer.class, PROPERTY_NAME_TYPE, ACTION_TYPE));
-    properties.add(new Property(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
+    Collection<GenericProperty> properties = new HashSet<>();
+    properties.add(new GenericProperty(Integer.class, PROPERTY_NAME_TYPE, ACTION_TYPE));
+    properties.add(new GenericProperty(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
     assertThrows(MissingRequiredPropertyException.class, () ->
         actionFactory.createElement(ACTION_NAME, properties));
   }
 
   @Test
   void testConditionInvalidType() {
-    Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(Integer.class, PROPERTY_NAME_TYPE, INVALID_ACTION_TYPE));
-    properties.add(new Property(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
+    Collection<GenericProperty> properties = new HashSet<>();
+    properties.add(new GenericProperty(Integer.class, PROPERTY_NAME_TYPE, INVALID_ACTION_TYPE));
+    properties.add(new GenericProperty(Integer.class, PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
     assertThrows(MissingRequiredPropertyException.class, () ->
         actionFactory.createElement(ACTION_NAME, properties));
   }

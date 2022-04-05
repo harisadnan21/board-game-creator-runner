@@ -1,16 +1,14 @@
 package oogasalad.builder.model.property;
 
-import java.util.Collection;
-import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PropertyTest {
-    private final Property prop1 = new Property(String.class, "field name", "some value"),
-            prop2 = new Property(String.class, "field name", "other value"),
-            prop3 = new Property(String.class, "different field name", "some value"),
-            prop4 = new Property(Integer.class, "different field name", "123");
+    private final GenericProperty prop1 = new GenericProperty(String.class, "field name", "some value"),
+            prop2 = new GenericProperty(String.class, "field name", "other value"),
+            prop3 = new GenericProperty(String.class, "different field name", "some value"),
+            prop4 = new GenericProperty(Integer.class, "different field name", "123");
 
     @Test
     void testTypeChecking() {
@@ -21,8 +19,8 @@ public class PropertyTest {
 
     @Test
     void testNewInstance() {
-        assertFullEquals(new Property(String.class, "test", "testVal"), Property.newInstance(String.class, "test", "testVal"));
-        assertFullEquals(new Property(Integer.class, "test", "123"), Property.newInstance(Integer.class, "test", 123));
+        assertFullEquals(new GenericProperty(String.class, "test", "testVal"), GenericProperty.newInstance(String.class, "test", "testVal"));
+        assertFullEquals(new GenericProperty(Integer.class, "test", "123"), GenericProperty.newInstance(Integer.class, "test", 123));
     }
 
     @Test
@@ -69,13 +67,13 @@ public class PropertyTest {
         assertNotFullEquals(prop3, prop4);
     }
 
-    void assertFullEquals(Property expected, Property actual) {
+    void assertFullEquals(GenericProperty expected, GenericProperty actual) {
         if(!expected.fullEquals(actual)) {
             fail("\nExpected\t:" + expected + "\nActual\t:" + actual);
         }
     }
 
-    void assertNotFullEquals(Property expected, Property actual) {
+    void assertNotFullEquals(GenericProperty expected, GenericProperty actual) {
         if(expected.fullEquals(actual)) {
             fail("Expected not full equals but was " + actual);
         }

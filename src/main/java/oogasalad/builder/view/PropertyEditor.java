@@ -1,6 +1,6 @@
 package oogasalad.builder.view;
 
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 
 import java.util.*;
 
@@ -19,7 +19,7 @@ public class PropertyEditor {
      * @param properties 
      * @return
      */
-    public void setProperties(Collection<Property> properties) {
+    public void setProperties(Collection<GenericProperty> properties) {
         // TODO implement here
         // return null;
     }
@@ -28,7 +28,7 @@ public class PropertyEditor {
      * @param name 
      * @return
      */
-    public Property getProperty(String name) {
+    public GenericProperty getProperty(String name) {
         // TODO implement here
         return null;
     }
@@ -36,7 +36,7 @@ public class PropertyEditor {
     /**
      * @return
      */
-    public Collection<Property> getProperties() {
+    public Collection<GenericProperty> getProperties() {
         // TODO implement here
         return null;
     }

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 import oogasalad.builder.model.element.Piece;
 import oogasalad.builder.model.element.Rule;
 import oogasalad.builder.model.element.WinCondition;
@@ -27,13 +27,13 @@ public class SerializationTest {
   private static final String PROPERTY_VALUE = "test property value";
   private static final String TEST_JSON = "test";
   private static final String EXPECTED_JSON = "{\"test property name\":\"test property value\"}";
-  private Collection<Property> properties;
+  private Collection<GenericProperty> properties;
 
   @BeforeEach
   void setUp(){
     properties = new HashSet<>();
-    properties.add(new Property(String.class, PROPERTY_NAME_1, PROPERTY_VALUE));
-    properties.add(new Property(String.class, PROPERTY_NAME_2, PROPERTY_VALUE));
+    properties.add(new GenericProperty(String.class, PROPERTY_NAME_1, PROPERTY_VALUE));
+    properties.add(new GenericProperty(String.class, PROPERTY_NAME_2, PROPERTY_VALUE));
   }
 
   @Test

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
@@ -96,7 +96,7 @@ public class GameConfiguration implements BuilderModel {
    * @param properties the properties of the game element
    */
   @Override
-  public void addGameElement(String type, String name, Collection<Property> properties)
+  public void addGameElement(String type, String name, Collection<GenericProperty> properties)
       throws InvalidTypeException, MissingRequiredPropertyException {
     GameElement newElement = provider.createElement(type, name, properties);
     if (!elements.containsKey(type)) {
@@ -153,7 +153,7 @@ public class GameConfiguration implements BuilderModel {
    * @return the required properties of a game element
    */
   @Override
-  public Collection<Property> getRequiredProperties(String type) throws InvalidTypeException {
+  public Collection<GenericProperty> getRequiredProperties(String type) throws InvalidTypeException {
     return provider.getRequiredProperties(type);
   }
 

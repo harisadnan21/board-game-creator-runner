@@ -1,7 +1,7 @@
 package oogasalad.builder.model;
 
 import java.util.Collection;
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -48,7 +48,7 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    * @param name       the name of the game element
    * @param properties the properties of the game element
    */
-  void addGameElement(String type, String name, Collection<Property> properties)
+  void addGameElement(String type, String name, Collection<GenericProperty> properties)
       throws InvalidTypeException, MissingRequiredPropertyException;
 
   /**
@@ -86,7 +86,7 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    *
    * @return the required properties of a game element
    */
-  Collection<Property> getRequiredProperties(String type) throws InvalidTypeException;
+  Collection<GenericProperty> getRequiredProperties(String type) throws InvalidTypeException;
 
   /**
    * Converts a Builder Model into a String representing the model's JSON Format

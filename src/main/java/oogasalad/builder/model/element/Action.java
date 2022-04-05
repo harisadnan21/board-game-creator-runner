@@ -1,7 +1,7 @@
 package oogasalad.builder.model.element;
 
 import java.util.Collection;
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 
 /**
  * Represents an Action in the game. Examples of actions are move, capturePieceAt, place, etc.
@@ -18,7 +18,7 @@ public class Action extends GameElement{
    * @param name       the name of the game element
    * @param properties the properties of the game element
    */
-  public Action(String name, Collection<Property> properties) {
+  public Action(String name, Collection<GenericProperty> properties) {
     super(name, properties);
   }
 }

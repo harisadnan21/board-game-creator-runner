@@ -6,23 +6,23 @@ import oogasalad.builder.controller.ExceptionResourcesSingleton;
 /**
  * An immutable class that stores a value of a specified type as a String under a given name
  */
-public record Property(Class type, String name, String value) {
+public record GenericProperty(Class type, String name, String value) {
 
     // Implemented as static method rather than constructor because constructor conflicts with the one made by the record
-    public static <T> Property newInstance(Class<T> type, String name, T value) {
+    public static <T> GenericProperty newInstance(Class<T> type, String name, T value) {
         checkValueType(value, type);
-        return new Property(type, name, Objects.requireNonNull(value).toString());
+        return new GenericProperty(type, name, Objects.requireNonNull(value).toString());
     }
 
-    public Property withValue(Object newValue) {
+    public GenericProperty withValue(Object newValue) {
         Objects.requireNonNull(newValue);
         checkValueType(newValue, type);
         return withValueAsString(newValue.toString());
     }
 
-    public Property withValueAsString(String newValue) {
+    public GenericProperty withValueAsString(String newValue) {
         Objects.requireNonNull(newValue);
-        return new Property(type, name, newValue);
+        return new GenericProperty(type, name, newValue);
     }
 
     @Override
@@ -33,12 +33,12 @@ public record Property(Class type, String name, String value) {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Property property = (Property) o;
+        GenericProperty property = (GenericProperty) o;
         return type.equals(property.type) && name.equals(property.name);
     }
 
     public boolean fullEquals(Object o) {
-        return equals(o) && ((Property)o).value.equals(value);
+        return equals(o) && ((GenericProperty)o).value.equals(value);
     }
 
     @Override

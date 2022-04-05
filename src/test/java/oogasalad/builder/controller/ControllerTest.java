@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import javafx.stage.Stage;
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.GenericProperty;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -53,12 +53,12 @@ public class ControllerTest extends DukeApplicationTest {
   @Test
   void testGameElementFound()
       throws ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
-    Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
+    Collection<GenericProperty> properties = new HashSet<>();
+    properties.add(new GenericProperty(String.class, PROPERTY_NAME, PROPERTY_VALUE));
+    properties.add(new GenericProperty(String.class, PROPERTY_NAME, PROPERTY_VALUE));
     controller.update(PIECE_TYPE, PIECE_NAME, properties);
-    Collection<Property> newProperties = controller.getElementProperties(PIECE_TYPE, PIECE_NAME);
-    for (Property prop : newProperties){
+    Collection<GenericProperty> newProperties = controller.getElementProperties(PIECE_TYPE, PIECE_NAME);
+    for (GenericProperty prop : newProperties){
       assertEquals(PROPERTY_NAME, prop.name());
       assertEquals(PROPERTY_VALUE, prop.value());
     }
@@ -114,9 +114,9 @@ public class ControllerTest extends DukeApplicationTest {
       throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     controller.makeBoard(WIDTH, HEIGHT);
 
-    Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
+    Collection<GenericProperty> properties = new HashSet<>();
+    properties.add(new GenericProperty(String.class, PROPERTY_NAME, PROPERTY_VALUE));
+    properties.add(new GenericProperty(String.class, PROPERTY_NAME, PROPERTY_VALUE));
     controller.update(PIECE_TYPE, PIECE_NAME, properties);
     controller.update(RULE_TYPE, RULE_NAME, properties);
     File file = new File(TEST_FILENAME);
