@@ -34,11 +34,16 @@ public class BoardCanvas {
     pieceCanvas = new Canvas(boardCanvas.getWidth(), boardCanvas.getHeight());
     pieceGraphics = pieceCanvas.getGraphicsContext2D();
 
+
     containsPiece = new int[xSize][ySize];
+
+
+
     //TODO: Bind these values to the size of canvas
-    rectWidth = DEFAULT_CANVAS_WIDTH / xSize;
-    rectHeight = DEFAULT_CANVAS_HEIGHT / ySize;
+    rectWidth = boardCanvas.getWidth() / xSize;
+    rectHeight = boardCanvas.getHeight() / ySize;
     //TODO: Get type from some sort of input
+
     drawCheckerBoard(xSize, ySize);
     addClickHandeling();
   }
@@ -57,7 +62,7 @@ public class BoardCanvas {
     return ret;
   }
 
-  public Node getCanvasNode() {
+  public Pane getCanvasPane() {
     Pane ret = new Pane();
     ret.getChildren().addAll(boardCanvas, pieceCanvas);
     return ret;
