@@ -63,7 +63,7 @@ public class PieceSelectionEngine extends Engine {
   private void makePieceSelected(int x, int y) {
     Board board = getGame().getBoard();
 
-    if (!board.isEmpty(x, y) && board.getPiece(x, y).get().player() == board.getPlayer()) {
+    if (!board.isEmpty(x, y) && board.getPieceRecord(x, y).get().player() == board.getPlayer()) {
       myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
       myValidMoves = getValidMoves();

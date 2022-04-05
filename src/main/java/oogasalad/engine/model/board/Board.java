@@ -61,7 +61,7 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     return pieceLocations[i][j] == null;
   }
 
-  public Optional<PieceRecord> getPiece(int i, int j) {
+  public Optional<PieceRecord> getPieceRecord(int i, int j) {
     //return Optional.of(myBoard[i][j]);
     Optional<PieceRecord> piece;
     if (pieceLocations[i][j] == null) {
