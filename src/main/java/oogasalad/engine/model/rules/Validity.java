@@ -12,8 +12,8 @@ public class Validity {
     myRules = rulesInPlay;
   }
 
-  public List<int[]> checkValidity(Piece piece, Board board){
-    myRules.stream.filter(rule -> rule
-        .pieces.contains(piece));
-  }
+  //public List<int[]> checkValidity(Piece piece, Board board){
+    //myRules.stream.filter(rule -> rule
+        //.pieces.contains(piece));
+  //}
 }
