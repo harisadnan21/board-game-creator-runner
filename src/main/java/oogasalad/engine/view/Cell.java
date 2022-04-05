@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -14,7 +15,7 @@ import javafx.scene.shape.Shape;
 /**
  * @author Jake Heller
  */
-public class Cell extends Group {
+public class Cell {
 
   public static int BUFFER = 2;
   public static String VALID_MARKER_PATH = BoardView.IMAGES_FOLDER + "valid_marker.png";
@@ -41,24 +42,24 @@ public class Cell extends Group {
     myHeight = height;
     myX = x;
     myY = y;
-
     myRoot = new StackPane();
     myRoot.setAlignment(Pos.CENTER);
-    this.getStyleClass().add("cell");
+    myRoot.getStyleClass().add("cell");
     myShape = new Rectangle(width, height);
     setColor();
-    this.getChildren().add(myShape);
+
+    myRoot.getChildren().add(myShape);
   }
 
-  @Deprecated
-  public Node getRoot() {
+
+  public Node getMyRoot() {
     return myRoot;
   }
 
   public void addPiece(String imagePath) {
     removePiece();
     myPiece = createImageView(imagePath, myWidth-BUFFER, myHeight-BUFFER);
-    this.getChildren().add(myPiece);
+    myRoot.getChildren().add(myPiece);
   }
 
   /**
@@ -78,7 +79,7 @@ public class Cell extends Group {
 
   public void removePiece() {
     if (myPiece != null) {
-      this.getChildren().remove(myPiece);
+      myRoot.getChildren().remove(myPiece);
     }
     myPiece = null;
 
@@ -89,7 +90,7 @@ public class Cell extends Group {
    */
   public void addValidMarker(){
     myValidMarker = createImageView(VALID_MARKER_PATH, (myWidth-BUFFER)/3, (myHeight-BUFFER)/3);
-    this.getChildren().add(myValidMarker);
+    myRoot.getChildren().add(myValidMarker);
   }
 
   /**
@@ -97,7 +98,7 @@ public class Cell extends Group {
    */
   public void removeValidMarker(){
     if(myValidMarker!= null) {
-      this.getChildren().remove(myValidMarker);
+      myRoot.getChildren().remove(myValidMarker);
     }
     myValidMarker = null;
 

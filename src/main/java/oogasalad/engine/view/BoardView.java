@@ -57,13 +57,13 @@ public class BoardView implements PropertyChangeListener{
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
         Cell temp = new Cell(i, j, cellWidth, cellHeight);
-        gridRoot.add(temp, i, j);
+        gridRoot.add(temp.getMyRoot(), i, j);
         myGrid[i][j] = temp;
 
         int finalI = i;
         int finalJ = j;
 
-        myGrid[i][j].addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+        myGrid[i][j].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
           try {
             cellClicked(e, finalI, finalJ);
           } catch (OutOfBoardException ex) {
