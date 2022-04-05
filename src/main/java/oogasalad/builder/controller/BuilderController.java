@@ -7,12 +7,13 @@ import java.util.*;
 import javafx.stage.Stage;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
-import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.BuilderView;
 
 /**
@@ -103,7 +104,7 @@ public class BuilderController {
      * @param properties the properties of the element
      */
     public void update(String type, String name, Collection<Property> properties)
-        throws InvalidTypeException {
+        throws InvalidTypeException, MissingRequiredPropertyException {
        gameConfig.addGameElement(type, name, properties);
     }
 

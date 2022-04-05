@@ -1,13 +1,16 @@
 package oogasalad.builder.model.element.factory;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import oogasalad.builder.controller.ExceptionResourcesSingleton;
-import oogasalad.builder.controller.Property;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
+import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.PropertyFactory;
 
 /**
  * Abstract class that represents a generic Game Element Factory. Has methods for retrieving
@@ -20,6 +23,9 @@ import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 public abstract class GameElementFactory<T extends GameElement> implements ElementFactory {
 
   private static final int PROPERTY_PARTS = 2;
+  private static final String DELIMITER = "-";
+  private static final String REQUIRED = "required";
+  private static final String TYPE = "type";
   private final ResourceBundle propertiesResources;
   private Collection<Property> properties;
 
@@ -40,7 +46,8 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
    * @param properties the properties of the game element
    * @return a game element with the given name and properties
    */
-  public abstract T createElement(String name, Collection<Property> properties);
+  public abstract T createElement(String name, Collection<Property> properties)
+      throws MissingRequiredPropertyException;
 
   /**
    * Returns the required properties of a game element
@@ -52,6 +59,71 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     return Set.copyOf(properties);
   }
 
+  /**
+   * Checks whether a property with the given name exists, returning the value if found
+   *
+   * @param target the target name for the property
+   * @param properties the properties passed during element creation
+   * @return the value of the property if found
+   * @throws MissingRequiredPropertyException if the property is not found
+   */
+  private String findProperty(String target, Collection<Property> properties)
+      throws MissingRequiredPropertyException {
+    for (Property property : properties) {
+      if (property.name().equals(target)) {
+        return property.value();
+      }
+    }
+    throw new MissingRequiredPropertyException();
+  }
+
+  // Validates that the given properties are correct
+  protected void validate(Collection<Property> properties) throws MissingRequiredPropertyException {
+    String type = null;
+    for (Property property : getRequiredProperties()) {
+      String namespace = property.name().split(DELIMITER)[0];
+      String target = property.name().split(DELIMITER)[1];
+      if (namespace.equals(REQUIRED)) {
+        String value = findProperty(target, properties);
+        if (target.equals(TYPE)) {
+          type = value;
+        }
+      }
+    }
+    if (!validateType(type)) {
+      throw new MissingRequiredPropertyException();
+    }
+    validateNamespace(type, properties);
+  }
+
+  // Validates properties in a given namespace
+  private void validateNamespace(String type, Collection<Property> properties)
+      throws MissingRequiredPropertyException {
+    for (Property property : getRequiredProperties()) {
+      String namespace = property.name().split(DELIMITER)[0];
+      String target = property.name().split(DELIMITER)[1];
+      if (namespace.equals(type)) {
+        findProperty(target, properties);
+      }
+    }
+  }
+
+  // Checks whether a game element's type is valid
+  private boolean validateType(String type) {
+    if (type == null) {
+      return true;
+    }
+    for (Property property : getRequiredProperties()) {
+      String namespace = property.name().split(DELIMITER)[0];
+      String target = property.name().split(DELIMITER)[1];
+      if (namespace.equals(REQUIRED) && target.equals(TYPE)) {
+        String[] validTypes = property.value().split(DELIMITER);
+        return Arrays.asList(validTypes).contains(type);
+      }
+    }
+    return false; // TODO: Remove unreachable statement by making code smarter
+  }
+
   // Loads the required properties based on the resource file provided in the constructor
   private void loadProperties() {
     properties = new HashSet<>();
@@ -61,14 +133,8 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
             throw new IllegalPropertyDefinitionException(ExceptionResourcesSingleton.getInstance()
                 .getString("BadPropertyPartLength", PROPERTY_PARTS));
           }
-          try {
-            properties.add(
-                new Property(Class.forName(propertyParts[0]), key, propertyParts[1]));
-          } catch (ClassNotFoundException e) {
-            throw new IllegalPropertyDefinitionException(ExceptionResourcesSingleton.getInstance()
-                .getString("BadPropertyClass", propertyParts[0]));
-          }
-        });
+      properties.add(PropertyFactory.makeProperty(key, propertyParts[1]));
+    });
   }
 
 }

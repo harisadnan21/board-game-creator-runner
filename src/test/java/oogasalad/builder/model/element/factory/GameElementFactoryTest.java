@@ -1,8 +1,10 @@
 package oogasalad.builder.model.element.factory;
 
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.*;
 import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
+import oogasalad.builder.model.property.PropertyFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +15,8 @@ import java.util.*;
 class GameElementFactoryTest {
     private Map<Class<? extends GameElement>, GameElementFactory> factories;
     private TestRuleFactory testRuleFactory;
-    private Collection<Property> testProperties = Set.of(new Property(String.class, "thingy", "hello there"),
-            new Property(Integer.class, "name", "123"));
+    private Collection<Property> testProperties = Set.of(PropertyFactory.makeProperty("thingy", "hello there"),
+            PropertyFactory.makeProperty("name", "123"));
 
     private class TestRuleFactory extends GameElementFactory<Rule> {
         public TestRuleFactory(String path) {
@@ -40,11 +42,6 @@ class GameElementFactoryTest {
     @Test
     void testCreateFactory() {}
 
-    @Test
-    void testBadPropertyFiles() {
-        assertThrows(IllegalPropertyDefinitionException.class, () -> new TestRuleFactory("elements.BadTest1"));
-        assertThrows(IllegalPropertyDefinitionException.class, () -> new TestRuleFactory("elements.BadTest2"));
-    }
 
     @Test
     void testLoadProperties() {
@@ -58,7 +55,13 @@ class GameElementFactoryTest {
         Rule res = testRuleFactory.createElement("test", testRuleFactory.getRequiredProperties());
         assertTrue(res.checkName("test"));
         assertEquals(res.toRecord().properties(), testRuleFactory.getRequiredProperties());
-        factories.forEach((clazz, factory) -> assertEquals(factory.createElement("", factory.getRequiredProperties()).getClass(), clazz));
+        factories.forEach((clazz, factory) -> {
+            try {
+                assertEquals(factory.createElement("", factory.getRequiredProperties()).getClass(), clazz);
+            } catch (MissingRequiredPropertyException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 }
