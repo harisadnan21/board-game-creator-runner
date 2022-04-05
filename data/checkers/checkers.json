@@ -44,6 +44,7 @@
 			["empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite"],
 			["normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty"]],
 		"background": "checkers",
+		"activePlayer": "white",
 		"selectionsRequired": true
 	},
 	"conditions": [
@@ -78,9 +79,7 @@
 			"type": "move",
 			"x": 2,
 			"y": 2
-		}
-	],
-	"consequences": [
+		},
 		{
 			"name": "captureTopRight",
 			"type": "remove",
