@@ -3,7 +3,6 @@ package oogasalad.engine.model.board;
 import java.util.Iterator;
 import java.util.Optional;
 import javafx.util.Pair;
-import oogasalad.engine.model.Observable;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Utilities;
 
@@ -52,6 +51,8 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     }
   }
 
+
+
   public void remove(int i, int j){
     pieceLocations[i][j] =null;
   }
@@ -60,14 +61,14 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     return pieceLocations[i][j] == null;
   }
 
-  public Optional<Piece> getPiece(int i, int j) {
+  public Optional<PieceRecord> getPieceRecord(int i, int j) {
     //return Optional.of(myBoard[i][j]);
-    Optional<Piece> piece;
+    Optional<PieceRecord> piece;
     if (pieceLocations[i][j] == null) {
       piece = Optional.empty();
     }
     else {
-      piece = Optional.of(pieceLocations[i][j]);
+      piece = Optional.of(pieceLocations[i][j].getPieceRecord());
     }
     return piece;
   }
@@ -121,7 +122,8 @@ public class Board implements Iterable<Pair<Position, Piece>> {
       Piece copyPiece;
       if (pair.getValue() != null) {
         Piece piece = pair.getValue();
-        board.placeNewPiece(piece.getI(), piece.getJ(), piece.getType(), piece.getOwner());
+        board.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(), piece.getPieceRecord()
+            .type(), piece.getPieceRecord().player());
       }
     }
     return board;

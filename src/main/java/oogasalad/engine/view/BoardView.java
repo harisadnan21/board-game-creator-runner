@@ -119,7 +119,7 @@ public class BoardView implements PropertyChangeListener{
     for (Pair<Position, Piece> piece: board) {
       Position pos = piece.getKey();
       if (piece.getValue() != null) {
-        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getOwner()));
+        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getPieceRecord().player()));
       }
       else {
         myGrid[pos.i()][pos.j()].removePiece();
