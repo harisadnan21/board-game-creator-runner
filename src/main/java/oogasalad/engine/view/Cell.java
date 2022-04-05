@@ -19,11 +19,13 @@ public class Cell {
 
   public static int BUFFER = 2;
   public static String VALID_MARKER_PATH = BoardView.IMAGES_FOLDER + "valid_marker.png";
+  public static double OPACITY = 0.6;
 
   private Shape myShape;
   private StackPane myRoot;
   private ImageView myPiece;
   private ImageView myValidMarker;
+  private Rectangle highlight;
 
   private double myWidth;
   private double myHeight;
@@ -101,6 +103,25 @@ public class Cell {
     }
     myValidMarker = null;
 
+  }
+
+  public void addSelectedHighlight() {
+    highlight = new Rectangle(myWidth-BUFFER, myHeight-BUFFER);
+    highlight.setFill(Color.web("#ECF036"));
+    highlight.setStroke(Color.web("#ECF036"));
+    highlight.setOpacity(OPACITY);
+
+    myRoot.getChildren().add(highlight);
+    System.out.println("selected");
+  }
+
+  public void removeHighlight() {
+    myRoot.getChildren().remove(highlight);
+    highlight = null;
+  }
+
+  public boolean containsPiece() {
+    return myRoot.getChildren().contains(myPiece);
   }
 
   private void setColor() {

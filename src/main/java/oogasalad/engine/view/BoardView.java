@@ -80,6 +80,7 @@ public class BoardView implements PropertyChangeListener{
 
   public void cellClicked(MouseEvent e, int i, int j) throws OutOfBoardException {
     Board nextState = myController.click(i, j);
+    selectCell(i, j);
     updateBoard(nextState);
     text.updateText(i, j);
   }
@@ -151,6 +152,22 @@ public class BoardView implements PropertyChangeListener{
     for (Cell[] row : myGrid){
       for(Cell cell : row){
         cell.removeValidMarker();
+      }
+    }
+  }
+
+  private void selectCell(int i, int j) {
+    clearCellSelection();
+    Cell cell = myGrid[i][j];
+    if (cell.containsPiece()) {
+      myGrid[i][j].addSelectedHighlight();
+    }
+  }
+
+  private void clearCellSelection() {
+    for (Cell[] row : myGrid){
+      for(Cell cell : row){
+        cell.removeHighlight();
       }
     }
   }
