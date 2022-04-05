@@ -1,5 +1,6 @@
 package oogasalad.engine.view;
 
+import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -36,13 +37,14 @@ public class Cell extends Group {
    * @param height cell height
    */
   public Cell(int x, int y, double width, double height) {
-
     myWidth = width;
     myHeight = height;
     myX = x;
     myY = y;
+
     myRoot = new StackPane();
     myRoot.setAlignment(Pos.CENTER);
+    this.getStyleClass().add("cell");
     myShape = new Rectangle(width, height);
     setColor();
     this.getChildren().add(myShape);
