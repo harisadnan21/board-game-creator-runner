@@ -20,6 +20,22 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     activePlayer = 0;
   }
 
+  public Board(Board board) {
+    this(board.myRows, board.myColumns);
+    activePlayer = board.getPlayer();
+    for (Pair<Position, Piece> pair: board) {
+      if (pair.getValue() != null) {
+        Piece piece = pair.getValue();
+        try {
+          this.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(),
+              piece.getPieceRecord().type(), piece.getPieceRecord().player());
+        } catch (OutOfBoardException e) {
+          // since only considering pieces in board, exception is not relevant
+        }
+      }
+    }
+  }
+
   public Piece[][] getMyBoard(){
     return pieceLocations;
   }
