@@ -47,7 +47,7 @@ class GameElementFactoryTest {
     void testLoadProperties() {
         Collection<Property> props = testRuleFactory.getRequiredProperties();
         assertEquals(testProperties, props);
-        testProperties.forEach(prop -> assertTrue(props.stream().anyMatch(prop::equals)));
+        testProperties.forEach(prop -> assertTrue(props.stream().anyMatch(prop::fullEquals)));
     }
 
     @Test

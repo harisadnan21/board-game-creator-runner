@@ -102,9 +102,15 @@ public class FactoryProviderTest {
   @Test
   void testCreateRule() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
-    properties.add(PropertyFactory.makeProperty(PIECES, PIECE_NAME));
-    properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
-    properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
+    Collection<String> pieces = new HashSet<>();
+    Collection<String> actions = new HashSet<>();
+    Collection<String> conditions = new HashSet<>();
+    pieces.add(PIECE_NAME);
+    actions.add(ACTION_NAME);
+    conditions.add(CONDITION_NAME);
+    properties.add(PropertyFactory.makeProperty(PIECES, pieces));
+    properties.add(PropertyFactory.makeProperty(ACTIONS, actions));
+    properties.add(PropertyFactory.makeProperty(CONDITIONS, conditions));
     GameElement rule = provider.createElement(RULE, RULE_NAME, properties);
     ElementRecord record = rule.toRecord();
     assertEquals(properties, record.properties());

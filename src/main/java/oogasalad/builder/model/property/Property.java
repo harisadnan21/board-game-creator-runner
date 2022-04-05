@@ -10,13 +10,30 @@ import java.util.Objects;
 public record Property(String name, String value) {
 
     /**
-     * Checks equality between properties (same name and value)
+     * Checks whether a property has the same name as another
      *
      * @param o The object to check equality against.
      * @return true if the objects are equal, false if not
      */
     @Override
     public boolean equals(Object o){
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Property property = (Property) o;
+        return name.equals(property.name);
+    }
+
+    /**
+     * Checks whether a property has the same name and valueas another
+     *
+     * @param o The object to check equality against.
+     * @return true if the objects are equal, false if not
+     */
+    public boolean fullEquals(Object o){
         if (this == o) {
             return true;
         }
