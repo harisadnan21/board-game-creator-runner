@@ -116,6 +116,7 @@ public class BoardView implements PropertyChangeListener{
   }
 
   private void updateBoard(Board board) {
+    setValidMarkers(board);
     for (Pair<Position, Piece> piece: board) {
       Position pos = piece.getKey();
       if (piece.getValue() != null) {
@@ -123,6 +124,17 @@ public class BoardView implements PropertyChangeListener{
       }
       else {
         myGrid[pos.i()][pos.j()].removePiece();
+      }
+    }
+  }
+
+  private void setValidMarkers(Board board) {
+    if(board.getValidMoves()==null){
+      clearValidMarks();
+    }
+    else{
+      for(Position pos : board.getValidMoves()){
+        myGrid[pos.i()][pos.j()].addValidMarker();
       }
     }
   }

@@ -16,7 +16,7 @@ import javafx.scene.shape.Shape;
 public class Cell extends Group {
 
   public static int BUFFER = 2;
-  public static String VALID_MARKER_PATH = BoardView.IMAGES_FOLDER + "valid_marker";
+  public static String VALID_MARKER_PATH = BoardView.IMAGES_FOLDER + "valid_marker.png";
 
   private Shape myShape;
   private StackPane myRoot;
@@ -36,6 +36,7 @@ public class Cell extends Group {
    * @param height cell height
    */
   public Cell(int x, int y, double width, double height) {
+
     myWidth = width;
     myHeight = height;
     myX = x;
