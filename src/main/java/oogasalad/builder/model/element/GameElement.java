@@ -3,7 +3,7 @@ package oogasalad.builder.model.element;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 
 
 /**

@@ -4,13 +4,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.FactoryProvider;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import org.json.JSONArray;
@@ -96,7 +97,7 @@ public class GameConfiguration implements BuilderModel {
    */
   @Override
   public void addGameElement(String type, String name, Collection<Property> properties)
-      throws InvalidTypeException {
+      throws InvalidTypeException, MissingRequiredPropertyException {
     GameElement newElement = provider.createElement(type, name, properties);
     if (!elements.containsKey(type)) {
       elements.put(type, new HashSet<>());
@@ -166,9 +167,11 @@ public class GameConfiguration implements BuilderModel {
     checkBoardCreated();
     JSONObject obj = new JSONObject();
     // TODO: Remove magic values
-    obj.put("board", board.toJSON());
     obj.put("pieces", elementsToJSONArray("piece"));
+    obj.put("board", board.toJSON());
     obj.put("rules", elementsToJSONArray("rule"));
+    obj.put("conditions", elementsToJSONArray("condition"));
+    obj.put("actions", elementsToJSONArray("action"));
     return obj.toString();
   }
 
@@ -192,10 +195,10 @@ public class GameConfiguration implements BuilderModel {
 
   // Converts all elements of a certain type to a JSONArray
   private JSONArray elementsToJSONArray(String type) throws ElementNotFoundException {
-    if (!elements.containsKey(type)) {
-      throw new ElementNotFoundException();
-    }
     JSONArray arr = new JSONArray();
+    if (!elements.containsKey(type)) {
+      return arr;
+    }
     for (GameElement element : elements.get(type)) {
       arr.put(element.toJSON());
     }

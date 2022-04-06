@@ -3,101 +3,102 @@
 		"name": "Checkers",
 		"author": "Mr. Checkers",
 		"creationDate": "1648158653",
-		"lastModifiedDate": "1648158780",
+		"lastModifiedDate": "1648158780"
 	},
-	"basicInfo": {
-		"players": [
-			{
-				"name": "Black"
-			},
-			{
-				"name": "White"
-			}
-		],
-		"firstMove": "White",
-	},
+	"players": [
+		{"name": "White"},
+		{"name": "Black"}
+	],
 	"pieces": [
 		{
-			"name": "normal",
-			"image": "pieces/normal.png"
+			"name": "normalWhite",
+			"image": "pieces/normalWhite.png",
+			"player": "White"
 		},
 		{
-			"name": "king",
-			"image": "pieces/king.png"
+			"name": "normalBlack",
+			"image": "pieces/normalBlack.png",
+			"player": "Black"
+		},
+		{
+			"name": "kingWhite",
+			"image": "pieces/kingWhite.png",
+			"player": "White"
+		},
+		{
+			"name": "kingBlack",
+			"image": "pieces/kingBlack.png",
+			"player": "Black"
 		}
 	],
 	"board": {
 		"shape": "square",
 		"width": 8,
 		"height": 8,
-		"pieceConfiguration": [["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"],
-			["empty", "normal", "empty", "normal", "empty", "normal", "empty", "normal"],
-			["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"],
+		"pieceConfiguration": [["normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty"],
+			["empty", "normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty", "normalBlack"],
+			["normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty"],
 			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
 			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-			["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"],
-			["empty", "normal", "empty", "normal", "empty", "normal", "empty", "normal"],
-			["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"]],
-		"playerConfiguration": [["Black", "empty", "Black", "empty", "Black", "empty", "Black", "empty"],
-			["empty", "Black", "empty", "Black", "empty", "Black", "empty", "Black"],
-			["Black", "empty", "Black", "empty", "Black", "empty", "Black", "empty"],
-			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-			["White", "empty", "White", "empty", "White", "empty", "White", "empty"],
-			["empty", "White", "empty", "White", "empty", "White", "empty", "White"],
-			["White", "empty", "White", "empty", "White", "empty", "White", "empty"]],
-		"background": "checkers"
+			["normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty"],
+			["empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite"],
+			["normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty"]],
+		"background": "checkers",
+		"activePlayer": "white",
+		"selectionsRequired": true
 	},
 	"conditions": [
 		{
 			"name": "emptyDoubleTopRight",
-			"type": "emptyAt",
-			"parameters": [2, 2]
+			"type": "isEmpty",
+			"x": 2,
+			"y": 2
 		},
 		{
 			"name": "pieceAtTopRight",
-			"type": "pieceAt",
-			"parameters": [1, 1]
+			"type": "isOccupied",
+			"x": 1,
+			"y": 1
 		},
 		{
 			"name": "emptyTopRight",
-			"type": "emptyAt",
-			"parameters": [1, 1]
+			"type": "isEmpty",
+			"x": 1,
+			"y": 1
 		}
 	],
 	"actions": [
 		{
 			"name": "moveTopRight",
-			"type": "moveTo",
-			"parameters": [1, 1]
+			"type": "move",
+			"x": 1,
+			"y": 1
 		},
 		{
 			"name": "moveDoubleTopRight",
-			"type": "moveTo",
-			"parameters": [2, 2]
-		}
-	],
-	"consequences": [
+			"type": "move",
+			"x": 2,
+			"y": 2
+		},
 		{
 			"name": "captureTopRight",
 			"type": "remove",
-			"parameters": [1, 1]
+			"x": 1,
+			"y": 1
 		}
 	],
 	"rules": [
 		{
 			"name": "jumpTopRight",
-			"pieces": ["normal", "king"],
+			"pieces": ["normalWhite", "kingWhite", "kingBlack"],
 			"conditions": ["emptyDoubleTopRight", "pieceAtTopRight"],
-			"actions": ["moveDoubleTopRight"],
-			"consequences": ["captureTopRight"]
+			"actions": ["moveDoubleTopRight", "captureTopRight"]
 		},
 		{
 			"name": "slideTopRight",
-			"pieces": ["normal", "king"],
+			"pieces": ["normalWhite", "kingWhite", "kingBlack"],
 			"conditions": ["emptyTopRight"],
-			"actions": ["moveTopRight"],
-			"consequences": []
+			"actions": ["moveTopRight"]
 		}
 	]
 }
