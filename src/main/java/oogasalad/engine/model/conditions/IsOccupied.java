@@ -5,6 +5,10 @@ import oogasalad.engine.model.board.Board;
 
 public class IsOccupied extends Condition {
 
+  /**
+   *
+   * @param parameters
+   */
   public IsOccupied(int[] parameters) {
     super(parameters);
   }

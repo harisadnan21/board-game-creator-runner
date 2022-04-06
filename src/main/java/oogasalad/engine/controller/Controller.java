@@ -1,11 +1,13 @@
 package oogasalad.engine.controller;
 
+import java.io.IOException;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.NoSelectionEngine;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
+import oogasalad.engine.model.parsing.GameParser;
 import oogasalad.engine.view.BoardView;
 
 public class Controller {
@@ -15,8 +17,11 @@ public class Controller {
   private Game myGame;
 
   public Controller(BoardView boardView, int rows, int columns) {
-    myBoard = new Board(rows, columns);
-    //myBoard.addListener(boardView);
+    try {
+      myBoard = GameParser.getCheckersBoard();
+    } catch (Exception e){
+      e.printStackTrace();
+    }
     myGame = new Game(myBoard);
     myEngine = new PieceSelectionEngine(myGame);
   }

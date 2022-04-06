@@ -3,26 +3,30 @@
 		"name": "Checkers",
 		"author": "Mr. Checkers",
 		"creationDate": "1648158653",
-		"lastModifiedDate": "1648158780",
+		"lastModifiedDate": "1648158780"
 	},
 	"basicInfo": {
 		"players": [
 			{
-				"name": "Black"
+				"name": "White",
+				"value": 0
 			},
 			{
-				"name": "White"
+				"name": "Black",
+				"value": 1
 			}
 		],
-		"firstMove": "White",
+		"firstMove": "White"
 	},
 	"pieces": [
 		{
-			"name": "normal",
-			"image": "pieces/normal.png"
+			"name": "pawn",
+			"value": 0,
+			"image": "pieces/pawn.png"
 		},
 		{
 			"name": "king",
+			"value": 1,
 			"image": "pieces/king.png"
 		}
 	],
@@ -30,74 +34,268 @@
 		"shape": "square",
 		"width": 8,
 		"height": 8,
-		"pieceConfiguration": [["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"],
-			["empty", "normal", "empty", "normal", "empty", "normal", "empty", "normal"],
-			["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"],
-			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-			["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"],
-			["empty", "normal", "empty", "normal", "empty", "normal", "empty", "normal"],
-			["normal", "empty", "normal", "empty", "normal", "empty", "normal", "empty"]],
-		"playerConfiguration": [["Black", "empty", "Black", "empty", "Black", "empty", "Black", "empty"],
-			["empty", "Black", "empty", "Black", "empty", "Black", "empty", "Black"],
-			["Black", "empty", "Black", "empty", "Black", "empty", "Black", "empty"],
-			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-			["White", "empty", "White", "empty", "White", "empty", "White", "empty"],
-			["empty", "White", "empty", "White", "empty", "White", "empty", "White"],
-			["White", "empty", "White", "empty", "White", "empty", "White", "empty"]],
+		"pieceConfiguration": [
+			[0 ,-1, 0,-1, 0,-1, 0,-1],
+			[-1, 0,-1, 0,-1, 0,-1, 0],
+			[0,-1,0,-1,0,-1,0,-1],
+			[-1,-1,-1,-1,-1,-1,-1,-1],
+			[-1,-1,-1,-1,-1,-1,-1,-1],
+			[-1,0,-1,0,-1,0,-1,0],
+			[0,-1,0,-1,0,-1,0,-1],
+			[-1,0,-1,0,-1,0,-1,0]
+		],
+		"playerConfiguration": [
+			[0 ,-1, 0,-1, 0,-1, 0,-1],
+			[-1, 0,-1, 0,-1, 0,-1, 0],
+			[0,-1,0,-1,0,-1,0,-1],
+			[-1,-1,-1,-1,-1,-1,-1,-1],
+			[-1,-1,-1,-1,-1,-1,-1,-1],
+			[-1,1,-1,1,-1,1,-1,1],
+			[1,-1,1,-1,1,-1,1,-1],
+			[-1,1,-1,1,-1,1,-1,1]
+		],
 		"background": "checkers"
 	},
-	"conditions": [
-		{
-			"name": "emptyDoubleTopRight",
-			"type": "emptyAt",
-			"parameters": [2, 2]
-		},
-		{
-			"name": "pieceAtTopRight",
-			"type": "pieceAt",
-			"parameters": [1, 1]
-		},
-		{
-			"name": "emptyTopRight",
-			"type": "emptyAt",
-			"parameters": [1, 1]
-		}
-	],
-	"actions": [
-		{
-			"name": "moveTopRight",
-			"type": "moveTo",
-			"parameters": [1, 1]
-		},
-		{
-			"name": "moveDoubleTopRight",
-			"type": "moveTo",
-			"parameters": [2, 2]
-		}
-	],
-	"consequences": [
-		{
-			"name": "captureTopRight",
-			"type": "remove",
-			"parameters": [1, 1]
-		}
-	],
 	"rules": [
 		{
-			"name": "jumpTopRight",
-			"pieces": ["normal", "king"],
-			"conditions": ["emptyDoubleTopRight", "pieceAtTopRight"],
-			"actions": ["moveDoubleTopRight"],
-			"consequences": ["captureTopRight"]
+			"name": "White move down and right",
+			"representativePoint": {
+				"i": 1,
+				"j": 1
+			},
+			"conditions": [
+				{
+					"name": "IsEmpty",
+					"parameters": [1,1]
+				},
+				{
+					"name": "IsPlayer",
+					"parameters": [0]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [0,0,0]
+				}],
+			"actions": [
+				{
+					"name": "Move",
+					"parameters": [0,0,1,1]
+				}
+			]
 		},
 		{
-			"name": "slideTopRight",
-			"pieces": ["normal", "king"],
-			"conditions": ["emptyTopRight"],
-			"actions": ["moveTopRight"],
-			"consequences": []
+			"name": "White move down and left",
+			"representativePoint": {
+				"i": 1,
+				"j": -1
+			},
+			"conditions": [
+				{
+					"name": "IsEmpty",
+					"parameters": [1,-1]
+				},
+				{
+					"name": "IsPlayer",
+					"parameters": [0]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [0,0,0]
+				}],
+			"actions": [
+				{
+					"name": "Move",
+					"parameters": [0,0,1,-1]
+				}
+			]
+		},
+		{
+			"name": "Black move up and left",
+			"representativePoint": {
+				"i": -1,
+				"j": -1
+			},
+			"conditions": [
+				{
+					"name": "IsEmpty",
+					"parameters": [-1,-1]
+				},
+				{
+					"name": "IsPlayer",
+					"parameters": [1]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [0,0,1]
+				}],
+			"actions": [
+				{
+					"name": "Move",
+					"parameters": [0,0,-1,-1]
+				}
+			]
+		},
+		{
+			"name": "Black move up and right",
+			"representativePoint": {
+				"i": -1,
+				"j": 1
+			},
+			"conditions": [
+				{
+					"name": "IsEmpty",
+					"parameters": [-1,1]
+				},
+				{
+					"name": "IsPlayer",
+					"parameters": [1]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [0,0,1]
+				}],
+			"actions": [
+				{
+					"name": "Move",
+					"parameters": [0,0,-1,1]
+				}
+			]
+		},
+		{
+			"name": "White capture down right",
+			"representativePoint": {
+				"i": 2,
+				"j": 2
+			},
+			"conditions": [
+				{
+					"name": "IsEmpty",
+					"parameters": [2,2]
+				},
+				{
+					"name": "IsPlayer",
+					"parameters": [0]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [0,0,0]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [1,1,1]
+				}],
+			"actions": [
+				{
+					"name": "Move",
+					"parameters": [0,0,2,2]
+				},
+				{
+					"name": "Remove",
+					"parameters": [1,1]
+				}
+			]
+		},
+		{
+			"name": "White capture down left",
+			"representativePoint": {
+				"i": 2,
+				"j": -2
+			},
+			"conditions": [
+				{
+					"name": "IsEmpty",
+					"parameters": [2,-2]
+				},
+				{
+					"name": "IsPlayer",
+					"parameters": [0]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [0,0,0]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [1,-1,1]
+				}],
+			"actions": [
+				{
+					"name": "Move",
+					"parameters": [0,0,2,-2]
+				},
+				{
+					"name": "Remove",
+					"parameters": [1,-1]
+				}
+			]
+		},
+		{
+			"name": "Black capture up right",
+			"representativePoint": {
+				"i": -2,
+				"j": 2
+			},
+			"conditions": [
+				{
+					"name": "IsEmpty",
+					"parameters": [-2,2]
+				},
+				{
+					"name": "IsPlayer",
+					"parameters": [1]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [0,0,1]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [-1,1,0]
+				}],
+			"actions": [
+				{
+					"name": "Move",
+					"parameters": [0,0,-2,2]
+				},
+				{
+					"name": "Remove",
+					"parameters": [-1,1]
+				}
+			]
+		},
+		{
+			"name": "Black capture up left",
+			"representativePoint": {
+				"i": -2,
+				"j": -2
+			},
+			"conditions": [
+				{
+					"name": "IsEmpty",
+					"parameters": [-2,-2]
+				},
+				{
+					"name": "IsPlayer",
+					"parameters": [1]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [0,0,1]
+				},
+				{
+					"name": "IsPlayerPiece",
+					"parameters": [-1,-1,0]
+				}],
+			"actions": [
+				{
+					"name": "Move",
+					"parameters": [0,0,-2,-2]
+				},
+				{
+					"name": "Remove",
+					"parameters": [-1,-1]
+				}
+			]
 		}
 	]
 }

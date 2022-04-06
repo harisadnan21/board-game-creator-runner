@@ -2,8 +2,8 @@ package oogasalad.engine.model.engine;
 
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.action.Action;
-import oogasalad.engine.model.action.Place;
+import oogasalad.engine.model.actions.Action;
+import oogasalad.engine.model.actions.Place;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.conditions.Condition;
 import oogasalad.engine.model.conditions.IsEmpty;

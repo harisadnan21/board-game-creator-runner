@@ -1,4 +1,4 @@
-package oogasalad.engine.model.action;
+package oogasalad.engine.model.actions;
 
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
