@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -27,9 +28,11 @@ public class BoardCanvas {
   private double rectWidth;
   private double rectHeight;
   private int[][] containsPiece;
+  private BorderPane borderPane;
 
-  public BoardCanvas(ResourceBundle rb) {
+  public BoardCanvas(ResourceBundle rb, BorderPane boardTab) {
     resources = rb;
+    borderPane = boardTab;
 
     setupBoard();
     populateBoardTypeMap();
@@ -45,6 +48,8 @@ public class BoardCanvas {
 
 
   public void drawBoard(int xDim, int yDim, String type){
+    calculateAndChangeCanvasSize();
+
     rectWidth = boardCanvas.getWidth() / xDim;
     rectHeight = boardCanvas.getHeight() / yDim;
 
@@ -60,7 +65,13 @@ public class BoardCanvas {
       System.out.println("not a board type");
     }
   }
+  private void calculateAndChangeCanvasSize(){
+    boardCanvas.setWidth(borderPane.getWidth() - borderPane.getRight().getBoundsInParent().getWidth());
+    boardCanvas.setHeight(borderPane.getHeight() - borderPane.getTop().getBoundsInParent().getHeight());
 
+    pieceCanvas.setHeight(boardCanvas.getHeight());
+    pieceCanvas.setWidth(boardCanvas.getWidth());
+  }
   public void setupBoard(){
     boardCanvas = new Canvas(Integer.parseInt(resources.getString("boardSizeX")), Integer.parseInt(resources.getString("boardSizeY")));
     boardGraphics = boardCanvas.getGraphicsContext2D();

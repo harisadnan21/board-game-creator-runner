@@ -52,7 +52,7 @@ public class BoardTab {
   }
 
   private void setupBlankBoard() {
-    boardCanvas = new BoardCanvas(resources);
+    boardCanvas = new BoardCanvas(resources, boardPane);
 
     Pane canvasPane = boardCanvas.getCanvasPane();
     canvasPane.prefWidthProperty().bind(boardPane.widthProperty().multiply(0.7));
