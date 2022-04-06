@@ -49,18 +49,16 @@ public class BuilderView {
   public BuilderView(Stage mainStage) {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB);
     stage = mainStage;
-    //setupTabs();
-    //Scene scene = makeScene(SCENE_WIDTH, SCENE_HEIGHT, stage);
     displayWelcome(stage);
     stage.show();
   }
 
 
-  public Scene makeScene(double width, double height, Stage stage) {
-    Scene scene = new Scene(loginPage, width, height);
-    displayWelcome(stage);
-    return scene;
-  }
+//  public Scene makeScene(double width, double height, Stage stage) {
+//    Scene scene = new Scene(loginPage, width, height);
+//    displayWelcome(stage);
+//    return scene;
+//  }
 
   private void displayWelcome(Stage myStage) {
     boardPane = new BorderPane();
@@ -68,8 +66,15 @@ public class BuilderView {
     myWelcome = new Label(myResources.getString("Welcome"));
     myWelcome.setFont(new Font("Inter", 30));
     boardPane.setLeft(myWelcome);
+
+    Button login = makeButton("Login", event -> {setupTabs();}, myResources);
+    login.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
+    buttonHolder.getChildren().add(login);
+    buttonHolder.setAlignment(Pos.CENTER_LEFT);
+    boardPane.setCenter(buttonHolder);
+
     Scene myLoginScene = new Scene(boardPane, 600, 650);
-    boardPane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 250, 239), new CornerRadii(0), Insets.EMPTY)));
+    boardPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0), Insets.EMPTY)));
     myStage.setScene(myLoginScene);
     myStage.show();
   }
