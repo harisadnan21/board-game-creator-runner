@@ -1,7 +1,15 @@
 package oogasalad.builder.view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import oogasalad.builder.model.element.ElementRecord;
 
 import java.lang.reflect.InvocationTargetException;
@@ -10,9 +18,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+//import javafx.sch
 import javafx.stage.Stage;
 import oogasalad.builder.view.tab.SplashLogin;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
@@ -33,34 +40,37 @@ public class BuilderView {
   private BoardTab boardTabPane;
   private PiecesTab pieceTabPane;
   private SplashLogin loginPage;
-  private static BorderPane loginRoot;
+  private Label myWelcome;
   private ResourceBundle myResources;
+  private HBox buttonBox;
+  private BorderPane boardPane;
+  private HBox buttonHolder;
 
   public BuilderView(Stage mainStage) {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB);
     stage = mainStage;
-    setupTabs();
-    //displayWelcome();
+    //setupTabs();
+    //Scene scene = makeScene(SCENE_WIDTH, SCENE_HEIGHT, stage);
+    displayWelcome(stage);
     stage.show();
   }
 
 
-  public Scene makeScene(int width, int height, Stage stage) {
-    Scene scene = new Scene(loginRoot, width, height);
-    displayWelcome(scene, stage);
+  public Scene makeScene(double width, double height, Stage stage) {
+    Scene scene = new Scene(loginPage, width, height);
+    displayWelcome(stage);
     return scene;
   }
 
-  private void displayWelcome(Scene scene, Stage myStage) {
-    scene.getStylesheets()
-            .add(getClass().getResource("/SplashLogin.css").toExternalForm());
-    //myRoot.getChildren().clear();
-    loginPage = new SplashLogin(myResources);
-    // myRoot.setCenter(myWelcome.getPane());
-    //Button compiler = SlogoView.makeButton("Compiler", event -> displayConsole(), myResources);
-    //myWelcome.getContainer().getChildren().addAll(proceed, compiler);
-    //myWelcome.getContainer().setAlignment(Pos.CENTER);
-    myStage.setScene(scene);
+  private void displayWelcome(Stage myStage) {
+    boardPane = new BorderPane();
+    buttonHolder = new HBox();
+    myWelcome = new Label(myResources.getString("Welcome"));
+    myWelcome.setFont(new Font("Inter", 30));
+    boardPane.setLeft(myWelcome);
+    Scene myLoginScene = new Scene(boardPane, 600, 650);
+    boardPane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 250, 239), new CornerRadii(0), Insets.EMPTY)));
+    myStage.setScene(myLoginScene);
     myStage.show();
   }
 
@@ -83,7 +93,7 @@ public class BuilderView {
   }
 
   // Can possibly extend tab for each of the tab classes instead of just having toNode() to add them to the tabs
-  private void setupTabs() {
+  public void setupTabs() {
     TabPane tabPane = new TabPane();
 
     boardTabPane = new BoardTab();
@@ -101,6 +111,16 @@ public class BuilderView {
     //TODO get this size from file and add more to the scene
     Scene myTabScene = new Scene(tabPane, 600, 650);
     stage.setScene(myTabScene);
+  }
+
+  //returns a button with the title provided linked to the event passed as a parameter
+  public static Button makeButton(String property, EventHandler<ActionEvent> handler,
+                                  ResourceBundle resources) {
+    Button result = new Button();
+    String label = resources.getString(property);
+    result.setText(label);
+    result.setOnAction(handler);
+    return result;
   }
 
   public int[][] getBoardConfig(){

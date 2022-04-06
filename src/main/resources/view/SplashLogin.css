@@ -1,11 +1,12 @@
 /* 1 Login */
 
-#SplashLogin {
+.border-pane {
     position: relative;
     width: 949px;
     height: 822px;
 
     /* White */
 
-    background: #FFFFFF;
+    /* -fx-background-color: rgba(255, 250, 239, 1); */
+    background: rgb(187, 25, 76);
 }
