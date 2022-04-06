@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
+import oogasalad.builder.model.property.PropertyFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,19 +25,25 @@ public class FactoryProviderTest {
   private static final String INVALID_TYPE = "gibberish";
   private static final String TYPE = "type";
   private static final String IMAGE = "image";
+  private static final String PLAYER = "player";
   private static final String ACTION = "action";
   private static final String ACTION_NAME = "moveTopRight";
   private static final String ACTION_TYPE = "move";
   private static final String PIECE = "piece";
   private static final String PIECE_NAME = "moveTopRight";
   private static final String PIECE_IMAGE = "normal.png";
+  private static final String PIECE_PLAYER = "white";
   private static final String CONDITION = "condition";
   private static final String CONDITION_NAME = "emptyAtTopRight";
-  private static final String CONDITION_TYPE = "emptyAt";
+  private static final String CONDITION_TYPE = "isEmpty";
   private static final String WIN_CONDITION = "win condition";
   private static final String WIN_CONDITION_NAME = "winIfCaptured";
   private static final String RULE = "rule";
   private static final String RULE_NAME = "knightMoveTopRight";
+
+  private static final String PIECES = "pieces";
+  private static final String ACTIONS = "actions";
+  private static final String CONDITIONS = "conditions";
 
   private static final String COORDINATE_NAME_ONE = "x";
   private static final String COORDINATE_VALUE_ONE = "1";
@@ -48,11 +56,11 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreateAction() throws InvalidTypeException {
+  void testCreateAction() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(String.class, TYPE, ACTION_TYPE));
-    properties.add(new Property(Integer.class, COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
-    properties.add(new Property(Integer.class, COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
+    properties.add(PropertyFactory.makeProperty(TYPE, ACTION_TYPE));
+    properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
+    properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
     GameElement action = provider.createElement(ACTION, ACTION_NAME, properties);
     ElementRecord record = action.toRecord();
     assertEquals(properties, record.properties());
@@ -60,9 +68,10 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreatePiece() throws InvalidTypeException {
+  void testCreatePiece() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(String.class, IMAGE, PIECE_IMAGE));
+    properties.add(PropertyFactory.makeProperty(IMAGE, PIECE_IMAGE));
+    properties.add(PropertyFactory.makeProperty(PLAYER, PIECE_PLAYER));
     GameElement piece = provider.createElement(PIECE, PIECE_NAME, properties);
     ElementRecord record = piece.toRecord();
     assertEquals(properties, record.properties());
@@ -70,11 +79,11 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreateCondition() throws InvalidTypeException {
+  void testCreateCondition() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(String.class, TYPE, CONDITION_TYPE));
-    properties.add(new Property(Integer.class, COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
-    properties.add(new Property(Integer.class, COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
+    properties.add(PropertyFactory.makeProperty(TYPE, CONDITION_TYPE));
+    properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
+    properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
     GameElement condition = provider.createElement(CONDITION, CONDITION_NAME, properties);
     ElementRecord record = condition.toRecord();
     assertEquals(properties, record.properties());
@@ -82,7 +91,7 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreateWinCondition() throws InvalidTypeException {
+  void testCreateWinCondition() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
     GameElement winCondition = provider.createElement(WIN_CONDITION, WIN_CONDITION_NAME, properties);
     ElementRecord record = winCondition.toRecord();
@@ -91,8 +100,17 @@ public class FactoryProviderTest {
   }
 
   @Test
-  void testCreateRule() throws InvalidTypeException {
+  void testCreateRule() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
+    Collection<String> pieces = new HashSet<>();
+    Collection<String> actions = new HashSet<>();
+    Collection<String> conditions = new HashSet<>();
+    pieces.add(PIECE_NAME);
+    actions.add(ACTION_NAME);
+    conditions.add(CONDITION_NAME);
+    properties.add(PropertyFactory.makeProperty(PIECES, pieces));
+    properties.add(PropertyFactory.makeProperty(ACTIONS, actions));
+    properties.add(PropertyFactory.makeProperty(CONDITIONS, conditions));
     GameElement rule = provider.createElement(RULE, RULE_NAME, properties);
     ElementRecord record = rule.toRecord();
     assertEquals(properties, record.properties());

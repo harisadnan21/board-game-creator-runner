@@ -6,17 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 import javafx.stage.Stage;
-import oogasalad.builder.controller.Property;
-import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.builder.view.BuilderView;
-import org.junit.jupiter.api.BeforeEach;
+import oogasalad.builder.model.property.PropertyFactory;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -54,10 +52,11 @@ public class ControllerTest extends DukeApplicationTest {
   }
 
   @Test
-  void testGameElementFound() throws ElementNotFoundException, InvalidTypeException {
+  void testGameElementFound()
+      throws ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
+    properties.add(PropertyFactory.makeProperty(PROPERTY_NAME, PROPERTY_VALUE));
+    properties.add(PropertyFactory.makeProperty(PROPERTY_NAME, PROPERTY_VALUE));
     controller.update(PIECE_TYPE, PIECE_NAME, properties);
     Collection<Property> newProperties = controller.getElementProperties(PIECE_TYPE, PIECE_NAME);
     for (Property prop : newProperties){
@@ -113,12 +112,12 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Test
   void testSave()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException {
+      throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     controller.makeBoard(WIDTH, HEIGHT);
 
     Collection<Property> properties = new HashSet<>();
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
-    properties.add(new Property(String.class, PROPERTY_NAME, PROPERTY_VALUE));
+    properties.add(PropertyFactory.makeProperty(PROPERTY_NAME, PROPERTY_VALUE));
+    properties.add(PropertyFactory.makeProperty(PROPERTY_NAME, PROPERTY_VALUE));
     controller.update(PIECE_TYPE, PIECE_NAME, properties);
     controller.update(RULE_TYPE, RULE_NAME, properties);
     File file = new File(TEST_FILENAME);

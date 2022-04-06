@@ -2,7 +2,7 @@ package oogasalad.builder.model.element;
 
 
 import java.util.Collection;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 
 /**
  * Represents some way that the game can end
