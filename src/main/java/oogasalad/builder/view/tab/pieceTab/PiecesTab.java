@@ -1,6 +1,7 @@
 package oogasalad.builder.view.tab.pieceTab;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -75,21 +76,26 @@ public class PiecesTab {
     }
 
     private void setupPiece(int xSize, int ySize){
-        pieceCanvas = new Canvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
+        pieceCanvas = new Canvas(40, 40);
         pieceGraphics = pieceCanvas.getGraphicsContext2D();
         pieceGraphics.fillOval(10, 60, 30, 30);
         myColorPicker = new ColorPicker(Color.BLUE);
+        Circle myCircle = new Circle(40, 40, 40);
         myColorPicker.getStyleClass().add(myColorPicker.STYLE_CLASS_SPLIT_BUTTON);
         myColorPicker.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent event) {
-                pieceGraphics.setFill(myColorPicker.getValue());
+                myCircle.setFill(myColorPicker.getValue());
             }
         });
-        //buttonHolder.getChildren().addAll(pieceCanvas, myColorPicker);
+        buttonHolder.getChildren().addAll(myColorPicker);
+        buttonHolder.setAlignment(Pos.CENTER);
+
         //boardPane.setCenter(pieceCanvas);
-        boardPane.setCenter(myColorPicker);
+        //boardPane.setRight(myColorPicker);
         //boardPane.setCenter(buttonHolder);
+        boardPane.getChildren().addAll(myCircle, buttonHolder);
+
     }
 
     private Node getCanvasNode() {
