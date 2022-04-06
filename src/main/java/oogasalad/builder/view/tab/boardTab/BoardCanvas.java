@@ -1,8 +1,10 @@
 package oogasalad.builder.view.tab.boardTab;
 
 
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,43 +15,68 @@ import javafx.scene.paint.Paint;
 
 public class BoardCanvas {
 
-  public static double DEFAULT_CANVAS_HEIGHT = 600;
-  public static double DEFAULT_CANVAS_WIDTH = 600;
-  public static Paint COLOR_ONE = Color.WHITE;
-  public static Paint COLOR_TWO = Color.BLACK;
+
+  private Paint colorOne;
+  private Paint colorTwo;
   private Canvas boardCanvas;
   private Canvas pieceCanvas;
   private ResourceBundle resources;
   private GraphicsContext boardGraphics;
   private GraphicsContext pieceGraphics;
+  private Map<String, Consumer<int[]>> boardTypeFunctionMap;
   private double rectWidth;
   private double rectHeight;
   private int[][] containsPiece;
 
-  public BoardCanvas(int xSize, int ySize) {
+  public BoardCanvas(ResourceBundle rb) {
+    resources = rb;
 
-    boardCanvas = new Canvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
+    setupBoard();
+    populateBoardTypeMap();
+    addClickHandeling();
+  }
+
+  public void setColor(Paint color, int colorNum){
+    switch (colorNum){
+      case 1 -> colorOne = color;
+      case 2 -> colorTwo = color;
+    }
+  }
+
+
+  public void drawBoard(int xDim, int yDim, String type){
+    rectWidth = boardCanvas.getWidth() / xDim;
+    rectHeight = boardCanvas.getHeight() / yDim;
+
+    containsPiece = new int[xDim][yDim];
+    clearBoard();
+
+
+    if (boardTypeFunctionMap.containsKey(type)){
+      boardTypeFunctionMap.get(type).accept(new int[]{xDim, yDim});
+    }
+    else{
+      //TODO : THROW EXCEPTION
+      System.out.println("not a board type");
+    }
+  }
+
+  public void setupBoard(){
+    boardCanvas = new Canvas(Integer.parseInt(resources.getString("boardSizeX")), Integer.parseInt(resources.getString("boardSizeY")));
     boardGraphics = boardCanvas.getGraphicsContext2D();
+    boardCanvas.setId("builderBoard");
 
     pieceCanvas = new Canvas(boardCanvas.getWidth(), boardCanvas.getHeight());
     pieceGraphics = pieceCanvas.getGraphicsContext2D();
-
-
-    containsPiece = new int[xSize][ySize];
-
-
-
-    //TODO: Bind these values to the size of canvas
-    rectWidth = boardCanvas.getWidth() / xSize;
-    rectHeight = boardCanvas.getHeight() / ySize;
-    //TODO: Get type from some sort of input
-
-    drawCheckerBoard(xSize, ySize);
-    addClickHandeling();
   }
 
   public int[][] getBoardConfig(){
     return containsPiece;
+  }
+
+  public void clearBoard(){
+    pieceGraphics.clearRect(0, 0, pieceCanvas.getWidth(), pieceCanvas.getHeight());
+    containsPiece = new int[containsPiece[0].length][containsPiece.length];
   }
 
   public StringBuilder printBoardConfig(){
@@ -68,9 +95,10 @@ public class BoardCanvas {
     return ret;
   }
 
-  private Map populateBoardTypeMap() {
+  private void populateBoardTypeMap() {
     // TODO: Pull the Bank of Boards and create Map?
-    return null;
+
+    boardTypeFunctionMap = Map.of(resources.getString("checkers"), e -> drawCheckerBoard(e[0], e[1]));
   }
 
 
@@ -78,9 +106,9 @@ public class BoardCanvas {
     for (int x = 0; x < xDim; x++) {
       for (int y = 0; y < yDim; y++) {
         if (((y % 2 == 0) && (x % 2 == 0)) || ((y % 2 == 1) && (x % 2 == 1))) {
-          boardGraphics.setFill(COLOR_ONE);
+          boardGraphics.setFill(colorOne);
         } else {
-          boardGraphics.setFill(COLOR_TWO);
+          boardGraphics.setFill(colorTwo);
         }
         boardGraphics.fillRect(x * rectWidth, y * rectHeight, (x + 1) * rectWidth,
             (y + 1) * rectHeight);
