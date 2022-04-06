@@ -18,7 +18,7 @@ public class Game {
     myBoardHistory.push(myBoard);
     myBoard = board;
   }
-
+  //TODO: change this to board record
   public Board getBoard() {
     return myBoard;
   }
