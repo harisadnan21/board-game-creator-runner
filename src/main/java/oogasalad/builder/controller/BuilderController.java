@@ -56,7 +56,7 @@ public class BuilderController {
      * @throws NullBoardException    if the board has not been initialized
      */
     public void placePiece(int x, int y, String name)
-        throws OccupiedCellException, NullBoardException {
+        throws OccupiedCellException, NullBoardException, ElementNotFoundException {
         gameConfig.placeBoardPiece(x, y, name);
     }
 
@@ -68,7 +68,7 @@ public class BuilderController {
      * @return the name of the piece
      * @throws NullBoardException if the board has not been initialized
      */
-    public String findPieceAt(int x, int y) throws NullBoardException {
+    public String findPieceAt(int x, int y) throws NullBoardException, ElementNotFoundException {
         return gameConfig.findBoardPieceAt(x, y);
     }
 

@@ -15,6 +15,8 @@ import org.json.JSONObject;
 public record ElementRecord(String name, Collection<Property> properties) implements
     JSONSerializable<ElementRecord> {
 
+  private static final String NAME = "name";
+
   public ElementRecord {
     properties = Set.copyOf(properties);
   }
@@ -30,6 +32,7 @@ public record ElementRecord(String name, Collection<Property> properties) implem
     for (Property property : properties) {
       obj.put(property.name(), property.value());
     }
+    obj.put(NAME, name);
     return obj.toString();
   }
 
