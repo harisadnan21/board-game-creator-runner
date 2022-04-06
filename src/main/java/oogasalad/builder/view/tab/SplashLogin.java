@@ -1,14 +1,18 @@
 package oogasalad.builder.view.tab;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 
 import java.util.ResourceBundle;
 
-public class SplashLogin {
+public class SplashLogin extends Parent {
 
 
 /**
@@ -18,14 +22,16 @@ public class SplashLogin {
  * @author Thivya Sivarajah
  */
 
-    Pane myPane;
+    //Pane myPane;
     ResourceBundle myResources;
     private Label myWelcome;
-    private VBox myContainer;
+
+    private BorderPane boardPane;
+    private HBox buttonHolder;
 
     public SplashLogin(ResourceBundle resources) {
-        myPane = new StackPane();
-        myContainer = new VBox();
+        boardPane = new BorderPane();
+        buttonHolder = new HBox();
         myResources = resources;
 
         createScreen();
@@ -33,24 +39,29 @@ public class SplashLogin {
 
     private void createScreen() {
         createElements();
-        myPane.getChildren().add(myContainer);
+        boardPane.getChildren().add(buttonHolder);
+        boardPane.setRight(myWelcome);
     }
 
     private void createElements() {
-        myContainer.getChildren().clear();
+        buttonHolder.getChildren().clear();
         myWelcome = new Label(myResources.getString("Welcome"));
-        myWelcome.setId("welcome-text");
-        // myContainer.setId("opening-window");
-        // myWelcome.setTextAlignment(TextAlignment.CENTER);
-        myContainer.getChildren().addAll(myWelcome);
+        myWelcome.setTextAlignment(TextAlignment.RIGHT);
+        buttonHolder.getChildren().addAll(myWelcome);
     }
 
 
-    public Pane getPane() {
-        return myPane;
+    public BorderPane getPane() {
+        return boardPane;
     }
 
-    public VBox getContainer() {
-        return myContainer;
+    public HBox getContainer() {
+        return buttonHolder;
     }
+
+    @Override
+    public Node getStyleableNode() {
+        return super.getStyleableNode();
+    }
+
 }

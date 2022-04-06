@@ -1,0 +1,74 @@
+.label{
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 10pt;
+}
+
+#titleText{
+    -fx-padding: 10;
+    -fx-font-size: 20pt;
+}
+
+#titleBox{
+    -fx-padding: 10;
+    -fx-max-width: infinity;
+    -fx-alignment: center;
+    -fx-border-color: black;
+}
+
+#rightPane{
+    -fx-min-width: 100;
+    -fx-pref-width: 200;
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-spacing: 30;
+    -fx-border-color: BLACK;
+}
+
+#buttonBox{
+    -fx-min-width: 50;
+    -fx-pref-width: 150;
+    -fx-alignment: top-center;
+    -fx-padding: 10;
+    -fx-spacing: 20;
+}
+#boardConfigBox{
+    -fx-min-width: 100;
+    -fx-pref-width: 200;
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-spacing: 20;
+    -fx-border-color: BLACK;
+    -fx-fill-color: whitesmoke;
+}
+HBox {
+    -fx-alignment: center;
+    -fx-spacing: 5;
+}
+
+
+
+#boardCanvas {
+    -fx-border-color: BLACK;
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-min-width: 400;
+    -fx-min-height: 400;
+}
+
+.button {
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+.color-picker {
+    -fx-color-label-visible: false;
+}
+
+.combo-box {
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-font-size: 10pt;
+    -fx-alignment: center;
+    -fx-padding: 5;
+}
