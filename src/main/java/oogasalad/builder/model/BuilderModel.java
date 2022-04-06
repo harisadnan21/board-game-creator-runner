@@ -61,7 +61,7 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    * @throws NullBoardException    if the board has not been initialized
    */
   void placeBoardPiece(int x, int y, String name)
-      throws OccupiedCellException, NullBoardException;
+      throws OccupiedCellException, NullBoardException, ElementNotFoundException;
 
   /**
    * Finds the name of the piece at the given coordinates
@@ -71,7 +71,7 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    * @return the name of the piece
    * @throws NullBoardException if the board has not been initialized
    */
-  String findBoardPieceAt(int x, int y) throws NullBoardException;
+  String findBoardPieceAt(int x, int y) throws NullBoardException, ElementNotFoundException;
 
   /**
    * Clears the cell on the board at the given coordinates
