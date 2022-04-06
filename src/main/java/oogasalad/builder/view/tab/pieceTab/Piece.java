@@ -1,6 +1,12 @@
 package oogasalad.builder.view.tab.pieceTab;
 
 import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -15,61 +21,39 @@ public class Piece extends Node {
 
     private static final String firstColor = "RED";
     private static final String secondColor = "BLACK";
-    private String type;
-    private double mouseX, mouseY;
-    private double oldX, oldY;
-    private double rectWidth;
-    private double rectHeight;
+    private BorderPane pieceTab;
+    private HBox buttonHolder;
+    private String pieceType;
+    private Canvas pieceCanvas;
+    private GraphicsContext pieceGraphics;
+    private ColorPicker myColorPicker;
+    public static String RESOURCE_PATH = "/view/";
+    public static String LANGUAGE_TEMP = "English";
+    private ResourceBundle resources;
 
-    public String getType() {
-        return type;
-    }
-
-    public double getOldX() {
-        return oldX;
-    }
-
-    public double getOldY() {
-        return oldY;
-    }
 
     /**
      * Default constructor
      */
-    public Piece(String type, int xSize, int ySize) {
+    public Piece(ResourceBundle rb, BorderPane borderPane) {
 
         Circle newPiece = new Circle();
+        pieceTab = borderPane;
+        resources = rb;
+        setupPieceBoard();
+    }
 
-//        this.type = type;
-//
-//        move(xSize, ySize);
-//
-//        Ellipse bg = new Ellipse(rectWidth * 0.3125, rectHeight * 0.26);
-//        bg.setFill(Color.BLACK);
-//
-//        bg.setStroke(Color.BLACK);
-//        bg.setStrokeWidth(rectWidth * 0.03);
-//
-//        bg.setTranslateX((rectWidth - rectWidth * 0.3125 * 2) / 2);
-//        bg.setTranslateY((rectHeight - rectHeight * 0.26 * 2) / 2 + rectHeight * 0.07);
-//
-//        Ellipse ellipse = new Ellipse(rectWidth * 0.3125, rectHeight * 0.26);
-//        ellipse.setFill(type == Piece.firstColor
-//                ? Color.valueOf("#c40003") : Color.valueOf("#fff9f4"));
-//
-//        ellipse.setStroke(Color.BLACK);
-//        ellipse.setStrokeWidth(rectWidth * 0.03);
-//
-//        ellipse.setTranslateX((rectWidth - rectWidth * 0.3125 * 2) / 2);
-//        ellipse.setTranslateY((rectHeight - rectHeight * 0.26 * 2) / 2);
-//
-//        getChildren().addAll(bg, ellipse);
-//
-//        setOnMousePressed(e -> {
-//            mouseX = e.getSceneX();
-//            mouseY = e.getSceneY();
-//        });
+    public void setupPieceBoard(){
+        pieceCanvas = new Canvas(Integer.parseInt(resources.getString("boardSizeX")), Integer.parseInt(resources.getString("boardSizeY")));
+        pieceGraphics = pieceCanvas.getGraphicsContext2D();
+        pieceCanvas.setId("pieceBuilder");
 
+    }
+
+    public Pane getPiecePane() {
+        Pane ret = new Pane();
+        ret.getChildren().addAll(pieceCanvas);
+        return ret;
     }
 
     @Override
@@ -80,11 +64,7 @@ public class Piece extends Node {
     /**
      * Default constructor
      */
-//    public void move(int x, int y) {
-//        oldX = x * rectWidth;
-//        oldY = y * rectHeight;
-//        relocate(oldX, oldY);
-//    }
+
 
 
 }
