@@ -40,6 +40,7 @@ public class BuilderView {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB);
     stage = mainStage;
     setupTabs();
+    //displayWelcome();
     stage.show();
   }
 
