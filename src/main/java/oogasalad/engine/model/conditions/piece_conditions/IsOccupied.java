@@ -15,6 +15,11 @@ public class IsOccupied extends PieceCondition {
 
   @Override
   public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
+    int i = myParameters[0]+refI;
+    int j = myParameters[1]+refJ;
+    if (!board.isValid(i, j)) {
+      return false;
+    }
     return !board.isEmpty(myParameters[0]+refI, myParameters[1]+refJ);
   }
 }

@@ -71,18 +71,29 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     }
   }
 
-
-
   public void remove(int i, int j){
-    pieceLocations[i][j] =null;
+    if (!isValid(i, j)) {
+      throwOutOfBoardError(i,j);
+    }
+    pieceLocations[i][j] = null;
   }
 
   public boolean isEmpty(int i, int j) {
+    if (!isValid(i, j)){
+      throwOutOfBoardError(i,j);
+    }
     return pieceLocations[i][j] == null;
+  }
+
+  public void throwOutOfBoardError(int i, int j) {
+    throw new OutOfBoardException(String.format("Index (%d,%d) out of bounds", i, j));
   }
 
   public Optional<PieceRecord> getPieceRecord(int i, int j) {
     //return Optional.of(myBoard[i][j]);
+    if (!isValid(i,j)) {
+      throwOutOfBoardError(i,j);
+    }
     Optional<PieceRecord> piece;
     if (pieceLocations[i][j] == null) {
       piece = Optional.empty();
@@ -104,6 +115,12 @@ public class Board implements Iterable<Pair<Position, Piece>> {
    * @throws OutOfBoardException
    */
   public void move(int i1, int j1, int i2, int j2) throws OutOfBoardException {
+    if (!isValid(i1,j1)) {
+      throwOutOfBoardError(i1,j1);
+    }
+    else if (!isValid(i2,j2)) {
+      throwOutOfBoardError(i2,j2);
+    }
     if (isPieceAtLocation(i1,j1)){
       Piece piece = pieceLocations[i1][j1];
       place(i2, j2, piece);
@@ -128,11 +145,11 @@ public class Board implements Iterable<Pair<Position, Piece>> {
   }
 
   private boolean isValidY(int j) {
-    return Utilities.isPositive(j) && (j <= myRows);
+    return Utilities.isPositive(j) && (j < myRows);
   }
 
   private boolean isValidX(int i) {
-    return Utilities.isPositive(i) && (i <= myColumns);
+    return Utilities.isPositive(i) && (i < myColumns);
   }
 
   public Board deepCopy() throws OutOfBoardException {

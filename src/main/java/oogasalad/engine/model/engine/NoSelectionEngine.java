@@ -1,5 +1,6 @@
 package oogasalad.engine.model.engine;
 
+import java.util.List;
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
@@ -11,8 +12,8 @@ import oogasalad.engine.model.move.Rule;
 
 public class NoSelectionEngine extends Engine {
 
-  public NoSelectionEngine(Game game) {
-    super(game);
+  public NoSelectionEngine(Game game, List<Rule> rules) {
+    super(game, rules);
     createTicTacToeMove();
   }
 
