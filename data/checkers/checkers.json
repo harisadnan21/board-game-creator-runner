@@ -6,45 +6,55 @@
 		"lastModifiedDate": "1648158780"
 	},
 	"players": [
-		{"name": "White"},
-		{"name": "Black"}
+		{
+			"name": "White",
+			"id": 0
+		},
+		{
+			"name": "Black",
+			"id": 1
+		}
 	],
 	"pieces": [
 		{
 			"name": "normalWhite",
 			"image": "pieces/normalWhite.png",
-			"player": "White"
+			"id": 0,
+			"player": 0
 		},
 		{
 			"name": "normalBlack",
 			"image": "pieces/normalBlack.png",
-			"player": "Black"
+			"id": 1,
+			"player": 1
 		},
 		{
 			"name": "kingWhite",
 			"image": "pieces/kingWhite.png",
-			"player": "White"
+			"id": 2,
+			"player": 0
 		},
 		{
 			"name": "kingBlack",
 			"image": "pieces/kingBlack.png",
-			"player": "Black"
+			"id": 3,
+			"player": 1
 		}
 	],
 	"board": {
 		"shape": "square",
 		"width": 8,
 		"height": 8,
-		"pieceConfiguration": [["normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty"],
-			["empty", "normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty", "normalBlack"],
-			["normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty", "normalBlack", "empty"],
-			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-			["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-			["normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty"],
-			["empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite"],
-			["normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty", "normalWhite", "empty"]],
+		"pieceConfiguration": [[1, -1, 1, -1, 1, -1, 1, -1],
+			[-1, 1, -1, 1, -1, 1, -1, 1],
+			[1, -1, 1, -1, 1, -1, 1, -1],
+			[-1, -1, -1, -1, -1, -1, -1],
+			[-1, -1, -1, -1, -1, -1, -1],
+			[0, -1, 0, -1, 0, -1, 0, -1],
+			[-1, 0, -1, 0, -1, 0, -1, 0],
+			[0, -1, 0, -1, 0, -1, 0, -1]],
 		"background": "checkers",
-		"activePlayer": "white",
+		"activePlayer": 0,
 		"selectionsRequired": true
 	},
 	"conditions": [
@@ -65,6 +75,20 @@
 			"type": "isEmpty",
 			"x": 1,
 			"y": 1
+		},
+		{
+			"name": "belongsToWhite",
+			"type": "isPlayerPiece",
+			"x": 0,
+			"y": 0,
+			"player": 0
+		},
+		{
+			"name": "topRightBelongsToBlack",
+			"type": "isPlayerPiece",
+			"x": 1,
+			"y": 1,
+			"player": 1
 		}
 	],
 	"actions": [
@@ -85,19 +109,17 @@
 			"type": "remove",
 			"x": 1,
 			"y": 1
-		}
+		},
 	],
 	"rules": [
 		{
-			"name": "jumpTopRight",
-			"pieces": ["normalWhite", "kingWhite", "kingBlack"],
-			"conditions": ["emptyDoubleTopRight", "pieceAtTopRight"],
+			"name": "jumpTopRightWhite",
+			"conditions": ["belongsToWhite","topRightBelongsToBlack","emptyDoubleTopRight", "pieceAtTopRight"],
 			"actions": ["moveDoubleTopRight", "captureTopRight"]
 		},
 		{
-			"name": "slideTopRight",
-			"pieces": ["normalWhite", "kingWhite", "kingBlack"],
-			"conditions": ["emptyTopRight"],
+			"name": "slideTopRightWhite",
+			"conditions": ["belongsToWhite","emptyTopRight"],
 			"actions": ["moveTopRight"]
 		}
 	]
