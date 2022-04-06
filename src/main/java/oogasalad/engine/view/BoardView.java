@@ -125,6 +125,13 @@ public class BoardView implements PropertyChangeListener{
         myGrid[pos.i()][pos.j()].removePiece();
       }
     }
+    checkForWin(board);
+  }
+
+  private void checkForWin(Board board) {
+    if(board.getWinner() != Board.NO_WINNER_YET){
+      System.out.printf("gameOver! Player %d wins%n", board.getWinner());
+    }
   }
 
   /**

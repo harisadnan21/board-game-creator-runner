@@ -8,13 +8,13 @@ import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Utilities;
 
 public class Board implements Iterable<Pair<Position, Piece>> {
-
+  public static final int NO_WINNER_YET = -2;
   private int myRows;
   private int myColumns;
   private Piece[][] pieceLocations;
   private int activePlayer;
   private Set<Position> currentValidMoves;
-  private int myWinner;
+  private int myWinner = NO_WINNER_YET;
 
 
   public Board(int rows, int columns) {

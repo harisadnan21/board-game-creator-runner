@@ -1,14 +1,13 @@
 package oogasalad.engine.model.parsing;
 
 import java.io.IOException;
-<<<<<<< HEAD
-=======
+
 import java.io.InputStream;
 import java.lang.System.Logger;
 import java.lang.System.LoggerFinder;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
->>>>>>> 3adab346f07d644d721c464f3360561541cc2428
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -88,21 +87,19 @@ public class GameParser {
     return new Position(i, j);
   }
 
-<<<<<<< HEAD
-  private static PieceCondition[] getConditions(JSONArray conditionsJSON) {
-=======
-  private static Condition[] getConditions(JSONArray conditionsJSON)
+
+  private static PieceCondition[] getConditions(JSONArray conditionsJSON)
       throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
->>>>>>> 3adab346f07d644d721c464f3360561541cc2428
+
     int numConditions = conditionsJSON.length();
-    Condition[] conditions = new Condition[numConditions];
+    PieceCondition[] conditions = new PieceCondition[numConditions];
     for (int index = 0; index < numConditions; index++) {
       JSONObject conditionJSON = conditionsJSON.getJSONObject(index);
       String name = conditionJSON.getString("name");
       JSONArray paramsJSON = conditionJSON.getJSONArray("parameters");
       int[] parameters = getParameters(paramsJSON);
       try {
-        Condition c = getCondition(name, parameters);
+        PieceCondition c = getCondition(name, parameters);
         conditions[index] = c;
       } catch (Exception e) {
         e.printStackTrace();
@@ -134,9 +131,9 @@ public class GameParser {
     return obj;
   }
 
-  private static Condition getCondition(String name, int[] parameters)
+  private static PieceCondition getCondition(String name, int[] parameters)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    return (Condition) getActionOrCondition(name, parameters);
+    return (PieceCondition) getActionOrCondition(name, parameters);
   }
 
   private static Action getAction(String name, int[] parameters)

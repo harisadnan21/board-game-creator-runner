@@ -35,12 +35,12 @@ public class PieceSelectionEngine extends Engine {
     super(game, rules);
     try {
       Board board = getGame().getBoard();
-      board.placeNewPiece(5, 5, 0, 0);
+      /*board.placeNewPiece(5, 5, 0, 0);
       board.placeNewPiece(4, 4, 0, 1);
       board.placeNewPiece(3, 1, 0, 0);
       board.placeNewPiece(3, 4, 0, 1);
       board.placeNewPiece(0, 1, 0, 0);
-      board.placeNewPiece(1, 2, 0, 1);
+      board.placeNewPiece(1, 2, 0, 1);*/
     } catch (Exception e) {
 
     }
@@ -66,6 +66,7 @@ public class PieceSelectionEngine extends Engine {
       for (Rule move: getMoves()) {
         if (move.isValid(board, mySelectedCell.i(), mySelectedCell.j()) && move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()).equals(cellClicked)) {
           Board newBoard = move.doMovement(board, mySelectedCell.i(), mySelectedCell.j());
+          checkforWin(newBoard);
           getGame().setBoard(newBoard);
           resetSelected();
           return newBoard;
@@ -79,6 +80,14 @@ public class PieceSelectionEngine extends Engine {
     }
     LOG.info("Valid Moves for selected piece are {} ", board.getValidMoves());
     return board;
+  }
+
+  private void checkforWin(Board board) {
+    for(WinCondition winCondition : getWinConditions()){
+      if(winCondition.isOver(board)){
+        board.setWinner(winCondition.getWinner(board));
+      }
+    }
   }
 
   private void makePieceSelected(int x, int y) {
@@ -189,6 +198,6 @@ public class PieceSelectionEngine extends Engine {
     BoardCondition noPiecesLeft = new PlayerHasNoPieces();
     Winner mostPieces = new MostPieces();
 
-    getWinConditions().add(new WinCondition(new BoardCondition[]{noPiecesLeft}, new Winner[]{mostPieces}));
+    getWinConditions().add(new WinCondition(new BoardCondition[]{noPiecesLeft}, mostPieces));
   }
 }

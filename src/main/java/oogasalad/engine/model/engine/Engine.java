@@ -22,12 +22,9 @@ public abstract class Engine {
 
   public Engine(Game game, List<Rule> rules) {
     myGame = game;
-<<<<<<< HEAD
     myMoves = new ArrayList<>();
     myWinConditions = new ArrayList<>();
-=======
-    myMoves = rules;
->>>>>>> 3adab346f07d644d721c464f3360561541cc2428
+    //myMoves = rules;
   }
 
   protected List<Rule> getMoves() {

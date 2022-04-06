@@ -7,9 +7,9 @@ import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 
 public class WinCondition {
   private BoardCondition[] myEndConditions;
-  private Winner[] myWinDecision;
+  private Winner myWinDecision;
 
-  public WinCondition(BoardCondition[] endConditions, Winner[]winDecision){
+  public WinCondition(BoardCondition[] endConditions, Winner winDecision){
     myEndConditions = endConditions;
     myWinDecision = winDecision;
   }
@@ -20,7 +20,12 @@ public class WinCondition {
         return false;
       }
     }
+
+
     return true;
+  }
+  public int getWinner(Board board){
+    return myWinDecision.decideWinner(board);
   }
 
 }
