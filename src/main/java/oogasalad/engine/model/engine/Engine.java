@@ -5,6 +5,7 @@ import java.util.List;
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.move.Rule;
 
 import oogasalad.engine.model.player.Player;
@@ -15,16 +16,21 @@ public abstract class Engine {
   private Game myGame;
 
   private List<Rule> myMoves;
+  private List<WinCondition> myWinConditions;
 
   private List<Player> players;
 
   public Engine(Game game) {
     myGame = game;
     myMoves = new ArrayList<>();
+    myWinConditions = new ArrayList<>();
   }
 
   protected List<Rule> getMoves() {
     return myMoves;
+  }
+  protected List<WinCondition> getWinConditions() {
+    return myWinConditions;
   }
 
   /**

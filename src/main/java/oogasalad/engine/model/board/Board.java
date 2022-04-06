@@ -14,6 +14,8 @@ public class Board implements Iterable<Pair<Position, Piece>> {
   private Piece[][] pieceLocations;
   private int activePlayer;
   private Set<Position> currentValidMoves;
+  private int myWinner;
+
 
   public Board(int rows, int columns) {
     myRows = rows;
@@ -158,6 +160,9 @@ public class Board implements Iterable<Pair<Position, Piece>> {
    * @return Set of Positions of valid moves of selected piece
    */
   public Set<Position> getValidMoves() { return currentValidMoves; }
+
+  public void setWinner(int winner){myWinner =  winner;}
+  public int getWinner(){return myWinner;}
 
   // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
 // 1. We can use built in functionality for streams

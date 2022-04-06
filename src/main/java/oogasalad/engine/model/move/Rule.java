@@ -4,7 +4,7 @@ import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.PieceCondition;
+import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
 
 /**
  * Defines Movements, which contain conditions and actions

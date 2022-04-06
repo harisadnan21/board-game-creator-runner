@@ -1,4 +1,4 @@
-package oogasalad.engine.model.conditions;
+package oogasalad.engine.model.conditions.piece_conditions;
 
 import java.util.Optional;
 import oogasalad.engine.model.OutOfBoardException;
@@ -6,16 +6,16 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.PieceRecord;
 
 /**
- * Returns true if piece type at (i, j) is of certain type
+ * Returns true if piece at (i,j) is owned by player k
  * @author Jake Heller
  */
-public class IsPieceType extends PieceCondition {
+public class IsPlayerPiece extends PieceCondition {
 
   /**
    *
-   * @param parameters size 3 array [i, j, type]
+   * @param parameters size 3 array of [i, j, owner]
    */
-  public IsPieceType(int[] parameters) {
+  public IsPlayerPiece(int[] parameters) {
     super(parameters);
   }
 
@@ -23,7 +23,7 @@ public class IsPieceType extends PieceCondition {
   public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
     Optional<PieceRecord> optional = board.getPieceRecord(refI + myParameters[0], refJ + myParameters[1]);
     if (optional.isPresent()) {
-      return optional.get().type()== myParameters[2];
+      return optional.get().player() == myParameters[2];
     }
     return false;
   }

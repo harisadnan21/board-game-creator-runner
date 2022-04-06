@@ -1,5 +1,10 @@
 package oogasalad.engine.model.engine;
 
+import oogasalad.engine.model.actions.winner.MostPieces;
+import oogasalad.engine.model.actions.winner.Winner;
+import oogasalad.engine.model.conditions.WinCondition;
+import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
+import oogasalad.engine.model.conditions.board_conditions.PlayerHasNoPieces;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,11 +17,11 @@ import oogasalad.engine.model.actions.Move;
 import oogasalad.engine.model.actions.Remove;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.PieceCondition;
-import oogasalad.engine.model.conditions.IsEmpty;
-import oogasalad.engine.model.conditions.IsOccupied;
-import oogasalad.engine.model.conditions.IsPlayer;
-import oogasalad.engine.model.conditions.IsPlayerPiece;
+import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
+import oogasalad.engine.model.conditions.piece_conditions.IsEmpty;
+import oogasalad.engine.model.conditions.piece_conditions.IsOccupied;
+import oogasalad.engine.model.conditions.piece_conditions.IsPlayer;
+import oogasalad.engine.model.conditions.piece_conditions.IsPlayerPiece;
 import oogasalad.engine.model.move.Rule;
 
 public class PieceSelectionEngine extends Engine {
@@ -40,6 +45,7 @@ public class PieceSelectionEngine extends Engine {
     }
     createCheckersMove();
     createPlayer1Moves();
+    createWinCondition();
   }
 
   @Override
@@ -170,5 +176,12 @@ public class PieceSelectionEngine extends Engine {
     Action[] actions1 = new Action[]{remove, move};
 
     getMoves().add(new Rule(conditions1, actions1, -2, -2));
+  }
+
+  private void createWinCondition(){
+    BoardCondition noPiecesLeft = new PlayerHasNoPieces();
+    Winner mostPieces = new MostPieces();
+
+    getWinConditions().add(new WinCondition(new BoardCondition[]{noPiecesLeft}, new Winner[]{mostPieces}));
   }
 }

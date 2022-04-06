@@ -1,4 +1,4 @@
-package oogasalad.engine.model.conditions;
+package oogasalad.engine.model.conditions.board_conditions;
 
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;

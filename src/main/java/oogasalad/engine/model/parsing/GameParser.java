@@ -1,21 +1,16 @@
 package oogasalad.engine.model.parsing;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.System.Logger;
-import java.lang.System.LoggerFinder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
 import oogasalad.engine.model.move.Rule;
-import org.json.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 public class GameParser {
 
@@ -63,7 +58,7 @@ public class GameParser {
     for (int index = 0; index < numRules; index++) {
       JSONObject ruleJSON = rulesJSON.getJSONObject(index);
       Position repPoint = getRepresentativePoint(ruleJSON.getJSONObject("representativePoint"));
-      Condition[] conditions = getConditions(ruleJSON.getJSONArray("conditions"));
+      PieceCondition[] conditions = getConditions(ruleJSON.getJSONArray("conditions"));
       Action[] actions = getActions(ruleJSON.getJSONArray("actions"));
     }
 
@@ -74,7 +69,7 @@ public class GameParser {
     return null;
   }
 
-  private static Condition[] getConditions(JSONArray conditionsJSON) {
+  private static PieceCondition[] getConditions(JSONArray conditionsJSON) {
     int numConditions = conditionsJSON.length();
     for (int index = 0; index < numConditions; index++) {
       JSONObject conditionJSON = conditionsJSON.getJSONObject(index);
