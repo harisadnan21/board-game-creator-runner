@@ -14,15 +14,21 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class DirectionTest {
 
-  }
+  public static final String[] DIRECTIONS_ARRY = new String[]{"NORTH", "SOUTH", "EAST", "WEST",
+      "NORTHEAST", "NORTHWEST", "SOUTHEAST", "SOUTHWEST"};
 
   @Test
   void values() {
+    // Resource: https://stackoverflow.com/questions/26663399/why-do-the-new-java-8-streams-return-an-object-array-on-toarray-calls
+    String[] values = Arrays.stream(Direction.values()).map(Direction::toString).toArray(String[]::new);
+    Assertions.assertArrayEquals(values, DIRECTIONS_ARRY);
   }
 
   @Test
   void valueOf() {
-
+    for (String dir: DIRECTIONS_ARRY) {
+      Assertions.assertNotNull(Direction.valueOf(dir));
+    }
   }
 
   @ParameterizedTest
@@ -30,7 +36,7 @@ class DirectionTest {
   void badValueOf(String badVal) {
     try {
       Direction.valueOf(badVal);
-    } catch (Exception exception) {
+    } catch (IllegalArgumentException exception) {
       Assertions.assertTrue(true);
     }
   }
