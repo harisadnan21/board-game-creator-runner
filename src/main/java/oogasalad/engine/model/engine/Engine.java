@@ -18,9 +18,9 @@ public abstract class Engine {
 
   private List<Player> players;
 
-  public Engine(Game game) {
+  public Engine(Game game, List<Rule> rules) {
     myGame = game;
-    myMoves = new ArrayList<>();
+    myMoves = rules;
   }
 
   protected List<Rule> getMoves() {

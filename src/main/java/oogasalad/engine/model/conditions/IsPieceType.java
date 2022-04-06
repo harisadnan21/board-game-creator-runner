@@ -22,7 +22,12 @@ public class IsPieceType extends Condition {
 
   @Override
   public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
-    Optional<PieceRecord> optional = board.getPieceRecord(refI + myParameters[0], refJ + myParameters[1]);
+    int i = myParameters[0]+refI;
+    int j = myParameters[1]+refJ;
+    if (!board.isValid(i, j)) {
+      return false;
+    }
+    Optional<PieceRecord> optional = board.getPieceRecord(i, j);
     if (optional.isPresent()) {
       return optional.get().type()== myParameters[2];
     }

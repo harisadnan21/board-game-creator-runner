@@ -1,6 +1,7 @@
 package oogasalad.engine.model.engine;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
@@ -22,8 +23,8 @@ public class PieceSelectionEngine extends Engine {
   private Position mySelectedCell = null;
   private Set<Position> myValidMoves = null;
 
-  public PieceSelectionEngine(Game game) {
-    super(game);
+  public PieceSelectionEngine(Game game, List<Rule> rules) {
+    super(game, rules);
     try {
       Board board = getGame().getBoard();
       board.placeNewPiece(5, 5, 0, 0);
@@ -35,8 +36,8 @@ public class PieceSelectionEngine extends Engine {
     } catch (Exception e) {
 
     }
-    createCheckersMove();
-    createPlayer1Moves();
+    //createCheckersMove();
+    //createPlayer1Moves();
   }
 
   @Override
