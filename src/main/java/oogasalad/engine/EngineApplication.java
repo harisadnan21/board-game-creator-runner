@@ -25,6 +25,7 @@ public class EngineApplication extends Application {
     ViewManager manager = new ViewManager();
 
     Scene scene = manager.createGameView(board, controller).makeScene();
+    scene.getStylesheets().add(getClass().getResource("/css/engine.css").toExternalForm());
 
     stage.setTitle("OOGABOOGA Engine");
     stage.setScene(scene);

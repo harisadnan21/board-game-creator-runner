@@ -24,12 +24,16 @@ public class Controller {
     }
     myGame = new Game(myBoard);
     myEngine = new PieceSelectionEngine(myGame);
+
   }
 
   public Board click(int i, int j) throws OutOfBoardException {
     Board board = myEngine.onCellSelect(i, j);
     System.out.printf("Player %d's turn\n", board.getPlayer());
     return board;
+  }
+  public void saveGame(){
+
   }
   //TODO: Add functionality to have turns and have the program run.
 

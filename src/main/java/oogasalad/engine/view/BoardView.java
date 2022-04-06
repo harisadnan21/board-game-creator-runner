@@ -51,19 +51,17 @@ public class BoardView implements PropertyChangeListener{
     double cellHeight = cellSize.getValue();
 
     makeBoardBacking(width, height, cellSize, rows, columns);
-//    double x = 0;
-//    double y = 0;
 
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
         Cell temp = new Cell(i, j, cellWidth, cellHeight);
-        gridRoot.add(temp, i, j);
+        gridRoot.add(temp.getMyRoot(), i, j);
         myGrid[i][j] = temp;
 
         int finalI = i;
         int finalJ = j;
 
-        myGrid[i][j].addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+        myGrid[i][j].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
           try {
             cellClicked(e, finalI, finalJ);
           } catch (OutOfBoardException ex) {
@@ -80,8 +78,9 @@ public class BoardView implements PropertyChangeListener{
 
   public void cellClicked(MouseEvent e, int i, int j) throws OutOfBoardException {
     Board nextState = myController.click(i, j);
+    selectCell(i, j);
     updateBoard(nextState);
-    text.updateText(i, j);
+    text.updateText(nextState.getPlayer());
   }
 
   public void addController(Controller c) {
@@ -128,6 +127,10 @@ public class BoardView implements PropertyChangeListener{
     }
   }
 
+  /**
+   * Adds a marker to all the cells that are valid moves for the currently selected piece
+   * @param board - current Game Board
+   */
   private void setValidMarkers(Board board) {
     if(board.getValidMoves()==null){
       clearValidMarks();
@@ -139,10 +142,30 @@ public class BoardView implements PropertyChangeListener{
     }
   }
 
+  /**
+   * Removes all the current valid moves markers from the scene. Called after selecting a move
+   * or clicking off a selected piece
+   */
   private void clearValidMarks(){
     for (Cell[] row : myGrid){
       for(Cell cell : row){
         cell.removeValidMarker();
+      }
+    }
+  }
+
+  private void selectCell(int i, int j) {
+    clearCellSelection();
+    Cell cell = myGrid[i][j];
+    if (cell.containsPiece()) {
+      myGrid[i][j].addSelectedHighlight();
+    }
+  }
+
+  private void clearCellSelection() {
+    for (Cell[] row : myGrid){
+      for(Cell cell : row){
+        cell.removeHighlight();
       }
     }
   }

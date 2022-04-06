@@ -52,7 +52,7 @@ public class PieceSelectionEngine extends Engine {
         if (move.isValid(board, mySelectedCell.i(), mySelectedCell.j()) && move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()).equals(cellClicked)) {
           Board newBoard = move.doMovement(board, mySelectedCell.i(), mySelectedCell.j());
           getGame().setBoard(newBoard);
-
+          resetSelected();
           return newBoard;
         }
       }

@@ -146,7 +146,17 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     }
     return board;
   }
+
+  /**
+   * Sets the valid moves for the currently selected piece on the board or null if no piece is selected
+   * @param validMoves Set of Position values of valid moves for selected cell
+   */
   public void setValidMoves(Set<Position> validMoves) { currentValidMoves = validMoves; }
+
+  /**
+   * Returns the Set of Positions of valid moves of selected piece
+   * @return Set of Positions of valid moves of selected piece
+   */
   public Set<Position> getValidMoves() { return currentValidMoves; }
 
   // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
