@@ -20,14 +20,14 @@ import org.junit.jupiter.api.Test;
 public class SerializationTest {
 
   private static final String PIECE_NAME = "checker";
-  private static final String RULE_NAME = "rule";
-  private static final String WIN_CONDITION_NAME = "winCon";
+  private static final String RULE_NAME = "checker";
+  private static final String WIN_CONDITION_NAME = "checker";
 
   private static final String PROPERTY_NAME_1 = "test property name";
   private static final String PROPERTY_NAME_2 = "test property name";
   private static final String PROPERTY_VALUE = "test property value";
   private static final String TEST_JSON = "test";
-  private static final String EXPECTED_JSON = "{\"test property name\":\"test property value\"}";
+  private static final String EXPECTED_JSON = "{\"test property name\":\"test property value\",\"name\":\"checker\"}";
   private Collection<Property> properties;
 
   @BeforeEach

@@ -26,13 +26,15 @@ public class FactoryProviderTest {
   private static final String TYPE = "type";
   private static final String IMAGE = "image";
   private static final String PLAYER = "player";
+  private static final String ID = "id";
   private static final String ACTION = "action";
   private static final String ACTION_NAME = "moveTopRight";
   private static final String ACTION_TYPE = "move";
   private static final String PIECE = "piece";
   private static final String PIECE_NAME = "moveTopRight";
   private static final String PIECE_IMAGE = "normal.png";
-  private static final String PIECE_PLAYER = "white";
+  private static final int PIECE_PLAYER = 0;
+  private static final int PIECE_ID = 100;
   private static final String CONDITION = "condition";
   private static final String CONDITION_NAME = "emptyAtTopRight";
   private static final String CONDITION_TYPE = "isEmpty";
@@ -72,6 +74,7 @@ public class FactoryProviderTest {
     Collection<Property> properties = new HashSet<>();
     properties.add(PropertyFactory.makeProperty(IMAGE, PIECE_IMAGE));
     properties.add(PropertyFactory.makeProperty(PLAYER, PIECE_PLAYER));
+    properties.add(PropertyFactory.makeProperty(ID, PIECE_ID));
     GameElement piece = provider.createElement(PIECE, PIECE_NAME, properties);
     ElementRecord record = piece.toRecord();
     assertEquals(properties, record.properties());

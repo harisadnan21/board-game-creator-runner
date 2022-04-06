@@ -27,23 +27,27 @@ public class GameConfigurationTest {
   private static final int HEIGHT = 8;
   private static final int WIDTH = 10;
   private static final String PIECE = "piece";
-  private static final String PIECE_NAME = "moveTopRight";
+  private static final String PIECE_NAME = "thisIsAPiece";
   private static final String RULE = "rule";
   private static final String RULE_NAME = "knightMoveTopRight";
-  private static final String EMPTY = "empty";
+  private static final int EMPTY = -1;
+  private static final String EMPTY_STRING = "empty";
   private static final String PLAYER = "player";
+
   private static final int X = 5;
   private static final int Y = 7;
   private static final String IMAGE = "image";
+  private static final String ID = "id";
   private static final String ACTION_NAME = "moveTopRight";
   private static final String PIECE_IMAGE = "normal.png";
-  private static final String PIECE_PLAYER = "white";
+  private static final int PIECE_PLAYER = 0;
+  private static final int PIECE_ID = 100;
   private static final String CONDITION_NAME = "atTopRight";
 
-  private static final String PIECES = "pieces";
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
 
+  private Collection<Property> properties;
   private BuilderModel game;
 
   @BeforeEach
@@ -60,11 +64,7 @@ public class GameConfigurationTest {
   @Test
   void testGameElementFound()
       throws ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
-    Collection<Property> properties = new HashSet<>();
-    properties.add(PropertyFactory.makeProperty(IMAGE, PIECE_IMAGE));
-    properties.add(PropertyFactory.makeProperty(PLAYER, PIECE_PLAYER));
-    game.addGameElement(PIECE, PIECE_NAME, properties);
-
+    addPiece();
     ElementRecord record = game.findElementInfo(PIECE, PIECE_NAME);
     assertEquals(PIECE_NAME, record.name());
     assertEquals(properties, record.properties());
@@ -78,8 +78,9 @@ public class GameConfigurationTest {
   }
 
   @Test
-  void testOutOfBounds(){
+  void testOutOfBounds() throws MissingRequiredPropertyException, InvalidTypeException {
     game.makeBoard(WIDTH, HEIGHT);
+    addPiece();
     assertThrows(IndexOutOfBoundsException.class, () -> game.placeBoardPiece(HEIGHT+1, WIDTH + 1, PIECE_NAME));
     assertThrows(IndexOutOfBoundsException.class, () -> game.clearBoardCell(HEIGHT+1, WIDTH + 1));
     assertThrows(IndexOutOfBoundsException.class, () -> game.findBoardPieceAt(HEIGHT+1, WIDTH + 1));
@@ -89,28 +90,36 @@ public class GameConfigurationTest {
   }
 
   @Test
-  void testPiecePlacement() throws OccupiedCellException, NullBoardException {
+  void testPiecePlacement()
+      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     game.makeBoard(WIDTH, HEIGHT);
+    assertThrows(ElementNotFoundException.class, () -> game.placeBoardPiece(X, Y, PIECE_NAME));
+    addPiece();
+
     game.placeBoardPiece(X, Y, PIECE_NAME);
     assertEquals(PIECE_NAME, game.findBoardPieceAt(X, Y));
   }
 
   @Test
-  void testEmpty() throws OccupiedCellException, NullBoardException {
+  void testEmpty()
+      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
+    addPiece();
     game.makeBoard(WIDTH, HEIGHT);
     for (int i = 0; i < WIDTH; i++) {
       for (int j = 0; j < HEIGHT; j++) {
-        assertEquals(EMPTY, game.findBoardPieceAt(i, j));
+        assertEquals(EMPTY_STRING, game.findBoardPieceAt(i, j));
       }
     }
     game.placeBoardPiece(X, Y, PIECE_NAME);
     game.clearBoardCell(X, Y);
-    assertEquals(EMPTY, game.findBoardPieceAt(X, Y));
+    assertEquals(EMPTY_STRING, game.findBoardPieceAt(X, Y));
   }
 
   @Test
-  void testOccupiedCell() throws OccupiedCellException, NullBoardException {
+  void testOccupiedCell()
+      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     game.makeBoard(WIDTH, HEIGHT);
+    addPiece();
     game.placeBoardPiece(X, Y, PIECE_NAME);
     assertThrows(OccupiedCellException.class, () -> game.placeBoardPiece(X, Y, PIECE_NAME));
   }
@@ -121,24 +130,21 @@ public class GameConfigurationTest {
     game.makeBoard(WIDTH, HEIGHT);
 
     Collection<Property> properties = new HashSet<>();
-    properties.add(PropertyFactory.makeProperty(PIECES, PIECE_NAME));
     properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     game.addGameElement(RULE, RULE_NAME, properties);
 
-    properties = new HashSet<>();
-    properties.add(PropertyFactory.makeProperty(IMAGE, PIECE_IMAGE));
-    properties.add(PropertyFactory.makeProperty(PLAYER, PIECE_PLAYER));
+    addPiece();
 
-    game.addGameElement(PIECE, PIECE_NAME, properties);
     String json = game.toJSON();
-    assertEquals(WIDTH * HEIGHT, countMatches(json, EMPTY));
+    assertEquals(WIDTH * HEIGHT, countMatches(json, Integer.toString(EMPTY)));
 
     game.placeBoardPiece(X, Y, PIECE_NAME);
     json = game.toJSON();
-    assertEquals(WIDTH * HEIGHT - 1, countMatches(json, EMPTY));
     System.out.println(json);
-    assertEquals(3, countMatches(json, PIECE_NAME));
+    assertEquals(WIDTH * HEIGHT - 1, countMatches(json, Integer.toString(EMPTY)));
+    assertEquals(1, countMatches(json, PIECE_NAME));
+    assertEquals(2, countMatches(json, Integer.toString(PIECE_ID)));
   }
 
   @Test
@@ -150,7 +156,7 @@ public class GameConfigurationTest {
   @Test
   void testLoad() throws OccupiedCellException {
     // TODO: Change test when loading is implemented
-    game = game.fromJSON(EMPTY);
+    game = game.fromJSON(PIECE);
   }
 
   private int countMatches(String str, String target) {
@@ -165,6 +171,14 @@ public class GameConfigurationTest {
       }
     }
     return count;
+  }
+
+  private void addPiece() throws MissingRequiredPropertyException, InvalidTypeException {
+    properties = new HashSet<>();
+    properties.add(PropertyFactory.makeProperty(IMAGE, PIECE_IMAGE));
+    properties.add(PropertyFactory.makeProperty(PLAYER, PIECE_PLAYER));
+    properties.add(PropertyFactory.makeProperty(ID, PIECE_ID));
+    game.addGameElement(PIECE, PIECE_NAME, properties);
   }
 
 }

@@ -17,10 +17,10 @@ public interface Board extends JSONSerializable<Board> {
    *
    * @param x    the x location to place
    * @param y    the y location to place
-   * @param name the name of the piece to place
+   * @param id   the id of the piece to place
    * @throws OccupiedCellException if the requested indices are already occupied by a piece
    */
-  void placePiece(int x, int y, String name) throws OccupiedCellException;
+  void placePiece(int x, int y, int id) throws OccupiedCellException;
 
   /**
    * Finds the name of the piece at the given coordinates
@@ -29,7 +29,7 @@ public interface Board extends JSONSerializable<Board> {
    * @param y the y location to query
    * @return the name of the piece
    */
-  String findPieceAt(int x, int y);
+  int findPieceAt(int x, int y);
 
   /**
    * Clears the cell at the given coordinates

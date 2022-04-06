@@ -26,7 +26,13 @@ import org.json.JSONObject;
  */
 public class GameConfiguration implements BuilderModel {
 
-  private final Map<String, Collection<GameElement>> elements;
+  private static final String PIECE = "piece";
+  private static final String RULE = "rule";
+  private static final String ACTION = "action";
+  private static final String CONDITION = "condition";
+  private static final String ID = "id";
+  public static final String EMPTY = "empty";
+  private final Map<String, Map<String, GameElement>> elements;
   private final FactoryProvider provider;
   private RectangularBoard board;
 
@@ -37,6 +43,10 @@ public class GameConfiguration implements BuilderModel {
     board = null; // Board is unknown without initial setup
     elements = new HashMap<>();
     provider = new FactoryProvider();
+    elements.put(PIECE, new HashMap<>());
+    elements.put(RULE, new HashMap<>());
+    elements.put(ACTION, new HashMap<>());
+    elements.put(CONDITION, new HashMap<>());
   }
 
   /**
@@ -62,12 +72,10 @@ public class GameConfiguration implements BuilderModel {
     if (!elements.containsKey(type)) {
       throw new ElementNotFoundException();
     }
-    for (GameElement element : elements.get(type)) {
-      if (element.checkName(name)) {
-        return element.toRecord();
-      }
+    if (!elements.get(type).containsKey(name)) {
+      throw new ElementNotFoundException();
     }
-    throw new ElementNotFoundException();
+    return elements.get(type).get(name).toRecord();
   }
 
   /**
@@ -81,11 +89,7 @@ public class GameConfiguration implements BuilderModel {
     if (!elements.containsKey(type)) {
       throw new ElementNotFoundException();
     }
-    Collection<String> names = new HashSet<>();
-    for (GameElement element : elements.get(type)) {
-      names.add(element.toRecord().name());
-    }
-    return names;
+    return elements.get(type).keySet();
   }
 
   /**
@@ -100,10 +104,9 @@ public class GameConfiguration implements BuilderModel {
       throws InvalidTypeException, MissingRequiredPropertyException {
     GameElement newElement = provider.createElement(type, name, properties);
     if (!elements.containsKey(type)) {
-      elements.put(type, new HashSet<>());
+      elements.put(type, new HashMap<>());
     }
-    elements.get(type).removeIf(e -> e.checkName(name));
-    elements.get(type).add(newElement);
+    elements.get(type).put(name, newElement);
   }
 
   /**
@@ -117,9 +120,9 @@ public class GameConfiguration implements BuilderModel {
    */
   @Override
   public void placeBoardPiece(int x, int y, String name)
-      throws OccupiedCellException, NullBoardException {
+      throws OccupiedCellException, NullBoardException, ElementNotFoundException {
     checkBoardCreated();
-    board.placePiece(x, y, name);
+    board.placePiece(x, y, pieceNameToID(name));
   }
 
   /**
@@ -131,9 +134,29 @@ public class GameConfiguration implements BuilderModel {
    * @throws NullBoardException if the board has not been initialized
    */
   @Override
-  public String findBoardPieceAt(int x, int y) throws NullBoardException {
+  public String findBoardPieceAt(int x, int y) throws NullBoardException, ElementNotFoundException {
     checkBoardCreated();
-    return board.findPieceAt(x, y);
+    int id = board.findPieceAt(x, y);
+    for (GameElement element : elements.get(PIECE).values()) {
+      ElementRecord record = element.toRecord();
+      for (Property property : record.properties()) {
+        if (property.name().equals(ID) && Integer.parseInt(property.value()) == id) {
+          return record.name();
+        }
+      }
+    }
+    return EMPTY;
+  }
+
+  private int pieceNameToID(String name) throws ElementNotFoundException {
+    //TODO: Remove magic values
+    ElementRecord record = findElementInfo(PIECE, name);
+    for (Property property : record.properties()) {
+      if (property.name().equals(ID)) {
+        return Integer.parseInt(property.value());
+      }
+    }
+    throw new ElementNotFoundException();
   }
 
   /**
@@ -167,11 +190,11 @@ public class GameConfiguration implements BuilderModel {
     checkBoardCreated();
     JSONObject obj = new JSONObject();
     // TODO: Remove magic values
-    obj.put("pieces", elementsToJSONArray("piece"));
+    obj.put("pieces", elementsToJSONArray(PIECE));
     obj.put("board", board.toJSON());
-    obj.put("rules", elementsToJSONArray("rule"));
-    obj.put("conditions", elementsToJSONArray("condition"));
-    obj.put("actions", elementsToJSONArray("action"));
+    obj.put("rules", elementsToJSONArray(RULE));
+    obj.put("conditions", elementsToJSONArray(CONDITION));
+    obj.put("actions", elementsToJSONArray(ACTION));
     return obj.toString();
   }
 
@@ -199,8 +222,9 @@ public class GameConfiguration implements BuilderModel {
     if (!elements.containsKey(type)) {
       return arr;
     }
-    for (GameElement element : elements.get(type)) {
-      arr.put(element.toJSON());
+    for (GameElement element : elements.get(type).values()) {
+      ElementRecord record = element.toRecord();
+      arr.put(record.toJSON());
     }
     return arr;
   }
