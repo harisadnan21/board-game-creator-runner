@@ -18,7 +18,7 @@ public class IsEmptyTest {
   void basicTest() throws OutOfBoardException {
     myBoard.placeNewPiece(1, 1, 0, 0);
     int[] params = new int[]{0, 0};
-    Condition condition = new IsEmpty(params);
+    PieceCondition condition = new IsEmpty(params);
 
     assertFalse(condition.isTrue(myBoard, 1, 1));
     assertTrue(condition.isTrue(myBoard, 0, 1));
@@ -31,7 +31,7 @@ public class IsEmptyTest {
     Board copyBoard = myBoard.deepCopy();
 
     int[] params = new int[]{0, 0};
-    Condition condition = new IsEmpty(params);
+    PieceCondition condition = new IsEmpty(params);
 
     assertFalse(condition.isTrue(copyBoard, 1, 1));
     assertTrue(condition.isTrue(copyBoard, 0, 1));

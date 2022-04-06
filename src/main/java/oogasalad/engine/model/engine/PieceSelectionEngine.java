@@ -1,5 +1,8 @@
 package oogasalad.engine.model.engine;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.HashSet;
 import java.util.Set;
 import oogasalad.engine.model.Game;
@@ -9,7 +12,7 @@ import oogasalad.engine.model.action.Move;
 import oogasalad.engine.model.action.Remove;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.conditions.PieceCondition;
 import oogasalad.engine.model.conditions.IsEmpty;
 import oogasalad.engine.model.conditions.IsOccupied;
 import oogasalad.engine.model.conditions.IsPlayer;
@@ -17,7 +20,7 @@ import oogasalad.engine.model.conditions.IsPlayerPiece;
 import oogasalad.engine.model.move.Rule;
 
 public class PieceSelectionEngine extends Engine {
-
+  private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
   private boolean myIsPieceSelected = false;
   private Position mySelectedCell = null;
   private Set<Position> myValidMoves = null;
@@ -45,7 +48,6 @@ public class PieceSelectionEngine extends Engine {
     Position cellClicked = new Position(x, y);
     if (!myIsPieceSelected) {
       makePieceSelected(x, y);
-
     }
     else {
       for (Rule move: getMoves()) {
@@ -62,7 +64,7 @@ public class PieceSelectionEngine extends Engine {
       //makePieceSelected(x, y);
 
     }
-    System.out.println(board.getValidMoves());
+    LOG.info("Valid Moves for selected piece are {} ", board.getValidMoves());
     return board;
   }
 
@@ -104,22 +106,31 @@ public class PieceSelectionEngine extends Engine {
 
   // while we don't have json reading, this method is used to create a rule
   private void createCheckersMove() {
-    Condition empty0 = new IsEmpty(new int[]{1, 1});
-    Condition occupied0 = new IsOccupied(new int[]{0, 0});
-    Condition isPlayer0 = new IsPlayer(new int[]{0});
-    Condition isPlayersPiece = new IsPlayerPiece(new int[]{0, 0, 0});
-    Condition[] conditions = new Condition[]{empty0, occupied0, isPlayer0};
+    PieceCondition empty0 = new IsEmpty(new int[]{1, 1});
+    PieceCondition occupied0 = new IsOccupied(new int[]{0, 0});
+    PieceCondition isPlayer0 = new IsPlayer(new int[]{0});
+    PieceCondition isPlayersPiece = new IsPlayerPiece(new int[]{0, 0, 0});
+    PieceCondition[] conditions = new PieceCondition[]{empty0, occupied0, isPlayer0};
     Action[] actions = new Action[]{new Move(new int[]{0, 0, 1, 1})};
 
     getMoves().add(new Rule(conditions, actions, 1, 1));
 
-    Condition empty1 = new IsEmpty(new int[]{2, 2});
-    Condition isPlayer1 = new IsPlayer(new int[]{0});
-    Condition occupied1 = new IsOccupied(new int[]{0, 0});
-    Condition occupied2 = new IsOccupied(new int[]{1, 1});
-    Condition isOpposite = new IsPlayerPiece(new int[]{1, 1, 1});
+    PieceCondition empty01 = new IsEmpty(new int[]{-1, 1});
+    PieceCondition occupied01 = new IsOccupied(new int[]{0, 0});
+    PieceCondition isPlayer01 = new IsPlayer(new int[]{0});
+    PieceCondition isPlayersPiece01 = new IsPlayerPiece(new int[]{0, 0, 0});
+    PieceCondition[] conditions01 = new PieceCondition[]{empty01, occupied01, isPlayer01};
+    Action[] actions01 = new Action[]{new Move(new int[]{0, 0, -1, 1})};
 
-    Condition[] conditions1 = new Condition[]{empty1, isPlayer1, occupied1, occupied2, isOpposite};
+    getMoves().add(new Rule(conditions01, actions01, -1, 1));
+
+    PieceCondition empty1 = new IsEmpty(new int[]{2, 2});
+    PieceCondition isPlayer1 = new IsPlayer(new int[]{0});
+    PieceCondition occupied1 = new IsOccupied(new int[]{0, 0});
+    PieceCondition occupied2 = new IsOccupied(new int[]{1, 1});
+    PieceCondition isOpposite = new IsPlayerPiece(new int[]{1, 1, 1});
+
+    PieceCondition[] conditions1 = new PieceCondition[]{empty1, isPlayer1, occupied1, occupied2, isOpposite};
 
     Action remove = new Remove(new int[]{1,1});
     Action move = new Move(new int[]{0, 0, 2, 2});
@@ -129,21 +140,30 @@ public class PieceSelectionEngine extends Engine {
   }
 
   private void createPlayer1Moves() {
-    Condition empty0 = new IsEmpty(new int[]{-1, -1});
-    Condition occupied0 = new IsOccupied(new int[]{0, 0});
-    Condition isPlayer0 = new IsPlayer(new int[]{1});
-    Condition[] conditions = new Condition[]{empty0, occupied0, isPlayer0};
+    PieceCondition empty0 = new IsEmpty(new int[]{-1, -1});
+    PieceCondition occupied0 = new IsOccupied(new int[]{0, 0});
+    PieceCondition isPlayer0 = new IsPlayer(new int[]{1});
+    PieceCondition[] conditions = new PieceCondition[]{empty0, occupied0, isPlayer0};
     Action[] actions = new Action[]{new Move(new int[]{0, 0, -1, -1})};
 
     getMoves().add(new Rule(conditions, actions, -1, -1));
 
-    Condition empty1 = new IsEmpty(new int[]{-2, -2});
-    Condition isPlayer1 = new IsPlayer(new int[]{1});
-    Condition occupied1 = new IsOccupied(new int[]{0, 0});
-    Condition occupied2 = new IsOccupied(new int[]{-2, -2});
-    Condition isOpposite = new IsPlayerPiece(new int[]{-1, -1, 0});
+    PieceCondition empty11 = new IsEmpty(new int[]{1, -1});
+    PieceCondition occupied11 = new IsOccupied(new int[]{0, 0});
+    PieceCondition isPlayer11 = new IsPlayer(new int[]{1});
+    PieceCondition isPlayersPiece11 = new IsPlayerPiece(new int[]{0, 0, 0});
+    PieceCondition[] conditions11 = new PieceCondition[]{empty11, occupied11, isPlayer11};
+    Action[] actions11 = new Action[]{new Move(new int[]{0, 0, 1, -1})};
 
-    Condition[] conditions1 = new Condition[]{empty1, isPlayer1, occupied1, occupied2, isOpposite};
+    getMoves().add(new Rule(conditions11, actions11, 1, -1));
+
+    PieceCondition empty1 = new IsEmpty(new int[]{-2, -2});
+    PieceCondition isPlayer1 = new IsPlayer(new int[]{1});
+    PieceCondition occupied1 = new IsOccupied(new int[]{0, 0});
+    PieceCondition occupied2 = new IsOccupied(new int[]{-2, -2});
+    PieceCondition isOpposite = new IsPlayerPiece(new int[]{-1, -1, 0});
+
+    PieceCondition[] conditions1 = new PieceCondition[]{empty1, isPlayer1, occupied1, occupied2, isOpposite};
 
     Action remove = new Remove(new int[]{-1,-1});
     Action move = new Move(new int[]{0, 0, -2, -2});

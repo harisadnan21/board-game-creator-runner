@@ -7,7 +7,7 @@ import oogasalad.engine.model.board.Board;
  *
  * @author Jake Heller
  */
-public class IsPlayer extends Condition {
+public class IsPlayer extends PieceCondition {
 
   /**
    *

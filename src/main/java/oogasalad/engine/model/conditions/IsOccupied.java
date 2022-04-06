@@ -3,7 +3,7 @@ package oogasalad.engine.model.conditions;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 
-public class IsOccupied extends Condition {
+public class IsOccupied extends PieceCondition {
 
   public IsOccupied(int[] parameters) {
     super(parameters);

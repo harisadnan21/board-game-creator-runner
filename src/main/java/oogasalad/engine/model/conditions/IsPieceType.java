@@ -3,14 +3,13 @@ package oogasalad.engine.model.conditions;
 import java.util.Optional;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.PieceRecord;
 
 /**
  * Returns true if piece type at (i, j) is of certain type
  * @author Jake Heller
  */
-public class IsPieceType extends Condition {
+public class IsPieceType extends PieceCondition {
 
   /**
    *

@@ -6,7 +6,7 @@ import oogasalad.engine.model.board.Board;
 /**
  * @author Jake Heller
  */
-public class IsEmpty extends Condition {
+public class IsEmpty extends PieceCondition {
 
   /**
    * @param parameters size 2 array [i, j]

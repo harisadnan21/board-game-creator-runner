@@ -3,14 +3,13 @@ package oogasalad.engine.model.conditions;
 import java.util.Optional;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.PieceRecord;
 
 /**
  * Returns true if piece at (i,j) is owned by player k
  * @author Jake Heller
  */
-public class IsPlayerPiece extends Condition {
+public class IsPlayerPiece extends PieceCondition {
 
   /**
    *

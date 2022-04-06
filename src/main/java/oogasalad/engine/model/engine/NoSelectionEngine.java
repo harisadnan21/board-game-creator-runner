@@ -5,7 +5,7 @@ import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.action.Action;
 import oogasalad.engine.model.action.Place;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.conditions.PieceCondition;
 import oogasalad.engine.model.conditions.IsEmpty;
 import oogasalad.engine.model.move.Rule;
 
@@ -31,7 +31,7 @@ public class NoSelectionEngine extends Engine {
 
   private void createTicTacToeMove() {
     // should Conditions and Actions have the relative relationships build into them?
-    Condition[] conditions = new Condition[]{new IsEmpty(new int[]{0, 0})};
+    PieceCondition[] conditions = new PieceCondition[]{new IsEmpty(new int[]{0, 0})};
     Action[] actions = new Action[]{new Place(new int[]{0, 0, 0, 0})};
 
     getMoves().add(new Rule(conditions, actions, 0, 0));
