@@ -123,6 +123,17 @@ for modification.
   - No Dependencies
 
 #### Engine
+`Controller`
+- Initializes the model and serves as the link between the model and the view
+- Dependent on the model
+`Model`
+- `Action`
+  - Defines api for the different actions that can execute in the game.
+  - Includes moving, placing, and removing pieces
+- `Board Condition`
+  - API that defines board state conditions.
+  - Board Condition is and can be extended for new conditions
+
 
 ### APIs
 
