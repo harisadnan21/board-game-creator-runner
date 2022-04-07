@@ -5,7 +5,7 @@ package oogasalad.builder.model.exception;
  *
  * @author Shaan Gondalia
  */
-public class ElementNotFoundException extends Exception {
+public class ElementNotFoundException extends RuntimeException {
 
   // TODO: Replace hardcoded exception message with properties file
   private static final String DEFAULT_MESSAGE = "Requested game element was not found";
