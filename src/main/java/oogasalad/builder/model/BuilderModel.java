@@ -1,12 +1,11 @@
 package oogasalad.builder.model;
 
 import java.util.Collection;
-import java.util.HashSet;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.ElementRecord;
-import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 
@@ -50,7 +49,7 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    * @param properties the properties of the game element
    */
   void addGameElement(String type, String name, Collection<Property> properties)
-      throws InvalidTypeException;
+      throws InvalidTypeException, MissingRequiredPropertyException;
 
   /**
    * Attempts to place a piece at the given coordinates
@@ -62,7 +61,7 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    * @throws NullBoardException    if the board has not been initialized
    */
   void placeBoardPiece(int x, int y, String name)
-      throws OccupiedCellException, NullBoardException;
+      throws OccupiedCellException, NullBoardException, ElementNotFoundException;
 
   /**
    * Finds the name of the piece at the given coordinates
@@ -72,7 +71,7 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    * @return the name of the piece
    * @throws NullBoardException if the board has not been initialized
    */
-  String findBoardPieceAt(int x, int y) throws NullBoardException;
+  String findBoardPieceAt(int x, int y) throws NullBoardException, ElementNotFoundException;
 
   /**
    * Clears the cell on the board at the given coordinates
