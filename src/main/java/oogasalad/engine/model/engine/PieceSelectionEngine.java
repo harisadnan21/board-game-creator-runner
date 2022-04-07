@@ -53,7 +53,7 @@ public class PieceSelectionEngine extends Engine {
       for (Rule move: getMoves()) {
         if (move.isValid(board, mySelectedCell.i(), mySelectedCell.j()) && move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()).equals(cellClicked)) {
           Board newBoard = move.doMovement(board, mySelectedCell.i(), mySelectedCell.j());
-          checkforWin(newBoard);
+          checkForWin(newBoard);
           getGame().setBoard(newBoard);
           resetSelected();
           return newBoard;
@@ -71,7 +71,7 @@ public class PieceSelectionEngine extends Engine {
   }
 
   //checks to see if any of the win conditions are satisfied and if they are it sets the winner on the board.
-  private void checkforWin(Board board) {
+  private void checkForWin(Board board) {
     for(WinCondition winCondition : getWinConditions()){
       if(winCondition.isOver(board)){
         board.setWinner(winCondition.getWinner(board));
