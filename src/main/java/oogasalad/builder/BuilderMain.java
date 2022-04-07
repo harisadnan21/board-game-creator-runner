@@ -9,6 +9,6 @@ public class BuilderMain extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    BuilderController controller = new BuilderController(stage);
+    BuilderView view = new BuilderView(stage);
   }
 }

@@ -3,8 +3,7 @@ package oogasalad.builder.controller;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
-import javafx.stage.Stage;
+import java.util.Collection;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
@@ -14,7 +13,6 @@ import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
-import oogasalad.builder.view.BuilderView;
 
 /**
  * Controller for the Builder. Interfaces between the Builder View and Builder Model.
@@ -23,17 +21,14 @@ import oogasalad.builder.view.BuilderView;
  */
 public class BuilderController {
 
-    private BuilderModel gameConfig;
-    private BuilderView view;
+    private final BuilderModel gameConfig;
 
     /**
      * Creates a BuilderController Object that interfaces between the view and model.
      *
-     * @param stage the stage of the application (needed for the view)
      */
-    public BuilderController(Stage stage) {
+    public BuilderController() {
         gameConfig = new GameConfiguration();
-        view = new BuilderView(stage);
     }
 
     /**

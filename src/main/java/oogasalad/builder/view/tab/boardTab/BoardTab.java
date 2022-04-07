@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.view.tab.TitlePane;
 
 
@@ -30,9 +31,12 @@ public class BoardTab {
   private BoardCanvas boardCanvas;
   private ResourceBundle resources;
 
-  public BoardTab(ResourceBundle resourcesBundle) {
+  private BuilderController controller; // FIXME: Use event handlers instead
+
+  public BoardTab(ResourceBundle resourcesBundle, BuilderController controller) {
     boardPane = new BorderPane();
     resources = resourcesBundle;
+    this.controller = controller;
 
 //        // TODO : Make this not magic
 //        setupBoard(8, 8, "Checkers");
@@ -50,7 +54,7 @@ public class BoardTab {
   }
 
   private void setupBlankBoard() {
-    boardCanvas = new BoardCanvas(resources, boardPane);
+    boardCanvas = new BoardCanvas(resources, boardPane, controller);
 
     Pane canvasPane = boardCanvas.getCanvasPane();
     canvasPane.prefWidthProperty().bind(boardPane.widthProperty().multiply(0.7));
