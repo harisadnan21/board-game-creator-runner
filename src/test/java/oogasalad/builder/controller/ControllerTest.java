@@ -116,15 +116,6 @@ public class ControllerTest extends DukeApplicationTest {
   }
 
   @Test
-  void testOccupiedCell()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
-    controller.makeBoard(WIDTH, HEIGHT);
-    addPiece();
-    controller.placePiece(X, Y, PIECE_NAME);
-    assertThrows(OccupiedCellException.class, () -> controller.placePiece(X, Y, PIECE_NAME));
-  }
-
-  @Test
   void testSave()
       throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     controller.makeBoard(WIDTH, HEIGHT);
