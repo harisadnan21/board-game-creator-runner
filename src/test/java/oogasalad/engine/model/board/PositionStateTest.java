@@ -17,10 +17,6 @@ class PositionStateTest {
   public static final PositionState POSITION_STATE_4 = new PositionState(new Position(4, 4),
       "purple", "");
 
-  @BeforeAll
-  void setup(){
-  }
-
   @Test
   void position() {
     Assertions.assertNotNull(POSITION_STATE_1.position());
