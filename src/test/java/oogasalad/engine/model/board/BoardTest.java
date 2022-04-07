@@ -27,15 +27,15 @@ class BoardTest {
   @Test
   void placeNewPiece() throws OutOfBoardException {
     myBoard.placeNewPiece(1,1, 0, 0);
-    assertNotNull(myBoard.getMyBoardCopy()[1][1]);
+    assertTrue(myBoard.getPieceRecord(1,1).isPresent());
   }
 
   @Test
   void remove() throws OutOfBoardException {
     myBoard.placeNewPiece(1,1, 0, 0);
-    assertNotNull(myBoard.getMyBoardCopy()[1][1]);
+    assertTrue(myBoard.getPieceRecord(1,1).isPresent());
     myBoard.remove(1,1);
-    assertNull(myBoard.getMyBoardCopy()[1][1]);
+    assertTrue(myBoard.getPieceRecord(1,1).isEmpty());
   }
 
   @Test

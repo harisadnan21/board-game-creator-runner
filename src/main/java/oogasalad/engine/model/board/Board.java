@@ -51,6 +51,7 @@ public class Board implements Iterable<Pair<Position, Piece>> {
    *
    * @return a copy of the piece locations in the board
    */
+  @Deprecated
   public Piece[][] getMyBoardCopy(){
     Piece[][] retList = new Piece[myRows][myColumns];
     for (int row = 0; row < myRows; row++) {
