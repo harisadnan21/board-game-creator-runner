@@ -55,9 +55,9 @@ public class GameElementTab extends BorderPane {
         rightBox.getChildren().addAll(
                 makeButton("new-" + type, e -> createPiece()),
                 nameField = new TextField(ViewResourcesSingleton.getInstance().getString("defaultName-" + type)),
-                propertyEditor
+                propertyEditor, makeButton("save", e -> saveCurrentElement())
         );
-        rightBox.setId("rightPane");
+        rightBox.setId("rightGameElementsPane");
         setRight(rightBox);
     }
 
