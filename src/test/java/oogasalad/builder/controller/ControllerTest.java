@@ -54,7 +54,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    controller = new BuilderController(stage);
+    controller = new BuilderController();
   }
 
   @Test

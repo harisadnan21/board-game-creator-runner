@@ -1,5 +1,6 @@
 package oogasalad.builder.view;
 
+import java.util.Locale.Builder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.element.ElementRecord;
 
 import javafx.scene.Scene;
@@ -18,6 +20,9 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import oogasalad.builder.view.tab.ActionsTab;
+import oogasalad.builder.view.tab.ConditionsTab;
+import oogasalad.builder.view.tab.RulesTab;
 import oogasalad.builder.view.tab.SplashLogin;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
 import oogasalad.builder.view.tab.pieceTab.PiecesTab;
@@ -37,29 +42,25 @@ public class BuilderView {
   private Stage stage;
   private BoardTab boardTabPane;
   private PiecesTab pieceTabPane;
-  private SplashLogin loginPage;
+  private ActionsTab actionsTabPane;
+  private ConditionsTab conditionsTabPane;
+  private RulesTab rulesTabPane;
   private Label myWelcome;
-  private ResourceBundle myResources;
   private BorderPane boardPane;
   private HBox buttonHolder;
-  private static BorderPane loginRoot;
   private ResourceBundle splashResources;
   private ResourceBundle tabResources;
+
+  private BuilderController controller; //FIXME: Use Event handlers instead of this
 
   public BuilderView(Stage mainStage) {
     splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
     tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
+    controller = new BuilderController();
     stage = mainStage;
     displayWelcome(stage);
     stage.show();
   }
-
-
-//  public Scene makeScene(double width, double height, Stage stage) {
-//    Scene scene = new Scene(loginPage, width, height);
-//    displayWelcome(stage);
-//    return scene;
-//  }
 
   private void displayWelcome(Stage myStage) {
     boardPane = new BorderPane();
@@ -82,51 +83,30 @@ public class BuilderView {
     myStage.show();
   }
 
-
-//  public Scene makeScene(int width, int height, Stage stage) {
-//    Scene scene = new Scene(loginRoot, width, height);
-//    displayWelcome(scene, stage);
-//    return scene;
-//  }
-
-//  private void displayWelcome(Scene scene, Stage myStage) {
-//    scene.getStylesheets()
-//        .add(getClass().getResource("/SplashLogin.css").toExternalForm());
-//    //myRoot.getChildren().clear();
-//    loginPage = new SplashLogin(splashResources);
-//    // myRoot.setCenter(myWelcome.getPane());
-//    //Button compiler = SlogoView.makeButton("Compiler", event -> displayConsole(), myResources);
-//    //myWelcome.getContainer().getChildren().addAll(proceed, compiler);
-//    //myWelcome.getContainer().setAlignment(Pos.CENTER);
-//    myStage.setScene(scene);
-//    myStage.show();
-//  }
-
-
-  /**
-   * @param element
-   * @return
-   */
-  public void putGameElement(ElementRecord element) {
-    // TODO implement here
-    //return null;
-  }
-
   // Can possibly extend tab for each of the tab classes instead of just having toNode() to add them to the tabs
   // public void setupTabs() {
   // Creates all the tabs
   private void setupTabs() {
     TabPane tabPane = new TabPane();
 
-    boardTabPane = new BoardTab(tabResources);
-    boardTabPane.toNode().setId("boardTab");
-    Tab boardTab = new Tab("Board", boardTabPane.toNode());
+    boardTabPane = new BoardTab(tabResources, controller);
+    boardTabPane.setId("boardTab");
+    Tab boardTab = new Tab("Board", boardTabPane);
 
-    pieceTabPane = new PiecesTab();
-    pieceTabPane.toNode().setId("pieceTab");
-    Tab pieceTab = new Tab("Piece", pieceTabPane.toNode());
+    pieceTabPane = new PiecesTab(controller);
+    pieceTabPane.setId("pieceTab");
+    Tab pieceTab = new Tab("Piece", pieceTabPane);
+    actionsTabPane = new ActionsTab(controller);
+    actionsTabPane.setId("actionTab");
+    Tab actionTab = new Tab("Action", actionsTabPane);
+    conditionsTabPane = new ConditionsTab(controller);
+    conditionsTabPane.setId("conditionTab");
+    Tab conditionsTab = new Tab("Condition", conditionsTabPane);
+    rulesTabPane = new RulesTab(controller);
+    rulesTabPane.setId("ruleTab");
+    Tab rulesTab = new Tab("Rule", rulesTabPane);
 
-    tabPane.getTabs().addAll(boardTab, pieceTab);
+    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab);
 
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 

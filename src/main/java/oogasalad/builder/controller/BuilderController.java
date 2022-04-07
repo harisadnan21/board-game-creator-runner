@@ -3,8 +3,7 @@ package oogasalad.builder.controller;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
-import javafx.stage.Stage;
+import java.util.Collection;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
@@ -14,7 +13,6 @@ import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
-import oogasalad.builder.view.BuilderView;
 
 /**
  * Controller for the Builder. Interfaces between the Builder View and Builder Model.
@@ -23,17 +21,14 @@ import oogasalad.builder.view.BuilderView;
  */
 public class BuilderController {
 
-    private BuilderModel gameConfig;
-    private BuilderView view;
+    private final BuilderModel gameConfig;
 
     /**
      * Creates a BuilderController Object that interfaces between the view and model.
      *
-     * @param stage the stage of the application (needed for the view)
      */
-    public BuilderController(Stage stage) {
+    public BuilderController() {
         gameConfig = new GameConfiguration();
-        view = new BuilderView(stage);
     }
 
     /**
@@ -93,6 +88,36 @@ public class BuilderController {
         throws ElementNotFoundException {
         ElementRecord elementRecord = gameConfig.findElementInfo(type, name);
         return elementRecord.properties();
+    }
+
+    /**
+     * Gets the properties of an element specified by its type and name
+     *
+     * @param type the type of the element
+     * @param name the name of the element
+     * @return the properties of an element
+     */
+    public String getElementPropertyByKey(String type, String name, String key)
+        throws ElementNotFoundException {
+        ElementRecord elementRecord = gameConfig.findElementInfo(type, name);
+        for (Property prop : elementRecord.properties()) {
+            if (prop.name().equals(key)) {
+                return prop.value();
+            }
+        }
+        throw new ElementNotFoundException();
+    }
+
+
+
+    /**
+     * Provides a list of element names that are of the given type
+     *
+     * @param type the type of the elements to name
+     * @return a collection of names that are of a certain type (e.g. piece)
+     */
+    public Collection<String> getElementNames(String type) throws ElementNotFoundException {
+        return gameConfig.getElementNames(type);
     }
 
     /**

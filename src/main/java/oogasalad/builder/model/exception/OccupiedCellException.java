@@ -5,7 +5,7 @@ package oogasalad.builder.model.exception;
  *
  * @author Shaan Gondalia
  */
-public class OccupiedCellException extends Exception {
+public class OccupiedCellException extends RuntimeException {
 
   // TODO: Replace hardcoded exception message with properties file
   private static final String DEFAULT_MESSAGE = "A piece already occupies that cell";
