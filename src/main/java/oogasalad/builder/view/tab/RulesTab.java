@@ -1,17 +1,15 @@
 package oogasalad.builder.view.tab;
 
-import java.util.*;
+
+import oogasalad.builder.controller.BuilderController;
 
 /**
- * 
+ * Class that represents the Rules Tab
  */
-public class RulesTab {
+public class RulesTab extends GameElementTab {
+    public static String RULE = "rule";
 
-    /**
-     * Default constructor
-     */
-    public RulesTab() {
+    public RulesTab(BuilderController controller) {
+        super(controller, RULE);
     }
-
-
 }

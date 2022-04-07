@@ -38,7 +38,6 @@ public class RectangularBoard implements Board {
    */
   public void placePiece(int x, int y, int id) throws OccupiedCellException {
     checkInBounds(x, y);
-    checkEmpty(x, y);
     cells[x][y] = id;
   }
 
@@ -100,13 +99,6 @@ public class RectangularBoard implements Board {
   private void checkInBounds(int x, int y) {
     if (x < 0 || x > width || y < 0 || y > height) {
       throw new IndexOutOfBoundsException();
-    }
-  }
-
-  // Checks whether the requested indices are empty
-  private void checkEmpty(int x, int y) throws OccupiedCellException {
-    if (cells[x][y] != EMPTY) {
-      throw new OccupiedCellException();
     }
   }
 
