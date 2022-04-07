@@ -155,12 +155,45 @@ JSON format.
     }
 ```
 
-#### API #2
+#### API #2: Action API
 
 what service does it provide?
+
+Actions perform changes on a board based on their parameters and a reference point
+
 how does it provide for extension?
+
+Concrete subclasses of Action define specific ways
+in which the board can be changed. The current functions define all
+the base actions you need to arbitrarily change the board, but we plan
+to add more functions that make it easier to define more complex actions.
+
 how does it support users (your team mates) to write readable, well design code?
 
+```java
+/**
+ * Every action subclass constructor receives all the parameters
+ * it needs to run from a relative position
+ *
+ * @author Jake Heller
+ */
+public abstract class Action {
+
+  protected int[] myParameters;
+  public Action(int[] parameters) {
+    myParameters = parameters;
+  }
+
+  /**
+   *
+   * @param board
+   * @param refI reference i
+   * @param refJ reference j
+   * @throws OutOfBoardException
+   */
+  public abstract void execute(Board board, int refI, int refJ) throws OutOfBoardException;
+}
+```
 ### Use cases
 
 #### Saving JSON Configuration
