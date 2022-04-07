@@ -9,6 +9,7 @@ open module oogasalad_app {
     requires java.desktop;
     requires io.vavr;
     requires org.jooq.jool;
+    requires com.google.gson;
 
   // allow other classes to access listed packages in your project
     exports oogasalad;
