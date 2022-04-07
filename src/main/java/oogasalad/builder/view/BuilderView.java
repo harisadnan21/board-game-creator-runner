@@ -54,7 +54,7 @@ public class BuilderView {
   private BuilderController controller; //FIXME: Use Event handlers instead of this
 
   public BuilderView(Stage mainStage) {
-    splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
+    //splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
     tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
     controller = new BuilderController();
     stage = mainStage;
@@ -65,13 +65,13 @@ public class BuilderView {
   private void displayWelcome(Stage myStage) {
     boardPane = new BorderPane();
     buttonHolder = new HBox();
-    myWelcome = new Label(splashResources.getString("Welcome"));
+    myWelcome = new Label(tabResources.getString("Welcome"));
     myWelcome.setFont(new Font("Inter", 30));
     boardPane.setLeft(myWelcome);
 
     Button login = makeButton("Login", event -> {
       setupTabs();
-    }, splashResources);
+    }, tabResources);
     login.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
     buttonHolder.getChildren().add(login);
     buttonHolder.setAlignment(Pos.CENTER_LEFT);
