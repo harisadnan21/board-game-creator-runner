@@ -8,11 +8,19 @@ import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import oogasalad.builder.controller.BuilderController;
+import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.exception.ElementNotFoundException;
+import oogasalad.builder.model.exception.NullBoardException;
+import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.property.Property;
 
 public class BoardCanvas {
 
@@ -29,14 +37,17 @@ public class BoardCanvas {
   private double rectHeight;
   private int[][] containsPiece;
   private BorderPane borderPane;
+  private String currentPiece;
 
-  public BoardCanvas(ResourceBundle rb, BorderPane boardTab) {
+  private BuilderController controller; //FIXME: Use Event handlers instead of this
+
+  public BoardCanvas(ResourceBundle rb, BorderPane boardTab, BuilderController controller) {
     resources = rb;
     borderPane = boardTab;
+    this.controller = controller;
 
     setupBoard();
     populateBoardTypeMap();
-    addClickHandeling();
   }
 
   public void setColor(Paint color, int colorNum){
@@ -47,8 +58,10 @@ public class BoardCanvas {
   }
 
 
-  public void drawBoard(int xDim, int yDim, String type){
+  public void drawBoard(int xDim, int yDim, String type) throws NullBoardException {
+    boardGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
     calculateAndChangeCanvasSize();
+    controller.makeBoard(xDim, yDim);
 
     rectWidth = boardCanvas.getWidth() / xDim;
     rectHeight = boardCanvas.getHeight() / yDim;
@@ -59,6 +72,7 @@ public class BoardCanvas {
 
     if (boardTypeFunctionMap.containsKey(type)){
       boardTypeFunctionMap.get(type).accept(new int[]{xDim, yDim});
+      setClickToPlace();
     }
     else{
       //TODO : THROW EXCEPTION
@@ -85,19 +99,14 @@ public class BoardCanvas {
     return containsPiece;
   }
 
-  public void clearBoard(){
+  public void clearBoard() throws NullBoardException {
     pieceGraphics.clearRect(0, 0, pieceCanvas.getWidth(), pieceCanvas.getHeight());
     containsPiece = new int[containsPiece[0].length][containsPiece.length];
-  }
-
-  public StringBuilder printBoardConfig(){
-    StringBuilder ret = new StringBuilder();
-    for (int x = 0; x < containsPiece[0].length; x++){
-      for (int y = 0; y < containsPiece.length; y++) {
-        ret.append(x + "," + y + ": " + containsPiece[x][y] +"\n");
+    for (int i = 0; i < containsPiece.length; i++) {
+      for (int j = 0; j < containsPiece[0].length; j++) {
+        controller.clearCell(j, i);
       }
     }
-    return ret;
   }
 
   public Pane getCanvasPane() {
@@ -127,28 +136,44 @@ public class BoardCanvas {
     }
   }
 
-  private void addClickHandeling(){
-    pieceCanvas.setOnMouseClicked(e -> addPiece(e));
+
+  public void setCurrentPiece(String pieceName){
+    currentPiece = pieceName;
   }
 
-  private void addPiece(MouseEvent click){
+  public void setClickToErase(){
+    pieceCanvas.setOnMouseClicked(this::erasePiece);
+  }
+  public void setClickToPlace(){
+    pieceCanvas.setOnMouseClicked(this::addPiece);
+  }
+
+  private void erasePiece(MouseEvent click){
+    int[] blockIndex = findSquare(click.getX(), click.getY());
+    pieceGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
+    controller.clearCell(blockIndex[0], blockIndex[1]);
+  }
+
+  private void addPiece(MouseEvent click)
+      throws OccupiedCellException, NullBoardException, ElementNotFoundException {
+
+    if (currentPiece == null){
+      System.out.println("No piece Selected");
+      return;
+    }
+
     double clickX = click.getX();
     double clickY = click.getY();
 
     int[] blockIndex = findSquare(clickX, clickY);
     System.out.println(" xPos: " + blockIndex[0] + " yPos: " + blockIndex[1]);
 
-    // TODO: ADD OPTIONS FOR ADDING PIECES THEN ACTUALLY ADD PIECES
-    if (containsPiece[blockIndex[0]][blockIndex[1]] > 0){
-      pieceGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
-      containsPiece[blockIndex[0]][blockIndex[1]] = 0;
-    }
-    else{
-      pieceGraphics.setFill(Color.BLUE);
-      pieceGraphics.fillOval(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
-      containsPiece[blockIndex[0]][blockIndex[1]] = 1;
+    controller.placePiece(blockIndex[0], blockIndex[1], currentPiece);
 
-    }
+    String filePath =  controller.getElementPropertyByKey("piece", currentPiece, "image");
+
+    Image pieceImage = new Image(filePath);
+    pieceGraphics.drawImage(pieceImage,blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
 
   }
 
@@ -158,9 +183,5 @@ public class BoardCanvas {
 
     return new int[]{(int) xPos, (int) yPos};
   }
-
-
-
-
 
 }
