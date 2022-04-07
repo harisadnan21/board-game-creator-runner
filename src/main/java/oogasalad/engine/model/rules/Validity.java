@@ -12,11 +12,8 @@ public class Validity {
     myRules = rulesInPlay;
   }
 
-  public List<int[]> checkValidity(Piece piece, Board board){
-    Piece[][] boardGrid = board.getMyBoard();
-    //TODO: Remove this
-    List<int[]> validSpaces = new ArrayList<>();
-    return validSpaces;
-    //TODO: Fix this to stream of Board
-  }
+  //public List<int[]> checkValidity(Piece piece, Board board){
+    //myRules.stream.filter(rule -> rule
+        //.pieces.contains(piece));
+  //}
 }

@@ -8,6 +8,9 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.view.BoardView;
 import oogasalad.engine.view.ViewManager;
 
+/**
+ * Class that runs the engine and starts it off
+ */
 public class EngineApplication extends Application {
 
   @Override
@@ -25,6 +28,7 @@ public class EngineApplication extends Application {
     ViewManager manager = new ViewManager();
 
     Scene scene = manager.createGameView(board, controller).makeScene();
+    scene.getStylesheets().add(getClass().getResource("/css/engine.css").toExternalForm());
 
     stage.setTitle("OOGABOOGA Engine");
     stage.setScene(scene);

@@ -1,13 +1,13 @@
-package oogasalad.engine.model.conditions;
+package oogasalad.engine.model.conditions.piece_conditions;
 
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 
-public abstract class Condition {
+public abstract class PieceCondition {
 
   protected int[] myParameters;
 
-  public Condition(int[] parameters) {
+  public PieceCondition(int[] parameters) {
     myParameters = parameters;
   }
 

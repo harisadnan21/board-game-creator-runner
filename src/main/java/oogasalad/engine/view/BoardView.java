@@ -18,9 +18,12 @@ import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.engine.PieceSelectionEngine;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BoardView implements PropertyChangeListener{
-
+  private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
   public static String IMAGES_FOLDER = "images/";
   public static String BLACK_KNIGHT = IMAGES_FOLDER + "black_knight.png";
   public static String WHITE_KNIGHT = IMAGES_FOLDER + "white_knight.png";
@@ -51,19 +54,17 @@ public class BoardView implements PropertyChangeListener{
     double cellHeight = cellSize.getValue();
 
     makeBoardBacking(width, height, cellSize, rows, columns);
-//    double x = 0;
-//    double y = 0;
 
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
         Cell temp = new Cell(i, j, cellWidth, cellHeight);
-        gridRoot.add(temp, i, j);
+        gridRoot.add(temp.getMyRoot(), i, j);
         myGrid[i][j] = temp;
 
         int finalI = i;
         int finalJ = j;
 
-        myGrid[i][j].addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+        myGrid[i][j].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
           try {
             cellClicked(e, finalI, finalJ);
           } catch (OutOfBoardException ex) {
@@ -80,8 +81,9 @@ public class BoardView implements PropertyChangeListener{
 
   public void cellClicked(MouseEvent e, int i, int j) throws OutOfBoardException {
     Board nextState = myController.click(i, j);
+    selectCell(i, j);
     updateBoard(nextState);
-    text.updateText(i, j);
+    text.updateText(nextState.getPlayer());
   }
 
   public void addController(Controller c) {
@@ -116,16 +118,70 @@ public class BoardView implements PropertyChangeListener{
   }
 
   private void updateBoard(Board board) {
+    setValidMarkers(board);
     for (Pair<Position, Piece> piece: board) {
       Position pos = piece.getKey();
       if (piece.getValue() != null) {
-        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getOwner()));
+        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getPieceRecord().player()));
       }
       else {
         myGrid[pos.i()][pos.j()].removePiece();
       }
     }
+    checkForWin(board);
   }
+
+  //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
+  private void checkForWin(Board board) {
+    if(board.getWinner() != Board.NO_WINNER_YET){
+      System.out.printf("gameOver! Player %d wins%n", board.getWinner());
+      LOG.info("gameOver! Player {} wins%n", board.getWinner());
+    }
+  }
+
+  /**
+   * Adds a marker to all the cells that are valid moves for the currently selected piece
+   * @param board - current Game Board
+   */
+  private void setValidMarkers(Board board) {
+    if(board.getValidMoves()==null){
+      clearValidMarks();
+    }
+    else{
+      for(Position pos : board.getValidMoves()){
+        myGrid[pos.i()][pos.j()].addValidMarker();
+      }
+    }
+  }
+
+  /**
+   * Removes all the current valid moves markers from the scene. Called after selecting a move
+   * or clicking off a selected piece
+   */
+  private void clearValidMarks(){
+    for (Cell[] row : myGrid){
+      for(Cell cell : row){
+        cell.removeValidMarker();
+      }
+    }
+  }
+
+  private void selectCell(int i, int j) {
+    clearCellSelection();
+    Cell cell = myGrid[i][j];
+    if (cell.containsPiece()) {
+      myGrid[i][j].addSelectedHighlight();
+    }
+  }
+
+  private void clearCellSelection() {
+    for (Cell[] row : myGrid){
+      for(Cell cell : row){
+        cell.removeHighlight();
+      }
+    }
+  }
+
 
   private Position getIndices(int index) {
     int i = index / myGrid.length;

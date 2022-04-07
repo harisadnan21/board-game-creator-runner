@@ -1,10 +1,10 @@
 package oogasalad.engine.model.move;
 
 import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.action.Action;
+import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
 
 /**
  * Defines Movements, which contain conditions and actions
@@ -15,7 +15,7 @@ public class Rule {
 
   private Board myNextState;
 
-  private Condition[] myConditions;
+  private PieceCondition[] myConditions;
   private Action[] myActions;
   private int myRepI; // i value for the "representative cell" for this action
   private int myRepJ; // j value for the "representative cell" for this action
@@ -27,7 +27,7 @@ public class Rule {
    * @param repI
    * @param repJ
    */
-  public Rule(Condition[] conditions, Action[] actions, int repI, int repJ) {
+  public Rule(PieceCondition[] conditions, Action[] actions, int repI, int repJ) {
     myConditions = conditions;
     myActions = actions;
     myRepI = repI;
@@ -36,7 +36,7 @@ public class Rule {
 
   public boolean isValid(Board board, int refI, int refJ) {
     try {
-      for (Condition condition : myConditions) {
+      for (PieceCondition condition : myConditions) {
         if (!condition.isTrue(board, refI, refJ)) {
           return false;
         }
