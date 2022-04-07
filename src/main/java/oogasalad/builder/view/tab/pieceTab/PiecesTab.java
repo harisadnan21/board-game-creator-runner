@@ -126,7 +126,7 @@ public class PiecesTab {
     }
 
     private void setupTitle() {
-        boardPane.setTop(new TitlePane("boardTitle", resources).toNode());
+        boardPane.setTop(new TitlePane("pieceTitle", resources).toNode());
     }
 
     public Pane getCanvasPane() {
