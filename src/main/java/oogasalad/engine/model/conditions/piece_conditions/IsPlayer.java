@@ -1,4 +1,4 @@
-package oogasalad.engine.model.conditions;
+package oogasalad.engine.model.conditions.piece_conditions;
 
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
@@ -7,7 +7,7 @@ import oogasalad.engine.model.board.Board;
  *
  * @author Jake Heller
  */
-public class IsPlayer extends Condition {
+public class IsPlayer extends PieceCondition {
 
   /**
    *
