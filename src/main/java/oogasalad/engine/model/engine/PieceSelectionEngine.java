@@ -5,6 +5,7 @@ import oogasalad.engine.model.actions.winner.Winner;
 import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 import oogasalad.engine.model.conditions.board_conditions.PlayerHasNoPieces;
+import oogasalad.engine.model.conditions.board_conditions.NoMovesLeft;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -187,5 +188,11 @@ public class PieceSelectionEngine extends Engine {
     Winner mostPieces = new MostPieces();
 
     getWinConditions().add(new WinCondition(new BoardCondition[]{noPiecesLeft}, mostPieces));
+  }
+  private void createDrawCondition(){
+
+    BoardCondition noMovesLeft= new NoMovesLeft();
+    getWinConditions().add(new WinCondition(new BoardCondition[]{noMovesLeft}, null));
+
   }
 }

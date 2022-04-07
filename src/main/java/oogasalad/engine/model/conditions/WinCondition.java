@@ -13,7 +13,7 @@ import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
  * @see Winner
  * @see BoardCondition
  */
-public class WinCondition {
+public class WinCondition extends EndCondition{
   private BoardCondition[] myEndConditions;
   private Winner myWinDecision;
 
@@ -23,22 +23,9 @@ public class WinCondition {
    * @param winDecision Winner decision on how to determine a winner
    */
   public WinCondition(BoardCondition[] endConditions, Winner winDecision){
-    myEndConditions = endConditions;
+    super();
     myWinDecision = winDecision;
-  }
-
-  /**
-   * Returns true if all the end game conditions are met and false otherwise
-   * @param board current game board
-   * @return whether end conditions have been met
-   */
-  public boolean isOver(Board board) {
-    for(BoardCondition endCondition : myEndConditions){
-      if(!endCondition.isTrue(board)){
-        return false;
-      }
-    }
-    return true;
+    myEndConditions = endConditions;
   }
 
   /**
@@ -46,6 +33,7 @@ public class WinCondition {
    * @param board current board state
    * @return int representing the winning player
    */
+
   public int getWinner(Board board){
     return myWinDecision.decideWinner(board);
   }
