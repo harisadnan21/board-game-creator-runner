@@ -1,12 +1,19 @@
 package oogasalad.engine.model.board;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import javafx.util.Pair;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Utilities;
 
+/**
+ * Class That defines the backend board and defines methods that can be applied to it.
+ * @author Jake Heller, Haris Adnan, Robert Cranston
+ */
 public class Board implements Iterable<Pair<Position, Piece>> {
   public static final int NO_WINNER_YET = -2;
   private int myRows;
@@ -40,8 +47,18 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     }
   }
 
-  public Piece[][] getMyBoard(){
-    return pieceLocations;
+  /**
+   *
+   * @return a copy of the piece locations in the board
+   */
+  public Piece[][] getMyBoardCopy(){
+    Piece[][] retList = new Piece[myRows][myColumns];
+    for (int row = 0; row < myRows; row++) {
+      for (int col = 0; col < myColumns; col++) {
+        retList[row][col] = pieceLocations[row][col].deepCopy();
+      }
+    }
+    return retList;
   }
 
   /**

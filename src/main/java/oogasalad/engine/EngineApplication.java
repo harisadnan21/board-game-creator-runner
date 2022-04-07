@@ -8,6 +8,9 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.view.BoardView;
 import oogasalad.engine.view.ViewManager;
 
+/**
+ * Class that runs the engine and starts it off
+ */
 public class EngineApplication extends Application {
 
   @Override

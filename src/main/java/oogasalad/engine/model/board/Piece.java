@@ -3,7 +3,7 @@ package oogasalad.engine.model.board;
 import java.util.Optional;
 
 /**
- * 
+ * Class that defined a piece on the board.
  */
 public class Piece {
     private int myType;
