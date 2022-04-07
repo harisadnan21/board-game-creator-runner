@@ -28,16 +28,14 @@ import oogasalad.builder.view.tab.TitlePane;
 /**
  *
  */
-public class BoardTab {
+public class BoardTab extends BorderPane {
 
-  private BorderPane boardPane;
   private BoardCanvas boardCanvas;
   private ResourceBundle resources;
 
   private BuilderController controller; // FIXME: Use event handlers instead
 
   public BoardTab(ResourceBundle resourcesBundle, BuilderController controller) {
-    boardPane = new BorderPane();
     resources = resourcesBundle;
     this.controller = controller;
 
@@ -48,23 +46,20 @@ public class BoardTab {
     setupTitle();
   }
 
-  public Node toNode() {
-    return boardPane;
-  }
 
   private void setupTitle() {
-    boardPane.setTop(new TitlePane("boardTitle").toNode());
+    setTop(new TitlePane("boardTitle").toNode());
   }
 
   private void setupBlankBoard() {
-    boardCanvas = new BoardCanvas(resources, boardPane, controller);
+    boardCanvas = new BoardCanvas(resources, this, controller);
 
     Pane canvasPane = boardCanvas.getCanvasPane();
-    canvasPane.prefWidthProperty().bind(boardPane.widthProperty().multiply(0.7));
-    canvasPane.prefHeightProperty().bind(boardPane.heightProperty());
+    canvasPane.prefWidthProperty().bind(this.widthProperty().multiply(0.7));
+    canvasPane.prefHeightProperty().bind(this.heightProperty());
 
     canvasPane.setId("boardCanvas");
-    boardPane.setCenter(canvasPane);
+    setCenter(canvasPane);
   }
 
   private void setupRightPane() {
@@ -72,7 +67,7 @@ public class BoardTab {
 
     rightBox.getChildren().addAll(setupButtonBar(), setupBoardConfigInput());
     rightBox.setId("rightPane");
-    boardPane.setRight(rightBox);
+    setRight(rightBox);
   }
 
   private Node setupBoardConfigInput() {
@@ -101,8 +96,8 @@ public class BoardTab {
     ObservableList<String> boardTypes = FXCollections.observableArrayList(boardTypeList);
 
     ComboBox<String> boardTypeBox = new ComboBox<>(boardTypes);
-    // boardTypeBox.getItems().add(resources.getString("checkers"));
     boardTypeBox.setPromptText(resources.getString("boardTypePicker"));
+    boardTypeBox.setValue(boardTypeList.get(0));
 
     Button confirmBoardButton = makeButton("drawBoard", e ->
         createBoard(xSpinner.getValue(),
@@ -172,8 +167,10 @@ public class BoardTab {
 
   private void updatePieceOptions(ComboBox<String> pieceBox){
     //TODO: Remove Magic Value
+    String currVal = pieceBox.getValue();
     Collection<String> pieceNames = controller.getElementNames("piece");
     pieceBox.getItems().setAll(pieceNames);
+    pieceBox.setValue(currVal);
   }
 
   private void saveBoardConfig() {
@@ -197,6 +194,7 @@ public class BoardTab {
     buttonCreated.setId(labelName);
 
     return buttonCreated;
-
   }
+
+
 }
