@@ -58,12 +58,6 @@ public class RectangularBoardTest {
   }
 
   @Test
-  void testOccupiedCell() throws OccupiedCellException {
-    board.placePiece(X, Y, PIECE_ID);
-    assertThrows(OccupiedCellException.class, () -> board.placePiece(X, Y, PIECE_ID));
-  }
-
-  @Test
   void testSerialization() throws OccupiedCellException {
     String json = board.toJSON();
     assertEquals(WIDTH * HEIGHT, countMatches(json, Integer.toString(EMPTY)));

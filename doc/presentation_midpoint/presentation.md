@@ -166,24 +166,136 @@ JSON format.
     }
 ```
 
-#### API #2
+#### API #2: Action API
 
 what service does it provide?
+
+Actions perform changes on a board based on their parameters and a reference point
+
 how does it provide for extension?
+
+Concrete subclasses of Action define specific ways
+in which the board can be changed. The current functions define all
+the base actions you need to arbitrarily change the board, but we plan
+to add more functions that make it easier to define more complex actions.
+
 how does it support users (your team mates) to write readable, well design code?
 
+```java
+/**
+ * Every action subclass constructor receives all the parameters
+ * it needs to run from a relative position
+ *
+ * @author Jake Heller
+ */
+public abstract class Action {
+
+  protected int[] myParameters;
+  public Action(int[] parameters) {
+    myParameters = parameters;
+  }
+
+  /**
+   *
+   * @param board
+   * @param refI reference i
+   * @param refJ reference j
+   * @throws OutOfBoardException
+   */
+  public abstract void execute(Board board, int refI, int refJ) throws OutOfBoardException;
+}
+```
 ### Use cases
+
+#### Saving JSON Configuration
+```java
+  /**
+   * Converts a Configuration into a String representing the model's JSON Format
+   *
+   * @return a String representation of the configuration's JSON Format
+   */
+  @Override
+  public String toJSON() throws NullBoardException, ElementNotFoundException {
+    checkBoardCreated();
+    JSONObject obj = new JSONObject();
+    // TODO: Remove magic values
+    obj.put("pieces", elementsToJSONArray(PIECE));
+    obj.put("board", board.toJSON());
+    obj.put("rules", elementsToJSONArray(RULE));
+    obj.put("conditions", elementsToJSONArray(CONDITION));
+    obj.put("actions", elementsToJSONArray(ACTION));
+    return obj.toString();
+  }
+
+// Converts all elements of a certain type to a JSONArray
+private JSONArray elementsToJSONArray(String type) throws ElementNotFoundException {
+    JSONArray arr = new JSONArray();
+    if (!elements.containsKey(type)) {
+        return arr;
+    }
+    for (GameElement element : elements.get(type).values()) {
+        ElementRecord record = element.toRecord();
+        arr.put(record.toJSON());
+    }
+    return arr;
+}
+
+/**
+ * Converts an ElementRecord into a JSON String
+ *
+ * @return a JSON string
+ */
+@Override
+public String toJSON() {
+    JSONObject obj = new JSONObject();
+    for (Property property : properties) {
+      obj.put(property.name(), property.value());
+    }
+    obj.put(NAME, name);
+    return obj.toString();
+}
+
+/**
+ * Converts a Board into a String representing the board's JSON Format
+ *
+ * @return a String representation of the board's JSON Format
+ */
+@Override
+public String toJSON() {
+    JSONObject obj = new JSONObject();
+    // TODO: Remove magic values
+    obj.put("shape", "rectangle");
+    obj.put("width", width);
+    obj.put("height", height);
+    obj.put("pieceConfiguration", pieceConfigToJSON());
+    obj.put("activePlayer", 0);
+    obj.put("background", "checkers");
+    obj.put("selectionsRequired", true);
+    return obj.toString();
+}
+```
 
 ### Alternative Design & Tradeoffs
 
+#### Builder View
 
+Alternate Design - Game Creation happens in a series of steps. Users cannot proceed to the next step
+until they are finished with the current step
+Current Design - Users can edit any GameElements at any time, it is not sequential.
 
-## Current Functionality
+Trade-Offs
+- A sequential system simplifies error-checking and makes sure that the user cannot break the game
+configuration in unexpected ways.
+- A non-sequential system allows more flexibility and creates a UI that is intuitive for 
+users. Users may become frustrated if they constantly have to go back to previous steps if they 
+realized they made a mistake.
 
-### Builder Demo
+#### Engine Board
 
-### Engine Demo
+Current Design - Representing Cells in a 2d array
+Alternate Design - Representing Cells in a Map instead of a 2d array
 
-### Example Data Files
-
-### Tests
+Trade-Offs
+- Maps allow abstraction to different board shapes
+- A 2d array is less flexible but simpler to implement
+- An initial assumption of the plan was that all games would have rectangular boards
