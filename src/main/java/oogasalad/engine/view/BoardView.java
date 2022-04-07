@@ -27,8 +27,8 @@ import oogasalad.engine.model.parsing.GameParser;
 public class BoardView implements PropertyChangeListener{
   private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
   public static String IMAGES_FOLDER = "images/";
-  public static String BLACK_KNIGHT = IMAGES_FOLDER + "black_knight.png";
-  public static String WHITE_KNIGHT = IMAGES_FOLDER + "white_knight.png";
+  public static String BLACK_KNIGHT = IMAGES_FOLDER + "blueWhiteOrbit.png";
+  public static String WHITE_KNIGHT = IMAGES_FOLDER + "purpleBlackOrbit.png";
   public static double BOARD_OUTLINE_SIZE = 4;
 
   public static Map<Integer, String> PIECE_TYPES = new HashMap<>();

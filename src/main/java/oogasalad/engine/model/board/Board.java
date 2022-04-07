@@ -70,8 +70,8 @@ public class Board implements Iterable<Pair<Position, Piece>> {
    */
   private boolean isPieceAtLocation(int row, int column){
     return pieceLocations[row][column] != null;
-
   }
+
   public void placeNewPiece(int row, int column, int type, int player) throws OutOfBoardException {
     Piece piece = new Piece(type, player, row, column);
     place(row, column, piece);
@@ -139,7 +139,7 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     else if (!isValid(i2,j2)) {
       throwOutOfBoardError(i2,j2);
     }
-    if (isPieceAtLocation(i1,j1)){
+    if (!isEmpty(i1,j1)){
       Piece piece = pieceLocations[i1][j1];
       place(i2, j2, piece);
       pieceLocations[i1][j1] = null;
@@ -219,5 +219,12 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     return new BoardIterator(pieceLocations);
   }
 
+  public int getHeight() {
+    return myRows;
+  }
+
+  public int getWidth() {
+    return myColumns;
+  }
 
 }
