@@ -18,7 +18,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import oogasalad.builder.controller.BuilderController;
+import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.tab.TitlePane;
 
 
@@ -101,9 +104,10 @@ public class BoardTab {
     // boardTypeBox.getItems().add(resources.getString("checkers"));
     boardTypeBox.setPromptText(resources.getString("boardTypePicker"));
 
-    Button confirmBoardButton = makeButton("drawBoard", e -> createBoard(xSpinner.getValue(),
-        ySpinner.getValue(), colorPickerA.getValue(), colorPickerB.getValue(),
-        boardTypeBox.getValue()));
+    Button confirmBoardButton = makeButton("drawBoard", e ->
+        createBoard(xSpinner.getValue(),
+            ySpinner.getValue(), colorPickerA.getValue(), colorPickerB.getValue(),
+            boardTypeBox.getValue()));
 
     boardConfigBox.getChildren()
         .addAll(colorChoiceBox, numberPickerBox, boardTypeBox, confirmBoardButton);
@@ -111,7 +115,8 @@ public class BoardTab {
     return boardConfigBox;
   }
 
-  private void createBoard(int xDim, int yDim, Paint colorA, Paint colorB, String boardType) {
+  private void createBoard(int xDim, int yDim, Paint colorA, Paint colorB, String boardType)
+      throws NullBoardException {
     if (boardType == null){
       System.out.println("No Board Type Chosen Error");
       return;
@@ -128,10 +133,7 @@ public class BoardTab {
 
    // Button eraseButton = makeButton("eraser", e -> boardCanvas.setClickToErase());
 
-
-
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
-
 
     buttonBox.getChildren().addAll(saveButton, setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");
@@ -157,8 +159,9 @@ public class BoardTab {
 
   private ComboBox setupPieceChoiceBox(){
     ComboBox<String> choosePieceBox = new ComboBox<>();
-    // How do I get the pieces to add to the box?
-    choosePieceBox.getItems().add(resources.getString("checkers"));
+    //TODO: Remove Magic Value
+    Collection<String> pieceNames = controller.getElementNames("piece");
+    choosePieceBox.getItems().setAll(pieceNames);
     choosePieceBox.setPromptText(resources.getString("placePiece"));
     choosePieceBox.valueProperty().addListener(
         (observableValue, s, t1) -> boardCanvas.setCurrentPiece(t1));
@@ -168,11 +171,9 @@ public class BoardTab {
 
 
   private void saveBoardConfig() {
-    System.out.println(boardCanvas.printBoardConfig());
-  }
-
-  private void addBoardPiece() {
-    System.out.println(boardCanvas.printBoardConfig());
+    Stage stage = new Stage();
+    FileChooser fileChooser = new FileChooser();
+    controller.save(fileChooser.showSaveDialog(stage));
   }
 
   public int[][] getBoardConfig() {
