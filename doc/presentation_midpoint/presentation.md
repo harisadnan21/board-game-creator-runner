@@ -127,12 +127,19 @@ for modification.
 - Initializes the model and serves as the link between the model and the view
 - Dependent on the model
 `Model`
+- `Board`
+  - Holds the state of the current game, including current player turn and winner
+  - Accessible by the controller which can return necessary information to the view.
 - `Action`
   - Defines api for the different actions that can execute in the game.
   - Includes moving, placing, and removing pieces
 - `Board Condition`
   - API that defines board state conditions.
-  - Board Condition is and can be extended for new conditions
+  - Board Condition is and can be extended for new conditions.
+`View`
+- `BoardView`
+  - controls the view of the board
+  - Pulls from the controller after a piece is clicked to get the valid moves or new locations
 
 
 ### APIs
