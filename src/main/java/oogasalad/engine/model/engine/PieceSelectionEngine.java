@@ -35,6 +35,7 @@ public class PieceSelectionEngine extends Engine {
     super(game, rules);
     try {
       Board board = getGame().getBoard();
+      //TODO: Remove below
       /*board.placeNewPiece(5, 5, 0, 0);
       board.placeNewPiece(4, 4, 0, 1);
       board.placeNewPiece(3, 1, 0, 0);
@@ -46,8 +47,8 @@ public class PieceSelectionEngine extends Engine {
     }
 
 
-    createCheckersMove();
-    createPlayer1Moves();
+    //createCheckersMove();
+    //createPlayer1Moves();
     createWinCondition();
 
     //createCheckersMove();
@@ -78,10 +79,12 @@ public class PieceSelectionEngine extends Engine {
       //makePieceSelected(x, y);
 
     }
+
     LOG.info("Valid Moves for selected piece are {} ", board.getValidMoves());
     return board;
   }
 
+  //checks to see if any of the win conditions are satisfied and if they are it sets the winner on the board.
   private void checkforWin(Board board) {
     for(WinCondition winCondition : getWinConditions()){
       if(winCondition.isOver(board)){
@@ -193,7 +196,7 @@ public class PieceSelectionEngine extends Engine {
 
     getMoves().add(new Rule(conditions1, actions1, -2, -2));
   }
-
+  //temporary to create win conditions
   private void createWinCondition(){
     BoardCondition noPiecesLeft = new PlayerHasNoPieces();
     Winner mostPieces = new MostPieces();

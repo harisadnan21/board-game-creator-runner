@@ -22,9 +22,9 @@ public abstract class Engine {
 
   public Engine(Game game, List<Rule> rules) {
     myGame = game;
-    myMoves = new ArrayList<>();
+    //myMoves = new ArrayList<>();
     myWinConditions = new ArrayList<>();
-    //myMoves = rules;
+    myMoves = rules;
   }
 
   protected List<Rule> getMoves() {

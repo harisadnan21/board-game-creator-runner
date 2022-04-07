@@ -178,7 +178,18 @@ public class Board implements Iterable<Pair<Position, Piece>> {
    */
   public Set<Position> getValidMoves() { return currentValidMoves; }
 
+  /**
+   * Sets the winner of the board. Only called when game is over in checkForWin Method
+   * @see oogasalad.engine.model.engine.PieceSelectionEngine
+   * @param winner int representing player that wins the game
+   */
   public void setWinner(int winner){myWinner =  winner;}
+
+  /**
+   * Returns the winner of the game
+   * @see oogasalad.engine.view.BoardView
+   * @return winner based on current board
+   */
   public int getWinner(){return myWinner;}
 
   // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:

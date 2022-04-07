@@ -18,9 +18,12 @@ import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.engine.PieceSelectionEngine;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BoardView implements PropertyChangeListener{
-
+  private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
   public static String IMAGES_FOLDER = "images/";
   public static String BLACK_KNIGHT = IMAGES_FOLDER + "black_knight.png";
   public static String WHITE_KNIGHT = IMAGES_FOLDER + "white_knight.png";
@@ -128,9 +131,10 @@ public class BoardView implements PropertyChangeListener{
     checkForWin(board);
   }
 
+  //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
   private void checkForWin(Board board) {
     if(board.getWinner() != Board.NO_WINNER_YET){
-      System.out.printf("gameOver! Player %d wins%n", board.getWinner());
+      LOG.info("gameOver! Player {} wins%n", board.getWinner());
     }
   }
 
