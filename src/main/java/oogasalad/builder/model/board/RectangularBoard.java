@@ -11,8 +11,8 @@ import org.json.JSONObject;
  */
 public class RectangularBoard implements Board {
 
-  private static final String EMPTY = "empty";
-  private final String[][] cells;
+  private static final int EMPTY = -1;
+  private final int[][] cells;
   private final int width;
   private final int height;
 
@@ -33,13 +33,13 @@ public class RectangularBoard implements Board {
    *
    * @param x    the x location to place
    * @param y    the y location to place
-   * @param name the name of the piece to place
+   * @param id the name of the piece to place
    * @throws OccupiedCellException if the requested indices are already occupied by a piece
    */
-  public void placePiece(int x, int y, String name) throws OccupiedCellException {
+  public void placePiece(int x, int y, int id) throws OccupiedCellException {
     checkInBounds(x, y);
     checkEmpty(x, y);
-    cells[x][y] = name;
+    cells[x][y] = id;
   }
 
   /**
@@ -49,7 +49,7 @@ public class RectangularBoard implements Board {
    * @param y the y location to query
    * @return the name of the piece
    */
-  public String findPieceAt(int x, int y) {
+  public int findPieceAt(int x, int y) {
     checkInBounds(x, y);
     return cells[x][y];
   }
@@ -78,6 +78,9 @@ public class RectangularBoard implements Board {
     obj.put("width", width);
     obj.put("height", height);
     obj.put("pieceConfiguration", pieceConfigToJSON());
+    obj.put("activePlayer", 0);
+    obj.put("background", "checkers");
+    obj.put("selectionsRequired", true);
     return obj.toString();
   }
 
@@ -102,14 +105,14 @@ public class RectangularBoard implements Board {
 
   // Checks whether the requested indices are empty
   private void checkEmpty(int x, int y) throws OccupiedCellException {
-    if (!cells[x][y].equals(EMPTY)) {
+    if (cells[x][y] != EMPTY) {
       throw new OccupiedCellException();
     }
   }
 
   // Initializes the cells to be empty
-  private String[][] initializeCells(int width, int height) {
-    String[][] cells = new String[width][height];
+  private int[][] initializeCells(int width, int height) {
+    int[][] cells = new int[width][height];
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
         cells[i][j] = EMPTY;

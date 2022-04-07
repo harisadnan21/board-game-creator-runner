@@ -1,7 +1,7 @@
 package oogasalad.builder.model.element;
 
 import java.util.Collection;
-import oogasalad.builder.controller.Property;
+import oogasalad.builder.model.property.Property;
 
 /**
  * Represents an Action in the game. Examples of actions are move, capturePieceAt, place, etc.
