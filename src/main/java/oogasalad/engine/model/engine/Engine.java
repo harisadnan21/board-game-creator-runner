@@ -23,8 +23,6 @@ public abstract class Engine {
   public Engine(Game game, List<Rule> rules,
       List<WinCondition> winConditions) {
     myGame = game;
-    //myMoves = new ArrayList<>();
-    //myWinConditions = new ArrayList<>();
     myWinConditions = winConditions;
     myMoves = rules;
   }
@@ -37,7 +35,6 @@ public abstract class Engine {
   }
 
   /**
-   *
    * @param player player requesting possible actions
    * @return
    */

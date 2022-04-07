@@ -61,9 +61,6 @@ public class PieceSelectionEngine extends Engine {
       }
       resetSelected();
       board.setValidMoves(null);
-      //So you have to reselect the piece
-      //makePieceSelected(x, y);
-
     }
 
     LOG.info("Valid Moves for selected piece are {} ", board.getValidMoves());

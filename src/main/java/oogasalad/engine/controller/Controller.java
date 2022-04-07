@@ -18,16 +18,16 @@ public class Controller {
   private Board myBoard;
   private Engine myEngine;
   private Game myGame;
+  private List<Rule> rules;
+  private List<WinCondition> winConditions;
+
 
 
   public Controller(BoardView boardView, int rows, int columns) {
-    List<Rule> rules;
-    List<WinCondition> winConditions;
     try {
       myBoard = GameParser.getCheckersBoard();
       rules = GameParser.getCheckersRules();
       winConditions = GameParser.getCheckersWinConditions();
-
       myGame = new Game(myBoard);
       myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
     } catch (Exception e){
@@ -35,11 +35,21 @@ public class Controller {
     }
   }
 
+  /**
+   * resets the board model to the initial game state
+   */
+  public void resetGame() {
+    myGame = new Game(myBoard);
+    myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
+  }
+
   public Board click(int i, int j) throws OutOfBoardException {
     Board board = myEngine.onCellSelect(i, j);
     System.out.printf("Player %d's turn\n", board.getPlayer());
     return board;
   }
+
+
   public void saveGame(){
 
   }
