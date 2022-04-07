@@ -81,30 +81,79 @@ Use of Gitlab issues and code reviews to keep track of progress and future plans
 
 #### Open
 
+Actions, Conditions, and WinConditions are open for extension, meaning developers can create different
+types of these game elements to add options for game creation to the users. The behavior of these
+game elements is generic, allowing users to customize their parameters however they'd like.
 
 #### Closed
 
+The APIs for interaction between different game elements is closed. This simplifies the process of 
+checking logic in the engine, as all actions, conditions, pieces, and boards have the same methods
+for modification.
+
 ### Module Layout
 
-- builder
-  - controller - Defines the Controller that interfaces between the view and model
-  - model - Contains the modules and API for configuring a game and converting it to JSON
-    - board - Defines the Board
-    - element - Defines the API for creating Game Elements (pieces, actions, rules, conditions)
-    - exception - Custom exceptions that are thrown in errant cases
-    - property - Defines an API for creating and accessing arbitrary properties of game elements.
-  - view - Contains all UI elements of the builder
-    - tab - Describes the different tabs that are present in the Builder View.
-- engine
+#### Builder
 
+`Controller`
+- Defines the Controller that interfaces between the view and model
+- Dependent on the view and the model
+
+`View`
+- Contains all UI elements of the builder
+- `tab`
+  - Holds a generic API for creating an arbitrary tab in the view, which can be responsible for any
+  number of things, such as board modification, piece creation, action creation, etc.
+  - If more game elements and options are desired, new tabs can be created by implementing the Tab
+  interface
+- Dependent on the controller
+
+`Model`: Contains the modules and API for configuring a game and converting it to JSON
+- `board`
+  - Defines the Board
+  - Different shapes and board behaviors can be defined by implementing the Board Interface
+  - No Dependencies
+- `element`
+  - Defines the API for creating Game Elements (pieces, actions, rules, conditions)
+  - New game elements can be created by implementing the Element Interface
+  - Dependent on the property module
+- `property`
+  - Defines an API for creating and accessing arbitrary properties of game elements.
+  - Properties are generic, immutable records that can be extended to different types.
+  - No Dependencies
+
+#### Engine
 
 ### APIs
 
-#### API #1
-what service does it provide?
-how does it provide for extension?
-how does it support users (your team mates) to write readable, well design code?
+#### API #1 - JSONSerializable
+This interface describes methods for serializing and parsing GameElements in the Builder to their
+JSON format.
 
+```java
+    /**
+     * API For adapting Back-End Objects to their JSON Format
+     *
+     * @author Shaan Gondalia
+     */
+    public interface JSONSerializable<T> {
+    
+      /**
+       * Converts the object into a String representing the object's JSON Format
+       *
+       * @return a String representation of the objects JSON Format
+       */
+      String toJSON() throws Exception;
+    
+      /**
+       * Converts a JSON String into an object
+       *
+       * @param json the JSON string
+       * @return an object of type T made from the JSON string
+       */
+      T fromJSON(String json);
+    }
+```
 
 #### API #2
 
