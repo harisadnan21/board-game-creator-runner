@@ -1,6 +1,4 @@
 package oogasalad.engine.model.conditions;
-
-import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.actions.winner.Winner;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
@@ -13,9 +11,9 @@ import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
  * @see Winner
  * @see BoardCondition
  */
-public class WinCondition extends EndCondition{
-  private BoardCondition[] myEndConditions;
-  private Winner myWinDecision;
+public class WinCondition{
+  private final  BoardCondition[] myEndConditions;
+  private final Winner myWinDecision;
 
   /**
    * Sets end and winner conditions
@@ -23,7 +21,6 @@ public class WinCondition extends EndCondition{
    * @param winDecision Winner decision on how to determine a winner
    */
   public WinCondition(BoardCondition[] endConditions, Winner winDecision){
-    super();
     myWinDecision = winDecision;
     myEndConditions = endConditions;
   }
