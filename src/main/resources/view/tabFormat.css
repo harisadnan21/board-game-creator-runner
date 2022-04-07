@@ -24,6 +24,15 @@
   -fx-border-color: BLACK;
 }
 
+#rightGameElementsPane{
+  -fx-min-width: 200;
+  -fx-pref-width: 400;
+  -fx-alignment: center;
+  -fx-padding: 10;
+  -fx-spacing: 30;
+  -fx-border-color: BLACK;
+}
+
 #buttonBox{
   -fx-min-width: 50;
   -fx-pref-width: 150;
