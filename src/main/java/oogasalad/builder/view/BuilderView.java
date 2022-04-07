@@ -1,5 +1,6 @@
 package oogasalad.builder.view;
 
+import java.util.Locale.Builder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.element.ElementRecord;
 
 import javafx.scene.Scene;
@@ -46,20 +48,16 @@ public class BuilderView {
   private ResourceBundle splashResources;
   private ResourceBundle tabResources;
 
+  private BuilderController controller; //FIXME: Use Event handlers instead of this
+
   public BuilderView(Stage mainStage) {
     splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
     tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
+    controller = new BuilderController();
     stage = mainStage;
     displayWelcome(stage);
     stage.show();
   }
-
-
-//  public Scene makeScene(double width, double height, Stage stage) {
-//    Scene scene = new Scene(loginPage, width, height);
-//    displayWelcome(stage);
-//    return scene;
-//  }
 
   private void displayWelcome(Stage myStage) {
     boardPane = new BorderPane();
@@ -82,43 +80,13 @@ public class BuilderView {
     myStage.show();
   }
 
-
-//  public Scene makeScene(int width, int height, Stage stage) {
-//    Scene scene = new Scene(loginRoot, width, height);
-//    displayWelcome(scene, stage);
-//    return scene;
-//  }
-
-//  private void displayWelcome(Scene scene, Stage myStage) {
-//    scene.getStylesheets()
-//        .add(getClass().getResource("/SplashLogin.css").toExternalForm());
-//    //myRoot.getChildren().clear();
-//    loginPage = new SplashLogin(splashResources);
-//    // myRoot.setCenter(myWelcome.getPane());
-//    //Button compiler = SlogoView.makeButton("Compiler", event -> displayConsole(), myResources);
-//    //myWelcome.getContainer().getChildren().addAll(proceed, compiler);
-//    //myWelcome.getContainer().setAlignment(Pos.CENTER);
-//    myStage.setScene(scene);
-//    myStage.show();
-//  }
-
-
-  /**
-   * @param element
-   * @return
-   */
-  public void putGameElement(ElementRecord element) {
-    // TODO implement here
-    //return null;
-  }
-
   // Can possibly extend tab for each of the tab classes instead of just having toNode() to add them to the tabs
   // public void setupTabs() {
   // Creates all the tabs
   private void setupTabs() {
     TabPane tabPane = new TabPane();
 
-    boardTabPane = new BoardTab(tabResources);
+    boardTabPane = new BoardTab(tabResources, controller);
     boardTabPane.toNode().setId("boardTab");
     Tab boardTab = new Tab("Board", boardTabPane.toNode());
 

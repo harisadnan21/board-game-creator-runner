@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import oogasalad.builder.controller.BuilderController;
 
 public class BoardCanvas {
 
@@ -30,9 +31,12 @@ public class BoardCanvas {
   private int[][] containsPiece;
   private BorderPane borderPane;
 
-  public BoardCanvas(ResourceBundle rb, BorderPane boardTab) {
+  private BuilderController controller; //FIXME: Use Event handlers instead of this
+
+  public BoardCanvas(ResourceBundle rb, BorderPane boardTab, BuilderController controller) {
     resources = rb;
     borderPane = boardTab;
+    this.controller = controller;
 
     setupBoard();
     populateBoardTypeMap();
