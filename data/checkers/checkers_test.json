@@ -314,5 +314,15 @@
 			]
 
 		}
+	],
+	"drawConditions": [
+		{
+			"name": "basic checkers draw",
+			"conditions": [
+				{
+					"name": "DrawCondition"
+				}
+			]
+		}
 	]
 }

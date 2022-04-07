@@ -27,6 +27,20 @@ public class WinCondition extends EndCondition{
     myWinDecision = winDecision;
     myEndConditions = endConditions;
   }
+  /**
+   * Returns true if all the end game conditions are met and false otherwise
+   * @param board current game board
+   * @return whether end conditions have been met
+   */
+  public boolean isOver(Board board) {
+    for(BoardCondition endCondition : myEndConditions){
+      if(!endCondition.isTrue(board)){
+        return false;
+      }
+    }
+    return true;
+  }
+
 
   /**
    * Decides winner for current board state based on the win decision declared in the constructor.
