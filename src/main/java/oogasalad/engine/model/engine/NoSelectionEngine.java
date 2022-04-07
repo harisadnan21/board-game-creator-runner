@@ -15,7 +15,7 @@ public class NoSelectionEngine extends Engine {
 
   public NoSelectionEngine(Game game, List<Rule> rules, List<WinCondition> winConditions) {
     super(game, rules, winConditions);
-    createTicTacToeMove();
+    //createTicTacToeMove();
   }
 
   public Board onCellSelect(int x, int y) throws OutOfBoardException {

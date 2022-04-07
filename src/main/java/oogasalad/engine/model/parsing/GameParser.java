@@ -26,6 +26,7 @@ public class GameParser {
 
   //private static Logger log = LoggerFinder.getLoggerFinder().getLogger("Logger", "oogasald.engine");
   public static String CHECKERS_FILE = "data/checkers/checkers_test.json";
+  public static String TIC_TAC_TOE_FILE = "data/tictactoe/tictactoe_test.json";
   public static String CONDITION_RESOURCES_PATH = "engine-resources.conditions";
   public static String ACTION_RESOURCES_PATH = "engine-resources.actions";
 
