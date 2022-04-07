@@ -34,18 +34,6 @@ public class PieceSelectionEngine extends Engine {
   public PieceSelectionEngine(Game game, List<Rule> rules,
       List<WinCondition> winConditions) {
     super(game, rules, winConditions);
-    try {
-      Board board = getGame().getBoard();
-      //TODO: Remove below
-      /*board.placeNewPiece(5, 5, 0, 0);
-      board.placeNewPiece(4, 4, 0, 1);
-      board.placeNewPiece(3, 1, 0, 0);
-      board.placeNewPiece(3, 4, 0, 1);
-      board.placeNewPiece(0, 1, 0, 0);
-      board.placeNewPiece(1, 2, 0, 1);*/
-    } catch (Exception e) {
-
-    }
 
     //createWinCondition();
     //createCheckersMove();
