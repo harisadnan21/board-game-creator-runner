@@ -60,7 +60,7 @@ public class BoardView implements PropertyChangeListener{
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
         Cell temp = new Cell(i, j, cellWidth, cellHeight);
-        gridRoot.add(temp.getMyRoot(), i, j);
+        gridRoot.add(temp.getMyRoot(), j, i); // documentation says the first input is column and the second is row
         myGrid[i][j] = temp;
 
         int finalI = i;
