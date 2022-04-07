@@ -36,7 +36,8 @@ public class BuilderView {
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
   private static final String SPLASH_PACKAGE = "SplashLogin";
-  private static final String TAB_LANGUAGE = "English";
+  // private static final String TAB_LANGUAGE = "English";
+  private static final String TAB_LANGUAGE = "Spanish";
   private static final String TAB_FORMAT = "tabFormat.css";
 
   private Stage stage;
