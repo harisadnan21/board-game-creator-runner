@@ -2,6 +2,7 @@ package oogasalad.engine.controller;
 
 import java.io.IOException;
 import java.util.List;
+import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
@@ -18,13 +19,17 @@ public class Controller {
   private Engine myEngine;
   private Game myGame;
 
+
   public Controller(BoardView boardView, int rows, int columns) {
     List<Rule> rules;
+    List<WinCondition> winConditions;
     try {
       myBoard = GameParser.getCheckersBoard();
       rules = GameParser.getCheckersRules();
+      winConditions = GameParser.getCheckersWinConditions();
+
       myGame = new Game(myBoard);
-      myEngine = new PieceSelectionEngine(myGame, rules);
+      myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
     } catch (Exception e){
       e.printStackTrace();
     }

@@ -12,7 +12,7 @@ import oogasalad.engine.model.board.Board;
 public class SaveGameEngine extends Engine{
 
   public SaveGameEngine(Game game) {
-    super(game, null);
+    super(game, null, null);
   }
 
   @Override

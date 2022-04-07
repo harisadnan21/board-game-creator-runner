@@ -31,8 +31,9 @@ public class PieceSelectionEngine extends Engine {
   private Position mySelectedCell = null;
   private Set<Position> myValidMoves = null;
 
-  public PieceSelectionEngine(Game game, List<Rule> rules) {
-    super(game, rules);
+  public PieceSelectionEngine(Game game, List<Rule> rules,
+      List<WinCondition> winConditions) {
+    super(game, rules, winConditions);
     try {
       Board board = getGame().getBoard();
       //TODO: Remove below
@@ -46,11 +47,7 @@ public class PieceSelectionEngine extends Engine {
 
     }
 
-
-    //createCheckersMove();
-    //createPlayer1Moves();
-    createWinCondition();
-
+    //createWinCondition();
     //createCheckersMove();
     //createPlayer1Moves();
 

@@ -298,5 +298,21 @@
 				}
 			]
 		}
+	],
+	"winConditions": [
+		{
+			"name": "basic checkers win",
+			"conditions": [
+				{
+					"name": "PlayerHasNoPieces"
+				}
+			],
+			"winDecision": [
+				{
+					"name": "MostPieces"
+				}
+			]
+
+		}
 	]
 }

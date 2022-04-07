@@ -2,9 +2,6 @@ package oogasalad.engine.model.parsing;
 
 import java.io.IOException;
 
-import java.io.InputStream;
-import java.lang.System.Logger;
-import java.lang.System.LoggerFinder;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -15,8 +12,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
+import oogasalad.engine.model.actions.winner.Winner;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.conditions.WinCondition;
+import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
 import oogasalad.engine.model.move.Rule;
 import org.json.JSONArray;
@@ -25,7 +25,7 @@ import org.json.JSONObject;
 public class GameParser {
 
   //private static Logger log = LoggerFinder.getLoggerFinder().getLogger("Logger", "oogasald.engine");
-  public static String CHECKERS_FILE = "data/checkers/enginechecker.json";
+  public static String CHECKERS_FILE = "data/checkers/checkers_test.json";
   public static String CONDITION_RESOURCES_PATH = "engine-resources.conditions";
   public static String ACTION_RESOURCES_PATH = "engine-resources.actions";
 
@@ -80,6 +80,22 @@ public class GameParser {
 
     return rules;
   }
+  public static WinCondition[] readWinConditions(String filePath)
+      throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    JSONObject root = getRootObject(filePath);
+
+    JSONArray winConditionsJSON = root.getJSONArray("winConditions");
+    int numConditions = winConditionsJSON.length();
+    WinCondition[] winConditions = new WinCondition[numConditions];
+    for (int index = 0; index < numConditions; index++) {
+      JSONObject winConditionJSON = winConditionsJSON.getJSONObject(index);
+      BoardCondition[] conditions = getWinConditions(winConditionJSON.getJSONArray("conditions"));
+      Winner winDecision = getwinDecision(winConditionJSON.getJSONArray("winDecision"));
+      winConditions[index] = new WinCondition(conditions, winDecision);
+    }
+
+    return winConditions;
+  }
 
   private static Position getRepresentativePoint(JSONObject representativePoint) {
     int i = representativePoint.getInt("i");
@@ -99,7 +115,24 @@ public class GameParser {
       JSONArray paramsJSON = conditionJSON.getJSONArray("parameters");
       int[] parameters = getParameters(paramsJSON);
       try {
-        PieceCondition c = getCondition(name, parameters);
+        PieceCondition c = (PieceCondition)getActionOrCondition(name, parameters);
+        conditions[index] = c;
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    return conditions;
+  }
+  private static BoardCondition[] getWinConditions(JSONArray conditionsJSON)
+      throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+
+    int numConditions = conditionsJSON.length();
+    BoardCondition[] conditions = new BoardCondition[numConditions];
+    for (int index = 0; index < numConditions; index++) {
+      JSONObject conditionJSON = conditionsJSON.getJSONObject(index);
+      String name = conditionJSON.getString("name");
+      try {
+        BoardCondition c = (BoardCondition)getWinDecisionOrCondition(name);
         conditions[index] = c;
       } catch (Exception e) {
         e.printStackTrace();
@@ -131,15 +164,16 @@ public class GameParser {
     return obj;
   }
 
-  private static PieceCondition getCondition(String name, int[] parameters)
+  private static Object getWinDecisionOrCondition(String name)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    return (PieceCondition) getActionOrCondition(name, parameters);
+    String className = CONDITION_RESOURCES.getString(name);
+    Class clazz = Class.forName(className);
+    Constructor ctor = clazz.getConstructor();
+    Object obj = ctor.newInstance();
+    return obj;
   }
 
-  private static Action getAction(String name, int[] parameters)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    return (Action) getActionOrCondition(name, parameters);
-  }
+
 
   /**
    * refactor to merge with getConditions
@@ -155,7 +189,7 @@ public class GameParser {
       JSONArray paramsJSON = conditionJSON.getJSONArray("parameters");
       int[] parameters = getParameters(paramsJSON);
       try {
-        Action c = getAction(name, parameters);
+        Action c = (Action)getActionOrCondition(name, parameters);
         System.out.println(c.getClass());
         actions[index] = c;
       } catch (Exception e) {
@@ -163,6 +197,21 @@ public class GameParser {
       }
     }
     return actions;
+  }
+
+  private static Winner getwinDecision(JSONArray winDecisionsJSON) {
+    JSONObject conditionJSON = winDecisionsJSON.getJSONObject(0);
+    String name = conditionJSON.getString("name");
+    Winner decision = null;
+
+    try {
+      decision = (Winner)getWinDecisionOrCondition(name);
+      System.out.println(decision.getClass());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return decision;
   }
 
   public static JSONObject getRootObject(String filePath) throws IOException {
@@ -196,6 +245,10 @@ public class GameParser {
   public static List<Rule> getCheckersRules()
       throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
     return Arrays.asList(readRules(CHECKERS_FILE));
+  }
+  public static List<WinCondition> getCheckersWinConditions()
+      throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    return Arrays.asList(readWinConditions(CHECKERS_FILE));
   }
 
 }

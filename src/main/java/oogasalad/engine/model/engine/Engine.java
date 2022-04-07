@@ -20,10 +20,12 @@ public abstract class Engine {
 
   private List<Player> players;
 
-  public Engine(Game game, List<Rule> rules) {
+  public Engine(Game game, List<Rule> rules,
+      List<WinCondition> winConditions) {
     myGame = game;
     //myMoves = new ArrayList<>();
-    myWinConditions = new ArrayList<>();
+    //myWinConditions = new ArrayList<>();
+    myWinConditions = winConditions;
     myMoves = rules;
   }
 
