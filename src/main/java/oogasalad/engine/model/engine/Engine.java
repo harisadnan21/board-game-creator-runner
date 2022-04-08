@@ -1,10 +1,10 @@
 package oogasalad.engine.model.engine;
 
 import java.util.List;
-import oogasalad.engine.model.Game;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
+import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Rule;
 
 import oogasalad.engine.model.player.Player;
@@ -24,6 +24,10 @@ public abstract class Engine {
     myGame = game;
     myWinConditions = winConditions;
     myMoves = rules;
+  }
+
+  public Engine(Game game){
+    myGame = game;
   }
 
   protected List<Rule> getMoves() {
@@ -48,4 +52,7 @@ public abstract class Engine {
 
   public abstract Board onCellSelect(int x, int y) throws OutOfBoardException;
 
+  public Board selectCell(int i, int j) {
+    return null;
+  }
 }

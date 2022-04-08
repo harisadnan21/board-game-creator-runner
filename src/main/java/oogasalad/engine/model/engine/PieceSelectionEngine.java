@@ -79,13 +79,13 @@ public class PieceSelectionEngine extends Engine {
   private void makePieceSelected(int x, int y) {
     Board board = getGame().getBoard();
 
-    if (!board.isPieceAtCoordinate(x, y).get() && board.getPieceRecord(x, y).get().player() == board.getPlayer()) {
-      myIsPieceSelected = true;
-      mySelectedCell = new Position(x, y);
-      myValidMoves = getValidMoves();
-      board.setValidMoves(myValidMoves);
-      System.out.printf("%d valid moves for this piece\n", myValidMoves.size());
-    }
+//    if (!board.isPieceAtCoordinate(x, y).get() && board.getPieceRecord(x, y).get().player() == board.getPlayer()) {
+//      myIsPieceSelected = true;
+//      mySelectedCell = new Position(x, y);
+//      myValidMoves = getValidMoves();
+//      board.setValidMoves(myValidMoves);
+//      System.out.printf("%d valid moves for this piece\n", myValidMoves.size());
+//    }
   }
 
   private boolean hasValidMove(int x, int y) {

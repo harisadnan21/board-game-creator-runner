@@ -19,6 +19,7 @@ import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -121,7 +122,7 @@ public class BoardView implements PropertyChangeListener{
 
   private void updateBoard(Board board) {
     setValidMarkers(board);
-    for (Pair<Position, Piece> piece: board) {
+    for (PositionState piece: board) {
       Position pos = piece.getKey();
       if (piece.getValue() != null) {
         myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getPieceRecord().player()));

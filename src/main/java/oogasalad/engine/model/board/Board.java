@@ -190,4 +190,38 @@ public class Board implements Cloneable, Iterable<PositionState> {
   public boolean isEmpty(int x, int y) {
     return !isPieceAtCoordinate(x,y).get();
   }
+
+  public void setValidMoves(Object o) {
+  }
+
+  public void setWinner(int winner) {
+  }
+
+  public void placeNewPiece(int i, int j, int i1, int i2) {
+  }
+
+  public int getWinner() {
+    return 0;
+  }
+
+  public Position[] getValidMoves() {
+    return null;
+  }
+
+  public Board deepCopy() {
+    return null;
+  }
+
+  public void setPlayer(int i) {
+  }
+
+  public void remove(int i, int i1) {
+  }
+
+  public void move(int i, int i1, int i2, int i3) {
+  }
+
+  public Map<Object, Object> getPieceRecord(int x, int y) {
+    return null;
+  }
 }

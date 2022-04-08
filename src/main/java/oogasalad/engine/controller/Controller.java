@@ -1,10 +1,9 @@
 package oogasalad.engine.controller;
 
-import oogasalad.engine.model.Engine;
-import oogasalad.engine.model.Game;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.OutOfBoardException;
+import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
-import oogasalad.engine.view.BoardView;
 
 public class Controller {
 
@@ -12,14 +11,22 @@ public class Controller {
   private Engine myEngine;
   private Game myGame;
 
-  public Controller(BoardView boardView, int rows, int columns) {
+  public Controller(Board boardView, int rows, int columns) {
     myBoard = new Board(rows, columns);
     //myBoard.addListener(boardView);
     myGame = new Game(myBoard);
-    myEngine = new Engine(myGame);
+    myEngine = new Engine(myGame) {
+      @Override
+      public Board onCellSelect(int x, int y) throws OutOfBoardException {
+        return null;
+      }
+    };
   }
 
   public Board click(int i, int j) {
     return myEngine.selectCell(i, j);
+  }
+
+  public void resetGame() {
   }
 }
