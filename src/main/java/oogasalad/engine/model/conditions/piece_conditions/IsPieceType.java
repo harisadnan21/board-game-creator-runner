@@ -26,6 +26,6 @@ public class IsPieceType extends PieceCondition {
       return false;
     }
     PositionState positionState = board.getPositionStateAt(i,j);
-    return positionState.player() == myParameters[2];
+    return positionState.piece() == myParameters[2];
   }
 }

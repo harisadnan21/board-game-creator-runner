@@ -1,4 +1,4 @@
-// User clicks on the "Create New Piece" button in PiecesTab
+// User clicks on the "Create New OldPiece" button in PiecesTab
 // An event is triggered, calling a private callback method (or maybe lambda) in BuilderView
 // The private methods in controller that the view is calling were passed in as functional interfaces
 //In BuilderView (type is set to "piece"):

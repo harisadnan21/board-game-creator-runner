@@ -1,14 +1,10 @@
 package oogasalad.engine.model.conditions.board_conditions;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Iterator;
 import java.util.PrimitiveIterator.OfInt;
 import java.util.stream.IntStream;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
-import org.jooq.lambda.tuple.Range;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +23,7 @@ class BoardFullTest {
       int x = it.next();
       for (OfInt it1 = IntStream.rangeClosed(1, 4).iterator(); it1.hasNext(); ) {
         int y = it1.next();
-        PositionState positionState = new PositionState(new Position(x, y), 1, "normal");
+        PositionState positionState = new PositionState(new Position(x, y), 1);
         currentBoard = currentBoard.placePiece(positionState);
       }
     }

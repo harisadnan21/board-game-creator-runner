@@ -10,9 +10,7 @@ import java.lang.reflect.Array;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import javax.swing.JList;
 import oogasalad.engine.model.utilities.Utilities;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
@@ -30,12 +28,9 @@ public class Board implements DisplayableBoard {
   private int myWinner = NO_WINNER_YET; //Why does the Board care?
 
   //TODO: update code to use these constants instead of magic numbers, maybe even make enum?git
-  public static int PLAYER_ONE = 0;
-  public static int PLAYER_TWO = 1;
-  public static int BLANK = -1;
 
   private int numRows;
-  private int numColumns;
+  @Deprecated  private int numColumns;
   private SortedMap<Position, PositionState> myBoard;
 
   public Board(PositionState[][] positionStates) {
@@ -61,7 +56,7 @@ public class Board implements DisplayableBoard {
   public Board removePiece(Position position) throws CloneNotSupportedException {
     Board returnBoard = this.clone();
     returnBoard.myBoard = returnBoard.myBoard.put(position,
-        new PositionState(position, -1, null));
+        new PositionState(position, -1));
     return returnBoard;
   }
 
@@ -77,9 +72,9 @@ public class Board implements DisplayableBoard {
     PositionState oldPositionState = this.getPositionStateAt(oldPosition);
     Board returnBoard = this.clone();
 
-    PositionState emptyPositionState = new PositionState(oldPosition, -1, null);
-    PositionState newPositionState = new PositionState(newPosition, oldPositionState.player(),
-        oldPositionState.pieceType());
+    PositionState emptyPositionState = new PositionState(oldPosition, -1);
+    PositionState newPositionState = new PositionState(newPosition, oldPositionState.piece()
+    );
 
     returnBoard.myBoard = returnBoard.myBoard.put(oldPosition, emptyPositionState).put(newPosition, newPositionState);
     return returnBoard;
@@ -106,7 +101,7 @@ public class Board implements DisplayableBoard {
     PositionState[][] positionStates = new PositionState[columns][rows];
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
-        positionStates[i][j] = new PositionState(new Position(i,j), -1, null);
+        positionStates[i][j] = new PositionState(new Position(i,j), -1);
       }
     }
     return positionStates;
@@ -197,7 +192,7 @@ public class Board implements DisplayableBoard {
   }
 
   public Map<Integer, List<PositionState>> piecesByPlayer(){
-    return getPositionStatesSeq().groupBy(PositionState::player);
+    return getPositionStatesSeq().groupBy(PositionState::piece);
   }
 
   public Map<Integer,Integer> numPiecesByPlayer(){

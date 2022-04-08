@@ -9,7 +9,7 @@ import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 public class PieceFactory extends GameElementFactory<Piece> {
 
   public PieceFactory() {
-    super("elements.Piece");
+    super("elements.OldPiece");
   }
 
   @Override

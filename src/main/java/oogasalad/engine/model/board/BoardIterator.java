@@ -7,14 +7,14 @@ import javafx.util.Pair;
 public class BoardIterator implements Iterator {
 
 
-  private Piece[][] myPieces;
+  private OldPiece[][] myPieces;
   private int myRows;
   private int myColumns;
 
   private int currRow;
   private int currColumn;
 
-  public BoardIterator(Piece[][] pieces) {
+  public BoardIterator(OldPiece[][] pieces) {
     myPieces = pieces;
     myRows = pieces.length;
     myColumns = pieces[0].length;
@@ -29,7 +29,7 @@ public class BoardIterator implements Iterator {
   }
 
   @Override
-  public Pair<Position, Piece> next() {
+  public Pair<Position, OldPiece> next() {
     if (currColumn + 1 == myColumns) {
       currRow++;
       currColumn = 0;
@@ -37,7 +37,7 @@ public class BoardIterator implements Iterator {
     else {
       currColumn++;
     }
-    Piece piece = myPieces[currRow][currColumn];
+    OldPiece piece = myPieces[currRow][currColumn];
     Position position = new Position(currRow, currColumn);
     return new Pair<>(position, piece);
   }

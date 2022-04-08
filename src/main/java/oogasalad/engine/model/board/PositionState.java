@@ -1,7 +1,7 @@
 package oogasalad.engine.model.board;
 
 
-public record PositionState(Position position, int player, String pieceType) {
+public record PositionState(Position position, Piece piece) {
 
   //Just a convenience function
   public int x(){
@@ -13,13 +13,24 @@ public record PositionState(Position position, int player, String pieceType) {
     return position.y();
   }
 
+
+  //Just a convenience function
+  public int type() {
+    return piece.type();
+  }
+
+  //Just a convenience function
+  public int player() {
+    return piece.player();
+  }
+
   @Deprecated
   public Position getKey() {
     return null;
   }
 
   @Deprecated
-  public Piece getValue() {
+  public OldPiece getValue() {
     return null;
   }
 }

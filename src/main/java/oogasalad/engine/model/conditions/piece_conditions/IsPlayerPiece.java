@@ -24,6 +24,6 @@ public class IsPlayerPiece extends PieceCondition {
     if (!board.isValidXY(i, j)) {
       return false;
     }
-    return board.getPositionStateAt(i, j).player() == myParameters[2];
+    return board.getPositionStateAt(i, j).piece() == myParameters[2];
   }
 }

@@ -17,7 +17,6 @@ import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.engine.PieceSelectionEngine;

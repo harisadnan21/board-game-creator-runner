@@ -2,7 +2,6 @@ package oogasalad.engine.model.board;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +15,7 @@ class BoardTest {
 
   @Test
   void testPlacement() throws CloneNotSupportedException {
-    Board b = myBoard.placePiece(new PositionState(new Position(0,1),0,"a"));
+    Board b = myBoard.placePiece(new PositionState(new Position(0,1),0));
     assertTrue(b.isPieceAtCoordinate(0,1).get());
     assertFalse(b.isPieceAtCoordinate(0,1).get());
   }
@@ -54,7 +53,7 @@ class BoardTest {
 //
 //  @Test
 //  void move() throws OutOfBoardException {
-//    Piece TestPiece = new Piece(0, 1, 0, 0 );
+//    OldPiece TestPiece = new OldPiece(0, 1, 0, 0 );
 //
 //    myBoard.move(0, 0, 2,2);
 //    assertNotNull(myBoard.getPieceRecord(2,2));
