@@ -92,7 +92,7 @@ public class Board implements DisplayableBoard {
 
   private TreeMap<Position, PositionState> getPositionPositionStateMap(
       PositionState[][] positionStates) {
-    Seq<Position> coords = Seq.rangeClosed(1, numColumns).crossSelfJoin().map(Position::new);
+    Seq<Position> coords = Seq.rangeClosed(0, numColumns-1).crossSelfJoin().map(Position::new);
     Map<Position, PositionState> map = coords.stream()
         .collect(Collectors.toMap(coord -> coord, coord -> positionStates[coord.x()][coord.y()]));
     return TreeMap.ofAll(map);
@@ -104,9 +104,9 @@ public class Board implements DisplayableBoard {
 
   private static PositionState[][] getEmptyArrayOfPositionStates(int rows, int columns) {
     PositionState[][] positionStates = new PositionState[columns][rows];
-    for (PositionState[] positionState : positionStates) {
-      for (PositionState positionState1 : positionState) {
-        positionState1 = new PositionState(null, -1, null);
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < columns; j++) {
+        positionStates[i][j] = new PositionState(new Position(i,j), -1, null);
       }
     }
     return positionStates;
