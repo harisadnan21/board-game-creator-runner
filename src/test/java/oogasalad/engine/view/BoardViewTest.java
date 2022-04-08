@@ -7,6 +7,7 @@ import oogasalad.engine.controller.Controller;
 import static org.junit.jupiter.api.Assertions.*;
 
 import oogasalad.engine.model.board.ArrayBoard;
+import oogasalad.engine.model.board.Board;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -21,7 +22,7 @@ public class BoardViewTest extends DukeApplicationTest {
   @Override
   public void start (Stage stage) {
     board = new BoardView(3, 3, 300, 300);
-    ArrayBoard backEndBoard = new ArrayBoard(3,3);
+    Board backEndBoard = new ArrayBoard(3,3);
     controller = new Controller(backEndBoard, 3, 3);
 
     board.addController(controller);

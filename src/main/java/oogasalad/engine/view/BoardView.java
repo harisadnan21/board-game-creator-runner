@@ -16,7 +16,6 @@ import javafx.scene.text.Text;
 import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
@@ -136,7 +135,7 @@ public class BoardView implements PropertyChangeListener{
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
   private void checkForWin(Board board) {
-    if(board.getWinner() != ArrayBoard.NO_WINNER_YET){ // TODO: change this to read from Constants file
+    if(board.getWinner() != Board.NO_WINNER_YET){ // TODO: change this to read from Constants file
       System.out.printf("gameOver! Player %d wins%n", board.getWinner());
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
       try {
