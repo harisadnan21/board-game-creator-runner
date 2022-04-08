@@ -29,10 +29,10 @@ public class Controller {
 //      myBoard = GameParser.getCheckersBoard();
 //      rules = GameParser.getCheckersRules();
       myBoard = board;
-      rules = Arrays.asList(GameParser.readRules(GameParser.CHECKERS_FILE));
+      rules = Arrays.asList(GameParser.readRules(GameParser.TIC_TAC_TOE_FILE));
       winConditions = GameParser.getCheckersWinConditions();
       myGame = new Game(myBoard);
-      myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
+      myEngine = new NoSelectionEngine(myGame, rules, winConditions);
     } catch (Exception e){
       e.printStackTrace();
     }
