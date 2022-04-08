@@ -1,4 +1,4 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.driver;
 
 import java.util.Stack;
 import oogasalad.engine.model.board.Board;
@@ -22,4 +22,6 @@ public class Game {
   public Board getBoard() {
     return myBoard;
   }
+
+//  public getPotentiallyLegalActions()
 }

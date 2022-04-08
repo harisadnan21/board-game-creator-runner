@@ -1,0 +1,1183 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/Users/Alex/CS308/oogasalad_OOGABOOGA/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20220306.0/
+$schema	gameSchema.json	/^  "$schema": "http:\/\/json-schema.org\/draft-06\/schema#",$/;"	s
+0	doc/plan/data/checkers/checkers.json	/^				"morePiecesPresent"$/;"	s	array:endConditions.0.winnerDetermination
+0	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	s	array:moves.0.condition.pieces
+0	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	s	array:moves.1.condition.pieces
+0	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	s	array:moves.2.condition.pieces
+0	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	s	array:moves.3.condition.pieces
+0	doc/plan/data/checkers/checkers.json	/^				[-1, -1]$/;"	a	array:moves.7.path
+0	doc/plan/data/checkers/checkers.json	/^				[-1, -1]$/;"	n	array:moves.7.path.0
+0	doc/plan/data/checkers/checkers.json	/^				[-1, -1],$/;"	a	array:moves.3.path
+0	doc/plan/data/checkers/checkers.json	/^				[-1, -1],$/;"	n	array:moves.3.path.0
+0	doc/plan/data/checkers/checkers.json	/^				[-1, 1]$/;"	a	array:moves.5.path
+0	doc/plan/data/checkers/checkers.json	/^				[-1, 1]$/;"	n	array:moves.5.path.0
+0	doc/plan/data/checkers/checkers.json	/^				[-1, 1],$/;"	a	array:moves.1.path
+0	doc/plan/data/checkers/checkers.json	/^				[-1, 1],$/;"	n	array:moves.1.path.0
+0	doc/plan/data/checkers/checkers.json	/^				[-2, -2]$/;"	n	array:moves.3.path.1
+0	doc/plan/data/checkers/checkers.json	/^				[-2, 2]$/;"	n	array:moves.1.path.1
+0	doc/plan/data/checkers/checkers.json	/^				[0, 0],$/;"	a	array:regions.endZone.spaces
+0	doc/plan/data/checkers/checkers.json	/^				[0, 0],$/;"	n	array:regions.endZone.spaces.0
+0	doc/plan/data/checkers/checkers.json	/^				[1, -1]$/;"	a	array:moves.6.path
+0	doc/plan/data/checkers/checkers.json	/^				[1, -1]$/;"	n	array:moves.6.path.0
+0	doc/plan/data/checkers/checkers.json	/^				[1, -1],$/;"	a	array:moves.2.path
+0	doc/plan/data/checkers/checkers.json	/^				[1, -1],$/;"	n	array:moves.2.path.0
+0	doc/plan/data/checkers/checkers.json	/^				[1, 0],$/;"	n	array:regions.endZone.spaces.1
+0	doc/plan/data/checkers/checkers.json	/^				[1, 1]$/;"	a	array:moves.4.path
+0	doc/plan/data/checkers/checkers.json	/^				[1, 1]$/;"	n	array:moves.4.path.0
+0	doc/plan/data/checkers/checkers.json	/^				[1, 1],$/;"	a	array:moves.0.path
+0	doc/plan/data/checkers/checkers.json	/^				[1, 1],$/;"	n	array:moves.0.path.0
+0	doc/plan/data/checkers/checkers.json	/^				[2, -2]$/;"	n	array:moves.2.path.1
+0	doc/plan/data/checkers/checkers.json	/^				[2, 0],$/;"	n	array:regions.endZone.spaces.2
+0	doc/plan/data/checkers/checkers.json	/^				[2, 2]$/;"	n	array:moves.0.path.1
+0	doc/plan/data/checkers/checkers.json	/^				[3, 0],$/;"	n	array:regions.endZone.spaces.3
+0	doc/plan/data/checkers/checkers.json	/^				[4, 0],$/;"	n	array:regions.endZone.spaces.4
+0	doc/plan/data/checkers/checkers.json	/^				[5, 0],$/;"	n	array:regions.endZone.spaces.5
+0	doc/plan/data/checkers/checkers.json	/^				[6, 0],$/;"	n	array:regions.endZone.spaces.6
+0	doc/plan/data/checkers/checkers.json	/^				[7, 0],$/;"	n	array:regions.endZone.spaces.7
+0	doc/plan/data/checkers/checkers.json	/^				[8, 0]$/;"	n	array:regions.endZone.spaces.8
+0	doc/plan/data/checkers/checkers.json	/^			"from": ["normalPiece"],$/;"	s	array:rules.0.from
+0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	s	array:moves.2.pieces
+0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	s	array:moves.3.pieces
+0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	s	array:moves.6.pieces
+0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	s	array:moves.7.pieces
+0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	s	array:moves.0.pieces
+0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	s	array:moves.1.pieces
+0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	s	array:moves.4.pieces
+0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	s	array:moves.5.pieces
+0	doc/plan/data/checkers/checkers.json	/^			{$/;"	o	array:basicInfo.players
+0	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:endConditions
+0	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
+0	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:rules
+0	gameSchema.json	/^	      "enum": ["placeholder"]$/;"	s	array:properties.moving.properties.validMoves.properties.TypeOfValidMoves.enum
+0	gameSchema.json	/^	      "mostPoints",$/;"	s	array:properties.gameTermination.properties.winnerDetermination.items.enum
+0	gameSchema.json	/^	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCaptu/;"	s	array:properties.gameTermination.properties.terminationConditons.items.enum
+0	gameSchema.json	/^	    "enum": ["Player1Wins", "Player2Wins", "Tie", "Stalemate"]$/;"	s	array:properties.gameTermination.properties.possibleOutcomes.items.enum
+0	gameSchema.json	/^	"enum": ["built-in", "expansion", "custom"]$/;"	s	array:properties.metadata.creationType.enum
+0	src/test/java/oogasalad/RayTestData.json	/^	[["East", [5, 5]]],$/;"	a	array:1.0.4
+0	src/test/java/oogasalad/RayTestData.json	/^	[["East", [5, 5]]],$/;"	n	array:1.0.4.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^	[["East", [5, 5]]],$/;"	s	array:1.0.4.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[["North", [5, 5]]],$/;"	a	array:1.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[["North", [5, 5]]],$/;"	a	array:1.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[["North", [5, 5]]],$/;"	n	array:1.0.0.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^	[["North", [5, 5]]],$/;"	s	array:1.0.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[["South", [5, 5]]],$/;"	a	array:1.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^	[["South", [5, 5]]],$/;"	n	array:1.0.2.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^	[["South", [5, 5]]],$/;"	s	array:1.0.2.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[["West", [5, 5]]],$/;"	a	array:1.0.6
+0	src/test/java/oogasalad/RayTestData.json	/^	[["West", [5, 5]]],$/;"	n	array:1.0.6.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^	[["West", [5, 5]]],$/;"	s	array:1.0.6.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	a	array:1.0.7
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	a	array:1.0.7.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.3
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.4
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	a	array:1.0.3
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	a	array:1.0.3.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.3
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.4
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	a	array:1.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	a	array:1.0.1.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.3
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.4
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	a	array:1.0.5
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	a	array:1.0.5.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.3
+0	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.4
+0	src/test/java/oogasalad/RayTestData.json	/^      [["East", [6, 2]]],$/;"	a	array:1.2.4
+0	src/test/java/oogasalad/RayTestData.json	/^      [["East", [6, 2]]],$/;"	n	array:1.2.4.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["East", [6, 2]]],$/;"	s	array:1.2.4.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["North", [6, 2]]],$/;"	a	array:1.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [["North", [6, 2]]],$/;"	a	array:1.2.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["North", [6, 2]]],$/;"	n	array:1.2.0.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["North", [6, 2]]],$/;"	s	array:1.2.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [2, 5]]],$/;"	a	array:1.3
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [2, 5]]],$/;"	a	array:1.3.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [2, 5]]],$/;"	n	array:1.3.0.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [2, 5]]],$/;"	s	array:1.3.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [4, 3]]],$/;"	a	array:1.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [4, 3]]],$/;"	a	array:1.1.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [4, 3]]],$/;"	n	array:1.1.0.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [4, 3]]],$/;"	s	array:1.1.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [2, 5]]],$/;"	a	array:1.3.4
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [2, 5]]],$/;"	n	array:1.3.4.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [2, 5]]],$/;"	s	array:1.3.4.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [4, 3]]],$/;"	a	array:1.1.4
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [4, 3]]],$/;"	n	array:1.1.4.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [4, 3]]],$/;"	s	array:1.1.4.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["South", [6, 2]]],$/;"	a	array:1.2.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [["South", [6, 2]]],$/;"	n	array:1.2.2.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["South", [6, 2]]],$/;"	s	array:1.2.2.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [2, 5]]],$/;"	a	array:1.3.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [2, 5]]],$/;"	n	array:1.3.2.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [2, 5]]],$/;"	s	array:1.3.2.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [4, 3]]],$/;"	a	array:1.1.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [4, 3]]],$/;"	n	array:1.1.2.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [4, 3]]],$/;"	s	array:1.1.2.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [2, 5]]],$/;"	a	array:1.3.6
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [2, 5]]],$/;"	n	array:1.3.6.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [2, 5]]],$/;"	s	array:1.3.6.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [4, 3]]],$/;"	a	array:1.1.6
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [4, 3]]],$/;"	n	array:1.1.6.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [4, 3]]],$/;"	s	array:1.1.6.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [["West", [6, 2]]],$/;"	a	array:1.2.6
+0	src/test/java/oogasalad/RayTestData.json	/^      [["West", [6, 2]]],$/;"	n	array:1.2.6.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [["West", [6, 2]]],$/;"	s	array:1.2.6.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	a	array:1.3.7
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	a	array:1.3.7.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	n	array:1.3.7.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	n	array:1.3.7.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	n	array:1.3.7.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	a	array:1.3.5
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	a	array:1.3.5.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	n	array:1.3.5.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	n	array:1.3.5.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	n	array:1.3.5.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	a	array:1.3.3
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	a	array:1.3.3.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	n	array:1.3.3.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	n	array:1.3.3.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	n	array:1.3.3.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	a	array:1.3.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	a	array:1.3.1.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	n	array:1.3.1.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	n	array:1.3.1.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	n	array:1.3.1.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	a	array:1.1.7
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	a	array:1.1.7.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	n	array:1.1.7.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	n	array:1.1.7.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	n	array:1.1.7.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	a	array:1.1.5
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	a	array:1.1.5.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	n	array:1.1.5.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	n	array:1.1.5.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	n	array:1.1.5.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	a	array:1.1.3
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	a	array:1.1.3.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	n	array:1.1.3.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	n	array:1.1.3.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	n	array:1.1.3.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	a	array:1.1.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	a	array:1.1.1.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	n	array:1.1.1.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	n	array:1.1.1.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	n	array:1.1.1.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	a	array:1.2.7
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	a	array:1.2.7.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.3
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.4
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.5
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 1]]],$/;"	a	array:1.2.3
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 1]]],$/;"	a	array:1.2.3.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 1]]],$/;"	n	array:1.2.3.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 1]]],$/;"	n	array:1.2.3.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 3]]],$/;"	a	array:1.2.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 3]]],$/;"	a	array:1.2.1.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 3]]],$/;"	n	array:1.2.1.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 3]]],$/;"	n	array:1.2.1.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	a	array:1.2.5
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	a	array:1.2.5.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.0
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.1
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.2
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.3
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.4
+0	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.5
+0	src/test/java/oogasalad/RayTestData.json	/^    [$/;"	a	array:1
+0	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":9,  "num_cols":9},$/;"	o	array:0
+0	src/test/java/oogasalad/RayTestData.json	/^  [$/;"	a
+1	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	s	array:moves.0.condition.pieces
+1	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	s	array:moves.1.condition.pieces
+1	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	s	array:moves.2.condition.pieces
+1	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	s	array:moves.3.condition.pieces
+1	doc/plan/data/checkers/checkers.json	/^				[-1, -1]$/;"	n	array:moves.7.path.0
+1	doc/plan/data/checkers/checkers.json	/^				[-1, -1],$/;"	n	array:moves.3.path.0
+1	doc/plan/data/checkers/checkers.json	/^				[-1, 1]$/;"	n	array:moves.5.path.0
+1	doc/plan/data/checkers/checkers.json	/^				[-1, 1],$/;"	n	array:moves.1.path.0
+1	doc/plan/data/checkers/checkers.json	/^				[-2, -2]$/;"	a	array:moves.3.path
+1	doc/plan/data/checkers/checkers.json	/^				[-2, -2]$/;"	n	array:moves.3.path.1
+1	doc/plan/data/checkers/checkers.json	/^				[-2, 2]$/;"	a	array:moves.1.path
+1	doc/plan/data/checkers/checkers.json	/^				[-2, 2]$/;"	n	array:moves.1.path.1
+1	doc/plan/data/checkers/checkers.json	/^				[0, 0],$/;"	n	array:regions.endZone.spaces.0
+1	doc/plan/data/checkers/checkers.json	/^				[1, -1]$/;"	n	array:moves.6.path.0
+1	doc/plan/data/checkers/checkers.json	/^				[1, -1],$/;"	n	array:moves.2.path.0
+1	doc/plan/data/checkers/checkers.json	/^				[1, 0],$/;"	a	array:regions.endZone.spaces
+1	doc/plan/data/checkers/checkers.json	/^				[1, 0],$/;"	n	array:regions.endZone.spaces.1
+1	doc/plan/data/checkers/checkers.json	/^				[1, 1]$/;"	n	array:moves.4.path.0
+1	doc/plan/data/checkers/checkers.json	/^				[1, 1],$/;"	n	array:moves.0.path.0
+1	doc/plan/data/checkers/checkers.json	/^				[2, -2]$/;"	a	array:moves.2.path
+1	doc/plan/data/checkers/checkers.json	/^				[2, -2]$/;"	n	array:moves.2.path.1
+1	doc/plan/data/checkers/checkers.json	/^				[2, 0],$/;"	n	array:regions.endZone.spaces.2
+1	doc/plan/data/checkers/checkers.json	/^				[2, 2]$/;"	a	array:moves.0.path
+1	doc/plan/data/checkers/checkers.json	/^				[2, 2]$/;"	n	array:moves.0.path.1
+1	doc/plan/data/checkers/checkers.json	/^				[3, 0],$/;"	n	array:regions.endZone.spaces.3
+1	doc/plan/data/checkers/checkers.json	/^				[4, 0],$/;"	n	array:regions.endZone.spaces.4
+1	doc/plan/data/checkers/checkers.json	/^				[5, 0],$/;"	n	array:regions.endZone.spaces.5
+1	doc/plan/data/checkers/checkers.json	/^				[6, 0],$/;"	n	array:regions.endZone.spaces.6
+1	doc/plan/data/checkers/checkers.json	/^				[7, 0],$/;"	n	array:regions.endZone.spaces.7
+1	doc/plan/data/checkers/checkers.json	/^				[8, 0]$/;"	n	array:regions.endZone.spaces.8
+1	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	s	array:moves.0.pieces
+1	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	s	array:moves.1.pieces
+1	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	s	array:moves.4.pieces
+1	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	s	array:moves.5.pieces
+1	doc/plan/data/checkers/checkers.json	/^			{$/;"	o	array:basicInfo.players
+1	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
+1	gameSchema.json	/^	      "fewestPoints",$/;"	s	array:properties.gameTermination.properties.winnerDetermination.items.enum
+1	gameSchema.json	/^	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCaptu/;"	s	array:properties.gameTermination.properties.terminationConditons.items.enum
+1	gameSchema.json	/^	    "enum": ["Player1Wins", "Player2Wins", "Tie", "Stalemate"]$/;"	s	array:properties.gameTermination.properties.possibleOutcomes.items.enum
+1	gameSchema.json	/^	"enum": ["built-in", "expansion", "custom"]$/;"	s	array:properties.metadata.creationType.enum
+1	src/test/java/oogasalad/RayTestData.json	/^	[["East", [5, 5]]],$/;"	a	array:1.0.4.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[["East", [5, 5]]],$/;"	n	array:1.0.4.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^	[["North", [5, 5]]],$/;"	a	array:1.0.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[["North", [5, 5]]],$/;"	n	array:1.0.0.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^	[["South", [5, 5]]],$/;"	a	array:1.0.2.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[["South", [5, 5]]],$/;"	n	array:1.0.2.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^	[["West", [5, 5]]],$/;"	a	array:1.0.6.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[["West", [5, 5]]],$/;"	n	array:1.0.6.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	a	array:1.0.7.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.3
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	n	array:1.0.7.0.4
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	a	array:1.0.3.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.3
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	n	array:1.0.3.0.4
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	a	array:1.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	a	array:1.0.1.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.3
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	n	array:1.0.1.0.4
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	a	array:1.0.5.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.3
+1	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	n	array:1.0.5.0.4
+1	src/test/java/oogasalad/RayTestData.json	/^      [["East", [6, 2]]],$/;"	a	array:1.2.4.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["East", [6, 2]]],$/;"	n	array:1.2.4.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["North", [6, 2]]],$/;"	a	array:1.2.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["North", [6, 2]]],$/;"	n	array:1.2.0.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [2, 5]]],$/;"	a	array:1.3.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [2, 5]]],$/;"	n	array:1.3.0.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [4, 3]]],$/;"	a	array:1.1.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["NorthEast", [4, 3]]],$/;"	n	array:1.1.0.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [2, 5]]],$/;"	a	array:1.3.4.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [2, 5]]],$/;"	n	array:1.3.4.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [4, 3]]],$/;"	a	array:1.1.4.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [4, 3]]],$/;"	n	array:1.1.4.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["South", [6, 2]]],$/;"	a	array:1.2.2.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["South", [6, 2]]],$/;"	n	array:1.2.2.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [2, 5]]],$/;"	a	array:1.3.2.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [2, 5]]],$/;"	n	array:1.3.2.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [4, 3]]],$/;"	a	array:1.1.2.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [4, 3]]],$/;"	n	array:1.1.2.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [2, 5]]],$/;"	a	array:1.3.6.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [2, 5]]],$/;"	n	array:1.3.6.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [4, 3]]],$/;"	a	array:1.1.6.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [4, 3]]],$/;"	n	array:1.1.6.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [["West", [6, 2]]],$/;"	a	array:1.2.6.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [["West", [6, 2]]],$/;"	n	array:1.2.6.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	a	array:1.3.7.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	n	array:1.3.7.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	n	array:1.3.7.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	n	array:1.3.7.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	a	array:1.3.5.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	n	array:1.3.5.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	n	array:1.3.5.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	n	array:1.3.5.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	a	array:1.3.3.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	n	array:1.3.3.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	n	array:1.3.3.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	n	array:1.3.3.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	a	array:1.3
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	a	array:1.3.1.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	n	array:1.3.1.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	n	array:1.3.1.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	n	array:1.3.1.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	a	array:1.1.7.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	n	array:1.1.7.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	n	array:1.1.7.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	n	array:1.1.7.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	a	array:1.1.5.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	n	array:1.1.5.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	n	array:1.1.5.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	n	array:1.1.5.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	a	array:1.1.3.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	n	array:1.1.3.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	n	array:1.1.3.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	n	array:1.1.3.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	a	array:1.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	a	array:1.1.1.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	n	array:1.1.1.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	n	array:1.1.1.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	n	array:1.1.1.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	a	array:1.2.7.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.3
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.4
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	n	array:1.2.7.0.5
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 1]]],$/;"	a	array:1.2.3.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 1]]],$/;"	n	array:1.2.3.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 1]]],$/;"	n	array:1.2.3.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 3]]],$/;"	a	array:1.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 3]]],$/;"	a	array:1.2.1.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 3]]],$/;"	n	array:1.2.1.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 3]]],$/;"	n	array:1.2.1.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	a	array:1.2.5.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.0
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.1
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.2
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.3
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.4
+1	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	n	array:1.2.5.0.5
+1	src/test/java/oogasalad/RayTestData.json	/^    [$/;"	a	array:1
+1	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":7,  "num_cols":5},$/;"	o	array:0
+1	src/test/java/oogasalad/RayTestData.json	/^  [$/;"	a
+2	doc/plan/data/checkers/checkers.json	/^				[2, 0],$/;"	a	array:regions.endZone.spaces
+2	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
+2	gameSchema.json	/^	      "featurePresent",$/;"	s	array:properties.gameTermination.properties.winnerDetermination.items.enum
+2	gameSchema.json	/^	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCaptu/;"	s	array:properties.gameTermination.properties.terminationConditons.items.enum
+2	gameSchema.json	/^	    "enum": ["Player1Wins", "Player2Wins", "Tie", "Stalemate"]$/;"	s	array:properties.gameTermination.properties.possibleOutcomes.items.enum
+2	gameSchema.json	/^	"enum": ["built-in", "expansion", "custom"]$/;"	s	array:properties.metadata.creationType.enum
+2	src/test/java/oogasalad/RayTestData.json	/^	[["South", [5, 5]]],$/;"	a	array:1.0
+2	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	a	array:1.0.7.0
+2	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	a	array:1.0.3.0
+2	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	a	array:1.0.1.0
+2	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	a	array:1.0.5.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [["South", [6, 2]]],$/;"	a	array:1.2
+2	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [2, 5]]],$/;"	a	array:1.3
+2	src/test/java/oogasalad/RayTestData.json	/^      [["SouthEast", [4, 3]]],$/;"	a	array:1.1
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	a	array:1.3.7.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	a	array:1.3.5.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	a	array:1.3.3.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 6], [4, 7]]],$/;"	a	array:1.3.1.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	a	array:1.1.7.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	a	array:1.1.5.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	a	array:1.1.3.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 4], [6, 5]]],$/;"	a	array:1.1.1.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	a	array:1.2.7.0
+2	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	a	array:1.2.5.0
+2	src/test/java/oogasalad/RayTestData.json	/^    [$/;"	a	array:1
+2	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":11, "num_cols":3},$/;"	o	array:0
+273FvFIT53gXuPKkekCEsRZpFrJ	.idea/workspace.xml	/^  <component name="ProjectId" id="273FvFIT53gXuPKkekCEsRZpFrJ" \/>$/;"	i
+3	doc/plan/data/checkers/checkers.json	/^				[3, 0],$/;"	a	array:regions.endZone.spaces
+3	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
+3	gameSchema.json	/^	      "morePiecesPresent",$/;"	s	array:properties.gameTermination.properties.winnerDetermination.items.enum
+3	gameSchema.json	/^	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCaptu/;"	s	array:properties.gameTermination.properties.terminationConditons.items.enum
+3	gameSchema.json	/^	    "enum": ["Player1Wins", "Player2Wins", "Tie", "Stalemate"]$/;"	s	array:properties.gameTermination.properties.possibleOutcomes.items.enum
+3	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	a	array:1.0.7.0
+3	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	a	array:1.0
+3	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	a	array:1.0.3.0
+3	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	a	array:1.0.1.0
+3	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	a	array:1.0.5.0
+3	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [3, 4], [4, 3]]],$/;"	a	array:1.3
+3	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [5, 2], [6, 1]]],$/;"	a	array:1.1
+3	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	a	array:1.2.7.0
+3	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [6, 1]]],$/;"	a	array:1.2
+3	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	a	array:1.2.5.0
+3	src/test/java/oogasalad/RayTestData.json	/^    [$/;"	a	array:1
+3	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":4,  "num_cols":10}$/;"	o	array:0
+4	doc/plan/data/checkers/checkers.json	/^				[4, 0],$/;"	a	array:regions.endZone.spaces
+4	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
+4	gameSchema.json	/^	      "fewerPiecesPresent",$/;"	s	array:properties.gameTermination.properties.winnerDetermination.items.enum
+4	gameSchema.json	/^	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCaptu/;"	s	array:properties.gameTermination.properties.terminationConditons.items.enum
+4	src/test/java/oogasalad/RayTestData.json	/^	[["East", [5, 5]]],$/;"	a	array:1.0
+4	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	a	array:1.0.7.0
+4	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 4], [5, 3], [5, 2], [5, 1]]],$/;"	a	array:1.0.3.0
+4	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [5, 6], [5, 7], [5, 8], [5, 9]]],$/;"	a	array:1.0.1.0
+4	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	a	array:1.0.5.0
+4	src/test/java/oogasalad/RayTestData.json	/^      [["East", [6, 2]]],$/;"	a	array:1.2
+4	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [2, 5]]],$/;"	a	array:1.3
+4	src/test/java/oogasalad/RayTestData.json	/^      [["NorthWest", [4, 3]]],$/;"	a	array:1.1
+4	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	a	array:1.2.7.0
+4	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	a	array:1.2.5.0
+5	doc/plan/data/checkers/checkers.json	/^				[5, 0],$/;"	a	array:regions.endZone.spaces
+5	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
+5	gameSchema.json	/^	      "movedLast",$/;"	s	array:properties.gameTermination.properties.winnerDetermination.items.enum
+5	gameSchema.json	/^	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCaptu/;"	s	array:properties.gameTermination.properties.terminationConditons.items.enum
+5	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [6, 5], [7, 5], [8, 5], [9, 5]]],$/;"	a	array:1.0
+5	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 6], [0, 7]]],$/;"	a	array:1.3
+5	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 4], [2, 5]]],$/;"	a	array:1.1
+5	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	a	array:1.2.7.0
+5	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	a	array:1.2
+5	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]],$/;"	a	array:1.2.5.0
+6	doc/plan/data/checkers/checkers.json	/^				[6, 0],$/;"	a	array:regions.endZone.spaces
+6	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
+6	gameSchema.json	/^	      "notMovedLast"$/;"	s	array:properties.gameTermination.properties.winnerDetermination.items.enum
+6	src/test/java/oogasalad/RayTestData.json	/^	[["West", [5, 5]]],$/;"	a	array:1.0
+6	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [2, 5]]],$/;"	a	array:1.3
+6	src/test/java/oogasalad/RayTestData.json	/^      [["SouthWest", [4, 3]]],$/;"	a	array:1.1
+6	src/test/java/oogasalad/RayTestData.json	/^      [["West", [6, 2]]],$/;"	a	array:1.2
+7	doc/plan/data/checkers/checkers.json	/^				[7, 0],$/;"	a	array:regions.endZone.spaces
+7	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
+7	src/test/java/oogasalad/RayTestData.json	/^	[[[5, 5], [4, 5], [3, 5], [2, 5], [1, 5]]]$/;"	a	array:1.0
+7	src/test/java/oogasalad/RayTestData.json	/^      [[[2, 5], [1, 4], [0, 3]]]$/;"	a	array:1.3
+7	src/test/java/oogasalad/RayTestData.json	/^      [[[4, 3], [3, 2], [2, 1]]]$/;"	a	array:1.1
+7	src/test/java/oogasalad/RayTestData.json	/^      [[[6, 2], [5, 2], [4, 2], [3, 2], [2, 2], [1, 2]]]$/;"	a	array:1.2
+8	doc/plan/data/checkers/checkers.json	/^				[8, 0]$/;"	a	array:regions.endZone.spaces
+AIPlayer	doc/plan/api/Model/AIPlayer.java	/^    public AIPlayer() {$/;"	m	class:AIPlayer
+AIPlayer	doc/plan/api/Model/AIPlayer.java	/^public class AIPlayer {$/;"	c
+Action	doc/plan/api/Action.java	/^public class Action {$/;"	c
+Action	doc/plan/api/Model/Action.java	/^    public Action() {$/;"	m	interface:Action
+Action	doc/plan/api/Model/Action.java	/^public interface Action {$/;"	i
+Action	src/main/java/oogasalad/engine/model/action/Action.java	/^public interface Action {$/;"	i
+ActionType	src/main/java/oogasalad/engine/model/action/ActionType.java	/^public interface ActionType {$/;"	i
+ActionTypes	src/main/java/oogasalad/engine/model/action/ActionTypes.java	/^public enum ActionTypes {$/;"	g
+Alexander	doc/BACKLOG.md	/^### Alexander$/;"	S	section:OOGASalad Backlog""Features Per Person
+Alexander - Simple Artificial Player	doc/plan/TEST_PLAN.md	/^### Alexander - Simple Artificial Player$/;"	S	section:OOGASalad Test Plan""Specific Test Cases for Features
+Alias	gameSchema.json	/^        "Alias": {"type": "string"}$/;"	o	object:properties.pieces.properties
+As a project team, we promise to:	doc/TEAM_CONTRACT.md	/^## As a project team, we promise to:$/;"	s	chapter:OOGASalad Team Contract
+AvailableActions	src/main/java/oogasalad/engine/model/action/AvailableActions.java	/^public class AvailableActions {$/;"	c
+AvailableMovesForPiece	src/main/java/oogasalad/engine/model/action/AvailableMovesForPiece.java	/^    public Boolean AvailableMovesForPiece(Board board, Piece piece, Player player, Rules[] rules/;"	m	class:AvailableMovesForPiece
+AvailableMovesForPiece	src/main/java/oogasalad/engine/model/action/AvailableMovesForPiece.java	/^public class AvailableMovesForPiece {$/;"	c
+AvailableMovesForPiece	src/main/java/oogasalad/engine/model/conditionals/BoardTrait.java	/^    public Boolean AvailableMovesForPiece(Board board);$/;"	m	interface:BoardTrait
+BLACK_KNIGHT	src/main/java/oogasalad/engine/view/BoardView.java	/^  public static String BLACK_KNIGHT = IMAGES_FOLDER + "black_knight.png";$/;"	f	class:BoardView
+BLACK_KNIGHT	src/main/java/oogasalad/engine/view/Inventory.java	/^  public static String BLACK_KNIGHT = IMAGES_FOLDER + "black_knight.png";$/;"	f	class:Inventory
+Board	doc/plan/api/Board.java	/^public class Board{$/;"	c
+Board	doc/plan/api/Builder/backend/Board.java	/^    public Board() {$/;"	m	class:Board
+Board	doc/plan/api/Builder/backend/Board.java	/^public class Board {$/;"	c
+Board	doc/plan/api/Model/Board.java	/^    public Board() {$/;"	m	class:Board
+Board	doc/plan/api/Model/Board.java	/^public class Board {$/;"	c
+Board	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Board(PositionState[][] positionStates) {$/;"	m	class:Board
+Board	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Board(int rows, int columns) {$/;"	m	class:Board
+Board	src/main/java/oogasalad/engine/model/board/Board.java	/^public class Board extends Observable<Piece[][]> implements Cloneable, Iterable<PositionState> {$/;"	c
+BoardIterator	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^  public BoardIterator(Piece[][] pieces) {$/;"	m	class:BoardIterator
+BoardIterator	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^public class BoardIterator implements Iterator {$/;"	c
+BoardTab	doc/plan/api/Builder/frontend/tab/BoardTab.java	/^    public BoardTab() {$/;"	m	class:BoardTab
+BoardTab	doc/plan/api/Builder/frontend/tab/BoardTab.java	/^public class BoardTab {$/;"	c
+BoardTrait	src/main/java/oogasalad/engine/model/conditionals/BoardTrait.java	/^public interface BoardTrait {$/;"	i
+BoardView	doc/plan/api/Model/BoardView.java	/^    public BoardView() {$/;"	m	class:BoardView
+BoardView	doc/plan/api/Model/BoardView.java	/^public class BoardView {$/;"	c
+BoardView	src/main/java/oogasalad/engine/view/BoardView.java	/^  public BoardView(int rows, int columns, double width, double height) {$/;"	m	class:BoardView
+BoardView	src/main/java/oogasalad/engine/view/BoardView.java	/^public class BoardView implements PropertyChangeListener{$/;"	c
+Builder	doc/SPRINT_MILESTONES.md	/^#### Builder$/;"	t	subsection:OOGASalad Team Contract""Implementation Plan""Sprint 1
+Builder	doc/SPRINT_MILESTONES.md	/^#### Builder$/;"	t	subsection:OOGASalad Team Contract""Implementation Plan""Sprint 2
+Builder	doc/SPRINT_MILESTONES.md	/^#### Builder$/;"	t	subsection:OOGASalad Team Contract""Implementation Plan""Test Sprint
+Builder	doc/plan/DESIGN_PLAN.md	/^### Builder$/;"	S	section:OOGASALAD Design Plan""Design Details
+Builder	doc/plan/api/Model/Builder.java	/^    public Builder() {$/;"	m	class:Builder
+Builder	doc/plan/api/Model/Builder.java	/^public class Builder {$/;"	c
+BuilderController	doc/plan/api/Builder/controller/BuilderController.java	/^    public BuilderController() {$/;"	m	class:BuilderController
+BuilderController	doc/plan/api/Builder/controller/BuilderController.java	/^public class BuilderController {$/;"	c
+BuilderModel	doc/plan/api/Builder/backend/BuilderModel.java	/^    public BuilderModel() {$/;"	m	class:BuilderModel
+BuilderModel	doc/plan/api/Builder/backend/BuilderModel.java	/^public class BuilderModel {$/;"	c
+BuilderView	doc/plan/api/Builder/frontend/BuilderView.java	/^    public BuilderView() {$/;"	m	class:BuilderView
+BuilderView	doc/plan/api/Builder/frontend/BuilderView.java	/^public class BuilderView {$/;"	c
+Cell	src/main/java/oogasalad/engine/view/Cell.java	/^  public Cell(double x, double y, double width, double height) {$/;"	m	class:Cell
+Cell	src/main/java/oogasalad/engine/view/Cell.java	/^public class Cell extends Group {$/;"	c
+ChangePieceType	src/main/java/oogasalad/engine/model/action/ChangePieceType.java	/^public class ChangePieceType implements Action{$/;"	c
+Checkers	doc/plan/EXAMPLE_GAMES.md	/^## Checkers$/;"	s	chapter:OOGASalad Example Games
+Commitments	doc/TEAM_CONTRACT.md	/^### Commitments$/;"	S	section:OOGASalad Team Contract""Team Procedures
+Communicate Early and Often	doc/TEAM_CONTRACT.md	/^### Communicate Early and Often$/;"	S	section:OOGASalad Team Contract""As a project team, we promise to:
+Communication Between Builder and Engine	doc/plan/DESIGN_PLAN.md	/^### Communication Between Builder and Engine$/;"	S	section:OOGASALAD Design Plan""Design Considerations
+Communications	doc/TEAM_CONTRACT.md	/^### Communications$/;"	S	section:OOGASalad Team Contract""Team Procedures
+CompSci308_2022Spring	pom.xml	/^    <groupId>CompSci308_2022Spring<\/groupId>$/;"	g
+Complete Sprint	doc/SPRINT_MILESTONES.md	/^### Complete Sprint$/;"	S	section:OOGASalad Team Contract""Implementation Plan
+Constants	src/main/java/oogasalad/engine/model/Constants.java	/^public class Constants {$/;"	c
+Controller	doc/plan/api/Model/Controller.java	/^    public Controller() {$/;"	m	class:Controller
+Controller	doc/plan/api/Model/Controller.java	/^public class Controller {$/;"	c
+Controller	src/main/java/oogasalad/engine/controller/Controller.java	/^  public Controller(BoardView boardView, int rows, int columns) {$/;"	m	class:Controller
+Controller	src/main/java/oogasalad/engine/controller/Controller.java	/^public class Controller {$/;"	c
+Cynthia	doc/BACKLOG.md	/^### Cynthia$/;"	S	section:OOGASalad Backlog""Features Per Person
+Cynthia - Display Board and Pieces in View	doc/plan/TEST_PLAN.md	/^### Cynthia - Display Board and Pieces in View$/;"	S	section:OOGASalad Test Plan""Specific Test Cases for Features
+DIRECTIONDELTAS	src/main/java/oogasalad/engine/model/Constants.java	/^  public static final HashMap<Direction, Delta> DIRECTIONDELTAS = loadDirectionDeltas();$/;"	f	class:Constants
+DIRECTIONDELTASUBPATH	src/main/java/oogasalad/engine/model/Constants.java	/^  public static final String DIRECTIONDELTASUBPATH = "direction_deltas";$/;"	f	class:Constants
+DIRECTIONS_ARRY	src/test/java/oogasalad/engine/model/board/DirectionTest.java	/^  public static final String[] DIRECTIONS_ARRY = new String[]{"NORTH", "SOUTH", "EAST", "WEST",$/;"	f	class:DirectionTest
+Dashboard	doc/plan/api/Model/Dashboard.java	/^    public Dashboard() {$/;"	m	class:Dashboard
+Dashboard	doc/plan/api/Model/Dashboard.java	/^public class Dashboard {$/;"	c
+Dashboard.playGame	doc/plan/api/use_cases/StartGame.java	/^Dashboard.playGame();$/;"	m
+Default	.idea/workspace.xml	/^    <task active="true" id="Default" summary="Default task">$/;"	i
+Delta	src/main/java/oogasalad/engine/model/Delta.java	/^  public Delta(int v1, int v2) {$/;"	m	class:Delta
+Delta	src/main/java/oogasalad/engine/model/Delta.java	/^public class Delta extends Tuple2<Integer, Integer> {$/;"	c
+Design Considerations	doc/plan/DESIGN_PLAN.md	/^## Design Considerations$/;"	s	chapter:OOGASALAD Design Plan
+Design Details	doc/plan/DESIGN_PLAN.md	/^## Design Details$/;"	s	chapter:OOGASALAD Design Plan
+Direction	src/main/java/oogasalad/engine/model/board/Direction.java	/^public enum Direction {$/;"	g
+DirectionTest	src/test/java/oogasalad/engine/model/board/DirectionTest.java	/^class DirectionTest {$/;"	c
+EAST	src/main/java/oogasalad/engine/model/board/Direction.java	/^  NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST$/;"	e	enum:Direction	file:
+EAST	src/main/resources/direction_deltas.properties	/^EAST = 1, 0$/;"	k
+ElementRecord	doc/plan/api/Builder/backend/element/ElementRecord.java	/^    public ElementRecord() {$/;"	m	class:ElementRecord
+ElementRecord	doc/plan/api/Builder/backend/element/ElementRecord.java	/^public class ElementRecord {$/;"	c
+Engine	doc/SPRINT_MILESTONES.md	/^#### Engine$/;"	t	subsection:OOGASalad Team Contract""Implementation Plan""Sprint 1
+Engine	doc/SPRINT_MILESTONES.md	/^#### Engine$/;"	t	subsection:OOGASalad Team Contract""Implementation Plan""Sprint 2
+Engine	doc/SPRINT_MILESTONES.md	/^#### Engine$/;"	t	subsection:OOGASalad Team Contract""Implementation Plan""Test Sprint
+Engine	doc/plan/DESIGN_PLAN.md	/^### Engine$/;"	S	section:OOGASALAD Design Plan""Design Details
+Engine	doc/plan/api/Model/Engine.java	/^    public Engine() {$/;"	m	class:Engine
+Engine	doc/plan/api/Model/Engine.java	/^public class Engine {$/;"	c
+Engine	src/main/java/oogasalad/engine/model/driver/Engine.java	/^  public Engine(Game game) {$/;"	m	class:Engine
+Engine	src/main/java/oogasalad/engine/model/driver/Engine.java	/^public class Engine {$/;"	c
+EngineApplication	src/main/java/oogasalad/engine/EngineApplication.java	/^public class EngineApplication extends Application {$/;"	c
+ExtraPiece	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^  public ExtraPiece(String imagePath) {$/;"	m	class:ExtraPiece
+ExtraPiece	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^public class ExtraPiece {$/;"	c
+Features Per Person	doc/BACKLOG.md	/^## Features Per Person$/;"	s	chapter:OOGASalad Backlog
+FirstMoveProbability	gameSchema.json	/^	    "FirstMoveProbability":$/;"	o	object:properties.moving.properties.orderDetermination.properties
+FirstMoveProbability	gameSchema.json	/^	    "FirstMoveProbability":$/;"	o	object:properties.moving.properties.orderDetermination.then
+FullPieceName	gameSchema.json	/^        "FullPieceName": {"type": "string"},$/;"	o	object:properties.pieces.properties
+Game	doc/plan/api/Game.java	/^public class Game {$/;"	c
+Game	doc/plan/api/Model/Game.java	/^    public Game() {$/;"	m	class:Game
+Game	doc/plan/api/Model/Game.java	/^public class Game {$/;"	c
+Game	src/main/java/oogasalad/engine/model/driver/Game.java	/^  public Game(Board startingBoard) {$/;"	m	class:Game
+Game	src/main/java/oogasalad/engine/model/driver/Game.java	/^public class Game {$/;"	c
+GameCenterPage	doc/plan/api/Model/GameCenterPage.java	/^    public GameCenterPage() {$/;"	m	class:GameCenterPage
+GameCenterPage	doc/plan/api/Model/GameCenterPage.java	/^public class GameCenterPage {$/;"	c
+GameConfiguration	doc/plan/api/Builder/backend/GameConfiguration.java	/^    public GameConfiguration() {$/;"	m	class:GameConfiguration
+GameConfiguration	doc/plan/api/Builder/backend/GameConfiguration.java	/^public class GameConfiguration {$/;"	c
+GameElement	doc/plan/api/Builder/backend/element/GameElement.java	/^    public GameElement() {$/;"	m	class:GameElement
+GameElement	doc/plan/api/Builder/backend/element/GameElement.java	/^public class GameElement {$/;"	c
+GameElementFactory	doc/plan/api/Builder/backend/element/factory/GameElementFactory.java	/^    public GameElementFactory() {$/;"	m	class:GameElementFactory
+GameElementFactory	doc/plan/api/Builder/backend/element/factory/GameElementFactory.java	/^public class GameElementFactory {$/;"	c
+GameElementList	doc/plan/api/Builder/frontend/GameElementList.java	/^    public GameElementList() {$/;"	m	class:GameElementList
+GameElementList	doc/plan/api/Builder/frontend/GameElementList.java	/^public class GameElementList {$/;"	c
+GameElementTab	doc/plan/api/Builder/frontend/tab/GameElementTab.java	/^    public GameElementTab() {$/;"	m	class:GameElementTab
+GameElementTab	doc/plan/api/Builder/frontend/tab/GameElementTab.java	/^public class GameElementTab {$/;"	c
+GameLoader	doc/plan/api/Builder/backend/parser/GameLoader.java	/^    public GameLoader() {$/;"	m	class:GameLoader
+GameLoader	doc/plan/api/Builder/backend/parser/GameLoader.java	/^public class GameLoader {$/;"	c
+GameReader	doc/plan/api/Model/GameReader.java	/^    public GameReader() {$/;"	m	class:GameReader
+GameReader	doc/plan/api/Model/GameReader.java	/^public class GameReader {$/;"	c
+GameSaver	doc/plan/api/Builder/backend/parser/GameSaver.java	/^    public GameSaver() {$/;"	m	class:GameSaver
+GameSaver	doc/plan/api/Builder/backend/parser/GameSaver.java	/^public class GameSaver {$/;"	c
+GameUpdateText	src/main/java/oogasalad/engine/view/GameUpdateText.java	/^  public GameUpdateText() {$/;"	m	class:GameUpdateText
+GameUpdateText	src/main/java/oogasalad/engine/view/GameUpdateText.java	/^public class GameUpdateText {$/;"	c
+GameView	doc/plan/api/Model/GameView.java	/^    public GameView() {$/;"	m	class:GameView
+GameView	doc/plan/api/Model/GameView.java	/^public class GameView {$/;"	c
+GameView	src/main/java/oogasalad/engine/view/GameView.java	/^  public GameView(BoardView board, Controller controller) {$/;"	m	class:GameView
+GameView	src/main/java/oogasalad/engine/view/GameView.java	/^public class GameView {$/;"	c
+General Plan	doc/SPRINT_MILESTONES.md	/^### General Plan$/;"	S	section:OOGASalad Team Contract""Implementation Plan
+HEIGHT	src/main/java/oogasalad/engine/view/GameView.java	/^  public static double HEIGHT = 400;$/;"	f	class:GameView
+Haris	doc/BACKLOG.md	/^### Haris$/;"	S	section:OOGASalad Backlog""Features Per Person
+Haris - JSON Loading in Builder	doc/plan/TEST_PLAN.md	/^### Haris - JSON Loading in Builder$/;"	S	section:OOGASalad Test Plan""Specific Test Cases for Features
+Helping each other	doc/TEAM_CONTRACT.md	/^### Helping each other$/;"	S	section:OOGASalad Team Contract""Team Procedures
+IMAGES_FOLDER	src/main/java/oogasalad/engine/view/BoardView.java	/^  public static String IMAGES_FOLDER = "images\/";$/;"	f	class:BoardView
+IMAGES_FOLDER	src/main/java/oogasalad/engine/view/Inventory.java	/^  public static String IMAGES_FOLDER = "images\/";$/;"	f	class:Inventory
+If someone on our team breaks one or more of these promises, the team may:	doc/TEAM_CONTRACT.md	/^## If someone on our team breaks one or more of these promises, the team may:$/;"	s	chapter:OOGASalad Team Contract
+Implementation Plan	doc/SPRINT_MILESTONES.md	/^## Implementation Plan$/;"	s	chapter:OOGASalad Team Contract
+Impressions	README.md	/^### Impressions$/;"	S	chapter:oogasalad
+InteractivePlayer	doc/plan/api/Model/InteractivePlayer.java	/^    public InteractivePlayer() {$/;"	m	class:InteractivePlayer
+InteractivePlayer	doc/plan/api/Model/InteractivePlayer.java	/^public class InteractivePlayer {$/;"	c
+Inventory	src/main/java/oogasalad/engine/view/Inventory.java	/^  public Inventory() {$/;"	m	class:Inventory
+Inventory	src/main/java/oogasalad/engine/view/Inventory.java	/^public class Inventory {$/;"	c
+Jake	doc/BACKLOG.md	/^### Jake$/;"	S	section:OOGASalad Backlog""Features Per Person
+Jake - Apply Rules to Pieces	doc/plan/TEST_PLAN.md	/^### Jake - Apply Rules to Pieces$/;"	S	section:OOGASalad Test Plan""Specific Test Cases for Features
+LegalMove	src/main/java/oogasalad/engine/model/conditionals/LegalMove.java	/^public class LegalMove {$/;"	c
+Main	src/main/java/oogasalad/Main.java	/^public class Main {$/;"	c
+MainTest	src/test/java/oogasalad/MainTest.java	/^class MainTest {$/;"	c
+Mike	doc/BACKLOG.md	/^### Mike$/;"	S	section:OOGASalad Backlog""Features Per Person
+Mike - Board Configuration in Builder View	doc/plan/TEST_PLAN.md	/^### Mike - Board Configuration in Builder View$/;"	S	section:OOGASalad Test Plan""Specific Test Cases for Features
+Move	doc/plan/api/Builder/backend/element/Move.java	/^    public Move() {$/;"	m	class:Move
+Move	doc/plan/api/Builder/backend/element/Move.java	/^public class Move {$/;"	c
+Move	src/main/java/oogasalad/engine/model/action/Move.java	/^  public Move(Board board, int i, int j, Piece piece) {$/;"	m	class:Move
+Move	src/main/java/oogasalad/engine/model/action/Move.java	/^public class Move implements Action {$/;"	c
+MoveFactory	doc/plan/api/Builder/backend/element/factory/MoveFactory.java	/^    public MoveFactory() {$/;"	m	class:MoveFactory
+MoveFactory	doc/plan/api/Builder/backend/element/factory/MoveFactory.java	/^public class MoveFactory {$/;"	c
+MovesTab	doc/plan/api/Builder/frontend/tab/MovesTab.java	/^    public MovesTab() {$/;"	m	class:MovesTab
+MovesTab	doc/plan/api/Builder/frontend/tab/MovesTab.java	/^public class MovesTab {$/;"	c
+NAMES	doc/SPRINT_MILESTONES.md	/^### NAMES$/;"	S	chapter:OOGASalad Team Contract
+NAMES	doc/TEAM_CONTRACT.md	/^### NAMES$/;"	S	chapter:OOGASalad Team Contract
+NAMES	doc/plan/EXAMPLE_GAMES.md	/^### NAMES$/;"	S	chapter:OOGASalad Example Games
+NAMES	doc/plan/TEST_PLAN.md	/^### NAMES$/;"	S	chapter:OOGASalad Test Plan
+NAMES : Ricky Weerts, Jake Heller, Robert Cranston, Haris Adnan, Alexander Bildner, Thivya Sivarajah, Cynthia France, Mike Keohane, Shaan Gondalia	doc/plan/DESIGN_PLAN.md	/^### NAMES : Ricky Weerts, Jake Heller, Robert Cranston, Haris Adnan, Alexander Bildner, Thivya S/;"	S	chapter:OOGASALAD Design Plan
+NORTH	src/main/java/oogasalad/engine/model/board/Direction.java	/^  NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST$/;"	e	enum:Direction	file:
+NORTH	src/main/resources/direction_deltas.properties	/^NORTH= 0, 1$/;"	k
+NORTHEAST	src/main/java/oogasalad/engine/model/board/Direction.java	/^  NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST$/;"	e	enum:Direction	file:
+NORTHEAST	src/main/resources/direction_deltas.properties	/^NORTHEAST= 1, 1$/;"	k
+NORTHWEST	src/main/java/oogasalad/engine/model/board/Direction.java	/^  NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST$/;"	e	enum:Direction	file:
+NORTHWEST	src/main/resources/direction_deltas.properties	/^NORTHWEST= 1, -1$/;"	k
+Notes/Assumptions	README.md	/^### Notes\/Assumptions$/;"	S	chapter:oogasalad
+NumColumns	gameSchema.json	/^        "NumColumns": {"type": "integer"},$/;"	o	object:properties.board.properties
+NumRows	gameSchema.json	/^        "NumRows": {"type": "integer"}$/;"	o	object:properties.board.properties
+OOGASALAD Design Plan	doc/plan/DESIGN_PLAN.md	/^# OOGASALAD Design Plan$/;"	c
+OOGASalad Backlog	doc/BACKLOG.md	/^# OOGASalad Backlog$/;"	c
+OOGASalad Example Games	doc/plan/EXAMPLE_GAMES.md	/^# OOGASalad Example Games$/;"	c
+OOGASalad Team Contract	doc/SPRINT_MILESTONES.md	/^# OOGASalad Team Contract$/;"	c
+OOGASalad Team Contract	doc/TEAM_CONTRACT.md	/^# OOGASalad Team Contract$/;"	c
+OOGASalad Test Plan	doc/plan/TEST_PLAN.md	/^# OOGASalad Test Plan$/;"	c
+Observable	src/main/java/oogasalad/engine/model/driver/Observable.java	/^  public Observable () {$/;"	m	class:Observable
+Observable	src/main/java/oogasalad/engine/model/driver/Observable.java	/^public class Observable<T> {$/;"	c
+Othello	doc/plan/EXAMPLE_GAMES.md	/^## Othello$/;"	s	chapter:OOGASalad Example Games
+Overview	doc/plan/DESIGN_PLAN.md	/^## Overview$/;"	s	chapter:OOGASALAD Design Plan
+Parameters	gameSchema.json	/^	    "Parameters":{}$/;"	o	object:properties.moving.properties.validMoves.properties
+Piece	doc/plan/api/Builder/backend/element/Piece.java	/^    public Piece() {$/;"	m	class:Piece
+Piece	doc/plan/api/Builder/backend/element/Piece.java	/^public class Piece {$/;"	c
+Piece	doc/plan/api/Model/Piece.java	/^    public Piece() {$/;"	m	class:Piece
+Piece	doc/plan/api/Model/Piece.java	/^public class Piece {$/;"	c
+Piece	doc/plan/api/Piece.java	/^public class Piece {$/;"	c
+Piece	src/main/java/oogasalad/engine/model/misc/Piece.java	/^    public Piece(String type, int player){$/;"	m	class:Piece
+Piece	src/main/java/oogasalad/engine/model/misc/Piece.java	/^public class Piece {$/;"	c
+PieceFactory	doc/plan/api/Builder/backend/element/factory/PieceFactory.java	/^    public PieceFactory() {$/;"	m	class:PieceFactory
+PieceFactory	doc/plan/api/Builder/backend/element/factory/PieceFactory.java	/^public class PieceFactory {$/;"	c
+PieceType	doc/plan/api/Model/PieceType.java	/^    public PieceType() {$/;"	m	class:PieceType
+PieceType	doc/plan/api/Model/PieceType.java	/^public class PieceType {$/;"	c
+PieceType	doc/plan/api/PieceType.java	/^public class PieceType {$/;"	c
+PiecesTab	doc/plan/api/Builder/frontend/tab/PiecesTab.java	/^    public PiecesTab() {$/;"	m	class:PiecesTab
+PiecesTab	doc/plan/api/Builder/frontend/tab/PiecesTab.java	/^public class PiecesTab {$/;"	c
+Place	src/main/java/oogasalad/engine/model/action/Place.java	/^  public Place(Board initialBoard, int i, int j, Piece piece) {$/;"	m	class:Place
+Place	src/main/java/oogasalad/engine/model/action/Place.java	/^public class Place implements Action {$/;"	c
+Player	doc/plan/api/Model/Player.java	/^    public Player() {$/;"	m	class:Player
+Player	doc/plan/api/Model/Player.java	/^public class Player {$/;"	c
+Player	doc/plan/api/Player.java	/^public class Player {$/;"	c
+Player	src/main/java/oogasalad/engine/model/misc/Player.java	/^public class Player {$/;"	c
+PositionState	src/main/java/oogasalad/engine/model/board/PositionState.java	/^public record PositionState(Position position, String player, String pieceType) {}$/;"	m
+PositionTest	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^class PositionTest {$/;"	c
+PositionsTrait	src/main/java/oogasalad/engine/model/conditionals/PositionsTrait.java	/^public interface PositionsTrait {$/;"	i
+Primary Roles	README.md	/^### Primary Roles$/;"	S	chapter:oogasalad
+Property	doc/plan/api/Builder/controller/Property.java	/^    public Property() {$/;"	m	class:Property
+Property	doc/plan/api/Builder/controller/Property.java	/^public class Property {$/;"	c
+PropertyEditor	doc/plan/api/Builder/frontend/PropertyEditor.java	/^    public PropertyEditor() {$/;"	m	class:PropertyEditor
+PropertyEditor	doc/plan/api/Builder/frontend/PropertyEditor.java	/^public class PropertyEditor {$/;"	c
+RESOURCEBUNDLEPATH	src/main/java/oogasalad/engine/model/Constants.java	/^  public static final String RESOURCEBUNDLEPATH = "resources\/";$/;"	f	class:Constants
+Ray	src/main/java/oogasalad/engine/model/board/Ray.java	/^public class Ray {$/;"	c
+RayTest	src/test/java/oogasalad/engine/model/board/RayTest.java	/^class RayTest {$/;"	c
+Remove	src/main/java/oogasalad/engine/model/action/Remove.java	/^  public Remove(Board initialBoard, int i, int j) {$/;"	m	class:Remove
+Remove	src/main/java/oogasalad/engine/model/action/Remove.java	/^public class Remove implements Action {$/;"	c
+Resources Used	README.md	/^### Resources Used$/;"	S	chapter:oogasalad
+Respect Each Other	doc/TEAM_CONTRACT.md	/^### Respect Each Other$/;"	S	section:OOGASalad Team Contract""As a project team, we promise to:
+Ricky	doc/BACKLOG.md	/^### Ricky$/;"	S	section:OOGASalad Backlog""Features Per Person
+Ricky - Creating Game Elements in the Builder (ElementFactory)	doc/plan/TEST_PLAN.md	/^### Ricky - Creating Game Elements in the Builder (ElementFactory)$/;"	S	section:OOGASalad Test Plan""Specific Test Cases for Features
+Robert	doc/BACKLOG.md	/^### Robert$/;"	S	section:OOGASalad Backlog""Features Per Person
+Robert - Managing Pieces on the Board	doc/plan/TEST_PLAN.md	/^### Robert - Managing Pieces on the Board$/;"	S	section:OOGASalad Test Plan""Specific Test Cases for Features
+Rule	doc/plan/api/Builder/backend/element/Rule.java	/^    public Rule() {$/;"	m	class:Rule
+Rule	doc/plan/api/Builder/backend/element/Rule.java	/^public class Rule {$/;"	c
+Rule	doc/plan/api/Model/Rule.java	/^    public Rule() {$/;"	m	class:Rule
+Rule	doc/plan/api/Model/Rule.java	/^public class Rule {$/;"	c
+Rule	src/main/java/oogasalad/engine/model/conditionals/Rules.java	/^  public Boolean Rule(Board board, Action action, Player currentPlayer);$/;"	m	interface:Rules
+RuleFactory	doc/plan/api/Builder/backend/element/factory/RuleFactory.java	/^    public RuleFactory() {$/;"	m	class:RuleFactory
+RuleFactory	doc/plan/api/Builder/backend/element/factory/RuleFactory.java	/^public class RuleFactory {$/;"	c
+Rules	src/main/java/oogasalad/engine/model/conditionals/Rules.java	/^public interface Rules {$/;"	i
+RulesTab	doc/plan/api/Builder/frontend/tab/RulesTab.java	/^    public RulesTab() {$/;"	m	class:RulesTab
+RulesTab	doc/plan/api/Builder/frontend/tab/RulesTab.java	/^public class RulesTab {$/;"	c
+Running the Program	README.md	/^### Running the Program$/;"	S	chapter:oogasalad
+SOUTH	src/main/java/oogasalad/engine/model/board/Direction.java	/^  NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST$/;"	e	enum:Direction	file:
+SOUTH	src/main/resources/direction_deltas.properties	/^SOUTH= 0, -1$/;"	k
+SOUTHEAST	src/main/java/oogasalad/engine/model/board/Direction.java	/^  NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST$/;"	e	enum:Direction	file:
+SOUTHEAST	src/main/resources/direction_deltas.properties	/^SOUTHEAST= -1, 1$/;"	k
+SOUTHWEST	src/main/java/oogasalad/engine/model/board/Direction.java	/^  NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST$/;"	e	enum:Direction	file:
+SOUTHWEST	src/main/resources/direction_deltas.properties	/^SOUTHWEST= -1, -1$/;"	k
+Shaan	doc/BACKLOG.md	/^### Shaan$/;"	S	section:OOGASalad Backlog""Features Per Person
+Shaan - Board Configuration in Builder Model	doc/plan/TEST_PLAN.md	/^### Shaan - Board Configuration in Builder Model$/;"	S	section:OOGASalad Test Plan""Specific Test Cases for Features
+Shared Objects Between Builder and Engine	doc/plan/DESIGN_PLAN.md	/^### Shared Objects Between Builder and Engine$/;"	S	section:OOGASALAD Design Plan""Design Considerations
+Specific Test Cases for Features	doc/plan/TEST_PLAN.md	/^## Specific Test Cases for Features$/;"	s	chapter:OOGASalad Test Plan
+Sprint 1	doc/SPRINT_MILESTONES.md	/^### Sprint 1$/;"	S	section:OOGASalad Team Contract""Implementation Plan
+Sprint 2	doc/SPRINT_MILESTONES.md	/^### Sprint 2$/;"	S	section:OOGASalad Team Contract""Implementation Plan
+TEAM : OOGABOOGA	doc/plan/DESIGN_PLAN.md	/^### TEAM : OOGABOOGA$/;"	S	chapter:OOGASALAD Design Plan
+TEAM OOGABOOGA	doc/BACKLOG.md	/^### TEAM OOGABOOGA$/;"	S	chapter:OOGASalad Backlog
+TEAM OOGABOOGA	doc/SPRINT_MILESTONES.md	/^### TEAM OOGABOOGA$/;"	S	chapter:OOGASalad Team Contract
+TEAM OOGABOOGA	doc/TEAM_CONTRACT.md	/^### TEAM OOGABOOGA$/;"	S	chapter:OOGASalad Team Contract
+TEAM OOGABOOGA	doc/plan/EXAMPLE_GAMES.md	/^### TEAM OOGABOOGA$/;"	S	chapter:OOGASalad Example Games
+TEAM OOGABOOGA	doc/plan/TEST_PLAN.md	/^### TEAM OOGABOOGA$/;"	S	chapter:OOGASalad Test Plan
+Tab	doc/plan/api/Builder/frontend/tab/Tab.java	/^    public Tab() {$/;"	m	class:Tab
+Tab	doc/plan/api/Builder/frontend/tab/Tab.java	/^public class Tab {$/;"	c
+Team Procedures	doc/TEAM_CONTRACT.md	/^## Team Procedures$/;"	s	chapter:OOGASalad Team Contract
+Team meetings	doc/TEAM_CONTRACT.md	/^### Team meetings$/;"	S	section:OOGASalad Team Contract""Team Procedures
+Test Sprint	doc/SPRINT_MILESTONES.md	/^### Test Sprint$/;"	S	section:OOGASalad Team Contract""Implementation Plan
+Testing Strategies	doc/plan/TEST_PLAN.md	/^## Testing Strategies$/;"	s	chapter:OOGASalad Test Plan
+Thivya	doc/BACKLOG.md	/^### Thivya$/;"	S	section:OOGASalad Backlog""Features Per Person
+Thivya - Allow New Piece Creation in Piece Tab	doc/plan/TEST_PLAN.md	/^### Thivya - Allow New Piece Creation in Piece Tab$/;"	S	section:OOGASalad Test Plan""Specific Test Cases for Features
+Tic-tac-toe	doc/plan/EXAMPLE_GAMES.md	/^## Tic-tac-toe$/;"	s	chapter:OOGASalad Example Games
+Timeline	README.md	/^### Timeline$/;"	S	chapter:oogasalad
+TypeOfValidMoves	gameSchema.json	/^	    "TypeOfValidMoves":$/;"	o	object:properties.moving.properties.validMoves.properties
+Utilities	src/main/java/oogasalad/engine/model/utilities/Utilities.java	/^public class Utilities {$/;"	c
+ViewManager	doc/plan/api/Model/ViewManager.java	/^    public ViewManager(String availableGames) {$/;"	m	class:ViewManager
+ViewManager	doc/plan/api/Model/ViewManager.java	/^public class ViewManager {$/;"	c
+ViewManager	src/main/java/oogasalad/engine/view/ViewManager.java	/^  public ViewManager() {$/;"	m	class:ViewManager
+ViewManager	src/main/java/oogasalad/engine/view/ViewManager.java	/^public class ViewManager {$/;"	c
+WEST	src/main/java/oogasalad/engine/model/board/Direction.java	/^  NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST$/;"	e	enum:Direction	file:
+WEST	src/main/resources/direction_deltas.properties	/^WEST= -1, 0$/;"	k
+WHITE_KNIGHT	src/main/java/oogasalad/engine/view/BoardView.java	/^  public static String WHITE_KNIGHT = IMAGES_FOLDER + "white_knight.png";$/;"	f	class:BoardView
+WIDTH	src/main/java/oogasalad/engine/view/GameView.java	/^  public static double WIDTH = 600;$/;"	f	class:GameView
+WinCondition	doc/plan/api/Builder/backend/element/WinCondition.java	/^    public WinCondition() {$/;"	m	class:WinCondition
+WinCondition	doc/plan/api/Builder/backend/element/WinCondition.java	/^public class WinCondition {$/;"	c
+WinConditionFactory	doc/plan/api/Builder/backend/element/factory/WinConditionFactory.java	/^    public WinConditionFactory() {$/;"	m	class:WinConditionFactory
+WinConditionFactory	doc/plan/api/Builder/backend/element/factory/WinConditionFactory.java	/^public class WinConditionFactory {$/;"	c
+WinConditionsTab	doc/plan/api/Builder/frontend/tab/WinConditionsTab.java	/^    public WinConditionsTab() {$/;"	m	class:WinConditionsTab
+WinConditionsTab	doc/plan/api/Builder/frontend/tab/WinConditionsTab.java	/^public class WinConditionsTab {$/;"	c
+X_VALS	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  public static final Integer[] X_VALS = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9};$/;"	f	class:PositionTest
+Y_VALS	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  public static final Integer[] Y_VALS = new Integer[]{11, 22, 33, 44, 55, 66, 77, 88, 99};$/;"	f	class:PositionTest
+addController	src/main/java/oogasalad/engine/view/BoardView.java	/^  public void addController(Controller c) {$/;"	m	class:BoardView
+addListener	src/main/java/oogasalad/engine/model/driver/Observable.java	/^  public void addListener (PropertyChangeListener listener) {$/;"	m	class:Observable
+addPiece	src/main/java/oogasalad/engine/view/Cell.java	/^  public void addPiece(String imagePath) {$/;"	m	class:Cell
+addPiece	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^  public void addPiece() {$/;"	m	class:ExtraPiece
+author	doc/plan/data/checkers/checkers.json	/^		"author": "Mr. Checkers",$/;"	s	object:metadata
+author	gameSchema.json	/^      "author":$/;"	o	object:properties.metadata
+background	doc/plan/data/checkers/checkers.json	/^		"background": "checkers"$/;"	s	object:board
+badValueOf	src/test/java/oogasalad/engine/model/board/DirectionTest.java	/^  void badValueOf(String badVal) {$/;"	m	class:DirectionTest
+badValueOfProvider	src/test/java/oogasalad/engine/model/board/DirectionTest.java	/^  public static Stream<String> badValueOfProvider() {$/;"	m	class:DirectionTest
+basicInfo	doc/plan/data/checkers/checkers.json	/^	"basicInfo": {$/;"	o
+basicInfo	gameSchema.json	/^    "basicInfo":$/;"	o	object:properties
+beforeAll	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  static void beforeAll() {$/;"	m	class:PositionTest
+board	doc/plan/data/checkers/checkers.json	/^	"board": {$/;"	o
+board	gameSchema.json	/^    "board":$/;"	o	object:properties
+cd75b2a0-8831-4e26-8e91-f64b32c6c604	.idea/workspace.xml	/^      <changelist id="cd75b2a0-8831-4e26-8e91-f64b32c6c604" name="Changes" comment="" \/>$/;"	i
+cd75b2a0-8831-4e26-8e91-f64b32c6c604	.idea/workspace.xml	/^    <list default="true" id="cd75b2a0-8831-4e26-8e91-f64b32c6c604" name="Changes" comment="" \/>$/;"	i
+cellClicked	src/main/java/oogasalad/engine/view/BoardView.java	/^  public void cellClicked(MouseEvent e, int i, int j) {$/;"	m	class:BoardView
+change	src/main/java/oogasalad/engine/view/BoardView.java	/^  private Pair<Pair<Position, Piece>, String> change;$/;"	f	class:BoardView	file:
+changeType	doc/plan/api/Model/Piece.java	/^    public void changeType(void i) {$/;"	m	class:Piece
+changeType	doc/plan/api/Piece.java	/^  public void changeType(int i);$/;"	m	class:Piece
+changeType	src/main/java/oogasalad/engine/model/misc/Piece.java	/^    public void changeType(String newType) {$/;"	m	class:Piece
+checkIfValid	src/main/java/oogasalad/engine/model/board/neighbors/getDirectionNeighbor.java	/^  public Optional<Position> checkIfValid(Board board, Position newPosition){$/;"	m	class:getDirectionNeighbor
+checkWin	doc/plan/api/Model/Game.java	/^    public void checkWin() {$/;"	m	class:Game
+chooseAction	doc/plan/api/Model/Player.java	/^    public void chooseAction(void PossibleActions) {$/;"	m	class:Player
+chooseAction	src/main/java/oogasalad/engine/model/misc/Player.java	/^    public void chooseAction(Action[] PossibleActions) {$/;"	m	class:Player
+click	src/main/java/oogasalad/engine/controller/Controller.java	/^  public Board click(int i, int j) {$/;"	m	class:Controller
+clone	src/main/java/oogasalad/engine/model/board/Board.java	/^  protected Board clone() throws CloneNotSupportedException {$/;"	m	class:Board
+collisionAction	doc/plan/data/checkers/checkers.json	/^			"collisionAction": "capture",$/;"	s	object:moves.0
+collisionAction	doc/plan/data/checkers/checkers.json	/^			"collisionAction": "capture",$/;"	s	object:moves.1
+collisionAction	doc/plan/data/checkers/checkers.json	/^			"collisionAction": "capture",$/;"	s	object:moves.2
+collisionAction	doc/plan/data/checkers/checkers.json	/^			"collisionAction": "capture",$/;"	s	object:moves.3
+collisionAction	doc/plan/data/checkers/checkers.json	/^			"collisionAction": "none"$/;"	s	object:moves.4
+collisionAction	doc/plan/data/checkers/checkers.json	/^			"collisionAction": "none"$/;"	s	object:moves.5
+collisionAction	doc/plan/data/checkers/checkers.json	/^			"collisionAction": "none"$/;"	s	object:moves.6
+collisionAction	doc/plan/data/checkers/checkers.json	/^			"collisionAction": "none"$/;"	s	object:moves.7
+compareTo	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  void compareTo() {$/;"	m	class:PositionTest
+condition	doc/plan/data/checkers/checkers.json	/^			"condition": {$/;"	o	object:moves.0
+condition	doc/plan/data/checkers/checkers.json	/^			"condition": {$/;"	o	object:moves.1
+condition	doc/plan/data/checkers/checkers.json	/^			"condition": {$/;"	o	object:moves.2
+condition	doc/plan/data/checkers/checkers.json	/^			"condition": {$/;"	o	object:moves.3
+const	gameSchema.json	/^	    "properties": { "numPlayers": { "const": 1} }$/;"	n	object:properties.moving.properties.orderDetermination.if.properties.numPlayers
+const	gameSchema.json	/^        "properties": { "numPlayers": { "const": 1} }$/;"	n	object:properties.roles.if.properties.numPlayers
+constructorEquality	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  void constructorEquality() {$/;"	m	class:PositionTest
+controller.startEngine	doc/plan/api/use_cases/StartGame.java	/^controller.startEngine();$/;"	m
+countText	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^  private Text countText;$/;"	f	class:ExtraPiece	file:
+createElement	doc/plan/api/Builder/backend/element/factory/GameElementFactory.java	/^    public T createElement(String name, Collection<Property> properties) {$/;"	m	class:GameElementFactory
+createGame	doc/plan/api/Model/Dashboard.java	/^    public createGame(){$/;"	m	class:Dashboard
+createGameView	doc/plan/api/Model/ViewManager.java	/^    public void createGameView() {$/;"	m	class:ViewManager
+createGameView	src/main/java/oogasalad/engine/view/ViewManager.java	/^  public GameView createGameView(BoardView board, Controller controller) {$/;"	m	class:ViewManager
+creationDate	doc/plan/data/checkers/checkers.json	/^		"creationDate": "1648158653",$/;"	s	object:metadata
+creationType	gameSchema.json	/^      "creationType":$/;"	o	object:properties.metadata
+currColumn	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^  private int currColumn;$/;"	f	class:BoardIterator	file:
+currRow	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^  private int currRow;$/;"	f	class:BoardIterator	file:
+currentUserGenerated	gameSchema.json	/^      "currentUserGenerated":$/;"	o	object:properties.metadata
+data	data/FOLDER_PURPOSE.md	/^# data$/;"	c
+data	target/classes/FOLDER_PURPOSE.md	/^# data$/;"	c
+deepCopy	src/main/java/oogasalad/engine/model/misc/Piece.java	/^    public Piece deepCopy() {$/;"	m	class:Piece
+description	gameSchema.json	/^  "description": "A json schema to describe a board game",$/;"	s
+descriptor	src/main/java/oogasalad/engine/view/Inventory.java	/^  private Text descriptor;$/;"	f	class:Inventory	file:
+differentXCompare	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  void differentXCompare() {$/;"	m	class:PositionTest
+displayGames	doc/plan/api/Model/GameCenterPage.java	/^    public void displayGames() {$/;"	m	class:GameCenterPage
+doc	doc/FOLDER_PURPOSE.md	/^# doc$/;"	c
+else	gameSchema.json	/^	  "else": $/;"	o	object:properties.moving.properties.orderDetermination
+else	gameSchema.json	/^      "else": $/;"	o	object:properties.roles
+endConditions	doc/plan/data/checkers/checkers.json	/^	"endConditions": [$/;"	a
+endZone	doc/plan/data/checkers/checkers.json	/^		"endZone": {$/;"	o	object:regions
+enum	gameSchema.json	/^	      "enum": ["placeholder"]$/;"	a	object:properties.moving.properties.validMoves.properties.TypeOfValidMoves
+enum	gameSchema.json	/^	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCaptu/;"	a	object:properties.gameTermination.properties.terminationConditons.items
+enum	gameSchema.json	/^	    "enum": ["Player1Wins", "Player2Wins", "Tie", "Stalemate"]$/;"	a	object:properties.gameTermination.properties.possibleOutcomes.items
+enum	gameSchema.json	/^	    "enum": [$/;"	a	object:properties.gameTermination.properties.winnerDetermination.items
+enum	gameSchema.json	/^	"enum": ["built-in", "expansion", "custom"]$/;"	a	object:properties.metadata.creationType
+execute	doc/plan/api/Action.java	/^  public void execute();$/;"	m	class:Action
+execute	doc/plan/api/Model/Action.java	/^    public void execute() {$/;"	m	interface:Action
+execute	src/main/java/oogasalad/engine/model/action/Action.java	/^  public void execute(Game game);$/;"	m	interface:Action
+execute	src/main/java/oogasalad/engine/model/action/ActionType.java	/^    public void execute(int i, int j, Piece piece);$/;"	m	interface:ActionType
+execute	src/main/java/oogasalad/engine/model/action/ChangePieceType.java	/^  public void execute(Game game) {$/;"	m	class:ChangePieceType
+execute	src/main/java/oogasalad/engine/model/action/Move.java	/^  public void execute(Game game) {$/;"	m	class:Move
+execute	src/main/java/oogasalad/engine/model/action/Place.java	/^  public void execute(Game game) {$/;"	m	class:Place
+execute	src/main/java/oogasalad/engine/model/action/Remove.java	/^  public void execute(Game game) {$/;"	m	class:Remove
+firstMove	doc/plan/data/checkers/checkers.json	/^		"firstMove": {$/;"	o	object:basicInfo
+format	gameSchema.json	/^	"format": "date-time"$/;"	s	object:properties.metadata.lastModifiedDate
+format	gameSchema.json	/^	"format": "date-time"$/;"	s	object:properties.metadata.originalCreationDate
+from	doc/plan/data/checkers/checkers.json	/^			"from": ["normalPiece"],$/;"	a	object:rules.0
+gameConfig.put	doc/plan/api/use_cases/SaveConfiguration.java	/^gameConfig.put(new PieceElement(\/*Args for O pieces*\/));$/;"	m
+gameConfig.put	doc/plan/api/use_cases/SaveConfiguration.java	/^gameConfig.put(new PieceElement(\/*Args for X pieces*\/));$/;"	m
+gameID	gameSchema.json	/^      "gameID":$/;"	o	object:properties.basicInfo
+gameLoop	doc/plan/api/Model/Game.java	/^    public void gameLoop() {$/;"	m	class:Game
+gameName	gameSchema.json	/^      "gameName":$/;"	o	object:properties.basicInfo
+gameNameAlias	gameSchema.json	/^      "gameNameAlias":$/;"	o	object:properties.basicInfo
+gameTermination	gameSchema.json	/^    "gameTermination":$/;"	o	object:properties
+generateActions	doc/plan/api/Model/Engine.java	/^    public void generateActions() {$/;"	m	class:Engine
+getAvailableGames	doc/plan/api/Model/Controller.java	/^    public void getAvailableGames() {$/;"	m	class:Controller
+getBoard	src/main/java/oogasalad/engine/model/driver/Game.java	/^  public Board getBoard() {$/;"	m	class:Game
+getBoardPieceAt	doc/plan/api/Builder/backend/BuilderModel.java	/^    public String getBoardPieceAt(int x, int y) {$/;"	m	class:BuilderModel
+getBoardPieceAt	doc/plan/api/Builder/backend/GameConfiguration.java	/^    public String getBoardPieceAt(int x, int y) {$/;"	m	class:GameConfiguration
+getChange	src/main/java/oogasalad/engine/view/BoardView.java	/^  public Pair<Pair<Position, Piece>, String> getChange() {$/;"	m	class:BoardView
+getDirectionNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getDirectionNeighbor.java	/^public abstract class getDirectionNeighbor implements getPositionNeighbor{$/;"	c
+getDirectionalRay	src/main/java/oogasalad/engine/model/board/Ray.java	/^  public static Stream<PositionState> getDirectionalRay(Board board, Position position, Directio/;"	m	class:Ray
+getDirectionalRay	src/test/java/oogasalad/engine/model/board/RayTest.java	/^  void getDirectionalRay() {$/;"	m	class:RayTest
+getDirectionalRayProvider	src/test/java/oogasalad/engine/model/board/RayTest.java	/^  Stream<Tuple5> getDirectionalRayProvider(){$/;"	m	class:RayTest
+getDirectionalRayUntilAnyOfConditions	src/main/java/oogasalad/engine/model/board/Ray.java	/^  public static Stream<PositionState> getDirectionalRayUntilAnyOfConditions(Board board, Positio/;"	m	class:Ray
+getDirectionalRayUntilAnyOfConditions	src/test/java/oogasalad/engine/model/board/RayTest.java	/^  void getDirectionalRayUntilAnyOfConditions() {$/;"	m	class:RayTest
+getDirectionalRayUntilCondition	src/main/java/oogasalad/engine/model/board/Ray.java	/^  public static Stream<PositionState> getDirectionalRayUntilCondition(Board board, Position posi/;"	m	class:Ray
+getDirectionalRayUntilCondition	src/test/java/oogasalad/engine/model/board/RayTest.java	/^  void getDirectionalRayUntilCondition() {$/;"	m	class:RayTest
+getDirectionalRayWhileCondition	src/main/java/oogasalad/engine/model/board/Ray.java	/^  public static Stream<PositionState> getDirectionalRayWhileCondition(Board board, Position posi/;"	m	class:Ray
+getDirectionalRayWhileCondition	src/test/java/oogasalad/engine/model/board/RayTest.java	/^  void getDirectionalRayWhileCondition() {$/;"	m	class:RayTest
+getDirectionalRayWhileConditions	src/main/java/oogasalad/engine/model/board/Ray.java	/^  public static Stream<PositionState> getDirectionalRayWhileConditions(Board board, Position pos/;"	m	class:Ray
+getDirectionalRayWhileConditions	src/test/java/oogasalad/engine/model/board/RayTest.java	/^  void getDirectionalRayWhileConditions() {$/;"	m	class:RayTest
+getEastNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getEastNeighbor.java	/^public class getEastNeighbor extends getDirectionNeighbor {$/;"	c
+getElementProperties	doc/plan/api/Builder/controller/BuilderController.java	/^    private Collection<Property> getElementProperties(String type) {$/;"	m	class:BuilderController	file:
+getElementProperties	doc/plan/api/use_cases/BuilderCreatePiece.java	/^private Collection<Property> getElementProperties(String type) {$/;"	m
+getEmptyArrayOfPositionStates	src/main/java/oogasalad/engine/model/board/Board.java	/^  public static PositionState[][] getEmptyArrayOfPositionStates(int rows, int columns) {$/;"	m	class:Board
+getIndices	src/main/java/oogasalad/engine/view/BoardView.java	/^  private Position getIndices(int index) {$/;"	m	class:BoardView	file:
+getNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getDirectionNeighbor.java	/^  public Optional<Position> getNeighbor(Position pos, Board board) {$/;"	m	class:getDirectionNeighbor
+getNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getEastNeighbor.java	/^  public Optional<Position> getNeighbor(Position pos, Board board) {$/;"	m	class:getEastNeighbor
+getNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getNorthNeighbor.java	/^  public Optional<Position> getNeighbor(Position pos, Board board) {$/;"	m	class:getNorthNeighbor
+getNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getPositionNeighbor.java	/^  public Optional<Position> getNeighbor(Position pos, Board board);$/;"	m	interface:getPositionNeighbor
+getNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getSouthNeighbor.java	/^  public Optional<Position> getNeighbor(Position pos, Board board) {$/;"	m	class:getSouthNeighbor
+getNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getWestNeighbor.java	/^  public Optional<Position> getNeighbor(Position pos, Board board) {$/;"	m	class:getWestNeighbor
+getNextState	src/main/java/oogasalad/engine/model/action/Action.java	/^  public Board getNextState();$/;"	m	interface:Action
+getNextState	src/main/java/oogasalad/engine/model/action/ChangePieceType.java	/^  public Board getNextState() {$/;"	m	class:ChangePieceType
+getNextState	src/main/java/oogasalad/engine/model/action/Move.java	/^  public Board getNextState() {$/;"	m	class:Move
+getNextState	src/main/java/oogasalad/engine/model/action/Place.java	/^  public Board getNextState() {$/;"	m	class:Place
+getNextState	src/main/java/oogasalad/engine/model/action/Remove.java	/^  public Board getNextState() {$/;"	m	class:Remove
+getNorthNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getNorthNeighbor.java	/^public class getNorthNeighbor extends getDirectionNeighbor {$/;"	c
+getNotSatisfyingPositionStatesStream	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Stream<PositionState> getNotSatisfyingPositionStatesStream(Predicate<PositionState> pos/;"	m	class:Board
+getNumColumnsInLongestRow	src/main/java/oogasalad/engine/model/board/Board.java	/^  public static int getNumColumnsInLongestRow(PositionState[][] positionStates) {$/;"	m	class:Board
+getPieceAt	doc/plan/api/Builder/backend/Board.java	/^    public String getPieceAt(x int, y int) {$/;"	m	class:Board
+getPositionNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getPositionNeighbor.java	/^public interface getPositionNeighbor {$/;"	i
+getPositionPositionStateMap	src/main/java/oogasalad/engine/model/board/Board.java	/^  private TreeMap<Position, PositionState> getPositionPositionStateMap($/;"	m	class:Board	file:
+getPositionStateAt	src/main/java/oogasalad/engine/model/board/Board.java	/^  private PositionState getPositionStateAt(Position position) {$/;"	m	class:Board	file:
+getPositionStateAt	src/main/java/oogasalad/engine/model/board/Board.java	/^  public PositionState getPositionStateAt(int x, int y){$/;"	m	class:Board
+getPositionStatesStream	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Stream<PositionState> getPositionStatesStream() {$/;"	m	class:Board
+getProperties	doc/plan/api/Builder/backend/element/GameElement.java	/^    public Collection<Property> getProperties() {$/;"	m	class:GameElement
+getProperties	doc/plan/api/Builder/backend/element/factory/GameElementFactory.java	/^    public Collection<Property> getProperties() {$/;"	m	class:GameElementFactory
+getProperties	doc/plan/api/Builder/frontend/PropertyEditor.java	/^    public Collection<Property> getProperties() {$/;"	m	class:PropertyEditor
+getProperty	doc/plan/api/Builder/frontend/PropertyEditor.java	/^    public Property getProperty(String name) {$/;"	m	class:PropertyEditor
+getRoot	src/main/java/oogasalad/engine/view/BoardView.java	/^  public Group getRoot() {$/;"	m	class:BoardView
+getRoot	src/main/java/oogasalad/engine/view/Cell.java	/^  public Group getRoot() {$/;"	m	class:Cell
+getRoot	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^  public BorderPane getRoot() {$/;"	m	class:ExtraPiece
+getRoot	src/main/java/oogasalad/engine/view/Inventory.java	/^  public FlowPane getRoot() {$/;"	m	class:Inventory
+getSatisfyingPositionStatesStream	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Stream<PositionState> getSatisfyingPositionStatesStream(Predicate<PositionState> positi/;"	m	class:Board
+getSouthNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getSouthNeighbor.java	/^public class getSouthNeighbor extends getDirectionNeighbor {$/;"	c
+getText	src/main/java/oogasalad/engine/view/BoardView.java	/^  public Text getText() {$/;"	m	class:BoardView
+getUpdateText	src/main/java/oogasalad/engine/view/GameUpdateText.java	/^  public Text getUpdateText() {$/;"	m	class:GameUpdateText
+getVersion	src/main/java/oogasalad/Main.java	/^    public double getVersion () {$/;"	m	class:Main
+getWestNeighbor	src/main/java/oogasalad/engine/model/board/neighbors/getWestNeighbor.java	/^public class getWestNeighbor extends getDirectionNeighbor {$/;"	c
+hasGameElement	doc/plan/api/Builder/frontend/tab/GameElementTab.java	/^    public boolean hasGameElement(String name) {$/;"	m	class:GameElementTab
+hasNext	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^  public boolean hasNext() {$/;"	m	class:BoardIterator
+height	doc/plan/data/checkers/checkers.json	/^		"height": 8,$/;"	n	object:board
+id	gameSchema.json	/^  "id": "foo",$/;"	s
+if	gameSchema.json	/^	  "if": $/;"	o	object:properties.moving.properties.orderDetermination
+if	gameSchema.json	/^      "if": $/;"	o	object:properties.roles
+isPieceAtCoordinate	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Optional<Boolean> isPieceAtCoordinate(int x, int y) {$/;"	m	class:Board
+isPieceAtLocation	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Optional<Boolean> isPieceAtLocation(int row, int column) {$/;"	m	class:Board
+isPositive	src/main/java/oogasalad/engine/model/utilities/Utilities.java	/^  public static boolean isPositive(int num){$/;"	m	class:Utilities
+isValid	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Boolean isValid(Position position) {$/;"	m	class:Board
+isValid	src/main/java/oogasalad/engine/model/board/Board.java	/^  public boolean isValid(int x, int y) {$/;"	m	class:Board
+isValid	src/main/java/oogasalad/engine/model/board/Ray.java	/^  private static boolean isValid(Board board, int x, int y) {$/;"	m	class:Ray	file:
+isValidColumn	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Boolean isValidColumn(int column) {$/;"	m	class:Board
+isValidRow	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Boolean isValidRow(int row) {$/;"	m	class:Board
+isValidX	src/main/java/oogasalad/engine/model/board/Board.java	/^  public boolean isValidX(int x) {$/;"	m	class:Board
+isValidY	src/main/java/oogasalad/engine/model/board/Board.java	/^  public boolean isValidY(int y) {$/;"	m	class:Board
+items	gameSchema.json	/^	  "items":$/;"	o	object:properties.gameTermination.properties.possibleOutcomes
+items	gameSchema.json	/^	  "items":$/;"	o	object:properties.gameTermination.properties.terminationConditons
+items	gameSchema.json	/^	  "items":$/;"	o	object:properties.gameTermination.properties.winnerDetermination
+items	gameSchema.json	/^      "items":$/;"	o	object:properties.roles
+iterator	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Iterator<PositionState> iterator() {$/;"	m	class:Board
+kingedPiece	doc/plan/data/checkers/checkers.json	/^		"kingedPiece": {}$/;"	o	object:pieces
+lastModifiedDate	doc/plan/data/checkers/checkers.json	/^		"lastModifiedDate": "1648158780",$/;"	s	object:metadata
+lastModifiedDate	gameSchema.json	/^      "lastModifiedDate":$/;"	o	object:properties.metadata
+load	doc/plan/api/Builder/backend/parser/GameLoader.java	/^    public GameConfiguration load(File file) {$/;"	m	class:GameLoader
+load	doc/plan/api/Builder/controller/BuilderController.java	/^    private void load(File file) {$/;"	m	class:BuilderController	file:
+loadDirectionDeltas	src/main/java/oogasalad/engine/model/Constants.java	/^  private static HashMap<Direction, Delta> loadDirectionDeltas() {$/;"	m	class:Constants	file:
+loadGame	doc/plan/api/Model/Builder.java	/^    public void loadGame() {$/;"	m	class:Builder
+loadGame	doc/plan/api/Model/GameReader.java	/^    public void loadGame() {$/;"	m	class:GameReader
+m	src/test/java/oogasalad/MainTest.java	/^    private Main m;$/;"	f	class:MainTest	file:
+main	src/main/java/oogasalad/Main.java	/^    public static void main (String[] args) {$/;"	m	class:Main
+makeInstance	doc/plan/api/Model/PieceType.java	/^    public void makeInstance() {$/;"	m	class:PieceType
+makeScene	src/main/java/oogasalad/engine/view/GameView.java	/^  public Scene makeScene() {$/;"	m	class:GameView
+maxItems	gameSchema.json	/^	    "maxItems": 1,$/;"	n	object:properties.moving.properties.orderDetermination.then
+maxItems	gameSchema.json	/^	    "maxItems": 2$/;"	n	object:properties.moving.properties.orderDetermination.else
+maxItems	gameSchema.json	/^	"maxItems": 1$/;"	n	object:properties.roles.then
+maxItems	gameSchema.json	/^	"maxItems": 2$/;"	n	object:properties.roles.else
+maximum	gameSchema.json	/^	      "maximum": 1$/;"	n	object:properties.moving.properties.orderDetermination.properties.FirstMoveProbability
+maximum 	gameSchema.json	/^	"maximum ": 2$/;"	n	object:properties.basicInfo.numPlayers
+metadata	doc/plan/data/checkers/checkers.json	/^	"metadata": {$/;"	o
+metadata	gameSchema.json	/^    "metadata":$/;"	o	object:properties
+minItems	gameSchema.json	/^	    "minItems": 1,$/;"	n	object:properties.moving.properties.orderDetermination.then
+minItems	gameSchema.json	/^	    "minItems": 2,$/;"	n	object:properties.moving.properties.orderDetermination.else
+minItems	gameSchema.json	/^	"minItems": 1,$/;"	n	object:properties.roles.then
+minItems	gameSchema.json	/^	"minItems": 2,$/;"	n	object:properties.roles.else
+minProperties	gameSchema.json	/^      "minProperties": 1,$/;"	n	object:properties.pieces
+minimum	gameSchema.json	/^	      "minimum": 0,$/;"	n	object:properties.moving.properties.orderDetermination.properties.FirstMoveProbability
+minimum	gameSchema.json	/^	      "minimum": 1$/;"	n	object:properties.moving.properties.orderDetermination.then.FirstMoveProbability
+minimum	gameSchema.json	/^	"minimum": 1,$/;"	n	object:properties.basicInfo.numPlayers
+move	doc/plan/api/Model/Piece.java	/^    public void move(void i, void j) {$/;"	m	class:Piece
+move	doc/plan/api/Piece.java	/^  public void move(int i, int j);$/;"	m	class:Piece
+movePiece	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Board movePiece(Position oldPosition, Position newPosition) throws CloneNotSupportedExc/;"	m	class:Board
+moves	doc/plan/data/checkers/checkers.json	/^	"moves": [$/;"	a
+moving	gameSchema.json	/^    "moving":$/;"	o	object:properties
+myBoard	src/main/java/oogasalad/engine/controller/Controller.java	/^  private Board myBoard;$/;"	f	class:Controller	file:
+myBoard	src/main/java/oogasalad/engine/model/board/Board.java	/^  private SortedMap<Position, PositionState> myBoard;$/;"	f	class:Board	file:
+myBoard	src/main/java/oogasalad/engine/model/driver/Game.java	/^  private Board myBoard;$/;"	f	class:Game	file:
+myBoard	src/main/java/oogasalad/engine/view/GameView.java	/^  BoardView myBoard;$/;"	f	class:GameView
+myBoardHistory	src/main/java/oogasalad/engine/model/driver/Game.java	/^  private Stack<Board> myBoardHistory;$/;"	f	class:Game	file:
+myColumns	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^  private int myColumns;$/;"	f	class:BoardIterator	file:
+myController	src/main/java/oogasalad/engine/view/BoardView.java	/^  private Controller myController;$/;"	f	class:BoardView	file:
+myController	src/main/java/oogasalad/engine/view/GameView.java	/^  Controller myController;$/;"	f	class:GameView
+myEngine	src/main/java/oogasalad/engine/controller/Controller.java	/^  private Engine myEngine;$/;"	f	class:Controller	file:
+myGame	src/main/java/oogasalad/engine/controller/Controller.java	/^  private Game myGame;$/;"	f	class:Controller	file:
+myGame	src/main/java/oogasalad/engine/model/driver/Engine.java	/^  private Game myGame;$/;"	f	class:Engine	file:
+myGrid	src/main/java/oogasalad/engine/view/BoardView.java	/^  private Cell[][] myGrid;$/;"	f	class:BoardView	file:
+myHeight	src/main/java/oogasalad/engine/view/Cell.java	/^  private double myHeight;$/;"	f	class:Cell	file:
+myListeners	src/main/java/oogasalad/engine/model/driver/Observable.java	/^  private List<PropertyChangeListener> myListeners;$/;"	f	class:Observable	file:
+myOwner	src/main/java/oogasalad/engine/model/misc/Piece.java	/^    private int myOwner;$/;"	f	class:Piece	file:
+myPiece	src/main/java/oogasalad/engine/view/Cell.java	/^  private ImageView myPiece;$/;"	f	class:Cell	file:
+myPieces	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^  private Piece[][] myPieces;$/;"	f	class:BoardIterator	file:
+myResultantBoard	src/main/java/oogasalad/engine/model/action/Place.java	/^  private Board myResultantBoard;$/;"	f	class:Place	file:
+myResultantBoard	src/main/java/oogasalad/engine/model/action/Remove.java	/^  private Board myResultantBoard;$/;"	f	class:Remove	file:
+myRoot	src/main/java/oogasalad/engine/view/BoardView.java	/^  private Group myRoot;$/;"	f	class:BoardView	file:
+myRoot	src/main/java/oogasalad/engine/view/Cell.java	/^  private Group myRoot;$/;"	f	class:Cell	file:
+myRows	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^  private int myRows;$/;"	f	class:BoardIterator	file:
+myShape	src/main/java/oogasalad/engine/view/Cell.java	/^  private Shape myShape;$/;"	f	class:Cell	file:
+myType	src/main/java/oogasalad/engine/model/misc/Piece.java	/^    private String myType;$/;"	f	class:Piece	file:
+myWidth	src/main/java/oogasalad/engine/view/Cell.java	/^  private double myWidth;$/;"	f	class:Cell	file:
+myX	src/main/java/oogasalad/engine/view/Cell.java	/^  private double myX;$/;"	f	class:Cell	file:
+myY	src/main/java/oogasalad/engine/view/Cell.java	/^  private double myY;$/;"	f	class:Cell	file:
+name	doc/plan/api/Builder/backend/element/ElementRecord.java	/^    private String name;$/;"	f	class:ElementRecord	file:
+name	doc/plan/api/Builder/backend/element/GameElement.java	/^    private String name;$/;"	f	class:GameElement	file:
+name	doc/plan/api/Builder/controller/Property.java	/^    private void String name;$/;"	f	class:Property	file:
+name	doc/plan/data/checkers/checkers.json	/^				"name": "Black"$/;"	s	object:basicInfo.players.0
+name	doc/plan/data/checkers/checkers.json	/^				"name": "White"$/;"	s	object:basicInfo.players.1
+name	doc/plan/data/checkers/checkers.json	/^			"name": "White"$/;"	s	object:basicInfo.firstMove
+name	doc/plan/data/checkers/checkers.json	/^		"name": "Checkers",$/;"	s	object:metadata
+newPieceCallback	doc/plan/api/use_cases/BuilderCreatePiece.java	/^private void newPieceCallback(String type){$/;"	m
+next	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^  public Pair<Position, Piece> next() {$/;"	m	class:BoardIterator
+noError	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  void noError() {$/;"	m	class:PositionTest
+normalPiece	doc/plan/data/checkers/checkers.json	/^		"normalPiece": {},$/;"	o	object:pieces
+notifyListeners	src/main/java/oogasalad/engine/model/driver/Observable.java	/^  protected void notifyListeners (String property, T oldValue, T newValue) {$/;"	m	class:Observable
+nsbbf684f00101	pom.xml	/^         xsi:schemaLocation="http:\/\/maven.apache.org\/POM\/4.0.0 http:\/\/maven.apache.org\/xs/;"	n	uri:http://maven.apache.org/POM/4.0.0
+numColumns	src/main/java/oogasalad/engine/model/board/Board.java	/^  private int numColumns;$/;"	f	class:Board	file:
+numPlayers	gameSchema.json	/^	    "properties": { "numPlayers": { "const": 1} }$/;"	o	object:properties.moving.properties.orderDetermination.if.properties
+numPlayers	gameSchema.json	/^        "properties": { "numPlayers": { "const": 1} }$/;"	o	object:properties.roles.if.properties
+numPlayers	gameSchema.json	/^      "numPlayers":$/;"	o	object:properties.basicInfo
+numRows	src/main/java/oogasalad/engine/model/board/Board.java	/^  private int numRows;$/;"	f	class:Board	file:
+num_cols	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":11, "num_cols":3},$/;"	n	object:0.2
+num_cols	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":4,  "num_cols":10}$/;"	n	object:0.3
+num_cols	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":7,  "num_cols":5},$/;"	n	object:0.1
+num_cols	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":9,  "num_cols":9},$/;"	n	object:0.0
+num_rows	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":11, "num_cols":3},$/;"	n	object:0.2
+num_rows	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":4,  "num_cols":10}$/;"	n	object:0.3
+num_rows	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":7,  "num_cols":5},$/;"	n	object:0.1
+num_rows	src/test/java/oogasalad/RayTestData.json	/^    {"num_rows":9,  "num_cols":9},$/;"	n	object:0.0
+oogasalad	README.md	/^oogasalad$/;"	c
+oogasalad	src/main/java/oogasalad/Main.java	/^package oogasalad;$/;"	p
+oogasalad	src/test/java/oogasalad/MainTest.java	/^package oogasalad;$/;"	p
+oogasalad.engine	src/main/java/oogasalad/engine/EngineApplication.java	/^package oogasalad.engine;$/;"	p
+oogasalad.engine.controller	src/main/java/oogasalad/engine/controller/Controller.java	/^package oogasalad.engine.controller;$/;"	p
+oogasalad.engine.model	src/main/java/oogasalad/engine/model/Constants.java	/^package oogasalad.engine.model;$/;"	p
+oogasalad.engine.model	src/main/java/oogasalad/engine/model/Delta.java	/^package oogasalad.engine.model;$/;"	p
+oogasalad.engine.model.action	src/main/java/oogasalad/engine/model/action/Action.java	/^package oogasalad.engine.model.action;$/;"	p
+oogasalad.engine.model.action	src/main/java/oogasalad/engine/model/action/ActionType.java	/^package oogasalad.engine.model.action;$/;"	p
+oogasalad.engine.model.action	src/main/java/oogasalad/engine/model/action/ActionTypes.java	/^package oogasalad.engine.model.action;$/;"	p
+oogasalad.engine.model.action	src/main/java/oogasalad/engine/model/action/AvailableActions.java	/^package oogasalad.engine.model.action;$/;"	p
+oogasalad.engine.model.action	src/main/java/oogasalad/engine/model/action/AvailableMovesForPiece.java	/^package oogasalad.engine.model.action;$/;"	p
+oogasalad.engine.model.action	src/main/java/oogasalad/engine/model/action/ChangePieceType.java	/^package oogasalad.engine.model.action;$/;"	p
+oogasalad.engine.model.action	src/main/java/oogasalad/engine/model/action/Move.java	/^package oogasalad.engine.model.action;$/;"	p
+oogasalad.engine.model.action	src/main/java/oogasalad/engine/model/action/Place.java	/^package oogasalad.engine.model.action;$/;"	p
+oogasalad.engine.model.action	src/main/java/oogasalad/engine/model/action/Remove.java	/^package oogasalad.engine.model.action;$/;"	p
+oogasalad.engine.model.board	src/main/java/oogasalad/engine/model/board/Board.java	/^package oogasalad.engine.model.board;$/;"	p
+oogasalad.engine.model.board	src/main/java/oogasalad/engine/model/board/BoardIterator.java	/^package oogasalad.engine.model.board;$/;"	p
+oogasalad.engine.model.board	src/main/java/oogasalad/engine/model/board/Direction.java	/^package oogasalad.engine.model.board;$/;"	p
+oogasalad.engine.model.board	src/main/java/oogasalad/engine/model/board/Position.java	/^package oogasalad.engine.model.board;$/;"	p
+oogasalad.engine.model.board	src/main/java/oogasalad/engine/model/board/PositionState.java	/^package oogasalad.engine.model.board;$/;"	p
+oogasalad.engine.model.board	src/main/java/oogasalad/engine/model/board/Ray.java	/^package oogasalad.engine.model.board;$/;"	p
+oogasalad.engine.model.board	src/test/java/oogasalad/engine/model/board/DirectionTest.java	/^package oogasalad.engine.model.board;$/;"	p
+oogasalad.engine.model.board	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^package oogasalad.engine.model.board;$/;"	p
+oogasalad.engine.model.board	src/test/java/oogasalad/engine/model/board/RayTest.java	/^package oogasalad.engine.model.board;$/;"	p
+oogasalad.engine.model.board.neighbors	src/main/java/oogasalad/engine/model/board/neighbors/getDirectionNeighbor.java	/^package oogasalad.engine.model.board.neighbors;$/;"	p
+oogasalad.engine.model.board.neighbors	src/main/java/oogasalad/engine/model/board/neighbors/getEastNeighbor.java	/^package oogasalad.engine.model.board.neighbors;$/;"	p
+oogasalad.engine.model.board.neighbors	src/main/java/oogasalad/engine/model/board/neighbors/getNorthNeighbor.java	/^package oogasalad.engine.model.board.neighbors;$/;"	p
+oogasalad.engine.model.board.neighbors	src/main/java/oogasalad/engine/model/board/neighbors/getPositionNeighbor.java	/^package oogasalad.engine.model.board.neighbors;$/;"	p
+oogasalad.engine.model.board.neighbors	src/main/java/oogasalad/engine/model/board/neighbors/getSouthNeighbor.java	/^package oogasalad.engine.model.board.neighbors;$/;"	p
+oogasalad.engine.model.board.neighbors	src/main/java/oogasalad/engine/model/board/neighbors/getWestNeighbor.java	/^package oogasalad.engine.model.board.neighbors;$/;"	p
+oogasalad.engine.model.conditionals	src/main/java/oogasalad/engine/model/conditionals/BoardTrait.java	/^package oogasalad.engine.model.conditionals;$/;"	p
+oogasalad.engine.model.conditionals	src/main/java/oogasalad/engine/model/conditionals/LegalMove.java	/^package oogasalad.engine.model.conditionals;$/;"	p
+oogasalad.engine.model.conditionals	src/main/java/oogasalad/engine/model/conditionals/PositionsTrait.java	/^package oogasalad.engine.model.conditionals;$/;"	p
+oogasalad.engine.model.conditionals	src/main/java/oogasalad/engine/model/conditionals/Rules.java	/^package oogasalad.engine.model.conditionals;$/;"	p
+oogasalad.engine.model.driver	src/main/java/oogasalad/engine/model/driver/Engine.java	/^package oogasalad.engine.model.driver;$/;"	p
+oogasalad.engine.model.driver	src/main/java/oogasalad/engine/model/driver/Game.java	/^package oogasalad.engine.model.driver;$/;"	p
+oogasalad.engine.model.driver	src/main/java/oogasalad/engine/model/driver/Observable.java	/^package oogasalad.engine.model.driver;$/;"	p
+oogasalad.engine.model.misc	src/main/java/oogasalad/engine/model/misc/Piece.java	/^package oogasalad.engine.model.misc;$/;"	p
+oogasalad.engine.model.misc	src/main/java/oogasalad/engine/model/misc/Player.java	/^package oogasalad.engine.model.misc;$/;"	p
+oogasalad.engine.model.utilities	src/main/java/oogasalad/engine/model/utilities/Utilities.java	/^package oogasalad.engine.model.utilities;$/;"	p
+oogasalad.engine.view	src/main/java/oogasalad/engine/view/BoardView.java	/^package oogasalad.engine.view;$/;"	p
+oogasalad.engine.view	src/main/java/oogasalad/engine/view/Cell.java	/^package oogasalad.engine.view;$/;"	p
+oogasalad.engine.view	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^package oogasalad.engine.view;$/;"	p
+oogasalad.engine.view	src/main/java/oogasalad/engine/view/GameUpdateText.java	/^package oogasalad.engine.view;$/;"	p
+oogasalad.engine.view	src/main/java/oogasalad/engine/view/GameView.java	/^package oogasalad.engine.view;$/;"	p
+oogasalad.engine.view	src/main/java/oogasalad/engine/view/Inventory.java	/^package oogasalad.engine.view;$/;"	p
+oogasalad.engine.view	src/main/java/oogasalad/engine/view/ViewManager.java	/^package oogasalad.engine.view;$/;"	p
+oogasalad_OOGABOOGA	pom.xml	/^    <artifactId>oogasalad_OOGABOOGA<\/artifactId>$/;"	a	groupId:CompSci308_2022Spring
+orderDetermination	gameSchema.json	/^	"orderDetermination":$/;"	o	object:properties.moving.properties
+originalCreationDate	gameSchema.json	/^      "originalCreationDate":$/;"	o	object:properties.metadata
+pInventory	src/main/java/oogasalad/engine/view/GameView.java	/^  Inventory pInventory;$/;"	f	class:GameView
+passesCondition	src/main/java/oogasalad/engine/model/board/Ray.java	/^  private static boolean passesCondition(Board board, Predicate<PositionState> positionStatePred/;"	m	class:Ray	file:
+path	doc/plan/data/checkers/checkers.json	/^			"path": [$/;"	a	object:moves.0
+path	doc/plan/data/checkers/checkers.json	/^			"path": [$/;"	a	object:moves.1
+path	doc/plan/data/checkers/checkers.json	/^			"path": [$/;"	a	object:moves.2
+path	doc/plan/data/checkers/checkers.json	/^			"path": [$/;"	a	object:moves.3
+path	doc/plan/data/checkers/checkers.json	/^			"path": [$/;"	a	object:moves.4
+path	doc/plan/data/checkers/checkers.json	/^			"path": [$/;"	a	object:moves.5
+path	doc/plan/data/checkers/checkers.json	/^			"path": [$/;"	a	object:moves.6
+path	doc/plan/data/checkers/checkers.json	/^			"path": [$/;"	a	object:moves.7
+pieceCount	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^  private int pieceCount;$/;"	f	class:ExtraPiece	file:
+pieceImage	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^  private ImageView pieceImage;$/;"	f	class:ExtraPiece	file:
+pieces	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	a	object:moves.0.condition
+pieces	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	a	object:moves.1.condition
+pieces	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	a	object:moves.2.condition
+pieces	doc/plan/data/checkers/checkers.json	/^				"pieces": ["normalPiece", "kingedPiece"]$/;"	a	object:moves.3.condition
+pieces	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	a	object:moves.2
+pieces	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	a	object:moves.3
+pieces	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	a	object:moves.6
+pieces	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	a	object:moves.7
+pieces	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	a	object:moves.0
+pieces	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	a	object:moves.1
+pieces	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	a	object:moves.4
+pieces	doc/plan/data/checkers/checkers.json	/^			"pieces": ["normalPiece", "kingedPiece"],$/;"	a	object:moves.5
+pieces	doc/plan/data/checkers/checkers.json	/^	"pieces": {$/;"	o
+pieces	gameSchema.json	/^    "pieces":$/;"	o	object:properties
+placeBoardPiece	doc/plan/api/Builder/backend/BuilderModel.java	/^    public void placeBoardPiece(int x, int y, String name) {$/;"	m	class:BuilderModel
+placeBoardPiece	doc/plan/api/Builder/backend/GameConfiguration.java	/^    public void placeBoardPiece(int x, int y, String name) {$/;"	m	class:GameConfiguration
+placeBoardPiece	doc/plan/api/use_cases/BuilderPlacePiece.java	/^public void placeBoardPiece(int x, int y, String name) {$/;"	m
+placePiece	doc/plan/api/Builder/backend/Board.java	/^    public void placePiece(int x, int y, String name) {$/;"	m	class:Board
+placePiece	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Board placePiece(PositionState positionState) throws CloneNotSupportedException {$/;"	m	class:Board
+placePieceCallback	doc/plan/api/use_cases/BuilderPlacePiece.java	/^private void placePieceCallback(int x, int y, String piece) {$/;"	m
+plalyGame	doc/plan/api/Model/Dashboard.java	/^    public plalyGame(){$/;"	m	class:Dashboard
+plan	doc/plan/FOLDER_PURPOSE.md	/^# plan$/;"	c
+playTurn	doc/plan/api/Model/Player.java	/^    public void playTurn() {$/;"	m	class:Player
+playTurn	doc/plan/api/Player.java	/^  public void playTurn();$/;"	m	class:Player
+playTurn	src/main/java/oogasalad/engine/model/misc/Player.java	/^    public void playTurn() {$/;"	m	class:Player
+players	doc/plan/data/checkers/checkers.json	/^		"players": [$/;"	a	object:basicInfo
+positions1	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  private static Position[] positions1;$/;"	f	class:PositionTest	file:
+positions2	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  private static Position[] positions2;$/;"	f	class:PositionTest	file:
+positionsTrait	src/main/java/oogasalad/engine/model/conditionals/PositionsTrait.java	/^    public Boolean positionsTrait(Position[] positions);$/;"	m	interface:PositionsTrait
+possibleOutcomes	gameSchema.json	/^	"possibleOutcomes":$/;"	o	object:properties.gameTermination.properties
+project.build.java.version	pom.xml	/^        <project.build.java.version>17<\/project.build.java.version>$/;"	p
+properties	doc/plan/api/Builder/backend/element/ElementRecord.java	/^    private Collection<Property> properties;$/;"	f	class:ElementRecord	file:
+properties	gameSchema.json	/^	    "properties": { "numPlayers": { "const": 1} }$/;"	o	object:properties.moving.properties.orderDetermination.if
+properties	gameSchema.json	/^	  "properties":$/;"	o	object:properties.moving.properties.orderDetermination
+properties	gameSchema.json	/^	  "properties":$/;"	o	object:properties.moving.properties.validMoves
+properties	gameSchema.json	/^        "properties": { "numPlayers": { "const": 1} }$/;"	o	object:properties.roles.if
+properties	gameSchema.json	/^      "properties":$/;"	o	object:properties.board
+properties	gameSchema.json	/^      "properties":$/;"	o	object:properties.gameTermination
+properties	gameSchema.json	/^      "properties":$/;"	o	object:properties.moving
+properties	gameSchema.json	/^      "properties":$/;"	o	object:properties.pieces
+properties	gameSchema.json	/^  "properties":$/;"	o
+propertyChange	src/main/java/oogasalad/engine/view/BoardView.java	/^  public void propertyChange(PropertyChangeEvent evt) {$/;"	m	class:BoardView
+putGameElement	doc/plan/api/Builder/backend/BuilderModel.java	/^    public void putGameElement(String type, String name, Collection<Property> properties) {$/;"	m	class:BuilderModel
+putGameElement	doc/plan/api/Builder/backend/GameConfiguration.java	/^    public void putGameElement(String type, void GameElement element) {$/;"	m	class:GameConfiguration
+putGameElement	doc/plan/api/Builder/frontend/BuilderView.java	/^    public void putGameElement(ElementRecord element) {$/;"	m	class:BuilderView
+putGameElement	doc/plan/api/Builder/frontend/GameElementList.java	/^    public void putGameElement(GameElement element) {$/;"	m	class:GameElementList
+putGameElement	doc/plan/api/Builder/frontend/tab/GameElementTab.java	/^    public void putGameElement(ElementRecord element) {$/;"	m	class:GameElementTab
+putGameElement	doc/plan/api/use_cases/BuilderCreatePiece.java	/^public void putGameElement(ElementRecord element) {$/;"	m
+putGameElement	doc/plan/api/use_cases/BuilderCreatePiece.java	/^public void putGameElement(String type, GameElement element) {$/;"	m
+putGameElement	doc/plan/api/use_cases/BuilderCreatePiece.java	/^public void putGameElement(String type, String name, Collection<Property> properties) {$/;"	m
+putProperty	doc/plan/api/Builder/backend/element/GameElement.java	/^    public void putProperty(Property property) {$/;"	m	class:GameElement
+region	doc/plan/data/checkers/checkers.json	/^			"region": "endZone",$/;"	s	object:rules.0
+regions	doc/plan/data/checkers/checkers.json	/^	"regions": {$/;"	o
+removePiece	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Board removePiece(Position position) throws CloneNotSupportedException {$/;"	m	class:Board
+removePiece	src/main/java/oogasalad/engine/view/Cell.java	/^  public void removePiece() {$/;"	m	class:Cell
+removePiece	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^  public void removePiece() {$/;"	m	class:ExtraPiece
+roles	gameSchema.json	/^    "roles":$/;"	o	object:properties
+root	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^  private BorderPane root;$/;"	f	class:ExtraPiece	file:
+root	src/main/java/oogasalad/engine/view/GameView.java	/^  GridPane root;$/;"	f	class:GameView
+root	src/main/java/oogasalad/engine/view/Inventory.java	/^  private FlowPane root;$/;"	f	class:Inventory	file:
+rules	doc/plan/data/checkers/checkers.json	/^	"rules": [$/;"	a
+save	doc/plan/api/Builder/backend/parser/GameSaver.java	/^    public void save(File file, GameConfiguration game) {$/;"	m	class:GameSaver
+save	doc/plan/api/Builder/controller/BuilderController.java	/^    private void save(File file) {$/;"	m	class:BuilderController	file:
+saver.save	doc/plan/api/use_cases/SaveConfiguration.java	/^saver.save(saveFile, gameConfig); \/\/ Saves the configuration to the file/;"	m
+selectCell	src/main/java/oogasalad/engine/model/driver/Engine.java	/^  public Board selectCell(int x, int y){$/;"	m	class:Engine
+setBoard	src/main/java/oogasalad/engine/model/driver/Game.java	/^  public void setBoard(Board board) {$/;"	m	class:Game
+setProperties	doc/plan/api/Builder/frontend/PropertyEditor.java	/^    public void setProperties(Collection<Property> properties) {$/;"	m	class:PropertyEditor
+setUp	src/test/java/oogasalad/engine/model/board/RayTest.java	/^  void setUp() {$/;"	m	class:RayTest
+setUpGrid	src/main/java/oogasalad/engine/view/GameView.java	/^  private void setUpGrid() {$/;"	m	class:GameView	file:
+setup	src/test/java/oogasalad/MainTest.java	/^    void setup () {$/;"	m	class:MainTest
+spaces	doc/plan/data/checkers/checkers.json	/^			"spaces": [$/;"	a	object:regions.endZone
+src	src/main/FOLDER_PURPOSE.md	/^# src$/;"	c
+start	src/main/java/oogasalad/engine/EngineApplication.java	/^  public void start(Stage stage) throws Exception {$/;"	m	class:EngineApplication
+startEngine	doc/plan/api/Model/Controller.java	/^    public void startEngine() {$/;"	m	class:Controller
+terminationConditons	gameSchema.json	/^	"terminationConditons":$/;"	o	object:properties.gameTermination.properties
+test	src/test/FOLDER_PURPOSE.md	/^# test$/;"	c
+testVersionIsReady	src/test/java/oogasalad/MainTest.java	/^    void testVersionIsReady () {$/;"	m	class:MainTest
+text	src/main/java/oogasalad/engine/view/BoardView.java	/^  private GameUpdateText text;$/;"	f	class:BoardView	file:
+text	src/main/java/oogasalad/engine/view/GameUpdateText.java	/^  private Text text;$/;"	f	class:GameUpdateText	file:
+then	gameSchema.json	/^	  "then": $/;"	o	object:properties.moving.properties.orderDetermination
+then	gameSchema.json	/^      "then": $/;"	o	object:properties.roles
+to	doc/plan/data/checkers/checkers.json	/^			"to": "kingedPiece"$/;"	s	object:rules.0
+type	doc/plan/api/Builder/backend/element/ElementRecord.java	/^    private String type;$/;"	f	class:ElementRecord	file:
+type	doc/plan/api/Builder/controller/Property.java	/^    private void String type;$/;"	f	class:Property	file:
+type	doc/plan/data/checkers/checkers.json	/^				"type": "pieceOnPath",$/;"	s	object:moves.0.condition
+type	doc/plan/data/checkers/checkers.json	/^				"type": "pieceOnPath",$/;"	s	object:moves.1.condition
+type	doc/plan/data/checkers/checkers.json	/^				"type": "pieceOnPath",$/;"	s	object:moves.2.condition
+type	doc/plan/data/checkers/checkers.json	/^				"type": "pieceOnPath",$/;"	s	object:moves.3.condition
+type	doc/plan/data/checkers/checkers.json	/^			"type": "fixed",$/;"	s	object:basicInfo.firstMove
+type	doc/plan/data/checkers/checkers.json	/^			"type": "noMovesAvailable",$/;"	s	object:endConditions.0
+type	doc/plan/data/checkers/checkers.json	/^			"type": "path",$/;"	s	object:moves.0
+type	doc/plan/data/checkers/checkers.json	/^			"type": "path",$/;"	s	object:moves.1
+type	doc/plan/data/checkers/checkers.json	/^			"type": "path",$/;"	s	object:moves.2
+type	doc/plan/data/checkers/checkers.json	/^			"type": "path",$/;"	s	object:moves.3
+type	doc/plan/data/checkers/checkers.json	/^			"type": "pointToPoint",$/;"	s	object:moves.4
+type	doc/plan/data/checkers/checkers.json	/^			"type": "pointToPoint",$/;"	s	object:moves.5
+type	doc/plan/data/checkers/checkers.json	/^			"type": "pointToPoint",$/;"	s	object:moves.6
+type	doc/plan/data/checkers/checkers.json	/^			"type": "pointToPoint",$/;"	s	object:moves.7
+type	doc/plan/data/checkers/checkers.json	/^			"type": "relativeToBoard",$/;"	s	object:regions.endZone
+type	doc/plan/data/checkers/checkers.json	/^			"type": "transformInRegion",$/;"	s	object:rules.0
+type	doc/plan/data/checkers/checkers.json	/^		"type": "square",$/;"	s	object:board
+type	gameSchema.json	/^	      "type": "number",$/;"	s	object:properties.moving.properties.orderDetermination.properties.FirstMoveProbability
+type	gameSchema.json	/^	  "type": "array",$/;"	s	object:properties.gameTermination.properties.possibleOutcomes
+type	gameSchema.json	/^	  "type": "array",$/;"	s	object:properties.gameTermination.properties.terminationConditons
+type	gameSchema.json	/^	  "type": "array",$/;"	s	object:properties.gameTermination.properties.winnerDetermination
+type	gameSchema.json	/^	  "type": "array",$/;"	s	object:properties.moving.properties.orderDetermination
+type	gameSchema.json	/^	  "type": "object",$/;"	s	object:properties.moving.properties.validMoves
+type	gameSchema.json	/^	"type": "boolean"$/;"	s	object:properties.metadata.currentUserGenerated
+type	gameSchema.json	/^	"type": "integer"$/;"	s	object:properties.basicInfo.gameID
+type	gameSchema.json	/^	"type": "integer",$/;"	s	object:properties.basicInfo.numPlayers
+type	gameSchema.json	/^	"type": "string"$/;"	s	object:properties.basicInfo.gameName
+type	gameSchema.json	/^	"type": "string"$/;"	s	object:properties.basicInfo.gameNameAlias
+type	gameSchema.json	/^	"type": "string"$/;"	s	object:properties.metadata.author
+type	gameSchema.json	/^	"type": "string"$/;"	s	object:properties.roles.items
+type	gameSchema.json	/^	"type": "string",$/;"	s	object:properties.metadata.lastModifiedDate
+type	gameSchema.json	/^	"type": "string",$/;"	s	object:properties.metadata.originalCreationDate
+type	gameSchema.json	/^        "Alias": {"type": "string"}$/;"	s	object:properties.pieces.properties.Alias
+type	gameSchema.json	/^        "FullPieceName": {"type": "string"},$/;"	s	object:properties.pieces.properties.FullPieceName
+type	gameSchema.json	/^        "NumColumns": {"type": "integer"},$/;"	s	object:properties.board.properties.NumColumns
+type	gameSchema.json	/^        "NumRows": {"type": "integer"}$/;"	s	object:properties.board.properties.NumRows
+type	gameSchema.json	/^      "type": "array",$/;"	s	object:properties.roles
+type	gameSchema.json	/^      "type":"object",$/;"	s	object:properties.pieces
+type	gameSchema.json	/^  "type": "object",$/;"	s
+update	doc/plan/api/Builder/controller/BuilderController.java	/^    private void update(ElementRecord element) {$/;"	m	class:BuilderController	file:
+update	doc/plan/api/use_cases/BuilderCreatePiece.java	/^private void update(ElementRecord element) {$/;"	m
+updateBoard	src/main/java/oogasalad/engine/view/BoardView.java	/^  private void updateBoard(Board board) {$/;"	m	class:BoardView	file:
+updateText	src/main/java/oogasalad/engine/view/GameUpdateText.java	/^  private String updateText;$/;"	f	class:GameUpdateText	file:
+updateText	src/main/java/oogasalad/engine/view/GameUpdateText.java	/^  public void updateText(int i, int j) {$/;"	m	class:GameUpdateText
+updateText	src/main/java/oogasalad/engine/view/GameView.java	/^  Text updateText;$/;"	f	class:GameView
+validMoves	gameSchema.json	/^	"validMoves":$/;"	o	object:properties.moving.properties
+value	doc/plan/api/Builder/controller/Property.java	/^    private void T value;$/;"	f	class:Property	file:
+valueOf	src/test/java/oogasalad/engine/model/board/DirectionTest.java	/^  void valueOf() {$/;"	m	class:DirectionTest
+values	src/test/java/oogasalad/engine/model/board/DirectionTest.java	/^  void values() {$/;"	m	class:DirectionTest
+width	doc/plan/data/checkers/checkers.json	/^		"width": 8,$/;"	n	object:board
+winnerDetermination	doc/plan/data/checkers/checkers.json	/^			"winnerDetermination": [$/;"	a	object:endConditions.0
+winnerDetermination	gameSchema.json	/^	"winnerDetermination":$/;"	o	object:properties.gameTermination.properties
+writeGame	doc/plan/api/Model/Builder.java	/^    public void writeGame() {$/;"	m	class:Builder
+x	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  void x() {$/;"	m	class:PositionTest
+xdelta	src/main/java/oogasalad/engine/model/Delta.java	/^  public Integer xdelta(){$/;"	m	class:Delta
+xsi	pom.xml	/^         xsi:schemaLocation="http:\/\/maven.apache.org\/POM\/4.0.0 http:\/\/maven.apache.org\/xs/;"	n	uri:http://www.w3.org/2001/XMLSchema-instance
+y	src/test/java/oogasalad/engine/model/board/PositionTest.java	/^  void y() {$/;"	m	class:PositionTest
+ydelta	src/main/java/oogasalad/engine/model/Delta.java	/^  public Integer ydelta(){$/;"	m	class:Delta

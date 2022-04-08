@@ -1,4 +1,4 @@
-package oogasalad.engine.model.abstractions;
+package oogasalad.engine.model.conditionals;
 
 import oogasalad.engine.model.board.Position;
 

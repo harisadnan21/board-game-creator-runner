@@ -6,13 +6,13 @@ import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 import oogasalad.engine.model.conditions.board_conditions.PlayerHasNoPieces;
 import oogasalad.engine.model.conditions.board_conditions.NoMovesLeft;
+import oogasalad.engine.model.driver.Game;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.actions.Move;
@@ -79,7 +79,7 @@ public class PieceSelectionEngine extends Engine {
   private void makePieceSelected(int x, int y) {
     Board board = getGame().getBoard();
 
-    if (!board.isEmpty(x, y) && board.getPieceRecord(x, y).get().player() == board.getPlayer()) {
+    if (!board.isPieceAtCoordinate(x, y).get() && board.getPieceRecord(x, y).get().player() == board.getPlayer()) {
       myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
       myValidMoves = getValidMoves();

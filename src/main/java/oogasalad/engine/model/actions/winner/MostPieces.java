@@ -1,9 +1,13 @@
 package oogasalad.engine.model.actions.winner;
+import io.vavr.collection.Stream;
+import java.util.Optional;
+import java.util.function.Predicate;
 import javafx.util.Pair;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
-
+import oogasalad.engine.model.board.PositionState;
+import org.jooq.lambda.Seq;
 /**
  * Class that decides winner based on which player has more pieces currently on the board.
  * @author Robert Cranston
@@ -17,15 +21,10 @@ public class MostPieces implements Winner {
    */
   @Override
   public int decideWinner(Board board) {
-    int[] players = new int[] {0,0};
-    for(Pair<Position, Piece> piece : board){
-      if(piece.getValue()!= null) {
-        players[piece.getValue().getPieceRecord().player()] = players[piece.getValue().getPieceRecord().player()]+1;
-      }
-    }
-    if(players[0] == players[1]) return -1;
-    else return Winner.maxValueIndex(players);
+    Optional<Integer> player = Seq.seq(board.getPositionStatesStream())
+        .filter(Predicate.not(positionState ->
+            positionState.player() == -1)).
+        map(PositionState::player).mode();
+    return player.get(); //Maybe change to optional if there is a tie?
   }
-
-
 }

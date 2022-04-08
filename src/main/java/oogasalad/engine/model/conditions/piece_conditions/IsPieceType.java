@@ -4,6 +4,7 @@ import java.util.Optional;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.PieceRecord;
+import oogasalad.engine.model.board.PositionState;
 
 /**
  * Returns true if piece type at (i, j) is of certain type
@@ -23,13 +24,10 @@ public class IsPieceType extends PieceCondition {
   public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
     int i = myParameters[0]+refI;
     int j = myParameters[1]+refJ;
-    if (!board.isValid(i, j)) {
+    if (!board.isValidXY(i,j)) {
       return false;
     }
-    Optional<PieceRecord> optional = board.getPieceRecord(i, j);
-    if (optional.isPresent()) {
-      return optional.get().type()== myParameters[2];
-    }
-    return false;
+    PositionState positionState = board.getPositionStateAt(i,j);
+    return positionState.player() == myParameters[2];
   }
 }

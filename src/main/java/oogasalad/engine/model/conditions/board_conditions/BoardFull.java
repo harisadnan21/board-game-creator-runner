@@ -18,11 +18,6 @@ public class BoardFull implements BoardCondition{
    */
   @Override
   public boolean isTrue(Board board){
-    for(Pair<Position, Piece> pair : board){
-      if(pair.getValue() == null){
-        return false;
-      }
-    }
-    return true;
+    return board.getPositionStatesStream().noneMatch(positionState -> positionState.pieceType()!=null);
   }
 }

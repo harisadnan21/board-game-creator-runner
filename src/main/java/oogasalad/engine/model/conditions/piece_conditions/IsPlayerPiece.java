@@ -23,13 +23,9 @@ public class IsPlayerPiece extends PieceCondition {
   public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
     int i = myParameters[0]+refI;
     int j = myParameters[1]+refJ;
-    if (!board.isValid(i, j)) {
+    if (!board.isValidXY(i, j)) {
       return false;
     }
-    Optional<PieceRecord> optional = board.getPieceRecord(i, j);
-    if (optional.isPresent()) {
-      return optional.get().player() == myParameters[2];
-    }
-    return false;
+    return board.getPositionStateAt(i, j).player() == myParameters[2];
   }
 }

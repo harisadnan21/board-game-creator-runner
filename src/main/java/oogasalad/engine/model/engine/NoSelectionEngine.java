@@ -1,14 +1,13 @@
 package oogasalad.engine.model.engine;
 
 import java.util.List;
-import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
-import oogasalad.engine.model.actions.Place;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
 import oogasalad.engine.model.conditions.piece_conditions.IsEmpty;
+import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Rule;
 
 public class NoSelectionEngine extends Engine {
