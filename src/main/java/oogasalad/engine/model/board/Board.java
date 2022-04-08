@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.lang.reflect.Array;
 import java.util.Map;
@@ -55,8 +54,7 @@ public class Board implements DisplayableBoard {
 
   public Board removePiece(Position position) throws CloneNotSupportedException {
     Board returnBoard = this.clone();
-    returnBoard.myBoard = returnBoard.myBoard.put(position,
-        new PositionState(position, -1));
+    returnBoard.myBoard = returnBoard.myBoard.put(position, new PositionState(position, Piece.EMPTY));
     return returnBoard;
   }
 
@@ -72,11 +70,9 @@ public class Board implements DisplayableBoard {
     PositionState oldPositionState = this.getPositionStateAt(oldPosition);
     Board returnBoard = this.clone();
 
-    PositionState emptyPositionState = new PositionState(oldPosition, -1);
-    PositionState newPositionState = new PositionState(newPosition, oldPositionState.piece()
-    );
+    PositionState newPositionState = new PositionState(newPosition, oldPositionState.piece());
 
-    returnBoard.myBoard = returnBoard.myBoard.put(oldPosition, emptyPositionState).put(newPosition, newPositionState);
+    returnBoard.myBoard = returnBoard.myBoard.put(oldPosition, new PositionState(oldPosition, Piece.EMPTY)).put(newPosition, newPositionState);
     return returnBoard;
   }
 
@@ -94,14 +90,14 @@ public class Board implements DisplayableBoard {
   }
 
   private static int getNumColumnsInLongestRow(PositionState[][] positionStates) {
-    return Arrays.stream(positionStates).mapToInt(Array::getLength).max().getAsInt();
+    return Arrays.stream(positionStates).mapToInt(Array::getLength).max().orElse(0);
   }
 
   private static PositionState[][] getEmptyArrayOfPositionStates(int rows, int columns) {
     PositionState[][] positionStates = new PositionState[columns][rows];
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
-        positionStates[i][j] = new PositionState(new Position(i,j), -1);
+        positionStates[i][j] = new PositionState(new Position(i,j), Piece.EMPTY);
       }
     }
     return positionStates;
@@ -109,17 +105,14 @@ public class Board implements DisplayableBoard {
 
 
   @Override
-  public Optional<Boolean> isPieceAtLocation(int row, int column) {
+  public Boolean isPieceAtLocation(int row, int column) {
     return isPieceAtCoordinate(column, row);
   }
 
   @Override
-  public Optional<Boolean> isPieceAtCoordinate(int x, int y) {
-    PositionState positionState = myBoard.get(new Position(x, y)).getOrNull();
-    if (positionState == null) {
-      return Optional.empty();
-    }
-    return Optional.of(positionState.pieceType() == null);
+  public Boolean isPieceAtCoordinate(int x, int y) {
+    PositionState positionState = myBoard.get(new Position(x, y)).get();
+    return positionState.piece() != Piece.EMPTY;
   }
 
 
@@ -192,7 +185,7 @@ public class Board implements DisplayableBoard {
   }
 
   public Map<Integer, List<PositionState>> piecesByPlayer(){
-    return getPositionStatesSeq().groupBy(PositionState::piece);
+    return getPositionStatesSeq().groupBy(PositionState::player);
   }
 
   public Map<Integer,Integer> numPiecesByPlayer(){
@@ -223,7 +216,7 @@ public class Board implements DisplayableBoard {
   }
 
   public boolean isEmpty(int x, int y) {
-    return !isPieceAtCoordinate(x,y).get();
+    return !isPieceAtCoordinate(x,y);
   }
 
   public void setValidMoves(Object o) {

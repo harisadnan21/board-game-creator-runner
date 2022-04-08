@@ -3,7 +3,6 @@ package oogasalad.engine.model.board;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Stream;
 import org.jooq.lambda.Seq;
 
@@ -14,9 +13,9 @@ public interface DisplayableBoard extends Cloneable, Iterable<PositionState> {
 
   PositionState getPositionStateAt(Position position);
 
-  Optional<Boolean> isPieceAtLocation(int row, int column);
+  Boolean isPieceAtLocation(int row, int column);
 
-  Optional<Boolean> isPieceAtCoordinate(int x, int y);
+  Boolean isPieceAtCoordinate(int x, int y);
 
   boolean isValidXY(int x, int y);
 
