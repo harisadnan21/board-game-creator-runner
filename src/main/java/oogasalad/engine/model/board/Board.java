@@ -1,126 +1,42 @@
 package oogasalad.engine.model.board;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import javafx.util.Pair;
 import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.Utilities;
 
-/**
- * Class That defines the backend board and defines methods that can be applied to it.
- * @author Jake Heller, Haris Adnan, Robert Cranston
- */
-public class Board implements Iterable<Pair<Position, Piece>> {
-  public static final int NO_WINNER_YET = -2;
-  private int myRows;
-  private int myColumns;
-  private Piece[][] pieceLocations;
-  private int activePlayer;
-  private Set<Position> currentValidMoves;
-  private int myWinner = NO_WINNER_YET;
+public interface Board extends Iterable<Pair<Position, Piece>>{
+  void placeNewPiece(int row, int column, int type, int player);
 
+  /**
+   * Removes piece at (i,j), if there exists a piece
+   * If (i,j) out of board bounds, error is thrown
+   * @param i row
+   * @param j column
+   */
+  void remove(int i, int j);
 
-  public Board(int rows, int columns) {
-    myRows = rows;
-    myColumns = columns;
-    pieceLocations = new Piece[rows][columns];
-    activePlayer = 0;
-  }
+  /**
+   * Returns true if (i,j) does not contain a piece
+   * If (i,j) out of board bounds, error is thrown
+   * @param i row
+   * @param j column
+   * @return
+   */
+  boolean isEmpty(int i, int j);
 
-  public Board(Board board) {
-    this(board.myRows, board.myColumns);
-    activePlayer = board.getPlayer();
-    for (Pair<Position, Piece> pair: board) {
-      if (pair.getValue() != null) {
-        Piece piece = pair.getValue();
-        try {
-          this.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(),
-              piece.getPieceRecord().type(), piece.getPieceRecord().player());
-        } catch (OutOfBoardException e) {
-          // since only considering pieces in board, exception is not relevant
-        }
-      }
-    }
+  default void throwOutOfBoardError(int i, int j) {
+    throw new OutOfBoardException(String.format("Index (%d,%d) out of bounds", i, j));
   }
 
   /**
    *
-   * @return a copy of the piece locations in the board
+   * @param i row
+   * @param j column
+   * @return An optional which contains a piece record or null
    */
-  @Deprecated
-  public Piece[][] getMyBoardCopy(){
-    Piece[][] retList = new Piece[myRows][myColumns];
-    for (int row = 0; row < myRows; row++) {
-      for (int col = 0; col < myColumns; col++) {
-        retList[row][col] = pieceLocations[row][col].deepCopy();
-      }
-    }
-    return retList;
-  }
-
-  /**
-   * returns true if there is a piece at location Board[row][column]. else, false
-   * @param row
-   * @param column
-   * @return
-   */
-  private boolean isPieceAtLocation(int row, int column){
-    return pieceLocations[row][column] != null;
-  }
-
-  public void placeNewPiece(int row, int column, int type, int player) throws OutOfBoardException {
-    Piece piece = new Piece(type, player, row, column);
-    place(row, column, piece);
-  }
-
-  private void place(int i, int j, Piece piece) throws OutOfBoardException {
-    if(i <= myRows && j <= myColumns){
-      if (piece != null) {
-        piece.movePiece(i, j);
-      }
-      pieceLocations[i][j] = piece;
-    }
-    else{
-      throw new OutOfBoardException("Piece out of Board");
-    }
-  }
-
-  public void remove(int i, int j){
-    if (!isValid(i, j)) {
-      throwOutOfBoardError(i,j);
-    }
-    pieceLocations[i][j] = null;
-  }
-
-  public boolean isEmpty(int i, int j) {
-    if (!isValid(i, j)){
-      throwOutOfBoardError(i,j);
-    }
-    return pieceLocations[i][j] == null;
-  }
-
-  public void throwOutOfBoardError(int i, int j) {
-    throw new OutOfBoardException(String.format("Index (%d,%d) out of bounds", i, j));
-  }
-
-  public Optional<PieceRecord> getPieceRecord(int i, int j) {
-    //return Optional.of(myBoard[i][j]);
-    if (!isValid(i,j)) {
-      throwOutOfBoardError(i,j);
-    }
-    Optional<PieceRecord> piece;
-    if (pieceLocations[i][j] == null) {
-      piece = Optional.empty();
-    }
-    else {
-      piece = Optional.of(pieceLocations[i][j].getPieceRecord());
-    }
-    return piece;
-  }
+  Optional<PieceRecord> getPieceRecord(int i, int j);
 
 
   /**
@@ -132,99 +48,73 @@ public class Board implements Iterable<Pair<Position, Piece>> {
    * @param j2
    * @throws OutOfBoardException
    */
-  public void move(int i1, int j1, int i2, int j2) throws OutOfBoardException {
-    if (!isValid(i1,j1)) {
-      throwOutOfBoardError(i1,j1);
-    }
-    else if (!isValid(i2,j2)) {
-      throwOutOfBoardError(i2,j2);
-    }
-    if (!isEmpty(i1,j1)){
-      Piece piece = pieceLocations[i1][j1];
-      place(i2, j2, piece);
-      pieceLocations[i1][j1] = null;
-    }
-  }
+  void move(int i1, int j1, int i2, int j2);
 
-  public void setPlayer(int player) {
-    activePlayer = player;
-  }
+  /**
+   * Changes turn
+   * @param player active player
+   */
+  void setPlayer(int player);
 
-  public int getPlayer() {
-    return activePlayer;
-  }
+  /**
+   * Returns the player whose turn it is
+   * @return active player
+   */
+  int getPlayer();
 
-  public boolean isValid(int i, int j) {
-    return isValidX(i) && isValidY(j);
-  }
+  /**
+   * returns true if position is in board, false otherwise
+   * @param i row
+   * @param j column
+   * @return
+   */
+  boolean isValidPosition(int i, int j);
 
-  public boolean isValid(Position position){
-    return isValidX(position.i()) && isValidY(position.j());
-  }
+  boolean isValidPosition(Position position);
 
-  private boolean isValidY(int j) {
-    return Utilities.isPositive(j) && (j < myRows);
-  }
-
-  private boolean isValidX(int i) {
-    return Utilities.isPositive(i) && (i < myColumns);
-  }
-
-  public Board deepCopy() throws OutOfBoardException {
-    Board board = new Board(myRows, myColumns);
-    board.setPlayer(this.getPlayer());
-    for (Pair<Position, Piece> pair: this) {
-      Piece copyPiece;
-      if (pair.getValue() != null) {
-        Piece piece = pair.getValue();
-        board.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(), piece.getPieceRecord()
-            .type(), piece.getPieceRecord().player());
-      }
-    }
-    return board;
-  }
+  /**
+   * returns a copy of the board
+   * @return
+   * @throws OutOfBoardException
+   */
+  ArrayBoard deepCopy() throws OutOfBoardException;
 
   /**
    * Sets the valid moves for the currently selected piece on the board or null if no piece is selected
    * @param validMoves Set of Position values of valid moves for selected cell
    */
-  public void setValidMoves(Set<Position> validMoves) { currentValidMoves = validMoves; }
+  void setValidMoves(Set<Position> validMoves);
 
   /**
    * Returns the Set of Positions of valid moves of selected piece
    * @return Set of Positions of valid moves of selected piece
    */
-  public Set<Position> getValidMoves() { return currentValidMoves; }
+  Set<Position> getValidMoves();
 
   /**
    * Sets the winner of the board. Only called when game is over in checkForWin Method
    * @see oogasalad.engine.model.engine.PieceSelectionEngine
    * @param winner int representing player that wins the game
    */
-  public void setWinner(int winner){myWinner =  winner;}
+  void setWinner(int winner);
 
   /**
    * Returns the winner of the game
    * @see oogasalad.engine.view.BoardView
    * @return winner based on current board
    */
-  public int getWinner(){return myWinner;}
+  int getWinner();
 
-  // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
-// 1. We can use built in functionality for streams
-// 2. Very easy to make code parallel/concurrent
-// 3. Open-Closed -> we won't have to change implemenation if we decide to change how to represent Board because it will still be a Stream
-  @Override
-  public Iterator<Pair<Position, Piece>> iterator() {
-    return new BoardIterator(pieceLocations);
-  }
+  /**
+   * Returns number of rows in board
+   * @return height
+   */
+  int getHeight();
 
-  public int getHeight() {
-    return myRows;
-  }
-
-  public int getWidth() {
-    return myColumns;
-  }
+  /**
+   * Returns number of columns in board
+   * @return width
+   */
+  int getWidth();
 
 }
