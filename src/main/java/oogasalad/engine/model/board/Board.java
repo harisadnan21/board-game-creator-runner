@@ -185,6 +185,16 @@ public class Board implements Cloneable, Iterable<PositionState> {
     return myBoard.get(new Position(x, y)).get();
   }
 
+  // TODO: implement
+  public Stream<PositionState> getRows() {
+    return null;
+  }
+
+  // TODO: implement
+  public Stream<PositionState> getCols() {
+    return null;
+  }
+
   @Override
   public Iterator<PositionState> iterator() {
     return getPositionStatesStream().iterator();
