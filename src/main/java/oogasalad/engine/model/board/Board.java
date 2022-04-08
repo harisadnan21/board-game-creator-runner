@@ -25,7 +25,10 @@ public class Board implements Cloneable, Iterable<PositionState> {
   private Set<Position> currentValidMoves; //Why does the Board care?
   private int myWinner = NO_WINNER_YET; //Why does the Board care?
 
-
+  //TODO: update code to use these constants instead of magic numbers, maybe even make enum?git
+  public static int PLAYER_ONE = 0;
+  public static int PLAYER_TWO = 1;
+  public static int BLANK = -1;
 
   private int numRows;
   private int numColumns;
