@@ -1,5 +1,6 @@
 package oogasalad.engine.model.actions.winner;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.PositionState;
 import org.jooq.lambda.Seq;
 /**
@@ -15,7 +16,7 @@ public class MostPieces implements Winner {
    */
   @Override
   public int decideWinner(Board board) {
-    Seq<PositionState> nonEmptyPositionStates = board.getNotSatisfyingPositionStatesSeq(positionState -> positionState.piece()==-1);
-    return nonEmptyPositionStates.map(PositionState::piece).mode().get(); //Maybe change to optional if there is a tie?
+    Seq<PositionState> nonEmptyPositionStates = board.getNotSatisfyingPositionStatesSeq(positionState -> positionState.piece()== Piece.EMPTY);
+    return nonEmptyPositionStates.map(PositionState::player).mode().get(); //Maybe change to optional if there is a tie?
   }
 }
