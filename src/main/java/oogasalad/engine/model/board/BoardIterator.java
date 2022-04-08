@@ -3,6 +3,7 @@ package oogasalad.engine.model.board;
 import java.util.Iterator;
 import javafx.util.Pair;
 
+@Deprecated
 public class BoardIterator implements Iterator {
 
 

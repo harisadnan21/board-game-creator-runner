@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
-import oogasalad.engine.model.Constants;
-import oogasalad.engine.model.Delta;
-import org.jooq.lambda.tuple.Tuple;
-import org.jooq.lambda.tuple.Tuple2;
+import oogasalad.engine.model.setup.Constants;
+import oogasalad.engine.model.setup.Delta;
 
 public class Ray {
 

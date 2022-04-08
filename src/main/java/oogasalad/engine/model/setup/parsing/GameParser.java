@@ -1,4 +1,4 @@
-package oogasalad.engine.model.parsing;
+package oogasalad.engine.model.setup.parsing;
 
 import java.io.IOException;
 
@@ -9,46 +9,37 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ResourceBundle;
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.actions.winner.Winner;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.WinCondition;
+import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
 import oogasalad.engine.model.move.Rule;
+import oogasalad.engine.model.setup.Constants;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class GameParser {
-
-  //private static Logger log = LoggerFinder.getLoggerFinder().getLogger("Logger", "oogasald.engine");
-  public static String CHECKERS_FILE = "data/checkers/checkers_test.json";
-  public static String TIC_TAC_TOE_FILE = "data/tictactoe/tictactoe_test.json";
-  public static String CONDITION_RESOURCES_PATH = "engine-resources.conditions";
-  public static String ACTION_RESOURCES_PATH = "engine-resources.actions";
-
-  public static ResourceBundle CONDITION_RESOURCES = ResourceBundle.getBundle(CONDITION_RESOURCES_PATH);
-  public static ResourceBundle ACTION_RESOURCES = ResourceBundle.getBundle(ACTION_RESOURCES_PATH);
 
 
   // https://kodejava.org/how-do-i-read-json-file-using-json-java-org-json-library/
   public static Board readInitialBoard(String filePath) throws IOException, OutOfBoardException {
     JSONObject root = getRootObject(filePath);
 
-    JSONObject boardState = root.getJSONObject("board");
-    int width = boardState.getInt("width");
-    int height = boardState.getInt("height");
+    JSONObject boardState = root.getJSONObject(Constants.BOARD);
+    int width = boardState.getInt(Constants.WIDTH);
+    int height = boardState.getInt(Constants.HEIGHT);
 
     Board board = new Board(height, width);
 
     int[][] pieceConfiguration = new int[height][width];
     int[][] playerConfiguration = new int[height][width];
 
-    JSONArray pieceConfigJSON = boardState.getJSONArray("pieceConfiguration");
-    JSONArray playerConfigJSON = boardState.getJSONArray("playerConfiguration");
+    JSONArray pieceConfigJSON = boardState.getJSONArray(Constants.PIECE_CONFIGURATION);
+    JSONArray playerConfigJSON = boardState.getJSONArray(Constants.PLAYER_CONFIGURATION);
 
     readJSONArrayToIntArray(pieceConfigJSON, pieceConfiguration);
     readJSONArrayToIntArray(playerConfigJSON, playerConfiguration);
@@ -158,7 +149,7 @@ public class GameParser {
 
   private static Object getActionOrCondition(String name, int[] parameters)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    String className = CONDITION_RESOURCES.getString(name);
+    String className = Constants.CONDITION_RESOURCES.getString(name);
     Class clazz = Class.forName(className);
     Constructor ctor = clazz.getConstructor(int[].class);
     Object obj = ctor.newInstance(parameters);
@@ -167,7 +158,7 @@ public class GameParser {
 
   private static Object getWinDecisionOrCondition(String name)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    String className = CONDITION_RESOURCES.getString(name);
+    String className = Constants.CONDITION_RESOURCES.getString(name);
     Class clazz = Class.forName(className);
     Constructor ctor = clazz.getConstructor();
     Object obj = ctor.newInstance();
@@ -235,21 +226,21 @@ public class GameParser {
 
   public static void main(String[] args)
       throws IOException, OutOfBoardException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-    Board board = readInitialBoard(CHECKERS_FILE);
-    Rule[] rules = readRules(CHECKERS_FILE);
+    Board board = readInitialBoard(Constants.CHECKERS_FILE);
+    Rule[] rules = readRules(Constants.CHECKERS_FILE);
   }
 
   public static Board getCheckersBoard() throws IOException, OutOfBoardException {
-    return readInitialBoard(CHECKERS_FILE);
+    return readInitialBoard(Constants.CHECKERS_FILE);
   }
 
   public static List<Rule> getCheckersRules()
       throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-    return Arrays.asList(readRules(CHECKERS_FILE));
+    return Arrays.asList(readRules(Constants.CHECKERS_FILE));
   }
   public static List<WinCondition> getCheckersWinConditions()
       throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-    return Arrays.asList(readWinConditions(CHECKERS_FILE));
+    return Arrays.asList(readWinConditions(Constants.CHECKERS_FILE));
   }
 
 }

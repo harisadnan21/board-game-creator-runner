@@ -2,20 +2,13 @@ package oogasalad.engine.model.board;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashSet;
-import java.util.Set;
-import oogasalad.engine.model.OutOfBoardException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.jooq.lambda.Seq.zip;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Arrays;
-import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static oogasalad.engine.model.utilities.Utilities.*;
 
 public class PositionTest {
   public static final Integer[] X_VALS = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9};

@@ -3,7 +3,6 @@ package oogasalad.engine.model.board;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
-import oogasalad.engine.model.OutOfBoardException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

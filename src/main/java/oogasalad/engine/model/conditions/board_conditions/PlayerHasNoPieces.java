@@ -21,9 +21,9 @@ public class PlayerHasNoPieces implements BoardCondition{
    */
   @Override
   public boolean isTrue(Board board) {
-    Stream<PositionState> player0 = board.getSatisfyingPositionStatesStream(positionState -> positionState.player()==0);
-    Stream<PositionState> player1 = board.getSatisfyingPositionStatesStream(positionState -> positionState.player()==1);
-    return Seq.seq(player0).isEmpty() && Seq.seq(player1).isEmpty();
+    Seq<PositionState> player0 = board.getSatisfyingPositionStatesSeq(posState -> posState.player()==0);
+    Seq<PositionState> player1 = board.getSatisfyingPositionStatesSeq(posState -> posState.player()==1);
+    return player0.isEmpty() || player1.isEmpty();
   }
 //    int[] players = {0,0};
 //    for(PositionState piece : board){

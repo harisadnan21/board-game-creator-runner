@@ -2,7 +2,7 @@ package oogasalad.engine.model.engine;
 
 import oogasalad.engine.model.actions.winner.MostPieces;
 import oogasalad.engine.model.actions.winner.Winner;
-import oogasalad.engine.model.conditions.WinCondition;
+import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 import oogasalad.engine.model.conditions.board_conditions.PlayerHasNoPieces;
 import oogasalad.engine.model.conditions.board_conditions.NoMovesLeft;
@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.actions.Move;
 import oogasalad.engine.model.actions.Remove;

@@ -5,6 +5,7 @@ import java.util.Optional;
 /**
  * Class that defined a piece on the board.
  */
+@Deprecated
 public class Piece {
     private int myType;
     private int myOwner;

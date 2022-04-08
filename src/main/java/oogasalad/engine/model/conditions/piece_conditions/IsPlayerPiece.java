@@ -1,9 +1,7 @@
 package oogasalad.engine.model.conditions.piece_conditions;
 
-import java.util.Optional;
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.PieceRecord;
 
 /**
  * Returns true if piece at (i,j) is owned by player k

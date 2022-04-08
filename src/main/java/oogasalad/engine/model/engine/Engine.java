@@ -1,11 +1,10 @@
 package oogasalad.engine.model.engine;
 
-import java.util.ArrayList;
 import java.util.List;
 import oogasalad.engine.model.Game;
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.conditions.WinCondition;
+import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.move.Rule;
 
 import oogasalad.engine.model.player.Player;

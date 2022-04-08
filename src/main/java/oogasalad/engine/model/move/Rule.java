@@ -1,6 +1,6 @@
 package oogasalad.engine.model.move;
 
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;

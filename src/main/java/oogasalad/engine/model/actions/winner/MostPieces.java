@@ -21,10 +21,7 @@ public class MostPieces implements Winner {
    */
   @Override
   public int decideWinner(Board board) {
-    Optional<Integer> player = Seq.seq(board.getPositionStatesStream())
-        .filter(Predicate.not(positionState ->
-            positionState.player() == -1)).
-        map(PositionState::player).mode();
-    return player.get(); //Maybe change to optional if there is a tie?
+    Seq<PositionState> nonEmptyPositionStates = board.getNotSatisfyingPositionStatesSeq(positionState -> positionState.player()==-1);
+    return nonEmptyPositionStates.map(PositionState::player).mode().get(); //Maybe change to optional if there is a tie?
   }
 }

@@ -41,6 +41,10 @@ public class Board implements Cloneable, Iterable<PositionState> {
     this(getEmptyArrayOfPositionStates(rows, columns));
   }
 
+  public int getPlayer() {
+    return activePlayer;
+  }
+
   @Override
   protected Board clone() throws CloneNotSupportedException {
     return (Board) super.clone();
@@ -150,6 +154,10 @@ public class Board implements Cloneable, Iterable<PositionState> {
     return myBoard.values().toJavaStream();
   }
 
+  public Seq<PositionState> getPositionStatesSeq() {
+    return Seq.seq(myBoard.values().toJavaStream());
+  }
+
   public Stream<PositionState> getSatisfyingPositionStatesStream(
       Predicate<PositionState> positionStatePredicate) {
     return getPositionStatesStream().filter(positionStatePredicate);
@@ -158,6 +166,16 @@ public class Board implements Cloneable, Iterable<PositionState> {
   public Stream<PositionState> getNotSatisfyingPositionStatesStream(
       Predicate<PositionState> positionStatePredicate) {
     return myBoard.values().filterNot(positionStatePredicate).toJavaStream();
+  }
+
+  public Seq<PositionState> getNotSatisfyingPositionStatesSeq(
+      Predicate<PositionState> positionStatePredicate) {
+    return Seq.seq(this.getNotSatisfyingPositionStatesStream(positionStatePredicate));
+  }
+
+  public Seq<PositionState> getSatisfyingPositionStatesSeq(
+      Predicate<PositionState> positionStatePredicate) {
+    return Seq.seq(this.getSatisfyingPositionStatesStream(positionStatePredicate));
   }
 
   public PositionState getPositionStateAt(int x, int y) {
