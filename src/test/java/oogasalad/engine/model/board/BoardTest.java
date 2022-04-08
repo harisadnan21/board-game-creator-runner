@@ -15,9 +15,9 @@ class BoardTest {
 
   @Test
   void testPlacement() throws CloneNotSupportedException {
-    Board b = myBoard.placePiece(new PositionState(new Position(0,1),0));
-    assertTrue(b.isPieceAtCoordinate(0,1).get());
-    assertFalse(b.isPieceAtCoordinate(0,1).get());
+    Board b = myBoard.placePiece(new PositionState(new Position(0,1),Piece.EMPTY));
+    assertTrue(b.isPieceAtCoordinate(0,1));
+    assertFalse(b.isPieceAtCoordinate(0,1));
   }
 
 //
