@@ -1,14 +1,18 @@
 package oogasalad.engine.model.board;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.lang.reflect.Array;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import javax.swing.JList;
 import oogasalad.engine.model.utilities.Utilities;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
@@ -18,7 +22,7 @@ import org.jooq.lambda.Seq;
  * Class That defines the backend board and defines methods that can be applied to it.
  * @author Jake Heller, Haris Adnan, Robert Cranston, Alex Bildner
  */
-public class Board implements Cloneable, Iterable<PositionState> {
+public class Board implements DisplayableBoard {
 
   public static final int NO_WINNER_YET = -2; //Eh
   private int activePlayer; //Why does the Board care?
@@ -44,12 +48,13 @@ public class Board implements Cloneable, Iterable<PositionState> {
     this(getEmptyArrayOfPositionStates(rows, columns));
   }
 
+  @Override
   public int getPlayer() {
     return activePlayer;
   }
 
   @Override
-  protected Board clone() throws CloneNotSupportedException {
+  public Board clone() throws CloneNotSupportedException {
     return (Board) super.clone();
   }
 
@@ -80,6 +85,7 @@ public class Board implements Cloneable, Iterable<PositionState> {
     return returnBoard;
   }
 
+  @Override
   public PositionState getPositionStateAt(Position position) {
     return this.getPositionStateAt(position.x(), position.y());
   }
@@ -107,10 +113,12 @@ public class Board implements Cloneable, Iterable<PositionState> {
   }
 
 
+  @Override
   public Optional<Boolean> isPieceAtLocation(int row, int column) {
     return isPieceAtCoordinate(column, row);
   }
 
+  @Override
   public Optional<Boolean> isPieceAtCoordinate(int x, int y) {
     PositionState positionState = myBoard.get(new Position(x, y)).getOrNull();
     if (positionState == null) {
@@ -120,6 +128,7 @@ public class Board implements Cloneable, Iterable<PositionState> {
   }
 
 
+  @Override
   public boolean isValidXY(int x, int y) {
     return isValidX(x) && isValidY(y);
   }
@@ -137,26 +146,32 @@ public class Board implements Cloneable, Iterable<PositionState> {
   }
 
 
+  @Override
   public int getHeight() {
     return numRows;
   }
 
+  @Override
   public int getWidth() {
     return numColumns;
   }
 
+  @Override
   public Boolean isValidRow(int row) {
     return isValidY(row);
   }
 
+  @Override
   public Boolean isValidColumn(int column) {
     return isValidX(column);
   }
 
+  @Override
   public Stream<PositionState> getPositionStatesStream() {
     return myBoard.values().toJavaStream();
   }
 
+  @Override
   public Seq<PositionState> getPositionStatesSeq() {
     return Seq.seq(myBoard.values().toJavaStream());
   }
@@ -181,17 +196,29 @@ public class Board implements Cloneable, Iterable<PositionState> {
     return Seq.seq(this.getSatisfyingPositionStatesStream(positionStatePredicate));
   }
 
+  public Map<Integer, List<PositionState>> piecesByPlayer(){
+    return getPositionStatesSeq().groupBy(PositionState::player);
+  }
+
+  public Map<Integer,Integer> numPiecesByPlayer(){
+    return Seq.seq(piecesByPlayer())
+              .toMap(pair -> pair.v1, pair -> pair.v2.size());
+  }
+
+  @Override
   public PositionState getPositionStateAt(int x, int y) {
     return myBoard.get(new Position(x, y)).get();
   }
 
   // TODO: implement
-  public Stream<PositionState> getRows() {
+  @Override
+  public Collection<Stream<PositionState>> getRows() {
     return null;
   }
 
   // TODO: implement
-  public Stream<PositionState> getCols() {
+  @Override
+  public Collection<Stream<PositionState>> getCols() {
     return null;
   }
 
@@ -213,6 +240,7 @@ public class Board implements Cloneable, Iterable<PositionState> {
   public void placeNewPiece(int i, int j, int i1, int i2) {
   }
 
+  @Override
   public int getWinner() {
     return 0;
   }
@@ -234,6 +262,7 @@ public class Board implements Cloneable, Iterable<PositionState> {
   public void move(int i, int i1, int i2, int i3) {
   }
 
+  @Override
   public Map<Object, Object> getPieceRecord(int x, int y) {
     return null;
   }
