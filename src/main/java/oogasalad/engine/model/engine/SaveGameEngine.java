@@ -2,6 +2,7 @@ package oogasalad.engine.model.engine;
 
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 
 /**

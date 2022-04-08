@@ -3,6 +3,7 @@ package oogasalad.engine.model.conditions;
 import static org.junit.jupiter.api.Assertions.*;
 
 import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.conditions.piece_conditions.IsEmpty;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
@@ -13,7 +14,7 @@ public class IsEmptyTest {
   Board myBoard;
   @BeforeEach
   void setup() {
-    myBoard = new Board(3, 3);
+    myBoard = new ArrayBoard(3, 3);
   }
 
   @Test

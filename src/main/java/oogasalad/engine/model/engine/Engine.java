@@ -1,6 +1,5 @@
 package oogasalad.engine.model.engine;
 
-import java.util.ArrayList;
 import java.util.List;
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
