@@ -42,7 +42,7 @@ public class PersistentMapBoard implements Board {
   }
 
   @Override
-  public Optional<Piece> getPieceRecord(int i, int j) {
+  public Optional<Piece> getPiece(int i, int j) {
     return Optional.empty();
   }
 

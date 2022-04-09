@@ -26,7 +26,7 @@ public class IsPlayerPiece extends PieceCondition {
     if (!board.isValidPosition(i, j)) {
       return false;
     }
-    Optional<Piece> optional = board.getPieceRecord(i, j);
+    Optional<Piece> optional = board.getPiece(i, j);
     if (optional.isPresent()) {
       return optional.get().player() == myParameters[2];
     }

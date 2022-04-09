@@ -45,7 +45,7 @@ public interface Board extends Iterable<PositionState>{
    * @param j column
    * @return An optional which contains a piece record or null
    */
-  Optional<Piece> getPieceRecord(int i, int j);
+  Optional<Piece> getPiece(int i, int j);
 
 
   /**

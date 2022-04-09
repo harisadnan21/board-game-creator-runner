@@ -81,7 +81,7 @@ public class ArrayBoard implements Board {
   }
 
   @Override
-  public Optional<Piece> getPieceRecord(int i, int j) {
+  public Optional<Piece> getPiece(int i, int j) {
     //return Optional.of(myBoard[i][j]);
     if (!isValidPosition(i,j)) {
       throwOutOfBoardError(i,j);
