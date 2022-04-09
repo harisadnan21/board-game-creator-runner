@@ -1,25 +1,19 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.neighbors;
 
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 import javafx.util.Pair;
 import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.PieceRecord;
+import oogasalad.engine.model.board.Position;
 
-public interface Board extends Iterable<Pair<Position, Piece>>{
+/**
+ * Immutable Board
+ */
+public interface ImmutableBoard extends Iterable<Pair<Position, Piece>>{
 
   int NO_WINNER_YET = -2;
-
-  void placeNewPiece(int row, int column, int type, int player);
-
-  /**
-   * Removes piece at (i,j), if there exists a piece
-   * If (i,j) out of board bounds, error is thrown
-   * @param i row
-   * @param j column
-   * @return returns modified board (different implementations may return copy or same instance)
-   */
-  void remove(int i, int j);
 
   /**
    * Returns true if (i,j) does not contain a piece
@@ -42,25 +36,6 @@ public interface Board extends Iterable<Pair<Position, Piece>>{
    */
   Optional<PieceRecord> getPieceRecord(int i, int j);
 
-
-  /**
-   * If piece exists at (i1, j1), moves that piece
-   * to (i2, j2)
-   * @param i1
-   * @param j1
-   * @param i2
-   * @param j2
-   * @return modified board
-   * @throws OutOfBoardException
-   */
-  void move(int i1, int j1, int i2, int j2);
-
-  /**
-   * Changes turn
-   * @param player active player
-   */
-  void setPlayer(int player);
-
   /**
    * Returns the player whose turn it is
    * @return active player
@@ -82,26 +57,13 @@ public interface Board extends Iterable<Pair<Position, Piece>>{
    * @return
    * @throws OutOfBoardException
    */
-  Board deepCopy() throws OutOfBoardException;
-
-  /**
-   * Sets the valid moves for the currently selected piece on the board or null if no piece is selected
-   * @param validMoves Set of Position values of valid moves for selected cell
-   */
-  void setValidMoves(Set<Position> validMoves);
+  oogasalad.engine.model.board.Board deepCopy() throws OutOfBoardException;
 
   /**
    * Returns the Set of Positions of valid moves of selected piece
    * @return Set of Positions of valid moves of selected piece
    */
   Set<Position> getValidMoves();
-
-  /**
-   * Sets the winner of the board. Only called when game is over in checkForWin Method
-   * @see oogasalad.engine.model.engine.PieceSelectionEngine
-   * @param winner int representing player that wins the game
-   */
-  void setWinner(int winner);
 
   /**
    * Returns the winner of the game
