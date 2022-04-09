@@ -20,11 +20,11 @@ class BoardFullTest {
 
   private Board getBoard() throws CloneNotSupportedException {
     Board currentBoard = new Board(4, 4);
-    for (OfInt it = IntStream.rangeClosed(1, 4).iterator(); it.hasNext(); ) {
-      int x = it.next();
-      for (OfInt it1 = IntStream.rangeClosed(1, 4).iterator(); it1.hasNext(); ) {
-        int y = it1.next();
-        PositionState positionState = new PositionState(new Position(x, y), Piece.EMPTY);
+    for (OfInt it = IntStream.rangeClosed(0, 3).iterator(); it.hasNext(); ) {
+      int i = it.next();
+      for (OfInt it1 = IntStream.rangeClosed(0, 3).iterator(); it1.hasNext(); ) {
+        int j = it1.next();
+        PositionState positionState = new PositionState(new Position(i, j), new Piece(1, 1));
         currentBoard = currentBoard.placePiece(positionState);
       }
     }

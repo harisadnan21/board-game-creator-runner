@@ -8,7 +8,6 @@ import java.util.Set;
 import java.lang.reflect.Array;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import oogasalad.engine.model.utilities.Utilities;
 import io.vavr.collection.TreeMap;
@@ -116,7 +115,7 @@ public class Board implements DisplayableBoard {
 
   @Override
   public PositionState getPositionStateAt(Position position) {
-    return this.getPositionStateAt(position.x(), position.y());
+    return this.getPositionStateAt(position.i(), position.j());
   }
 
 
@@ -124,6 +123,10 @@ public class Board implements DisplayableBoard {
     return Arrays.stream(positionStates).mapToInt(Array::getLength).max().orElse(0);
   }
 
+//  public boolean hasPieceAtLocation(int i, int j) {
+//    PositionState positionState = myBoard.get(new Position(i, j)).get();
+//    return positionState.piece() != Piece.EMPTY;
+//  }
 
 
   @Override
@@ -134,19 +137,19 @@ public class Board implements DisplayableBoard {
 
   @Override
   public boolean isValidPosition(int x, int y) {
-    return isValidX(x) && isValidY(y);
+    return isValidI(x) && isValidJ(y);
   }
 
   public boolean isValidPosition(Position position) {
-    return isValidX(position.x()) && isValidY(position.y());
+    return isValidI(position.i()) && isValidJ(position.j());
   }
 
-  private boolean isValidY(int y) {
-    return Utilities.isPositive(y) && (y <= numCols);
+  private boolean isValidJ(int j) {
+    return Utilities.isPositive(j) && (j <= numCols);
   }
 
-  private boolean isValidX(int x) {
-    return Utilities.isPositive(x) && (x <= numRows);
+  private boolean isValidI(int i) {
+    return Utilities.isPositive(i) && (i <= numRows);
   }
 
 
@@ -162,12 +165,12 @@ public class Board implements DisplayableBoard {
 
   @Override
   public boolean isValidRow(int row) {
-    return isValidY(row);
+    return isValidJ(row);
   }
 
   @Override
   public boolean isValidColumn(int column) {
-    return isValidX(column);
+    return isValidI(column);
   }
 
   @Override
@@ -210,8 +213,8 @@ public class Board implements DisplayableBoard {
   }
 
   @Override
-  public PositionState getPositionStateAt(int x, int y) {
-    return myBoard.get(new Position(x, y)).get();
+  public PositionState getPositionStateAt(int i, int j) {
+    return myBoard.get(new Position(i, j)).get();
   }
 
   // TODO: implement
@@ -231,8 +234,8 @@ public class Board implements DisplayableBoard {
     return getPositionStatesStream().iterator();
   }
 
-  public boolean isEmpty(int x, int y) {
-    return !hasPieceAtLocation(x,y);
+  public boolean isEmpty(int i, int j) {
+    return !hasPieceAtLocation(i,j);
   }
 
   public void setValidMoves(Object o) {

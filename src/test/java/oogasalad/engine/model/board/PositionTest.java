@@ -65,18 +65,18 @@ public class PositionTest {
   @Test
   void x() {
     for(int i = 0; i < positions1.length; i++){
-      Assertions.assertEquals(positions1[i].x(), positions2[i].x());
-      Assertions.assertEquals(positions1[i].x(), X_VALS[i]);
-      Assertions.assertEquals(positions2[i].x(), X_VALS[i]);
+      Assertions.assertEquals(positions1[i].i(), positions2[i].i());
+      Assertions.assertEquals(positions1[i].i(), X_VALS[i]);
+      Assertions.assertEquals(positions2[i].i(), X_VALS[i]);
     }
   }
 
   @Test
   void y() {
     for(int i = 0; i < positions1.length; i++){
-      Assertions.assertEquals(positions1[i].y(), positions2[i].y());
-      Assertions.assertEquals(positions1[i].y(), Y_VALS[i]);
-      Assertions.assertEquals(positions2[i].y(), Y_VALS[i]);
+      Assertions.assertEquals(positions1[i].j(), positions2[i].j());
+      Assertions.assertEquals(positions1[i].j(), Y_VALS[i]);
+      Assertions.assertEquals(positions2[i].j(), Y_VALS[i]);
     }
   }
 
@@ -88,10 +88,10 @@ public class PositionTest {
   @Test
   void noError() {
     for(int i = 0; i < positions1.length; i++){
-      Assertions.assertDoesNotThrow(positions1[i]::x);
-      Assertions.assertDoesNotThrow(positions1[i]::y);
-      Assertions.assertDoesNotThrow(positions2[i]::x);
-      Assertions.assertDoesNotThrow(positions2[i]::y);
+      Assertions.assertDoesNotThrow(positions1[i]::i);
+      Assertions.assertDoesNotThrow(positions1[i]::j);
+      Assertions.assertDoesNotThrow(positions2[i]::i);
+      Assertions.assertDoesNotThrow(positions2[i]::j);
     }
   }
 

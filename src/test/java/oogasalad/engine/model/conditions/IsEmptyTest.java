@@ -27,10 +27,10 @@ public class IsEmptyTest {
   }
 
   @Test
-  void copyTest() throws OutOfBoardException {
+  void copyTest() throws OutOfBoardException, CloneNotSupportedException {
     myBoard.placeNewPiece(1, 1, 0, 0);
 
-    Board copyBoard = myBoard.deepCopy();
+    Board copyBoard = myBoard.copy();
 
     int[] params = new int[]{0, 0};
     PieceCondition condition = new IsEmpty(params);

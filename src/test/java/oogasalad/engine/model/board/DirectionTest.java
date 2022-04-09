@@ -42,7 +42,7 @@ class DirectionTest {
   }
 
   public static Stream<String> badValueOfProvider() {
-    String[] args = {null, "", "Apple", "\t\t\t", "\n\n\n", "      "};
+    String[] args = {"", "Apple", "\t\t\t", "\n\n\n", "      "};
     return Arrays.stream(args);
   }
 

@@ -5,12 +5,12 @@ public record PositionState(Position position, Piece piece) {
 
   //Just a convenience function
   public int x(){
-    return position.x();
+    return position.i();
   }
 
   //Just a convenience function
   public int y(){
-    return position.y();
+    return position.j();
   }
 
 

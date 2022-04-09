@@ -17,6 +17,6 @@ public class IsOccupied extends PieceCondition {
   public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
     int i = myParameters[0]+refI;
     int j = myParameters[1]+refJ;
-    return board.isPieceAtCoordinate(myParameters[0]+refI, myParameters[1]+refJ);
+    return !board.isEmpty(myParameters[0]+refI, myParameters[1]+refJ);
   }
 }
