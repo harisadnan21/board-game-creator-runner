@@ -36,6 +36,14 @@ public class GameParser {
 
 
   // https://kodejava.org/how-do-i-read-json-file-using-json-java-org-json-library/
+
+  /**
+   * Returns initial board state from given JSON file
+   * @param filePath
+   * @return
+   * @throws IOException
+   * @throws OutOfBoardException
+   */
   public static Board readInitialBoard(String filePath) throws IOException, OutOfBoardException {
     JSONObject root = getRootObject(filePath);
 
@@ -65,6 +73,16 @@ public class GameParser {
     return board;
   }
 
+  /**
+   * Reads rules from given file
+   * @param filePath
+   * @return array of rules
+   * @throws IOException
+   * @throws InvocationTargetException
+   * @throws NoSuchMethodException
+   * @throws InstantiationException
+   * @throws IllegalAccessException
+   */
   public static Rule[] readRules(String filePath)
       throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
     JSONObject root = getRootObject(filePath);
@@ -82,6 +100,7 @@ public class GameParser {
 
     return rules;
   }
+
   public static WinCondition[] readWinConditions(String filePath)
       throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
     JSONObject root = getRootObject(filePath);
@@ -99,13 +118,27 @@ public class GameParser {
     return winConditions;
   }
 
+  /**
+   * Reads representative point from a rule given the
+   * JSON object for this point
+   * @param representativePoint JSON object containing keys "i" and "j"
+   * @return
+   */
   private static Position getRepresentativePoint(JSONObject representativePoint) {
     int i = representativePoint.getInt("i");
     int j = representativePoint.getInt("j");
     return new Position(i, j);
   }
 
-
+  /**
+   *
+   * @param conditionsJSON
+   * @return
+   * @throws NoSuchMethodException
+   * @throws InvocationTargetException
+   * @throws InstantiationException
+   * @throws IllegalAccessException
+   */
   private static PieceCondition[] getConditions(JSONArray conditionsJSON)
       throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
@@ -144,7 +177,7 @@ public class GameParser {
   }
 
   /**
-   * takes in JSONArray and returns int array
+   * Takes in JSONArray of integers and returns int array
    * @param parametersJSON
    * @return
    */
@@ -221,7 +254,7 @@ public class GameParser {
     JSONObject object = new JSONObject(jsonString);
     return object;
   }
-
+  
   private static void readJSONArrayToIntArray(JSONArray jsonArray, int[][] array) {
     for (int i = 0; i < array.length; i++) {
       JSONArray row = jsonArray.getJSONArray(i);
