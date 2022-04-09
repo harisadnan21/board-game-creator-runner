@@ -234,6 +234,7 @@ public class Board implements DisplayableBoard {
     return !hasPieceAtLocation(i,j);
   }
 
+  @Deprecated
   public void setValidMoves(Object o) {
   }
 
@@ -248,10 +249,12 @@ public class Board implements DisplayableBoard {
     return 0;
   }
 
+  @Deprecated
   public Position[] getValidMoves() {
     return null;
   }
 
+  @Deprecated
   public Board deepCopy() {
     return null;
   }
