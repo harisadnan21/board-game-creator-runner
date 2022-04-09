@@ -254,7 +254,12 @@ public class GameParser {
     JSONObject object = new JSONObject(jsonString);
     return object;
   }
-  
+
+  /**
+   * Reads a 2D JSONArray of integers
+   * @param jsonArray
+   * @param array
+   */
   private static void readJSONArrayToIntArray(JSONArray jsonArray, int[][] array) {
     for (int i = 0; i < array.length; i++) {
       JSONArray row = jsonArray.getJSONArray(i);

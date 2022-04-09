@@ -61,7 +61,7 @@ public class Rule {
   public Board doMovement(Board board, int refI, int refJ)
       throws OutOfBoardException {
     if (isValid(board, refI, refJ)) {
-      Board boardCopy = board.deepCopy(); // would need to use an inherited clone method if there are multiple board implementations
+      Board boardCopy = board.copy(); // would need to use an inherited clone method if there are multiple board implementations
       for (Action action: myActions) {
         action.execute(boardCopy, refI, refJ);
       }

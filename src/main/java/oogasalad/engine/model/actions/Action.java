@@ -23,5 +23,5 @@ public abstract class Action {
    * @param refJ reference j
    * @throws OutOfBoardException
    */
-  public abstract void execute(Board board, int refI, int refJ) throws OutOfBoardException;
+  public abstract Board execute(Board board, int refI, int refJ) throws OutOfBoardException;
 }

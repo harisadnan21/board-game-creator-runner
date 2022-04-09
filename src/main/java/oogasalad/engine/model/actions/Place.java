@@ -14,8 +14,8 @@ public class Place extends Action {
   }
 
   @Override
-  public void execute(Board board, int refI, int refJ) throws OutOfBoardException {
-    board.placeNewPiece(myParameters[0]+refI, myParameters[1]+refJ,
+  public Board execute(Board board, int refI, int refJ) throws OutOfBoardException {
+    return board.placeNewPiece(myParameters[0]+refI, myParameters[1]+refJ,
         myParameters[2], myParameters[3]);
   }
 }

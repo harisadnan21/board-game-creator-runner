@@ -54,7 +54,7 @@ class ArrayBoardTest {
   @Test
   void deepCopyTest() throws OutOfBoardException {
     myBoard.placeNewPiece(1, 1, 0, 0);
-    ArrayBoard copyBoard = myBoard.deepCopy();
+    ArrayBoard copyBoard = myBoard.copy();
     assertTrue(copyBoard.getPieceRecord(1, 1).isPresent());
     assertFalse(copyBoard.getPieceRecord(0, 1).isPresent());
   }

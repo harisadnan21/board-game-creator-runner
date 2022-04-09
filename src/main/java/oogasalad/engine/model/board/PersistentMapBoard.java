@@ -20,18 +20,19 @@ public class PersistentMapBoard implements Board {
   }
 
   @Override
-  public void placeNewPiece(int row, int column, int type, int player) {
+  public Board placeNewPiece(int row, int column, int type, int player) {
     try {
       PersistentMapBoard newBoard = (PersistentMapBoard) this.clone();
       newBoard.myPieces = myPieces.put(new Position(row, column), new Piece(0,0));
     } catch(Exception e) {
       throw new RuntimeException("");
     }
+    return null;
   }
 
   @Override
-  public void remove(int i, int j) {
-
+  public Board remove(int i, int j) {
+    return null;
   }
 
   @Override
@@ -46,8 +47,8 @@ public class PersistentMapBoard implements Board {
   }
 
   @Override
-  public void move(int i1, int j1, int i2, int j2) {
-
+  public Board move(int i1, int j1, int i2, int j2) {
+    return null;
   }
 
   @Override
@@ -71,7 +72,7 @@ public class PersistentMapBoard implements Board {
   }
 
   @Override
-  public ArrayBoard deepCopy() throws OutOfBoardException {
+  public ArrayBoard copy() throws OutOfBoardException {
     return null;
   }
 

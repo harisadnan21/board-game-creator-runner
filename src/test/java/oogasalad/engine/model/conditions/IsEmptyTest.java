@@ -31,7 +31,7 @@ public class IsEmptyTest {
   void copyTest() throws OutOfBoardException {
     myBoard.placeNewPiece(1, 1, 0, 0);
 
-    Board copyBoard = myBoard.deepCopy();
+    Board copyBoard = myBoard.copy();
 
     int[] params = new int[]{0, 0};
     PieceCondition condition = new IsEmpty(params);

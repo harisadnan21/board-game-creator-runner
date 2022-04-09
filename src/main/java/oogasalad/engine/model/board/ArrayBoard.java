@@ -48,9 +48,10 @@ public class ArrayBoard implements Board {
   }
 
   @Override
-  public void placeNewPiece(int row, int column, int type, int player) throws OutOfBoardException {
+  public Board placeNewPiece(int row, int column, int type, int player) throws OutOfBoardException {
     Piece piece = new Piece(type, player);
     place(row, column, piece);
+    return this;
   }
 
   private void place(int i, int j, Piece piece) throws OutOfBoardException {
@@ -63,11 +64,12 @@ public class ArrayBoard implements Board {
   }
 
   @Override
-  public void remove(int i, int j){
+  public Board remove(int i, int j){
     if (!isValidPosition(i, j)) {
       throwOutOfBoardError(i,j);
     }
     pieceLocations[i][j] = null;
+    return this;
   }
 
   @Override
@@ -105,7 +107,7 @@ public class ArrayBoard implements Board {
    * @throws OutOfBoardException
    */
   @Override
-  public void move(int i1, int j1, int i2, int j2) throws OutOfBoardException {
+  public Board move(int i1, int j1, int i2, int j2) throws OutOfBoardException {
     if (!isValidPosition(i1,j1)) {
       throwOutOfBoardError(i1,j1);
     }
@@ -117,6 +119,7 @@ public class ArrayBoard implements Board {
       place(i2, j2, piece);
       pieceLocations[i1][j1] = null;
     }
+    return this;
   }
 
   @Override
@@ -148,7 +151,7 @@ public class ArrayBoard implements Board {
   }
 
   @Override
-  public ArrayBoard deepCopy() throws OutOfBoardException {
+  public ArrayBoard copy() throws OutOfBoardException {
     ArrayBoard board = new ArrayBoard(myRows, myColumns);
     board.setPlayer(this.getPlayer());
     for (PositionState cell: this) {

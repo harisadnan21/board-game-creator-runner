@@ -15,7 +15,7 @@ public interface Board extends Iterable<PositionState>{
    * @param type
    * @param player
    */
-  void placeNewPiece(int row, int column, int type, int player);
+  Board placeNewPiece(int row, int column, int type, int player);
 
   /**
    * Removes piece at (i,j), if there exists a piece
@@ -24,7 +24,7 @@ public interface Board extends Iterable<PositionState>{
    * @param j column
    * @return returns modified board (different implementations may return copy or same instance)
    */
-  void remove(int i, int j);
+  Board remove(int i, int j);
 
   /**
    * Returns true if (i,j) does not contain a piece
@@ -58,7 +58,7 @@ public interface Board extends Iterable<PositionState>{
    * @return modified board
    * @throws OutOfBoardException
    */
-  void move(int i1, int j1, int i2, int j2);
+  Board move(int i1, int j1, int i2, int j2);
 
   /**
    * Changes turn
@@ -87,7 +87,7 @@ public interface Board extends Iterable<PositionState>{
    * @return
    * @throws OutOfBoardException
    */
-  Board deepCopy() throws OutOfBoardException;
+  Board copy() throws OutOfBoardException;
 
   /**
    * Sets the valid moves for the currently selected piece on the board or null if no piece is selected
