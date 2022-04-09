@@ -1,7 +1,6 @@
 package oogasalad.engine.model.conditions.piece_conditions;
 
 import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 
 public class IsOccupied extends PieceCondition {
@@ -18,7 +17,7 @@ public class IsOccupied extends PieceCondition {
   public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
     int i = myParameters[0]+refI;
     int j = myParameters[1]+refJ;
-    if (!board.isValidPosition(i, j)) {
+    if (!board.isValid(i, j)) {
       return false;
     }
     return !board.isEmpty(myParameters[0]+refI, myParameters[1]+refJ);

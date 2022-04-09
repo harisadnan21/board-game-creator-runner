@@ -1,10 +1,10 @@
 package oogasalad.engine.model.abstractions;
 
-import oogasalad.engine.model.board.ArrayBoard;
+import oogasalad.engine.model.board.Board;
 
 @FunctionalInterface
 public interface BoardTrait {
 
-    public Boolean AvailableMovesForPiece(ArrayBoard board);
+    public Boolean AvailableMovesForPiece(Board board);
 
 }

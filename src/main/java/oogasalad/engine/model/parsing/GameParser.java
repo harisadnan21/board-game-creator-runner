@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.actions.winner.Winner;
-import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.conditions.WinCondition;
@@ -43,7 +42,7 @@ public class GameParser {
     int width = boardState.getInt("width");
     int height = boardState.getInt("height");
 
-    Board board = new ArrayBoard(height, width);
+    Board board = new Board(height, width);
 
     int[][] pieceConfiguration = new int[height][width];
     int[][] playerConfiguration = new int[height][width];
