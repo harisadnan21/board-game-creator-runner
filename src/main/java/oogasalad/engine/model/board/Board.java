@@ -1,7 +1,6 @@
 package oogasalad.engine.model.board;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -9,7 +8,6 @@ import java.lang.reflect.Array;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import oogasalad.engine.model.utilities.Utilities;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
 import org.jooq.lambda.Seq;
@@ -217,16 +215,14 @@ public class Board implements DisplayableBoard {
     return myBoard.get(new Position(i, j)).get();
   }
 
-  // TODO: implement
   @Override
-  public Collection<Stream<PositionState>> getRows() {
-    return null;
+  public Map<Integer, List<PositionState>> getRows() {
+    return getPositionStatesSeq().groupBy(PositionState::i);
   }
 
-  // TODO: implement
   @Override
-  public Collection<Stream<PositionState>> getCols() {
-    return null;
+  public Map<Integer, List<PositionState>> getCols() {
+    return getPositionStatesSeq().groupBy(PositionState::j);
   }
 
   @Override

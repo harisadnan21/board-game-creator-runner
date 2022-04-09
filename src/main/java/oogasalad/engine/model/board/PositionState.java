@@ -4,12 +4,12 @@ package oogasalad.engine.model.board;
 public record PositionState(Position position, Piece piece) {
 
   //Just a convenience function
-  public int x(){
+  public int i(){
     return position.i();
   }
 
   //Just a convenience function
-  public int y(){
+  public int j(){
     return position.j();
   }
 
