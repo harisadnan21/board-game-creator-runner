@@ -2,8 +2,8 @@ package oogasalad.engine.model.rules;
 
 import java.util.List;
 import javafx.util.Pair;
-import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.ArrayBoard;
+import oogasalad.engine.model.board.Piece;
 
 public interface Rule {
 

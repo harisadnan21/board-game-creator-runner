@@ -2,16 +2,15 @@ package oogasalad.engine.model.board.neighbors;
 
 import java.util.Optional;
 import java.util.Set;
-import javafx.util.Pair;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.PieceRecord;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.PositionState;
 
 /**
  * Immutable Board
  */
-public interface ImmutableBoard extends Iterable<Pair<Position, Piece>>{
+public interface ImmutableBoard extends Iterable<PositionState>{
 
   int NO_WINNER_YET = -2;
 
@@ -34,7 +33,7 @@ public interface ImmutableBoard extends Iterable<Pair<Position, Piece>>{
    * @param j column
    * @return An optional which contains a piece record or null
    */
-  Optional<PieceRecord> getPieceRecord(int i, int j);
+  Optional<Piece> getPieceRecord(int i, int j);
 
   /**
    * Returns the player whose turn it is

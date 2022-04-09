@@ -3,15 +3,30 @@ package oogasalad.engine.model.board;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
-import javafx.util.Pair;
 import oogasalad.engine.model.OutOfBoardException;
+import io.vavr.collection.SortedMap;
+import io.vavr.collection.TreeMap;
 
 public class PersistentMapBoard implements Board {
 
+  private SortedMap<Position, Piece> myPieces;
+
+  private int myWidth;
+  private int myHeight;
+
+  public PersistentMapBoard(int rows, int columns) {
+    myPieces = TreeMap.of(new Position(0, 0), new Piece(0,0));
+    myPieces = myPieces.put(new Position(0, 1), new Piece(0,0));
+  }
 
   @Override
   public void placeNewPiece(int row, int column, int type, int player) {
-
+    try {
+      PersistentMapBoard newBoard = (PersistentMapBoard) this.clone();
+      newBoard.myPieces = myPieces.put(new Position(row, column), new Piece(0,0));
+    } catch(Exception e) {
+      throw new RuntimeException("");
+    }
   }
 
   @Override
@@ -21,11 +36,12 @@ public class PersistentMapBoard implements Board {
 
   @Override
   public boolean isEmpty(int i, int j) {
+
     return false;
   }
 
   @Override
-  public Optional<PieceRecord> getPieceRecord(int i, int j) {
+  public Optional<Piece> getPieceRecord(int i, int j) {
     return Optional.empty();
   }
 
@@ -90,7 +106,7 @@ public class PersistentMapBoard implements Board {
   }
 
   @Override
-  public Iterator<Pair<Position, Piece>> iterator() {
+  public Iterator<PositionState> iterator() {
     return null;
   }
 }

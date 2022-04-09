@@ -1,10 +1,7 @@
 package oogasalad.engine.model.conditions.board_conditions;
 
-import javafx.util.Pair;
-import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.PositionState;
 
 /**
  * Condition that evaluates to true when the entire board is full of pieces
@@ -19,8 +16,8 @@ public class BoardFull implements BoardCondition{
    */
   @Override
   public boolean isTrue(Board board){
-    for(Pair<Position, Piece> pair : board){
-      if(pair.getValue() == null){
+    for(PositionState cell : board){
+      if(cell.piece() == null){
         return false;
       }
     }

@@ -3,7 +3,6 @@ package oogasalad.engine.model.board;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
-import javafx.util.Pair;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Utilities;
 
@@ -11,7 +10,7 @@ import oogasalad.engine.model.Utilities;
  * Class That defines the backend board and defines methods that can be applied to it.
  * @author Jake Heller, Haris Adnan, Robert Cranston
  */
-public class ArrayBoard implements Iterable<Pair<Position, Piece>>, Board {
+public class ArrayBoard implements Board {
   private int myRows;
   private int myColumns;
   private Piece[][] pieceLocations;
@@ -30,15 +29,10 @@ public class ArrayBoard implements Iterable<Pair<Position, Piece>>, Board {
   public ArrayBoard(ArrayBoard board) {
     this(board.myRows, board.myColumns);
     activePlayer = board.getPlayer();
-    for (Pair<Position, Piece> pair: board) {
-      if (pair.getValue() != null) {
-        Piece piece = pair.getValue();
-        try {
-          this.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(),
-              piece.getPieceRecord().type(), piece.getPieceRecord().player());
-        } catch (OutOfBoardException e) {
-          // since only considering pieces in board, exception is not relevant
-        }
+    for (PositionState cell: this) {
+      Piece piece = cell.piece();
+      if (piece != null) {
+        this.placeNewPiece(cell.position().i(), cell.position().j(), piece.type(), piece.player());
       }
     }
   }
@@ -55,15 +49,12 @@ public class ArrayBoard implements Iterable<Pair<Position, Piece>>, Board {
 
   @Override
   public void placeNewPiece(int row, int column, int type, int player) throws OutOfBoardException {
-    Piece piece = new Piece(type, player, row, column);
+    Piece piece = new Piece(type, player);
     place(row, column, piece);
   }
 
   private void place(int i, int j, Piece piece) throws OutOfBoardException {
-    if(i <= myRows && j <= myColumns){
-      if (piece != null) {
-        piece.movePiece(i, j);
-      }
+    if(isValidPosition(i,j)){
       pieceLocations[i][j] = piece;
     }
     else{
@@ -88,17 +79,17 @@ public class ArrayBoard implements Iterable<Pair<Position, Piece>>, Board {
   }
 
   @Override
-  public Optional<PieceRecord> getPieceRecord(int i, int j) {
+  public Optional<Piece> getPieceRecord(int i, int j) {
     //return Optional.of(myBoard[i][j]);
     if (!isValidPosition(i,j)) {
       throwOutOfBoardError(i,j);
     }
-    Optional<PieceRecord> piece;
+    Optional<Piece> piece;
     if (pieceLocations[i][j] == null) {
       piece = Optional.empty();
     }
     else {
-      piece = Optional.of(pieceLocations[i][j].getPieceRecord());
+      piece = Optional.of(pieceLocations[i][j]);
     }
     return piece;
   }
@@ -160,12 +151,10 @@ public class ArrayBoard implements Iterable<Pair<Position, Piece>>, Board {
   public ArrayBoard deepCopy() throws OutOfBoardException {
     ArrayBoard board = new ArrayBoard(myRows, myColumns);
     board.setPlayer(this.getPlayer());
-    for (Pair<Position, Piece> pair: this) {
-      Piece copyPiece;
-      if (pair.getValue() != null) {
-        Piece piece = pair.getValue();
-        board.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(), piece.getPieceRecord()
-            .type(), piece.getPieceRecord().player());
+    for (PositionState cell: this) {
+      Piece piece = cell.piece();
+      if (piece != null) {
+        board.placeNewPiece(cell.position().i(), cell.position().j(), piece.type(), piece.player());
       }
     }
     return board;
@@ -206,7 +195,7 @@ public class ArrayBoard implements Iterable<Pair<Position, Piece>>, Board {
 // 2. Very easy to make code parallel/concurrent
 // 3. Open-Closed -> we won't have to change implemenation if we decide to change how to represent Board because it will still be a Stream
   @Override
-  public Iterator<Pair<Position, Piece>> iterator() {
+  public Iterator<PositionState> iterator() {
     return new BoardIterator(pieceLocations);
   }
 

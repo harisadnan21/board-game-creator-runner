@@ -1,9 +1,7 @@
 package oogasalad.engine.model.actions.winner;
-import javafx.util.Pair;
-import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.PositionState;
 
 /**
  * Class that decides winner based on which player has more pieces currently on the board.
@@ -19,9 +17,10 @@ public class MostPieces implements Winner {
   @Override
   public int decideWinner(Board board) {
     int[] players = new int[] {0,0};
-    for(Pair<Position, Piece> piece : board){
-      if(piece.getValue()!= null) {
-        players[piece.getValue().getPieceRecord().player()] = players[piece.getValue().getPieceRecord().player()]+1;
+    for(PositionState cell : board){
+      Piece piece = cell.piece();
+      if(piece != null) {
+        players[piece.player()] = players[piece.player()]+1;
       }
     }
     if(players[0] == players[1]) return -1;

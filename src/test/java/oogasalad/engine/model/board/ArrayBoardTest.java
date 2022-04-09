@@ -41,17 +41,14 @@ class ArrayBoardTest {
   @Test
   void getPieceRecord() throws OutOfBoardException {
     myBoard.placeNewPiece(1,1, 0, 0);
-    Optional<PieceRecord> testPiece = myBoard.getPieceRecord(1,1);
-    assertNotNull(testPiece);
+    Optional<Piece> testPiece = myBoard.getPieceRecord(1,1);
+    assertNotNull(testPiece.get());
   }
 
   @Test
   void move() throws OutOfBoardException {
-    Piece TestPiece = new Piece(0, 1, 0, 0 );
-
     myBoard.move(0, 0, 2,2);
-    assertNotNull(myBoard.getPieceRecord(2,2));
-
+    assertNotNull(myBoard.getPieceRecord(2,2).get());
   }
 
   @Test

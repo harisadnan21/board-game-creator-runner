@@ -9,7 +9,8 @@ open module oogasalad_app {
     //requires java.datatransfer;
     requires java.desktop;
     requires org.apache.logging.log4j;
+    requires io.vavr;
 
-  // allow other classes to access listed packages in your project
+    // allow other classes to access listed packages in your project
     exports oogasalad;
 }

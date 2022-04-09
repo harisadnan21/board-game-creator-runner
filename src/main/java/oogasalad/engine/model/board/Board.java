@@ -1,12 +1,10 @@
 package oogasalad.engine.model.board;
 
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
-import javafx.util.Pair;
 import oogasalad.engine.model.OutOfBoardException;
 
-public interface Board extends Iterable<Pair<Position, Piece>>{
+public interface Board extends Iterable<PositionState>{
 
   int NO_WINNER_YET = -2;
 
@@ -40,7 +38,7 @@ public interface Board extends Iterable<Pair<Position, Piece>>{
    * @param j column
    * @return An optional which contains a piece record or null
    */
-  Optional<PieceRecord> getPieceRecord(int i, int j);
+  Optional<Piece> getPieceRecord(int i, int j);
 
 
   /**
