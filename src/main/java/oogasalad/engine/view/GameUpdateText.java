@@ -3,10 +3,13 @@ package oogasalad.engine.view;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class GameUpdateText {
   private String updateText;
   private Text text;
+  private static final Logger LOG = LogManager.getLogger(GameUpdateText.class);
 
   public GameUpdateText() {
     updateText = "Begin Game";

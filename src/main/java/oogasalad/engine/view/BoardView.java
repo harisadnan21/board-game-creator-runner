@@ -25,7 +25,7 @@ import org.apache.logging.log4j.Logger;
 import oogasalad.engine.model.parsing.GameParser;
 
 public class BoardView implements PropertyChangeListener{
-  private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
+  private static final Logger LOG = LogManager.getLogger(BoardView.class);
   public static String IMAGES_FOLDER = "images/";
   public static String BLACK_KNIGHT = IMAGES_FOLDER + "blueWhiteOrbit.png";
   public static String WHITE_KNIGHT = IMAGES_FOLDER + "purpleBlackOrbit.png";
