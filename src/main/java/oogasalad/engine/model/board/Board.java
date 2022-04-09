@@ -26,20 +26,53 @@ public class Board implements DisplayableBoard {
   private Set<Position> currentValidMoves; //Why does the Board care?
   private int myWinner = NO_WINNER_YET; //Why does the Board care?
 
-  //TODO: update code to use these constants instead of magic numbers, maybe even make enum?git
 
-  private int numRows;
-  @Deprecated  private int numColumns;
+  //TODO: update code to use these constants instead of magic numbers
+
+  private final int numRows;
+  private final int numCols;
+  private final int firstRow = 0;
+  private final int firstCol = 0;
+  private final int lastRow;
+  private final int lastCol;
   private SortedMap<Position, PositionState> myBoard;
 
   public Board(PositionState[][] positionStates) {
     this.numRows = positionStates.length;
-    this.numColumns = Board.getNumColumnsInLongestRow(positionStates);
-    this.myBoard = getPositionPositionStateMap(positionStates);
+    this.numCols = Board.getNumColumnsInLongestRow(positionStates);
+    this.lastRow = numRows - 1;
+    this.lastCol = numCols - 1;
+    this.myBoard = getPositionStatesMap(positionStates);
   }
 
   public Board(int rows, int columns) {
-    this(getEmptyArrayOfPositionStates(rows, columns));
+    this.numRows = rows;
+    this.numCols = columns;
+    this.lastRow = numRows - 1;
+    this.lastCol = numCols - 1;
+    PositionState[][] positionStates = getEmptyArrayOfPositionStates();
+    this.myBoard = getPositionStatesMap(positionStates);
+  }
+
+  private TreeMap<Position, PositionState> getPositionStatesMap(
+      PositionState[][] positionStates) {
+    Seq<Position> positions = Seq.rangeClosed(firstRow, lastRow)
+                              .crossJoin(Seq.rangeClosed(firstCol, lastCol))
+                              .map(Position::new);
+    Map<Position, PositionState> map = positions.toMap(pos -> pos
+                                                      ,pos -> positionStates[pos.i()][pos.j()]);
+    return TreeMap.ofAll(map);
+  }
+
+  private PositionState[][] getEmptyArrayOfPositionStates() {
+    PositionState[][] positionStates = new PositionState[numRows][numCols];
+
+    for (int i = firstRow; i <= lastRow; i++) {
+      for (int j = firstCol; j <= lastCol; j++) {
+        positionStates[i][j] = new PositionState(new Position(i,j), Piece.EMPTY);
+      }
+    }
+    return positionStates;
   }
 
   @Override
@@ -51,6 +84,11 @@ public class Board implements DisplayableBoard {
   public Board clone() throws CloneNotSupportedException {
     return (Board) super.clone();
   }
+
+  public Board copy() throws CloneNotSupportedException {
+    return this.clone();
+  }
+
 
   public Board removePiece(Position position) throws CloneNotSupportedException {
     Board returnBoard = this.clone();
@@ -81,27 +119,11 @@ public class Board implements DisplayableBoard {
     return this.getPositionStateAt(position.x(), position.y());
   }
 
-  private TreeMap<Position, PositionState> getPositionPositionStateMap(
-      PositionState[][] positionStates) {
-    Seq<Position> coords = Seq.rangeClosed(0, numColumns-1).crossSelfJoin().map(Position::new);
-    Map<Position, PositionState> map = coords.stream()
-        .collect(Collectors.toMap(coord -> coord, coord -> positionStates[coord.x()][coord.y()]));
-    return TreeMap.ofAll(map);
-  }
 
   private static int getNumColumnsInLongestRow(PositionState[][] positionStates) {
     return Arrays.stream(positionStates).mapToInt(Array::getLength).max().orElse(0);
   }
 
-  private static PositionState[][] getEmptyArrayOfPositionStates(int rows, int columns) {
-    PositionState[][] positionStates = new PositionState[rows][columns];
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < columns; j++) {
-        positionStates[i][j] = new PositionState(new Position(i,j), Piece.EMPTY);
-      }
-    }
-    return positionStates;
-  }
 
 
   @Override
@@ -120,7 +142,7 @@ public class Board implements DisplayableBoard {
   }
 
   private boolean isValidY(int y) {
-    return Utilities.isPositive(y) && (y <= numColumns);
+    return Utilities.isPositive(y) && (y <= numCols);
   }
 
   private boolean isValidX(int x) {
@@ -135,7 +157,7 @@ public class Board implements DisplayableBoard {
 
   @Override
   public int getWidth() {
-    return numColumns;
+    return numCols;
   }
 
   @Override
