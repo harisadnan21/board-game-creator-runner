@@ -145,11 +145,11 @@ public class Board implements DisplayableBoard {
   }
 
   private boolean isValidJ(int j) {
-    return Utilities.isPositive(j) && (j <= numCols);
+    return (j >= firstCol) && (j <= lastCol);
   }
 
   private boolean isValidI(int i) {
-    return Utilities.isPositive(i) && (i <= numRows);
+    return (i >= firstRow) && (i <= lastRow);
   }
 
 
