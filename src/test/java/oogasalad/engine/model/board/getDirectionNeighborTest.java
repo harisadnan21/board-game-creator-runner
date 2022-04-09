@@ -1,9 +1,11 @@
 package oogasalad.engine.model.board;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
 class getDirectionNeighborTest {
-  ArrayBoard TestBoard = new ArrayBoard(3 , 3);
+  Board TestBoard = new ArrayBoard(3 , 3);
   @Test
   void getNeighbor() {
   }

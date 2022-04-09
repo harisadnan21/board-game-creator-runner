@@ -92,7 +92,7 @@
 			"name": "basic checkers win",
 			"conditions": [
 				{
-					"name": "PlayerHasNoPieces"
+					"name": "BoardFull"
 				}
 			],
 			"winDecision": [

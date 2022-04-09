@@ -1,5 +1,6 @@
 package oogasalad.engine.view;
 
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -22,8 +23,9 @@ public class BoardViewTest extends DukeApplicationTest {
   @Override
   public void start (Stage stage) {
     board = new BoardView(3, 3, 300, 300);
+
     Board backEndBoard = new ArrayBoard(3,3);
-    controller = new Controller(backEndBoard, 3, 3);
+    controller = new Controller(backEndBoard);
 
     board.addController(controller);
 //    root = new Group();

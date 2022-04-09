@@ -2,7 +2,6 @@ package oogasalad.engine.model.move;
 
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
-import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
@@ -14,7 +13,7 @@ import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
  */
 public class Rule {
 
-  private ArrayBoard myNextState;
+  private Board myNextState;
 
   private PieceCondition[] myConditions;
   private Action[] myActions;
@@ -62,6 +61,7 @@ public class Rule {
       throws OutOfBoardException {
     if (isValid(board, refI, refJ)) {
       Board boardCopy = board.copy(); // would need to use an inherited clone method if there are multiple board implementations
+
       for (Action action: myActions) {
         action.execute(boardCopy, refI, refJ);
       }

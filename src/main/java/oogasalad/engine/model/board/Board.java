@@ -128,3 +128,4 @@ public interface Board extends Iterable<PositionState>{
   int getWidth();
 
 }
+

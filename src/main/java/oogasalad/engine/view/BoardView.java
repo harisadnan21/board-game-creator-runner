@@ -129,7 +129,11 @@ public class BoardView implements PropertyChangeListener{
         myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.player())); // TODO: get piece image based on both player and type
       }
       else {
-        myGrid[pos.i()][pos.j()].removePiece();
+        try {
+          myGrid[pos.i()][pos.j()].removePiece();
+        } catch (Exception e) {
+          LOG.warn("Exception thrown", e);
+        }
       }
     }
     checkForWin(board);
@@ -137,17 +141,11 @@ public class BoardView implements PropertyChangeListener{
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
   private void checkForWin(Board board) {
-    if(board.getWinner() != Board.NO_WINNER_YET){ // TODO: change this to read from Constants file
-      System.out.printf("gameOver! Player %d wins%n", board.getWinner());
+    if(board.getWinner() != Board.NO_WINNER_YET){
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
-      try {
-        displayGameOver(board);
-        updateBoard(GameParser.getCheckersBoard());
-      }
-      catch(IOException e){
-        e.printStackTrace();
-        //TODO: Change
-      }
+      //displayGameOver(board);
+      Board newBoard = myController.resetGame();
+      updateBoard(newBoard);
     }
   }
 

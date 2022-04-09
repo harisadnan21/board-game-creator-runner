@@ -1,7 +1,6 @@
 package oogasalad.engine.model;
 
 import java.util.Stack;
-import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 
 public class Game {
