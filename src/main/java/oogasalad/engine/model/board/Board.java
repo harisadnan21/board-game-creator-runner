@@ -8,6 +8,13 @@ public interface Board extends Iterable<PositionState>{
 
   int NO_WINNER_YET = -2;
 
+  /**
+   * Places piece on the board at [row,column] with given type and player
+   * @param row
+   * @param column
+   * @param type
+   * @param player
+   */
   void placeNewPiece(int row, int column, int type, int player);
 
   /**
