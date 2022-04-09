@@ -7,9 +7,6 @@ import javafx.util.Pair;
 import oogasalad.engine.model.OutOfBoardException;
 
 public interface Board extends Iterable<Pair<Position, Piece>>{
-
-  int NO_WINNER_YET = -2;
-
   void placeNewPiece(int row, int column, int type, int player);
 
   /**

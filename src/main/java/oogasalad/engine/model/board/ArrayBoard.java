@@ -12,12 +12,13 @@ import oogasalad.engine.model.Utilities;
  * @author Jake Heller, Haris Adnan, Robert Cranston
  */
 public class ArrayBoard implements Iterable<Pair<Position, Piece>>, Board {
+  public static final int NO_WINNER_YET = -2;
   private int myRows;
   private int myColumns;
   private Piece[][] pieceLocations;
   private int activePlayer;
   private Set<Position> currentValidMoves;
-  private int myWinner = Board.NO_WINNER_YET;
+  private int myWinner = NO_WINNER_YET;
 
 
   public ArrayBoard(int rows, int columns) {
