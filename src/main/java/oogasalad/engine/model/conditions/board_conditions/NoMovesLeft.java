@@ -1,5 +1,6 @@
 package oogasalad.engine.model.conditions.board_conditions;
 
+import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 
 /**

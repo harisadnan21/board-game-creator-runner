@@ -1,18 +1,16 @@
 package oogasalad.engine.controller;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.NoSelectionEngine;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
 import oogasalad.engine.model.move.Rule;
 import oogasalad.engine.model.parsing.GameParser;
-import oogasalad.engine.view.BoardView;
 
 public class Controller {
 

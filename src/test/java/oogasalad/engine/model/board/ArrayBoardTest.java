@@ -7,12 +7,12 @@ import oogasalad.engine.model.OutOfBoardException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class BoardTest {
-  Board myBoard = new Board(3, 3);
+class ArrayBoardTest {
+  ArrayBoard myBoard = new ArrayBoard(3, 3);
 
   @BeforeEach
   void setup() {
-    myBoard = new Board(3, 3);
+    myBoard = new ArrayBoard(3, 3);
   }
 
   @Test
@@ -57,7 +57,7 @@ class BoardTest {
   @Test
   void deepCopyTest() throws OutOfBoardException {
     myBoard.placeNewPiece(1, 1, 0, 0);
-    Board copyBoard = myBoard.deepCopy();
+    ArrayBoard copyBoard = myBoard.deepCopy();
     assertTrue(copyBoard.getPieceRecord(1, 1).isPresent());
     assertFalse(copyBoard.getPieceRecord(0, 1).isPresent());
   }
@@ -66,7 +66,7 @@ class BoardTest {
   void copyConstructorTest() throws OutOfBoardException {
     myBoard.placeNewPiece(1, 1, 0, 0);
 
-    Board board = new Board(myBoard);
+    ArrayBoard board = new ArrayBoard(myBoard);
     assertTrue(board.getPieceRecord(1, 1).isPresent());
     assertFalse(board.getPieceRecord(0, 1).isPresent());
   }

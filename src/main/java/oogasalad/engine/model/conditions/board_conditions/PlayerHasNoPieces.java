@@ -1,6 +1,7 @@
 package oogasalad.engine.model.conditions.board_conditions;
 
 import javafx.util.Pair;
+import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
