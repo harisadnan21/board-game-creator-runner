@@ -30,7 +30,7 @@ public class IsEmpty extends PieceCondition {
 
     int i = myParameters[0]+refI;
     int j = myParameters[1]+refJ;
-    if (!board.isValidXY(i, j)) {
+    if (!board.isValidPosition(i, j)) {
       return false;
     }
     return board.isEmpty(i, j);

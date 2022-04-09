@@ -13,19 +13,17 @@ public interface DisplayableBoard extends Cloneable, Iterable<PositionState> {
 
   PositionState getPositionStateAt(Position position);
 
-  Boolean isPieceAtLocation(int row, int column);
+  boolean hasPieceAtLocation(int row, int column);
 
-  Boolean isPieceAtCoordinate(int x, int y);
-
-  boolean isValidXY(int x, int y);
+  boolean isValidPosition(int x, int y);
 
   int getHeight();
 
   int getWidth();
 
-  Boolean isValidRow(int row);
+  boolean isValidRow(int row);
 
-  Boolean isValidColumn(int column);
+  boolean isValidColumn(int column);
 
   Stream<PositionState> getPositionStatesStream();
 

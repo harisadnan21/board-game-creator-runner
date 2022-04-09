@@ -22,7 +22,7 @@ public class IsPieceType extends PieceCondition {
   public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
     int i = myParameters[0]+refI;
     int j = myParameters[1]+refJ;
-    if (!board.isValidXY(i,j)) {
+    if (!board.isValidPosition(i,j)) {
       return false;
     }
     PositionState positionState = board.getPositionStateAt(i,j);

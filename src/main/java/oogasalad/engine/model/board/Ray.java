@@ -1,11 +1,9 @@
 package oogasalad.engine.model.board;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 import oogasalad.engine.model.setup.Constants;
@@ -69,7 +67,7 @@ public class Ray {
   }
 
   private static boolean isValid(Board board, int x, int y) {
-    return board.isValidXY(x, y);
+    return board.isValidPosition(x, y);
   }
 
 }

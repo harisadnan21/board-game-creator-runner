@@ -94,7 +94,7 @@ public class Board implements DisplayableBoard {
   }
 
   private static PositionState[][] getEmptyArrayOfPositionStates(int rows, int columns) {
-    PositionState[][] positionStates = new PositionState[columns][rows];
+    PositionState[][] positionStates = new PositionState[rows][columns];
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
         positionStates[i][j] = new PositionState(new Position(i,j), Piece.EMPTY);
@@ -105,32 +105,26 @@ public class Board implements DisplayableBoard {
 
 
   @Override
-  public Boolean isPieceAtLocation(int row, int column) {
-    return isPieceAtCoordinate(column, row);
-  }
-
-  @Override
-  public Boolean isPieceAtCoordinate(int x, int y) {
-    PositionState positionState = myBoard.get(new Position(x, y)).get();
+  public boolean hasPieceAtLocation(int row, int column) {
+    PositionState positionState = myBoard.get(new Position(row, column)).get();
     return positionState.piece() != Piece.EMPTY;
   }
 
-
   @Override
-  public boolean isValidXY(int x, int y) {
+  public boolean isValidPosition(int x, int y) {
     return isValidX(x) && isValidY(y);
   }
 
   public boolean isValidPosition(Position position) {
-    return isValidX(position.x()) && isValidY(position.x());
+    return isValidX(position.x()) && isValidY(position.y());
   }
 
   private boolean isValidY(int y) {
-    return Utilities.isPositive(y) && (y <= numRows);
+    return Utilities.isPositive(y) && (y <= numColumns);
   }
 
   private boolean isValidX(int x) {
-    return Utilities.isPositive(x) && (x <= numColumns);
+    return Utilities.isPositive(x) && (x <= numRows);
   }
 
 
@@ -145,12 +139,12 @@ public class Board implements DisplayableBoard {
   }
 
   @Override
-  public Boolean isValidRow(int row) {
+  public boolean isValidRow(int row) {
     return isValidY(row);
   }
 
   @Override
-  public Boolean isValidColumn(int column) {
+  public boolean isValidColumn(int column) {
     return isValidX(column);
   }
 
@@ -216,7 +210,7 @@ public class Board implements DisplayableBoard {
   }
 
   public boolean isEmpty(int x, int y) {
-    return !isPieceAtCoordinate(x,y);
+    return !hasPieceAtLocation(x,y);
   }
 
   public void setValidMoves(Object o) {
