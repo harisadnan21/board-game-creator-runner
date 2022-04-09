@@ -24,13 +24,13 @@ public class Controller {
 
 
 
-  public Controller(Board board, int rows, int columns) {
+  public Controller(Board board) {
     try {
 //      myBoard = GameParser.getCheckersBoard();
 //      rules = GameParser.getCheckersRules();
       myBoard = board;
-      rules = Arrays.asList(GameParser.readRules(GameParser.CHECKERS_FILE));
-      winConditions = GameParser.getCheckersWinConditions();
+      rules = Arrays.asList(GameParser.readRules(GameParser.TIC_TAC_TOE_FILE));
+      winConditions = Arrays.asList(GameParser.readWinConditions(GameParser.TIC_TAC_TOE_FILE));
       myGame = new Game(myBoard);
       myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
     } catch (Exception e){
@@ -41,9 +41,10 @@ public class Controller {
   /**
    * resets the board model to the initial game state
    */
-  public void resetGame() {
+  public Board resetGame() {
     myGame = new Game(myBoard);
     myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
+    return myBoard;
   }
 
   public Board click(int i, int j) throws OutOfBoardException {

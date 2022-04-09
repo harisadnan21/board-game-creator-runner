@@ -23,7 +23,7 @@ public class BoardViewTest extends DukeApplicationTest {
     board = new BoardView(3, 3, 300, 300);
 
     Board backEndBoard = new Board(3,3);
-    controller = new Controller(backEndBoard, 3, 3);
+    controller = new Controller(backEndBoard);
 
     board.addController(controller);
 //    root = new Group();
