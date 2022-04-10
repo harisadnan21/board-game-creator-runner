@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
 public class PositionTest {
-  public static final Integer[] X_VALS = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
-  public static final Integer[] Y_VALS = new Integer[]{11, 22, 33, 44, 55, 66, 77, 88, 99};
+  public static final Integer[] ROW_VALS = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+  public static final Integer[] COL_VALS = new Integer[]{11, 22, 33, 44, 55, 66, 77, 88, 99};
   private static Position[] positions1;
   private static Position[] positions2;
 
@@ -21,7 +21,7 @@ public class PositionTest {
     positions1 = new Position[9];
     positions2 = new Position[9];
     int count = 0;
-    for(Tuple2<Integer, Integer> tup: zip(Arrays.stream(X_VALS), Arrays.stream(Y_VALS))){
+    for(Tuple2<Integer, Integer> tup: zip(Arrays.stream(ROW_VALS), Arrays.stream(COL_VALS))){
       positions1[count] = new Position(tup);
       positions2[count] = new Position(tup.v1, tup.v2);
       count+=1;
@@ -63,20 +63,20 @@ public class PositionTest {
   }
 
   @Test
-  void x() {
+  void i() {
     for(int i = 0; i < positions1.length; i++){
       Assertions.assertEquals(positions1[i].i(), positions2[i].i());
-      Assertions.assertEquals(positions1[i].i(), X_VALS[i]);
-      Assertions.assertEquals(positions2[i].i(), X_VALS[i]);
+      Assertions.assertEquals(positions1[i].i(), ROW_VALS[i]);
+      Assertions.assertEquals(positions2[i].i(), ROW_VALS[i]);
     }
   }
 
   @Test
-  void y() {
+  void j() {
     for(int i = 0; i < positions1.length; i++){
       Assertions.assertEquals(positions1[i].j(), positions2[i].j());
-      Assertions.assertEquals(positions1[i].j(), Y_VALS[i]);
-      Assertions.assertEquals(positions2[i].j(), Y_VALS[i]);
+      Assertions.assertEquals(positions1[i].j(), COL_VALS[i]);
+      Assertions.assertEquals(positions2[i].j(), COL_VALS[i]);
     }
   }
 
@@ -96,7 +96,7 @@ public class PositionTest {
   }
 
   @Test
-  void differentXCompare() {
+  void differentICompare() {
     for(int i = 0; i < positions1.length; i++){
       Position prev = positions1[i];
       for(int j = i+1; j < positions1.length; j++){

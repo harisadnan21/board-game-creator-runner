@@ -50,7 +50,8 @@ public abstract class Engine {
     return myGame;
   }
 
-  public abstract Board onCellSelect(int x, int y) throws OutOfBoardException;
+  public abstract Board onCellSelect(int x, int y)
+      throws OutOfBoardException, CloneNotSupportedException;
 
   public Board selectCell(int i, int j) {
     return null;

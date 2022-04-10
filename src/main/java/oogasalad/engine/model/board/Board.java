@@ -248,7 +248,8 @@ public class Board implements DisplayableBoard {
    * @param type
    * @param player
    */
-  public void placeNewPiece(int i, int j, int type, int player) {
+  public Board placeNewPiece(int i, int j, int type, int player) throws CloneNotSupportedException {
+    return this.placePiece(new PositionState(new Position(i,j), new Piece(type, player)));
   }
 
   @Override
@@ -275,7 +276,8 @@ public class Board implements DisplayableBoard {
    * @param i
    * @param j
    */
-  public void remove(int i, int j) {
+  public Board remove(int i, int j) throws CloneNotSupportedException {
+    return this.removePiece(new Position(i,j));
   }
 
   /**
@@ -286,7 +288,8 @@ public class Board implements DisplayableBoard {
    * @param i2
    * @param j2
    */
-  public void move(int i1, int j1, int i2, int j2) {
+  public Board move(int i1, int j1, int i2, int j2) throws CloneNotSupportedException {
+    return this.movePiece(new Position(i1,j1), new Position(i2,j2));
   }
 
   /**
