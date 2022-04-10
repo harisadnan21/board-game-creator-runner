@@ -97,8 +97,7 @@ public class GameParser {
   }
 
 
-  private static PieceCondition[] getConditions(JSONArray conditionsJSON)
-      throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+  private static PieceCondition[] getConditions(JSONArray conditionsJSON) {
 
     int numConditions = conditionsJSON.length();
     PieceCondition[] conditions = new PieceCondition[numConditions];
@@ -116,8 +115,7 @@ public class GameParser {
     }
     return conditions;
   }
-  private static BoardCondition[] getWinConditions(JSONArray conditionsJSON)
-      throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+  private static BoardCondition[] getWinConditions(JSONArray conditionsJSON) {
 
     int numConditions = conditionsJSON.length();
     BoardCondition[] conditions = new BoardCondition[numConditions];

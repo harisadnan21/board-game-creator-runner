@@ -87,25 +87,24 @@ public class Board implements DisplayableBoard {
 
   }
 
-  public Board copy() throws CloneNotSupportedException {
+  public Board copy() {
     return this.clone();
   }
 
 
-  public Board removePiece(Position position) throws CloneNotSupportedException {
+  public Board removePiece(Position position) {
     Board returnBoard = this.clone();
     returnBoard.myBoard = returnBoard.myBoard.put(position, new PositionState(position, Piece.EMPTY));
     return returnBoard;
   }
 
-  public Board placePiece(PositionState positionState) throws CloneNotSupportedException {
+  public Board placePiece(PositionState positionState) {
     Board returnBoard = this.clone();
     returnBoard.myBoard = returnBoard.myBoard.put(positionState.position(), positionState);
     return returnBoard;
   }
 
-  public Board movePiece(Position oldPosition, Position newPosition)
-      throws CloneNotSupportedException {
+  public Board movePiece(Position oldPosition, Position newPosition) {
 
     PositionState oldPositionState = this.getPositionStateAt(oldPosition);
     Board returnBoard = this.clone();

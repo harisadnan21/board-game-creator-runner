@@ -8,7 +8,7 @@ import util.DukeApplicationTest;
 public class EngineApplicationTest extends DukeApplicationTest {
 
   @Override
-  public void start (Stage stage) throws IOException, OutOfBoardException {
+  public void start (Stage stage) throws OutOfBoardException {
 //    BoardView board = new BoardView(3, 3, 300, 300);
 //    Controller controller = new Controller(board, 3, 3);
 //

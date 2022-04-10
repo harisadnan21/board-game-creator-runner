@@ -13,7 +13,7 @@ public interface JSONSerializable<T> {
    *
    * @return a String representation of the objects JSON Format
    */
-  String toJSON() throws Exception;
+  String toJSON();
 
   /**
    * Converts a JSON String into an object
