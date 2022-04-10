@@ -7,73 +7,71 @@ import oogasalad.engine.model.OutOfBoardException;
 import io.vavr.collection.SortedMap;
 import io.vavr.collection.TreeMap;
 
+import java.util.Arrays;
+import java.util.List;
+import java.lang.reflect.Array;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+//import oogasalad.engine.model.utilities.Utilities;
+import oogasalad.engine.model.Utilities;
+import org.jooq.lambda.Seq;
+
 public class PersistentMapBoard implements Board {
 
-  private SortedMap<Position, Piece> myPieces;
+  public static final int NO_WINNER_YET = -2; //Eh
+  private int activePlayer; //Why does the Board care?
+  private Set<Position> currentValidMoves; //Why does the Board care?
+  private int myWinner = NO_WINNER_YET; //Why does the Board care?
 
   private int myWidth;
   private int myHeight;
 
-  public PersistentMapBoard(int rows, int columns) {
-    myPieces = TreeMap.of(new Position(0, 0), new Piece(0,0));
-    myPieces = myPieces.put(new Position(0, 1), new Piece(0,0));
+  private final int numRows;
+  private final int numCols;
+  private final int firstRow = 0;
+  private final int firstCol = 0;
+  private final int lastRow;
+  private final int lastCol;
+  private SortedMap<Position, PositionState> myPieces;
+
+
+  @Override
+  public Board placeNewPiece(int i, int j, int type, int player){
+    Position pos = new Position(i,j);
+    Piece piece = new Piece(type, player);
+    PositionState state = new PositionState(pos, piece);
+    return placePiece(state);
   }
 
   @Override
-  public Board placeNewPiece(int row, int column, int type, int player) {
+  public Board remove(int i, int j) {
     try {
-      PersistentMapBoard newBoard = (PersistentMapBoard) this.clone();
-      newBoard.myPieces = myPieces.put(new Position(row, column), new Piece(0,0));
-    } catch(Exception e) {
-      throw new RuntimeException("");
+      return removePiece(new Position(i, j));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  @Override
+  public boolean isEmpty(int i, int j) {
+    return !hasPieceAtLocation(i,j);
+  }
+
+  @Override
+  public Board move(int i1, int j1, int i2, int j2) {
+    try {
+      return movePiece(new Position(i1,j1), new Position(i2,j2));
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
     }
     return null;
   }
 
   @Override
-  public Board remove(int i, int j) {
-    return null;
-  }
-
-  @Override
-  public boolean isEmpty(int i, int j) {
-
-    return false;
-  }
-
-  @Override
-  public Optional<Piece> getPiece(int i, int j) {
-    return Optional.empty();
-  }
-
-  @Override
-  public Board move(int i1, int j1, int i2, int j2) {
-    return null;
-  }
-
-  @Override
   public void setPlayer(int player) {
-
-  }
-
-  @Override
-  public int getPlayer() {
-    return 0;
-  }
-
-  @Override
-  public boolean isValidPosition(int i, int j) {
-    return false;
-  }
-
-  @Override
-  public boolean isValidPosition(Position position) {
-    return false;
-  }
-
-  @Override
-  public ArrayBoard copy() throws OutOfBoardException {
-    return null;
+    activePlayer = player;
   }
 
   @Override
@@ -96,18 +94,204 @@ public class PersistentMapBoard implements Board {
     return 0;
   }
 
+
+  //TODO: update code to use these constants instead of magic numbers
+
+
+  public PersistentMapBoard(PositionState[][] positionStates) {
+    this.numRows = positionStates.length;
+    this.numCols = positionStates[0].length;
+    this.lastRow = numRows - 1;
+    this.lastCol = numCols - 1;
+    this.myPieces = getPositionStatesMap(positionStates);
+  }
+
+  public PersistentMapBoard(int rows, int columns) {
+    this.numRows = rows;
+    this.numCols = columns;
+    this.lastRow = numRows - 1;
+    this.lastCol = numCols - 1;
+    PositionState[][] positionStates = getEmptyArrayOfPositionStates();
+    this.myPieces = getPositionStatesMap(positionStates);
+  }
+
+  private TreeMap<Position, PositionState> getPositionStatesMap(
+      PositionState[][] positionStates) {
+    Seq<Position> positions = Seq.rangeClosed(firstRow, lastRow)
+        .crossJoin(Seq.rangeClosed(firstCol, lastCol))
+        .map(Position::new);
+    Map<Position, PositionState> map = positions.toMap(pos -> pos
+        ,pos -> positionStates[pos.i()][pos.j()]);
+    return TreeMap.ofAll(map);
+  }
+
+  private PositionState[][] getEmptyArrayOfPositionStates() {
+    PositionState[][] positionStates = new PositionState[numRows][numCols];
+
+    for (int i = firstRow; i <= lastRow; i++) {
+      for (int j = firstCol; j <= lastCol; j++) {
+        positionStates[i][j] = new PositionState(new Position(i,j), Piece.EMPTY);
+      }
+    }
+    return positionStates;
+  }
+
+  @Override
+  public int getPlayer() {
+    return activePlayer;
+  }
+
+  @Override
+  public PersistentMapBoard clone() throws CloneNotSupportedException {
+    return (PersistentMapBoard) super.clone();
+  }
+
+  public Board copy() {
+    try {
+      return this.clone();
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  private PersistentMapBoard cloneMapBoard() throws CloneNotSupportedException {
+    return (PersistentMapBoard) super.clone();
+  }
+
+
+  public Board removePiece(Position position) throws CloneNotSupportedException {
+    PersistentMapBoard returnBoard = (PersistentMapBoard) this.clone();
+    returnBoard.myPieces = returnBoard.myPieces.put(position, new PositionState(position, Piece.EMPTY));
+    return returnBoard;
+  }
+
+  private Board placePiece(PositionState positionState) throws CloneNotSupportedException {
+    PersistentMapBoard returnBoard = this.clone();
+    returnBoard.myPieces = returnBoard.myPieces.put(positionState.position(), positionState);
+    return returnBoard;
+  }
+
+  private Board movePiece(Position oldPosition, Position newPosition)
+      throws CloneNotSupportedException {
+
+    PositionState oldPositionState = this.getPositionStateAt(oldPosition);
+    PersistentMapBoard returnBoard = this.clone();
+
+    PositionState newPositionState = new PositionState(newPosition, oldPositionState.piece());
+
+    returnBoard.myPieces = returnBoard.myPieces.put(oldPosition, new PositionState(oldPosition, Piece.EMPTY)).put(newPosition, newPositionState);
+    return returnBoard;
+  }
+
+  public PositionState getPositionStateAt(Position position) {
+    return myPieces.get(position).get();
+  }
+
+  public Optional<Piece> getPiece(int i, int j) {
+    if (!isValidPosition(i,j)) {
+      throwOutOfBoardError(i,j);
+    }
+    else if (!hasPieceAtLocation(i,j)) {
+      return Optional.empty();
+    }
+    else {
+      return Optional.of(myPieces.get(new Position(i,j)).piece());
+    }
+  }
+
+
+  private static int getNumColumnsInLongestRow(PositionState[][] positionStates) {
+    return Arrays.stream(positionStates).mapToInt(Array::getLength).max().orElse(0);
+  }
+
+//  public boolean hasPieceAtLocation(int i, int j) {
+//    PositionState positionState = myPieces.get(new Position(i, j)).get();
+//    return positionState.piece() != Piece.EMPTY;
+//  }
+
+
+  @Override
+  public boolean hasPieceAtLocation(int row, int column) {
+    PositionState positionState = myPieces.get(new Position(row, column)).get();
+    return positionState.piece() != Piece.EMPTY;
+  }
+
+  @Override
+  public boolean isValidPosition(int x, int y) {
+    return isValidI(x) && isValidJ(y);
+  }
+
+  public boolean isValidPosition(Position position) {
+    return isValidI(position.i()) && isValidJ(position.j());
+  }
+
+  private boolean isValidJ(int j) {
+    return Utilities.isPositive(j) && (j <= numCols);
+  }
+
+  private boolean isValidI(int i) {
+    return Utilities.isPositive(i) && (i <= numRows);
+  }
+
+
   @Override
   public int getHeight() {
-    return 0;
+    return numRows;
   }
 
   @Override
   public int getWidth() {
-    return 0;
+    return numCols;
   }
 
   @Override
   public Iterator<PositionState> iterator() {
-    return null;
+    getPositionStatesStream().iterator();
   }
+
+  public boolean isValidRow(int row) {
+    return isValidJ(row);
+  }
+
+  public boolean isValidColumn(int column) {
+    return isValidI(column);
+  }
+
+  public Stream<PositionState> getPositionStatesStream() {
+    return myPieces.values().toJavaStream();
+  }
+
+//  public Seq<PositionState> getPositionStatesSeq() {
+//    return Seq.seq(myPieces.values().toJavaStream());
+//  }
+//
+//  public Stream<PositionState> getSatisfyingPositionStatesStream(
+//      Predicate<PositionState> positionStatePredicate) {
+//    return getPositionStatesStream().filter(positionStatePredicate);
+//  }
+//
+//  public Stream<PositionState> getNotSatisfyingPositionStatesStream(
+//      Predicate<PositionState> positionStatePredicate) {
+//    return myPieces.values().filterNot(positionStatePredicate).toJavaStream();
+//  }
+//
+//  public Seq<PositionState> getNotSatisfyingPositionStatesSeq(
+//      Predicate<PositionState> positionStatePredicate) {
+//    return Seq.seq(this.getNotSatisfyingPositionStatesStream(positionStatePredicate));
+//  }
+//
+//  public Seq<PositionState> getSatisfyingPositionStatesSeq(
+//      Predicate<PositionState> positionStatePredicate) {
+//    return Seq.seq(this.getSatisfyingPositionStatesStream(positionStatePredicate));
+//  }
+//
+//  public Map<Integer, List<PositionState>> piecesByPlayer(){
+//    return getPositionStatesSeq().groupBy(PositionState::player);
+//  }
+//
+//  public Map<Integer,Integer> numPiecesByPlayer(){
+//    return Seq.seq(piecesByPlayer())
+//        .toMap(pair -> pair.v1, pair -> pair.v2.size());
+//  }
 }

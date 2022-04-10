@@ -10,6 +10,7 @@ open module oogasalad_app {
     requires java.desktop;
     requires org.apache.logging.log4j;
     requires io.vavr;
+    requires org.jooq.jool;
 
     // allow other classes to access listed packages in your project
     exports oogasalad;

@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.Set;
 import oogasalad.engine.model.OutOfBoardException;
 
-public interface Board extends Iterable<PositionState>{
+public interface Board extends Iterable<PositionState>, Cloneable{
 
   int NO_WINNER_YET = -2;
 
