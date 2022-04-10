@@ -2,6 +2,9 @@ package oogasalad.engine.model.board;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +23,42 @@ class BoardTest {
     assertFalse(myBoard.hasPieceAtLocation(0,1));
   }
 
-//
+  @Test
+  void testBoardIsPersistentBasic() throws CloneNotSupportedException {
+    Board b1 = new Board(4,4);
+    Board b2 = b1.placePiece(new PositionState(new Position(1,1), new Piece(1,1)));
+    Assertions.assertNotEquals(b1, b2);
+    Assertions.assertNotEquals(b1.getPositionStateAt(1,1), b2.getPositionStateAt(1,1));
+  }
+
+@Test
+void testBoardIsPersistentAdvanced() throws CloneNotSupportedException {
+  Board b1 = new Board(8,8);
+  List<Board> boards = new ArrayList<>();
+  boards.add(b1);
+  for(int i = 1; i < 3; i++){
+    Board b2 = b1.placePiece(new PositionState(new Position(1, i), new Piece(1, Piece.PLAYER_ONE)));
+    Board b3 = b2.placePiece(new PositionState(new Position(2, i), new Piece(1, Piece.PLAYER_TWO)));
+    Board b4 = b3.movePiece(new Position(2,i), new Position(3, i));
+    Board b5 = b4.placePiece(new PositionState(new Position(0,i), new Piece(1, Piece.PLAYER_ONE)));
+    Board b6 = b5.removePiece(new Position(2, i));
+    boards.add(b2);
+    boards.add(b3);
+    boards.add(b4);
+    boards.add(b5);
+    boards.add(b6);
+  }
+
+  for(int i = 0; i < boards.size(); i++) {
+    Board board1 = boards.get(i);
+    for(int j = i+1; j < boards.size(); j++) {
+      Board board2 = boards.get(j);
+      Assertions.assertNotEquals(board1, board2);
+    }
+  }
+
+
+}
 //  @Test
 //  void getMyBoard() {
 //    //assertEquals(TestBoard, TestBoard.getMyBoard());
