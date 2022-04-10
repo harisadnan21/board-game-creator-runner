@@ -4,6 +4,7 @@ import java.util.Optional;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.PositionState;
 
 /**
  * Returns true if piece type at (i, j) is of certain type
@@ -26,9 +27,9 @@ public class IsPieceType extends PieceCondition {
     if (!board.isValidPosition(i, j)) {
       return false;
     }
-    Optional<Piece> optional = board.getPiece(i, j);
-    if (optional.isPresent()) {
-      return optional.get().type()== myParameters[2];
+    PositionState cell = board.getPositionStateAt(i, j);
+    if (cell.isPresent()) {
+      return cell.piece().type() == myParameters[2];
     }
     return false;
   }

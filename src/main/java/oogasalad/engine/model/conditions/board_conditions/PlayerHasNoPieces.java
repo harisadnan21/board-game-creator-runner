@@ -20,7 +20,7 @@ public class PlayerHasNoPieces implements BoardCondition{
     int[] players = {0,0};
     for(PositionState cell : board){
       Piece piece = cell.piece();
-      if(cell.piece() != null){
+      if(!cell.isEmpty()){
         players[piece.player()] = players[piece.player()]+1;
       }
     }

@@ -36,6 +36,9 @@ public class BoardIterator implements Iterator {
       currColumn++;
     }
     Piece piece = myPieces[currRow][currColumn];
+    if (piece == null) {
+      piece = Piece.EMPTY;
+    }
     Position position = new Position(currRow, currColumn);
     return new PositionState(position, piece);
   }

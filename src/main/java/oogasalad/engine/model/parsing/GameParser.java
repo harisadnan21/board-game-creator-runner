@@ -52,8 +52,8 @@ public class GameParser {
     int width = boardState.getInt("width");
     int height = boardState.getInt("height");
 
-    //Board board = new ArrayBoard(height, width);
-    Board board = new PersistentMapBoard(height, width);
+    Board board = new ArrayBoard(height, width);
+    //Board board = new PersistentMapBoard(height, width);
 
     int[][] pieceConfiguration = new int[height][width];
     int[][] playerConfiguration = new int[height][width];
@@ -67,7 +67,7 @@ public class GameParser {
     for (int i = 0; i < pieceConfiguration.length; i++) {
       for (int j = 0; j < pieceConfiguration[0].length; j++) {
         if (pieceConfiguration[i][j] != -1) {
-          board.placeNewPiece(i,j,pieceConfiguration[i][j], playerConfiguration[i][j]);
+          board = board.placeNewPiece(i,j,pieceConfiguration[i][j], playerConfiguration[i][j]);
         }
       }
     }

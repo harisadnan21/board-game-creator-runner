@@ -17,4 +17,7 @@ public record Piece (int type, int player) {
     return new Piece(BLANK_TYPE, NO_PLAYER);
   }
 
+  public boolean isEmpty() {
+    return this.equals(EMPTY);
+  }
 }

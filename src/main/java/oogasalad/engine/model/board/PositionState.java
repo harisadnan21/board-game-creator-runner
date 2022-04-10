@@ -8,4 +8,8 @@ public record PositionState (Position position, Piece piece) {
   public boolean isEmpty() {
     return piece().equals(Piece.EMPTY);
   }
+
+  public boolean isPresent() {
+    return !isEmpty();
+  }
 }

@@ -81,7 +81,7 @@ public class PieceSelectionEngine extends Engine {
 
     // makes position selected if board has piece with current player or position is empty
     // should this condition exist, or should it be baked into rules?
-    if (!board.isEmpty(x, y) && board.getPiece(x, y).get().player() == board.getPlayer() || board.isEmpty(x, y)) {  myIsPieceSelected = true;
+    if (!board.isEmpty(x, y) && board.getPiece(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {  myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
       myValidMoves = getValidMoves();
       board.setValidMoves(myValidMoves);

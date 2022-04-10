@@ -86,19 +86,17 @@ public class ArrayBoard implements Board {
   }
 
   @Override
-  public Optional<Piece> getPiece(int i, int j) {
+  public Piece getPiece(int i, int j) {
     //return Optional.of(myBoard[i][j]);
     if (!isValidPosition(i,j)) {
       throwOutOfBoardError(i,j);
     }
-    Optional<Piece> piece;
     if (pieceLocations[i][j] == null) {
-      piece = Optional.empty();
+      return Piece.EMPTY;
     }
     else {
-      piece = Optional.of(pieceLocations[i][j]);
+      return pieceLocations[i][j];
     }
-    return piece;
   }
 
 
@@ -215,6 +213,13 @@ public class ArrayBoard implements Board {
   @Override
   public int getWidth() {
     return myColumns;
+  }
+
+  @Override
+  public PositionState getPositionStateAt(int i, int j) {
+    Piece piece = getPiece(i,j);
+    Position pos = new Position(i,j);
+    return new PositionState(pos, piece);
   }
 
 }

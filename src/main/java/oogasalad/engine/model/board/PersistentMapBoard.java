@@ -176,20 +176,25 @@ public class PersistentMapBoard implements Board {
     return returnBoard;
   }
 
-  public PositionState getPositionStateAt(Position position) {
+  private PositionState getPositionStateAt(Position position) {
     return myPieces.get(position).get();
   }
 
-  public Optional<Piece> getPiece(int i, int j) {
+  @Override
+  public PositionState getPositionStateAt(int i, int j) {
+    return getPositionStateAt(new Position(i,j));
+  }
+
+  public Piece getPiece(int i, int j) {
     if (!isValidPosition(i,j)) {
       throwOutOfBoardError(i,j);
       return null;
     }
     else if (!hasPieceAtLocation(i,j)) {
-      return Optional.empty();
+      return Piece.EMPTY;
     }
     else {
-      return Optional.of(myPieces.get(new Position(i,j)).get().piece());
+      return myPieces.get(new Position(i,j)).get().piece();
     }
   }
 

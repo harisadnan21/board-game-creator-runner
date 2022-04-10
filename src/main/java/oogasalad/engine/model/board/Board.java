@@ -51,9 +51,9 @@ public interface Board extends Iterable<PositionState>, Cloneable{
    *
    * @param i row
    * @param j column
-   * @return An optional which contains a piece record or null
+   * @return the piece at i,j
    */
-  Optional<Piece> getPiece(int i, int j);
+  Piece getPiece(int i, int j);
 
 
   /**
@@ -135,5 +135,12 @@ public interface Board extends Iterable<PositionState>, Cloneable{
    */
   int getWidth();
 
+  /**
+   * Returns PositionState at (i,j)
+   * @param i
+   * @param j
+   * @return
+   */
+  PositionState getPositionStateAt(int i, int j);
 }
 
