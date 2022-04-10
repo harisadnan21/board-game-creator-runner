@@ -48,15 +48,6 @@ public interface Board extends Iterable<PositionState>, Cloneable{
   }
 
   /**
-   *
-   * @param i row
-   * @param j column
-   * @return the piece at i,j
-   */
-  Piece getPiece(int i, int j);
-
-
-  /**
    * If piece exists at (i1, j1), moves that piece
    * to (i2, j2)
    * @param i1

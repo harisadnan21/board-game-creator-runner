@@ -97,7 +97,8 @@ public class GameParser {
       Position repPoint = getRepresentativePoint(ruleJSON.getJSONObject("representativePoint"));
       PieceCondition[] conditions = getConditions(ruleJSON.getJSONArray("conditions"));
       Action[] actions = getActions(ruleJSON.getJSONArray("actions"));
-      rules[index] = new Rule(conditions, actions, repPoint.i(), repPoint.j());
+      String name = ruleJSON.getString("name");
+      rules[index] = new Rule(name, conditions, actions, repPoint.i(), repPoint.j());
     }
 
     return rules;

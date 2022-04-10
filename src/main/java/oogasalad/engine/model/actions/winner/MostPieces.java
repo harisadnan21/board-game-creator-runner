@@ -20,7 +20,7 @@ public class MostPieces implements Winner {
     int[] players = new int[] {0,0};
     for(PositionState cell : board){
       Piece piece = cell.piece();
-      if(piece != null) {
+      if(cell.isPresent()) {
         players[piece.player()] = players[piece.player()]+1;
       }
     }

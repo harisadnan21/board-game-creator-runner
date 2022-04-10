@@ -36,6 +36,6 @@ public class NoSelectionEngine extends Engine {
     PieceCondition[] conditions = new PieceCondition[]{new IsEmpty(new int[]{0, 0})};
     Action[] actions = new Action[]{new Place(new int[]{0, 0, 0, 0})};
 
-    getMoves().add(new Rule(conditions, actions, 0, 0));
+    getMoves().add(new Rule("Place", conditions, actions, 0, 0));
   }
 }

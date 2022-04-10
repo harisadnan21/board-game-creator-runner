@@ -185,7 +185,7 @@ public class PersistentMapBoard implements Board {
     return getPositionStateAt(new Position(i,j));
   }
 
-  public Piece getPiece(int i, int j) {
+  private Piece getPiece(int i, int j) {
     if (!isValidPosition(i,j)) {
       throwOutOfBoardError(i,j);
       return null;

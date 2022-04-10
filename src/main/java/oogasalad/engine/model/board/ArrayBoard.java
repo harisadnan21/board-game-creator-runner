@@ -31,7 +31,7 @@ public class ArrayBoard implements Board {
     activePlayer = board.getPlayer();
     for (PositionState cell: this) {
       Piece piece = cell.piece();
-      if (piece != null) {
+      if (cell.isPresent()) {
         this.placeNewPiece(cell.position().i(), cell.position().j(), piece.type(), piece.player());
       }
     }
@@ -85,8 +85,7 @@ public class ArrayBoard implements Board {
     return !isEmpty(row, column);
   }
 
-  @Override
-  public Piece getPiece(int i, int j) {
+  private Piece getPiece(int i, int j) {
     //return Optional.of(myBoard[i][j]);
     if (!isValidPosition(i,j)) {
       throwOutOfBoardError(i,j);
@@ -159,7 +158,7 @@ public class ArrayBoard implements Board {
     board.setPlayer(this.getPlayer());
     for (PositionState cell: this) {
       Piece piece = cell.piece();
-      if (piece != null) {
+      if (cell.isPresent()) {
         board.placeNewPiece(cell.position().i(), cell.position().j(), piece.type(), piece.player());
       }
     }

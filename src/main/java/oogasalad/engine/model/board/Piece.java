@@ -20,4 +20,19 @@ public record Piece (int type, int player) {
   public boolean isEmpty() {
     return this.equals(EMPTY);
   }
+
+  public boolean equals(Object o) {
+    if (o.getClass() != Piece.class) {
+      return false;
+    }
+    else {
+      Piece piece = (Piece) o;
+      if (piece.player() == player() && piece.type() == type()) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
 }

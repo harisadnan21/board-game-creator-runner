@@ -86,6 +86,7 @@ public class BoardView implements PropertyChangeListener{
     Board nextState = myController.click(i, j);
     selectCell(i, j);
     updateBoard(nextState);
+    checkForWin(nextState);
     text.updateText(nextState.getPlayer());
   }
 

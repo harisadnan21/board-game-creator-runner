@@ -19,6 +19,7 @@ public class Rule {
   private Action[] myActions;
   private int myRepI; // i value for the "representative cell" for this action
   private int myRepJ; // j value for the "representative cell" for this action
+  private String myName;
 
   /**
    *
@@ -27,17 +28,20 @@ public class Rule {
    * @param repI
    * @param repJ
    */
-  public Rule(PieceCondition[] conditions, Action[] actions, int repI, int repJ) {
+  public Rule(String name, PieceCondition[] conditions, Action[] actions, int repI, int repJ) {
     myConditions = conditions;
     myActions = actions;
     myRepI = repI;
     myRepJ = repJ;
+    myName = name;
   }
 
   public boolean isValid(Board board, int refI, int refJ) {
+    System.out.println(myName);
     try {
       for (PieceCondition condition : myConditions) {
         if (!condition.isTrue(board, refI, refJ)) {
+          System.out.printf("Condition: %s, (%d,%d)\n\n", condition.getClass().toGenericString(), refI, refJ);
           return false;
         }
       }

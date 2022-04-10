@@ -17,7 +17,7 @@ public class BoardFull implements BoardCondition{
   @Override
   public boolean isTrue(Board board){
     for(PositionState cell : board){
-      if(cell.piece() == null){
+      if(cell.isPresent()){
         return false;
       }
     }

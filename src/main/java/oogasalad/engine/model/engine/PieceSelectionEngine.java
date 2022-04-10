@@ -81,7 +81,7 @@ public class PieceSelectionEngine extends Engine {
 
     // makes position selected if board has piece with current player or position is empty
     // should this condition exist, or should it be baked into rules?
-    if (!board.isEmpty(x, y) && board.getPiece(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {  myIsPieceSelected = true;
+    if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).piece().player() == board.getPlayer() || board.isEmpty(x, y)) {  myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
       myValidMoves = getValidMoves();
       board.setValidMoves(myValidMoves);
@@ -111,86 +111,5 @@ public class PieceSelectionEngine extends Engine {
     myIsPieceSelected = false;
     mySelectedCell = null;
     myValidMoves = null;
-  }
-
-  // while we don't have json reading, this method is used to create a rule
-  private void createCheckersMove() {
-    PieceCondition empty0 = new IsEmpty(new int[]{1, 1});
-    PieceCondition occupied0 = new IsOccupied(new int[]{0, 0});
-    PieceCondition isPlayer0 = new IsPlayer(new int[]{0});
-    PieceCondition isPlayersPiece = new IsPlayerPiece(new int[]{0, 0, 0});
-    PieceCondition[] conditions = new PieceCondition[]{empty0, occupied0, isPlayer0};
-    Action[] actions = new Action[]{new Move(new int[]{0, 0, 1, 1})};
-
-    getMoves().add(new Rule(conditions, actions, 1, 1));
-
-    PieceCondition empty01 = new IsEmpty(new int[]{-1, 1});
-    PieceCondition occupied01 = new IsOccupied(new int[]{0, 0});
-    PieceCondition isPlayer01 = new IsPlayer(new int[]{0});
-    PieceCondition isPlayersPiece01 = new IsPlayerPiece(new int[]{0, 0, 0});
-    PieceCondition[] conditions01 = new PieceCondition[]{empty01, occupied01, isPlayer01};
-    Action[] actions01 = new Action[]{new Move(new int[]{0, 0, -1, 1})};
-
-    getMoves().add(new Rule(conditions01, actions01, -1, 1));
-
-    PieceCondition empty1 = new IsEmpty(new int[]{2, 2});
-    PieceCondition isPlayer1 = new IsPlayer(new int[]{0});
-    PieceCondition occupied1 = new IsOccupied(new int[]{0, 0});
-    PieceCondition occupied2 = new IsOccupied(new int[]{1, 1});
-    PieceCondition isOpposite = new IsPlayerPiece(new int[]{1, 1, 1});
-
-    PieceCondition[] conditions1 = new PieceCondition[]{empty1, isPlayer1, occupied1, occupied2, isOpposite};
-
-    Action remove = new Remove(new int[]{1,1});
-    Action move = new Move(new int[]{0, 0, 2, 2});
-    Action[] actions1 = new Action[]{remove, move};
-
-    getMoves().add(new Rule(conditions1, actions1, 2, 2));
-  }
-
-  private void createPlayer1Moves() {
-    PieceCondition empty0 = new IsEmpty(new int[]{-1, -1});
-    PieceCondition occupied0 = new IsOccupied(new int[]{0, 0});
-    PieceCondition isPlayer0 = new IsPlayer(new int[]{1});
-    PieceCondition[] conditions = new PieceCondition[]{empty0, occupied0, isPlayer0};
-    Action[] actions = new Action[]{new Move(new int[]{0, 0, -1, -1})};
-
-    getMoves().add(new Rule(conditions, actions, -1, -1));
-
-    PieceCondition empty11 = new IsEmpty(new int[]{1, -1});
-    PieceCondition occupied11 = new IsOccupied(new int[]{0, 0});
-    PieceCondition isPlayer11 = new IsPlayer(new int[]{1});
-    PieceCondition isPlayersPiece11 = new IsPlayerPiece(new int[]{0, 0, 0});
-    PieceCondition[] conditions11 = new PieceCondition[]{empty11, occupied11, isPlayer11};
-    Action[] actions11 = new Action[]{new Move(new int[]{0, 0, 1, -1})};
-
-    getMoves().add(new Rule(conditions11, actions11, 1, -1));
-
-    PieceCondition empty1 = new IsEmpty(new int[]{-2, -2});
-    PieceCondition isPlayer1 = new IsPlayer(new int[]{1});
-    PieceCondition occupied1 = new IsOccupied(new int[]{0, 0});
-    PieceCondition occupied2 = new IsOccupied(new int[]{-2, -2});
-    PieceCondition isOpposite = new IsPlayerPiece(new int[]{-1, -1, 0});
-
-    PieceCondition[] conditions1 = new PieceCondition[]{empty1, isPlayer1, occupied1, occupied2, isOpposite};
-
-    Action remove = new Remove(new int[]{-1,-1});
-    Action move = new Move(new int[]{0, 0, -2, -2});
-    Action[] actions1 = new Action[]{remove, move};
-
-    getMoves().add(new Rule(conditions1, actions1, -2, -2));
-  }
-  //temporary to create win conditions
-  private void createWinCondition(){
-    BoardCondition noPiecesLeft = new PlayerHasNoPieces();
-    Winner mostPieces = new MostPieces();
-
-    getWinConditions().add(new WinCondition(new BoardCondition[]{noPiecesLeft}, mostPieces));
-  }
-  private void createDrawCondition(){
-
-    BoardCondition noMovesLeft= new NoMovesLeft();
-    getWinConditions().add(new WinCondition(new BoardCondition[]{noMovesLeft}, null));
-
   }
 }

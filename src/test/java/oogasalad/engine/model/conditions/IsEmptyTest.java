@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.PersistentMapBoard;
 import oogasalad.engine.model.conditions.piece_conditions.IsEmpty;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 public class IsEmptyTest {
   Board myBoard;
+
   @BeforeEach
   void setup() {
     myBoard = new ArrayBoard(3, 3);
@@ -37,6 +39,6 @@ public class IsEmptyTest {
     PieceCondition condition = new IsEmpty(params);
 
     assertFalse(condition.isTrue(copyBoard, 1, 1));
-    assertTrue(condition.isTrue(copyBoard, 0, 1));
+    assertTrue(condition.isTrue(copyBoard, 0, 0));
   }
 }
