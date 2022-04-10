@@ -35,6 +35,14 @@ public interface Board extends Iterable<PositionState>, Cloneable{
    */
   boolean isEmpty(int i, int j);
 
+  /**
+   * returns true if there is a piece at the given location
+   * @param row
+   * @param column
+   * @return
+   */
+  boolean hasPieceAtLocation(int row, int column);
+
   default void throwOutOfBoardError(int i, int j) {
     throw new OutOfBoardException(String.format("Index (%d,%d) out of bounds", i, j));
   }

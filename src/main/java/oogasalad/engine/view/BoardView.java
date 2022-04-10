@@ -125,7 +125,7 @@ public class BoardView implements PropertyChangeListener{
     for (PositionState cell: board) {
       Position pos = cell.position();
       Piece piece = cell.piece();
-      if (piece != null) {
+      if (!cell.isEmpty()) {
         myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.player())); // TODO: get piece image based on both player and type
       }
       else {
@@ -136,7 +136,8 @@ public class BoardView implements PropertyChangeListener{
         }
       }
     }
-    checkForWin(board);
+    // TODO: this creates an infinite loop
+    //checkForWin(board);
   }
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.

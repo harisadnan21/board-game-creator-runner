@@ -81,6 +81,11 @@ public class ArrayBoard implements Board {
   }
 
   @Override
+  public boolean hasPieceAtLocation(int row, int column) {
+    return !isEmpty(row, column);
+  }
+
+  @Override
   public Optional<Piece> getPiece(int i, int j) {
     //return Optional.of(myBoard[i][j]);
     if (!isValidPosition(i,j)) {

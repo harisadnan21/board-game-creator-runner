@@ -18,7 +18,7 @@ public class EngineApplication extends Application {
   @Override
   public void start(Stage stage) throws Exception {
 
-    Board board = GameParser.readInitialBoard(GameParser.TIC_TAC_TOE_FILE);
+    Board board = GameParser.readInitialBoard(GameParser.CHECKERS_FILE);
 
     BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), 350, 350);
 

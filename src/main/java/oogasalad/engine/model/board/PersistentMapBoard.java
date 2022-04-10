@@ -61,12 +61,7 @@ public class PersistentMapBoard implements Board {
 
   @Override
   public Board move(int i1, int j1, int i2, int j2) {
-    try {
-      return movePiece(new Position(i1,j1), new Position(i2,j2));
-    } catch (CloneNotSupportedException e) {
-      e.printStackTrace();
-    }
-    return null;
+    return movePiece(new Position(i1,j1), new Position(i2,j2));
   }
 
   @Override
@@ -142,38 +137,35 @@ public class PersistentMapBoard implements Board {
   }
 
   @Override
-  public PersistentMapBoard clone() throws CloneNotSupportedException {
-    return (PersistentMapBoard) super.clone();
+  public PersistentMapBoard clone() {
+    PersistentMapBoard board = new PersistentMapBoard(myHeight, myWidth);
+    board.myPieces = myPieces;
+    board.activePlayer = activePlayer;
+    return board;
   }
 
   public Board copy() {
-    try {
-      return this.clone();
-    } catch (CloneNotSupportedException e) {
-      e.printStackTrace();
-    }
-    return null;
+    return this.clone();
   }
 
   private PersistentMapBoard cloneMapBoard() throws CloneNotSupportedException {
-    return (PersistentMapBoard) super.clone();
+    return clone();
   }
 
 
-  public Board removePiece(Position position) throws CloneNotSupportedException {
+  public Board removePiece(Position position) {
     PersistentMapBoard returnBoard = (PersistentMapBoard) this.clone();
     returnBoard.myPieces = returnBoard.myPieces.put(position, new PositionState(position, Piece.EMPTY));
     return returnBoard;
   }
 
-  private Board placePiece(PositionState positionState) throws CloneNotSupportedException {
-    PersistentMapBoard returnBoard = this.clone();
+  private Board placePiece(PositionState positionState) {
+    PersistentMapBoard returnBoard = clone();
     returnBoard.myPieces = returnBoard.myPieces.put(positionState.position(), positionState);
     return returnBoard;
   }
 
-  private Board movePiece(Position oldPosition, Position newPosition)
-      throws CloneNotSupportedException {
+  private Board movePiece(Position oldPosition, Position newPosition) {
 
     PositionState oldPositionState = this.getPositionStateAt(oldPosition);
     PersistentMapBoard returnBoard = this.clone();
@@ -191,12 +183,13 @@ public class PersistentMapBoard implements Board {
   public Optional<Piece> getPiece(int i, int j) {
     if (!isValidPosition(i,j)) {
       throwOutOfBoardError(i,j);
+      return null;
     }
     else if (!hasPieceAtLocation(i,j)) {
       return Optional.empty();
     }
     else {
-      return Optional.of(myPieces.get(new Position(i,j)).piece());
+      return Optional.of(myPieces.get(new Position(i,j)).get().piece());
     }
   }
 
@@ -214,7 +207,7 @@ public class PersistentMapBoard implements Board {
   @Override
   public boolean hasPieceAtLocation(int row, int column) {
     PositionState positionState = myPieces.get(new Position(row, column)).get();
-    return positionState.piece() != Piece.EMPTY;
+    return positionState.piece().equals(Piece.EMPTY);
   }
 
   @Override
@@ -247,7 +240,7 @@ public class PersistentMapBoard implements Board {
 
   @Override
   public Iterator<PositionState> iterator() {
-    getPositionStatesStream().iterator();
+    return getPositionStatesStream().iterator();
   }
 
   public boolean isValidRow(int row) {
