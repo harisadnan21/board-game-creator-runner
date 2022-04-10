@@ -13,8 +13,7 @@ public class deltaLoader {
   public static HashMap<Direction, Delta> loadDirectionDeltas() {
     // TODO: Make better
     HashMap<Direction, Delta> ret = new HashMap<>();
-    ResourceBundle directionDeltas = ResourceBundle.getBundle(
-        Constants.RESOURCEBUNDLEPATH+ Constants.DIRECTIONDELTASUBPATH);
+    ResourceBundle directionDeltas = Constants.DIRECTIONDELTAS_RESOURCES;
     for(String direction: directionDeltas.keySet()){
       Direction directionEnum = Direction.valueOf(direction.toUpperCase());
       int[] arry = Arrays.stream(directionDeltas.getString(direction).split(", ")).mapToInt(Integer::parseInt).toArray();

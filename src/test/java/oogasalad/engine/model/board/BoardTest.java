@@ -59,72 +59,35 @@ void testBoardIsPersistentAdvanced() {
 
 
 }
-//  @Test
-//  void getMyBoard() {
-//    //assertEquals(TestBoard, TestBoard.getMyBoard());
-//  }
-//
-//  @Test
-//  void selectCell() {
-//  }
-//
-//  @Test
-//  void placeNewPiece() throws OutOfBoardException {
-//    myBoard.placeNewPiece(1,1, 0, 0);
-//    assertTrue(myBoard.getPieceRecord(1,1).isPresent());
-//  }
-//
-//  @Test
-//  void remove() throws OutOfBoardException {
-//    myBoard.placeNewPiece(1,1, 0, 0);
-//    assertTrue(myBoard.getPieceRecord(1,1).isPresent());
-//    myBoard.remove(1,1);
-//    assertTrue(myBoard.getPieceRecord(1,1).isEmpty());
-//  }
-//
-//  @Test
-//  void getPieceRecord() throws OutOfBoardException {
-//    myBoard.placeNewPiece(1,1, 0, 0);
-//    Optional<PieceRecord> testPiece = myBoard.getPieceRecord(1,1);
-//    assertNotNull(testPiece);
-//  }
-//
-//  @Test
-//  void move() throws OutOfBoardException {
-//    OldPiece TestPiece = new OldPiece(0, 1, 0, 0 );
-//
-//    myBoard.move(0, 0, 2,2);
-//    assertNotNull(myBoard.getPieceRecord(2,2));
-//
-//  }
-//
-//  @Test
-//  void deepCopyTest() throws OutOfBoardException {
-//    myBoard.placeNewPiece(1, 1, 0, 0);
-//    Board copyBoard = myBoard.deepCopy();
-//    assertTrue(copyBoard.getPieceRecord(1, 1).isPresent());
-//    assertFalse(copyBoard.getPieceRecord(0, 1).isPresent());
-//  }
-//
-//  @Test
-//  void copyConstructorTest() throws OutOfBoardException {
-//    myBoard.placeNewPiece(1, 1, 0, 0);
-//
-//    Board board = new Board(myBoard);
-//    assertTrue(board.getPieceRecord(1, 1).isPresent());
-//    assertFalse(board.getPieceRecord(0, 1).isPresent());
-//  }
-//
-//  @Test
-//  void isValid() {
-//  }
-//
-//  @Test
-//  void deepCopy() {
-//  }
-//
-//  @Test
-//  void iterator() {
-//
-//  }
+
+  @Test
+  void placeNewPiece() throws OutOfBoardException {
+    myBoard = myBoard.placeNewPiece(1,1, 0, 0);
+    assertTrue(myBoard.hasPieceAtLocation(1,1));
+  }
+
+  @Test
+  void remove() throws OutOfBoardException {
+    myBoard = myBoard.placeNewPiece(1,1, 0, 0);
+    assertTrue(myBoard.hasPieceAtLocation(1,1));
+    myBoard = myBoard.remove(1,1);
+    assertTrue(myBoard.isEmpty(1,1));
+  }
+
+  @Test
+  void getPositionState() throws OutOfBoardException {
+    myBoard = myBoard.placeNewPiece(1,1, 0, 0);
+    PositionState testPos = myBoard.getPositionStateAt(1,1);
+    assertNotNull(testPos);
+  }
+
+  @Test
+  void move() throws OutOfBoardException {
+    OldPiece TestPiece = new OldPiece(0, 1, 0, 0 );
+
+    myBoard = myBoard.move(0, 0, 2,2);
+    assertNotNull(myBoard.getPositionStateAt(2,2));
+
+  }
+
 }

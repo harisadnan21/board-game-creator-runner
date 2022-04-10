@@ -6,8 +6,9 @@ import oogasalad.engine.model.board.Direction;
 import oogasalad.engine.model.setup.parsing.deltaLoader;
 
 public class Constants {
-  public static final String RESOURCEBUNDLEPATH = "resources/";
-  public static final String DIRECTIONDELTASUBPATH = "engine_resources/direction_deltas";
+  public static final String DIRECTIONDELTAPATH = "engine-resources.direction_deltas";
+  public static ResourceBundle DIRECTIONDELTAS_RESOURCES = ResourceBundle.getBundle(DIRECTIONDELTAPATH);
+
   public static final HashMap<Direction, Delta> DIRECTIONDELTAS = deltaLoader.loadDirectionDeltas();
 
 

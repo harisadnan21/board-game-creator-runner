@@ -18,7 +18,7 @@ public class IsEmptyTest {
 
   @Test
   void basicTest() throws OutOfBoardException {
-    myBoard.placeNewPiece(1, 1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
     int[] params = new int[]{0, 0};
     PieceCondition condition = new IsEmpty(params);
 
@@ -28,7 +28,7 @@ public class IsEmptyTest {
 
   @Test
   void copyTest() throws OutOfBoardException {
-    myBoard.placeNewPiece(1, 1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
 
     Board copyBoard = myBoard.copy();
 
