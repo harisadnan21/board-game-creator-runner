@@ -17,7 +17,7 @@ public class IsEmptyTest {
   }
 
   @Test
-  void basicTest() throws OutOfBoardException {
+  void basicTest() throws OutOfBoardException, CloneNotSupportedException {
     myBoard.placeNewPiece(1, 1, 0, 0);
     int[] params = new int[]{0, 0};
     PieceCondition condition = new IsEmpty(params);
