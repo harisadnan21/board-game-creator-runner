@@ -7,7 +7,7 @@ import oogasalad.engine.model.setup.parsing.deltaLoader;
 
 public class Constants {
   public static final String RESOURCEBUNDLEPATH = "resources/";
-  public static final String DIRECTIONDELTASUBPATH = "direction_deltas";
+  public static final String DIRECTIONDELTASUBPATH = "engine_resources/direction_deltas";
   public static final HashMap<Direction, Delta> DIRECTIONDELTAS = deltaLoader.loadDirectionDeltas();
 
 

@@ -31,14 +31,14 @@ public class Ray {
 
   public static Stream<PositionState> getDirectionalRayWhileConditions(Board board, Position position, Direction direction, List<Predicate<PositionState>> positionStatePredicates) {
     Builder<PositionState> ray = Stream.builder();
-    int x = position.j();
-    int y = position.i();
+    int i = position.i();
+    int j = position.j();
     Delta delta = Constants.DIRECTIONDELTAS.get(direction);
     Predicate<PositionState> positionStatePredicate = reducePredicates(positionStatePredicates); // Combines list of predicates into one predicate which is when they are all true
-    while(isValid(board, x, y) && passesCondition(board, positionStatePredicate, x, y)){
-      ray.accept(board.getPositionStateAt(x,y));
-      x += delta.xdelta();
-      y += delta.ydelta();
+    while(isValid(board, i, j) && passesCondition(board, positionStatePredicate, i, j)){
+      ray.accept(board.getPositionStateAt(i,j));
+      i += delta.idelta();
+      j += delta.jdelta();
     }
 
     return ray.build();
@@ -61,13 +61,13 @@ public class Ray {
     return getDirectionalRayWhileCondition(board, position,direction, positionStatePredicate.negate());
   }
 
-  private static boolean passesCondition(Board board, Predicate<PositionState> positionStatePredicate, int x,
-      int y) {
-    return positionStatePredicate.test(board.getPositionStateAt(x, y));
+  private static boolean passesCondition(Board board, Predicate<PositionState> positionStatePredicate, int i,
+      int j) {
+    return positionStatePredicate.test(board.getPositionStateAt(i, j));
   }
 
-  private static boolean isValid(Board board, int x, int y) {
-    return board.isValidPosition(x, y);
+  private static boolean isValid(Board board, int i, int j) {
+    return board.isValidPosition(i, j);
   }
 
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,6 +29,46 @@ class RayTest {
       Assertions.assertFalse(positionStateStreamLength2 > 4);
       Assertions.assertFalse(positionStateStreamLength3 > 4);
       Assertions.assertFalse(positionStateStreamLength4 > 4);
+    }
+  }
+
+  @Test
+  void getDirectionalRayWhileTrueConditionLength() {
+    Board board4x4 = new Board(2,2);
+    Direction[] directions = Direction.values();
+    for(Direction direction: directions) {
+      long positionStateStreamLength1 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(0,0), direction, positionState -> true).count();
+      long positionStateStreamLength2 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(2,2), direction, positionState -> true).count();
+      long positionStateStreamLength3 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(0,2), direction, positionState -> true).count();
+      long positionStateStreamLength4 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(2,0), direction, positionState -> true).count();
+      Assertions.assertFalse(positionStateStreamLength1 > 2);
+      Assertions.assertFalse(positionStateStreamLength2 > 2);
+      Assertions.assertFalse(positionStateStreamLength3 > 2);
+      Assertions.assertFalse(positionStateStreamLength4 > 2);
+    }
+  }
+
+  @Test
+  void getDirectionalRayWhileFalseConditionLength() {
+    Board board4x4 = new Board(5,5);
+    Direction[] directions = Direction.values();
+    for(Direction direction: directions) {
+      long positionStateStreamLength1 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(0,0), direction, positionState -> false).count();
+      long positionStateStreamLength2 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(2,2), direction, positionState -> false).count();
+      long positionStateStreamLength3 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(0,2), direction, positionState -> false).count();
+      long positionStateStreamLength4 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(2,0), direction, positionState -> false).count();
+      long positionStateStreamLength5 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(4,0), direction, positionState -> false).count();
+      long positionStateStreamLength6 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(4,2), direction, positionState -> false).count();
+      long positionStateStreamLength7 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(4,2), direction, positionState -> false).count();
+      long positionStateStreamLength8 = Ray.getDirectionalRayWhileCondition(board4x4, new Position(4,0), direction, positionState -> false).count();
+      Assertions.assertFalse(positionStateStreamLength1 > 1);
+      Assertions.assertFalse(positionStateStreamLength2 > 1);
+      Assertions.assertFalse(positionStateStreamLength3 > 1);
+      Assertions.assertFalse(positionStateStreamLength4 > 1);
+      Assertions.assertFalse(positionStateStreamLength5 > 1);
+      Assertions.assertFalse(positionStateStreamLength6 > 1);
+      Assertions.assertFalse(positionStateStreamLength7 > 1);
+      Assertions.assertFalse(positionStateStreamLength8 > 1);
     }
   }
 
