@@ -130,7 +130,7 @@ public class Board implements DisplayableBoard {
   @Override
   public boolean hasPieceAtLocation(int row, int column) {
     PositionState positionState = myBoard.get(new Position(row, column)).get();
-    return positionState.piece() != Piece.EMPTY;
+    return positionState.piece().equals(Piece.EMPTY);
   }
 
   @Override
