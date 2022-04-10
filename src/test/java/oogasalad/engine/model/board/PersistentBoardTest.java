@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PersistentBoardTest {
-  Board myBoard = new PersistentMapBoard(3, 3);
+  Board myBoard = new MapBoard(3, 3);
 
   @BeforeEach
   void setup() {
