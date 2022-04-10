@@ -78,8 +78,13 @@ public class Board implements DisplayableBoard {
   }
 
   @Override
-  public Board clone() throws CloneNotSupportedException {
-    return (Board) super.clone();
+  public Board clone() {
+    try {
+      return (Board) super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException("bad");
+    }
+
   }
 
   public Board copy() throws CloneNotSupportedException {
