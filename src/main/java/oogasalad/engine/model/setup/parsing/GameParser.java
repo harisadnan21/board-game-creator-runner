@@ -230,8 +230,12 @@ public class GameParser {
   }
 
   public static Board getCheckersBoard()
-      throws IOException, OutOfBoardException {
-    return readInitialBoard(Constants.CHECKERS_FILE);
+      throws OutOfBoardException {
+    try {
+      return readInitialBoard(Constants.CHECKERS_FILE);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public static List<Rule> getCheckersRules()

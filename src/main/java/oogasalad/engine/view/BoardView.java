@@ -135,7 +135,7 @@ public class BoardView implements PropertyChangeListener{
   }
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
-  private void checkForWin(Board board) throws IOException {
+  private void checkForWin(Board board) {
     if(board.getWinner() != Board.NO_WINNER_YET){
       System.out.printf("gameOver! Player %d wins%n", board.getWinner());
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
