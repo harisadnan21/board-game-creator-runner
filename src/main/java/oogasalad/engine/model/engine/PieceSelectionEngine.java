@@ -43,7 +43,7 @@ public class PieceSelectionEngine extends Engine {
   }
 
   @Override
-  public Board onCellSelect(int x, int y) throws OutOfBoardException, CloneNotSupportedException {
+  public Board onCellSelect(int x, int y) throws OutOfBoardException {
     Board board = getGame().getBoard();
     Position cellClicked = new Position(x, y);
     if (!myIsPieceSelected) {

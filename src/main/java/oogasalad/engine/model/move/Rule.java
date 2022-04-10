@@ -58,7 +58,7 @@ public class Rule {
   }
 
   public Board doMovement(Board board, int refI, int refJ)
-      throws OutOfBoardException, CloneNotSupportedException {
+      throws OutOfBoardException {
     if (isValid(board, refI, refJ)) {
       Board boardCopy = board.deepCopy();
       for (Action action: myActions) {

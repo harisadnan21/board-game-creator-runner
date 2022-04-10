@@ -24,5 +24,5 @@ public abstract class Action {
    * @throws OutOfBoardException
    */
   public abstract void execute(Board board, int refI, int refJ)
-      throws OutOfBoardException, CloneNotSupportedException;
+      throws OutOfBoardException;
 }

@@ -17,14 +17,14 @@ class BoardTest {
   }
 
   @Test
-  void testPlacement() throws CloneNotSupportedException {
+  void testPlacement() {
     Board b = myBoard.placePiece(new PositionState(new Position(0,1),new Piece(1,1)));
     assertTrue(b.hasPieceAtLocation(0,1));
     assertFalse(myBoard.hasPieceAtLocation(0,1));
   }
 
   @Test
-  void testBoardIsPersistentBasic() throws CloneNotSupportedException {
+  void testBoardIsPersistentBasic() {
     Board b1 = new Board(4,4);
     Board b2 = b1.placePiece(new PositionState(new Position(1,1), new Piece(1,1)));
     Assertions.assertNotEquals(b1, b2);
@@ -32,7 +32,7 @@ class BoardTest {
   }
 
 @Test
-void testBoardIsPersistentAdvanced() throws CloneNotSupportedException {
+void testBoardIsPersistentAdvanced() {
   Board b1 = new Board(8,8);
   List<Board> boards = new ArrayList<>();
   boards.add(b1);

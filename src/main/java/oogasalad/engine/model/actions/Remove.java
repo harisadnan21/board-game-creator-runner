@@ -14,7 +14,7 @@ public class Remove extends Action {
   }
   @Override
   public void execute(Board board, int refI, int refJ)
-      throws OutOfBoardException, CloneNotSupportedException {
+      throws OutOfBoardException {
     board.remove(myParameters[0]+refI, myParameters[1]+refJ);
   }
 }

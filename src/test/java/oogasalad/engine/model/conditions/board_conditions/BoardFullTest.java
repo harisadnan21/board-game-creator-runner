@@ -12,13 +12,13 @@ import org.junit.jupiter.api.Test;
 class BoardFullTest {
 
   @Test
-  void isTrue() throws CloneNotSupportedException {
+  void isTrue() {
     Board board = getBoard();
     BoardFull boardFull = new BoardFull();
     Assertions.assertTrue(boardFull.isTrue(board));
   }
 
-  private Board getBoard() throws CloneNotSupportedException {
+  private Board getBoard() {
     Board currentBoard = new Board(4, 4);
     for (OfInt it = IntStream.rangeClosed(0, 3).iterator(); it.hasNext(); ) {
       int i = it.next();

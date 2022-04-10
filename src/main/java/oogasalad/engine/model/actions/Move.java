@@ -16,7 +16,7 @@ public class Move extends Action {
 
   @Override
   public void execute(Board board, int refI, int refJ)
-      throws OutOfBoardException, CloneNotSupportedException {
+      throws OutOfBoardException {
     board.move(myParameters[0]+refI, myParameters[1]+refJ,
         myParameters[2]+refI, myParameters[3]+refJ);
   }

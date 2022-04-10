@@ -82,7 +82,7 @@ public class BoardView implements PropertyChangeListener{
   }
 
   public void cellClicked(MouseEvent e, int i, int j)
-      throws OutOfBoardException, CloneNotSupportedException {
+      throws OutOfBoardException {
     Board nextState = myController.click(i, j);
     selectCell(i, j);
     updateBoard(nextState);
@@ -120,7 +120,7 @@ public class BoardView implements PropertyChangeListener{
     return new Pair<>(cellWidth, cellHeight);
   }
 
-  private void updateBoard(Board board) throws CloneNotSupportedException {
+  private void updateBoard(Board board) {
     setValidMarkers(board);
     for (PositionState piece: board) {
       Position pos = piece.getKey();
@@ -135,18 +135,13 @@ public class BoardView implements PropertyChangeListener{
   }
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
-  private void checkForWin(Board board) throws CloneNotSupportedException {
+  private void checkForWin(Board board) throws IOException {
     if(board.getWinner() != Board.NO_WINNER_YET){
       System.out.printf("gameOver! Player %d wins%n", board.getWinner());
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
-      try {
-        displayGameOver(board);
-        updateBoard(GameParser.getCheckersBoard());
-      }
-      catch(IOException e){
-        e.printStackTrace();
-        //TODO: Change
-      }
+      displayGameOver(board);
+      updateBoard(GameParser.getCheckersBoard());
+
     }
   }
 

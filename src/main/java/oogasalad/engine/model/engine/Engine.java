@@ -51,7 +51,7 @@ public abstract class Engine {
   }
 
   public abstract Board onCellSelect(int x, int y)
-      throws OutOfBoardException, CloneNotSupportedException;
+      throws OutOfBoardException;
 
   public Board selectCell(int i, int j) {
     return null;

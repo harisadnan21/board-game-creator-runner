@@ -17,7 +17,7 @@ public class NoSelectionEngine extends Engine {
     //createTicTacToeMove();
   }
 
-  public Board onCellSelect(int x, int y) throws OutOfBoardException, CloneNotSupportedException {
+  public Board onCellSelect(int x, int y) throws OutOfBoardException {
     Board board = getGame().getBoard();
 
     for (Rule move: getMoves()) {

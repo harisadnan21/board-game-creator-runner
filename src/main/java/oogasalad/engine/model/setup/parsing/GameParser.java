@@ -27,7 +27,7 @@ public class GameParser {
 
   // https://kodejava.org/how-do-i-read-json-file-using-json-java-org-json-library/
   public static Board readInitialBoard(String filePath)
-      throws IOException, OutOfBoardException, CloneNotSupportedException {
+      throws IOException, OutOfBoardException {
     JSONObject root = getRootObject(filePath);
 
     JSONObject boardState = root.getJSONObject(Constants.BOARD);
@@ -57,7 +57,7 @@ public class GameParser {
   }
 
   public static Rule[] readRules(String filePath)
-      throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+      throws IOException {
     JSONObject root = getRootObject(filePath);
 
     JSONArray rulesJSON = root.getJSONArray("rules");
@@ -74,7 +74,7 @@ public class GameParser {
     return rules;
   }
   public static WinCondition[] readWinConditions(String filePath)
-      throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+      throws IOException {
     JSONObject root = getRootObject(filePath);
 
     JSONArray winConditionsJSON = root.getJSONArray("winConditions");
@@ -224,22 +224,22 @@ public class GameParser {
   }
 
   public static void main(String[] args)
-      throws IOException, OutOfBoardException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, CloneNotSupportedException {
+      throws IOException, OutOfBoardException {
     Board board = readInitialBoard(Constants.CHECKERS_FILE);
     Rule[] rules = readRules(Constants.CHECKERS_FILE);
   }
 
   public static Board getCheckersBoard()
-      throws IOException, OutOfBoardException, CloneNotSupportedException {
+      throws IOException, OutOfBoardException {
     return readInitialBoard(Constants.CHECKERS_FILE);
   }
 
   public static List<Rule> getCheckersRules()
-      throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+      throws IOException {
     return Arrays.asList(readRules(Constants.CHECKERS_FILE));
   }
   public static List<WinCondition> getCheckersWinConditions()
-      throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+      throws IOException {
     return Arrays.asList(readWinConditions(Constants.CHECKERS_FILE));
   }
 
