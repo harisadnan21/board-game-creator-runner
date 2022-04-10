@@ -14,14 +14,4 @@ public record Piece (int type, int player) {
     return new Piece(BLANK_TYPE, NO_PLAYER);
   }
 
-  public boolean equals(Object o) {
-    if (o.getClass() != Piece.class) {
-      return false;
-    }
-    Piece piece = (Piece) o;
-    if (piece.player == player() && piece.type == type()) {
-      return true;
-    }
-    return false;
-  }
 }
