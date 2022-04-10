@@ -248,7 +248,7 @@ public class Board implements DisplayableBoard {
    * @param type
    * @param player
    */
-  public void placeNewPiece(int i, int j, int type, int player) {
+  public Board placeNewPiece(int i, int j, int type, int player) {
   }
 
   @Override
@@ -275,7 +275,7 @@ public class Board implements DisplayableBoard {
    * @param i
    * @param j
    */
-  public void remove(int i, int j) {
+  public Board remove(int i, int j) {
   }
 
   /**
@@ -286,7 +286,7 @@ public class Board implements DisplayableBoard {
    * @param i2
    * @param j2
    */
-  public void move(int i1, int j1, int i2, int j2) {
+  public Board move(int i1, int j1, int i2, int j2) {
   }
 
   /**
