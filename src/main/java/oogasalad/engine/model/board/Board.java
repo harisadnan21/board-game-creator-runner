@@ -244,7 +244,14 @@ public class Board implements DisplayableBoard {
   public void setWinner(int winner) {
   }
 
-  public void placeNewPiece(int i, int j, int i1, int i2) {
+  /**
+   * Places new piece with type and player at location (i,j)
+   * @param i
+   * @param j
+   * @param type
+   * @param player
+   */
+  public void placeNewPiece(int i, int j, int type, int player) {
   }
 
   @Override
@@ -263,14 +270,34 @@ public class Board implements DisplayableBoard {
   public void setPlayer(int i) {
   }
 
-  public void remove(int i, int i1) {
+  /**
+   * Removes piece at (i,j)
+   * Throws exception if either position not in board
+   * @param i
+   * @param j
+   */
+  public void remove(int i, int j) {
   }
 
-  public void move(int i, int i1, int i2, int i3) {
+  /**
+   * Moves piece at (i1,j1) to (i2,j2)
+   * Throws exception if either position not in board
+   * @param i1
+   * @param j1
+   * @param i2
+   * @param j2
+   */
+  public void move(int i1, int j1, int i2, int j2) {
   }
 
-  @Override
-  public Map<Object, Object> getPieceRecord(int x, int y) {
+  /**
+   * Returns Piece object at i, j
+   * Throws exception if location not in board
+   * @param i
+   * @param j
+   * @return
+   */
+  public Piece getPiece(int i, int j) {
     return null;
   }
 }

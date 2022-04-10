@@ -42,5 +42,4 @@ public interface DisplayableBoard extends Cloneable, Iterable<PositionState> {
 
   int getWinner();
 
-  Map<Object, Object> getPieceRecord(int x, int y);
 }
