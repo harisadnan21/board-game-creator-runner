@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
+import oogasalad.engine.model.player.Player;
+import org.jooq.SelectWhereStep;
+import org.jooq.lambda.Seq;
+import org.jooq.lambda.tuple.Range;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,6 +77,28 @@ void testBoardIsPersistentAdvanced() {
     assertTrue(myBoard.hasPieceAtLocation(1,1));
     myBoard = myBoard.remove(1,1);
     assertTrue(myBoard.isEmpty(1,1));
+  }
+
+  @Test
+  void emptyBoardInit() {
+    Board board = new Board(3,3);
+    Stream<PositionState> positionStateStream = board.getPositionStatesStream();
+    positionStateStream.forEach(positionState -> Assertions.assertTrue(positionState.piece().equals(Piece.EMPTY)));
+  }
+
+  @Test
+  void fullBoardInit() {
+    PositionState[][] positionStates = new PositionState[3][3];
+    Seq.range(0, 3).crossSelfJoin().map(Position::new).forEach(position -> positionStates[position.i()][position.j()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
+    Board board = new Board(positionStates);
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(positionState.piece().equals(Piece.EMPTY)));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(positionState.player() == Piece.NO_PLAYER));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(positionState.type() == Piece.BLANK_TYPE));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(positionState.player() == Piece.PLAYER_ONE));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(board.isEmpty(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(board.hasPieceAtLocation(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(board.isValidPosition(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(positionState.piece().equals(new Piece(1, Piece.PLAYER_ONE))));
   }
 
   @Test
