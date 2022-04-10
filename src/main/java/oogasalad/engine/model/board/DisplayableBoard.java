@@ -1,7 +1,7 @@
 package oogasalad.engine.model.board;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.jooq.lambda.Seq;
@@ -32,10 +32,10 @@ public interface DisplayableBoard extends Cloneable, Iterable<PositionState> {
   PositionState getPositionStateAt(int x, int y);
 
   // TODO: implement
-  Collection<Stream<PositionState>> getRows();
+  Map<Integer, List<PositionState>> getRows();
 
   // TODO: implement
-  Collection<Stream<PositionState>> getCols();
+  Map<Integer, List<PositionState>> getCols();
 
   @Override
   Iterator<PositionState> iterator();
