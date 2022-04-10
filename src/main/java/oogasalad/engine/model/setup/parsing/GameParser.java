@@ -236,12 +236,14 @@ public class GameParser {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return null;
   }
 
   public static List<Rule> getCheckersRules()
       throws IOException {
     return Arrays.asList(readRules(Constants.CHECKERS_FILE));
   }
+
   public static List<WinCondition> getCheckersWinConditions()
       throws IOException {
     return Arrays.asList(readWinConditions(Constants.CHECKERS_FILE));
