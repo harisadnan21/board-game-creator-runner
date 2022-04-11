@@ -1,4 +1,4 @@
-package oogasalad.engine.model.AI;
+package oogasalad.engine.model.AI.Evaluation;
 
 import oogasalad.engine.model.board.Board;
 
