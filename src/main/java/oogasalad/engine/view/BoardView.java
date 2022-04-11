@@ -122,6 +122,7 @@ public class BoardView implements PropertyChangeListener{
   }
 
   private void updateBoard(Board board) {
+    text.updateText(board.getPlayer());
     setValidMarkers(board);
     for (PositionState cell: board) {
       Position pos = cell.position();
@@ -142,6 +143,7 @@ public class BoardView implements PropertyChangeListener{
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
   private void checkForWin(Board board) {
     if(board.getWinner() != Board.NO_WINNER_YET){
+      text.gameIsWon(board.getWinner());
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
       //displayGameOver(board);
       Board newBoard = myController.resetGame();
