@@ -23,7 +23,7 @@ public class EngineApplication extends Application {
 
     BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), 350, 350);
 
-    Controller controller = new Controller(board, 3, 3);
+    Controller controller = new Controller(board);
 
     boardView.addController(controller);
     Group root = new Group();

@@ -86,6 +86,7 @@ public class BoardView implements PropertyChangeListener{
     Board nextState = myController.click(i, j);
     selectCell(i, j);
     updateBoard(nextState);
+    checkForWin(nextState);
     text.updateText(nextState.getPlayer());
   }
 
@@ -122,16 +123,15 @@ public class BoardView implements PropertyChangeListener{
 
   private void updateBoard(Board board) {
     setValidMarkers(board);
-    for (PositionState piece: board) {
-      Position pos = piece.getKey();
-      if (piece.getValue() != null) {
-        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getPieceRecord().player()));
+    for (PositionState cell: board) {
+      Position pos = cell.position();
+      if (cell.isPresent()) {
+        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(cell.player()));
       }
       else {
         myGrid[pos.i()][pos.j()].removePiece();
       }
     }
-    checkForWin(board);
   }
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.

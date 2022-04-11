@@ -32,6 +32,7 @@ public class Board implements DisplayableBoard {
   private final int firstCol = 0;
   private final int lastRow;
   private final int lastCol;
+
   private SortedMap<Position, PositionState> myBoard;
 
   public Board(PositionState[][] positionStates) {
@@ -239,10 +240,12 @@ public class Board implements DisplayableBoard {
   }
 
   @Deprecated
-  public void setValidMoves(Object o) {
+  public void setValidMoves(Set<Position> moves) {
+    currentValidMoves = moves;
   }
 
   public void setWinner(int winner) {
+    myWinner = winner;
   }
 
   /**
@@ -258,12 +261,12 @@ public class Board implements DisplayableBoard {
 
   @Override
   public int getWinner() {
-    return 0;
+    return myWinner;
   }
 
   @Deprecated
-  public Position[] getValidMoves() {
-    return null;
+  public Set<Position> getValidMoves() {
+    return currentValidMoves;
   }
 
   @Deprecated
@@ -272,6 +275,7 @@ public class Board implements DisplayableBoard {
   }
 
   public void setPlayer(int i) {
+    activePlayer = i;
   }
 
   /**

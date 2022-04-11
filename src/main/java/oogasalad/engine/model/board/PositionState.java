@@ -24,6 +24,14 @@ public record PositionState(Position position, Piece piece) {
     return piece.player();
   }
 
+  public boolean isPresent() {
+    return !isEmpty();
+  }
+
+  public boolean isEmpty() {
+    return piece.equals(Piece.EMPTY);
+  }
+
   @Deprecated
   public Position getKey() {
     return null;

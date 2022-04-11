@@ -1,6 +1,7 @@
 package oogasalad.engine.model.engine;
 
 import java.util.List;
+import oogasalad.engine.model.actions.Place;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
