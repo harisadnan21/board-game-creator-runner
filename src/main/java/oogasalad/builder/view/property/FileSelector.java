@@ -10,10 +10,12 @@ import oogasalad.builder.model.property.Property;
  * PropertySelector that allows users to choose a file to set as the value of a property. For
  * instance, if the user wishes to give a piece an image, the FileSelector will prompt them to
  * choose a file from their filesystem, storing the path to that file in the property.
+ *
+ * @author Shaan Gondalia
  */
 public class FileSelector implements PropertySelector{
 
-  private static final String BUTTON_TEXT = "Choose File";
+  private static final String BUTTON_TEXT = "Choose File"; // TODO: Replace Magic Value
 
   private final Property property;
   private String filePath;
