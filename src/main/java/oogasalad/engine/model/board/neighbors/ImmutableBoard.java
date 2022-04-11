@@ -5,7 +5,6 @@ import java.util.Set;
 import javafx.util.Pair;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.PieceRecord;
 import oogasalad.engine.model.board.Position;
 
 /**

@@ -203,8 +203,6 @@ void testBoardIsPersistentAdvanced() {
 
   @Test
   void move() throws OutOfBoardException {
-    OldPiece TestPiece = new OldPiece(0, 1, 0, 0 );
-
     myBoard = myBoard.move(0, 0, 2,2);
     assertNotNull(myBoard.getPositionStateAt(2,2));
 
