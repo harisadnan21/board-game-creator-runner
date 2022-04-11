@@ -278,11 +278,6 @@ public class Board implements DisplayableBoard {
     return currentValidMoves;
   }
 
-  @Deprecated
-  public Board deepCopy() {
-    return null;
-  }
-
   public void setPlayer(int i) {
     activePlayer = i;
   }
