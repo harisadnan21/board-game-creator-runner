@@ -3,15 +3,21 @@ package oogasalad.engine.model.board;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Stream;
 import oogasalad.engine.model.player.Player;
 import org.jooq.SelectWhereStep;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Range;
+import org.jooq.lambda.tuple.Tuple2;
+import org.jooq.lambda.tuple.Tuple3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class BoardTest {
   Board myBoard = new Board(3, 3);
@@ -26,6 +32,73 @@ class BoardTest {
     Board b = myBoard.placePiece(new PositionState(new Position(0,1),new Piece(1,1)));
     assertTrue(b.hasPieceAtLocation(0,1));
     assertFalse(myBoard.hasPieceAtLocation(0,1));
+  }
+
+  @ParameterizedTest
+  @MethodSource("testErrorsSource")
+  void testValidity(Tuple3<Board, Integer, Integer> vals) {
+    Board board = vals.v1;
+    int minRow = 0;
+    int minCol = 0;
+    int maxRow = vals.v2 - 1;
+    int maxCol = vals.v3 - 1;
+    Seq<Integer> invalidRowVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxRow+1, maxRow+3));
+    Seq<Integer> invalidColVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxCol+1, maxCol+3));
+    List<Position> invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(Position::new).toList();
+    for(Position position: invalidPositions) {
+      Assertions.assertFalse(board.isValidRow(position.i()));
+      Assertions.assertFalse(board.isValidColumn(position.j()));
+      Assertions.assertFalse(board.isValidPosition(position.i(), position.j()));
+      Assertions.assertFalse(board.isValidPosition(position));
+    }
+  }
+
+  @ParameterizedTest
+  @MethodSource("testErrorsSource")
+  void testErrors(Tuple3<Board, Integer, Integer> vals) {
+    Board board = vals.v1;
+    int minRow = 0;
+    int minCol = 0;
+    int maxRow = vals.v2 - 1;
+    int maxCol = vals.v3 - 1;
+    Seq<Integer> invalidRowVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxRow+1, maxRow+3));
+    Seq<Integer> invalidColVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxCol+1, maxCol+3));
+    List<Position> invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(Position::new).toList();
+    for(Position position: invalidPositions) {
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position.i(), position.j()));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPiece(position.i(), position.j()));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.removePiece(position));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.placePiece(new PositionState(position, new Piece(1,1))));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.movePiece(position, new Position(0,0)));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.hasPieceAtLocation(position.i(), position.j()));
+    }
+  }
+
+  static Stream<Tuple3<Board, Integer, Integer>> testErrorsSource() {
+    Integer squareBoardLength = 2;
+    Integer recBoardNumRows1 = 5;
+    Integer recBoardNumCols1 = 2;
+    Integer recBoardNumRows2 = 3;
+    Integer recBoardNumCols2 = 7;
+
+    Board b1 = new Board(squareBoardLength, squareBoardLength);
+    Board b2 = new Board(recBoardNumRows1, recBoardNumCols1);
+    Board b3 = new Board(recBoardNumRows2, recBoardNumCols2);
+    return Stream.of(new Tuple3(b1, squareBoardLength, squareBoardLength), new Tuple3(b2, recBoardNumRows1, recBoardNumCols1), new Tuple3(b3, recBoardNumRows2, recBoardNumCols2));
+  }
+
+  @Test
+  void goodErrors() {
+    Random random = new Random(5);
+    List<Board> boards = new LinkedList<>();
+    Seq.rangeClosed(1, 5).forEach(num -> boards.add(new Board(num, num)));
+    int[] nums = random.ints(5, -100, -1).toArray();
+    for(Board board: boards) {
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.move(nums[0], nums[1], nums[2], nums[3]));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.remove(nums[0], nums[1]));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.placeNewPiece(nums[0], nums[1], nums[2], nums[3]));
+    }
   }
 
   @Test

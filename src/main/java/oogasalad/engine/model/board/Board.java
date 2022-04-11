@@ -94,19 +94,28 @@ public class Board implements DisplayableBoard {
 
 
   public Board removePiece(Position position) {
+    throwIfInvalid(position);
     Board returnBoard = this.clone();
     returnBoard.myBoard = returnBoard.myBoard.put(position, new PositionState(position, Piece.EMPTY));
     return returnBoard;
   }
 
+  private void throwIfInvalid(Position position) {
+    if (!isValidPosition(position)) {
+      throw new OutOfBoardException("Invalid Position");
+    }
+  }
+
   public Board placePiece(PositionState positionState) {
+    throwIfInvalid(positionState.position());
     Board returnBoard = this.clone();
     returnBoard.myBoard = returnBoard.myBoard.put(positionState.position(), positionState);
     return returnBoard;
   }
 
   public Board movePiece(Position oldPosition, Position newPosition) {
-
+    throwIfInvalid(oldPosition);
+    throwIfInvalid(newPosition);
     PositionState oldPositionState = this.getPositionStateAt(oldPosition);
     Board returnBoard = this.clone();
 
@@ -134,7 +143,7 @@ public class Board implements DisplayableBoard {
 
   @Override
   public boolean hasPieceAtLocation(int row, int column) {
-    PositionState positionState = myBoard.get(new Position(row, column)).get();
+    PositionState positionState = myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
     return !positionState.piece().equals(Piece.EMPTY);
   }
 
@@ -168,12 +177,12 @@ public class Board implements DisplayableBoard {
 
   @Override
   public boolean isValidRow(int row) {
-    return isValidJ(row);
+    return isValidI(row);
   }
 
   @Override
   public boolean isValidColumn(int column) {
-    return isValidI(column);
+    return isValidJ(column);
   }
 
   @Override
@@ -217,7 +226,7 @@ public class Board implements DisplayableBoard {
 
   @Override
   public PositionState getPositionStateAt(int i, int j) {
-    return myBoard.get(new Position(i, j)).get();
+    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException("Invalid Position"));
   }
 
   @Override
@@ -320,6 +329,6 @@ public class Board implements DisplayableBoard {
    * @return
    */
   public Piece getPiece(int i, int j) {
-    return null;
+    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException("Invalid Position")).piece();
   }
 }
