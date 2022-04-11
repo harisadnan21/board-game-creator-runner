@@ -15,6 +15,8 @@ public class PieceTest {
     Piece piece1 = new Piece(1,2);
     Piece piece2 = new Piece(1,2);
     assertTrue(piece1.equals(piece2));
+    assertFalse(myPiece.equals(piece1));
+    assertFalse(myPiece.equals(new Piece(2,2)));
   }
 
   @Test

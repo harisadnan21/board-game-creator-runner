@@ -11,7 +11,7 @@ public class TotalPieces implements StateEvaluator {
     Map<Integer, Integer> piecesByPlayer = board.numPiecesByPlayer();
     int evaluation = 0;
     if(player == Piece.PLAYER_ONE) {
-      
+
     } else {
       
     }

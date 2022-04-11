@@ -19,7 +19,7 @@ import org.jooq.lambda.Seq;
 public class Board implements DisplayableBoard {
 
   public static final int NO_WINNER_YET = -2; //Eh
-  private int activePlayer; //Why does the Board care?
+  private int activePlayer;
   private Set<Position> currentValidMoves; //Why does the Board care?
   private int myWinner = NO_WINNER_YET; //Why does the Board care?
 

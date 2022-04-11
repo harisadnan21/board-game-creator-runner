@@ -3,6 +3,7 @@ package oogasalad.engine.model.board;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -86,6 +87,24 @@ class BoardTest {
     Board b2 = new Board(recBoardNumRows1, recBoardNumCols1);
     Board b3 = new Board(recBoardNumRows2, recBoardNumCols2);
     return Stream.of(new Tuple3(b1, squareBoardLength, squareBoardLength), new Tuple3(b2, recBoardNumRows1, recBoardNumCols1), new Tuple3(b3, recBoardNumRows2, recBoardNumCols2));
+  }
+
+  @Test
+  void activePlayer() {
+    Board board = new Board(3,3);
+    Random random = new Random(10);
+    int iterations = 10;
+    int[] players = {Piece.PLAYER_ONE, Piece.PLAYER_TWO};
+    int nextPlayer = Piece.PLAYER_ONE;
+    for(int i = 0; i < iterations; i++) {
+      if(random.nextDouble() < .5) {
+        nextPlayer = Piece.PLAYER_ONE;
+      } else {
+        nextPlayer = Piece.PLAYER_TWO;
+      }
+      board.setPlayer(nextPlayer);
+      Assertions.assertTrue(board.getPlayer() == nextPlayer);
+    }
   }
 
   @Test
