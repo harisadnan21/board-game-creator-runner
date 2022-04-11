@@ -26,21 +26,21 @@ class BoardTest {
 
   @Test
   void placeNewPiece() throws OutOfBoardException {
-    myBoard.placeNewPiece(1,1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1,1, 0, 0);
     assertTrue(!myBoard.getPositionStateAt(1,1).isEmpty());
   }
 
   @Test
   void remove() throws OutOfBoardException {
-    myBoard.placeNewPiece(1,1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1,1, 0, 0);
     assertTrue(!myBoard.getPositionStateAt(1,1).isEmpty());
-    myBoard.remove(1,1);
+    myBoard = myBoard.remove(1,1);
     assertTrue(myBoard.getPositionStateAt(1,1).isEmpty());
   }
 
   @Test
   void getPieceRecord() throws OutOfBoardException {
-    myBoard.placeNewPiece(1,1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1,1, 0, 0);
     assertTrue(!myBoard.getPositionStateAt(1,1).isEmpty());
   }
 
@@ -53,7 +53,7 @@ class BoardTest {
 
   @Test
   void deepCopyTest() throws OutOfBoardException {
-    myBoard.placeNewPiece(1, 1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
 
     Board copyBoard = myBoard.copy();
     assertTrue(copyBoard.getPositionStateAt(1, 1).isPresent());
@@ -62,9 +62,9 @@ class BoardTest {
 
   @Test
   void copyConstructorTest() throws OutOfBoardException {
-    myBoard.placeNewPiece(1, 1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
 
-    ArrayBoard board = new ArrayBoard((ArrayBoard) myBoard);
+    Board board = myBoard.copy();
     assertTrue(board.getPositionStateAt(1, 1).isPresent());
     assertTrue(board.getPositionStateAt(0, 1).isEmpty());
   }

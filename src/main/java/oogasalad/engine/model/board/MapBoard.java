@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
+import oogasalad.engine.model.OutOfBoardException;
 import org.jooq.lambda.Seq;
 
 /**
@@ -32,6 +33,7 @@ public class MapBoard implements Board {
   private final int firstCol = 0;
   private final int lastRow;
   private final int lastCol;
+
   private SortedMap<Position, PositionState> myBoard;
 
   public MapBoard(PositionState[][] positionStates) {
@@ -91,26 +93,30 @@ public class MapBoard implements Board {
     return this.clone();
   }
 
-  @Override
-  public void setValidMoves(Set<Position> validMoves) {
-
-  }
-
 
   public Board removePiece(Position position) {
+    throwIfInvalid(position);
     MapBoard returnBoard = this.clone();
     returnBoard.myBoard = returnBoard.myBoard.put(position, new PositionState(position, Piece.EMPTY));
     return returnBoard;
   }
 
+  private void throwIfInvalid(Position position) {
+    if (!isValidPosition(position)) {
+      throw new OutOfBoardException("Invalid Position");
+    }
+  }
+
   public Board placePiece(PositionState positionState) {
+    throwIfInvalid(positionState.position());
     MapBoard returnBoard = this.clone();
     returnBoard.myBoard = returnBoard.myBoard.put(positionState.position(), positionState);
     return returnBoard;
   }
 
   public Board movePiece(Position oldPosition, Position newPosition) {
-
+    throwIfInvalid(oldPosition);
+    throwIfInvalid(newPosition);
     PositionState oldPositionState = this.getPositionStateAt(oldPosition);
     MapBoard returnBoard = this.clone();
 
@@ -120,24 +126,20 @@ public class MapBoard implements Board {
     return returnBoard;
   }
 
-  private PositionState getPositionStateAt(Position position) {
+  public PositionState getPositionStateAt(Position position) {
     return this.getPositionStateAt(position.i(), position.j());
   }
+
 
   private static int getNumColumnsInLongestRow(PositionState[][] positionStates) {
     return Arrays.stream(positionStates).mapToInt(Array::getLength).max().orElse(0);
   }
 
-//  public boolean hasPieceAtLocation(int i, int j) {
-//    PositionState positionState = myBoard.get(new Position(i, j)).get();
-//    return positionState.piece() != Piece.EMPTY;
-//  }
-
 
   @Override
   public boolean hasPieceAtLocation(int i, int j) {
-    PositionState positionState = myBoard.get(new Position(i, j)).get();
-    return positionState.isPresent();
+    PositionState positionState = myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
+    return !positionState.piece().equals(Piece.EMPTY);
   }
 
   @Override
@@ -169,11 +171,11 @@ public class MapBoard implements Board {
   }
 
   public boolean isValidRow(int row) {
-    return isValidJ(row);
+    return isValidI(row);
   }
 
   public boolean isValidColumn(int column) {
-    return isValidI(column);
+    return isValidJ(column);
   }
 
   public Stream<PositionState> getPositionStatesStream() {
@@ -204,29 +206,27 @@ public class MapBoard implements Board {
     return Seq.seq(this.getSatisfyingPositionStatesStream(positionStatePredicate));
   }
 
-//  public Map<Integer, List<PositionState>> piecesByPlayer(){
-//    return getPositionStatesSeq().groupBy(PositionState::player);
-//  }
-//
-//  public Map<Integer,Integer> numPiecesByPlayer(){
-//    return Seq.seq(piecesByPlayer())
-//        .toMap(pair -> pair.v1, pair -> pair.v2.size());
-//  }
-//
+  public Map<Integer, List<PositionState>> piecesByPlayer(){
+    return getPositionStatesSeq().groupBy(PositionState::player);
+  }
+
+  public Map<Integer,Integer> numPiecesByPlayer(){
+    return Seq.seq(piecesByPlayer())
+        .toMap(pair -> pair.v1, pair -> pair.v2.size());
+  }
+
   @Override
   public PositionState getPositionStateAt(int i, int j) {
-    return myBoard.get(new Position(i, j)).get();
+    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException("Invalid Position"));
   }
-//
-//  @Override
-//  public Map<Integer, List<PositionState>> getRows() {
-//    return getPositionStatesSeq().groupBy(PositionState::i);
-//  }
-//
-//  @Override
-//  public Map<Integer, List<PositionState>> getCols() {
-//    return getPositionStatesSeq().groupBy(PositionState::j);
-//  }
+
+  public Map<Integer, List<PositionState>> getRows() {
+    return getPositionStatesSeq().groupBy(PositionState::i);
+  }
+
+  public Map<Integer, List<PositionState>> getCols() {
+    return getPositionStatesSeq().groupBy(PositionState::j);
+  }
 
   @Override
   public Iterator<PositionState> iterator() {
@@ -238,10 +238,12 @@ public class MapBoard implements Board {
   }
 
   @Deprecated
-  public void setValidMoves(Object o) {
+  public void setValidMoves(Set<Position> moves) {
+    currentValidMoves = moves;
   }
 
   public void setWinner(int winner) {
+    myWinner = winner;
   }
 
   /**
@@ -257,20 +259,16 @@ public class MapBoard implements Board {
 
   @Override
   public int getWinner() {
-    return 0;
+    return myWinner;
   }
 
   @Deprecated
   public Set<Position> getValidMoves() {
-    return null;
-  }
-
-  @Deprecated
-  public Board deepCopy() {
-    return null;
+    return currentValidMoves;
   }
 
   public void setPlayer(int i) {
+    activePlayer = i;
   }
 
   /**
@@ -293,6 +291,29 @@ public class MapBoard implements Board {
    */
   public Board move(int i1, int j1, int i2, int j2) {
     return this.movePiece(new Position(i1,j1), new Position(i2,j2));
+  }
+
+  // TODO: implement this
+  // LEAVE COMMENTED OUT UNTIL IMPLEMENTED
+//  @Override
+//  public boolean equals(Object o) {
+//    if(o.getClass().equals(Board.class)) {
+//      return false;
+//    }
+//    else {
+//
+//    }
+
+
+  /**
+   * Returns Piece object at i, j
+   * Throws exception if location not in board
+   * @param i
+   * @param j
+   * @return
+   */
+  public Piece getPiece(int i, int j) {
+    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException("Invalid Position")).piece();
   }
 
 }

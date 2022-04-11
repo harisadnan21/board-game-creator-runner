@@ -25,21 +25,21 @@ class PersistentBoardTest {
 
   @Test
   void placeNewPiece() throws OutOfBoardException {
-    myBoard.placeNewPiece(1,1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1,1, 0, 0);
     assertTrue(!myBoard.getPositionStateAt(1,1).isEmpty());
   }
 
   @Test
   void remove() throws OutOfBoardException {
-    myBoard.placeNewPiece(1,1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1,1, 0, 0);
     assertTrue(!myBoard.getPositionStateAt(1,1).isEmpty());
-    myBoard.remove(1,1);
+    myBoard = myBoard.remove(1,1);
     assertTrue(myBoard.getPositionStateAt(1,1).isEmpty());
   }
 
   @Test
   void getPieceRecord() throws OutOfBoardException {
-    myBoard.placeNewPiece(1,1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1,1, 0, 0);
     assertTrue(!myBoard.getPositionStateAt(1,1).isEmpty());
   }
 
@@ -52,7 +52,7 @@ class PersistentBoardTest {
 
   @Test
   void deepCopyTest() throws OutOfBoardException {
-    myBoard.placeNewPiece(1, 1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
 
     Board copyBoard = myBoard.copy();
     assertTrue(copyBoard.getPositionStateAt(1, 1).isPresent());

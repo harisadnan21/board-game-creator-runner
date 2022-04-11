@@ -37,11 +37,9 @@ public class Rule {
   }
 
   public boolean isValid(Board board, int refI, int refJ) {
-    System.out.println(myName);
     try {
       for (PieceCondition condition : myConditions) {
         if (!condition.isTrue(board, refI, refJ)) {
-          System.out.printf("Condition: %s, (%d,%d)\n\n", condition.getClass().toGenericString(), refI, refJ);
           return false;
         }
       }
@@ -67,7 +65,7 @@ public class Rule {
       Board boardCopy = board.copy(); // would need to use an inherited clone method if there are multiple board implementations
 
       for (Action action: myActions) {
-        action.execute(boardCopy, refI, refJ);
+        boardCopy = action.execute(boardCopy, refI, refJ);
       }
       boardCopy.setPlayer((board.getPlayer() + 1) % 2);
       return boardCopy;
