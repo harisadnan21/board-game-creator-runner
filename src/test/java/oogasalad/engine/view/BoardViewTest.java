@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import static org.junit.jupiter.api.Assertions.*;
-
 import oogasalad.engine.model.board.Board;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
@@ -21,8 +20,9 @@ public class BoardViewTest extends DukeApplicationTest {
   Stage s;
 
   @Override
-  public void start (Stage stage) throws IOException {
+  public void start (Stage stage) {
     board = new BoardView(3, 3, 300, 300);
+
     Board backEndBoard = new Board(3,3);
     controller = new Controller(backEndBoard);
 

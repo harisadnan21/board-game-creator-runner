@@ -79,13 +79,15 @@ public class PieceSelectionEngine extends Engine {
   private void makePieceSelected(int x, int y) {
     Board board = getGame().getBoard();
 
-//    if (!board.isPieceAtCoordinate(x, y).get() && board.getPieceRecord(x, y).get().player() == board.getPlayer()) {
-//      myIsPieceSelected = true;
-//      mySelectedCell = new Position(x, y);
-//      myValidMoves = getValidMoves();
-//      board.setValidMoves(myValidMoves);
-//      System.out.printf("%d valid moves for this piece\n", myValidMoves.size());
-//    }
+    // makes position selected if board has piece with current player or position is empty
+    // should this condition exist, or should it be baked into rules?
+    if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {
+      myIsPieceSelected = true;
+      mySelectedCell = new Position(x, y);
+      myValidMoves = getValidMoves();
+      board.setValidMoves(myValidMoves);
+      System.out.printf("%d valid moves for this piece\n", myValidMoves.size());
+    }
   }
 
   private boolean hasValidMove(int x, int y) {
