@@ -296,6 +296,18 @@ public class Board implements DisplayableBoard {
     return this.movePiece(new Position(i1,j1), new Position(i2,j2));
   }
 
+  // TODO: implement this
+  // LEAVE COMMENTED OUT UNTIL IMPLEMENTED
+//  @Override
+//  public boolean equals(Object o) {
+//    if(o.getClass().equals(Board.class)) {
+//      return false;
+//    }
+//    else {
+//
+//    }
+
+
   /**
    * Returns Piece object at i, j
    * Throws exception if location not in board
