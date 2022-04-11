@@ -48,7 +48,7 @@ public class GameParser {
     for (int i = 0; i < pieceConfiguration.length; i++) {
       for (int j = 0; j < pieceConfiguration[0].length; j++) {
         if (pieceConfiguration[i][j] != -1) {
-          board.placeNewPiece(i,j,pieceConfiguration[i][j], playerConfiguration[i][j]);
+          board = board.placeNewPiece(i,j,pieceConfiguration[i][j], playerConfiguration[i][j]);
         }
       }
     }
