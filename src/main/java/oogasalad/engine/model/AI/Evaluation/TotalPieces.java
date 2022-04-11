@@ -6,14 +6,13 @@ import oogasalad.engine.model.board.Piece;
 
 public class TotalPieces implements StateEvaluator {
 
-  @Override //TODO: implement this
+  @Override
   public int Evaluate(Board board, int player) {
     Map<Integer, Integer> piecesByPlayer = board.numPiecesByPlayer();
-    int evaluation = 0;
-    if(player == Piece.PLAYER_ONE) {
-
-    } else {
-      
+    int difference = piecesByPlayer.get(Piece.PLAYER_ONE) - piecesByPlayer.get(Piece.PLAYER_TWO);
+    int evaluation = difference;
+    if(player == Piece.PLAYER_TWO) {
+      evaluation = -1 * evaluation;
     }
     return evaluation;
   }
