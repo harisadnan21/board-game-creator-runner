@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 public class FileOpener {
   private FileChooser myFileChooser;
-
   public FileOpener(){
     myFileChooser = makeFileChooser();
   }
