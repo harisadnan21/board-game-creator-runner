@@ -15,6 +15,8 @@ import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.GameElementList;
 import oogasalad.builder.view.property.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.GetPropertiesCallback;
 
 import java.util.*;
 
@@ -22,11 +24,8 @@ import java.util.*;
  *
  */
 public class GameElementTab extends BorderPane {
-
-
   public int CLICK_PAD = 10;
-  // FIXME Remove this
-  private BuilderController controller;
+  private final CallbackDispatcher callbackDispatcher;
 
   private GameElementList elementList;
 
@@ -39,11 +38,12 @@ public class GameElementTab extends BorderPane {
   /**
    * Default constructor
    */
-  public GameElementTab(BuilderController controller, String type) {
-    this.controller = controller;
+  public GameElementTab(CallbackDispatcher dispatcher, String type) {
+    this.callbackDispatcher = dispatcher;
     this.type = type;
 
     setupCenterPane();
+    setupRightPane();
     setupTitle();
   }
 
@@ -75,7 +75,7 @@ public class GameElementTab extends BorderPane {
   // FIXME handle error
   private void createElement() {
     try {
-      Collection<Property> properties = controller.getRequiredProperties(type);
+      Collection<Property> properties = callbackDispatcher.call(new GetPropertiesCallback(type)).orElseThrow();
       propertyEditor.setElementPropertyTypeChoice(properties);
     } catch (InvalidTypeException | MissingRequiredPropertyException e) {
       e.printStackTrace();
@@ -90,6 +90,9 @@ public class GameElementTab extends BorderPane {
   }
 
   private void saveCurrentElement() {
+    if(!propertyEditor.hasProperties()) {
+      return;
+    }
     controller.update(type, nameField.getText(), propertyEditor.getElementProperties());
     elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
   }

@@ -4,5 +4,6 @@ import oogasalad.builder.model.property.Property;
 
 import java.util.Collection;
 
-public class GetPropertiesCallback implements Callback<Collection<Property>> {
+public record GetPropertiesCallback(String type) implements Callback<Collection<Property>> {
+
 }
