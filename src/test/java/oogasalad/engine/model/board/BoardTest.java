@@ -80,6 +80,26 @@ void testBoardIsPersistentAdvanced() {
   }
 
   @Test
+  void removeRobust() {
+    PositionState[][] positionStates = new PositionState[3][3];
+    Seq.range(0, 3).crossSelfJoin().map(Position::new).forEach(position -> positionStates[position.i()][position.j()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
+    Board board = new Board(positionStates);
+    Board emptyBoard = Seq.range(0, 3).crossSelfJoin().map(Position::new).foldLeft(board, (currBoard, position) -> currBoard.removePiece(position));
+
+    // Validate that emptyBoard is indeed empty
+    Assertions.assertTrue(emptyBoard.getNotSatisfyingPositionStatesSeq(positionState -> positionState.piece().equals(Piece.EMPTY)).isEmpty());
+    Assertions.assertTrue(emptyBoard.getSatisfyingPositionStatesSeq(positionState -> positionState.piece().equals(Piece.EMPTY)).count() == (3*3));
+    //TODO: implement Board.equals() so that this will work:
+    //Assertions.assertEquals(emptyBoard, new Board(3,3));
+
+    // Validate that board is still full
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(positionState.piece().equals(Piece.EMPTY)));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(board.isEmpty(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(board.hasPieceAtLocation(positionState.i(), positionState.j())));
+
+  }
+
+  @Test
   void emptyBoardInit() {
     Board board = new Board(3,3);
     Stream<PositionState> positionStateStream = board.getPositionStatesStream();
