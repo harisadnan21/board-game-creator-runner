@@ -12,6 +12,7 @@ open module oogasalad_app {
     requires org.jooq.jool;
     requires com.google.gson;
     requires org.apache.logging.log4j;
+    requires com.github.benmanes.caffeine;
 
     // allow other classes to access listed packages in your project
     exports oogasalad;
