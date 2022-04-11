@@ -299,6 +299,7 @@ public class Board implements DisplayableBoard {
    * @param j1
    * @param i2
    * @param j2
+   * @throws OutOfBoardException
    */
   public Board move(int i1, int j1, int i2, int j2) {
     return this.movePiece(new Position(i1,j1), new Position(i2,j2));
