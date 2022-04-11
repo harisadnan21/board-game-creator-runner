@@ -34,7 +34,7 @@ public interface ImmutableBoard extends Iterable<Pair<Position, Piece>>{
    * @param j column
    * @return An optional which contains a piece record or null
    */
-  Optional<PieceRecord> getPieceRecord(int i, int j);
+  Optional<Piece> getPieceRecord(int i, int j);
 
   /**
    * Returns the player whose turn it is
