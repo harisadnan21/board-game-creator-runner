@@ -14,7 +14,7 @@ public abstract class getDirectionNeighbor implements getPositionNeighbor{
   @Override
   public Optional<Position> getNeighbor(Position pos, Board board) {
     Direction direction = this.getDirection();
-    Optional<PositionState> positionState = Ray.getDirectionalRay(board, pos, direction).findFirst();
+    Optional<PositionState> positionState = Ray.getDirectionalRay(board, pos, direction).skip(1).findFirst();
     if(positionState.isEmpty()){
       return Optional.empty();
     }
