@@ -1,10 +1,12 @@
 package oogasalad.engine.view;
 
+import java.io.File;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -17,18 +19,19 @@ import javafx.stage.StageStyle;
 import oogasalad.engine.controller.Controller;
 
 public class GameView {
-  public static double WIDTH = 600;
-  public static double HEIGHT = 400;
 
-  BoardView myBoard;
-  Controller myController;
-  GameControlPanel myGameControl;
-  SettingsControlPanel mySettingsControl;
-  Text myPlayerText;
+  private Double width;
+  private Double height;
+  private BoardView myBoard;
+  private Controller myController;
+  private GameControlPanel myGameControl;
+  private SettingsControlPanel mySettingsControl;
+  private Text myPlayerText;
+  private BorderPane root;
 
-  BorderPane root;
-
-  public GameView(BoardView board, Controller controller) {
+  public GameView(BoardView board, Controller controller, double w, double h) {
+    width = w;
+    height = h;
     myBoard = board;
     myController = controller;
     myGameControl = new GameControlPanel();
@@ -45,8 +48,9 @@ public class GameView {
     root.setRight(mySettingsControl.getRoot());
     root.setBottom(myPlayerText);
     root.setAlignment(myPlayerText, Pos.CENTER);
-    Scene scene = new Scene(root, WIDTH, HEIGHT);
+    Scene scene = new Scene(root, width, height);
     scene.setFill(Color.web("#EEEEEE"));
+    root.setBottom(myPlayerText);
     return scene;
   }
 
