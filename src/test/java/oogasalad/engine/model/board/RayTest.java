@@ -77,7 +77,27 @@ class RayTest {
   }
 
   @Test
-  void getDirectionalRayWhileConditions() {
+  void getDirectionalRayWhileConditionsSimple() {
+    Board board = new Board(3,3);
+    List<Predicate<PositionState>> preds1 = new ArrayList<>();
+    List<Predicate<PositionState>> preds2 = new ArrayList<>();
+
+    for(int i = 0; i < 5; i++) {
+      preds1.add(positionState -> true);
+      preds2.add(positionState -> false);
+    }
+
+    preds1.add(positionState -> false);
+    preds2.add(positionState -> true);
+
+    for(int i = 0; i < 3; i++) {
+      for(Direction direction: Direction.values()){
+        Stream<PositionState> positionStateStream = Ray.getDirectionalRayWhileConditions(board, new Position(i, 1), direction, preds1);
+        Assertions.assertEquals(positionStateStream.count(), 0);
+        Stream<PositionState> positionStateStream2 = Ray.getDirectionalRayWhileConditions(board, new Position(i, 1), direction, preds2);
+        Assertions.assertEquals(positionStateStream2.count(), 0);
+      }
+    }
   }
 
   @Test
