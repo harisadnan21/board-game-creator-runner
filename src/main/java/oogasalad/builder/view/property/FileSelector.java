@@ -58,6 +58,6 @@ public class FileSelector implements PropertySelector{
   private void chooseFile() {
     Stage stage = new Stage();
     FileChooser fileChooser = new FileChooser();
-    filePath = fileChooser.showSaveDialog(stage).toString();
+    filePath = fileChooser.showOpenDialog(stage).toString();
   }
 }

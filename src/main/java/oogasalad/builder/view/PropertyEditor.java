@@ -1,17 +1,18 @@
 package oogasalad.builder.view;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 
 import java.util.stream.Collectors;
-import oogasalad.builder.view.property.Field;
 import oogasalad.builder.view.property.PropertySelector;
 
 /**
@@ -73,15 +74,28 @@ public class PropertyEditor extends VBox {
     // Adds a property to the display, using the form of the property
     private void addProperty(Property property) {
         HBox propertyBox = new HBox();
-        Field f = new Field(property);
-        selectors.put(property, f);
+        PropertySelector propertySelector = makePropertySelector(property);
+        selectors.put(property, propertySelector);
 
         String[] propertyNameParts = property.name().split("-");
         propertyBox.getChildren().addAll(
             new Label(propertyNameParts[propertyNameParts.length - 1]),
-            f.display()
+            propertySelector.display()
         );
         getChildren().add(propertyBox);
+    }
+
+    // Makes a PropertySelector Using reflection, based on the form of the required property
+    private PropertySelector makePropertySelector(Property property) {
+        try {
+            String className = property.form();
+            Class<?> clss = Class.forName(className);
+            Constructor<?> ctor = clss.getDeclaredConstructor(Property.class);
+            return (PropertySelector) ctor.newInstance(property);
+        } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
+            InstantiationException | IllegalAccessException e) {
+            throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
+        }
     }
 
 }
