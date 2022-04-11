@@ -2,7 +2,6 @@ package oogasalad.builder.view.tab;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -13,7 +12,7 @@ import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.GameElementList;
-import oogasalad.builder.view.PropertyEditor;
+import oogasalad.builder.view.property.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
 
 import java.util.*;

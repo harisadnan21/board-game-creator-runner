@@ -1,4 +1,4 @@
-package oogasalad.builder.view;
+package oogasalad.builder.view.property;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +13,6 @@ import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 
 import java.util.stream.Collectors;
-import oogasalad.builder.view.property.PropertySelector;
 
 /**
  * Describes generic behavior for the property editing portion of a Game Element Tab. Allows users
