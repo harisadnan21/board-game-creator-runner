@@ -15,6 +15,8 @@ import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.GameElementList;
 import oogasalad.builder.view.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.GetPropertiesCallback;
 
 import java.util.*;
 
@@ -24,6 +26,7 @@ import java.util.*;
 public class GameElementTab extends BorderPane {
     // FIXME Remove this
     private BuilderController controller;
+    private final CallbackDispatcher callbackDispatcher;
 
     private GameElementList elementList;
 
@@ -34,7 +37,8 @@ public class GameElementTab extends BorderPane {
     /**
      * Default constructor
      */
-    public GameElementTab(BuilderController controller, String type) {
+    public GameElementTab(BuilderController controller, CallbackDispatcher dispatcher, String type) {
+        this.callbackDispatcher = dispatcher;
         this.controller = controller;
         this.type = type;
 
@@ -69,7 +73,7 @@ public class GameElementTab extends BorderPane {
     private void createPiece() {
         try {
             saveCurrentElement();
-            Collection<Property> properties = controller.getRequiredProperties(type);
+            Collection<Property> properties = callbackDispatcher.call(new GetPropertiesCallback(type)).orElseThrow();
             propertyEditor.setElementProperties(properties);
         } catch(InvalidTypeException | MissingRequiredPropertyException e) {
             e.printStackTrace();

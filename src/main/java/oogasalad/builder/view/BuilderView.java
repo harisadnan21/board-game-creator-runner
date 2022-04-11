@@ -20,6 +20,9 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import oogasalad.builder.view.callback.Callback;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.tab.ActionsTab;
 import oogasalad.builder.view.tab.ConditionsTab;
 import oogasalad.builder.view.tab.RulesTab;
@@ -52,6 +55,7 @@ public class BuilderView {
   private ResourceBundle tabResources;
 
   private BuilderController controller; //FIXME: Use Event handlers instead of this
+  private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
     splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
@@ -93,16 +97,16 @@ public class BuilderView {
     boardTabPane.setId("boardTab");
     Tab boardTab = new Tab("Board", boardTabPane);
 
-    pieceTabPane = new PiecesTab(controller);
+    pieceTabPane = new PiecesTab(controller, callbackDispatcher);
     pieceTabPane.setId("pieceTab");
     Tab pieceTab = new Tab("Piece", pieceTabPane);
-    actionsTabPane = new ActionsTab(controller);
+    actionsTabPane = new ActionsTab(controller, callbackDispatcher);
     actionsTabPane.setId("actionTab");
     Tab actionTab = new Tab("Action", actionsTabPane);
-    conditionsTabPane = new ConditionsTab(controller);
+    conditionsTabPane = new ConditionsTab(controller, callbackDispatcher);
     conditionsTabPane.setId("conditionTab");
     Tab conditionsTab = new Tab("Condition", conditionsTabPane);
-    rulesTabPane = new RulesTab(controller);
+    rulesTabPane = new RulesTab(controller, callbackDispatcher);
     rulesTabPane.setId("ruleTab");
     Tab rulesTab = new Tab("Rule", rulesTabPane);
 
@@ -132,6 +136,17 @@ public class BuilderView {
   //public int[][] getBoardConfig(){
   public int[][] getBoardConfig() {
     return boardTabPane.getBoardConfig();
+  }
+
+  /**
+   * Register a handler to be used when a given type of callback is needed
+   * @param callback the callback to handle
+   * @param handler the handler that can handle that type of callback
+   * @param <R> the type that the handler must return
+   * @param <C> the type of the callback
+   */
+  public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback, CallbackHandler<R, C> handler) {
+    callbackDispatcher.registerCallbackHandler(callback, handler);
   }
 }
 
