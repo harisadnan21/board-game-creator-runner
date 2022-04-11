@@ -1,6 +1,6 @@
 package oogasalad.engine.model.actions;
 
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 
 public class Place extends Action {
@@ -14,8 +14,8 @@ public class Place extends Action {
   }
 
   @Override
-  public void execute(Board board, int refI, int refJ) throws OutOfBoardException {
-    board.placeNewPiece(myParameters[0]+refI, myParameters[1]+refJ,
+  public Board execute(Board board, int refI, int refJ) throws OutOfBoardException {
+    return board.placeNewPiece(myParameters[0]+refI, myParameters[1]+refJ,
         myParameters[2], myParameters[3]);
   }
 }

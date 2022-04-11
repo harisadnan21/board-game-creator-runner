@@ -15,14 +15,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
-import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
+import oogasalad.engine.model.setup.parsing.GameParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import oogasalad.engine.model.parsing.GameParser;
 
 public class BoardView implements PropertyChangeListener{
   private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
@@ -81,10 +81,12 @@ public class BoardView implements PropertyChangeListener{
     root.setAlignment(Pos.CENTER);
   }
 
-  public void cellClicked(MouseEvent e, int i, int j) throws OutOfBoardException {
+  public void cellClicked(MouseEvent e, int i, int j)
+      throws OutOfBoardException {
     Board nextState = myController.click(i, j);
     selectCell(i, j);
     updateBoard(nextState);
+    checkForWin(nextState);
     text.updateText(nextState.getPlayer());
   }
 
@@ -121,10 +123,10 @@ public class BoardView implements PropertyChangeListener{
 
   private void updateBoard(Board board) {
     setValidMarkers(board);
-    for (Pair<Position, Piece> piece: board) {
-      Position pos = piece.getKey();
-      if (piece.getValue() != null) {
-        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getPieceRecord().player()));
+    for (PositionState cell: board) {
+      Position pos = cell.position();
+      if (cell.isPresent()) {
+        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(cell.player()));
       }
       else {
         try {

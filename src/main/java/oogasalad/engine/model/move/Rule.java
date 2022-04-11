@@ -1,6 +1,6 @@
 package oogasalad.engine.model.move;
 
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
@@ -60,11 +60,14 @@ public class Rule {
   public Board doMovement(Board board, int refI, int refJ)
       throws OutOfBoardException {
     if (isValid(board, refI, refJ)) {
-      Board boardCopy = board.deepCopy();
+
+      Board boardCopy = board;
+
       for (Action action: myActions) {
-        action.execute(boardCopy, refI, refJ);
+//        boardCopy = action.execute(boardCopy, refI, refJ);
+        boardCopy = action.execute(board, refI, refJ);
       }
-      boardCopy.setPlayer((board.getPlayer() + 1) % 2);
+      boardCopy.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
       return boardCopy;
     }
     return null;

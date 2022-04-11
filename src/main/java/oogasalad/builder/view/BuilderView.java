@@ -95,7 +95,7 @@ public class BuilderView {
 
     pieceTabPane = new PiecesTab(controller);
     pieceTabPane.setId("pieceTab");
-    Tab pieceTab = new Tab("Piece", pieceTabPane);
+    Tab pieceTab = new Tab("OldPiece", pieceTabPane);
     actionsTabPane = new ActionsTab(controller);
     actionsTabPane.setId("actionTab");
     Tab actionTab = new Tab("Action", actionsTabPane);

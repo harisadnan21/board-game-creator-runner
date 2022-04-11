@@ -2,18 +2,18 @@ package oogasalad.engine.model.engine;
 
 import oogasalad.engine.model.actions.winner.MostPieces;
 import oogasalad.engine.model.actions.winner.Winner;
-import oogasalad.engine.model.conditions.WinCondition;
+import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 import oogasalad.engine.model.conditions.board_conditions.PlayerHasNoPieces;
 import oogasalad.engine.model.conditions.board_conditions.NoMovesLeft;
+import oogasalad.engine.model.driver.Game;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import oogasalad.engine.model.Game;
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.actions.Move;
 import oogasalad.engine.model.actions.Remove;
@@ -35,11 +35,6 @@ public class PieceSelectionEngine extends Engine {
   public PieceSelectionEngine(Game game, List<Rule> rules,
       List<WinCondition> winConditions) {
     super(game, rules, winConditions);
-
-    //createWinCondition();
-    //createCheckersMove();
-    //createPlayer1Moves();
-
   }
 
   @Override
@@ -81,7 +76,7 @@ public class PieceSelectionEngine extends Engine {
 
     // makes position selected if board has piece with current player or position is empty
     // should this condition exist, or should it be baked into rules?
-    if (!board.isEmpty(x, y) && board.getPieceRecord(x, y).get().player() == board.getPlayer() || board.isEmpty(x, y)) {
+    if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {
       myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
       myValidMoves = getValidMoves();

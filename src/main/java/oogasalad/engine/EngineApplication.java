@@ -6,7 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.parsing.GameParser;
+import oogasalad.engine.model.setup.Constants;
+import oogasalad.engine.model.setup.parsing.GameParser;
 import oogasalad.engine.view.BoardView;
 import oogasalad.engine.view.ViewManager;
 
@@ -18,7 +19,7 @@ public class EngineApplication extends Application {
   @Override
   public void start(Stage stage) throws Exception {
 
-    Board board = GameParser.readInitialBoard(GameParser.TIC_TAC_TOE_FILE);
+    Board board = GameParser.readInitialBoard(Constants.CHECKERS_FILE);
 
     BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), 350, 350);
 

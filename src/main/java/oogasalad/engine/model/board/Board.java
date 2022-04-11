@@ -1,236 +1,330 @@
 package oogasalad.engine.model.board;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import javafx.util.Pair;
-import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.Utilities;
+import java.lang.reflect.Array;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+import io.vavr.collection.TreeMap;
+import io.vavr.collection.SortedMap;
+import org.jooq.lambda.Seq;
 
 /**
  * Class That defines the backend board and defines methods that can be applied to it.
- * @author Jake Heller, Haris Adnan, Robert Cranston
+ * @author Jake Heller, Haris Adnan, Robert Cranston, Alex Bildner
  */
-public class Board implements Iterable<Pair<Position, Piece>> {
-  public static final int NO_WINNER_YET = -2;
-  private int myRows;
-  private int myColumns;
-  private Piece[][] pieceLocations;
-  private int activePlayer;
-  private Set<Position> currentValidMoves;
-  private int myWinner = NO_WINNER_YET;
+public class Board implements DisplayableBoard {
 
+  public static final int NO_WINNER_YET = -2; //Eh
+  private int activePlayer; //Why does the Board care?
+  private Set<Position> currentValidMoves; //Why does the Board care?
+  private int myWinner = NO_WINNER_YET; //Why does the Board care?
+
+
+  //TODO: update code to use these constants instead of magic numbers
+
+  private final int numRows;
+  private final int numCols;
+  private final int firstRow = 0;
+  private final int firstCol = 0;
+  private final int lastRow;
+  private final int lastCol;
+
+  private SortedMap<Position, PositionState> myBoard;
+
+  public Board(PositionState[][] positionStates) {
+    this.numRows = positionStates.length;
+    this.numCols = Board.getNumColumnsInLongestRow(positionStates);
+    this.lastRow = numRows - 1;
+    this.lastCol = numCols - 1;
+    this.myBoard = getPositionStatesMap(positionStates);
+  }
 
   public Board(int rows, int columns) {
-    myRows = rows;
-    myColumns = columns;
-    pieceLocations = new Piece[rows][columns];
-    activePlayer = 0;
+    this.numRows = rows;
+    this.numCols = columns;
+    this.lastRow = numRows - 1;
+    this.lastCol = numCols - 1;
+    PositionState[][] positionStates = getEmptyArrayOfPositionStates();
+    this.myBoard = getPositionStatesMap(positionStates);
   }
 
-  public Board(Board board) {
-    this(board.myRows, board.myColumns);
-    activePlayer = board.getPlayer();
-    for (Pair<Position, Piece> pair: board) {
-      if (pair.getValue() != null) {
-        Piece piece = pair.getValue();
-        try {
-          this.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(),
-              piece.getPieceRecord().type(), piece.getPieceRecord().player());
-        } catch (OutOfBoardException e) {
-          // since only considering pieces in board, exception is not relevant
-        }
+  private TreeMap<Position, PositionState> getPositionStatesMap(
+      PositionState[][] positionStates) {
+    Seq<Position> positions = Seq.rangeClosed(firstRow, lastRow)
+                              .crossJoin(Seq.rangeClosed(firstCol, lastCol))
+                              .map(Position::new);
+    Map<Position, PositionState> map = positions.toMap(pos -> pos
+                                                      ,pos -> positionStates[pos.i()][pos.j()]);
+    return TreeMap.ofAll(map);
+  }
+
+  private PositionState[][] getEmptyArrayOfPositionStates() {
+    PositionState[][] positionStates = new PositionState[numRows][numCols];
+
+    for (int i = firstRow; i <= lastRow; i++) {
+      for (int j = firstCol; j <= lastCol; j++) {
+        positionStates[i][j] = new PositionState(new Position(i,j), Piece.EMPTY);
       }
     }
+    return positionStates;
   }
 
-  /**
-   *
-   * @return a copy of the piece locations in the board
-   */
-  @Deprecated
-  public Piece[][] getMyBoardCopy(){
-    Piece[][] retList = new Piece[myRows][myColumns];
-    for (int row = 0; row < myRows; row++) {
-      for (int col = 0; col < myColumns; col++) {
-        retList[row][col] = pieceLocations[row][col].deepCopy();
-      }
-    }
-    return retList;
-  }
-
-  /**
-   * returns true if there is a piece at location Board[row][column]. else, false
-   * @param row
-   * @param column
-   * @return
-   */
-  private boolean isPieceAtLocation(int row, int column){
-    return pieceLocations[row][column] != null;
-  }
-
-  public void placeNewPiece(int row, int column, int type, int player) throws OutOfBoardException {
-    Piece piece = new Piece(type, player, row, column);
-    place(row, column, piece);
-  }
-
-  private void place(int i, int j, Piece piece) throws OutOfBoardException {
-    if(i <= myRows && j <= myColumns){
-      if (piece != null) {
-        piece.movePiece(i, j);
-      }
-      pieceLocations[i][j] = piece;
-    }
-    else{
-      throw new OutOfBoardException("Piece out of Board");
-    }
-  }
-
-  public void remove(int i, int j){
-    if (!isValid(i, j)) {
-      throwOutOfBoardError(i,j);
-    }
-    pieceLocations[i][j] = null;
-  }
-
-  public boolean isEmpty(int i, int j) {
-    if (!isValid(i, j)){
-      throwOutOfBoardError(i,j);
-    }
-    return pieceLocations[i][j] == null;
-  }
-
-  public void throwOutOfBoardError(int i, int j) {
-    throw new OutOfBoardException(String.format("Index (%d,%d) out of bounds", i, j));
-  }
-
-  public Optional<PieceRecord> getPieceRecord(int i, int j) {
-    //return Optional.of(myBoard[i][j]);
-    if (!isValid(i,j)) {
-      throwOutOfBoardError(i,j);
-    }
-    Optional<PieceRecord> piece;
-    if (pieceLocations[i][j] == null) {
-      piece = Optional.empty();
-    }
-    else {
-      piece = Optional.of(pieceLocations[i][j].getPieceRecord());
-    }
-    return piece;
-  }
-
-
-  /**
-   * If piece exists at (i1, j1), moves that piece
-   * to (i2, j2)
-   * @param i1
-   * @param j1
-   * @param i2
-   * @param j2
-   * @return modified board
-   * @throws OutOfBoardException
-   */
-  public void move(int i1, int j1, int i2, int j2) throws OutOfBoardException {
-    if (!isValid(i1,j1)) {
-      throwOutOfBoardError(i1,j1);
-    }
-    else if (!isValid(i2,j2)) {
-      throwOutOfBoardError(i2,j2);
-    }
-    if (!isEmpty(i1,j1)){
-      Piece piece = pieceLocations[i1][j1];
-      place(i2, j2, piece);
-      pieceLocations[i1][j1] = null;
-    }
-  }
-
-  public void setPlayer(int player) {
-    activePlayer = player;
-  }
-
+  @Override
   public int getPlayer() {
     return activePlayer;
   }
 
-  public boolean isValid(int i, int j) {
-    return isValidX(i) && isValidY(j);
+  @Override
+  public Board clone() {
+    try {
+      return (Board) super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException("bad");
+    }
+
   }
 
-  public boolean isValid(Position position){
-    return isValidX(position.i()) && isValidY(position.j());
+  public Board copy() {
+    return this.clone();
+  }
+
+
+  public Board removePiece(Position position) {
+    throwIfInvalid(position);
+    Board returnBoard = this.clone();
+    returnBoard.myBoard = returnBoard.myBoard.put(position, new PositionState(position, Piece.EMPTY));
+    return returnBoard;
+  }
+
+  private void throwIfInvalid(Position position) {
+    if (!isValidPosition(position)) {
+      throw new OutOfBoardException("Invalid Position");
+    }
+  }
+
+  public Board placePiece(PositionState positionState) {
+    throwIfInvalid(positionState.position());
+    Board returnBoard = this.clone();
+    returnBoard.myBoard = returnBoard.myBoard.put(positionState.position(), positionState);
+    return returnBoard;
+  }
+
+  public Board movePiece(Position oldPosition, Position newPosition) {
+    throwIfInvalid(oldPosition);
+    throwIfInvalid(newPosition);
+    PositionState oldPositionState = this.getPositionStateAt(oldPosition);
+    Board returnBoard = this.clone();
+
+    PositionState newPositionState = new PositionState(newPosition, oldPositionState.piece());
+
+    returnBoard.myBoard = returnBoard.myBoard.put(oldPosition, new PositionState(oldPosition, Piece.EMPTY)).put(newPosition, newPositionState);
+    return returnBoard;
+  }
+
+  @Override
+  public PositionState getPositionStateAt(Position position) {
+    return this.getPositionStateAt(position.i(), position.j());
+  }
+
+
+  private static int getNumColumnsInLongestRow(PositionState[][] positionStates) {
+    return Arrays.stream(positionStates).mapToInt(Array::getLength).max().orElse(0);
+  }
+
+//  public boolean hasPieceAtLocation(int i, int j) {
+//    PositionState positionState = myBoard.get(new Position(i, j)).get();
+//    return positionState.piece() != Piece.EMPTY;
+//  }
+
+
+  @Override
+  public boolean hasPieceAtLocation(int row, int column) {
+    PositionState positionState = myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
+    return !positionState.piece().equals(Piece.EMPTY);
+  }
+
+  @Override
+  public boolean isValidPosition(int x, int y) {
+    return isValidI(x) && isValidJ(y);
+  }
+
+  public boolean isValidPosition(Position position) {
+    return isValidI(position.i()) && isValidJ(position.j());
+  }
+
+  private boolean isValidJ(int j) {
+    return (j >= firstCol) && (j <= lastCol);
+  }
+
+  private boolean isValidI(int i) {
+    return (i >= firstRow) && (i <= lastRow);
+  }
+
+
+  @Override
+  public int getHeight() {
+    return numRows;
+  }
+
+  @Override
+  public int getWidth() {
+    return numCols;
+  }
+
+  @Override
+  public boolean isValidRow(int row) {
+    return isValidI(row);
+  }
+
+  @Override
+  public boolean isValidColumn(int column) {
+    return isValidJ(column);
+  }
+
+  @Override
+  public Stream<PositionState> getPositionStatesStream() {
+    return myBoard.values().toJavaStream();
+  }
+
+  @Override
+  public Seq<PositionState> getPositionStatesSeq() {
+    return Seq.seq(myBoard.values().toJavaStream());
+  }
+
+  public Stream<PositionState> getSatisfyingPositionStatesStream(
+      Predicate<PositionState> positionStatePredicate) {
+    return getPositionStatesStream().filter(positionStatePredicate);
+  }
+
+  public Stream<PositionState> getNotSatisfyingPositionStatesStream(
+      Predicate<PositionState> positionStatePredicate) {
+    return myBoard.values().filterNot(positionStatePredicate).toJavaStream();
+  }
+
+  public Seq<PositionState> getNotSatisfyingPositionStatesSeq(
+      Predicate<PositionState> positionStatePredicate) {
+    return Seq.seq(this.getNotSatisfyingPositionStatesStream(positionStatePredicate));
+  }
+
+  public Seq<PositionState> getSatisfyingPositionStatesSeq(
+      Predicate<PositionState> positionStatePredicate) {
+    return Seq.seq(this.getSatisfyingPositionStatesStream(positionStatePredicate));
+  }
+
+  public Map<Integer, List<PositionState>> piecesByPlayer(){
+    return getPositionStatesSeq().groupBy(PositionState::player);
+  }
+
+  public Map<Integer,Integer> numPiecesByPlayer(){
+    return Seq.seq(piecesByPlayer())
+              .toMap(pair -> pair.v1, pair -> pair.v2.size());
+  }
+
+  @Override
+  public PositionState getPositionStateAt(int i, int j) {
+    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException("Invalid Position"));
+  }
+
+  @Override
+  public Map<Integer, List<PositionState>> getRows() {
+    return getPositionStatesSeq().groupBy(PositionState::i);
+  }
+
+  @Override
+  public Map<Integer, List<PositionState>> getCols() {
+    return getPositionStatesSeq().groupBy(PositionState::j);
+  }
+
+  @Override
+  public Iterator<PositionState> iterator() {
+    return getPositionStatesStream().iterator();
+  }
+
+  public boolean isEmpty(int i, int j) {
+    return !hasPieceAtLocation(i,j);
+  }
+
+  @Deprecated
+  public void setValidMoves(Set<Position> moves) {
+    currentValidMoves = moves;
+  }
+
+  public void setWinner(int winner) {
+    myWinner = winner;
   }
 
   /**
-   * returns a copy of the board
-   * @return
+   * Places new piece with type and player at location (i,j)
+   * @param i
+   * @param j
+   * @param type
+   * @param player
+   */
+  public Board placeNewPiece(int i, int j, int type, int player) {
+    return this.placePiece(new PositionState(new Position(i,j), new Piece(type, player)));
+  }
+
+  @Override
+  public int getWinner() {
+    return myWinner;
+  }
+
+  @Deprecated
+  public Set<Position> getValidMoves() {
+    return currentValidMoves;
+  }
+
+  public void setPlayer(int i) {
+    activePlayer = i;
+  }
+
+  /**
+   * Removes piece at (i,j)
+   * Throws exception if either position not in board
+   * @param i
+   * @param j
+   */
+  public Board remove(int i, int j) {
+    return this.removePiece(new Position(i,j));
+  }
+
+  /**
+   * Moves piece at (i1,j1) to (i2,j2)
+   * Throws exception if either position not in board
+   * @param i1
+   * @param j1
+   * @param i2
+   * @param j2
    * @throws OutOfBoardException
    */
-  public Board deepCopy() throws OutOfBoardException {
-    Board board = new Board(myRows, myColumns);
-    board.setPlayer(this.getPlayer());
-    for (Pair<Position, Piece> pair: this) {
-      Piece copyPiece;
-      if (pair.getValue() != null) {
-        Piece piece = pair.getValue();
-        board.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(), piece.getPieceRecord()
-            .type(), piece.getPieceRecord().player());
-      }
-    }
-    return board;
+  public Board move(int i1, int j1, int i2, int j2) {
+    return this.movePiece(new Position(i1,j1), new Position(i2,j2));
   }
 
-  private boolean isValidY(int j) {
-    return Utilities.isPositive(j) && (j < myRows);
-  }
+  // TODO: implement this
+  // LEAVE COMMENTED OUT UNTIL IMPLEMENTED
+//  @Override
+//  public boolean equals(Object o) {
+//    if(o.getClass().equals(Board.class)) {
+//      return false;
+//    }
+//    else {
+//
+//    }
 
-  private boolean isValidX(int i) {
-    return Utilities.isPositive(i) && (i < myColumns);
-  }
 
   /**
-   * Sets the valid moves for the currently selected piece on the board or null if no piece is selected
-   * @param validMoves Set of Position values of valid moves for selected cell
+   * Returns Piece object at i, j
+   * Throws exception if location not in board
+   * @param i
+   * @param j
+   * @return
    */
-  public void setValidMoves(Set<Position> validMoves) { currentValidMoves = validMoves; }
-
-  /**
-   * Returns the Set of Positions of valid moves of selected piece
-   * @return Set of Positions of valid moves of selected piece
-   */
-  public Set<Position> getValidMoves() { return currentValidMoves; }
-
-  /**
-   * Sets the winner of the board. Only called when game is over in checkForWin Method
-   * @see oogasalad.engine.model.engine.PieceSelectionEngine
-   * @param winner int representing player that wins the game
-   */
-  public void setWinner(int winner){myWinner =  winner;}
-
-  /**
-   * Returns the winner of the game
-   * @see oogasalad.engine.view.BoardView
-   * @return winner based on current board
-   */
-  public int getWinner(){return myWinner;}
-
-  // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
-// 1. We can use built in functionality for streams
-// 2. Very easy to make code parallel/concurrent
-// 3. Open-Closed -> we won't have to change implemenation if we decide to change how to represent Board because it will still be a Stream
-  @Override
-  public Iterator<Pair<Position, Piece>> iterator() {
-    return new BoardIterator(pieceLocations);
+  public Piece getPiece(int i, int j) {
+    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException("Invalid Position")).piece();
   }
-
-  public int getHeight() {
-    return myRows;
-  }
-
-  public int getWidth() {
-    return myColumns;
-  }
-
 }

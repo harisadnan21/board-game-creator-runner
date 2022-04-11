@@ -1,5 +1,6 @@
 package oogasalad.engine.view;
 
+import java.io.IOException;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
