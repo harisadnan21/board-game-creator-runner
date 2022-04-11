@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * @author Ricky Weerts and Shaan Gondalia
  */
-public record Property(String name, String value) {
+public record Property(String name, String value, String form) {
 
     /**
      * Checks whether a property has the same name as another
