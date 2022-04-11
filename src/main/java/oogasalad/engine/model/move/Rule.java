@@ -59,12 +59,14 @@ public class Rule {
 
   public Board doMovement(Board board, int refI, int refJ)
       throws OutOfBoardException {
+    Board boardCopy = new Board(1,1); //TODO: make better
     if (isValid(board, refI, refJ)) {
-      Board boardCopy = board.deepCopy();
+//      Board boardCopy = board.deepCopy();
       for (Action action: myActions) {
-        action.execute(boardCopy, refI, refJ);
+//        boardCopy = action.execute(boardCopy, refI, refJ);
+        boardCopy = action.execute(board, refI, refJ);
       }
-      boardCopy.setPlayer((board.getPlayer() + 1) % 2);
+      boardCopy.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
       return boardCopy;
     }
     return null;
