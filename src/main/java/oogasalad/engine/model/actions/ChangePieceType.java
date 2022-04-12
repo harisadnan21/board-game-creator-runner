@@ -1,6 +1,6 @@
 package oogasalad.engine.model.actions;
 
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 
 // TODO: implement class
@@ -12,7 +12,7 @@ public class ChangePieceType extends Action{
   }
 
   @Override
-  public void execute(Board board, int refI, int refJ) throws OutOfBoardException {
-
+  public Board execute(Board board, int refI, int refJ) throws OutOfBoardException {
+    return null;
   }
 }

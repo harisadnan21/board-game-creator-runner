@@ -21,6 +21,11 @@ public class GameUpdateText {
     text.setText(updateText);
   }
 
+  public void gameIsWon(int player) {
+    updateText = String.format("Game over! Player %s wins", player);
+    text.setText(updateText);
+  }
+
   public Text getUpdateText() {
     return text;
   }

@@ -8,7 +8,7 @@ import oogasalad.builder.view.BuilderView;
 public class BuilderMain extends Application {
 
   @Override
-  public void start(Stage stage) throws Exception {
+  public void start(Stage stage) {
     // TODO make this trigger a popup
     // Also possibly need to make this only apply to builder threads and not all threads
     Thread.setDefaultUncaughtExceptionHandler((t, e) -> {

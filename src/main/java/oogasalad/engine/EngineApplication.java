@@ -5,9 +5,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
-import oogasalad.engine.model.board.ArrayBoard;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.parsing.GameParser;
+import oogasalad.engine.model.setup.Constants;
+import oogasalad.engine.model.setup.parsing.GameParser;
 import oogasalad.engine.view.BoardView;
 import oogasalad.engine.view.ViewManager;
 
@@ -19,11 +19,11 @@ public class EngineApplication extends Application {
   @Override
   public void start(Stage stage) throws Exception {
 
-    Board board = GameParser.readInitialBoard(GameParser.CHECKERS_FILE);
+    Board board = GameParser.readInitialBoard(Constants.CHECKERS_FILE);
 
     BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), 350, 350);
 
-    Controller controller = new Controller(board, 3, 3);
+    Controller controller = new Controller(board);
 
     boardView.addController(controller);
     Group root = new Group();

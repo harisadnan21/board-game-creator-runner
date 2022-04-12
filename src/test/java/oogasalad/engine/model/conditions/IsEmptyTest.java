@@ -2,8 +2,7 @@ package oogasalad.engine.model.conditions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.board.ArrayBoard;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.conditions.piece_conditions.IsEmpty;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
@@ -14,12 +13,12 @@ public class IsEmptyTest {
   Board myBoard;
   @BeforeEach
   void setup() {
-    myBoard = new ArrayBoard(3, 3);
+    myBoard = new Board(3, 3);
   }
 
   @Test
   void basicTest() throws OutOfBoardException {
-    myBoard.placeNewPiece(1, 1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
     int[] params = new int[]{0, 0};
     PieceCondition condition = new IsEmpty(params);
 
@@ -29,9 +28,9 @@ public class IsEmptyTest {
 
   @Test
   void copyTest() throws OutOfBoardException {
-    myBoard.placeNewPiece(1, 1, 0, 0);
+    myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
 
-    Board copyBoard = myBoard.deepCopy();
+    Board copyBoard = myBoard.copy();
 
     int[] params = new int[]{0, 0};
     PieceCondition condition = new IsEmpty(params);

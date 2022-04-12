@@ -15,14 +15,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
-import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
+import oogasalad.engine.model.setup.parsing.GameParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import oogasalad.engine.model.parsing.GameParser;
 
 public class BoardView implements PropertyChangeListener{
   private static final Logger LOG = LogManager.getLogger(BoardView.class);
@@ -81,10 +81,12 @@ public class BoardView implements PropertyChangeListener{
     root.setAlignment(Pos.CENTER);
   }
 
-  public void cellClicked(MouseEvent e, int i, int j) throws OutOfBoardException {
+  public void cellClicked(MouseEvent e, int i, int j)
+      throws OutOfBoardException {
     Board nextState = myController.click(i, j);
     selectCell(i, j);
     updateBoard(nextState);
+    checkForWin(nextState);
     text.updateText(nextState.getPlayer());
   }
 
@@ -120,14 +122,19 @@ public class BoardView implements PropertyChangeListener{
   }
 
   private void updateBoard(Board board) {
+    text.updateText(board.getPlayer());
     setValidMarkers(board);
-    for (Pair<Position, Piece> piece: board) {
-      Position pos = piece.getKey();
-      if (piece.getValue() != null) {
-        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getPieceRecord().player()));
+    for (PositionState cell: board) {
+      Position pos = cell.position();
+      if (cell.isPresent()) {
+        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(cell.player()));
       }
       else {
-        myGrid[pos.i()][pos.j()].removePiece();
+        try {
+          myGrid[pos.i()][pos.j()].removePiece();
+        } catch (Exception e) {
+          LOG.warn("Exception thrown", e);
+        }
       }
     }
     checkForWin(board);
@@ -135,17 +142,12 @@ public class BoardView implements PropertyChangeListener{
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
   private void checkForWin(Board board) {
-    if(board.getWinner() != Board.NO_WINNER_YET){ // TODO: change this to read from Constants file
-      System.out.printf("gameOver! Player %d wins%n", board.getWinner());
+    if(board.getWinner() != Board.NO_WINNER_YET){
+      text.gameIsWon(board.getWinner());
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
-      try {
-        displayGameOver(board);
-        updateBoard(GameParser.getCheckersBoard());
-      }
-      catch(IOException e){
-        e.printStackTrace();
-        //TODO: Change
-      }
+      //displayGameOver(board);
+      Board newBoard = myController.resetGame();
+      updateBoard(newBoard);
     }
   }
 
