@@ -2,8 +2,8 @@ package oogasalad.builder.model.element;
 
 import java.util.Collection;
 import java.util.Set;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.JSONSerializable;
+import oogasalad.builder.model.property.Property;
 import org.json.JSONObject;
 
 

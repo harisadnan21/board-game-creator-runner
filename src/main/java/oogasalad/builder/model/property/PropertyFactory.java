@@ -21,7 +21,7 @@ public class PropertyFactory {
    * @return a new property created from the string
    */
   public static Property makeProperty(String name, String value){
-    return new Property(name, value);
+    return new StringProperty(name, value);
   }
 
   /**
@@ -32,7 +32,7 @@ public class PropertyFactory {
    * @return a new property created from the integer
    */
   public static Property makeProperty(String name, Integer value){
-    return new Property(name, value.toString());
+    return new IntegerProperty(name, value);
   }
 
   /**
@@ -43,14 +43,7 @@ public class PropertyFactory {
    * @return a new property created from the collection of strings
    */
   public static Property makeProperty(String name, Collection<String> value){
-    return new Property(name, collectionToString(value));
+    return new StringListProperty(name, value);
   }
-
-  // Converts a collection of string to a single string
-  private static String collectionToString(Collection<String> values){
-    JSONArray arr = new JSONArray(values);
-    return arr.toString();
-  }
-
 
 }

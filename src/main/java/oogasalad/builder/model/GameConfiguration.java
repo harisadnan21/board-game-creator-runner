@@ -2,9 +2,7 @@ package oogasalad.builder.model;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
@@ -14,6 +12,7 @@ import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.property.Property;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -140,7 +139,7 @@ public class GameConfiguration implements BuilderModel {
     for (GameElement element : elements.get(PIECE).values()) {
       ElementRecord record = element.toRecord();
       for (Property property : record.properties()) {
-        if (property.name().equals(ID) && Integer.parseInt(property.value()) == id) {
+        if (property.name().equals(ID) && Integer.parseInt(property.valueAsString()) == id) {
           return record.name();
         }
       }
@@ -153,7 +152,7 @@ public class GameConfiguration implements BuilderModel {
     ElementRecord record = findElementInfo(PIECE, name);
     for (Property property : record.properties()) {
       if (property.name().equals(ID)) {
-        return Integer.parseInt(property.value());
+        return Integer.parseInt(property.valueAsString());
       }
     }
     throw new ElementNotFoundException();
