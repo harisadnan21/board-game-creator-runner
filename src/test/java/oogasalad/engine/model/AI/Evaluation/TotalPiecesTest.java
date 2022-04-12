@@ -3,6 +3,7 @@ package oogasalad.engine.model.AI.Evaluation;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import oogasalad.engine.model.AI.InvalidBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
@@ -76,6 +77,12 @@ class TotalPiecesTest {
     assertEquals(evaluator.Evaluate(board, Piece.PLAYER_ONE), evaluator.Evaluate(board, Piece.PLAYER_TWO));
     assertEquals(evaluator.Evaluate(board, Piece.PLAYER_ONE), 0); 
     assertEquals(evaluator.Evaluate(board, Piece.PLAYER_TWO), 0); 
+  }
+
+  @Test
+  void badInput() {
+    assertThrows(InvalidBoardException.class, () -> evaluator.Evaluate(null, Piece.PLAYER_ONE));
+    assertThrows(InvalidBoardException.class, () -> evaluator.Evaluate(null, Piece.PLAYER_TWO));
   }
 
 

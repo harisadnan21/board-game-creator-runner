@@ -12,7 +12,7 @@ public interface StateEvaluator {
     if (board == null) {
       throw new InvalidBoardException();
     }
-
+    return;
   }
 
 }

@@ -8,6 +8,7 @@ public class TotalPieces implements StateEvaluator {
 
   @Override
   public int Evaluate(Board board, int player) {
+    StateEvaluator.throwIfInvalid(board);
     Map<Integer, Integer> piecesByPlayer = board.numPiecesByPlayer();
     int difference = piecesByPlayer.get(Piece.PLAYER_ONE) - piecesByPlayer.get(Piece.PLAYER_TWO);
     int evaluation = difference;
