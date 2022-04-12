@@ -1,66 +1,60 @@
 package oogasalad.builder.model.property;
 
-import java.util.Objects;
 
 /**
- * Interface for any Generic Property. Properties have a name, and value
+ * Interface for any Generic Property. Properties have a name, and value.
+ *
+ * We opted to create an interface instead of a record here in order to implement an inheritance
+ * hierarchy for properties (records cannot extend other records/abstract classes).
+ *
+ * @param <T> The type of the property. Concrete classes should not use generic typing.
  *
  * @author Ricky Weerts and Shaan Gondalia
  */
-public record Property(String name, String value) {
+public interface Property<T> {
 
-    /**
-     * Checks whether a property has the same name as another
-     *
-     * @param o The object to check equality against.
-     * @return true if the objects are equal, false if not
-     */
-    @Override
-    public boolean equals(Object o){
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Property property = (Property) o;
-        return name.equals(property.name);
-    }
+  /**
+   * Checks whether a property has the same name as another
+   *
+   * @param o The object to check equality against.
+   * @return true if the objects are equal, false if not
+   */
 
-    /**
-     * Checks whether a property has the same name and valueas another
-     *
-     * @param o The object to check equality against.
-     * @return true if the objects are equal, false if not
-     */
-    public boolean fullEquals(Object o){
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Property property = (Property) o;
-        return name.equals(property.name) && value.equals(property.value);
-    }
+  boolean equals(Object o);
 
-    /**
-     * Hashes a property
-     *
-     * @return the hashcode of the property
-     */
-    @Override
-    public int hashCode(){
-        return Objects.hash(name, value);
-    }
+  /**
+   * Checks whether a property has the same name and valueas another
+   *
+   * @param o The object to check equality against.
+   * @return true if the objects are equal, false if not
+   */
+  boolean fullEquals(Object o);
 
-    /**
-     * Returns the string representation of the properties value
-     *
-     * @return the string representation of the properties value
-     */
-    @Override
-    public String toString() {
-        return value;
-    }
+  /**
+   * Hashes a property
+   *
+   * @return the hashcode of the property
+   */
+  int hashCode();
+
+  /**
+   * Returns the name of the property
+   *
+   * @return the name of the property
+   */
+  String name();
+
+  /**
+   * Returns the value of the property
+   *
+   * @return the value of the property
+   */
+  T value();
+
+  /**
+   * Returns the string representation of the properties value
+   *
+   * @return the string representation of the properties value
+   */
+  String valueAsString();
 }
