@@ -1,9 +1,5 @@
 package oogasalad.builder.controller;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Collection;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
@@ -14,7 +10,20 @@ import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.BuilderView;
-import oogasalad.builder.view.callback.*;
+import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.GetElementNamesCallback;
+import oogasalad.builder.view.callback.GetElementPropertiesCallback;
+import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.callback.MakeBoardCallback;
+import oogasalad.builder.view.callback.PlacePieceCallback;
+import oogasalad.builder.view.callback.SaveCallback;
+import oogasalad.builder.view.callback.UpdateGameElementCallback;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Collection;
 
 /**
  * Controller for the Builder. Interfaces between the Builder View and Builder Model.
