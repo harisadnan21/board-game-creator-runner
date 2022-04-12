@@ -9,6 +9,12 @@ public class BuilderMain extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    BuilderController controller = new BuilderController(stage);
+    // TODO make this trigger a popup
+    // Also possibly need to make this only apply to builder threads and not all threads
+    Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
+      System.err.println("MAKE A REAL UNCAUGHT EXCEPTION HANDLER");
+      e.printStackTrace();
+    });
+    BuilderView view = new BuilderView(stage);
   }
 }

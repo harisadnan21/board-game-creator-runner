@@ -1,6 +1,6 @@
 package oogasalad.engine.model.player;
 
-import oogasalad.engine.model.action.Action;
+import oogasalad.engine.model.actions.Action;
 
 /**
  * Abstract class that defines a player and has methods that exeutes a player's turn.

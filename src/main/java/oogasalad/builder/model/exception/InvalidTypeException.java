@@ -5,7 +5,7 @@ package oogasalad.builder.model.exception;
  *
  * @author Shaan Gondalia
  */
-public class InvalidTypeException extends Exception {
+public class InvalidTypeException extends RuntimeException {
 
   // TODO: Replace hardcoded exception message with properties file
   private static final String DEFAULT_MESSAGE = "Invalid GameElement type requested";

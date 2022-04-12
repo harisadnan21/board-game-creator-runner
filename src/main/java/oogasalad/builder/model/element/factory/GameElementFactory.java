@@ -133,7 +133,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
             throw new IllegalPropertyDefinitionException(ExceptionResourcesSingleton.getInstance()
                 .getString("BadPropertyPartLength", PROPERTY_PARTS));
           }
-      properties.add(PropertyFactory.makeProperty(key, propertyParts[1]));
+      properties.add(PropertyFactory.makeProperty(key, propertyParts[1], propertyParts[0]));
     });
   }
 

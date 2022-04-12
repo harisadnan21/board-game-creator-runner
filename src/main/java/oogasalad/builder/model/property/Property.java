@@ -45,6 +45,13 @@ public interface Property<T> {
   String name();
 
   /**
+   * Returns the form of the property
+   *
+   * @return the form of the property
+   */
+  String form();
+
+  /**
    * Returns the value of the property
    *
    * @return the value of the property

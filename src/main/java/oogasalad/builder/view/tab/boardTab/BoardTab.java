@@ -11,30 +11,33 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import oogasalad.builder.controller.BuilderController;
+import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.tab.TitlePane;
 
 
 /**
  *
  */
-public class BoardTab {
+public class BoardTab extends BorderPane {
 
-  public static String RESOURCE_PATH = "/view/";
-  public static String LANGUAGE_TEMP = "English";
-  private BorderPane boardPane;
   private BoardCanvas boardCanvas;
   private ResourceBundle resources;
 
-  public BoardTab(ResourceBundle resourcesBundle) {
-    boardPane = new BorderPane();
+  private BuilderController controller; // FIXME: Use event handlers instead
+
+  public BoardTab(ResourceBundle resourcesBundle, BuilderController controller) {
     resources = resourcesBundle;
+    this.controller = controller;
 
 //        // TODO : Make this not magic
 //        setupBoard(8, 8, "Checkers");
@@ -43,23 +46,20 @@ public class BoardTab {
     setupTitle();
   }
 
-  public Node toNode() {
-    return boardPane;
-  }
 
   private void setupTitle() {
-    boardPane.setTop(new TitlePane("boardTitle", resources).toNode());
+    setTop(new TitlePane("boardTitle").toNode());
   }
 
   private void setupBlankBoard() {
-    boardCanvas = new BoardCanvas(resources, boardPane);
+    boardCanvas = new BoardCanvas(resources, this, controller);
 
     Pane canvasPane = boardCanvas.getCanvasPane();
-    canvasPane.prefWidthProperty().bind(boardPane.widthProperty().multiply(0.7));
-    canvasPane.prefHeightProperty().bind(boardPane.heightProperty());
+    canvasPane.prefWidthProperty().bind(this.widthProperty().multiply(0.7));
+    canvasPane.prefHeightProperty().bind(this.heightProperty());
 
     canvasPane.setId("boardCanvas");
-    boardPane.setCenter(canvasPane);
+    setCenter(canvasPane);
   }
 
   private void setupRightPane() {
@@ -67,7 +67,7 @@ public class BoardTab {
 
     rightBox.getChildren().addAll(setupButtonBar(), setupBoardConfigInput());
     rightBox.setId("rightPane");
-    boardPane.setRight(rightBox);
+    setRight(rightBox);
   }
 
   private Node setupBoardConfigInput() {
@@ -96,12 +96,13 @@ public class BoardTab {
     ObservableList<String> boardTypes = FXCollections.observableArrayList(boardTypeList);
 
     ComboBox<String> boardTypeBox = new ComboBox<>(boardTypes);
-    // boardTypeBox.getItems().add(resources.getString("checkers"));
     boardTypeBox.setPromptText(resources.getString("boardTypePicker"));
+    boardTypeBox.setValue(boardTypeList.get(0));
 
-    Button confirmBoardButton = makeButton("drawBoard", e -> createBoard(xSpinner.getValue(),
-        ySpinner.getValue(), colorPickerA.getValue(), colorPickerB.getValue(),
-        boardTypeBox.getValue()));
+    Button confirmBoardButton = makeButton("drawBoard", e ->
+        createBoard(xSpinner.getValue(),
+            ySpinner.getValue(), colorPickerA.getValue(), colorPickerB.getValue(),
+            boardTypeBox.getValue()));
 
     boardConfigBox.getChildren()
         .addAll(colorChoiceBox, numberPickerBox, boardTypeBox, confirmBoardButton);
@@ -109,7 +110,8 @@ public class BoardTab {
     return boardConfigBox;
   }
 
-  private void createBoard(int xDim, int yDim, Paint colorA, Paint colorB, String boardType) {
+  private void createBoard(int xDim, int yDim, Paint colorA, Paint colorB, String boardType)
+      throws NullBoardException {
     if (boardType == null){
       System.out.println("No Board Type Chosen Error");
       return;
@@ -123,22 +125,58 @@ public class BoardTab {
   private Node setupButtonBar() {
     VBox buttonBox = new VBox();
     Button saveButton = makeButton("saveBoard", e -> saveBoardConfig());
-    Button addPieceButton = makeButton("placePiece", e -> addBoardPiece());
+
+   // Button eraseButton = makeButton("eraser", e -> boardCanvas.setClickToErase());
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
 
-    buttonBox.getChildren().addAll(saveButton, addPieceButton, resetPiecesButton);
+    buttonBox.getChildren().addAll(saveButton, setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");
     return buttonBox;
   }
 
+  private ToggleButton createEraserButton(){
+    ToggleButton eraseButton  = new ToggleButton(resources.getString("eraser"));
+    eraseButton.setOnAction(e -> toggleErase(eraseButton));
 
-  private void saveBoardConfig() {
-    System.out.println(boardCanvas.printBoardConfig());
+    return eraseButton;
   }
 
-  private void addBoardPiece() {
-    System.out.println(boardCanvas.printBoardConfig());
+  private void toggleErase(ToggleButton eraser){
+    if (eraser.isSelected()){
+      boardCanvas.setClickToErase();
+    }
+    else{
+      boardCanvas.setClickToPlace();
+    }
+  }
+
+
+  private ComboBox setupPieceChoiceBox(){
+    ComboBox<String> choosePieceBox = new ComboBox<>();
+
+
+    choosePieceBox.setOnMouseEntered(e -> updatePieceOptions(choosePieceBox));
+
+    choosePieceBox.setPromptText(resources.getString("placePiece"));
+    choosePieceBox.valueProperty().addListener(
+        (observableValue, s, t1) -> boardCanvas.setCurrentPiece(t1));
+
+    return choosePieceBox;
+  }
+
+  private void updatePieceOptions(ComboBox<String> pieceBox){
+    //TODO: Remove Magic Value
+    String currVal = pieceBox.getValue();
+    Collection<String> pieceNames = controller.getElementNames("piece");
+    pieceBox.getItems().setAll(pieceNames);
+    pieceBox.setValue(currVal);
+  }
+
+  private void saveBoardConfig() {
+    Stage stage = new Stage();
+    FileChooser fileChooser = new FileChooser();
+    controller.save(fileChooser.showSaveDialog(stage));
   }
 
   public int[][] getBoardConfig() {
@@ -156,6 +194,7 @@ public class BoardTab {
     buttonCreated.setId(labelName);
 
     return buttonCreated;
-
   }
+
+
 }

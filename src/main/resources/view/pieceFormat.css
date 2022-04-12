@@ -24,13 +24,6 @@
     -fx-border-color: BLACK;
 }
 
-#buttonBox{
-    -fx-min-width: 50;
-    -fx-pref-width: 150;
-    -fx-alignment: top-center;
-    -fx-padding: 10;
-    -fx-spacing: 20;
-}
 #boardConfigBox{
     -fx-min-width: 100;
     -fx-pref-width: 200;

@@ -1,18 +1,28 @@
 package oogasalad.engine.model.board;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import javafx.util.Pair;
-import oogasalad.engine.model.Observable;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.Utilities;
 
+/**
+ * Class That defines the backend board and defines methods that can be applied to it.
+ * @author Jake Heller, Haris Adnan, Robert Cranston
+ */
 public class Board implements Iterable<Pair<Position, Piece>> {
-
+  public static final int NO_WINNER_YET = -2;
   private int myRows;
   private int myColumns;
   private Piece[][] pieceLocations;
   private int activePlayer;
+  private Set<Position> currentValidMoves;
+  private int myWinner = NO_WINNER_YET;
+
 
   public Board(int rows, int columns) {
     myRows = rows;
@@ -21,8 +31,35 @@ public class Board implements Iterable<Pair<Position, Piece>> {
     activePlayer = 0;
   }
 
-  public Piece[][] getMyBoard(){
-    return pieceLocations;
+  public Board(Board board) {
+    this(board.myRows, board.myColumns);
+    activePlayer = board.getPlayer();
+    for (Pair<Position, Piece> pair: board) {
+      if (pair.getValue() != null) {
+        Piece piece = pair.getValue();
+        try {
+          this.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(),
+              piece.getPieceRecord().type(), piece.getPieceRecord().player());
+        } catch (OutOfBoardException e) {
+          // since only considering pieces in board, exception is not relevant
+        }
+      }
+    }
+  }
+
+  /**
+   *
+   * @return a copy of the piece locations in the board
+   */
+  @Deprecated
+  public Piece[][] getMyBoardCopy(){
+    Piece[][] retList = new Piece[myRows][myColumns];
+    for (int row = 0; row < myRows; row++) {
+      for (int col = 0; col < myColumns; col++) {
+        retList[row][col] = pieceLocations[row][col].deepCopy();
+      }
+    }
+    return retList;
   }
 
   /**
@@ -33,8 +70,8 @@ public class Board implements Iterable<Pair<Position, Piece>> {
    */
   private boolean isPieceAtLocation(int row, int column){
     return pieceLocations[row][column] != null;
-
   }
+
   public void placeNewPiece(int row, int column, int type, int player) throws OutOfBoardException {
     Piece piece = new Piece(type, player, row, column);
     place(row, column, piece);
@@ -53,21 +90,34 @@ public class Board implements Iterable<Pair<Position, Piece>> {
   }
 
   public void remove(int i, int j){
-    pieceLocations[i][j] =null;
+    if (!isValid(i, j)) {
+      throwOutOfBoardError(i,j);
+    }
+    pieceLocations[i][j] = null;
   }
 
   public boolean isEmpty(int i, int j) {
+    if (!isValid(i, j)){
+      throwOutOfBoardError(i,j);
+    }
     return pieceLocations[i][j] == null;
   }
 
-  public Optional<Piece> getPiece(int i, int j) {
+  public void throwOutOfBoardError(int i, int j) {
+    throw new OutOfBoardException(String.format("Index (%d,%d) out of bounds", i, j));
+  }
+
+  public Optional<PieceRecord> getPieceRecord(int i, int j) {
     //return Optional.of(myBoard[i][j]);
-    Optional<Piece> piece;
+    if (!isValid(i,j)) {
+      throwOutOfBoardError(i,j);
+    }
+    Optional<PieceRecord> piece;
     if (pieceLocations[i][j] == null) {
       piece = Optional.empty();
     }
     else {
-      piece = Optional.of(pieceLocations[i][j]);
+      piece = Optional.of(pieceLocations[i][j].getPieceRecord());
     }
     return piece;
   }
@@ -83,7 +133,13 @@ public class Board implements Iterable<Pair<Position, Piece>> {
    * @throws OutOfBoardException
    */
   public void move(int i1, int j1, int i2, int j2) throws OutOfBoardException {
-    if (isPieceAtLocation(i1,j1)){
+    if (!isValid(i1,j1)) {
+      throwOutOfBoardError(i1,j1);
+    }
+    else if (!isValid(i2,j2)) {
+      throwOutOfBoardError(i2,j2);
+    }
+    if (!isEmpty(i1,j1)){
       Piece piece = pieceLocations[i1][j1];
       place(i2, j2, piece);
       pieceLocations[i1][j1] = null;
@@ -107,11 +163,11 @@ public class Board implements Iterable<Pair<Position, Piece>> {
   }
 
   private boolean isValidY(int j) {
-    return Utilities.isPositive(j) && (j <= myRows);
+    return Utilities.isPositive(j) && (j < myRows);
   }
 
   private boolean isValidX(int i) {
-    return Utilities.isPositive(i) && (i <= myColumns);
+    return Utilities.isPositive(i) && (i < myColumns);
   }
 
   public Board deepCopy() throws OutOfBoardException {
@@ -121,11 +177,38 @@ public class Board implements Iterable<Pair<Position, Piece>> {
       Piece copyPiece;
       if (pair.getValue() != null) {
         Piece piece = pair.getValue();
-        board.placeNewPiece(piece.getI(), piece.getJ(), piece.getType(), piece.getOwner());
+        board.placeNewPiece(piece.getPieceRecord().rowNum(), piece.getPieceRecord().colNum(), piece.getPieceRecord()
+            .type(), piece.getPieceRecord().player());
       }
     }
     return board;
   }
+
+  /**
+   * Sets the valid moves for the currently selected piece on the board or null if no piece is selected
+   * @param validMoves Set of Position values of valid moves for selected cell
+   */
+  public void setValidMoves(Set<Position> validMoves) { currentValidMoves = validMoves; }
+
+  /**
+   * Returns the Set of Positions of valid moves of selected piece
+   * @return Set of Positions of valid moves of selected piece
+   */
+  public Set<Position> getValidMoves() { return currentValidMoves; }
+
+  /**
+   * Sets the winner of the board. Only called when game is over in checkForWin Method
+   * @see oogasalad.engine.model.engine.PieceSelectionEngine
+   * @param winner int representing player that wins the game
+   */
+  public void setWinner(int winner){myWinner =  winner;}
+
+  /**
+   * Returns the winner of the game
+   * @see oogasalad.engine.view.BoardView
+   * @return winner based on current board
+   */
+  public int getWinner(){return myWinner;}
 
   // Let's discuss, I think we should use the Java Streams class to create a Stream over the board declaratively, because:
 // 1. We can use built in functionality for streams
@@ -135,4 +218,13 @@ public class Board implements Iterable<Pair<Position, Piece>> {
   public Iterator<Pair<Position, Piece>> iterator() {
     return new BoardIterator(pieceLocations);
   }
+
+  public int getHeight() {
+    return myRows;
+  }
+
+  public int getWidth() {
+    return myColumns;
+  }
+
 }

@@ -116,15 +116,6 @@ public class GameConfigurationTest {
   }
 
   @Test
-  void testOccupiedCell()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
-    game.makeBoard(WIDTH, HEIGHT);
-    addPiece();
-    game.placeBoardPiece(X, Y, PIECE_NAME);
-    assertThrows(OccupiedCellException.class, () -> game.placeBoardPiece(X, Y, PIECE_NAME));
-  }
-
-  @Test
   void testSerialization()
       throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     game.makeBoard(WIDTH, HEIGHT);

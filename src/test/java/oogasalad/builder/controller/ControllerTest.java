@@ -54,7 +54,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    controller = new BuilderController(stage);
+    controller = new BuilderController();
   }
 
   @Test
@@ -113,15 +113,6 @@ public class ControllerTest extends DukeApplicationTest {
     controller.placePiece(X, Y, PIECE_NAME);
     controller.clearCell(X, Y);
     assertEquals(EMPTY, controller.findPieceAt(X, Y));
-  }
-
-  @Test
-  void testOccupiedCell()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
-    controller.makeBoard(WIDTH, HEIGHT);
-    addPiece();
-    controller.placePiece(X, Y, PIECE_NAME);
-    assertThrows(OccupiedCellException.class, () -> controller.placePiece(X, Y, PIECE_NAME));
   }
 
   @Test
