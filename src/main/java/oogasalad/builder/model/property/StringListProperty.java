@@ -18,9 +18,10 @@ public class StringListProperty extends AbstractProperty<Collection<String>>{
    *
    * @param name the name of the property
    * @param value a collection of strings
+   * @param form the form of the property
    */
-  public StringListProperty(String name, Collection<String> value) {
-    super(name, value);
+  public StringListProperty(String name, Collection<String> value, String form) {
+    super(name, value, form);
   }
 
   /**

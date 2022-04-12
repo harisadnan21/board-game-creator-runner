@@ -19,11 +19,7 @@ public class StringPropertyTest {
 
   @Test
   void testCreateProperty() {
-<<<<<<< HEAD:src/test/java/oogasalad/builder/model/property/StringPropertyTest.java
-    Property property = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE);
-=======
-    Property property = new Property(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
->>>>>>> 10ace8cde828626bc985b218674c2fb030d12ea8:src/test/java/oogasalad/builder/model/property/PropertyTest.java
+    Property property = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
     assertEquals(PROPERTY_NAME, property.name());
     assertEquals(PROPERTY_VALUE, property.value());
     assertEquals(PROPERTY_VALUE, property.valueAsString());
@@ -31,23 +27,14 @@ public class StringPropertyTest {
 
   @Test
   void testEquality() {
-<<<<<<< HEAD:src/test/java/oogasalad/builder/model/property/StringPropertyTest.java
-    Property property1 = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE);
-    Property property2 = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE);
-=======
-    Property property1 = new Property(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
-    Property property2 = new Property(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
->>>>>>> 10ace8cde828626bc985b218674c2fb030d12ea8:src/test/java/oogasalad/builder/model/property/PropertyTest.java
+    Property property1 = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
+    Property property2 = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
     assertEquals(property1, property2);
   }
 
   @Test
   void testHashCode() {
-<<<<<<< HEAD:src/test/java/oogasalad/builder/model/property/StringPropertyTest.java
-    Property property = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE);
-=======
-    Property property = new Property(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
->>>>>>> 10ace8cde828626bc985b218674c2fb030d12ea8:src/test/java/oogasalad/builder/model/property/PropertyTest.java
+    Property property = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
     int code = property.hashCode();
   }
 }

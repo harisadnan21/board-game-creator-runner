@@ -15,6 +15,7 @@ import java.util.Objects;
 public abstract class AbstractProperty<T> implements Property<T>{
 
   private final String name;
+  private final String form;
   private final T value;
 
   /**
@@ -22,9 +23,11 @@ public abstract class AbstractProperty<T> implements Property<T>{
    *
    * @param name the name of the property
    * @param value the value of the property
+   * @param form the form of the property
    */
-  public AbstractProperty(String name, T value) {
+  public AbstractProperty(String name, T value, String form) {
     this.name = name;
+    this.form = form;
     this.value = value;
   }
 
@@ -35,6 +38,15 @@ public abstract class AbstractProperty<T> implements Property<T>{
    */
   public String name() {
     return name;
+  }
+
+  /**
+   * Returns the form of the property
+   *
+   * @return the form of the property
+   */
+  public String form() {
+    return form;
   }
 
   /**

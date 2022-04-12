@@ -102,7 +102,7 @@ public class BuilderController {
         ElementRecord elementRecord = gameConfig.findElementInfo(type, name);
         for (Property prop : elementRecord.properties()) {
             if (prop.name().equals(key)) {
-                return prop.value();
+                return prop.valueAsString();
             }
         }
         throw new ElementNotFoundException();

@@ -13,9 +13,10 @@ public class IntegerProperty extends AbstractProperty<Integer>{
    *
    * @param name the name of the property
    * @param value an integer
+   * @param form the form of the property
    */
-  public IntegerProperty(String name, Integer value) {
-    super(name, value);
+  public IntegerProperty(String name, Integer value, String form) {
+    super(name, value, form);
   }
 
   /**
