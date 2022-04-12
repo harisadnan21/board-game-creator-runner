@@ -22,9 +22,9 @@ class TotalPiecesTest {
     Board[] boards = {new Board(1, 1),
                       new Board(3,9),
                       new Board(5,5)};
-    int[] evaluations = Arrays.stream(boards).mapToInt(board -> evaluator.Evaluate(board, Piece.PLAYER_ONE)).toArray();
+    int[] evaluations = Arrays.stream(boards).mapToInt(board -> evaluator.evaluate(board, Piece.PLAYER_ONE)).toArray();
     range(0, 3).forEach(index -> assertTrue(evaluations[index] ==  0));
-    int[] evaluations2 = Arrays.stream(boards).mapToInt(board -> evaluator.Evaluate(board, Piece.PLAYER_TWO)).toArray();
+    int[] evaluations2 = Arrays.stream(boards).mapToInt(board -> evaluator.evaluate(board, Piece.PLAYER_TWO)).toArray();
     range(0, 3).forEach(index -> assertTrue(evaluations2[index] ==  0));
   }
 
@@ -48,11 +48,11 @@ class TotalPiecesTest {
       Board board2 = boards2[index];
       int numPositions = board1.getWidth() * board2.getHeight();
 
-      assertEquals(numPositions, evaluator.Evaluate(board1, Piece.PLAYER_ONE));
-      assertEquals(-1 * numPositions, evaluator.Evaluate(board1, Piece.PLAYER_TWO));
+      assertEquals(numPositions, evaluator.evaluate(board1, Piece.PLAYER_ONE));
+      assertEquals(-1 * numPositions, evaluator.evaluate(board1, Piece.PLAYER_TWO));
 
-      assertEquals(-1 * numPositions, evaluator.Evaluate(board2, Piece.PLAYER_ONE));
-      assertEquals(numPositions, evaluator.Evaluate(board2, Piece.PLAYER_TWO));
+      assertEquals(-1 * numPositions, evaluator.evaluate(board2, Piece.PLAYER_ONE));
+      assertEquals(numPositions, evaluator.evaluate(board2, Piece.PLAYER_TWO));
 
     }
 
@@ -74,15 +74,15 @@ class TotalPiecesTest {
         }
       }
 
-    assertEquals(evaluator.Evaluate(board, Piece.PLAYER_ONE), evaluator.Evaluate(board, Piece.PLAYER_TWO));
-    assertEquals(evaluator.Evaluate(board, Piece.PLAYER_ONE), 0); 
-    assertEquals(evaluator.Evaluate(board, Piece.PLAYER_TWO), 0); 
+    assertEquals(evaluator.evaluate(board, Piece.PLAYER_ONE), evaluator.evaluate(board, Piece.PLAYER_TWO));
+    assertEquals(evaluator.evaluate(board, Piece.PLAYER_ONE), 0);
+    assertEquals(evaluator.evaluate(board, Piece.PLAYER_TWO), 0);
   }
 
   @Test
   void badInput() {
-    assertThrows(InvalidBoardException.class, () -> evaluator.Evaluate(null, Piece.PLAYER_ONE));
-    assertThrows(InvalidBoardException.class, () -> evaluator.Evaluate(null, Piece.PLAYER_TWO));
+    assertThrows(InvalidBoardException.class, () -> evaluator.evaluate(null, Piece.PLAYER_ONE));
+    assertThrows(InvalidBoardException.class, () -> evaluator.evaluate(null, Piece.PLAYER_TWO));
   }
 
 

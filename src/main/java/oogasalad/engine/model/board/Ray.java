@@ -12,6 +12,10 @@ import org.jooq.lambda.Seq;
 
 public class Ray {
 
+  private Ray() {
+    throw new IllegalStateException("This class should not be instantiated");
+  }
+
   public static Stream<PositionState> getDirectionalRay(Board board, Position position, Direction direction) {
     return Ray.getDirectionalRayWhileCondition(board, position, direction, positionState -> true);
   }

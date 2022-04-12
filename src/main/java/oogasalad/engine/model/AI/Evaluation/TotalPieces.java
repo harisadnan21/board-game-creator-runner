@@ -7,7 +7,7 @@ import oogasalad.engine.model.board.Piece;
 public class TotalPieces implements StateEvaluator {
 
   @Override
-  public int Evaluate(Board board, int player) {
+  public int evaluate(Board board, int player) {
     StateEvaluator.throwIfInvalid(board);
     Map<Integer, Integer> piecesByPlayer = board.numPiecesByPlayer();
     int difference = piecesByPlayer.get(Piece.PLAYER_ONE) - piecesByPlayer.get(Piece.PLAYER_TWO);

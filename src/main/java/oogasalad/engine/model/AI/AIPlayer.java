@@ -1,7 +1,6 @@
 package oogasalad.engine.model.AI;
 
 import oogasalad.engine.model.AI.Evaluation.StateEvaluator;
-import oogasalad.engine.model.actions.Move;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.player.Player;
 

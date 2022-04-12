@@ -23,6 +23,7 @@ import lombok.ToString;
 public class Board implements DisplayableBoard {
 
   public static final int NO_WINNER_YET = -2; //Eh
+  public static final String INVALID_POSITION = "Invalid Position";
   private int activePlayer;
   private Set<Position> currentValidMoves; //Why does the Board care?
   private int myWinner = NO_WINNER_YET; //Why does the Board care?
@@ -32,8 +33,8 @@ public class Board implements DisplayableBoard {
 
   private final int numRows;
   private final int numCols;
-  private final int firstRow = 0;
-  private final int firstCol = 0;
+  private static final int firstRow = 0;
+  private static final int firstCol = 0;
   private final int lastRow;
   private final int lastCol;
 
@@ -106,7 +107,7 @@ public class Board implements DisplayableBoard {
 
   private void throwIfInvalid(Position position) {
     if (!isValidPosition(position)) {
-      throw new OutOfBoardException("Invalid Position");
+      throw new OutOfBoardException(INVALID_POSITION);
     }
   }
 
@@ -232,7 +233,8 @@ public class Board implements DisplayableBoard {
 
   @Override
   public PositionState getPositionStateAt(int i, int j) {
-    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException("Invalid Position"));
+    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException(
+        INVALID_POSITION));
   }
 
   @Override
@@ -331,6 +333,7 @@ public class Board implements DisplayableBoard {
    * @return
    */
   public Piece getPiece(int i, int j) {
-    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException("Invalid Position")).piece();
+    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException(
+        INVALID_POSITION)).piece();
   }
 }
