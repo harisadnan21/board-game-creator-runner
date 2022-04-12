@@ -71,7 +71,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       throws MissingRequiredPropertyException {
     for (Property property : properties) {
       if (property.name().equals(target)) {
-        return property.value();
+        return property.valueAsString();
       }
     }
     throw new MissingRequiredPropertyException();
@@ -117,7 +117,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       String namespace = property.name().split(DELIMITER)[0];
       String target = property.name().split(DELIMITER)[1];
       if (namespace.equals(REQUIRED) && target.equals(TYPE)) {
-        String[] validTypes = property.value().split(DELIMITER);
+        String[] validTypes = property.valueAsString().split(DELIMITER);
         return Arrays.asList(validTypes).contains(type);
       }
     }

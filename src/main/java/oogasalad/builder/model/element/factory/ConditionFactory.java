@@ -1,9 +1,9 @@
 package oogasalad.builder.model.element.factory;
 
 import java.util.Collection;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.Condition;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
+import oogasalad.builder.model.property.Property;
 
 /**
  * Factory responsible for creating Condition objects based on name and properties. Performs
