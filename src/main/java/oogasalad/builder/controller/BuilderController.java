@@ -75,7 +75,7 @@ public class BuilderController {
      * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
      * @throws NullBoardException    if the board has not been initialized
      */
-    private Void placePiece(PlacePieceCallback callback)
+    Void placePiece(PlacePieceCallback callback)
         throws OccupiedCellException, NullBoardException, ElementNotFoundException {
         gameConfig.placeBoardPiece(callback.x(), callback.y(), callback.piece());
         return null;
@@ -98,7 +98,7 @@ public class BuilderController {
      *
      * @param callback callback object containing the x and y location to clear
      */
-    private Void clearCell(ClearCellCallback callback) throws NullBoardException {
+    Void clearCell(ClearCellCallback callback) throws NullBoardException {
         gameConfig.clearBoardCell(callback.x(), callback.y());
         return null;
     }
@@ -109,7 +109,7 @@ public class BuilderController {
      * @param callback a callback object containing the type and name of the element to get properties for
      * @return the properties of an element
      */
-    private Collection<Property> getElementProperties(GetElementPropertiesCallback callback)
+    Collection<Property> getElementProperties(GetElementPropertiesCallback callback)
         throws ElementNotFoundException {
         ElementRecord elementRecord = gameConfig.findElementInfo(callback.type(), callback.name());
         return elementRecord.properties();
@@ -121,7 +121,7 @@ public class BuilderController {
      * @param callback callback object containing the type, name, and property key
      * @return the value of the property
      */
-    private String getElementPropertyByKey(GetElementPropertyByKeyCallback callback)
+    String getElementPropertyByKey(GetElementPropertyByKeyCallback callback)
         throws ElementNotFoundException {
         ElementRecord elementRecord = gameConfig.findElementInfo(callback.type(), callback.name());
         for (Property prop : elementRecord.properties()) {
@@ -151,7 +151,7 @@ public class BuilderController {
      *
      * @param callback a callback object containing the type, name, and properties of the element to update
      */
-    private Void update(UpdateGameElementCallback callback)
+    Void update(UpdateGameElementCallback callback)
         throws InvalidTypeException, MissingRequiredPropertyException {
        gameConfig.addGameElement(callback.type(), callback.name(), callback.properties());
        return null;
@@ -163,7 +163,7 @@ public class BuilderController {
      * @param callback a callback object cont
      * @return the required properties of a game element
      */
-    private Collection<Property> getRequiredProperties(GetPropertiesCallback callback) throws InvalidTypeException {
+    Collection<Property> getRequiredProperties(GetPropertiesCallback callback) throws InvalidTypeException {
         return gameConfig.getRequiredProperties(callback.type());
     }
 
@@ -172,7 +172,7 @@ public class BuilderController {
      *
      * @param callback callback object containing the File to save the Game Configuration to.
      */
-    private Void save(SaveCallback callback) throws NullBoardException {
+    Void save(SaveCallback callback) throws NullBoardException {
         try {
             FileWriter writer = new FileWriter(callback.file());
             writer.write(gameConfig.toJSON());
