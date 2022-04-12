@@ -3,9 +3,9 @@ package oogasalad.builder.view;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.PropertyFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -63,7 +63,7 @@ public class PropertyEditor extends VBox {
                 .filter(entry -> entry.getKey().name().equals(name))
                 .map(entry -> {
                     String[] propertyNameParts = entry.getKey().name().split("-");
-                    return new Property(propertyNameParts[propertyNameParts.length - 1], entry.getValue().getText());
+                    return PropertyFactory.makeProperty(propertyNameParts[propertyNameParts.length - 1], entry.getValue().getText());
                 })
                 .findFirst()
                 .orElseThrow();
