@@ -14,7 +14,7 @@ public class CallbackDispatcher {
     public <R, C extends Callback<R>> Optional<R> call(C callback) {
         Class<?> clazz = callback.getClass();
         if(handlers.containsKey(clazz)&& handlers.get(clazz) != null) {
-            return Optional.of(((CallbackHandler<R, C>)handlers.get(clazz)).handle(callback));
+            return Optional.ofNullable(((CallbackHandler<R, C>)handlers.get(clazz)).handle(callback));
         }
         return Optional.empty();
     }

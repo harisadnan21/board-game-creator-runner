@@ -15,6 +15,7 @@ import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.PropertyFactory;
+import oogasalad.builder.view.BuilderView;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -54,7 +55,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    controller = new BuilderController();
+    controller = new BuilderController(new BuilderView(stage));
   }
 
   @Test

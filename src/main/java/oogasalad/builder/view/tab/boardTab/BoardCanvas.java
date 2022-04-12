@@ -1,26 +1,21 @@
 package oogasalad.builder.view.tab.boardTab;
 
 
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.function.Consumer;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import oogasalad.builder.controller.BuilderController;
-import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.builder.model.property.Property;
+import oogasalad.builder.view.callback.*;
+
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class BoardCanvas {
 
@@ -39,12 +34,12 @@ public class BoardCanvas {
   private BorderPane borderPane;
   private String currentPiece;
 
-  private BuilderController controller; //FIXME: Use Event handlers instead of this
+  private final CallbackDispatcher callbackDispatcher;
 
-  public BoardCanvas(ResourceBundle rb, BorderPane boardTab, BuilderController controller) {
+  public BoardCanvas(ResourceBundle rb, BorderPane boardTab, CallbackDispatcher dispatcher) {
     resources = rb;
     borderPane = boardTab;
-    this.controller = controller;
+    this.callbackDispatcher = dispatcher;
 
     setupBoard();
     populateBoardTypeMap();
@@ -61,7 +56,7 @@ public class BoardCanvas {
   public void drawBoard(int xDim, int yDim, String type) throws NullBoardException {
     boardGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
     calculateAndChangeCanvasSize();
-    controller.makeBoard(xDim, yDim);
+    callbackDispatcher.call(new MakeBoardCallback(xDim, yDim));
 
     rectWidth = boardCanvas.getWidth() / xDim;
     rectHeight = boardCanvas.getHeight() / yDim;
@@ -104,7 +99,7 @@ public class BoardCanvas {
     containsPiece = new int[containsPiece[0].length][containsPiece.length];
     for (int i = 0; i < containsPiece.length; i++) {
       for (int j = 0; j < containsPiece[0].length; j++) {
-        controller.clearCell(j, i);
+        callbackDispatcher.call(new ClearCellCallback(j, i));
       }
     }
   }
@@ -151,7 +146,7 @@ public class BoardCanvas {
   private void erasePiece(MouseEvent click){
     int[] blockIndex = findSquare(click.getX(), click.getY());
     pieceGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
-    controller.clearCell(blockIndex[0], blockIndex[1]);
+    callbackDispatcher.call(new ClearCellCallback(blockIndex[0], blockIndex[1]));
   }
 
   private void addPiece(MouseEvent click)
@@ -168,9 +163,9 @@ public class BoardCanvas {
     int[] blockIndex = findSquare(clickX, clickY);
     System.out.println(" xPos: " + blockIndex[0] + " yPos: " + blockIndex[1]);
 
-    controller.placePiece(blockIndex[0], blockIndex[1], currentPiece);
+    callbackDispatcher.call(new PlacePieceCallback(blockIndex[0], blockIndex[1], currentPiece));
 
-    String filePath =  controller.getElementPropertyByKey("piece", currentPiece, "image");
+    String filePath = callbackDispatcher.call(new GetElementPropertyByKeyCallback("piece", currentPiece, "image")).orElseThrow();
 
     Image pieceImage = new Image(filePath);
     pieceGraphics.drawImage(pieceImage,blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);

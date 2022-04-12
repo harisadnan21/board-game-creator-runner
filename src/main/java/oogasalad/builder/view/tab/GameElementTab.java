@@ -16,7 +16,9 @@ import oogasalad.builder.view.GameElementList;
 import oogasalad.builder.view.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.callback.UpdateGameElementCallback;
 
 import java.util.*;
 
@@ -24,8 +26,6 @@ import java.util.*;
  * 
  */
 public class GameElementTab extends BorderPane {
-    // FIXME Remove this
-    private BuilderController controller;
     private final CallbackDispatcher callbackDispatcher;
 
     private GameElementList elementList;
@@ -37,9 +37,8 @@ public class GameElementTab extends BorderPane {
     /**
      * Default constructor
      */
-    public GameElementTab(BuilderController controller, CallbackDispatcher dispatcher, String type) {
+    public GameElementTab(CallbackDispatcher dispatcher, String type) {
         this.callbackDispatcher = dispatcher;
-        this.controller = controller;
         this.type = type;
 
         setupCenterPane();
@@ -84,7 +83,7 @@ public class GameElementTab extends BorderPane {
         saveCurrentElement();
         if(newElement != null) {
             nameField.setText(newElement);
-            propertyEditor.setElementProperties(controller.getElementProperties(type, newElement));
+            propertyEditor.setElementProperties(callbackDispatcher.call(new GetElementPropertiesCallback(type, newElement)).orElseThrow());
         }
     }
 
@@ -92,7 +91,7 @@ public class GameElementTab extends BorderPane {
         if(!propertyEditor.hasProperties()) {
             return;
         }
-        controller.update(type, nameField.getText(), propertyEditor.getElementProperties());
+        callbackDispatcher.call(new UpdateGameElementCallback(type, nameField.getText(), propertyEditor.getElementProperties()));
         elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
     }
 

@@ -22,6 +22,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.exception.NullBoardException;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.GetElementNamesCallback;
+import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.TitlePane;
 
 
@@ -33,11 +36,11 @@ public class BoardTab extends BorderPane {
   private BoardCanvas boardCanvas;
   private ResourceBundle resources;
 
-  private BuilderController controller; // FIXME: Use event handlers instead
+  private CallbackDispatcher callbackDispatcher;
 
-  public BoardTab(ResourceBundle resourcesBundle, BuilderController controller) {
+  public BoardTab(ResourceBundle resourcesBundle, CallbackDispatcher dispatcher) {
     resources = resourcesBundle;
-    this.controller = controller;
+    this.callbackDispatcher = dispatcher;
 
 //        // TODO : Make this not magic
 //        setupBoard(8, 8, "Checkers");
@@ -52,7 +55,7 @@ public class BoardTab extends BorderPane {
   }
 
   private void setupBlankBoard() {
-    boardCanvas = new BoardCanvas(resources, this, controller);
+    boardCanvas = new BoardCanvas(resources, this, callbackDispatcher);
 
     Pane canvasPane = boardCanvas.getCanvasPane();
     canvasPane.prefWidthProperty().bind(this.widthProperty().multiply(0.7));
@@ -168,7 +171,7 @@ public class BoardTab extends BorderPane {
   private void updatePieceOptions(ComboBox<String> pieceBox){
     //TODO: Remove Magic Value
     String currVal = pieceBox.getValue();
-    Collection<String> pieceNames = controller.getElementNames("piece");
+    Collection<String> pieceNames = callbackDispatcher.call(new GetElementNamesCallback("piece")).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
   }
@@ -176,7 +179,7 @@ public class BoardTab extends BorderPane {
   private void saveBoardConfig() {
     Stage stage = new Stage();
     FileChooser fileChooser = new FileChooser();
-    controller.save(fileChooser.showSaveDialog(stage));
+    callbackDispatcher.call(new SaveCallback(fileChooser.showSaveDialog(stage)));
   }
 
   public int[][] getBoardConfig() {
