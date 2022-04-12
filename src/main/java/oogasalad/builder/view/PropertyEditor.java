@@ -1,8 +1,7 @@
 package oogasalad.builder.view;
 
-import oogasalad.builder.model.property.Property;
-
 import java.util.*;
+import oogasalad.builder.model.property.Property;
 
 /**
  * 
