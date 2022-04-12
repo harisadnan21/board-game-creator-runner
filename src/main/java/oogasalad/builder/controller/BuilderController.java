@@ -1,9 +1,5 @@
 package oogasalad.builder.controller;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Collection;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
@@ -13,6 +9,21 @@ import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.view.BuilderView;
+import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.GetElementNamesCallback;
+import oogasalad.builder.view.callback.GetElementPropertiesCallback;
+import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.callback.MakeBoardCallback;
+import oogasalad.builder.view.callback.PlacePieceCallback;
+import oogasalad.builder.view.callback.SaveCallback;
+import oogasalad.builder.view.callback.UpdateGameElementCallback;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Collection;
 
 /**
  * Controller for the Builder. Interfaces between the Builder View and Builder Model.
@@ -22,37 +33,52 @@ import oogasalad.builder.model.property.Property;
 public class BuilderController {
 
     private final BuilderModel gameConfig;
+    private final BuilderView builderView;
 
     /**
      * Creates a BuilderController Object that interfaces between the view and model.
      *
      */
-    public BuilderController() {
+    public BuilderController(BuilderView view) {
         gameConfig = new GameConfiguration();
+        builderView = view;
+
+        registerHandlers();
+    }
+
+    private void registerHandlers() {
+        builderView.registerCallbackHandler(GetPropertiesCallback.class, this::getRequiredProperties);
+        builderView.registerCallbackHandler(GetElementPropertiesCallback.class, this::getElementProperties);
+        builderView.registerCallbackHandler(GetElementNamesCallback.class, this::getElementNames);
+        builderView.registerCallbackHandler(SaveCallback.class, this::save);
+        builderView.registerCallbackHandler(UpdateGameElementCallback.class, this::update);
+        builderView.registerCallbackHandler(ClearCellCallback.class, this::clearCell);
+        builderView.registerCallbackHandler(PlacePieceCallback.class, this::placePiece);
+        builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class, this::getElementPropertyByKey);
+        builderView.registerCallbackHandler(MakeBoardCallback.class, this::makeBoard);
     }
 
     /**
      * Creates a new board with the given dimensions.
      *
-     * @param width  the width of the board (in cells)
-     * @param height the height of the board (in cells)
+     * @param callback callback containing the width and height of the board (in cells)
      */
-    public void makeBoard(int width, int height) {
-        gameConfig.makeBoard(width, height);
+    public Void makeBoard(MakeBoardCallback callback) {
+        gameConfig.makeBoard(callback.width(), callback.height());
+        return null;
     }
 
     /**
      * Attempts to place a piece at the given coordinates
      *
-     * @param x    the x location to place
-     * @param y    the y location to place
-     * @param name the name of the piece to place
+     * @param callback callback object representing what piece and where to place it
      * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
      * @throws NullBoardException    if the board has not been initialized
      */
-    public void placePiece(int x, int y, String name)
+    Void placePiece(PlacePieceCallback callback)
         throws OccupiedCellException, NullBoardException, ElementNotFoundException {
-        gameConfig.placeBoardPiece(x, y, name);
+        gameConfig.placeBoardPiece(callback.x(), callback.y(), callback.piece());
+        return null;
     }
 
     /**
@@ -70,38 +96,36 @@ public class BuilderController {
     /**
      * Clears the cell on the board at the given coordinates
      *
-     * @param x the x location to clear
-     * @param y the y location to clear
+     * @param callback callback object containing the x and y location to clear
      */
-    public void clearCell(int x, int y) throws NullBoardException {
-        gameConfig.clearBoardCell(x, y);
+    Void clearCell(ClearCellCallback callback) throws NullBoardException {
+        gameConfig.clearBoardCell(callback.x(), callback.y());
+        return null;
     }
 
     /**
      * Gets the properties of an element specified by its type and name
      *
-     * @param type the type of the element
-     * @param name the name of the element
+     * @param callback a callback object containing the type and name of the element to get properties for
      * @return the properties of an element
      */
-    public Collection<Property> getElementProperties(String type, String name)
+    Collection<Property> getElementProperties(GetElementPropertiesCallback callback)
         throws ElementNotFoundException {
-        ElementRecord elementRecord = gameConfig.findElementInfo(type, name);
+        ElementRecord elementRecord = gameConfig.findElementInfo(callback.type(), callback.name());
         return elementRecord.properties();
     }
 
     /**
-     * Gets the properties of an element specified by its type and name
+     * Gets the value of one property of an element specified by its type, name, and property key
      *
-     * @param type the type of the element
-     * @param name the name of the element
-     * @return the properties of an element
+     * @param callback callback object containing the type, name, and property key
+     * @return the value of the property
      */
-    public String getElementPropertyByKey(String type, String name, String key)
+    String getElementPropertyByKey(GetElementPropertyByKeyCallback callback)
         throws ElementNotFoundException {
-        ElementRecord elementRecord = gameConfig.findElementInfo(type, name);
+        ElementRecord elementRecord = gameConfig.findElementInfo(callback.type(), callback.name());
         for (Property prop : elementRecord.properties()) {
-            if (prop.name().equals(key)) {
+            if (prop.name().equals(callback.key())) {
                 return prop.value();
             }
         }
@@ -113,49 +137,51 @@ public class BuilderController {
     /**
      * Provides a list of element names that are of the given type
      *
-     * @param type the type of the elements to name
+     * @param callback callback object containing the type of the elements to name
      * @return a collection of names that are of a certain type (e.g. piece)
      */
-    public Collection<String> getElementNames(String type) throws ElementNotFoundException {
-        return gameConfig.getElementNames(type);
+    public Collection<String> getElementNames(GetElementNamesCallback callback) throws ElementNotFoundException {
+        return gameConfig.getElementNames(callback.type());
     }
 
     /**
      * Updates the game configuration with an element record, either adding or modifying a game
      * element based on the parameters
      *
-     * @param type the type of the element to update
-     * @param name the name of the element to update
-     * @param properties the properties of the element
+     *
+     * @param callback a callback object containing the type, name, and properties of the element to update
      */
-    public void update(String type, String name, Collection<Property> properties)
+    Void update(UpdateGameElementCallback callback)
         throws InvalidTypeException, MissingRequiredPropertyException {
-       gameConfig.addGameElement(type, name, properties);
+       gameConfig.addGameElement(callback.type(), callback.name(), callback.properties());
+       return null;
     }
 
     /**
      * Returns the required properties of a game element
      *
+     * @param callback a callback object cont
      * @return the required properties of a game element
      */
-    public Collection<Property> getRequiredProperties(String type) throws InvalidTypeException {
-        return gameConfig.getRequiredProperties(type);
+    Collection<Property> getRequiredProperties(GetPropertiesCallback callback) throws InvalidTypeException {
+        return gameConfig.getRequiredProperties(callback.type());
     }
 
     /**
      * Saves the existing Game Configuration to a JSON file
      *
-     * @param file the File to save the Game Configuration to.
+     * @param callback callback object containing the File to save the Game Configuration to.
      */
-    public void save(File file) throws NullBoardException {
+    Void save(SaveCallback callback) throws NullBoardException {
         try {
-            FileWriter writer = new FileWriter(file);
+            FileWriter writer = new FileWriter(callback.file());
             writer.write(gameConfig.toJSON());
             writer.close();
         } catch (IOException | ElementNotFoundException e) {
             // TODO: Exception Handling
             e.printStackTrace();
         }
+        return null;
     }
 
     /**

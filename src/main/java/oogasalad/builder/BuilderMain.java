@@ -15,6 +15,6 @@ public class BuilderMain extends Application {
       System.err.println("MAKE A REAL UNCAUGHT EXCEPTION HANDLER");
       e.printStackTrace();
     });
-    BuilderView view = new BuilderView(stage);
+    BuilderController controller = new BuilderController(new BuilderView(stage));
   }
 }
