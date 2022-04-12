@@ -1,7 +1,6 @@
 package oogasalad.builder.view.tab;
 
 
-import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
@@ -10,7 +9,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
 public class ConditionsTab extends GameElementTab {
     public static String CONDITION = "condition";
 
-    public ConditionsTab(BuilderController controller, CallbackDispatcher dispatcher) {
-        super(controller, dispatcher, CONDITION);
+    public ConditionsTab(CallbackDispatcher dispatcher) {
+        super(dispatcher, CONDITION);
     }
 }

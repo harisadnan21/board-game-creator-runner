@@ -7,18 +7,19 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.GameElementList;
-import oogasalad.builder.view.property.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.callback.UpdateGameElementCallback;
+import oogasalad.builder.view.property.PropertyEditor;
 
-import java.util.*;
+import java.util.Collection;
 
 /**
  *
@@ -85,7 +86,7 @@ public class GameElementTab extends BorderPane {
   private void elementSelected(String oldElement, String newElement) {
     if (newElement != null) {
       nameField.setText(newElement);
-      propertyEditor.setElementProperties(controller.getElementProperties(type, newElement));
+      propertyEditor.setElementProperties(callbackDispatcher.call(new GetElementPropertiesCallback(type, newElement)).orElseThrow());
     }
   }
 
@@ -93,7 +94,7 @@ public class GameElementTab extends BorderPane {
     if(!propertyEditor.hasProperties()) {
       return;
     }
-    controller.update(type, nameField.getText(), propertyEditor.getElementProperties());
+    callbackDispatcher.call(new UpdateGameElementCallback(type, nameField.getText(), propertyEditor.getElementProperties()));
     elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
   }
 
