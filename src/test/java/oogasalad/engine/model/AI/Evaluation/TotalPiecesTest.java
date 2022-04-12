@@ -57,5 +57,26 @@ class TotalPiecesTest {
 
   }
 
+  @Test
+  void testSplitBoard() {
+      Board board = new Board(4,4);
+
+      for(int row = 0; row < 2; row++) {
+        for(int col = 0; col < 2; col++) {
+          board = board.placePiece(new PositionState(new Position(row, col), new Piece(1, Piece.PLAYER_ONE)));
+        }
+      }
+
+      for(int row = 2; row < 4; row++) {
+        for(int col = 2; col < 4; col++) {
+          board = board.placePiece(new PositionState(new Position(row, col), new Piece(1, Piece.PLAYER_TWO)));
+        }
+      }
+
+    assertEquals(evaluator.Evaluate(board, Piece.PLAYER_ONE), evaluator.Evaluate(board, Piece.PLAYER_TWO));
+    assertEquals(evaluator.Evaluate(board, Piece.PLAYER_ONE), 0); 
+    assertEquals(evaluator.Evaluate(board, Piece.PLAYER_TWO), 0); 
+  }
+
 
 }
