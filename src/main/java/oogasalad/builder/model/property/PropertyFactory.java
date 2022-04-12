@@ -10,7 +10,7 @@ import org.json.JSONArray;
  */
 public class PropertyFactory {
   // TODO: Replace this with actual default form classpath
-  private static final String DEFAULT_FORM = "temp";
+  private static final String DEFAULT_FORM = "oogasalad.builder.view.property.Field";
 
   // Private constructor for Util Class
   private PropertyFactory() {}
