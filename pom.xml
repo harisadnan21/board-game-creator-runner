@@ -95,6 +95,12 @@
       <version>3.0.6</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.22</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -247,6 +253,13 @@
           <encoding>iso-8859-1</encoding>
           <source>${project.build.java.version}</source>
           <target>${project.build.java.version}</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.18.22</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
       <!-- check for violations of code style -->

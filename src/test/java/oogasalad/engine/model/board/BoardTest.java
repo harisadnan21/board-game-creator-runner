@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Stream;
 import oogasalad.engine.model.player.Player;
@@ -138,7 +139,7 @@ void testBoardIsPersistentAdvanced() {
     Board b3 = b2.placePiece(new PositionState(new Position(2, i), new Piece(1, Piece.PLAYER_TWO)));
     Board b4 = b3.movePiece(new Position(2,i), new Position(3, i));
     Board b5 = b4.placePiece(new PositionState(new Position(0,i), new Piece(1, Piece.PLAYER_ONE)));
-    Board b6 = b5.removePiece(new Position(2, i));
+    Board b6 = b5.removePiece(new Position(1, i));
     boards.add(b2);
     boards.add(b3);
     boards.add(b4);
@@ -150,7 +151,8 @@ void testBoardIsPersistentAdvanced() {
     Board board1 = boards.get(i);
     for(int j = i+1; j < boards.size(); j++) {
       Board board2 = boards.get(j);
-      Assertions.assertNotEquals(board1, board2);
+      assertNotEquals(board1, board2);
+      assertNotSame(board1, board2);
     }
   }
 
@@ -227,4 +229,61 @@ void testBoardIsPersistentAdvanced() {
 
   }
 
+
+  @Test
+  void boardEquality() {
+    Board b1 = new Board(1,1);
+    Board b2 = new Board(1,1);
+    Board b3 = new Board(5,5);
+    Board b4 = new Board(5,5);
+
+    Board b5 = new Board(5,5);
+    b5 = b5.placePiece(new PositionState(new Position(0,0), new Piece(1,1)));
+
+    Board b6 = new Board(5,5);
+    b6 = b6.placePiece(new PositionState(new Position(0,0), new Piece(1,1)));
+
+    assertEquals(b1, b2);
+    assertEquals(b3, b4);
+    assertEquals(b5, b6);
+
+    assertNotEquals(b1, b3);
+    assertNotEquals(b1, b4);
+    assertNotEquals(b1, b5);
+    assertNotEquals(b1, b6);
+
+
+    assertNotEquals(b3, b5);
+    assertNotEquals(b3, b5);
+
+  }
+
+  @Test
+  void testToString() {
+    Board b1 = new Board(4,4);
+    Board b2 = new Board(2,2);
+    assertInstanceOf(String.class, b1.toString());
+    assertNotEquals("", b1.toString());
+    assertNotEquals(b1.toString(), b2.toString());
+
+  }
+
+  @Test
+  void piecesByPlayerEmptyBoard() {
+  }
+
+  private Seq<Map<Integer, Integer>> getMap(Board[] boards) {
+    return Seq.seq(Arrays.stream(boards)).map(board -> board.numPiecesByPlayer());
+  }
+
+  @Test
+  void numPiecesByPlayer() {
+    Board[] boards = { new Board(1,1), new Board(3,3), new Board(9,9 )};
+    Seq<Map<Integer, Integer>> maps = getMap(boards);
+    maps.forEach(integerListMap -> assertEquals(integerListMap.get(Piece.PLAYER_ONE), 0 ));
+    maps = getMap(boards);
+    maps.forEach(integerListMap -> assertEquals(integerListMap.get(Piece.PLAYER_TWO), 0 ));
+    maps = getMap(boards);
+    Seq.zip(maps, Stream.of(boards)).forEach(tuple2 -> assertEquals(tuple2.v1.get(Piece.EMPTY), tuple2.v2.getHeight() * tuple2.v2.getWidth()));
+  }
 }

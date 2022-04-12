@@ -38,6 +38,7 @@ class getDirectionNeighborTest {
       Position neighbor = directionNeighbor.getNeighbor(center, board).get();
       positions.add(neighbor);
     }
+    System.out.println(positions);
     Seq.range(0,8).forEach(index1 -> Seq.range(index1+1,8).forEach(index2 -> Assertions.assertNotEquals(positions.get(index1), positions.get(index2)))); //TODO: cleanup, maybe use scan?
   }
 

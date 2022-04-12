@@ -11,11 +11,15 @@ import java.util.stream.Stream;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
 import org.jooq.lambda.Seq;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Class That defines the backend board and defines methods that can be applied to it.
  * @author Jake Heller, Haris Adnan, Robert Cranston, Alex Bildner
  */
+@EqualsAndHashCode
+@ToString
 public class Board implements DisplayableBoard {
 
   public static final int NO_WINNER_YET = -2; //Eh
@@ -220,8 +224,10 @@ public class Board implements DisplayableBoard {
   }
 
   public Map<Integer,Integer> numPiecesByPlayer(){
-    return Seq.seq(piecesByPlayer())
-              .toMap(pair -> pair.v1, pair -> pair.v2.size());
+    Map<Integer,Integer> map = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
+    map.putIfAbsent(Piece.PLAYER_ONE, 0);
+    map.putIfAbsent(Piece.PLAYER_TWO, 0);
+    return map;
   }
 
   @Override
