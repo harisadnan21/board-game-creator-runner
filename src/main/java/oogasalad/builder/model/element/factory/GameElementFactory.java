@@ -1,5 +1,7 @@
 package oogasalad.builder.model.element.factory;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -8,9 +10,9 @@ import java.util.Set;
 import oogasalad.builder.controller.ExceptionResourcesSingleton;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
+import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
-import oogasalad.builder.model.property.PropertyFactory;
 
 /**
  * Abstract class that represents a generic Game Element Factory. Has methods for retrieving
@@ -22,7 +24,7 @@ import oogasalad.builder.model.property.PropertyFactory;
  */
 public abstract class GameElementFactory<T extends GameElement> implements ElementFactory {
 
-  private static final int PROPERTY_PARTS = 2;
+  private static final int PROPERTY_PARTS = 3;
   private static final String DELIMITER = "-";
   private static final String REQUIRED = "required";
   private static final String TYPE = "type";
@@ -133,8 +135,21 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
             throw new IllegalPropertyDefinitionException(ExceptionResourcesSingleton.getInstance()
                 .getString("BadPropertyPartLength", PROPERTY_PARTS));
           }
-      properties.add(PropertyFactory.makeProperty(key, propertyParts[1], propertyParts[0]));
+      properties.add(makePropertyReflection(key, propertyParts));
     });
+  }
+
+  // Uses reflection to create a new property with the correct type
+  private Property makePropertyReflection(String name, String[] propertyParts) {
+    try {
+      String className = propertyParts[1];
+      Class<?> clss = Class.forName(className);
+      Constructor<?> ctor = clss.getDeclaredConstructor(String.class, String.class, String.class);
+      return (Property) ctor.newInstance(name, propertyParts[2], propertyParts[0]);
+    } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
+        InstantiationException | IllegalAccessException e) {
+      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
+    }
   }
 
 }
