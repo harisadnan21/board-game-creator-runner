@@ -107,9 +107,9 @@ public class RectangularBoard implements Board {
 
   // Initializes the cells to be empty
   private int[][] initializeCells(int width, int height) {
-    int[][] cells = new int[width][height];
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
+    int[][] cells = new int[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         cells[i][j] = EMPTY;
       }
     }
@@ -119,9 +119,9 @@ public class RectangularBoard implements Board {
   // Converts the piece configuration to a JSON array
   private JSONArray pieceConfigToJSON() {
     JSONArray config = new JSONArray();
-    for (int i = 0; i < width; i++) {
+    for (int i = 0; i < height; i++) {
       JSONArray row = new JSONArray();
-      for (int j = 0; j < height; j++) {
+      for (int j = 0; j < width; j++) {
         row.put(cells[i][j]);
       }
       config.put(row);
@@ -131,7 +131,7 @@ public class RectangularBoard implements Board {
 
   // Converts the piece configuration to a JSON array
   private int[][] pieceConfigFromJSON(JSONArray pieceConfiguration) {
-    int[][] config = new int[width][height];
+    int[][] config = new int[height][width];
     for (int i = 0; i < height; i++) {
       JSONArray row = pieceConfiguration.getJSONArray(i);
       for (int j = 0; j < width; j++) {

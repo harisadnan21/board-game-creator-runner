@@ -204,9 +204,10 @@ public class GameConfiguration implements BuilderModel {
    */
   @Override
   public BuilderModel fromJSON(String json) {
-    board = new RectangularBoard(0, 0).fromJSON(json); // TODO: Make this better
-    resetElements();
     JSONObject obj = new JSONObject(json);
+    // TODO: Remove magic values
+    board = new RectangularBoard(0, 0).fromJSON(obj.getJSONObject("board").toString());
+    resetElements();
     addJSONArray(obj.getJSONArray("pieces"), PIECE);
     addJSONArray(obj.getJSONArray("rules"), RULE);
     addJSONArray(obj.getJSONArray("conditions"), CONDITION);

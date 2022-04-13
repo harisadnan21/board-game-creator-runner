@@ -83,9 +83,10 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
 
     for (String key : obj.keySet()) {
       for (Property property : propertyTypes.keySet()) {
+        System.out.println(property.name());
         if (property.name().split(DELIMITER)[1].equals(key)) {
           String classPath = propertyTypes.get(property);
-          properties.add(makePropertyReflection(key, classPath, obj.getString(key), property.form()));
+          properties.add(makePropertyReflection(key, classPath, obj.get(key).toString(), property.form()));
           break;
         }
       }
@@ -97,7 +98,6 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   // Gets the name of a game element from a json string
   protected String nameFromJSON(String json) {
     JSONObject obj = new JSONObject(json);
-    String name = null;
     for (String key : obj.keySet()) {
       if (key.equals(NAME)) {
         return key;
@@ -180,7 +180,9 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
             throw new IllegalPropertyDefinitionException(ExceptionResourcesSingleton.getInstance()
                 .getString("BadPropertyPartLength", PROPERTY_PARTS));
           }
-      properties.add(makePropertyReflection(key, propertyParts[1], propertyParts[2], propertyParts[0]));
+      Property property = makePropertyReflection(key, propertyParts[1], propertyParts[2], propertyParts[0]);
+      properties.add(property);
+      propertyTypes.put(property, propertyParts[1]);
     });
   }
 
@@ -189,9 +191,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     try {
       Class<?> clss = Class.forName(className);
       Constructor<?> ctor = clss.getDeclaredConstructor(String.class, String.class, String.class);
-      Property property = (Property) ctor.newInstance(name, value, form);
-      propertyTypes.put(property, className);
-      return property;
+      return (Property) ctor.newInstance(name, value, form);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
       throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
