@@ -15,7 +15,7 @@ class GameElementFactoryTest {
     private Map<Class<? extends GameElement>, GameElementFactory> factories;
     private TestRuleFactory testRuleFactory;
     private Collection<Property> testProperties = Set.of(PropertyFactory.makeProperty("thingy", "hello there"),
-            PropertyFactory.makeProperty("name", "123"));
+            PropertyFactory.makeProperty("name", 123));
 
     private class TestRuleFactory extends GameElementFactory<Rule> {
         public TestRuleFactory(String path) {
