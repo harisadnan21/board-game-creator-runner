@@ -3,12 +3,11 @@ package oogasalad.builder.model.property;
 
 /**
  * Interface for any Generic Property. Properties have a name, and value.
- *
+ * <p>
  * We opted to create an interface instead of a record here in order to implement an inheritance
  * hierarchy for properties (records cannot extend other records/abstract classes).
  *
  * @param <T> The type of the property. Concrete classes should not use generic typing.
- *
  * @author Ricky Weerts and Shaan Gondalia
  */
 public interface Property<T> {

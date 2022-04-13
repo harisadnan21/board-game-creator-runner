@@ -9,10 +9,9 @@ import java.util.Objects;
  * cannot extend other records/abstract classes).
  *
  * @param <T> The type of the property. Concrete classes should not use generic typing.
- *
  * @author Shaan Gondalia
  */
-public abstract class AbstractProperty<T> implements Property<T>{
+public abstract class AbstractProperty<T> implements Property<T> {
 
   private final String name;
   private final String form;
@@ -21,9 +20,9 @@ public abstract class AbstractProperty<T> implements Property<T>{
   /**
    * Creates a new Abstract Property with a name and generic value
    *
-   * @param name the name of the property
+   * @param name  the name of the property
    * @param value the value of the property
-   * @param form the form of the property
+   * @param form  the form of the property
    */
   public AbstractProperty(String name, T value, String form) {
     this.name = name;
@@ -82,7 +81,7 @@ public abstract class AbstractProperty<T> implements Property<T>{
    * @param o The object to check equality against.
    * @return true if the objects are equal, false if not
    */
-  public boolean fullEquals(Object o){
+  public boolean fullEquals(Object o) {
     if (this == o) {
       return true;
     }
@@ -99,7 +98,7 @@ public abstract class AbstractProperty<T> implements Property<T>{
    * @return the hashcode of the property
    */
   @Override
-  public int hashCode(){
+  public int hashCode() {
     return Objects.hash(name, value);
   }
 

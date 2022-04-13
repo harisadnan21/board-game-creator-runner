@@ -6,14 +6,14 @@ package oogasalad.builder.model.property;
  *
  * @author Shaan Gondalia
  */
-public class IntegerProperty extends AbstractProperty<Integer>{
+public class IntegerProperty extends AbstractProperty<Integer> {
 
   /**
    * Creates a new property with a name and integer value
    *
-   * @param name the name of the property
+   * @param name  the name of the property
    * @param value an integer
-   * @param form the form of the property
+   * @param form  the form of the property
    */
   public IntegerProperty(String name, Integer value, String form) {
     super(name, value, form);
@@ -22,9 +22,9 @@ public class IntegerProperty extends AbstractProperty<Integer>{
   /**
    * Creates a new property with a name and integer value
    *
-   * @param name the name of the property
+   * @param name  the name of the property
    * @param value a string representation of an integer
-   * @param form the form of the property
+   * @param form  the form of the property
    */
   public IntegerProperty(String name, String value, String form) {
     super(name, Integer.valueOf(value), form);

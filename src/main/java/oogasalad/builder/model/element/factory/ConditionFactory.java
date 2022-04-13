@@ -2,7 +2,6 @@ package oogasalad.builder.model.element.factory;
 
 import java.util.Collection;
 import oogasalad.builder.model.element.Condition;
-import oogasalad.builder.model.element.Piece;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
 

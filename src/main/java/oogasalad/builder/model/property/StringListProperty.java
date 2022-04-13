@@ -12,16 +12,16 @@ import org.json.JSONArray;
  *
  * @author Shaan Gondalia
  */
-public class StringListProperty extends AbstractProperty<Collection<String>>{
+public class StringListProperty extends AbstractProperty<Collection<String>> {
 
   private static final String DELIMITER = "-";
 
   /**
    * Creates a new property with the given name and value.
    *
-   * @param name the name of the property
+   * @param name  the name of the property
    * @param value a collection of strings
-   * @param form the form of the property
+   * @param form  the form of the property
    */
   public StringListProperty(String name, Collection<String> value, String form) {
     super(name, value, form);
@@ -30,12 +30,18 @@ public class StringListProperty extends AbstractProperty<Collection<String>>{
   /**
    * Creates a new property with a name and integer value
    *
-   * @param name the name of the property
+   * @param name  the name of the property
    * @param value a string representation of an integer
-   * @param form the form of the property
+   * @param form  the form of the property
    */
   public StringListProperty(String name, String value, String form) {
     super(name, List.of(value.split(DELIMITER)), form);
+  }
+
+  // Converts a collection of string to a single string
+  private static String collectionToString(Collection<String> values) {
+    JSONArray arr = new JSONArray(values);
+    return arr.toString();
   }
 
   /**
@@ -55,12 +61,6 @@ public class StringListProperty extends AbstractProperty<Collection<String>>{
   @Override
   public Collection<String> value() {
     return new HashSet<>(super.value());
-  }
-
-  // Converts a collection of string to a single string
-  private static String collectionToString(Collection<String> values){
-    JSONArray arr = new JSONArray(values);
-    return arr.toString();
   }
 
 }

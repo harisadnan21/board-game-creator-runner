@@ -5,12 +5,12 @@ import oogasalad.builder.model.property.Property;
 
 /**
  * Represents an Action in the game. Examples of actions are move, capturePieceAt, place, etc.
- * Actions are attached to rules to dictate what happens in the case of the conditions being met
- * for a move.
+ * Actions are attached to rules to dictate what happens in the case of the conditions being met for
+ * a move.
  *
  * @author Shaan Gondalia
  */
-public class Action extends GameElement{
+public class Action extends GameElement {
 
   /**
    * Creates a new Action with the given parameters.

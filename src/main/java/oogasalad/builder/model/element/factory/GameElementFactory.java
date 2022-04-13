@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import oogasalad.builder.controller.ExceptionResourcesSingleton;
-import oogasalad.builder.model.element.Element;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.InvalidFormException;
@@ -20,8 +19,8 @@ import org.json.JSONObject;
 
 /**
  * Abstract class that represents a generic Game Element Factory. Has methods for retrieving
- * required parameters and creating game elements based on properties (performing validation
- * when required).
+ * required parameters and creating game elements based on properties (performing validation when
+ * required).
  *
  * @param <T> The type of game element that the factory should return
  * @author Ricky Weerts
@@ -35,7 +34,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   private static final String TYPE = "type";
   private final ResourceBundle propertiesResources;
   private Collection<Property> properties;
-  private Map<Property, String> propertyTypes;
+  private final Map<Property, String> propertyTypes;
 
   /**
    * Creates a new GameElementFactory with the given properties file
@@ -85,7 +84,8 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       for (Property property : propertyTypes.keySet()) {
         if (property.name().split(DELIMITER)[1].equals(key)) {
           String classPath = propertyTypes.get(property);
-          properties.add(makePropertyReflection(key, classPath, obj.get(key).toString(), property.form()));
+          properties.add(
+              makePropertyReflection(key, classPath, obj.get(key).toString(), property.form()));
           break;
         }
       }
@@ -108,7 +108,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   /**
    * Checks whether a property with the given name exists, returning the value if found
    *
-   * @param target the target name for the property
+   * @param target     the target name for the property
    * @param properties the properties passed during element creation
    * @return the value of the property if found
    * @throws MissingRequiredPropertyException if the property is not found
@@ -174,19 +174,21 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   private void loadProperties() {
     properties = new HashSet<>();
     propertiesResources.getKeys().asIterator().forEachRemaining(key -> {
-          String[] propertyParts = propertiesResources.getString(key).split("\\|");
-          if (propertyParts.length != PROPERTY_PARTS) {
-            throw new IllegalPropertyDefinitionException(ExceptionResourcesSingleton.getInstance()
-                .getString("BadPropertyPartLength", PROPERTY_PARTS));
-          }
-      Property property = makePropertyReflection(key, propertyParts[1], propertyParts[2], propertyParts[0]);
+      String[] propertyParts = propertiesResources.getString(key).split("\\|");
+      if (propertyParts.length != PROPERTY_PARTS) {
+        throw new IllegalPropertyDefinitionException(ExceptionResourcesSingleton.getInstance()
+            .getString("BadPropertyPartLength", PROPERTY_PARTS));
+      }
+      Property property = makePropertyReflection(key, propertyParts[1], propertyParts[2],
+          propertyParts[0]);
       properties.add(property);
       propertyTypes.put(property, propertyParts[1]);
     });
   }
 
   // Uses reflection to create a new property with the correct type
-  private Property makePropertyReflection(String name, String className, String value, String form) {
+  private Property makePropertyReflection(String name, String className, String value,
+      String form) {
     try {
       Class<?> clss = Class.forName(className);
       Constructor<?> ctor = clss.getDeclaredConstructor(String.class, String.class, String.class);

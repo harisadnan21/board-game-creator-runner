@@ -26,12 +26,12 @@ import org.json.JSONObject;
  */
 public class GameConfiguration implements BuilderModel {
 
+  public static final String EMPTY = "empty";
   private static final String PIECE = "piece";
   private static final String RULE = "rule";
   private static final String ACTION = "action";
   private static final String CONDITION = "condition";
   private static final String ID = "id";
-  public static final String EMPTY = "empty";
   private static final int INDENT_FACTOR = 4;
   private final Map<String, Map<String, GameElement>> elements;
   private final FactoryProvider provider;

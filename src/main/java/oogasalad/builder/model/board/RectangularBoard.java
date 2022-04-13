@@ -31,8 +31,8 @@ public class RectangularBoard implements Board {
   /**
    * Attempts to place a piece at the given coordinates
    *
-   * @param x    the x location to place
-   * @param y    the y location to place
+   * @param x  the x location to place
+   * @param y  the y location to place
    * @param id the name of the piece to place
    * @throws OccupiedCellException if the requested indices are already occupied by a piece
    */

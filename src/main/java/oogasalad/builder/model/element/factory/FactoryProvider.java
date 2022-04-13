@@ -1,7 +1,6 @@
 package oogasalad.builder.model.element.factory;
 
 import java.util.Collection;
-import oogasalad.builder.model.JSONParseable;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -79,6 +78,6 @@ public class FactoryProvider {
    * @return a new game element made from the json string
    */
   public GameElement fromJSON(String type, String json) {
-     return getFactory(type).fromJSON(json);
+    return getFactory(type).fromJSON(json);
   }
 }
