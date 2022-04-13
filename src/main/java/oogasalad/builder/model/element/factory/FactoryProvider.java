@@ -77,9 +77,8 @@ public class FactoryProvider {
    * @param type the type of the game element
    * @param json the JSON string to make an element from
    * @return a new game element made from the json string
-   * @throws Exception
    */
-  public GameElement fromJSON(String type, String json) throws Exception {
+  public GameElement fromJSON(String type, String json) {
      return getFactory(type).fromJSON(json);
   }
 }

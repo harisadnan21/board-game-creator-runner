@@ -26,6 +26,11 @@ class GameElementFactoryTest {
         public Rule createElement(String name, Collection<Property> properties) {
             return new Rule(name, properties);
         }
+
+        @Override
+        public Rule fromJSON(String json) {
+            return null;
+        }
     }
 
     @BeforeEach

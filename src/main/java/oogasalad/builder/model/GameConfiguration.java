@@ -3,6 +3,7 @@ package oogasalad.builder.model;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import oogasalad.builder.model.board.Board;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.GameElement;
@@ -34,7 +35,7 @@ public class GameConfiguration implements BuilderModel {
   private static final int INDENT_FACTOR = 4;
   private final Map<String, Map<String, GameElement>> elements;
   private final FactoryProvider provider;
-  private RectangularBoard board;
+  private Board board;
 
   /**
    * Creates an empty GameConfiguration
@@ -43,10 +44,7 @@ public class GameConfiguration implements BuilderModel {
     board = null; // Board is unknown without initial setup
     elements = new HashMap<>();
     provider = new FactoryProvider();
-    elements.put(PIECE, new HashMap<>());
-    elements.put(RULE, new HashMap<>());
-    elements.put(ACTION, new HashMap<>());
-    elements.put(CONDITION, new HashMap<>());
+    resetElements();
   }
 
   /**
@@ -199,14 +197,21 @@ public class GameConfiguration implements BuilderModel {
   }
 
   /**
-   * Converts a JSON String into a Game Configuration
+   * Converts a JSON String into a Builder Model
    *
    * @param json the JSON string
-   * @return a Builder Model made from the JSON string
+   * @return a model made from the JSON string
    */
   @Override
   public BuilderModel fromJSON(String json) {
-    return null;
+    board = new RectangularBoard(0, 0).fromJSON(json); // TODO: Make this better
+    resetElements();
+    JSONObject obj = new JSONObject(json);
+    addJSONArray(obj.getJSONArray("pieces"), PIECE);
+    addJSONArray(obj.getJSONArray("rules"), RULE);
+    addJSONArray(obj.getJSONArray("conditions"), CONDITION);
+    addJSONArray(obj.getJSONArray("actions"), ACTION);
+    return this;
   }
 
   // Checks if the board has been initialized
@@ -227,6 +232,23 @@ public class GameConfiguration implements BuilderModel {
       arr.put(new JSONObject(record.toJSON()));
     }
     return arr;
+  }
+
+  // Adds the contents of a json array to the map of game elements
+  private void addJSONArray(JSONArray arr, String type) {
+    for (int i = 0; i < arr.length(); i++) {
+      JSONObject obj = arr.getJSONObject(i);
+      GameElement element = provider.fromJSON(type, obj.toString());
+      elements.get(type).put(element.toRecord().name(), element);
+    }
+  }
+
+  // Resets the map of game elements
+  private void resetElements() {
+    elements.put(PIECE, new HashMap<>());
+    elements.put(RULE, new HashMap<>());
+    elements.put(ACTION, new HashMap<>());
+    elements.put(CONDITION, new HashMap<>());
   }
 
 }

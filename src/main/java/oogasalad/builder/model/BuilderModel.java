@@ -14,7 +14,7 @@ import oogasalad.builder.model.property.Property;
  *
  * @author Shaan Gondalia
  */
-public interface BuilderModel extends JSONSerializable<BuilderModel> {
+public interface BuilderModel extends JSONSerializable, JSONParseable<BuilderModel> {
 
   /**
    * Creates a new board with the given dimensions.
