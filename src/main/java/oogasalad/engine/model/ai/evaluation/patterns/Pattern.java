@@ -2,6 +2,7 @@ package oogasalad.engine.model.ai.evaluation.patterns;
 
 import io.vavr.collection.SortedMap;
 import io.vavr.collection.SortedSet;
+import java.util.Comparator;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import oogasalad.engine.model.board.Piece;
@@ -10,7 +11,7 @@ import oogasalad.engine.model.board.PositionState;
 
 @EqualsAndHashCode
 @ToString
-public abstract class Pattern {
+public abstract class Pattern implements Comparator<Pattern>, Comparable<Pattern> {
   protected final SortedSet<PositionState> positionStates;
   protected final transient SortedSet<Position> positions;
   protected final transient SortedMap<Position, Piece> pieceAtPositions;
@@ -50,4 +51,5 @@ public abstract class Pattern {
   public int getSize() {
     return size;
   }
+
 }
