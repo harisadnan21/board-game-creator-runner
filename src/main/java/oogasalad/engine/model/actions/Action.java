@@ -12,7 +12,7 @@ import oogasalad.engine.model.board.Board;
 public abstract class Action {
 
   protected int[] myParameters;
-  public Action(int[] parameters) {
+  protected Action(int[] parameters) {
     myParameters = parameters;
   }
 

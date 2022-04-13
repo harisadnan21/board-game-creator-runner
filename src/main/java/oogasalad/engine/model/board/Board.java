@@ -62,8 +62,8 @@ public class Board implements DisplayableBoard {
     Seq<Position> positions = Seq.rangeClosed(FIRST_ROW, lastRow)
                               .crossJoin(Seq.rangeClosed(FIRST_COL, lastCol))
                               .map(Position::new);
-    Map<Position, PositionState> map = positions.toMap(pos -> pos
-                                                      ,pos -> positionStates[pos.i()][pos.j()]);
+    Map<Position, PositionState> map = positions.toMap(pos -> pos,
+                                                       pos -> positionStates[pos.i()][pos.j()]);
     return TreeMap.ofAll(map);
   }
 
@@ -72,7 +72,7 @@ public class Board implements DisplayableBoard {
 
     for (int i = FIRST_ROW; i <= lastRow; i++) {
       for (int j = FIRST_COL; j <= lastCol; j++) {
-        positionStates[i][j] = new PositionState(new Position(i,j), Piece.EMPTY);
+        positionStates[i][j] = new PositionState(new Position(i, j), Piece.EMPTY);
       }
     }
     return positionStates;
@@ -220,12 +220,12 @@ public class Board implements DisplayableBoard {
     return Seq.seq(this.getSatisfyingPositionStatesStream(positionStatePredicate));
   }
 
-  public Map<Integer, List<PositionState>> piecesByPlayer(){
+  public Map<Integer, List<PositionState>> piecesByPlayer() {
     return getPositionStatesSeq().groupBy(PositionState::player);
   }
 
   public Map<Integer, Integer> numPiecesByPlayer(){
-    Map<Integer,Integer> map = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
+    Map<Integer, Integer> map = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
     map.putIfAbsent(Piece.PLAYER_ONE, 0);
     map.putIfAbsent(Piece.PLAYER_TWO, 0);
     return map;
