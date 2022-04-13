@@ -83,7 +83,6 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
 
     for (String key : obj.keySet()) {
       for (Property property : propertyTypes.keySet()) {
-        System.out.println(property.name());
         if (property.name().split(DELIMITER)[1].equals(key)) {
           String classPath = propertyTypes.get(property);
           properties.add(makePropertyReflection(key, classPath, obj.get(key).toString(), property.form()));

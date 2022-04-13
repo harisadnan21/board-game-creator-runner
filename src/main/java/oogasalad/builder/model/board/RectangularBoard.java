@@ -38,7 +38,7 @@ public class RectangularBoard implements Board {
    */
   public void placePiece(int x, int y, int id) throws OccupiedCellException {
     checkInBounds(x, y);
-    cells[x][y] = id;
+    cells[y][x] = id;
   }
 
   /**
@@ -50,7 +50,7 @@ public class RectangularBoard implements Board {
    */
   public int findPieceAt(int x, int y) {
     checkInBounds(x, y);
-    return cells[x][y];
+    return cells[y][x];
   }
 
   /**
@@ -61,7 +61,7 @@ public class RectangularBoard implements Board {
    */
   public void clearCell(int x, int y) {
     checkInBounds(x, y);
-    cells[x][y] = EMPTY;
+    cells[y][x] = EMPTY;
   }
 
   /**
