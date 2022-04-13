@@ -8,7 +8,11 @@ import org.jooq.lambda.Seq;
  * Condition that evaluates to true when either player has no more pieces on the board
  * @author Robert Cranston
  */
-public class PlayerHasNoPieces implements BoardCondition{
+public class PlayerHasNoPieces extends BoardCondition{
+
+  public PlayerHasNoPieces(int[] parameters){
+    super(parameters);
+  }
 
   /**
    * Counts the number of pieces each player has and returns true if a player has no pieces.

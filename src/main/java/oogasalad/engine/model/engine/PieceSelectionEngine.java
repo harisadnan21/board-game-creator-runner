@@ -185,14 +185,14 @@ public class PieceSelectionEngine extends Engine {
   }
   //temporary to create win conditions
   private void createWinCondition(){
-    BoardCondition noPiecesLeft = new PlayerHasNoPieces();
+    BoardCondition noPiecesLeft = new PlayerHasNoPieces(null);
     Winner mostPieces = new MostPieces();
 
     getWinConditions().add(new WinCondition(new BoardCondition[]{noPiecesLeft}, mostPieces));
   }
   private void createDrawCondition(){
 
-    BoardCondition noMovesLeft= new NoMovesLeft();
+    BoardCondition noMovesLeft= new NoMovesLeft(null);
     getWinConditions().add(new WinCondition(new BoardCondition[]{noMovesLeft}, null));
 
   }

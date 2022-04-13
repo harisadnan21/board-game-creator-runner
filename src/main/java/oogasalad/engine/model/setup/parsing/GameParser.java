@@ -122,8 +122,10 @@ public class GameParser {
     for (int index = 0; index < numConditions; index++) {
       JSONObject conditionJSON = conditionsJSON.getJSONObject(index);
       String name = conditionJSON.getString("name");
+      JSONArray paramsJSON = conditionJSON.getJSONArray("parameters");
+      int[] parameters = getParameters(paramsJSON);
       try {
-        BoardCondition c = (BoardCondition)getWinDecisionOrCondition(name);
+        BoardCondition c = (BoardCondition)getActionOrCondition(name, parameters);
         conditions[index] = c;
       } catch (Exception e) {
         e.printStackTrace();

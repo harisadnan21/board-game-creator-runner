@@ -7,8 +7,11 @@ import oogasalad.engine.model.board.Piece;
  * Condition that evaluates to true when the entire board is full of pieces
  * @author Robert Cranston
  */
-public class BoardFull implements BoardCondition{
+public class BoardFull extends BoardCondition{
 
+  public BoardFull(int[] parameters){
+    super(parameters);
+  }
   /**
    * Checks every board cell and returns true if every cell has a piece
    * @param board current board state

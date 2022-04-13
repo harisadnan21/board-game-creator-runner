@@ -149,6 +149,7 @@ public class BoardView implements PropertyChangeListener{
   }
 
   private void displayGameOver(Board board) {
+
     myController.resetGame();
   }
 

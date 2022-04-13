@@ -7,8 +7,11 @@ import oogasalad.engine.model.board.Board;
  * to perform.(leading the game to end in a draw)
  * @author Haris Adnan
  */
-public class NoMovesLeft implements BoardCondition{
+public class NoMovesLeft extends BoardCondition{
 
+  public NoMovesLeft(int[] parameters){
+    super(parameters);
+  }
   /**
    *
    * @param board current board state
