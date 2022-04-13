@@ -81,7 +81,7 @@ public class PieceSelectionEngine extends Engine {
       mySelectedCell = new Position(x, y);
       myValidMoves = getValidMoves();
       board.setValidMoves(myValidMoves);
-      System.out.printf("%d valid moves for this piece\n", myValidMoves.size());
+      LOG.info("{} valid moves for this piece\n", myValidMoves.size());
     }
   }
 
