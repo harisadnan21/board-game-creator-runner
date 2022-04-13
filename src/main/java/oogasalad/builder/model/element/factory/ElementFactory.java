@@ -1,6 +1,8 @@
 package oogasalad.builder.model.element.factory;
 
 import java.util.Collection;
+import oogasalad.builder.model.JSONParseable;
+import oogasalad.builder.model.element.Element;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
@@ -12,7 +14,7 @@ import oogasalad.builder.model.property.Property;
  *
  * @author Shaan Gondalia
  */
-public interface ElementFactory {
+public interface ElementFactory extends JSONParseable<Element> {
 
   /**
    * Creates a game element based on the given parameters
@@ -30,4 +32,12 @@ public interface ElementFactory {
    * @return a collection of properties for the specific game element
    */
   Collection<Property> getRequiredProperties();
+
+  /**
+   * Converts a JSON String into a GameElement
+   *
+   * @param json the JSON string
+   * @return a model made from the JSON string
+   */
+  Element fromJSON(String json);
 }
