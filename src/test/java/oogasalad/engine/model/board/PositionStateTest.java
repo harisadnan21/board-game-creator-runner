@@ -14,6 +14,23 @@ class PositionStateTest {
   public static final PositionState POSITION_STATE_4 = new PositionState(new Position(4, 4),
       Piece.EMPTY);
 
+
+
+  @Test
+  void i() {
+    Assertions.assertNotNull(POSITION_STATE_1.i());
+    Assertions.assertNotNull(POSITION_STATE_2.i());
+    Assertions.assertNotNull(POSITION_STATE_3.i());
+    Assertions.assertNotNull(POSITION_STATE_4.i());
+  }
+
+  @Test
+  void j() {
+    Assertions.assertNotNull(POSITION_STATE_1.j());
+    Assertions.assertNotNull(POSITION_STATE_2.j());
+    Assertions.assertNotNull(POSITION_STATE_3.j());
+    Assertions.assertNotNull(POSITION_STATE_4.j());
+  }
   @Test
   void position() {
     Assertions.assertNotNull(POSITION_STATE_1.position());

@@ -10,6 +10,16 @@ public class PieceTest {
   Piece myPiece = new Piece(-1,-1);
 
   @Test
+  void constants() {
+    assertNotSame(Piece.NO_PLAYER, Piece.PLAYER_ONE);
+    assertNotSame(Piece.NO_PLAYER, Piece.PLAYER_TWO);
+    assertNotSame(Piece.NO_PLAYER, Piece.PLAYER_TWO);
+    assertNotEquals(Piece.NO_PLAYER, Piece.PLAYER_ONE);
+    assertNotEquals(Piece.NO_PLAYER, Piece.PLAYER_TWO);
+    assertNotEquals(Piece.PLAYER_ONE, Piece.PLAYER_TWO);
+  }
+
+  @Test
   void testEquals() {
     assertTrue(myPiece.equals(Piece.EMPTY));
     Piece piece1 = new Piece(1,2);
@@ -17,6 +27,7 @@ public class PieceTest {
     assertTrue(piece1.equals(piece2));
     assertFalse(myPiece.equals(piece1));
     assertFalse(myPiece.equals(new Piece(2,2)));
+    assertNotSame(myPiece, piece1);
   }
 
   @Test
