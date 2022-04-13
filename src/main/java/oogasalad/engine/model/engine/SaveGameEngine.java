@@ -12,12 +12,11 @@ import oogasalad.engine.model.driver.Game;
 public class SaveGameEngine extends Engine{
 
   public SaveGameEngine(Game game) {
-    super(game, null, null);
+    super(game, null, null, null, null, null);
   }
 
   @Override
-  public Board onCellSelect(int x, int y) throws OutOfBoardException {
-    return null;
+  public void onCellSelect(int x, int y) throws OutOfBoardException {
   }
   public void saveGame(){
     Board board = getGame().getBoard();
