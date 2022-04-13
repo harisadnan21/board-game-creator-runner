@@ -17,4 +17,17 @@ public class WinConditionFactory extends GameElementFactory<WinCondition> {
     validate(properties);
     return new WinCondition(name, properties);
   }
+
+  /**
+   * Creates a new win condition from a JSON string
+   *
+   * @param json the JSON string
+   * @return a new win condition made from a JSON string
+   */
+  @Override
+  public WinCondition fromJSON(String json) {
+    Collection<Property> properties = propertiesFromJSON(json);
+    String name = nameFromJSON(json);
+    return new WinCondition(name, properties);
+  }
 }

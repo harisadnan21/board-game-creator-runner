@@ -1,6 +1,7 @@
 package oogasalad.builder.model.element.factory;
 
 import java.util.Collection;
+import oogasalad.builder.model.JSONParseable;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -70,4 +71,15 @@ public class FactoryProvider {
     };
   }
 
+  /**
+   * Creates a game element from a JSON string
+   *
+   * @param type the type of the game element
+   * @param json the JSON string to make an element from
+   * @return a new game element made from the json string
+   * @throws Exception
+   */
+  public GameElement fromJSON(String type, String json) throws Exception {
+     return getFactory(type).fromJSON(json);
+  }
 }
