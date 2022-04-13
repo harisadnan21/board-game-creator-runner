@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.StringProperty;
 
 /**
  * PropertySelector that allows users to choose a file to set as the value of a property. For
@@ -45,13 +46,14 @@ public class FileSelector implements PropertySelector{
   }
 
   /**
-   * Returns the actual text input of the user that should be stored in the property
+   * Returns a populated property with the filepath that the user selected
    *
-   * @return the text input corresponding to the property value that should be stored
+   * @return a populated property with the filepath that the user selected
    */
   @Override
-  public String getPropertyValue() {
-    return filePath;
+  public Property getProperty() {
+    String[] nameParts = property.name().split("-");
+    return new StringProperty(nameParts[nameParts.length - 1], filePath, property.form());
   }
 
   // Prompts the user to choose a file, storing the chosen file in an instance variable

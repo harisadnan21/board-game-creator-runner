@@ -51,10 +51,7 @@ public class PropertyEditor extends VBox {
         // TODO Use Property.withValue() if we add that back
         return selectors.entrySet().stream()
                 .filter(entry -> entry.getKey().name().equals(name))
-                .map(entry -> {
-                    String[] propertyNameParts = entry.getKey().name().split("-");
-                    return PropertyFactory.makeProperty(propertyNameParts[propertyNameParts.length - 1], entry.getValue().getPropertyValue(), entry.getKey().form());
-                })
+                .map(entry -> entry.getValue().getProperty())
                 .findFirst()
                 .orElseThrow();
     }

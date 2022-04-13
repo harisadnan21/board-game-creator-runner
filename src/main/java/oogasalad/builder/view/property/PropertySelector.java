@@ -1,6 +1,7 @@
 package oogasalad.builder.view.property;
 
 import javafx.scene.Node;
+import oogasalad.builder.model.property.Property;
 
 /**
  * API that defines a view element that chooses a property.
@@ -17,9 +18,9 @@ public interface PropertySelector {
   Node display();
 
   /**
-   * Returns the actual text input of the user that should be stored in the property
+   * Returns a populated property with the correct value, name, and form
    *
-   * @return the text input corresponding to the property value that should be stored
+   * @return a populated property with the correct value, name, and form
    */
-  String getPropertyValue();
+  Property getProperty();
 }
