@@ -1,6 +1,6 @@
-package oogasalad.engine.model.AI;
+package oogasalad.engine.model.ai;
 
-import oogasalad.engine.model.AI.Evaluation.StateEvaluator;
+import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.player.Player;
 

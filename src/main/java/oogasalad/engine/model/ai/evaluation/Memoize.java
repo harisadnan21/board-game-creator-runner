@@ -1,4 +1,4 @@
-package oogasalad.engine.model.AI.Evaluation;
+package oogasalad.engine.model.ai.evaluation;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;

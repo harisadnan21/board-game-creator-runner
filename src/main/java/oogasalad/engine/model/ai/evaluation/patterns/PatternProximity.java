@@ -1,5 +1,6 @@
-package oogasalad.engine.model.AI.Evaluation;
+package oogasalad.engine.model.ai.evaluation.patterns;
 
+import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 
 public class PatternProximity implements StateEvaluator {

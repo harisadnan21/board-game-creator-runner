@@ -1,7 +1,7 @@
-package oogasalad.engine.model.AI.Evaluation;
+package oogasalad.engine.model.ai.evaluation.regularization;
 
+import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.player.Player;
 
 @FunctionalInterface
 public interface Regularizes {

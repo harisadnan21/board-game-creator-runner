@@ -1,4 +1,4 @@
-package oogasalad.engine.model.AI.Evaluation;
+package oogasalad.engine.model.ai.evaluation.regularization;
 
 public class SeekEquality extends CenterAround {
 

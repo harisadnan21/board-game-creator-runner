@@ -1,4 +1,4 @@
-package oogasalad.engine.model.AI;
+package oogasalad.engine.model.ai;
 
 import static org.junit.jupiter.api.Assertions.*;
 

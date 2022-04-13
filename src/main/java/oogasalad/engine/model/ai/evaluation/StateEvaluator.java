@@ -1,6 +1,6 @@
-package oogasalad.engine.model.AI.Evaluation;
+package oogasalad.engine.model.ai.evaluation;
 
-import oogasalad.engine.model.AI.InvalidBoardException;
+import oogasalad.engine.model.ai.InvalidBoardException;
 import oogasalad.engine.model.board.Board;
 
 @FunctionalInterface
