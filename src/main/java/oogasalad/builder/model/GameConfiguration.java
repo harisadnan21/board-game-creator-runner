@@ -31,6 +31,7 @@ public class GameConfiguration implements BuilderModel {
   private static final String CONDITION = "condition";
   private static final String ID = "id";
   public static final String EMPTY = "empty";
+  private static final int INDENT_FACTOR = 4;
   private final Map<String, Map<String, GameElement>> elements;
   private final FactoryProvider provider;
   private RectangularBoard board;
@@ -190,11 +191,11 @@ public class GameConfiguration implements BuilderModel {
     JSONObject obj = new JSONObject();
     // TODO: Remove magic values
     obj.put("pieces", elementsToJSONArray(PIECE));
-    obj.put("board", board.toJSON());
+    obj.put("board", new JSONObject(board.toJSON()));
     obj.put("rules", elementsToJSONArray(RULE));
     obj.put("conditions", elementsToJSONArray(CONDITION));
     obj.put("actions", elementsToJSONArray(ACTION));
-    return obj.toString();
+    return obj.toString(INDENT_FACTOR);
   }
 
   /**
@@ -223,7 +224,7 @@ public class GameConfiguration implements BuilderModel {
     }
     for (GameElement element : elements.get(type).values()) {
       ElementRecord record = element.toRecord();
-      arr.put(record.toJSON());
+      arr.put(new JSONObject(record.toJSON()));
     }
     return arr;
   }
