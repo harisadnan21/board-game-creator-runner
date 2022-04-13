@@ -16,9 +16,10 @@ public class NoMovesLeft implements BoardCondition{
    */
   @Override
   public boolean isTrue(Board board) {
-    if (board.getValidMoves() == null){
-      return true;
-    }
-    return false;
+//    if (board.getValidMoves() == null){
+//      return true;
+//    }
+//    return false;
+    return board.getValidMoves() == null;
   }
 }

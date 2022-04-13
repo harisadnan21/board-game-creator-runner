@@ -1,12 +1,8 @@
 package oogasalad.engine.model.board.neighbors;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Direction;
 import oogasalad.engine.model.board.Position;
 import org.jooq.lambda.Seq;
 import org.junit.jupiter.api.Assertions;
@@ -23,18 +19,18 @@ class getDirectionNeighborTest {
   void differentNeighbors() {
     Board board = new Board(9,9);
     Position center = new Position(5,5);
-    getDirectionNeighbor[] directionNeighbors = {
-        new getEastNeighbor(),
-        new getNorthEastNeighbor(),
-        new getNorthNeighbor(),
-        new getNorthWestNeighbor(),
-        new getSouthEastNeighbor(),
-        new getSouthNeighbor(),
-        new getSouthWestNeighbor(),
-        new getWestNeighbor()
+    GetDirectionNeighbor[] directionNeighbors = {
+        new GetEastNeighbor(),
+        new GetNorthEastNeighbor(),
+        new GetNorthNeighbor(),
+        new GetNorthWestNeighbor(),
+        new GetSouthEastNeighbor(),
+        new GetSouthNeighbor(),
+        new GetSouthWestNeighbor(),
+        new GetWestNeighbor()
     };
     List<Position> positions = new ArrayList<>();
-    for(getDirectionNeighbor directionNeighbor: directionNeighbors) {
+    for(GetDirectionNeighbor directionNeighbor: directionNeighbors) {
       Position neighbor = directionNeighbor.getNeighbor(center, board).get();
       positions.add(neighbor);
     }

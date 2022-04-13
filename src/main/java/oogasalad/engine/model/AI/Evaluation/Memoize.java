@@ -16,7 +16,7 @@ public class Memoize {
     memoizer = Caffeine.newBuilder()
         .maximumSize(1_000)
         .expireAfterWrite(20, TimeUnit.MINUTES)
-        .build(key -> stateEvaluator.Evaluate(key.v1, key.v2));
+        .build(key -> stateEvaluator.evaluate(key.v1, key.v2));
   }
 
   public Integer get(Board board, Integer player) {

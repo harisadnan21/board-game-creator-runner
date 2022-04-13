@@ -9,7 +9,7 @@ import oogasalad.engine.model.board.Ray;
 /**
  * Abstract class that allows the board to see what the neighbors are.
  */
-public abstract class getDirectionNeighbor implements getPositionNeighbor{
+public abstract class GetDirectionNeighbor implements GetPositionNeighbor {
 
   @Override
   public Optional<Position> getNeighbor(Position pos, Board board) {

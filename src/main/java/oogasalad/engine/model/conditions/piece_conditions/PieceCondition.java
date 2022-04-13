@@ -7,7 +7,7 @@ public abstract class PieceCondition {
 
   protected int[] myParameters;
 
-  public PieceCondition(int[] parameters) {
+  protected PieceCondition(int[] parameters) {
     myParameters = parameters;
   }
 
