@@ -6,9 +6,9 @@ import oogasalad.engine.model.player.Player;
 
 public class AIPlayer extends Player {
 
-  private int playerNumber;
+  private final int playerNumber;
   private StateEvaluator stateEvaluator;
-  private Difficulty difficulty;
+  private final Difficulty difficulty;
 
   public AIPlayer(int playerNumber, StateEvaluator stateEvaluator, Difficulty difficulty) {
     this.playerNumber = playerNumber;

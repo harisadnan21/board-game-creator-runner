@@ -33,8 +33,8 @@ public class Board implements DisplayableBoard {
 
   private final int numRows;
   private final int numCols;
-  private static final int firstRow = 0;
-  private static final int firstCol = 0;
+  private static final int FIRST_ROW = 0;
+  private static final int FIRST_COL = 0;
   private final int lastRow;
   private final int lastCol;
 
@@ -59,8 +59,8 @@ public class Board implements DisplayableBoard {
 
   private TreeMap<Position, PositionState> getPositionStatesMap(
       PositionState[][] positionStates) {
-    Seq<Position> positions = Seq.rangeClosed(firstRow, lastRow)
-                              .crossJoin(Seq.rangeClosed(firstCol, lastCol))
+    Seq<Position> positions = Seq.rangeClosed(FIRST_ROW, lastRow)
+                              .crossJoin(Seq.rangeClosed(FIRST_COL, lastCol))
                               .map(Position::new);
     Map<Position, PositionState> map = positions.toMap(pos -> pos
                                                       ,pos -> positionStates[pos.i()][pos.j()]);
@@ -70,8 +70,8 @@ public class Board implements DisplayableBoard {
   private PositionState[][] getEmptyArrayOfPositionStates() {
     PositionState[][] positionStates = new PositionState[numRows][numCols];
 
-    for (int i = firstRow; i <= lastRow; i++) {
-      for (int j = firstCol; j <= lastCol; j++) {
+    for (int i = FIRST_ROW; i <= lastRow; i++) {
+      for (int j = FIRST_COL; j <= lastCol; j++) {
         positionStates[i][j] = new PositionState(new Position(i,j), Piece.EMPTY);
       }
     }
@@ -162,11 +162,11 @@ public class Board implements DisplayableBoard {
   }
 
   private boolean isValidJ(int j) {
-    return (j >= firstCol) && (j <= lastCol);
+    return (j >= FIRST_COL) && (j <= lastCol);
   }
 
   private boolean isValidI(int i) {
-    return (i >= firstRow) && (i <= lastRow);
+    return (i >= FIRST_ROW) && (i <= lastRow);
   }
 
 
@@ -224,7 +224,7 @@ public class Board implements DisplayableBoard {
     return getPositionStatesSeq().groupBy(PositionState::player);
   }
 
-  public Map<Integer,Integer> numPiecesByPlayer(){
+  public Map<Integer, Integer> numPiecesByPlayer(){
     Map<Integer,Integer> map = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
     map.putIfAbsent(Piece.PLAYER_ONE, 0);
     map.putIfAbsent(Piece.PLAYER_TWO, 0);
