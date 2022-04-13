@@ -5,7 +5,6 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -84,8 +83,6 @@ public class BoardView implements PropertyChangeListener{
       throws OutOfBoardException {
     myController.click(i, j);
     selectCell(i, j);
-    //updateBoard(nextState);
-
   }
 
   public void addController(Controller c) {
