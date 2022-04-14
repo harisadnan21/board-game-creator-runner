@@ -23,6 +23,7 @@ public class IntegerSelector implements PropertySelector{
     this.property = property;
     //TODO: REPLACE MAGIC VALUES
     numberPicker = new Spinner<>(0, 50, 0, 1);
+    numberPicker.setEditable(true);
   }
 
   /**
