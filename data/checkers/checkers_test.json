@@ -20,14 +20,28 @@
 	},
 	"pieces": [
 		{
-			"name": "pawn",
+			"name": "white pawn",
 			"value": 0,
-			"image": "pieces/pawn.png"
+			"player": 0,
+			"image": "pieces/white_pawn.png"
 		},
 		{
-			"name": "king",
+			"name": "black pawn",
+			"value": 0,
+			"player": 1,
+			"image": "pieces/black_pawn.png"
+		},
+		{
+			"name": "white king",
 			"value": 1,
-			"image": "pieces/king.png"
+			"player": 0,
+			"image": "pieces/white_king.png"
+		},
+		{
+			"name": "white king",
+			"value": 1,
+			"player": 1,
+			"image": "pieces/black_king.png"
 		}
 	],
 	"board": {

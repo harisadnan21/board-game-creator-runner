@@ -222,6 +222,7 @@
           </reportSet>
         </reportSets>
       </plugin>
+
       <!-- used to execute the unit tests of an application and generate a report -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

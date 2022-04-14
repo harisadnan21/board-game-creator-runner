@@ -17,7 +17,7 @@ import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
-import oogasalad.engine.model.move.Rule;
+import oogasalad.engine.model.move.Move;
 import oogasalad.engine.model.setup.Constants;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -56,22 +56,22 @@ public class GameParser {
     return board;
   }
 
-  public static Rule[] readRules(String filePath)
+  public static Move[] readRules(String filePath)
       throws IOException {
     JSONObject root = getRootObject(filePath);
 
     JSONArray rulesJSON = root.getJSONArray("rules");
     int numRules = rulesJSON.length();
-    Rule[] rules = new Rule[numRules];
+    Move[] moves = new Move[numRules];
     for (int index = 0; index < numRules; index++) {
       JSONObject ruleJSON = rulesJSON.getJSONObject(index);
       Position repPoint = getRepresentativePoint(ruleJSON.getJSONObject("representativePoint"));
       PieceCondition[] conditions = getConditions(ruleJSON.getJSONArray("conditions"));
       Action[] actions = getActions(ruleJSON.getJSONArray("actions"));
-      rules[index] = new Rule(conditions, actions, repPoint.i(), repPoint.j());
+      moves[index] = new Move(conditions, actions, repPoint.i(), repPoint.j());
     }
 
-    return rules;
+    return moves;
   }
   public static WinCondition[] readWinConditions(String filePath)
       throws IOException {
@@ -228,7 +228,7 @@ public class GameParser {
   public static void main(String[] args)
       throws IOException, OutOfBoardException {
     Board board = readInitialBoard(Constants.CHECKERS_FILE);
-    Rule[] rules = readRules(Constants.CHECKERS_FILE);
+    Move[] moves = readRules(Constants.CHECKERS_FILE);
   }
 
   public static Board getCheckersBoard()
@@ -241,7 +241,7 @@ public class GameParser {
     return null;
   }
 
-  public static List<Rule> getCheckersRules()
+  public static List<Move> getCheckersRules()
       throws IOException {
     return Arrays.asList(readRules(Constants.CHECKERS_FILE));
   }

@@ -14,7 +14,7 @@ to create strategy games in the following domain:
 
 We intend two create two functionally separate application, a builder and a game engine. The builder
 will be responsible for allowing users to create game configurations that specify the board, pieces,
-rules, and conditions of a game. The engine is responsible for loading these configurations and
+moves, and conditions of a game. The engine is responsible for loading these configurations and
 allowing users to play the games.
 
 ### Features
@@ -114,7 +114,7 @@ for modification.
   - Different shapes and board behaviors can be defined by implementing the Board Interface
   - No Dependencies
 - `element`
-  - Defines the API for creating Game Elements (pieces, actions, rules, conditions)
+  - Defines the API for creating Game Elements (pieces, actions, moves, conditions)
   - New game elements can be created by implementing the Element Interface
   - Dependent on the property module
 - `property`
@@ -221,7 +221,7 @@ public abstract class Action {
     // TODO: Remove magic values
     obj.put("pieces", elementsToJSONArray(PIECE));
     obj.put("board", board.toJSON());
-    obj.put("rules", elementsToJSONArray(RULE));
+    obj.put("moves", elementsToJSONArray(RULE));
     obj.put("conditions", elementsToJSONArray(CONDITION));
     obj.put("actions", elementsToJSONArray(ACTION));
     return obj.toString();

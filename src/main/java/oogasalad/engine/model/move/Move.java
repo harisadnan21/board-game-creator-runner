@@ -11,7 +11,7 @@ import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
  *
  * @author Jake Heller
  */
-public class Rule {
+public class Move {
 
   private Board myNextState;
 
@@ -27,7 +27,7 @@ public class Rule {
    * @param repI
    * @param repJ
    */
-  public Rule(PieceCondition[] conditions, Action[] actions, int repI, int repJ) {
+  public Move(PieceCondition[] conditions, Action[] actions, int repI, int repJ) {
     myConditions = conditions;
     myActions = actions;
     myRepI = repI;
@@ -67,7 +67,7 @@ public class Rule {
 //        boardCopy = action.execute(boardCopy, refI, refJ);
         boardCopy = action.execute(board, refI, refJ);
       }
-      boardCopy.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
+      boardCopy = boardCopy.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
       return boardCopy;
     }
     return null;

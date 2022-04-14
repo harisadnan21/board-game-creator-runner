@@ -45,7 +45,7 @@ $schema	gameSchema.json	/^  "$schema": "http:\/\/json-schema.org\/draft-06\/sche
 0	doc/plan/data/checkers/checkers.json	/^				[6, 0],$/;"	n	array:regions.endZone.spaces.6
 0	doc/plan/data/checkers/checkers.json	/^				[7, 0],$/;"	n	array:regions.endZone.spaces.7
 0	doc/plan/data/checkers/checkers.json	/^				[8, 0]$/;"	n	array:regions.endZone.spaces.8
-0	doc/plan/data/checkers/checkers.json	/^			"from": ["normalPiece"],$/;"	s	array:rules.0.from
+0	doc/plan/data/checkers/checkers.json	/^			"from": ["normalPiece"],$/;"	s	array:moves.0.from
 0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	s	array:moves.2.pieces
 0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	s	array:moves.3.pieces
 0	doc/plan/data/checkers/checkers.json	/^			"pieces": ["kingedPiece"],$/;"	s	array:moves.6.pieces
@@ -57,7 +57,7 @@ $schema	gameSchema.json	/^  "$schema": "http:\/\/json-schema.org\/draft-06\/sche
 0	doc/plan/data/checkers/checkers.json	/^			{$/;"	o	array:basicInfo.players
 0	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:endConditions
 0	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
-0	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:rules
+0	doc/plan/data/checkers/checkers.json	/^		{$/;"	o	array:moves
 0	gameSchema.json	/^	      "enum": ["placeholder"]$/;"	s	array:properties.moving.properties.validMoves.properties.TypeOfValidMoves.enum
 0	gameSchema.json	/^	      "mostPoints",$/;"	s	array:properties.gameTermination.properties.winnerDetermination.items.enum
 0	gameSchema.json	/^	    "enum": ["EmptyBoard", "FullBoard", "NoMovesAvailable", "MaxNumMovesReached", "SpecialCaptu/;"	s	array:properties.gameTermination.properties.terminationConditons.items.enum
@@ -460,7 +460,7 @@ Alexander - Simple Artificial Player	doc/plan/TEST_PLAN.md	/^### Alexander - Sim
 Alias	gameSchema.json	/^        "Alias": {"type": "string"}$/;"	o	object:properties.pieces.properties
 As a project team, we promise to:	doc/TEAM_CONTRACT.md	/^## As a project team, we promise to:$/;"	s	chapter:OOGASalad Team Contract
 AvailableActions	src/main/java/oogasalad/engine/model/action/AvailableActions.java	/^public class AvailableActions {$/;"	c
-AvailableMovesForPiece	src/main/java/oogasalad/engine/model/action/AvailableMovesForPiece.java	/^    public Boolean AvailableMovesForPiece(Board board, Piece piece, Player player, Rules[] rules/;"	m	class:AvailableMovesForPiece
+AvailableMovesForPiece	src/main/java/oogasalad/engine/model/action/AvailableMovesForPiece.java	/^    public Boolean AvailableMovesForPiece(Board board, Piece piece, Player player, Rules[] moves/;"	m	class:AvailableMovesForPiece
 AvailableMovesForPiece	src/main/java/oogasalad/engine/model/action/AvailableMovesForPiece.java	/^public class AvailableMovesForPiece {$/;"	c
 AvailableMovesForPiece	src/main/java/oogasalad/engine/model/conditionals/BoardTrait.java	/^    public Boolean AvailableMovesForPiece(Board board);$/;"	m	interface:BoardTrait
 BLACK_KNIGHT	src/main/java/oogasalad/engine/view/BoardView.java	/^  public static String BLACK_KNIGHT = IMAGES_FOLDER + "black_knight.png";$/;"	f	class:BoardView
@@ -804,7 +804,7 @@ execute	src/main/java/oogasalad/engine/model/action/Remove.java	/^  public void 
 firstMove	doc/plan/data/checkers/checkers.json	/^		"firstMove": {$/;"	o	object:basicInfo
 format	gameSchema.json	/^	"format": "date-time"$/;"	s	object:properties.metadata.lastModifiedDate
 format	gameSchema.json	/^	"format": "date-time"$/;"	s	object:properties.metadata.originalCreationDate
-from	doc/plan/data/checkers/checkers.json	/^			"from": ["normalPiece"],$/;"	a	object:rules.0
+from	doc/plan/data/checkers/checkers.json	/^			"from": ["normalPiece"],$/;"	a	object:moves.0
 gameConfig.put	doc/plan/api/use_cases/SaveConfiguration.java	/^gameConfig.put(new PieceElement(\/*Args for O pieces*\/));$/;"	m
 gameConfig.put	doc/plan/api/use_cases/SaveConfiguration.java	/^gameConfig.put(new PieceElement(\/*Args for X pieces*\/));$/;"	m
 gameID	gameSchema.json	/^      "gameID":$/;"	o	object:properties.basicInfo
@@ -1090,7 +1090,7 @@ putGameElement	doc/plan/api/use_cases/BuilderCreatePiece.java	/^public void putG
 putGameElement	doc/plan/api/use_cases/BuilderCreatePiece.java	/^public void putGameElement(String type, GameElement element) {$/;"	m
 putGameElement	doc/plan/api/use_cases/BuilderCreatePiece.java	/^public void putGameElement(String type, String name, Collection<Property> properties) {$/;"	m
 putProperty	doc/plan/api/Builder/backend/element/GameElement.java	/^    public void putProperty(Property property) {$/;"	m	class:GameElement
-region	doc/plan/data/checkers/checkers.json	/^			"region": "endZone",$/;"	s	object:rules.0
+region	doc/plan/data/checkers/checkers.json	/^			"region": "endZone",$/;"	s	object:moves.0
 regions	doc/plan/data/checkers/checkers.json	/^	"regions": {$/;"	o
 removePiece	src/main/java/oogasalad/engine/model/board/Board.java	/^  public Board removePiece(Position position) throws CloneNotSupportedException {$/;"	m	class:Board
 removePiece	src/main/java/oogasalad/engine/view/Cell.java	/^  public void removePiece() {$/;"	m	class:Cell
@@ -1099,7 +1099,7 @@ roles	gameSchema.json	/^    "roles":$/;"	o	object:properties
 root	src/main/java/oogasalad/engine/view/ExtraPiece.java	/^  private BorderPane root;$/;"	f	class:ExtraPiece	file:
 root	src/main/java/oogasalad/engine/view/GameView.java	/^  GridPane root;$/;"	f	class:GameView
 root	src/main/java/oogasalad/engine/view/Inventory.java	/^  private FlowPane root;$/;"	f	class:Inventory	file:
-rules	doc/plan/data/checkers/checkers.json	/^	"rules": [$/;"	a
+moves	doc/plan/data/checkers/checkers.json	/^	"moves": [$/;"	a
 save	doc/plan/api/Builder/backend/parser/GameSaver.java	/^    public void save(File file, GameConfiguration game) {$/;"	m	class:GameSaver
 save	doc/plan/api/Builder/controller/BuilderController.java	/^    private void save(File file) {$/;"	m	class:BuilderController	file:
 saver.save	doc/plan/api/use_cases/SaveConfiguration.java	/^saver.save(saveFile, gameConfig); \/\/ Saves the configuration to the file/;"	m
@@ -1120,7 +1120,7 @@ text	src/main/java/oogasalad/engine/view/BoardView.java	/^  private GameUpdateTe
 text	src/main/java/oogasalad/engine/view/GameUpdateText.java	/^  private Text text;$/;"	f	class:GameUpdateText	file:
 then	gameSchema.json	/^	  "then": $/;"	o	object:properties.moving.properties.orderDetermination
 then	gameSchema.json	/^      "then": $/;"	o	object:properties.roles
-to	doc/plan/data/checkers/checkers.json	/^			"to": "kingedPiece"$/;"	s	object:rules.0
+to	doc/plan/data/checkers/checkers.json	/^			"to": "kingedPiece"$/;"	s	object:moves.0
 type	doc/plan/api/Builder/backend/element/ElementRecord.java	/^    private String type;$/;"	f	class:ElementRecord	file:
 type	doc/plan/api/Builder/controller/Property.java	/^    private void String type;$/;"	f	class:Property	file:
 type	doc/plan/data/checkers/checkers.json	/^				"type": "pieceOnPath",$/;"	s	object:moves.0.condition
@@ -1138,7 +1138,7 @@ type	doc/plan/data/checkers/checkers.json	/^			"type": "pointToPoint",$/;"	s	obj
 type	doc/plan/data/checkers/checkers.json	/^			"type": "pointToPoint",$/;"	s	object:moves.6
 type	doc/plan/data/checkers/checkers.json	/^			"type": "pointToPoint",$/;"	s	object:moves.7
 type	doc/plan/data/checkers/checkers.json	/^			"type": "relativeToBoard",$/;"	s	object:regions.endZone
-type	doc/plan/data/checkers/checkers.json	/^			"type": "transformInRegion",$/;"	s	object:rules.0
+type	doc/plan/data/checkers/checkers.json	/^			"type": "transformInRegion",$/;"	s	object:moves.0
 type	doc/plan/data/checkers/checkers.json	/^		"type": "square",$/;"	s	object:board
 type	gameSchema.json	/^	      "type": "number",$/;"	s	object:properties.moving.properties.orderDetermination.properties.FirstMoveProbability
 type	gameSchema.json	/^	  "type": "array",$/;"	s	object:properties.gameTermination.properties.possibleOutcomes

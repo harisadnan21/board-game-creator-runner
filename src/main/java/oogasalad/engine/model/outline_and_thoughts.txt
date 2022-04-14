@@ -22,16 +22,16 @@ rule:
 - ex. verticalMove(Board, Action, Player) -> Boolean
 - ex. unBlockedMove(Board, Action, Player) -> Boolean
 
-composedRule -> a function/mapping between a state of the board, an action, a player, and a list of rules that returns a Boolean
+composedRule -> a function/mapping between a state of the board, an action, a player, and a list of moves that returns a Boolean
 - ex. unBlockedMoveInDirection(Board, Action, Player, Rule[])-> Boolean
 
-legalMove -> a function/mapping between a state of the board, an action, a player, and a list of rules that returns a Boolean
+legalMove -> a function/mapping between a state of the board, an action, a player, and a list of moves that returns a Boolean
 - (Board, Action, Player, Rule[]) -> Boolean
 
-pieceAvailableMoves -> a function/mapping between a state of the board, a piece, a player, and a list of rules that returns a list of actions
+pieceAvailableMoves -> a function/mapping between a state of the board, a piece, a player, and a list of moves that returns a list of actions
 - (Board, Piece, Player, Rule[]) ->  Action[]
 
-available actions -> a function/mapping between a state of the board, a player, and a list of rules that returns a list of actions
+available actions -> a function/mapping between a state of the board, a player, and a list of moves that returns a list of actions
 - (Board, Player, Rule[]) -> Action[]
 - 
 

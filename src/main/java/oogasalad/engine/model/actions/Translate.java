@@ -3,14 +3,14 @@ package oogasalad.engine.model.actions;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 
-public class Move extends Action {
+public class Translate extends Action {
 
   /**
    *
    * @param parameters should be size 4 array where
    * [i1, j1, i2, j2]
    */
-  public Move(int[] parameters) {
+  public Translate(int[] parameters) {
     super(parameters);
   }
 
