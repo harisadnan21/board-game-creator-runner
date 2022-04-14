@@ -1,8 +1,10 @@
 package oogasalad.builder.view.property;
 
+import java.io.File;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.StringProperty;
@@ -14,7 +16,7 @@ import oogasalad.builder.model.property.StringProperty;
  *
  * @author Shaan Gondalia
  */
-public class FileSelector implements PropertySelector{
+public class FileSelector implements PropertySelector {
 
   private static final String BUTTON_TEXT = "Choose File"; // TODO: Replace Magic Value
 
@@ -27,7 +29,7 @@ public class FileSelector implements PropertySelector{
    *
    * @param property the property that will be "filled in" by the Field
    */
-  public FileSelector(Property property){
+  public FileSelector(Property property) {
     this.property = property;
     chooseButton = new Button();
     //String buttonLabel = resources.getString(labelName);
@@ -60,6 +62,12 @@ public class FileSelector implements PropertySelector{
   private void chooseFile() {
     Stage stage = new Stage();
     FileChooser fileChooser = new FileChooser();
-    filePath = fileChooser.showOpenDialog(stage).toString();
+  //  fileChooser.setInitialDirectory(new File("/"));
+    fileChooser.getExtensionFilters()
+        .add(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+    File file = fileChooser.showOpenDialog(stage);
+    if (file != null) {
+      filePath = file.toString();
+    }
   }
 }
