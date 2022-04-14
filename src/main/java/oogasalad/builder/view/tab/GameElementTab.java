@@ -93,6 +93,7 @@ public class GameElementTab extends BorderPane {
         }
         callbackDispatcher.call(new UpdateGameElementCallback(type, nameField.getText(), propertyEditor.getElementProperties()));
         elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
+        propertyEditor.clear();
     }
 
     public static Button makeButton(String property, EventHandler<ActionEvent> handler) {
@@ -103,7 +104,7 @@ public class GameElementTab extends BorderPane {
     }
 
     /**
-     * @param element 
+     * @param element
      * @return
      */
     public void putGameElement(ElementRecord element) {
@@ -112,7 +113,7 @@ public class GameElementTab extends BorderPane {
     }
 
     /**
-     * @param name 
+     * @param name
      * @return
      */
     public boolean hasGameElement(String name) {
