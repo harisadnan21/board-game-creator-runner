@@ -89,10 +89,11 @@
 	],
 	"winConditions": [
 		{
-			"name": "basic checkers win",
+			"name": "3 in a row",
 			"conditions": [
 				{
-					"name": "BoardFull"
+					"name": "NInARow",
+					"parameters": [3]
 				}
 			],
 			"winDecision": [

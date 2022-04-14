@@ -6,9 +6,9 @@ import oogasalad.engine.model.board.Board;
  * @author Robert Cranston
  */
 public abstract class BoardCondition {
-  private int[] myParameters;
+  protected int[] myParameters;
 
-  public BoardCondition(int[] parameters){
+  protected BoardCondition(int[] parameters){
     myParameters = parameters;
   }
 

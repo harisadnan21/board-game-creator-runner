@@ -39,8 +39,8 @@ public class Controller {
 //      myBoard = GameParser.getCheckersBoard();
 //      rules = GameParser.getCheckersRules();
       myBoard = board;
-      rules = Arrays.asList(GameParser.readRules(Constants.CHECKERS_FILE));
-      winConditions = Arrays.asList(GameParser.readWinConditions(Constants.CHECKERS_FILE));
+      rules = Arrays.asList(GameParser.readRules(Constants.TIC_TAC_TOE_FILE));
+      winConditions = Arrays.asList(GameParser.readWinConditions(Constants.TIC_TAC_TOE_FILE));
       myGame = new Game(myBoard);
 
     } catch (Exception e){
@@ -53,7 +53,7 @@ public class Controller {
    */
   public Board resetGame() {
     myGame = new Game(myBoard);
-    myEngine = new PieceSelectionEngine(myGame, rules, winConditions, updateView, setViewValidMarks, clearViewMarkers);
+    myEngine = new NoSelectionEngine(myGame, rules, winConditions, updateView, setViewValidMarks, clearViewMarkers);
     return myBoard;
   }
 
@@ -64,7 +64,7 @@ public class Controller {
     updateView = update;
     setViewValidMarks = setValidMarks;
     clearViewMarkers = clearMarkers;
-    myEngine = new PieceSelectionEngine(myGame, rules, winConditions, updateView, setViewValidMarks, clearViewMarkers);
+    myEngine = new NoSelectionEngine(myGame, rules, winConditions, updateView, setViewValidMarks, clearViewMarkers);
   }
 
 

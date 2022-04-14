@@ -28,6 +28,7 @@ public class NoSelectionEngine extends Engine {
     for (Rule move: getMoves()) {
       if (move.isValid(board, x, y)) {
         board = move.doMovement(board, x, y);
+        checkForWin(board);
         getGame().setBoard(board);
         updateView(board);
       }
@@ -41,5 +42,14 @@ public class NoSelectionEngine extends Engine {
     Action[] actions = new Action[]{new Place(new int[]{0, 0, 0, 0})};
 
     getMoves().add(new Rule(conditions, actions, 0, 0));
+  }
+  //checks to see if any of the win conditions are satisfied and if they are it sets the winner on the board.
+  private void checkForWin(Board board) {
+    for(WinCondition winCondition : getWinConditions()){
+      if(winCondition.isOver(board)){
+        board.setWinner(winCondition.getWinner(board));
+        System.out.println("here");
+      }
+    }
   }
 }
