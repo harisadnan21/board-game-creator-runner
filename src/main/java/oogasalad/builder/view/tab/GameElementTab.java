@@ -1,5 +1,6 @@
 package oogasalad.builder.view.tab;
 
+import java.util.concurrent.atomic.AtomicReference;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -30,6 +31,7 @@ public class GameElementTab extends BorderPane {
   private final String type;
   private TextField nameField;
   private PropertyEditor propertyEditor;
+  private VBox rightBox;
 
   /**
    * Default constructor
@@ -49,7 +51,7 @@ public class GameElementTab extends BorderPane {
   }
 
   private void setupRightPane() {
-    VBox rightBox = new VBox();
+    rightBox = new VBox();
     propertyEditor = new PropertyEditor();
     nameField = new TextField(ViewResourcesSingleton.getInstance().getString("defaultName-" + type));
     rightBox.getChildren().addAll(
@@ -58,7 +60,9 @@ public class GameElementTab extends BorderPane {
             "save", e -> saveCurrentElement()));
     rightBox.setId("rightGameElementsPane");
     setRight(rightBox);
+
   }
+
 
   private void setupTitle() {
     setTop(new TitlePane(type + "Title").toNode());
