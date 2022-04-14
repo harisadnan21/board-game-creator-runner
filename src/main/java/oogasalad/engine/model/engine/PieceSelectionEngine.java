@@ -1,5 +1,7 @@
 package oogasalad.engine.model.engine;
 
+import java.util.Map;
+import java.util.function.Consumer;
 import oogasalad.engine.model.actions.winner.MostPieces;
 import oogasalad.engine.model.actions.winner.Winner;
 import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
@@ -25,6 +27,7 @@ import oogasalad.engine.model.conditions.piece_conditions.IsOccupied;
 import oogasalad.engine.model.conditions.piece_conditions.IsPlayer;
 import oogasalad.engine.model.conditions.piece_conditions.IsPlayerPiece;
 import oogasalad.engine.model.move.Rule;
+import org.jooq.lambda.function.Consumer0;
 
 public class PieceSelectionEngine extends Engine {
   private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
@@ -32,13 +35,15 @@ public class PieceSelectionEngine extends Engine {
   private Position mySelectedCell = null;
   private Set<Position> myValidMoves = null;
 
+
   public PieceSelectionEngine(Game game, List<Rule> rules,
-      List<WinCondition> winConditions) {
-    super(game, rules, winConditions);
+      List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
+    super(game, rules, winConditions, update, setValidMarks, clearMarkers);
+
   }
 
   @Override
-  public Board onCellSelect(int x, int y) throws OutOfBoardException {
+  public void onCellSelect(int x, int y) throws OutOfBoardException {
     Board board = getGame().getBoard();
     Position cellClicked = new Position(x, y);
     if (!myIsPieceSelected) {
@@ -51,15 +56,17 @@ public class PieceSelectionEngine extends Engine {
           checkForWin(newBoard);
           getGame().setBoard(newBoard);
           resetSelected();
-          return newBoard;
+          clearMarkers();
+          updateView(newBoard);
+          return;
         }
       }
       resetSelected();
-      board.setValidMoves(null);
+      clearMarkers();
     }
 
     LOG.info("Valid Moves for selected piece are {} ", board.getValidMoves());
-    return board;
+    updateView(board);
   }
 
   //checks to see if any of the win conditions are satisfied and if they are it sets the winner on the board.
@@ -80,8 +87,8 @@ public class PieceSelectionEngine extends Engine {
       myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
       myValidMoves = getValidMoves();
-      board.setValidMoves(myValidMoves);
-      System.out.printf("%d valid moves for this piece\n", myValidMoves.size());
+      setMarkers(myValidMoves);
+      LOG.info("{} valid moves for this piece\n", myValidMoves.size());
     }
   }
 

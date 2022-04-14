@@ -2,9 +2,9 @@ package oogasalad.engine.view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -19,13 +19,11 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
-import oogasalad.engine.model.engine.PieceSelectionEngine;
-import oogasalad.engine.model.setup.parsing.GameParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BoardView implements PropertyChangeListener{
-  private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
+  private static final Logger LOG = LogManager.getLogger(BoardView.class);
   public static String IMAGES_FOLDER = "images/";
   public static String BLACK_KNIGHT = IMAGES_FOLDER + "blueWhiteOrbit.png";
   public static String WHITE_KNIGHT = IMAGES_FOLDER + "purpleBlackOrbit.png";
@@ -83,15 +81,13 @@ public class BoardView implements PropertyChangeListener{
 
   public void cellClicked(MouseEvent e, int i, int j)
       throws OutOfBoardException {
-    Board nextState = myController.click(i, j);
+    myController.click(i, j);
     selectCell(i, j);
-    updateBoard(nextState);
-    checkForWin(nextState);
-    text.updateText(nextState.getPlayer());
   }
 
   public void addController(Controller c) {
     myController = c;
+    myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers, this::clearValidMarks);
   }
 
   public Text getText() {
@@ -121,9 +117,9 @@ public class BoardView implements PropertyChangeListener{
     return new Pair<>(cellWidth, cellHeight);
   }
 
-  private void updateBoard(Board board) {
+  private void updateBoard(Object newBoard) {
+    Board board = (Board)newBoard;
     text.updateText(board.getPlayer());
-    setValidMarkers(board);
     for (PositionState cell: board) {
       Position pos = cell.position();
       if (cell.isPresent()) {
@@ -138,6 +134,7 @@ public class BoardView implements PropertyChangeListener{
       }
     }
     checkForWin(board);
+    text.updateText(board.getPlayer());
   }
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
@@ -157,17 +154,13 @@ public class BoardView implements PropertyChangeListener{
 
   /**
    * Adds a marker to all the cells that are valid moves for the currently selected piece
-   * @param board - current Game Board
+   * @param validMoves - current Game Board
    */
-  private void setValidMarkers(Board board) {
-    if(board.getValidMoves()==null){
-      clearValidMarks();
+  private void setValidMarkers(Set<Position> validMoves) {
+    for(Position pos : validMoves){
+      myGrid[pos.i()][pos.j()].addValidMarker();
     }
-    else{
-      for(Position pos : board.getValidMoves()){
-        myGrid[pos.i()][pos.j()].addValidMarker();
-      }
-    }
+
   }
 
   /**

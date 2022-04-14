@@ -1,6 +1,7 @@
-package oogasalad.engine.model.AI.Evaluation;
+package oogasalad.engine.model.ai.evaluation.totals;
 
 import java.util.Map;
+import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 
