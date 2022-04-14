@@ -1,20 +1,20 @@
 package oogasalad.builder.model;
 
 import java.util.Collection;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.property.Property;
 
 /**
  * Describes the external API of the Builder Model.
  *
  * @author Shaan Gondalia
  */
-public interface BuilderModel extends JSONSerializable<BuilderModel> {
+public interface BuilderModel extends JSONSerializable, JSONParseable<BuilderModel> {
 
   /**
    * Creates a new board with the given dimensions.

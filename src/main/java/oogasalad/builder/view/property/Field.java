@@ -3,13 +3,14 @@ package oogasalad.builder.view.property;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.StringProperty;
 
 /**
  * The most basic form of a PropertySelector, essentially just a wrapper for a JavaFX text box.
  *
  * @author Shaan Gondalia
  */
-public class Field implements PropertySelector{
+public abstract class Field implements PropertySelector{
 
   private final Property property;
   private final TextField valueField;
@@ -21,7 +22,7 @@ public class Field implements PropertySelector{
    */
   public Field(Property property){
     this.property = property;
-    valueField = new TextField(property.value());
+    valueField = new TextField(property.valueAsString());
   }
 
   /**
@@ -35,12 +36,28 @@ public class Field implements PropertySelector{
   }
 
   /**
-   * Returns the actual text input of the user that should be stored in the property
+   * Returns a populated property with the correct value, name, and form
    *
-   * @return the text input corresponding to the property value that should be stored
+   * @return a populated property with the correct value, name, and form
    */
   @Override
-  public String getPropertyValue() {
+  public abstract Property getProperty();
+
+  /**
+   * Returns the property that was passed in during construction of the field
+   *
+   * @return the property that was passed in during construction of the field
+   */
+  protected Property property() {
+    return property;
+  }
+
+  /**
+   * Returns the text that was input into the value field
+   *
+   * @return the property that was passed in during construction of the field
+   */
+  protected String text() {
     return valueField.getText();
   }
 }

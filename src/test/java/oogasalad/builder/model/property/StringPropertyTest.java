@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Shaan Gondalia
  */
-public class PropertyTest {
+public class StringPropertyTest {
 
   private static final String PROPERTY_NAME = "propName";
   private static final String PROPERTY_VALUE = "value";
@@ -19,22 +19,22 @@ public class PropertyTest {
 
   @Test
   void testCreateProperty() {
-    Property property = new Property(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
+    Property property = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
     assertEquals(PROPERTY_NAME, property.name());
     assertEquals(PROPERTY_VALUE, property.value());
-    assertEquals(PROPERTY_VALUE, property.toString());
+    assertEquals(PROPERTY_VALUE, property.valueAsString());
   }
 
   @Test
   void testEquality() {
-    Property property1 = new Property(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
-    Property property2 = new Property(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
+    Property property1 = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
+    Property property2 = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
     assertEquals(property1, property2);
   }
 
   @Test
   void testHashCode() {
-    Property property = new Property(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
+    Property property = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
     int code = property.hashCode();
   }
 }

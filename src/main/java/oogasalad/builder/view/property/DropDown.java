@@ -3,6 +3,7 @@ package oogasalad.builder.view.property;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.StringProperty;
 
 /**
  * PropertySelector that allows users to make a choice from a drop-down menu. This is particularly
@@ -29,7 +30,7 @@ public class DropDown implements PropertySelector{
     list = new ComboBox<>();
     //list.setPromptText(resources.getString(LIST_TEXT));
     list.setPromptText(LIST_TEXT); // TODO: Replace magic value with resources file (languages)
-    list.getItems().setAll(this.property.value().split(LIST_DELIMITER));
+    list.getItems().setAll(this.property.valueAsString().split(LIST_DELIMITER));
     //list.valueProperty().addListener((observable, oldValue, newValue) -> selection = newValue);
   }
 
@@ -44,12 +45,13 @@ public class DropDown implements PropertySelector{
   }
 
   /**
-   * Returns the actual text input of the user that should be stored in the property
+   * Returns a populated property with the correct value, name, and form
    *
-   * @return the text input corresponding to the property value that should be stored
+   * @return a populated property with the correct value, name, and form
    */
   @Override
-  public String getPropertyValue() {
-    return list.getValue();
+  public Property getProperty() {
+    String[] nameParts = property.name().split("-");
+    return new StringProperty(nameParts[nameParts.length - 1], list.getValue(), property.form());
   }
 }

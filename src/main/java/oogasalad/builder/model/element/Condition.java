@@ -4,13 +4,13 @@ import java.util.Collection;
 import oogasalad.builder.model.property.Property;
 
 /**
- * Represents a Condition in the game. Examples of conditions are emptyAt, pieceAt, etc.
- * Conditions are attached to rules (along with actions), to dictate if a move is valid and an
- * action is completed.
+ * Represents a Condition in the game. Examples of conditions are emptyAt, pieceAt, etc. Conditions
+ * are attached to rules (along with actions), to dictate if a move is valid and an action is
+ * completed.
  *
  * @author Shaan Gondalia
  */
-public class Condition extends GameElement{
+public class Condition extends GameElement {
 
   /**
    * Creates a new Condition with the given parameters.
