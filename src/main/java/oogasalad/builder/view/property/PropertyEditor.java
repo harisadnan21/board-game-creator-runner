@@ -36,9 +36,16 @@ public class PropertyEditor extends VBox {
      * @param properties The required properties of an element
      */
     public void setElementProperties(Collection<Property> properties) {
+        clear();
+        properties.forEach(this::addProperty);
+    }
+
+    /**
+     * Clears the property editor (for instance, after the user saves)
+     */
+    public void clear() {
         getChildren().clear();
         selectors.clear();
-        properties.forEach(this::addProperty);
     }
 
     /**
