@@ -1,36 +1,33 @@
 package oogasalad.builder.view;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
 import oogasalad.builder.view.tab.boardTab.BoardTabAccessor;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-import static org.junit.jupiter.api.Assertions.*;
-
-import javafx.scene.input.MouseButton;
-import javafx.stage.Stage;
-import org.junit.jupiter.api.Test;
-import util.DukeApplicationTest;
 
 import java.util.List;
+import java.util.Stack;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class BuilderViewTest extends DukeApplicationTest {
-
+    private static final int X_DIM = 10;
+    private static final int Y_DIM = 14;
 
     private BuilderView builderView;
     private Stage stage;
+    private Stack<PlacePieceCallback> piecePlacedCB = new Stack<>();
+    private Stack<ClearCellCallback> pieceErasedCB = new Stack<>();
 
     @Override
     public void start(Stage stage) {
@@ -38,6 +35,8 @@ class BuilderViewTest extends DukeApplicationTest {
         builderView = new BuilderView(stage);
         builderView.registerCallbackHandler(GetElementNamesCallback.class, cb -> List.of("test"));
         builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class, cb -> cb.key().equals("image") ? "checkers/pieces/normalWhite.png" : null);
+        builderView.registerCallbackHandler(PlacePieceCallback.class, cb -> {piecePlacedCB.push(cb); return null;});
+        builderView.registerCallbackHandler(ClearCellCallback.class, cb -> {pieceErasedCB.push(cb); return null;});
         clickOn("#loginButton");
     }
 
@@ -52,8 +51,8 @@ class BuilderViewTest extends DukeApplicationTest {
         var ySpinner = lookup("#yDimEntry").queryAs(Spinner.class);
         xSpinner.setEditable(true);
         ySpinner.setEditable(true);
-        xSpinner.getEditor().setText("10");
-        ySpinner.getEditor().setText("14");
+        xSpinner.getEditor().setText("" + X_DIM);
+        ySpinner.getEditor().setText("" + Y_DIM);
         xSpinner.commitValue();
         ySpinner.commitValue();
         lookup("#colorPickerA").queryAs(ColorPicker.class).setValue(Color.BLUE);
@@ -63,8 +62,8 @@ class BuilderViewTest extends DukeApplicationTest {
     @Test
     void testDrawBoard() {
         boardSetup();
-        assertEquals(builderView.getBoardConfig().length, 14);
-        assertEquals(builderView.getBoardConfig()[0].length, 10);
+        assertEquals(builderView.getBoardConfig().length, Y_DIM);
+        assertEquals(builderView.getBoardConfig()[0].length, X_DIM);
         assertEquals(BoardTabAccessor.getColor(lookup("#boardTab").queryAs(BoardTab.class), 1), Color.BLUE);
     }
 
@@ -72,17 +71,36 @@ class BuilderViewTest extends DukeApplicationTest {
     public void testAddBoardPieces() {
         boardSetup();
         select(lookup("#choosePieceBox").queryAs(ComboBox.class), "test");
+        piecePlacedCB.clear();
+        pieceErasedCB.clear();
         clickOn("#builderBoard");
-        assertEquals(1, builderView.getBoardConfig()[6][4]);
+        assertEquals(1, piecePlacedCB.size());
+        assertEquals(0, pieceErasedCB.size());
+        assertEquals(new PlacePieceCallback(4, 6, "test"), piecePlacedCB.get(0));
     }
 
     @Test
     public void testEraseBoardPieces() {
-        boardSetup();
         testAddBoardPieces();
         clickOn("#eraserButton");
+        piecePlacedCB.clear();
+        pieceErasedCB.clear();
         clickOn("#builderBoard");
-        assertEquals(0, builderView.getBoardConfig()[6][4]);
+        assertEquals(0, piecePlacedCB.size());
+        assertEquals(1, pieceErasedCB.size());
+        assertEquals(new ClearCellCallback(4, 6), pieceErasedCB.get(0));
+    }
+
+    @Test
+    public void testClearBoardPieces() {
+        testAddBoardPieces();
+        piecePlacedCB.clear();
+        pieceErasedCB.clear();
+        clickOn("#clearPieces");
+        assertEquals(0, piecePlacedCB.size());
+        // We don't care if it clears all the cells or just the minimum it has to
+        assertTrue(pieceErasedCB.size() > 1);
+        assertTrue(pieceErasedCB.contains(new ClearCellCallback(4, 6)));
     }
 }
 
