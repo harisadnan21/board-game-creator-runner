@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -150,15 +151,16 @@ public class BoardTab extends BorderPane {
   private ToggleButton createEraserButton() {
     ToggleButton eraseButton = new ToggleButton(resources.getString("eraser"));
     eraseButton.setOnAction(e -> toggleErase(eraseButton));
-
     return eraseButton;
   }
 
   private void toggleErase(ToggleButton eraser) {
     if (eraser.isSelected()) {
       boardCanvas.setClickToErase();
+      setCursor(Cursor.CROSSHAIR);
     } else {
       boardCanvas.setClickToPlace();
+      setCursor(Cursor.DEFAULT);
     }
   }
 
