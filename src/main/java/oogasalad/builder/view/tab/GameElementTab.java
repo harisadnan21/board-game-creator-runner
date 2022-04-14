@@ -1,16 +1,11 @@
 package oogasalad.builder.view.tab;
 
-import java.util.concurrent.atomic.AtomicReference;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.element.ElementRecord;
