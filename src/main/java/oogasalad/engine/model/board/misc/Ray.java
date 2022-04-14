@@ -1,4 +1,4 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.misc;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.components.Position;
+import oogasalad.engine.model.board.components.PositionState;
 import oogasalad.engine.model.setup.Constants;
 import oogasalad.engine.model.setup.Delta;
 import org.jooq.lambda.Seq;

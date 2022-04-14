@@ -1,7 +1,8 @@
 package oogasalad.engine.model.conditions.board_conditions;
 
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.boards.BoardUtils;
+import oogasalad.engine.model.board.components.PositionState;
 import org.jooq.lambda.Seq;
 
 /**
@@ -21,8 +22,10 @@ public class PlayerHasNoPieces extends BoardCondition{
    */
   @Override
   public boolean isTrue(Board board) {
-    Seq<PositionState> player0 = board.getSatisfyingPositionStatesSeq(posState -> posState.player()==0);
-    Seq<PositionState> player1 = board.getSatisfyingPositionStatesSeq(posState -> posState.player()==1);
+    Seq<PositionState> player0 = BoardUtils.getSatisfyingPositionStatesSeq(board,
+        posState -> posState.player()==0);
+    Seq<PositionState> player1 = BoardUtils.getSatisfyingPositionStatesSeq(board,
+        posState -> posState.player()==1);
     return player0.isEmpty() || player1.isEmpty();
   }
 //    int[] players = {0,0};

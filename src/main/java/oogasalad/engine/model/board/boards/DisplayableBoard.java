@@ -1,9 +1,11 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.boards;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+import oogasalad.engine.model.board.components.Position;
+import oogasalad.engine.model.board.components.PositionState;
 import org.jooq.lambda.Seq;
 
 // Make this board that display can use??

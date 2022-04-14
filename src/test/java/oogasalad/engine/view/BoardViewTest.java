@@ -1,13 +1,11 @@
 package oogasalad.engine.view;
 
-import java.io.IOException;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import static org.junit.jupiter.api.Assertions.*;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.boards.Board;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 

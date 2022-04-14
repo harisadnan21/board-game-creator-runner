@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.components.PositionState;
 import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Move;
@@ -15,9 +15,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.misc.OutOfBoardException;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.components.Position;
 import org.jooq.lambda.function.Consumer0;
 
 public class PieceSelectionEngine extends Engine {

@@ -1,4 +1,4 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.components;
 
 public record Piece (int type, int player) {
   public static int PLAYER_ONE = 0;

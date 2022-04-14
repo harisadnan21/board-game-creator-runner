@@ -1,10 +1,10 @@
 package oogasalad.engine.model.board.neighbors;
 import java.util.Optional;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Direction;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
-import oogasalad.engine.model.board.Ray;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.misc.Direction;
+import oogasalad.engine.model.board.components.Position;
+import oogasalad.engine.model.board.components.PositionState;
+import oogasalad.engine.model.board.misc.Ray;
 
 /**
  * Abstract class that allows the board to see what the neighbors are.

@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import io.vavr.collection.SortedSet;
 import io.vavr.collection.TreeSet;
 import java.util.concurrent.PriorityBlockingQueue;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.components.Piece;
 import org.junit.jupiter.api.Test;
 
 class DiffBasedPatternProximityEvaluatorTest {

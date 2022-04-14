@@ -1,7 +1,7 @@
 package oogasalad.engine.model.actions;
 
-import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.misc.OutOfBoardException;
+import oogasalad.engine.model.board.boards.Board;
 
 /**
  * Every action subclass constructor receives all the parameters

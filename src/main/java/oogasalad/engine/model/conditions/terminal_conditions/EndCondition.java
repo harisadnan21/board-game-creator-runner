@@ -1,7 +1,7 @@
 package oogasalad.engine.model.conditions.terminal_conditions;
 
 import oogasalad.engine.model.actions.winner.Winner;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.boards.Board;
 import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 
 /**

@@ -2,10 +2,10 @@ package oogasalad.engine.model.conditions.board_conditions;
 
 import java.util.PrimitiveIterator.OfInt;
 import java.util.stream.IntStream;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.components.Piece;
+import oogasalad.engine.model.board.components.Position;
+import oogasalad.engine.model.board.components.PositionState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

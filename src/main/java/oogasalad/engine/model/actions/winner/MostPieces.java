@@ -1,7 +1,8 @@
 package oogasalad.engine.model.actions.winner;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.boards.BoardUtils;
+import oogasalad.engine.model.board.components.Piece;
+import oogasalad.engine.model.board.components.PositionState;
 import org.jooq.lambda.Seq;
 /**
  * Class that decides winner based on which player has more pieces currently on the board.
@@ -16,7 +17,8 @@ public class MostPieces implements Winner {
    */
   @Override
   public int decideWinner(Board board) {
-    Seq<PositionState> nonEmptyPositionStates = board.getNotSatisfyingPositionStatesSeq(positionState -> positionState.piece()== Piece.EMPTY);
+    Seq<PositionState> nonEmptyPositionStates = BoardUtils.getNotSatisfyingPositionStatesSeq(board,
+        positionState -> positionState.piece()== Piece.EMPTY);
     return nonEmptyPositionStates.map(PositionState::player).mode().get(); //Maybe change to optional if there is a tie?
   }
 }

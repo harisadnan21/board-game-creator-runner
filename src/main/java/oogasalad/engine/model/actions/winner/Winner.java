@@ -1,6 +1,6 @@
 package oogasalad.engine.model.actions.winner;
 
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.boards.Board;
 
 /**
  * Interface for the different ways to decide how a game has been won

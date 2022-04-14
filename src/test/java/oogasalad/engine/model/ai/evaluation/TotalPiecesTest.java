@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import oogasalad.engine.model.ai.evaluation.totals.TotalPieces;
 import oogasalad.engine.model.ai.exceptions.InvalidBoardException;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.components.Piece;
+import oogasalad.engine.model.board.components.Position;
+import oogasalad.engine.model.board.components.PositionState;
 
 import static org.jooq.lambda.Seq.*;
 

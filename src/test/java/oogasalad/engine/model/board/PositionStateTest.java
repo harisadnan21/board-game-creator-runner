@@ -1,5 +1,8 @@
 package oogasalad.engine.model.board;
 
+import oogasalad.engine.model.board.components.Piece;
+import oogasalad.engine.model.board.components.Position;
+import oogasalad.engine.model.board.components.PositionState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

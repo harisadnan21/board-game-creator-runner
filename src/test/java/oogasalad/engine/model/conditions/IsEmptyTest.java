@@ -2,8 +2,8 @@ package oogasalad.engine.model.conditions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.misc.OutOfBoardException;
+import oogasalad.engine.model.board.boards.Board;
 import oogasalad.engine.model.conditions.piece_conditions.IsEmpty;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
 import org.junit.jupiter.api.BeforeEach;

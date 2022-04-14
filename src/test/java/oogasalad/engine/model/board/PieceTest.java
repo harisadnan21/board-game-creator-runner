@@ -2,7 +2,7 @@ package oogasalad.engine.model.board;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
+import oogasalad.engine.model.board.components.Piece;
 import org.junit.jupiter.api.Test;
 
 public class PieceTest {

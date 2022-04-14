@@ -6,8 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.components.Position;
+import oogasalad.engine.model.board.components.PositionState;
+import oogasalad.engine.model.board.misc.Direction;
+import oogasalad.engine.model.board.misc.Ray;
 import org.junit.jupiter.api.Test;
 
 class RayTest {

@@ -2,7 +2,7 @@ package oogasalad.engine.model.setup;
 
 import java.util.Map;
 import java.util.ResourceBundle;
-import oogasalad.engine.model.board.Direction;
+import oogasalad.engine.model.board.misc.Direction;
 import oogasalad.engine.model.setup.parsing.DeltaLoader;
 
 public class Constants {

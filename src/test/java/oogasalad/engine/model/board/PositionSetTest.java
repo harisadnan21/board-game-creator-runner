@@ -3,6 +3,7 @@ package oogasalad.engine.model.board;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
+import oogasalad.engine.model.board.components.Position;
 import org.junit.jupiter.api.Test;
 
 

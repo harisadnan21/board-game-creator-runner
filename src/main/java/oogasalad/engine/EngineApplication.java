@@ -5,7 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.boards.Board;
 import oogasalad.engine.model.setup.Constants;
 import oogasalad.engine.model.setup.parsing.GameParser;
 import oogasalad.engine.view.BoardView;

@@ -2,6 +2,7 @@ package oogasalad.engine.model.board;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import oogasalad.engine.model.board.components.Position;
 import org.junit.jupiter.api.Test;
 import static org.jooq.lambda.Seq.zip;
 

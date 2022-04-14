@@ -1,7 +1,6 @@
 package oogasalad.engine.model.board;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import oogasalad.engine.model.board.boards.Board;
 import org.junit.jupiter.api.Test;
 
 class getDirectionNeighborTest {

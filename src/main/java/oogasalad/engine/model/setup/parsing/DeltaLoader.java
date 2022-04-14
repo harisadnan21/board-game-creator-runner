@@ -2,10 +2,9 @@ package oogasalad.engine.model.setup.parsing;
 
 import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import oogasalad.engine.model.board.Direction;
+import oogasalad.engine.model.board.misc.Direction;
 import oogasalad.engine.model.setup.Constants;
 import oogasalad.engine.model.setup.Delta;
 

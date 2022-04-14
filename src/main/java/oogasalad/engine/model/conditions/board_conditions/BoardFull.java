@@ -1,7 +1,7 @@
 package oogasalad.engine.model.conditions.board_conditions;
 
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.components.Piece;
 
 /**
  * Condition that evaluates to true when the entire board is full of pieces

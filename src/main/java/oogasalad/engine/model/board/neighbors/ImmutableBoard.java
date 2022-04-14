@@ -3,9 +3,10 @@ package oogasalad.engine.model.board.neighbors;
 import java.util.Optional;
 import java.util.Set;
 import javafx.util.Pair;
-import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.misc.OutOfBoardException;
+import oogasalad.engine.model.board.components.Piece;
+import oogasalad.engine.model.board.components.Position;
 
 /**
  * Immutable Board
@@ -56,7 +57,7 @@ public interface ImmutableBoard extends Iterable<Pair<Position, Piece>>{
    * @return
    * @throws OutOfBoardException
    */
-  oogasalad.engine.model.board.Board deepCopy() throws OutOfBoardException;
+  Board deepCopy() throws OutOfBoardException;
 
   /**
    * Returns the Set of Positions of valid moves of selected piece

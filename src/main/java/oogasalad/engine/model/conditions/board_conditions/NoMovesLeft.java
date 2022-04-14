@@ -1,6 +1,6 @@
 package oogasalad.engine.model.conditions.board_conditions;
 
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.boards.Board;
 
 /**
  * Class that evaluates if the game is at a standstill when no player has any available moves left

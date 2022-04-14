@@ -3,11 +3,8 @@ package oogasalad.engine.model.ai.evaluation.patterns;
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedMap;
 import io.vavr.collection.SortedSet;
-import java.util.Collection;
-import java.util.concurrent.PriorityBlockingQueue;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.components.Position;
 
 public abstract class PatternProximityEvaluator implements StateEvaluator {
   protected SortedSet<Pattern> patterns;

@@ -5,9 +5,9 @@ import io.vavr.collection.SortedSet;
 import java.util.Comparator;
 //import lombok.EqualsAndHashCode;
 //import lombok.ToString;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.components.Piece;
+import oogasalad.engine.model.board.components.Position;
+import oogasalad.engine.model.board.components.PositionState;
 
 //@EqualsAndHashCode
 //@ToString

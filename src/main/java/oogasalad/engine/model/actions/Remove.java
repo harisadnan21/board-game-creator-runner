@@ -1,7 +1,7 @@
 package oogasalad.engine.model.actions;
 
-import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.misc.OutOfBoardException;
+import oogasalad.engine.model.board.boards.Board;
 
 public class Remove extends Action {
 
@@ -15,6 +15,6 @@ public class Remove extends Action {
   @Override
   public Board execute(Board board, int refI, int refJ)
       throws OutOfBoardException {
-    return board.remove(myParameters[0]+refI, myParameters[1]+refJ);
+    return board.removePiece(myParameters[0]+refI, myParameters[1]+refJ);
   }
 }

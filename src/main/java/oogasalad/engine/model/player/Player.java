@@ -1,7 +1,7 @@
 package oogasalad.engine.model.player;
 
 import oogasalad.engine.model.actions.Action;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.boards.Board;
 import oogasalad.engine.model.engine.Engine;
 
 /**

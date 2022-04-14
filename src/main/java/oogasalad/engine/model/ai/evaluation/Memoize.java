@@ -5,7 +5,7 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.boards.Board;
 import org.jooq.lambda.tuple.Tuple2;
 
 public class Memoize {

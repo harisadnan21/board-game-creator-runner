@@ -2,8 +2,8 @@ package oogasalad.engine.model.ai.evaluation.patterns;
 
 import io.vavr.collection.SortedSet;
 import java.util.concurrent.PriorityBlockingQueue;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.components.Position;
 
 public class DiffBasedPatternProximityEvaluator extends PatternProximityEvaluator {
   protected PriorityBlockingQueue<Position> positionsToCheck;

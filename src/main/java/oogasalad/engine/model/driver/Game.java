@@ -1,7 +1,7 @@
 package oogasalad.engine.model.driver;
 
 import java.util.Stack;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.boards.Board;
 
 public class Game {
 

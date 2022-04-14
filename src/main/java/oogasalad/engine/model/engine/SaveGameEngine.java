@@ -1,8 +1,8 @@
 package oogasalad.engine.model.engine;
 
 import java.util.Set;
-import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.misc.OutOfBoardException;
+import oogasalad.engine.model.board.boards.Board;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Move;
 

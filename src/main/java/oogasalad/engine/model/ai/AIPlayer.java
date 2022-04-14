@@ -2,7 +2,7 @@ package oogasalad.engine.model.ai;
 
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
-import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.boards.Board;
 import oogasalad.engine.model.player.Player;
 
 public class AIPlayer extends Player {

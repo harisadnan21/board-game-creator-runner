@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Stream;
-import oogasalad.engine.model.player.Player;
-import org.jooq.SelectWhereStep;
+import oogasalad.engine.model.board.boards.Board;
+import oogasalad.engine.model.board.boards.BoardUtils;
+import oogasalad.engine.model.board.components.Piece;
+import oogasalad.engine.model.board.components.Position;
+import oogasalad.engine.model.board.components.PositionState;
+import oogasalad.engine.model.board.misc.OutOfBoardException;
 import org.jooq.lambda.Seq;
-import org.jooq.lambda.tuple.Range;
-import org.jooq.lambda.tuple.Tuple2;
 import org.jooq.lambda.tuple.Tuple3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -67,7 +69,8 @@ class BoardTest {
     Seq<Integer> invalidColVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxCol+1, maxCol+3));
     List<Position> invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(Position::new).toList();
     for(Position position: invalidPositions) {
-      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position.i(), position.j()));
+      Assertions.assertThrowsExactly(
+          OutOfBoardException.class, () -> board.getPositionStateAt(position.i(), position.j()));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPiece(position.i(), position.j()));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.removePiece(position));
@@ -115,8 +118,8 @@ class BoardTest {
     Seq.rangeClosed(1, 5).forEach(num -> boards.add(new Board(num, num)));
     int[] nums = random.ints(5, -100, -1).toArray();
     for(Board board: boards) {
-      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.move(nums[0], nums[1], nums[2], nums[3]));
-      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.remove(nums[0], nums[1]));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.movePiece(nums[0], nums[1], nums[2], nums[3]));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.removePiece(nums[0], nums[1]));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.placeNewPiece(nums[0], nums[1], nums[2], nums[3]));
     }
   }
@@ -169,7 +172,7 @@ void testBoardIsPersistentAdvanced() {
   void remove() throws OutOfBoardException {
     myBoard = myBoard.placeNewPiece(1,1, 0, 0);
     assertTrue(myBoard.hasPieceAtLocation(1,1));
-    myBoard = myBoard.remove(1,1);
+    myBoard = myBoard.removePiece(1,1);
     assertTrue(myBoard.isEmpty(1,1));
   }
 
@@ -181,8 +184,10 @@ void testBoardIsPersistentAdvanced() {
     Board emptyBoard = Seq.range(0, 3).crossSelfJoin().map(Position::new).foldLeft(board, (currBoard, position) -> currBoard.removePiece(position));
 
     // Validate that emptyBoard is indeed empty
-    Assertions.assertTrue(emptyBoard.getNotSatisfyingPositionStatesSeq(positionState -> positionState.piece().equals(Piece.EMPTY)).isEmpty());
-    Assertions.assertTrue(emptyBoard.getSatisfyingPositionStatesSeq(positionState -> positionState.piece().equals(Piece.EMPTY)).count() == (3*3));
+    Assertions.assertTrue(
+        BoardUtils.getNotSatisfyingPositionStatesSeq(emptyBoard, positionState -> positionState.piece().equals(Piece.EMPTY)).isEmpty());
+    Assertions.assertTrue(
+        BoardUtils.getSatisfyingPositionStatesSeq(emptyBoard, positionState -> positionState.piece().equals(Piece.EMPTY)).count() == (3*3));
     //TODO: implement Board.equals() so that this will work:
     //Assertions.assertEquals(emptyBoard, new Board(3,3));
 
@@ -224,7 +229,7 @@ void testBoardIsPersistentAdvanced() {
 
   @Test
   void move() throws OutOfBoardException {
-    myBoard = myBoard.move(0, 0, 2,2);
+    myBoard = myBoard.movePiece(0, 0, 2,2);
     assertNotNull(myBoard.getPositionStateAt(2,2));
 
   }
@@ -273,7 +278,7 @@ void testBoardIsPersistentAdvanced() {
   }
 
   private Seq<Map<Integer, Integer>> getMap(Board[] boards) {
-    return Seq.seq(Arrays.stream(boards)).map(board -> board.numPiecesByPlayer());
+    return Seq.seq(Arrays.stream(boards)).map(board -> BoardUtils.numPiecesByPlayer(board));
   }
 
   @Test
