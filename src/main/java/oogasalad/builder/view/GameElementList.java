@@ -49,11 +49,7 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
                         .filter(property -> property.name().equals(IMAGE_PROPERTY_NAME) || property.name().endsWith("-" + IMAGE_PROPERTY_NAME))
                         .findFirst()
                         .ifPresent(prop -> {
-                            try {
-                                cell.setGraphic(new ImageView(new Image(new FileInputStream(prop.value()))));
-                            } catch (FileNotFoundException e) {
-                                // Simply don't display the image if it's not valid
-                            }
+                            cell.setGraphic(new ImageView(new Image(new File(prop.valueAsString()).toURI().toString())));
                         });
             }
         });

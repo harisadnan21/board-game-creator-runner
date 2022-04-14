@@ -1,6 +1,6 @@
 package oogasalad.engine.model.player;
 
-import oogasalad.engine.model.action.Action;
+import oogasalad.engine.model.actions.Action;
 
 /**
  * 

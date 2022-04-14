@@ -12,9 +12,9 @@ import org.json.JSONObject;
 public class RectangularBoard implements Board {
 
   private static final int EMPTY = -1;
-  private final int[][] cells;
-  private final int width;
-  private final int height;
+  private int[][] cells;
+  private int width;
+  private int height;
 
   /**
    * Creates an empty board with the given dimensions
@@ -31,14 +31,14 @@ public class RectangularBoard implements Board {
   /**
    * Attempts to place a piece at the given coordinates
    *
-   * @param x    the x location to place
-   * @param y    the y location to place
+   * @param x  the x location to place
+   * @param y  the y location to place
    * @param id the name of the piece to place
    * @throws OccupiedCellException if the requested indices are already occupied by a piece
    */
   public void placePiece(int x, int y, int id) throws OccupiedCellException {
     checkInBounds(x, y);
-    cells[x][y] = id;
+    cells[y][x] = id;
   }
 
   /**
@@ -50,7 +50,7 @@ public class RectangularBoard implements Board {
    */
   public int findPieceAt(int x, int y) {
     checkInBounds(x, y);
-    return cells[x][y];
+    return cells[y][x];
   }
 
   /**
@@ -61,7 +61,7 @@ public class RectangularBoard implements Board {
    */
   public void clearCell(int x, int y) {
     checkInBounds(x, y);
-    cells[x][y] = EMPTY;
+    cells[y][x] = EMPTY;
   }
 
   /**
@@ -84,15 +84,18 @@ public class RectangularBoard implements Board {
   }
 
   /**
-   * Converts a JSON String into a Board
+   * Modifies the dimensions and state of the board by loading them in from a JSON string
    *
-   * @param json the JSON string
-   * @return a board of type T made from the JSON string
+   * @param json the string containing information about the new board
+   * @return a reference to the modified board object
    */
   @Override
   public Board fromJSON(String json) {
-    // TODO: Implement JSON parsing
-    return null;
+    JSONObject obj = new JSONObject(json);
+    width = obj.getInt("width");
+    height = obj.getInt("height");
+    cells = pieceConfigFromJSON(obj.getJSONArray("pieceConfiguration"));
+    return this;
   }
 
   // Checks whether the requested indices are inbounds
@@ -104,9 +107,9 @@ public class RectangularBoard implements Board {
 
   // Initializes the cells to be empty
   private int[][] initializeCells(int width, int height) {
-    int[][] cells = new int[width][height];
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
+    int[][] cells = new int[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         cells[i][j] = EMPTY;
       }
     }
@@ -116,12 +119,24 @@ public class RectangularBoard implements Board {
   // Converts the piece configuration to a JSON array
   private JSONArray pieceConfigToJSON() {
     JSONArray config = new JSONArray();
-    for (int i = 0; i < width; i++) {
+    for (int i = 0; i < height; i++) {
       JSONArray row = new JSONArray();
-      for (int j = 0; j < height; j++) {
+      for (int j = 0; j < width; j++) {
         row.put(cells[i][j]);
       }
       config.put(row);
+    }
+    return config;
+  }
+
+  // Converts the piece configuration to a JSON array
+  private int[][] pieceConfigFromJSON(JSONArray pieceConfiguration) {
+    int[][] config = new int[height][width];
+    for (int i = 0; i < height; i++) {
+      JSONArray row = pieceConfiguration.getJSONArray(i);
+      for (int j = 0; j < width; j++) {
+        config[i][j] = row.getInt(j);
+      }
     }
     return config;
   }

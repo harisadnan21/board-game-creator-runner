@@ -3,17 +3,23 @@ package oogasalad.builder.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashSet;
 
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,6 +52,7 @@ public class GameConfigurationTest {
 
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
+  private static final String TEST_LOAD_FILENAME = "data/tests/testLoad.json";
 
   private Collection<Property> properties;
   private BuilderModel game;
@@ -116,15 +123,6 @@ public class GameConfigurationTest {
   }
 
   @Test
-  void testOccupiedCell()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
-    game.makeBoard(WIDTH, HEIGHT);
-    addPiece();
-    game.placeBoardPiece(X, Y, PIECE_NAME);
-    assertThrows(OccupiedCellException.class, () -> game.placeBoardPiece(X, Y, PIECE_NAME));
-  }
-
-  @Test
   void testSerialization()
       throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     game.makeBoard(WIDTH, HEIGHT);
@@ -141,7 +139,6 @@ public class GameConfigurationTest {
 
     game.placeBoardPiece(X, Y, PIECE_NAME);
     json = game.toJSON();
-    System.out.println(json);
     assertEquals(WIDTH * HEIGHT - 1, countMatches(json, Integer.toString(EMPTY)));
     assertEquals(1, countMatches(json, PIECE_NAME));
     assertEquals(2, countMatches(json, Integer.toString(PIECE_ID)));
@@ -154,9 +151,13 @@ public class GameConfigurationTest {
   }
 
   @Test
-  void testLoad() throws OccupiedCellException {
+  void testLoad() throws OccupiedCellException, FileNotFoundException {
     // TODO: Change test when loading is implemented
-    game = game.fromJSON(PIECE);
+    InputStream is = null;
+    is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));
+    JSONTokener tokener = new JSONTokener(is);
+    JSONObject object = new JSONObject(tokener);
+    game.fromJSON(object.toString());
   }
 
   private int countMatches(String str, String target) {
