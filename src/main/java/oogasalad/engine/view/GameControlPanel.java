@@ -32,4 +32,8 @@ public class GameControlPanel extends ControlPanel {
     pause = createButton(PAUSE_IMAGE);
     root.getChildren().addAll(home, restart, undo, pause);
   }
+
+  public Button getPause() {
+    return pause;
+  }
 }

@@ -1,9 +1,9 @@
 package oogasalad.builder.model.element.factory;
 
 import java.util.Collection;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.Condition;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
+import oogasalad.builder.model.property.Property;
 
 /**
  * Factory responsible for creating Condition objects based on name and properties. Performs
@@ -33,6 +33,19 @@ public class ConditionFactory extends GameElementFactory<Condition> {
   public Condition createElement(String name, Collection<Property> properties)
       throws MissingRequiredPropertyException {
     validate(properties);
+    return new Condition(name, properties);
+  }
+
+  /**
+   * Creates a new condition from a JSON string
+   *
+   * @param json the JSON string
+   * @return a new condition made from a JSON string
+   */
+  @Override
+  public Condition fromJSON(String json) {
+    Collection<Property> properties = propertiesFromJSON(json);
+    String name = nameFromJSON(json);
     return new Condition(name, properties);
   }
 }

@@ -2,7 +2,6 @@ package oogasalad.builder.view.tab;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -13,7 +12,7 @@ import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.GameElementList;
-import oogasalad.builder.view.PropertyEditor;
+import oogasalad.builder.view.property.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
@@ -56,11 +55,11 @@ public class GameElementTab extends BorderPane {
         propertyEditor = new PropertyEditor();
 
         rightBox.getChildren().addAll(
-                makeButton("new-" + type, e -> createPiece()),
+                makeButton("new-" + type, e -> createElement()),
                 nameField = new TextField(ViewResourcesSingleton.getInstance().getString("defaultName-" + type)),
-                propertyEditor
+                propertyEditor, makeButton("save", e -> saveCurrentElement())
         );
-        rightBox.setId("rightPane");
+        rightBox.setId("rightGameElementsPane");
         setRight(rightBox);
     }
 
@@ -69,9 +68,9 @@ public class GameElementTab extends BorderPane {
     }
 
     // FIXME handle error
-    private void createPiece() {
+    private void createElement() {
         try {
-            saveCurrentElement();
+            // saveCurrentElement();
             Collection<Property> properties = callbackDispatcher.call(new GetPropertiesCallback(type)).orElseThrow();
             propertyEditor.setElementProperties(properties);
         } catch(InvalidTypeException | MissingRequiredPropertyException e) {
@@ -80,7 +79,6 @@ public class GameElementTab extends BorderPane {
     }
 
     private void elementSelected(String oldElement, String newElement) {
-        saveCurrentElement();
         if(newElement != null) {
             nameField.setText(newElement);
             propertyEditor.setElementProperties(callbackDispatcher.call(new GetElementPropertiesCallback(type, newElement)).orElseThrow());
@@ -88,9 +86,6 @@ public class GameElementTab extends BorderPane {
     }
 
     private void saveCurrentElement() {
-        if(!propertyEditor.hasProperties()) {
-            return;
-        }
         callbackDispatcher.call(new UpdateGameElementCallback(type, nameField.getText(), propertyEditor.getElementProperties()));
         elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
         propertyEditor.clear();
@@ -102,23 +97,4 @@ public class GameElementTab extends BorderPane {
         result.setOnAction(handler);
         return result;
     }
-
-    /**
-     * @param element
-     * @return
-     */
-    public void putGameElement(ElementRecord element) {
-        // TODO implement here
-        //return null;
-    }
-
-    /**
-     * @param name
-     * @return
-     */
-    public boolean hasGameElement(String name) {
-        // TODO implement here
-        return false;
-    }
-
 }

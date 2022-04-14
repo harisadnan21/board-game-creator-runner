@@ -1,7 +1,9 @@
 package oogasalad.engine.model.board;
 
+import java.util.Optional;
+
 /**
- * 
+ * Class that defined a piece on the board.
  */
 public class Piece {
     private int myType;
@@ -36,24 +38,27 @@ public class Piece {
         myType = newType;
     }
 
-    public int getI() {
-        return rowVal;
-    }
-
-    public int getJ() {
-        return colVal;
-    }
-
-    public int getOwner() {
-        return myOwner;
-    }
-
-    public int getType() {
-        return myType;
-    }
+//    public int getI() {
+//        return rowVal;
+//    }
+//
+//    public int getJ() {
+//        return colVal;
+//    }
+//
+//    public int getOwner() {
+//        return myOwner;
+//    }
+//
+//    public int getType() {
+//        return myType;
+//    }
 
     public Piece deepCopy() {
         Piece piece = new Piece(myType, myOwner, rowVal, colVal);
         return piece;
+    }
+    public PieceRecord getPieceRecord(){
+        return new PieceRecord(myType, myOwner, rowVal, colVal);
     }
 }

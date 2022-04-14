@@ -1,5 +1,14 @@
 package oogasalad.builder.controller;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
@@ -9,6 +18,7 @@ import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
+
 import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
@@ -20,10 +30,8 @@ import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.callback.UpdateGameElementCallback;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Collection;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 /**
  * Controller for the Builder. Interfaces between the Builder View and Builder Model.
@@ -126,7 +134,7 @@ public class BuilderController {
         ElementRecord elementRecord = gameConfig.findElementInfo(callback.type(), callback.name());
         for (Property prop : elementRecord.properties()) {
             if (prop.name().equals(callback.key())) {
-                return prop.value();
+                return prop.valueAsString();
             }
         }
         throw new ElementNotFoundException();
@@ -190,7 +198,17 @@ public class BuilderController {
      * @param file the file to load the game configuration from
      */
     public void load(File file) {
-        // TODO implement here
+
+        InputStream is = null;
+        try {
+            is = new DataInputStream(new FileInputStream(file));
+            JSONTokener tokener = new JSONTokener(is);
+            JSONObject object = new JSONObject(tokener);
+            gameConfig.fromJSON(object.toString());
+        } catch (FileNotFoundException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
     }
 
 }
