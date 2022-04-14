@@ -1,5 +1,6 @@
 package oogasalad.builder.view.tab.boardTab;
 
+import java.io.File;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -160,13 +161,11 @@ public class BoardCanvas {
     double clickY = click.getY();
 
     int[] blockIndex = findSquare(clickX, clickY);
-    System.out.println(" xPos: " + blockIndex[0] + " yPos: " + blockIndex[1]);
 
     controller.placePiece(blockIndex[0], blockIndex[1], currentPiece);
 
     String filePath =  controller.getElementPropertyByKey("piece", currentPiece, "image");
-
-    Image pieceImage = new Image(filePath);
+    Image pieceImage = new Image(new File(filePath).toURI().toString());
     pieceGraphics.drawImage(pieceImage,blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
 
   }
