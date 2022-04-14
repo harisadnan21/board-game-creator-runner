@@ -8,29 +8,22 @@
   -fx-font-size: 20pt;
 }
 
-#titleBox{
+.titleBox{
   -fx-padding: 10;
   -fx-max-width: infinity;
   -fx-alignment: center;
   -fx-border-color: black;
+  -fx-background-color: #F0F8FF;
 }
 
-#rightPane{
-  -fx-min-width: 100;
-  -fx-pref-width: 200;
+.rightPane{
+  -fx-min-width: 50;
   -fx-alignment: center;
   -fx-padding: 10;
   -fx-spacing: 30;
   -fx-border-color: BLACK;
-}
-
-#rightGameElementsPane{
-  -fx-min-width: 200;
-  -fx-pref-width: 400;
-  -fx-alignment: center;
-  -fx-padding: 10;
-  -fx-spacing: 30;
-  -fx-border-color: BLACK;
+  -fx-background-color: #F0F8FF;
+  -fx-color: #FFE4C4;
 }
 
 #buttonBox{
@@ -70,12 +63,33 @@ ToggleButton {
   -fx-border-radius: 20;
   -fx-background-radius: 20;
 }
+ToggleButton:hover {
+  -fx-padding: 10;
+  -fx-border-radius: 20;
+  -fx-background-radius: 20;
+  -fx-background-color: #FFEBCD;
+  -fx-border-color:gray;
+}
 
 .button {
   -fx-padding: 10;
   -fx-alignment: center;
   -fx-border-radius: 20;
   -fx-background-radius: 20;
+}
+.button:hover {
+  -fx-background-color: #FFEBCD;
+  -fx-border-color:gray;
+  -fx-border-radius: 20;
+  -fx-background-radius: 20;
+  -fx-padding:10;
+}
+.combo-box:hover {
+  -fx-background-color: #FFEBCD;
+  -fx-border-color:gray;
+  -fx-border-radius: 25;
+  -fx-background-radius: 25;
+  -fx-padding:5;
 }
 .color-picker {
   -fx-color-label-visible: false;

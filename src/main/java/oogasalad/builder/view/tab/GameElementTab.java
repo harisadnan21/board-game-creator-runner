@@ -5,10 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.element.ElementRecord;
@@ -46,15 +48,17 @@ public class GameElementTab extends BorderPane {
     this.controller = controller;
     this.type = type;
 
-    setupClickAndDragResizing();
     setupCenterPane();
-    setupRightPane();
     setupTitle();
   }
 
   private void setupCenterPane() {
     elementList = new GameElementList(this::elementSelected);
-    setCenter(elementList);
+    setupRightPane();
+    SplitPane splitPane = new SplitPane(elementList, rightBox);
+    splitPane.setDividerPositions(0.7f);
+    setCenter(splitPane);
+
   }
 
   private void setupRightPane() {
@@ -66,30 +70,7 @@ public class GameElementTab extends BorderPane {
         makeButton(
             "save", e -> saveCurrentElement()));
     rightBox.setId("rightGameElementsPane");
-    setRight(rightBox);
-
-  }
-  private void setupClickAndDragResizing(){
-    this.setOnMouseMoved(e -> checkIfEditable(e));
-    this.setOnDragDetected(drag -> {resizeRightPane(drag); startFullDrag();});
-  }
-  public void checkIfEditable(MouseEvent mouse){
-    if ((mouse.getX() >= (this.getWidth() - rightBox.getWidth()-CLICK_PAD)) && (mouse.getX() <= (this.getWidth() - rightBox.getWidth() + CLICK_PAD))){
-      this.setCursor(Cursor.E_RESIZE);
-      resizeable = true;
-    }
-    else {
-      elementList.setCursor(Cursor.DEFAULT);
-      this.setCursor(Cursor.DEFAULT);
-      resizeable = false;
-    }
-  }
-
-  public void resizeRightPane(MouseEvent drag){
-    if (resizeable){
-      rightBox.setPrefWidth(this.getWidth() - drag.getSceneX());
-
-    }
+    rightBox.getStyleClass().add("rightPane");
   }
 
   private void setupTitle() {

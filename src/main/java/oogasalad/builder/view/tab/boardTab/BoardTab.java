@@ -70,7 +70,8 @@ public class BoardTab extends BorderPane {
     VBox rightBox = new VBox();
 
     rightBox.getChildren().addAll(setupButtonBar(), setupBoardConfigInput());
-    rightBox.setId("rightPane");
+    rightBox.setId("rightBoardPane");
+    rightBox.getStyleClass().add("rightPane");
     setRight(rightBox);
   }
 
