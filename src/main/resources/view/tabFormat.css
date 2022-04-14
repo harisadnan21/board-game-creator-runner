@@ -25,6 +25,22 @@
   -fx-background-color: #F0F8FF;
   -fx-color: #FFE4C4;
 }
+.gameElementList{
+  -fx-border-color: BLACK;
+  -fx-background-color: #F0F8FF;
+  -fx-color: #FFE4C4;
+}
+.list-view .list-cell:even {
+  -fx-background-color: #F0F8FF;
+  -fx-text-fill: black;
+}
+.list-view .list-cell:odd {
+  -fx-background-color: #F0FFFF;
+  -fx-text-fill: black;
+}
+.boardCanvas{
+  -fx-background-color: #F0F8FF;
+}
 
 #buttonBox{
   -fx-min-width: 50;

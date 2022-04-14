@@ -32,6 +32,7 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
     public GameElementList(BiConsumer<String, String> selectElement) {
         selectElementCallback = selectElement;
         setup();
+        this.getStyleClass().add("gameElementList");
     }
 
     private void setup() {

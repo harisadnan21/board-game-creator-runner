@@ -90,6 +90,7 @@ public class BoardCanvas {
 
     pieceCanvas = new Canvas(boardCanvas.getWidth(), boardCanvas.getHeight());
     pieceGraphics = pieceCanvas.getGraphicsContext2D();
+    boardCanvas.getStyleClass().add("boardCanvas");
   }
 
 
