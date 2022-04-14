@@ -1,26 +1,19 @@
 package oogasalad.builder.view.tab.boardTab;
 
-
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import oogasalad.builder.controller.BuilderController;
-import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.builder.model.property.Property;
 
 public class BoardCanvas {
 
@@ -35,9 +28,10 @@ public class BoardCanvas {
   private Map<String, Consumer<int[]>> boardTypeFunctionMap;
   private double rectWidth;
   private double rectHeight;
-  private int[][] containsPiece;
   private BorderPane borderPane;
   private String currentPiece;
+  private int xDimension;
+  private int yDimension;
 
   private BuilderController controller; //FIXME: Use Event handlers instead of this
 
@@ -59,14 +53,16 @@ public class BoardCanvas {
 
 
   public void drawBoard(int xDim, int yDim, String type) throws NullBoardException {
+    xDimension = xDim;
+    yDimension = yDim;
     boardGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
     calculateAndChangeCanvasSize();
-    controller.makeBoard(xDim, yDim);
+    controller.makeBoard(xDimension, yDimension);
 
-    rectWidth = boardCanvas.getWidth() / xDim;
-    rectHeight = boardCanvas.getHeight() / yDim;
+    rectWidth = boardCanvas.getWidth() / xDimension;
+    rectHeight = boardCanvas.getHeight() / yDimension;
 
-    containsPiece = new int[xDim][yDim];
+
     clearBoard();
 
 
@@ -95,15 +91,11 @@ public class BoardCanvas {
     pieceGraphics = pieceCanvas.getGraphicsContext2D();
   }
 
-  public int[][] getBoardConfig(){
-    return containsPiece;
-  }
 
   public void clearBoard() throws NullBoardException {
     pieceGraphics.clearRect(0, 0, pieceCanvas.getWidth(), pieceCanvas.getHeight());
-    containsPiece = new int[containsPiece[0].length][containsPiece.length];
-    for (int i = 0; i < containsPiece.length; i++) {
-      for (int j = 0; j < containsPiece[0].length; j++) {
+    for (int i = 0; i < xDimension; i++) {
+      for (int j = 0; j < yDimension; j++) {
         controller.clearCell(j, i);
       }
     }
@@ -123,8 +115,10 @@ public class BoardCanvas {
 
 
   private void drawCheckerBoard(int xDim, int yDim) {
-    for (int x = 0; x < xDim; x++) {
-      for (int y = 0; y < yDim; y++) {
+    xDimension = xDim;
+    yDimension = yDim;
+    for (int x = 0; x < xDimension; x++) {
+      for (int y = 0; y < yDimension; y++) {
         if (((y % 2 == 0) && (x % 2 == 0)) || ((y % 2 == 1) && (x % 2 == 1))) {
           boardGraphics.setFill(colorOne);
         } else {
