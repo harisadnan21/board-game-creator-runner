@@ -3,8 +3,11 @@ package oogasalad.builder.view.tab;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.controller.BuilderController;
@@ -23,6 +26,8 @@ import java.util.*;
  */
 public class GameElementTab extends BorderPane {
 
+
+  public int CLICK_PAD = 10;
   // FIXME Remove this
   private BuilderController controller;
 
@@ -32,6 +37,7 @@ public class GameElementTab extends BorderPane {
   private TextField nameField;
   private PropertyEditor propertyEditor;
   private VBox rightBox;
+  private boolean resizeable;
 
   /**
    * Default constructor
@@ -40,6 +46,7 @@ public class GameElementTab extends BorderPane {
     this.controller = controller;
     this.type = type;
 
+    setupClickAndDragResizing();
     setupCenterPane();
     setupRightPane();
     setupTitle();
@@ -62,7 +69,28 @@ public class GameElementTab extends BorderPane {
     setRight(rightBox);
 
   }
+  private void setupClickAndDragResizing(){
+    this.setOnMouseMoved(e -> checkIfEditable(e));
+    this.setOnDragDetected(drag -> {resizeRightPane(drag); startFullDrag();});
+  }
+  public void checkIfEditable(MouseEvent mouse){
+    if ((mouse.getX() >= (this.getWidth() - rightBox.getWidth()-CLICK_PAD)) && (mouse.getX() <= (this.getWidth() - rightBox.getWidth() + CLICK_PAD))){
+      this.setCursor(Cursor.E_RESIZE);
+      resizeable = true;
+    }
+    else {
+      elementList.setCursor(Cursor.DEFAULT);
+      this.setCursor(Cursor.DEFAULT);
+      resizeable = false;
+    }
+  }
 
+  public void resizeRightPane(MouseEvent drag){
+    if (resizeable){
+      rightBox.setPrefWidth(this.getWidth() - drag.getSceneX());
+
+    }
+  }
 
   private void setupTitle() {
     setTop(new TitlePane(type + "Title").toNode());
