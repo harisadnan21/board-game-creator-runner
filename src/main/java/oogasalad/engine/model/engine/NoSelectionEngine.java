@@ -15,6 +15,7 @@ import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Rule;
 import org.jooq.lambda.function.Consumer0;
 
+@Deprecated
 public class NoSelectionEngine extends Engine {
 
   public NoSelectionEngine(Game game, List<Rule> rules, List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
@@ -33,6 +34,16 @@ public class NoSelectionEngine extends Engine {
       }
     }
     updateView(board);
+  }
+
+  @Override
+  public Set<Rule> getValidMoves(Board board, int i, int j) {
+    return null;
+  }
+
+  @Override
+  public Board getGameStateBoard() {
+    return null;
   }
 
   private void createTicTacToeMove() {

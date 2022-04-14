@@ -67,7 +67,7 @@ public class Rule {
 //        boardCopy = action.execute(boardCopy, refI, refJ);
         boardCopy = action.execute(board, refI, refJ);
       }
-      boardCopy.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
+      boardCopy = boardCopy.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
       return boardCopy;
     }
     return null;

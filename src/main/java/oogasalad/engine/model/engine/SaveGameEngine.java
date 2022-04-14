@@ -1,8 +1,10 @@
 package oogasalad.engine.model.engine;
 
+import java.util.Set;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.driver.Game;
+import oogasalad.engine.model.move.Rule;
 
 /**
  * @author Haris Adnan
@@ -18,6 +20,17 @@ public class SaveGameEngine extends Engine{
   @Override
   public void onCellSelect(int x, int y) throws OutOfBoardException {
   }
+
+  @Override
+  public Set<Rule> getValidMoves(Board board, int i, int j) {
+    return null;
+  }
+
+  @Override
+  public Board getGameStateBoard() {
+    return null;
+  }
+
   public void saveGame(){
     Board board = getGame().getBoard();
   }
