@@ -12,21 +12,21 @@ import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
 import oogasalad.engine.model.conditions.piece_conditions.IsEmpty;
 import oogasalad.engine.model.driver.Game;
-import oogasalad.engine.model.move.Rule;
+import oogasalad.engine.model.move.Move;
 import org.jooq.lambda.function.Consumer0;
 
 @Deprecated
 public class NoSelectionEngine extends Engine {
 
-  public NoSelectionEngine(Game game, List<Rule> rules, List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
-    super(game, rules, winConditions, update, setValidMarks, clearMarkers);
+  public NoSelectionEngine(Game game, List<Move> moves, List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
+    super(game, moves, winConditions, update, setValidMarks, clearMarkers);
     //createTicTacToeMove();
   }
 
   public void onCellSelect(int x, int y) throws OutOfBoardException {
     Board board = getGame().getBoard();
 
-    for (Rule move: getMoves()) {
+    for (Move move: getMoves()) {
       if (move.isValid(board, x, y)) {
         board = move.doMovement(board, x, y);
         getGame().setBoard(board);
@@ -37,7 +37,7 @@ public class NoSelectionEngine extends Engine {
   }
 
   @Override
-  public Set<Rule> getValidMoves(Board board, int i, int j) {
+  public Set<Move> getValidMoves(Board board, int i, int j) {
     return null;
   }
 
@@ -51,6 +51,6 @@ public class NoSelectionEngine extends Engine {
     PieceCondition[] conditions = new PieceCondition[]{new IsEmpty(new int[]{0, 0})};
     Action[] actions = new Action[]{new Place(new int[]{0, 0, 0, 0})};
 
-    getMoves().add(new Rule(conditions, actions, 0, 0));
+    getMoves().add(new Move(conditions, actions, 0, 0));
   }
 }

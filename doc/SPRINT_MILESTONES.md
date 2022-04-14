@@ -30,12 +30,12 @@ In the first week, we expect to have basic game configurations working. This mea
 can configure a board with pieces and save it to a configuration file, and the engine can load 
 configuration files and display pieces.
 
-In the second week, we expect to implement more complicated pieces, rules, and winning conditions in
+In the second week, we expect to implement more complicated pieces, moves, and winning conditions in
 both the builder and engine. In this week, we will make the game "playable" and "winnable". We will
 also complete the implementation of simple artificial players.
 
 In the third week, we expect to polish the UI surrounding game creation and playing, as well as 
-creating the finalized pieces, rules, and winning conditions (more complex options for the users).
+creating the finalized pieces, moves, and winning conditions (more complex options for the users).
 We will continue working on artificial players and begin work on the networked games.
 
 In the fourth week, we will complete our extension changes, implementing all networking and 
@@ -47,7 +47,7 @@ as thoroughly testing the entire functionality of the project.
 #### Builder
 
 * Ricky - Build basic game Elements, Property, and ElementFactory
-* Thivya - Create view for ElementTabs that allow the customization of pieces, rules, and winning conditions
+* Thivya - Create view for ElementTabs that allow the customization of pieces, moves, and winning conditions
 * Mike - Create view for board layout (piece placement and board dimensions)
 * Shaan - Create Board, GameSaver (json serializer), Back-end manager class, and controller
 
@@ -64,9 +64,9 @@ as thoroughly testing the entire functionality of the project.
 
 #### Builder
 
-* Ricky - Implement Editing of Game elements and assigning rules to players (Back-end)
+* Ricky - Implement Editing of Game elements and assigning moves to players (Back-end)
 * Thivya - Continue work on ElementTab views, allowing the creation of win conditions
-* Mike - Implement Editing of Game elements and assigning rules to players (UI)
+* Mike - Implement Editing of Game elements and assigning moves to players (UI)
 * Shaan - Maintain JSON saver with newly implemented options and implement Game Loading in the builder
 
 #### Engine
@@ -81,7 +81,7 @@ as thoroughly testing the entire functionality of the project.
 
 #### Builder
 
-* Ricky - Implement multiple rules for pieces, game-wide rules, and piece-specific winning conditions
+* Ricky - Implement multiple moves for pieces, game-wide moves, and piece-specific winning conditions
 * Thivya - Polish UI for Tabs
 * Mike - Polish UI for Board Layout, including creating more customization options such as background image
 * Shaan - Implement configuration loading (and editing) in builder. Maintain JSON saver.

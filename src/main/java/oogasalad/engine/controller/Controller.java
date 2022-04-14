@@ -1,9 +1,7 @@
 package oogasalad.engine.controller;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.OutOfBoardException;
@@ -12,12 +10,10 @@ import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.engine.NoSelectionEngine;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
-import oogasalad.engine.model.move.Rule;
+import oogasalad.engine.model.move.Move;
 import oogasalad.engine.model.setup.Constants;
 import oogasalad.engine.model.setup.parsing.GameParser;
-import oogasalad.engine.view.BoardView;
 import org.jooq.lambda.function.Consumer0;
 
 public class Controller {
@@ -25,7 +21,7 @@ public class Controller {
   private Board myBoard;
   private Engine myEngine;
   private Game myGame;
-  private List<Rule> rules;
+  private List<Move> moves;
   private List<WinCondition> winConditions;
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
@@ -39,7 +35,7 @@ public class Controller {
 //      myBoard = GameParser.getCheckersBoard();
 //      rules = GameParser.getCheckersRules();
       myBoard = board;
-      rules = Arrays.asList(GameParser.readRules(Constants.CHECKERS_FILE));
+      moves = Arrays.asList(GameParser.readRules(Constants.CHECKERS_FILE));
       winConditions = Arrays.asList(GameParser.readWinConditions(Constants.CHECKERS_FILE));
       myGame = new Game(myBoard);
 
@@ -53,7 +49,7 @@ public class Controller {
    */
   public Board resetGame() {
     myGame = new Game(myBoard);
-    myEngine = new PieceSelectionEngine(myGame, rules, winConditions, updateView, setViewValidMarks, clearViewMarkers);
+    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks, clearViewMarkers);
     return myBoard;
   }
 
@@ -64,7 +60,7 @@ public class Controller {
     updateView = update;
     setViewValidMarks = setValidMarks;
     clearViewMarkers = clearMarkers;
-    myEngine = new PieceSelectionEngine(myGame, rules, winConditions, updateView, setViewValidMarks, clearViewMarkers);
+    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks, clearViewMarkers);
   }
 
 

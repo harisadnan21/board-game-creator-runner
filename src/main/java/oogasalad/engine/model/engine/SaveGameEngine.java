@@ -4,7 +4,7 @@ import java.util.Set;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.driver.Game;
-import oogasalad.engine.model.move.Rule;
+import oogasalad.engine.model.move.Move;
 
 /**
  * @author Haris Adnan
@@ -22,7 +22,7 @@ public class SaveGameEngine extends Engine{
   }
 
   @Override
-  public Set<Rule> getValidMoves(Board board, int i, int j) {
+  public Set<Move> getValidMoves(Board board, int i, int j) {
     return null;
   }
 

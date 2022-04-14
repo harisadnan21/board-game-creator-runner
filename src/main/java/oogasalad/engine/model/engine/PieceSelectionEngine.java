@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
+import oogasalad.engine.model.move.Move;
 import oogasalad.engine.model.player.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,6 @@ import java.util.Set;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.move.Rule;
 import org.jooq.lambda.function.Consumer0;
 
 public class PieceSelectionEngine extends Engine {
@@ -26,12 +26,12 @@ public class PieceSelectionEngine extends Engine {
   private Position mySelectedCell = null;
   private Set<Position> myValidMoves = null;
   private Map<Integer, Player> myPlayers = new HashMap<>();
-  private List<Rule> myPersistentRules = new ArrayList<>();
+  private List<Move> myPersistentRules = new ArrayList<>();
 
 
-  public PieceSelectionEngine(Game game, List<Rule> rules,
+  public PieceSelectionEngine(Game game, List<Move> moves,
       List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
-    super(game, rules, winConditions, update, setValidMarks, clearMarkers);
+    super(game, moves, winConditions, update, setValidMarks, clearMarkers);
 
   }
 
@@ -43,7 +43,7 @@ public class PieceSelectionEngine extends Engine {
       makePieceSelected(x, y);
     }
     else {
-      for (Rule move: getMoves()) {
+      for (Move move: getMoves()) {
         if (move.isValid(board, mySelectedCell.i(), mySelectedCell.j()) && move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()).equals(cellClicked)) {
           Board newBoard = move.doMovement(board, mySelectedCell.i(), mySelectedCell.j());
           checkForWin(newBoard);
@@ -95,7 +95,7 @@ public class PieceSelectionEngine extends Engine {
    */
   private Set<Position> getValidMoves() {
     Set<Position> validMoves = new HashSet<>();
-    for (Rule move : getMoves()) {
+    for (Move move : getMoves()) {
       if (move.isValid(getGame().getBoard(), mySelectedCell.i(), mySelectedCell.j())) {
         validMoves.add(move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()));
       }
@@ -117,11 +117,11 @@ public class PieceSelectionEngine extends Engine {
    * @return
    */
   @Override
-  public Set<Rule> getValidMoves(Board board, int i, int j) {
+  public Set<Move> getValidMoves(Board board, int i, int j) {
     // If a player wants to display the moves on a screen, they should use the representative point
     // of the move with rule.getRepresentativePoint(i, j)
-    Set<Rule> moves = new HashSet<>();
-    for (Rule move: getMoves()) {
+    Set<Move> moves = new HashSet<>();
+    for (Move move: getMoves()) {
       if (move.isValid(board, i, j)) {
         moves.add(move);
       }
@@ -135,8 +135,8 @@ public class PieceSelectionEngine extends Engine {
    * @return two dimensional map, where outer map key is the 'reference point' for the move, while the
    * inner map key is the 'representative point' of the move, or the
    */
-  public Map<Position, Set<Rule>> getAllValidMoves(Board board) {
-    Map<Position, Set<Rule>> allMoves = new HashMap<>();
+  public Map<Position, Set<Move>> getAllValidMoves(Board board) {
+    Map<Position, Set<Move>> allMoves = new HashMap<>();
     for (PositionState cell: board) {
       Position position = cell.position();
       allMoves.put(position, getValidMoves(board, position.i(), position.j()));
@@ -152,7 +152,7 @@ public class PieceSelectionEngine extends Engine {
    * @param i
    * @param j
    */
-  public void playTurn(Player player, Rule move, int i, int j) {
+  public void playTurn(Player player, Move move, int i, int j) {
     Board board = getGameStateBoard();
     int activePlayer = board.getPlayer();
     if (move.isValid(getGameStateBoard(), i, j) && myPlayers.get(activePlayer) == player) {
@@ -168,7 +168,7 @@ public class PieceSelectionEngine extends Engine {
    * @return
    */
   public Board applyRules(Board board) {
-    for (Rule rule: myPersistentRules) {
+    for (Move rule: myPersistentRules) {
       board = rule.doMovement(board, 0, 0);
     }
     return board;

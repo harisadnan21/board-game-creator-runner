@@ -8,7 +8,7 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
-import oogasalad.engine.model.move.Rule;
+import oogasalad.engine.model.move.Move;
 
 import oogasalad.engine.model.player.Player;
 import org.jooq.lambda.function.Consumer0;
@@ -18,7 +18,7 @@ public abstract class Engine {
 
   private Game myGame;
 
-  private List<Rule> myMoves;
+  private List<Move> myMoves;
   private List<WinCondition> myWinConditions;
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
@@ -26,11 +26,11 @@ public abstract class Engine {
 
   private List<Player> players;
 
-  public Engine(Game game, List<Rule> rules,
+  public Engine(Game game, List<Move> moves,
       List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
     myGame = game;
     myWinConditions = winConditions;
-    myMoves = rules;
+    myMoves = moves;
     updateView = update;
     setViewValidMarks = setValidMarks;
     clearViewMarkers = clearMarkers;
@@ -40,7 +40,7 @@ public abstract class Engine {
     myGame = game;
   }
 
-  protected List<Rule> getMoves() {
+  protected List<Move> getMoves() {
     return myMoves;
   }
   protected List<WinCondition> getWinConditions() {
@@ -51,7 +51,7 @@ public abstract class Engine {
    * @param player player requesting possible actions
    * @return
    */
-  public Rule[] getPossibleActions(int player) {
+  public Move[] getPossibleActions(int player) {
 
     return null;
   }
@@ -74,7 +74,7 @@ public abstract class Engine {
   public abstract void onCellSelect(int x, int y)
       throws OutOfBoardException;
 
-  public abstract Set<Rule> getValidMoves(Board board, int i, int j);
+  public abstract Set<Move> getValidMoves(Board board, int i, int j);
 
   public abstract Board getGameStateBoard();
 }
