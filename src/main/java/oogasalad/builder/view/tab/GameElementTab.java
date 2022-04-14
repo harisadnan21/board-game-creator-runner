@@ -2,7 +2,6 @@ package oogasalad.builder.view.tab;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -13,7 +12,7 @@ import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.GameElementList;
-import oogasalad.builder.view.PropertyEditor;
+import oogasalad.builder.view.property.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
 
 import java.util.*;
@@ -53,7 +52,7 @@ public class GameElementTab extends BorderPane {
         propertyEditor = new PropertyEditor();
 
         rightBox.getChildren().addAll(
-                makeButton("new-" + type, e -> createPiece()),
+                makeButton("new-" + type, e -> createElement()),
                 nameField = new TextField(ViewResourcesSingleton.getInstance().getString("defaultName-" + type)),
                 propertyEditor, makeButton("save", e -> saveCurrentElement())
         );
@@ -66,9 +65,8 @@ public class GameElementTab extends BorderPane {
     }
 
     // FIXME handle error
-    private void createPiece() {
+    private void createElement() {
         try {
-            saveCurrentElement();
             Collection<Property> properties = controller.getRequiredProperties(type);
             propertyEditor.setElementProperties(properties);
         } catch(InvalidTypeException | MissingRequiredPropertyException e) {
@@ -77,7 +75,6 @@ public class GameElementTab extends BorderPane {
     }
 
     private void elementSelected(String oldElement, String newElement) {
-        saveCurrentElement();
         if(newElement != null) {
             nameField.setText(newElement);
             propertyEditor.setElementProperties(controller.getElementProperties(type, newElement));
@@ -85,9 +82,6 @@ public class GameElementTab extends BorderPane {
     }
 
     private void saveCurrentElement() {
-        if(!propertyEditor.hasProperties()) {
-            return;
-        }
         controller.update(type, nameField.getText(), propertyEditor.getElementProperties());
         elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
     }

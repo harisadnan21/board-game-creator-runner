@@ -8,7 +8,7 @@ import oogasalad.builder.model.JSONSerializable;
  *
  * @author Shaan Gondalia
  */
-public interface Element extends JSONSerializable<Element> {
+public interface Element extends JSONSerializable {
 
   /**
    * Returns whether the parameter matches the name of the game element
@@ -31,13 +31,5 @@ public interface Element extends JSONSerializable<Element> {
    * @return a String representation of the objects JSON Format
    */
   String toJSON();
-
-  /**
-   * Converts a JSON String into an object
-   *
-   * @param json the JSON string
-   * @return an object of type T made from the JSON string
-   */
-  Element fromJSON(String json);
 
 }
