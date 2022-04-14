@@ -76,7 +76,7 @@ public class BoardTab extends BorderPane {
   private Node setupBoardConfigInput() {
     VBox boardConfigBox = new VBox();
 
-    Button confirmBoardButton = makeButton(resources.getString("drawBoard"), e ->
+    Button confirmBoardButton = makeButton("drawBoard", e ->
         createBoard());
 
     boardConfigBox.getChildren()
