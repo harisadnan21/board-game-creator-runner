@@ -80,13 +80,17 @@ public class BoardTab extends BorderPane {
 
     ColorPicker colorPickerA = new ColorPicker();
     ColorPicker colorPickerB = new ColorPicker(Color.BLACK);
+    colorPickerA.setId("colorPickerA");
+    colorPickerB.setId("colorPickerB");
     colorChoiceBox.getChildren().addAll(colorPickerA, colorPickerB);
 
     HBox numberPickerBox = new HBox();
     Label xDimLabel = new Label(resources.getString("xDimLabel"));
     Label yDimLabel = new Label(resources.getString("yDimLabel"));
     Spinner<Integer> xSpinner = new Spinner<>(0, 50, 8, 1);
+    xSpinner.setId("xDimEntry");
     Spinner<Integer> ySpinner = new Spinner<>(0, 50, 8, 1);
+    ySpinner.setId("yDimEntry");
 
     VBox xDimBox = new VBox(xDimLabel, xSpinner);
     VBox yDimBox = new VBox(yDimLabel, ySpinner);
@@ -106,6 +110,7 @@ public class BoardTab extends BorderPane {
         createBoard(xSpinner.getValue(),
             ySpinner.getValue(), colorPickerA.getValue(), colorPickerB.getValue(),
             boardTypeBox.getValue()));
+    confirmBoardButton.setId("drawBoard");
 
     boardConfigBox.getChildren()
         .addAll(colorChoiceBox, numberPickerBox, boardTypeBox, confirmBoardButton);
@@ -116,7 +121,7 @@ public class BoardTab extends BorderPane {
   private void createBoard(int xDim, int yDim, Paint colorA, Paint colorB, String boardType)
       throws NullBoardException {
     if (boardType == null){
-      System.out.println("No Board Type Chosen Error");
+      System.out.println("No Board Type Chosen Error");// FIXME not an actual exception
       return;
     }
 
@@ -141,6 +146,7 @@ public class BoardTab extends BorderPane {
   private ToggleButton createEraserButton(){
     ToggleButton eraseButton  = new ToggleButton(resources.getString("eraser"));
     eraseButton.setOnAction(e -> toggleErase(eraseButton));
+    eraseButton.setId("eraserButton");
 
     return eraseButton;
   }
@@ -158,7 +164,7 @@ public class BoardTab extends BorderPane {
   private ComboBox setupPieceChoiceBox(){
     ComboBox<String> choosePieceBox = new ComboBox<>();
 
-
+    choosePieceBox.setId("choosePieceBox");
     choosePieceBox.setOnMouseEntered(e -> updatePieceOptions(choosePieceBox));
 
     choosePieceBox.setPromptText(resources.getString("placePiece"));
@@ -197,6 +203,11 @@ public class BoardTab extends BorderPane {
     buttonCreated.setId(labelName);
 
     return buttonCreated;
+  }
+
+  // For testing
+  BoardCanvas getBoardCanvas() {
+    return boardCanvas;
   }
 
 

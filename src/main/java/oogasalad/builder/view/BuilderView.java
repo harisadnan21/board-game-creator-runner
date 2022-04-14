@@ -70,6 +70,7 @@ public class BuilderView {
     Button login = makeButton("Login", event -> {
       setupTabs();
     }, splashResources);
+    login.setId("loginButton");
     login.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
     buttonHolder.getChildren().add(login);
     buttonHolder.setAlignment(Pos.CENTER_LEFT);

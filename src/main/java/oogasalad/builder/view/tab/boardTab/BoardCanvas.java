@@ -179,4 +179,11 @@ public class BoardCanvas {
     return new int[]{(int) xPos, (int) yPos};
   }
 
+  Paint getColor(int index) {
+    return switch(index) {
+      case 2 -> colorTwo;
+      default -> colorOne;
+    };
+  }
+
 }

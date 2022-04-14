@@ -3,9 +3,17 @@ package oogasalad.builder.view;
 import static org.junit.jupiter.api.Assertions.*;
 
 import javafx.scene.Node;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Spinner;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import oogasalad.builder.view.callback.GetElementNamesCallback;
+import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.tab.boardTab.BoardTab;
+import oogasalad.builder.view.tab.boardTab.BoardTabAccessor;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,25 +23,66 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
+import java.util.List;
+
 
 class BuilderViewTest extends DukeApplicationTest {
 
 
     private BuilderView builderView;
+    private Stage stage;
 
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
         builderView = new BuilderView(stage);
+        builderView.registerCallbackHandler(GetElementNamesCallback.class, cb -> List.of("test"));
+        builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class, cb -> cb.key().equals("image") ? "checkers/pieces/normalWhite.png" : null);
+        clickOn("#loginButton");
     }
 
     @Test
-    public void clickAddPieceTest() {
+    void testLogin() {
+        // We know the board tab will exist after logging in, so just use that to check
+        assertTrue(lookup("#boardTab").tryQuery().isPresent());
+    }
 
-          clickOn(0, 0, MouseButton.PRIMARY);
-        int[][] boardConfig = builderView.getBoardConfig();
+    void boardSetup() {
+        var xSpinner = lookup("#xDimEntry").queryAs(Spinner.class);
+        var ySpinner = lookup("#yDimEntry").queryAs(Spinner.class);
+        xSpinner.setEditable(true);
+        ySpinner.setEditable(true);
+        xSpinner.getEditor().setText("10");
+        ySpinner.getEditor().setText("14");
+        xSpinner.commitValue();
+        ySpinner.commitValue();
+        lookup("#colorPickerA").queryAs(ColorPicker.class).setValue(Color.BLUE);
+        clickOn("#drawBoard");
+    }
 
-        assertEquals(1, boardConfig[0][0]);
+    @Test
+    void testDrawBoard() {
+        boardSetup();
+        assertEquals(builderView.getBoardConfig().length, 14);
+        assertEquals(builderView.getBoardConfig()[0].length, 10);
+        assertEquals(BoardTabAccessor.getColor(lookup("#boardTab").queryAs(BoardTab.class), 1), Color.BLUE);
+    }
 
+    @Test
+    public void testAddBoardPieces() {
+        boardSetup();
+        select(lookup("#choosePieceBox").queryAs(ComboBox.class), "test");
+        clickOn("#builderBoard");
+        assertEquals(1, builderView.getBoardConfig()[6][4]);
+    }
+
+    @Test
+    public void testEraseBoardPieces() {
+        boardSetup();
+        testAddBoardPieces();
+        clickOn("#eraserButton");
+        clickOn("#builderBoard");
+        assertEquals(0, builderView.getBoardConfig()[6][4]);
     }
 }
 
