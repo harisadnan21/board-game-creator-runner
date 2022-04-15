@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import oogasalad.builder.model.element.FileMapper;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.PropertyFactory;
 
 /**
  * Class that provides a specific GameElementFactory based on the type of the desired game element.
@@ -67,6 +70,17 @@ public class FactoryProvider {
    */
   public void copyFiles(File directory) throws IOException {
     fileMapper.copyFiles(directory);
+  }
+
+  /**
+   * Creates a new collection of properties that is the same as the original properties, except for
+   * the file paths which are un-mapped from relative filepaths to the old absolute filepaths.
+   *
+   * @param originalProperties the properties that have to be unmapped
+   * @return a collection of new properties that have been unmapped
+   */
+  public Collection<Property> unMapProperties(Collection<Property> originalProperties) {
+    return fileMapper.unMapProperties(originalProperties);
   }
 
   /**

@@ -75,7 +75,9 @@ public class GameConfiguration implements BuilderModel {
     if (!elements.get(type).containsKey(name)) {
       throw new ElementNotFoundException();
     }
-    return elements.get(type).get(name).toRecord();
+    ElementRecord mapped = elements.get(type).get(name).toRecord();
+    Collection<Property> properties = provider.unMapProperties(mapped.properties());
+    return new ElementRecord(mapped.name(), properties);
   }
 
   /**

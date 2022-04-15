@@ -46,7 +46,7 @@ public class FileMapper {
     for (Property property : originalProperties) {
       if (Arrays.asList(PROPERTIES_TO_REMAP).contains(property.name())) {
         String newPath = reMap(property.valueAsString());
-        fileNameMap.put(property.valueAsString(), newPath);
+        fileNameMap.put(newPath, property.valueAsString());
         newProperties.add(PropertyFactory.makeProperty(property.name(), newPath, property.form()));
       }
       else {
@@ -65,9 +65,29 @@ public class FileMapper {
   public void copyFiles(File directory) throws IOException {
     File resourceDir = new File(directory.toString() + RESOURCES_PATH);
     resourceDir.mkdir();
-    for (String oldPath : fileNameMap.keySet()) {
-      Files.copy(Path.of(oldPath), Path.of(directory.toString() + fileNameMap.get(oldPath)), StandardCopyOption.REPLACE_EXISTING);
+    for (String newPath : fileNameMap.keySet()) {
+      Files.copy(Path.of(fileNameMap.get(newPath)), Path.of(directory + newPath), StandardCopyOption.REPLACE_EXISTING);
     }
+  }
+
+  /**
+   * Creates a new collection of properties that is the same as the original properties, except for
+   * the file paths which are un-mapped from relative filepaths to the old absolute filepaths.
+   *
+   * @param originalProperties the properties that have to be unmapped
+   * @return a collection of new properties that have been unmapped
+   */
+  public Collection<Property> unMapProperties(Collection<Property> originalProperties) {
+    Collection<Property> newProperties = new HashSet<>();
+    for (Property property : originalProperties) {
+      if (Arrays.asList(PROPERTIES_TO_REMAP).contains(property.name()) && fileNameMap.containsKey(property.valueAsString())) {
+        newProperties.add(PropertyFactory.makeProperty(property.name(), fileNameMap.get(property.valueAsString()), property.form()));
+      }
+      else {
+        newProperties.add(property);
+      }
+    }
+    return newProperties;
   }
 
   // Remaps a filePath to the new resources file path
