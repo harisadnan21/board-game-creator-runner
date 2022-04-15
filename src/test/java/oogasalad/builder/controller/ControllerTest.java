@@ -35,9 +35,9 @@ public class ControllerTest extends DukeApplicationTest {
   private static final String RULE_TYPE = "rule";
   private static final String RULE_NAME = "jump";
   private static final String EMPTY = "empty";
-  private static final String TEST_SAVE_FILENAME = "data/tests/testSave.json";
-  private static final String TEST_SAVE_EXCEPTION_FILENAME = "data/tests/testSaveException.json";
-  private static final String TEST_LOAD_FILENAME = "data/tests/testLoad.json";
+  private static final String TEST_SAVE_DIRECTORY = "data/tests/save/";
+  private static final String TEST_SAVE_EXCEPTION_FILENAME = "data/tests/exception/";
+  private static final String TEST_LOAD_DIRECTORY = "data/tests/load/";
   private static final int X = 5;
   private static final int Y = 7;
 
@@ -126,7 +126,7 @@ public class ControllerTest extends DukeApplicationTest {
     properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     controller.update(RULE_TYPE, RULE_NAME, properties);
-    File file = new File(TEST_SAVE_FILENAME);
+    File file = new File(TEST_SAVE_DIRECTORY);
     controller.save(file);
   }
 
@@ -139,7 +139,7 @@ public class ControllerTest extends DukeApplicationTest {
   @Test
   void testLoad() throws OccupiedCellException {
     // TODO: Change test when loading is implemented
-    File file = new File(TEST_LOAD_FILENAME);
+    File file = new File(TEST_LOAD_DIRECTORY);
     controller.load(file);
     file = new File(TEST_SAVE_EXCEPTION_FILENAME);
     controller.save(file);

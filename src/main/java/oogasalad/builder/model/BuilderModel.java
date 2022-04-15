@@ -1,5 +1,7 @@
 package oogasalad.builder.model;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
@@ -102,5 +104,12 @@ public interface BuilderModel extends JSONSerializable, JSONParseable<BuilderMod
    * @return a model made from the JSON string
    */
   BuilderModel fromJSON(String json);
+
+  /**
+   * Copies the original files to a new directory, using the data stored in the file mapper.
+   *
+   * @param directory The new directory to copy the game configuration resources to
+   */
+  void copyFiles(File directory) throws IOException;
 
 }

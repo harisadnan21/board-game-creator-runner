@@ -1,11 +1,14 @@
 package oogasalad.builder.model;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import oogasalad.builder.model.board.Board;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.element.FileMapper;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.FactoryProvider;
 import oogasalad.builder.model.exception.ElementNotFoundException;
@@ -35,6 +38,7 @@ public class GameConfiguration implements BuilderModel {
   private static final int INDENT_FACTOR = 4;
   private final Map<String, Map<String, GameElement>> elements;
   private final FactoryProvider provider;
+  private final FileMapper mapper;
   private Board board;
 
   /**
@@ -44,6 +48,7 @@ public class GameConfiguration implements BuilderModel {
     board = null; // Board is unknown without initial setup
     elements = new HashMap<>();
     provider = new FactoryProvider();
+    mapper = new FileMapper();
     resetElements();
   }
 
@@ -73,7 +78,9 @@ public class GameConfiguration implements BuilderModel {
     if (!elements.get(type).containsKey(name)) {
       throw new ElementNotFoundException();
     }
-    return elements.get(type).get(name).toRecord();
+    ElementRecord mapped = elements.get(type).get(name).toRecord();
+    Collection<Property> properties = mapper.unMapProperties(mapped.properties());
+    return new ElementRecord(mapped.name(), properties);
   }
 
   /**
@@ -100,7 +107,8 @@ public class GameConfiguration implements BuilderModel {
   @Override
   public void addGameElement(String type, String name, Collection<Property> properties)
       throws InvalidTypeException, MissingRequiredPropertyException {
-    GameElement newElement = provider.createElement(type, name, properties);
+    Collection<Property> reMappedProperties = mapper.reMapProperties(properties);
+    GameElement newElement = provider.createElement(type, name, reMappedProperties);
     if (!elements.containsKey(type)) {
       elements.put(type, new HashMap<>());
     }
@@ -213,6 +221,15 @@ public class GameConfiguration implements BuilderModel {
     addJSONArray(obj.getJSONArray("conditions"), CONDITION);
     addJSONArray(obj.getJSONArray("actions"), ACTION);
     return this;
+  }
+
+  /**
+   * Copies the original files to a new directory, using the data stored in the file mapper.
+   *
+   * @param directory The new directory to copy the game configuration resources to
+   */
+  public void copyFiles(File directory) throws IOException {
+    mapper.copyFiles(directory);
   }
 
   // Checks if the board has been initialized
