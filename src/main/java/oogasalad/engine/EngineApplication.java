@@ -1,15 +1,8 @@
 package oogasalad.engine;
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import oogasalad.GameSelection;
-import oogasalad.engine.controller.Controller;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.setup.Constants;
-import oogasalad.engine.model.setup.parsing.GameParser;
-import oogasalad.engine.view.BoardView;
 import oogasalad.engine.view.ViewManager;
 
 /**

@@ -3,7 +3,6 @@ package oogasalad.engine.view;
 import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import oogasalad.GameSelection;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.setup.parsing.GameParser;
@@ -18,8 +17,8 @@ public class ViewManager {
   private Stage stage;
 
   public ViewManager(Stage s) {
-    //currScene = createOpeningView().makeScene();
-    currScene = new Scene(new GameSelection(), WIDTH, HEIGHT);
+    currScene = createOpeningView().makeScene();
+    //currScene = new Scene(new GameSelection(), WIDTH, HEIGHT);
     stage = s;
   }
 
