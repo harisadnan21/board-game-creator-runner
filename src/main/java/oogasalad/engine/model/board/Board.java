@@ -11,15 +11,15 @@ import java.util.stream.Stream;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
 import org.jooq.lambda.Seq;
-//import lombok.EqualsAndHashCode;
-//import lombok.ToString;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Class That defines the backend board and defines methods that can be applied to it.
  * @author Jake Heller, Haris Adnan, Robert Cranston, Alex Bildner
  */
-//@EqualsAndHashCode
-//@ToString
+@EqualsAndHashCode
+@ToString
 public class Board implements DisplayableBoard {
 
   public static final int NO_WINNER_YET = -2; //Eh

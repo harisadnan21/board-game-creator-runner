@@ -67,11 +67,6 @@
       <artifactId>jool</artifactId>
       <version>0.9.14</version>
     </dependency>
-     <dependency>
-       <groupId>CompSci308_2022Spring</groupId>
-       <artifactId>oogasalad_OOGABOOGA</artifactId>
-       <version>master-SNAPSHOT</version>
-     </dependency>
     <dependency>
       <groupId>org.jooq</groupId>
       <artifactId>jooq</artifactId>
@@ -99,7 +94,7 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.22</version>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>

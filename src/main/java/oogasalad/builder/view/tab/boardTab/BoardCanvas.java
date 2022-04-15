@@ -1,26 +1,20 @@
 package oogasalad.builder.view.tab.boardTab;
 
 
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import oogasalad.builder.controller.BuilderController;
-import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.builder.model.property.Property;
 
 public class BoardCanvas {
 
@@ -118,7 +112,7 @@ public class BoardCanvas {
   private void populateBoardTypeMap() {
     // TODO: Pull the Bank of Boards and create Map?
 
-    boardTypeFunctionMap = Map.of(resources.getString("checkers"), e -> drawCheckerBoard(e[0], e[1]));
+    boardTypeFunctionMap = Map.of(resources.getString("games/checkers"), e -> drawCheckerBoard(e[0], e[1]));
   }
 
 

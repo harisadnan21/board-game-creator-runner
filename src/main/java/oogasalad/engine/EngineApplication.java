@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import oogasalad.GameSelection;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.setup.Constants;
@@ -18,7 +19,7 @@ public class EngineApplication extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-
+    GameSelection gameSelection = new GameSelection();
     Board board = GameParser.readInitialBoard(Constants.CHECKERS_FILE);
 
     BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), 350, 350);

@@ -92,7 +92,7 @@ public class BoardTab extends BorderPane {
     numberPickerBox.getChildren().addAll(xDimBox, yDimBox);
 
     //TODO : get the boardTypes from somewhere good
-    List<String> boardTypeList = List.of(new String[]{resources.getString("checkers")});
+    List<String> boardTypeList = List.of(new String[]{resources.getString("games/checkers")});
     ObservableList<String> boardTypes = FXCollections.observableArrayList(boardTypeList);
 
     ComboBox<String> boardTypeBox = new ComboBox<>(boardTypes);
