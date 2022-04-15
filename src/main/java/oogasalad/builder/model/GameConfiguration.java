@@ -1,5 +1,7 @@
 package oogasalad.builder.model;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -213,6 +215,15 @@ public class GameConfiguration implements BuilderModel {
     addJSONArray(obj.getJSONArray("conditions"), CONDITION);
     addJSONArray(obj.getJSONArray("actions"), ACTION);
     return this;
+  }
+
+  /**
+   * Copies the original files to a new directory, using the data stored in the file mapper.
+   *
+   * @param directory The new directory to copy the game configuration resources to
+   */
+  public void copyFiles(File directory) throws IOException {
+    provider.copyFiles(directory);
   }
 
   // Checks if the board has been initialized

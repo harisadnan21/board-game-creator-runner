@@ -1,6 +1,11 @@
 package oogasalad.builder.model.element.factory;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
+import oogasalad.builder.model.element.FileMapper;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -18,6 +23,7 @@ public class FactoryProvider {
   private final WinConditionFactory winConditionFactory;
   private final ActionFactory actionFactory;
   private final ConditionFactory conditionFactory;
+  private final FileMapper fileMapper;
 
   /**
    * Creates a new factory provider
@@ -28,6 +34,7 @@ public class FactoryProvider {
     winConditionFactory = new WinConditionFactory();
     actionFactory = new ActionFactory();
     conditionFactory = new ConditionFactory();
+    fileMapper = new FileMapper();
   }
 
   /**
@@ -40,7 +47,8 @@ public class FactoryProvider {
    */
   public GameElement createElement(String type, String name, Collection<Property> properties)
       throws InvalidTypeException, MissingRequiredPropertyException {
-    return getFactory(type).createElement(name, properties);
+    Collection<Property> reMappedProperties = fileMapper.reMapProperties(properties);
+    return getFactory(type).createElement(name, reMappedProperties);
   }
 
   /**
@@ -50,6 +58,15 @@ public class FactoryProvider {
    */
   public Collection<Property> getRequiredProperties(String type) throws InvalidTypeException {
     return getFactory(type).getRequiredProperties();
+  }
+
+  /**
+   * Copies the original files to a new directory, using the data stored in the file mapper.
+   *
+   * @param directory The new directory to copy the game configuration resources to
+   */
+  public void copyFiles(File directory) throws IOException {
+    fileMapper.copyFiles(directory);
   }
 
   /**
