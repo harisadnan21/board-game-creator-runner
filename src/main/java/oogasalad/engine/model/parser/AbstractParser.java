@@ -1,13 +1,14 @@
 package oogasalad.engine.model.parser;
 
+
 import java.io.File;
 
 /**
- * Defines the public API for a parser.
+ * Abstract parser class that contains some common methods for parsing objects
  *
  * @author Shaan Gondalia
  */
-public interface Parser<T> {
+public abstract class AbstractParser<T> implements Parser<T> {
 
   /**
    * Returns an object that is parsed from a configuration file, throwing errors if the file is
@@ -16,6 +17,6 @@ public interface Parser<T> {
    * @param configFile the configuration file to parse from
    * @return an object that is parsed form a configuration file
    */
-  T parse(File configFile);
+  public abstract T parse(File configFile);
 
 }
