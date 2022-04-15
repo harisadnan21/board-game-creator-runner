@@ -22,23 +22,7 @@ public class NInARow extends BoardCondition{
   @Override
   public boolean isTrue(Board board) {
     return checkForHorizontal(board) || checkForVertical(board);
-
-
   }
-
-//  //check for n pieces of the same type in a horizontal row
-//  private boolean checkForHorizontal(Board board) {
-//    n = 0;
-//    for(int row = 0; row < board.getHeight(); row++){
-//      for(int col = 0; col < board.getWidth(); col++){
-//        if (checkCurrentCell(board, row, col)) {
-//          return true;
-//        }
-//      }
-//      n = 0;
-//    }
-//    return false;
-//  }
 
   //check for n pieces of the same type in a horizontal row
   private boolean checkForHorizontal(Board board) {
@@ -53,11 +37,11 @@ public class NInARow extends BoardCondition{
   }
 
   private boolean anyHaveNInARow(Stream<List<PositionState>> positionStates) {
-    return positionStates.anyMatch(posStates -> nInARow(posStates));
+    return positionStates.anyMatch(this::nInARow);
   }
 
   private boolean nInARow(List<PositionState> positionStates) {
-//    return positionStates.mapToInt(PositionState::player).distinct().count() == 1;
+
     int count = 0;
     for(PositionState positionState : positionStates) {
       count = positionState.player()==currentPlayer ? count+1 : 0;
@@ -66,34 +50,5 @@ public class NInARow extends BoardCondition{
     }
     return false;
   }
-
-//  //check for n pieces of the same type in a vertical row
-//  private boolean checkForVertical(Board board) {
-//    n = 0;
-//    for(int col = 0; col < board.getWidth(); col++){
-//      for(int row = 0; row < board.getHeight(); row++){
-//        if (checkCurrentCell(board, row, col)) {
-//          return true;
-//        }
-//      }
-//      n = 0;
-//    }
-//    return false;
-//  }
-//
-//  private boolean checkCurrentCell(Board board, int row, int col) {
-//    if(board.getPositionStateAt(row, col).piece() != Piece.EMPTY) {
-//      if (board.getPositionStateAt(row, col).player() == currentPlayer) {
-//        n++;
-//      } else {
-//        currentPlayer = board.getPositionStateAt(row, col).player();
-//        n = 1;
-//      }
-//    }
-//    else{
-//      n = 0;
-//    }
-//    return n == myParameters[0];
-//  }
 
 }

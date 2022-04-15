@@ -56,6 +56,35 @@ public class GameParser {
     return board;
   }
 
+  public static Board readInitialBoard(JSONObject root)
+      throws IOException, OutOfBoardException {
+
+    JSONObject boardState = root.getJSONObject(Constants.BOARD);
+    int width = boardState.getInt(Constants.WIDTH);
+    int height = boardState.getInt(Constants.HEIGHT);
+
+    Board board = new Board(height, width);
+
+    int[][] pieceConfiguration = new int[height][width];
+    int[][] playerConfiguration = new int[height][width];
+
+    JSONArray pieceConfigJSON = boardState.getJSONArray(Constants.PIECE_CONFIGURATION);
+    JSONArray playerConfigJSON = boardState.getJSONArray(Constants.PLAYER_CONFIGURATION);
+
+    readJSONArrayToIntArray(pieceConfigJSON, pieceConfiguration);
+    readJSONArrayToIntArray(playerConfigJSON, playerConfiguration);
+
+    for (int i = 0; i < pieceConfiguration.length; i++) {
+      for (int j = 0; j < pieceConfiguration[0].length; j++) {
+        if (pieceConfiguration[i][j] != -1) {
+          board = board.placeNewPiece(i,j,pieceConfiguration[i][j], playerConfiguration[i][j]);
+        }
+      }
+    }
+
+    return board;
+  }
+
   public static Move[] readRules(String filePath)
       throws IOException {
     JSONObject root = getRootObject(filePath);

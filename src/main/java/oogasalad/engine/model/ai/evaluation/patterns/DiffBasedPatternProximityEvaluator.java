@@ -5,10 +5,11 @@ import java.util.concurrent.PriorityBlockingQueue;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 
-public class DiffBasedPatternProximityEvaluator extends PatternProximityEvaluator {
+public class DiffBasedPatternProximityEvaluator extends
+    oogasalad.engine.model.ai.evaluation.patterns.PatternProximityEvaluator {
   protected PriorityBlockingQueue<Position> positionsToCheck;
 
-  public DiffBasedPatternProximityEvaluator(SortedSet<Pattern> patterns) {
+  public DiffBasedPatternProximityEvaluator(SortedSet<oogasalad.engine.model.ai.evaluation.patterns.Pattern> patterns) {
     super(patterns);
 
 
