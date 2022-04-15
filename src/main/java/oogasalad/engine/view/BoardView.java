@@ -22,7 +22,7 @@ import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import oogasalad.engine.model.parsing.GameParser;
+import oogasalad.engine.model.parser.GameParser;
 
 public class BoardView implements PropertyChangeListener{
   private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);

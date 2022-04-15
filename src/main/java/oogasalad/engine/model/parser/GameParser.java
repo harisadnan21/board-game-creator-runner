@@ -1,4 +1,4 @@
-package oogasalad.engine.model.parsing;
+package oogasalad.engine.model.parser;
 
 import java.io.IOException;
 
