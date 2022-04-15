@@ -58,12 +58,6 @@ public class RectangularBoardTest {
   }
 
   @Test
-  void testOccupiedCell() throws OccupiedCellException {
-    board.placePiece(X, Y, PIECE_ID);
-    assertThrows(OccupiedCellException.class, () -> board.placePiece(X, Y, PIECE_ID));
-  }
-
-  @Test
   void testSerialization() throws OccupiedCellException {
     String json = board.toJSON();
     assertEquals(WIDTH * HEIGHT, countMatches(json, Integer.toString(EMPTY)));
@@ -72,12 +66,6 @@ public class RectangularBoardTest {
     json = board.toJSON();
     assertEquals(WIDTH * HEIGHT - 1, countMatches(json, Integer.toString(EMPTY)));
     assertEquals(1, countMatches(json, Integer.toString(PIECE_ID)));
-  }
-
-  @Test
-  void testLoad() throws OccupiedCellException {
-    // TODO: Change test when loading is implemented
-    Board b = board.fromJSON("test");
   }
 
   private int countMatches(String str, String target) {

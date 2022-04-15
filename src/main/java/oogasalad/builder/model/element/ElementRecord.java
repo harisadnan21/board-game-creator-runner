@@ -2,8 +2,8 @@ package oogasalad.builder.model.element;
 
 import java.util.Collection;
 import java.util.Set;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.JSONSerializable;
+import oogasalad.builder.model.property.Property;
 import org.json.JSONObject;
 
 
@@ -13,7 +13,7 @@ import org.json.JSONObject;
  * @author Shaan Gondalia
  */
 public record ElementRecord(String name, Collection<Property> properties) implements
-    JSONSerializable<ElementRecord> {
+    JSONSerializable {
 
   private static final String NAME = "name";
 
@@ -36,14 +36,4 @@ public record ElementRecord(String name, Collection<Property> properties) implem
     return obj.toString();
   }
 
-  /**
-   * Converts a JSON String into an elementRecord
-   *
-   * @param json the JSON String to convert
-   * @return an ElementRecord with the given parameters
-   */
-  @Override
-  public ElementRecord fromJSON(String json) {
-    return null;
-  }
 }

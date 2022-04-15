@@ -8,12 +8,12 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import javafx.stage.Stage;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
@@ -35,7 +35,9 @@ public class ControllerTest extends DukeApplicationTest {
   private static final String RULE_TYPE = "rule";
   private static final String RULE_NAME = "jump";
   private static final String EMPTY = "empty";
-  private static final String TEST_FILENAME = "data/test.json";
+  private static final String TEST_SAVE_FILENAME = "data/tests/testSave.json";
+  private static final String TEST_SAVE_EXCEPTION_FILENAME = "data/tests/testSaveException.json";
+  private static final String TEST_LOAD_FILENAME = "data/tests/testLoad.json";
   private static final int X = 5;
   private static final int Y = 7;
 
@@ -116,15 +118,6 @@ public class ControllerTest extends DukeApplicationTest {
   }
 
   @Test
-  void testOccupiedCell()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
-    controller.makeBoard(WIDTH, HEIGHT);
-    addPiece();
-    controller.placePiece(X, Y, PIECE_NAME);
-    assertThrows(OccupiedCellException.class, () -> controller.placePiece(X, Y, PIECE_NAME));
-  }
-
-  @Test
   void testSave()
       throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     controller.makeBoard(WIDTH, HEIGHT);
@@ -133,22 +126,23 @@ public class ControllerTest extends DukeApplicationTest {
     properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     controller.update(RULE_TYPE, RULE_NAME, properties);
-    File file = new File(TEST_FILENAME);
+    File file = new File(TEST_SAVE_FILENAME);
     controller.save(file);
   }
 
   @Test
   void testSaveException() {
-    File file = new File(TEST_FILENAME);
+    File file = new File(TEST_SAVE_EXCEPTION_FILENAME);
     assertThrows(NullBoardException.class, () -> controller.save(file));
-    controller.makeBoard(WIDTH, HEIGHT);
   }
 
   @Test
   void testLoad() throws OccupiedCellException {
     // TODO: Change test when loading is implemented
-    File file = new File(TEST_FILENAME);
+    File file = new File(TEST_LOAD_FILENAME);
     controller.load(file);
+    file = new File(TEST_SAVE_EXCEPTION_FILENAME);
+    controller.save(file);
   }
 
   private int countMatches(String str, String target) {

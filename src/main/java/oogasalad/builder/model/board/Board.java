@@ -1,6 +1,7 @@
 package oogasalad.builder.model.board;
 
 
+import oogasalad.builder.model.JSONParseable;
 import oogasalad.builder.model.JSONSerializable;
 import oogasalad.builder.model.exception.OccupiedCellException;
 
@@ -10,14 +11,14 @@ import oogasalad.builder.model.exception.OccupiedCellException;
  *
  * @author Shaan Gondalia
  */
-public interface Board extends JSONSerializable<Board> {
+public interface Board extends JSONSerializable, JSONParseable<Board> {
 
   /**
    * Attempts to place a piece at the given coordinates in the Board
    *
-   * @param x    the x location to place
-   * @param y    the y location to place
-   * @param id   the id of the piece to place
+   * @param x  the x location to place
+   * @param y  the y location to place
+   * @param id the id of the piece to place
    * @throws OccupiedCellException if the requested indices are already occupied by a piece
    */
   void placePiece(int x, int y, int id) throws OccupiedCellException;
@@ -46,12 +47,7 @@ public interface Board extends JSONSerializable<Board> {
    */
   String toJSON();
 
-  /**
-   * Converts a JSON String into a Board
-   *
-   * @param json the JSON string
-   * @return a board of type T made from the JSON string
-   */
   Board fromJSON(String json);
+
 
 }

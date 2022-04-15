@@ -1,6 +1,7 @@
 package oogasalad.engine.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.engine.Engine;
@@ -23,10 +24,12 @@ public class Controller {
 
 
 
-  public Controller(BoardView boardView, int rows, int columns) {
+  public Controller(Board board, int rows, int columns) {
     try {
-      myBoard = GameParser.getCheckersBoard();
-      rules = GameParser.getCheckersRules();
+//      myBoard = GameParser.getCheckersBoard();
+//      rules = GameParser.getCheckersRules();
+      myBoard = board;
+      rules = Arrays.asList(GameParser.readRules(GameParser.CHECKERS_FILE));
       winConditions = GameParser.getCheckersWinConditions();
       myGame = new Game(myBoard);
       myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
