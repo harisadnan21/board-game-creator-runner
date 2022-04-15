@@ -12,6 +12,8 @@ import org.jooq.lambda.Seq;
 
 public class Ray {
 
+  // TODO: refactor Ray class to use new Direction enum fields
+
   private Ray() {
     throw new IllegalStateException("This class should not be instantiated");
   }
