@@ -26,7 +26,6 @@ public class FactoryProvider {
   private final WinConditionFactory winConditionFactory;
   private final ActionFactory actionFactory;
   private final ConditionFactory conditionFactory;
-  private final FileMapper fileMapper;
 
   /**
    * Creates a new factory provider
@@ -37,7 +36,6 @@ public class FactoryProvider {
     winConditionFactory = new WinConditionFactory();
     actionFactory = new ActionFactory();
     conditionFactory = new ConditionFactory();
-    fileMapper = new FileMapper();
   }
 
   /**
@@ -50,8 +48,7 @@ public class FactoryProvider {
    */
   public GameElement createElement(String type, String name, Collection<Property> properties)
       throws InvalidTypeException, MissingRequiredPropertyException {
-    Collection<Property> reMappedProperties = fileMapper.reMapProperties(properties);
-    return getFactory(type).createElement(name, reMappedProperties);
+    return getFactory(type).createElement(name, properties);
   }
 
   /**
@@ -61,26 +58,6 @@ public class FactoryProvider {
    */
   public Collection<Property> getRequiredProperties(String type) throws InvalidTypeException {
     return getFactory(type).getRequiredProperties();
-  }
-
-  /**
-   * Copies the original files to a new directory, using the data stored in the file mapper.
-   *
-   * @param directory The new directory to copy the game configuration resources to
-   */
-  public void copyFiles(File directory) throws IOException {
-    fileMapper.copyFiles(directory);
-  }
-
-  /**
-   * Creates a new collection of properties that is the same as the original properties, except for
-   * the file paths which are un-mapped from relative filepaths to the old absolute filepaths.
-   *
-   * @param originalProperties the properties that have to be unmapped
-   * @return a collection of new properties that have been unmapped
-   */
-  public Collection<Property> unMapProperties(Collection<Property> originalProperties) {
-    return fileMapper.unMapProperties(originalProperties);
   }
 
   /**
