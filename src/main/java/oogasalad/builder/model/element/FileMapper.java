@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -65,7 +66,7 @@ public class FileMapper {
     File resourceDir = new File(directory.toString() + RESOURCES_PATH);
     resourceDir.mkdir();
     for (String oldPath : fileNameMap.keySet()) {
-      Files.copy(Path.of(oldPath), Path.of(directory.toString() + fileNameMap.get(oldPath)));
+      Files.copy(Path.of(oldPath), Path.of(directory.toString() + fileNameMap.get(oldPath)), StandardCopyOption.REPLACE_EXISTING);
     }
   }
 
