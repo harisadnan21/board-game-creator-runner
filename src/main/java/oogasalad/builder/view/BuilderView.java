@@ -129,9 +129,5 @@ public class BuilderView {
     return result;
   }
 
-  //public int[][] getBoardConfig(){
-  public int[][] getBoardConfig() {
-    return boardTabPane.getBoardConfig();
-  }
 }
 

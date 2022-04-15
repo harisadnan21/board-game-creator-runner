@@ -1,6 +1,9 @@
 package oogasalad.builder.view.property;
 
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import oogasalad.builder.model.property.Property;
 
 /**
@@ -23,4 +26,7 @@ public interface PropertySelector {
    * @return a populated property with the correct value, name, and form
    */
   Property getProperty();
+
+
+  void addListener(ChangeListener updateFields);
 }

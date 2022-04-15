@@ -1,6 +1,6 @@
 package oogasalad.builder.view.tab;
 
-import java.util.ResourceBundle;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -17,7 +17,8 @@ public class TitlePane {
       titleText.setId("titleText");
 
       titleBox.getChildren().add(titleText);
-      titleBox.setId("titleBox");
+      titleBox.setId("titlePane");
+      titleBox.getStyleClass().add("titleBox");
 
     }
 
