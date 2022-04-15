@@ -56,11 +56,14 @@ public class FileMapper {
   }
 
   /**
-   * Copies the original files to a new directory.
+   * Copies the original files to a new directory. Makes the resource directory if it does not
+   * already exist.
    *
    * @param directory The new directory to copy the game configuration resources to
    */
   public void copyFiles(File directory) throws IOException {
+    File resourceDir = new File(directory.toString() + RESOURCES_PATH);
+    resourceDir.mkdir();
     for (String oldPath : fileNameMap.keySet()) {
       Files.copy(Path.of(oldPath), Path.of(directory.toString() + fileNameMap.get(oldPath)));
     }
