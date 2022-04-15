@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import oogasalad.builder.controller.BuilderController;
@@ -188,8 +189,10 @@ public class BoardTab extends BorderPane {
 
   private void saveBoardConfig() {
     Stage stage = new Stage();
-    FileChooser fileChooser = new FileChooser();
-    controller.save(fileChooser.showSaveDialog(stage));
+    DirectoryChooser directoryChooser = new DirectoryChooser();
+    //TODO: Remove Magic Value
+    directoryChooser.setTitle("Choose Configuration Save Location");
+    controller.save(directoryChooser.showDialog(stage));
   }
 
   //create buttons with their own names and actions
