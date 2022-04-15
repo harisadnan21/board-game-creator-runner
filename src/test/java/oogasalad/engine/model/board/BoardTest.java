@@ -103,7 +103,7 @@ class BoardTest {
       } else {
         nextPlayer = Piece.PLAYER_TWO;
       }
-      board.setPlayer(nextPlayer);
+      board = board.setPlayer(nextPlayer);
       Assertions.assertTrue(board.getPlayer() == nextPlayer);
     }
   }
