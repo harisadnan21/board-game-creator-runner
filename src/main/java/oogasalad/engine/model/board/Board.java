@@ -121,7 +121,7 @@ public class Board implements DisplayableBoard {
   public Board movePiece(Position oldPosition, Position newPosition) {
     throwIfInvalid(oldPosition);
     throwIfInvalid(newPosition);
-    PositionState oldPositionState = this.getPositionStateAt(oldPosition);
+    var oldPositionState = this.getPositionStateAt(oldPosition);
     Board returnBoard = this.clone();
 
     PositionState newPositionState = new PositionState(newPosition, oldPositionState.piece());
@@ -148,7 +148,7 @@ public class Board implements DisplayableBoard {
 
   @Override
   public boolean hasPieceAtLocation(int row, int column) {
-    PositionState positionState = myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
+    var positionState = myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
     return !positionState.piece().equals(Piece.EMPTY);
   }
 
@@ -225,10 +225,10 @@ public class Board implements DisplayableBoard {
   }
 
   public Map<Integer, Integer> numPiecesByPlayer(){
-    Map<Integer, Integer> map = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
-    map.putIfAbsent(Piece.PLAYER_ONE, 0);
-    map.putIfAbsent(Piece.PLAYER_TWO, 0);
-    return map;
+    Map<Integer, Integer> piecesByPlayer = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
+    piecesByPlayer.putIfAbsent(Piece.PLAYER_ONE, 0);
+    piecesByPlayer.putIfAbsent(Piece.PLAYER_TWO, 0);
+    return piecesByPlayer;
   }
 
   @Override
