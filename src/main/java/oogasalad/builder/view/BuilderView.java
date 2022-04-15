@@ -74,6 +74,10 @@ public class BuilderView {
       setupTabs();
     }, tabResources);
     login.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
+    Button language = makeButton("Language", event -> {
+      setupTabs();
+    }, tabResources);
+    language.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
     buttonHolder.getChildren().add(login);
     buttonHolder.setAlignment(Pos.CENTER_LEFT);
     boardPane.setCenter(buttonHolder);
