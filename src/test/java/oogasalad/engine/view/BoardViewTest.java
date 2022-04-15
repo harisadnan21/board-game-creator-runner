@@ -31,7 +31,7 @@ public class BoardViewTest extends DukeApplicationTest {
 //    root.getChildren().add(board.getRoot());
     root = board.getRoot();
 
-    ViewManager manager = new ViewManager();
+    ViewManager manager = new ViewManager(stage);
     scene = manager.createGameView(board, controller).makeScene();
     s = stage;
     s.setScene(scene);

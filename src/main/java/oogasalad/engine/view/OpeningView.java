@@ -51,6 +51,14 @@ public class OpeningView {
     return scene;
   }
 
+  public Button getPlayGame() {
+    return playGame;
+  }
+
+  public JSONObject getFileObject() {
+    return fileObject;
+  }
+
   private void setupText() {
     title = new Text(TITLE);
     title.setFont(Font.font("Montserrat", 48));
