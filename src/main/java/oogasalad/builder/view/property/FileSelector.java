@@ -1,6 +1,8 @@
 package oogasalad.builder.view.property;
 
 import java.io.File;
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
@@ -69,5 +71,8 @@ public class FileSelector implements PropertySelector {
     if (file != null) {
       filePath = file.toString();
     }
+  }
+
+  public void addListener(ChangeListener updateFields){
   }
 }

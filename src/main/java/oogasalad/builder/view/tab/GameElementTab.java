@@ -76,7 +76,7 @@ public class GameElementTab extends BorderPane {
   private void createElement() {
     try {
       Collection<Property> properties = controller.getRequiredProperties(type);
-      propertyEditor.setElementProperties(properties);
+      propertyEditor.setElementPropertyTypeChoice(properties);
     } catch (InvalidTypeException | MissingRequiredPropertyException e) {
       e.printStackTrace();
     }

@@ -1,7 +1,11 @@
 package oogasalad.builder.view.property;
 
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.cell.MapValueFactory;
+import javax.security.auth.callback.Callback;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.StringProperty;
 
@@ -53,5 +57,10 @@ public class DropDown implements PropertySelector{
   public Property getProperty() {
     String[] nameParts = property.name().split("-");
     return new StringProperty(nameParts[nameParts.length - 1], list.getValue(), property.form());
+  }
+
+  @Override
+  public void addListener(ChangeListener updateFields){
+    list.valueProperty().addListener(updateFields);
   }
 }

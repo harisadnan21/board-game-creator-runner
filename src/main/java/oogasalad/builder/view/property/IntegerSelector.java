@@ -1,5 +1,7 @@
 package oogasalad.builder.view.property;
 
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Spinner;
 import oogasalad.builder.model.property.IntegerProperty;
@@ -40,5 +42,8 @@ public class IntegerSelector implements PropertySelector{
   @Override
   public Node display(){
     return numberPicker;
+  }
+
+  public void addListener(ChangeListener updateFields){
   }
 }
