@@ -20,5 +20,7 @@ public interface PlayerInterface {
      * replaced by an 'Oracle' object which has the role of
      * using rules to generate possible moves
      */
-     Pair<Position, Move> chooseMove(Engine oracle, Board board);
+     Pair<Position, Move> chooseMove();
+
+  void onCellSelect(int i, int j);
 }

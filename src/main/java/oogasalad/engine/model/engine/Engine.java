@@ -19,64 +19,15 @@ import org.jooq.lambda.function.Consumer0;
 
 public abstract class Engine {
 
-  private Game myGame;
-
-  private Collection<Move> myMoves;
-  private Collection<WinCondition> myWinConditions;
-  private Consumer<Board> updateView;
-  private Consumer<Set<Position>> setViewValidMarks;
-  private Consumer0 clearViewMarkers;
-
-  private Collection<Player> players;
-
   public Engine(Game game, Collection<Move> moves,
       Collection<WinCondition> winConditions, Consumer<Board> update,
-      Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
-
-    myGame = game;
-    myWinConditions = winConditions;
-    myMoves = moves;
-    updateView = update;
-    setViewValidMarks = setValidMarks;
-    clearViewMarkers = clearMarkers;
+      Consumer<Set<Position>> setValidMarks) {
   }
 
   public Engine(Game game){
-    myGame = game;
   }
 
-  protected Collection<Move> getMoves() {
-    return myMoves;
-  }
-
-  protected Collection<WinCondition> getWinConditions() {
-    return myWinConditions;
-  }
-
-  /**
-   * @param player player requesting possible actions
-   * @return
-   */
-  public Move[] getPossibleActions(int player) {
-
-    return null;
-  }
-  protected void updateView(Board board){
-    updateView.accept(board);
-  }
-
-  protected void setMarkers(Set<Position> validMoves){
-    if(validMoves != null) {
-      setViewValidMarks.accept(validMoves);
-    }
-  }
-  protected void clearMarkers(){
-    clearViewMarkers.accept();
-  }
-
-  protected Game getGame() {
-    return myGame;
-  }
+  public abstract void gameLoop();
 
   public abstract void onCellSelect(int x, int y)
       throws OutOfBoardException;

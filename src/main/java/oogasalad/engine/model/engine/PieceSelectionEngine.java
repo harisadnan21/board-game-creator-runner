@@ -3,11 +3,10 @@ package oogasalad.engine.model.engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.Oracle;
 import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Move;
@@ -16,12 +15,6 @@ import oogasalad.engine.model.player.Player;
 import oogasalad.engine.model.utilities.Pair;
 
 import java.util.Collection;
-import oogasalad.engine.model.actions.winner.MostPieces;
-import oogasalad.engine.model.actions.winner.Winner;
-import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
-import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
-import oogasalad.engine.model.conditions.board_conditions.PlayerHasNoPieces;
-import oogasalad.engine.model.conditions.board_conditions.NoMovesLeft;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,7 +25,6 @@ import java.util.Set;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import org.jooq.lambda.function.Consumer0;
 
 public class PieceSelectionEngine extends Engine {
   private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
@@ -42,135 +34,93 @@ public class PieceSelectionEngine extends Engine {
   private List<Move> myPersistentRules = new ArrayList<>();
   private Map<Integer, Player> myPlayers = new HashMap<>();
 
-  public PieceSelectionEngine(Game game, List<Move> moves,
-      List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
-    super(game, moves, winConditions, update, setValidMarks, clearMarkers);
-    myPlayers.put(0, new HumanPlayer(this, setValidMarks, clearMarkers));
-    myPlayers.put(1, new HumanPlayer(this, setValidMarks, clearMarkers));
-  }
+  // from Engine
+  private Game myGame;
 
-  public void gameLoop() {
-    while (true) {
-      for (int playerID : myPlayers.keySet()) {
-        Player player = myPlayers.get(playerID);
-        Pair<Position, Move> choice = player.chooseMove(this, getGameStateBoard());
-      }
-    }
-  }
+  private Oracle myOracle;
 
-  public PieceSelectionEngine(Game game, Collection<Move> rules,
-      Collection<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
-    super(game, rules, winConditions, update, setValidMarks, clearMarkers);
+  private Collection<Move> myMoves;
+  private Consumer<Set<Position>> setViewValidMarks;
 
+  public PieceSelectionEngine(Game game, Collection<Move> moves,
+      Collection<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks) {
+    super(game, moves, winConditions, update, setValidMarks);
+
+    myGame = game;
+    myMoves = moves;
+    setViewValidMarks = setValidMarks;
+
+    myOracle = new Oracle(moves, winConditions, new ArrayList<>());
+
+    myPlayers.put(0, new HumanPlayer(myOracle, myGame, setValidMarks));
+    myPlayers.put(1, new HumanPlayer(myOracle, myGame, setValidMarks));
     //createWinCondition();
     //createCheckersMove();
     //createPlayer1Moves();
   }
 
   @Override
-  public void onCellSelect(int x, int y) throws OutOfBoardException {
-    Board board = getGame().getBoard();
-    Position cellClicked = new Position(x, y);
-    if (!myIsPieceSelected) {
-      makePieceSelected(x, y);
-    }
-    else {
-      for (Move move: getMoves()) {
-        if (move.isValid(board, mySelectedCell.i(), mySelectedCell.j()) && move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()).equals(cellClicked)) {
-          Board newBoard = move.doMovement(board, mySelectedCell.i(), mySelectedCell.j());
-          LOG.info("{} executed at {},{}", move.getName(), x, y);
-          newBoard = checkForWin(newBoard);
-          getGame().setBoard(newBoard);
-          resetSelected();
-          clearMarkers();
-          return;
+  public void gameLoop() {
+    while (true) {
+      for (int playerID : myPlayers.keySet()) {
+        Player player = myPlayers.get(playerID);
+        Pair<Position, Move> choice = player.chooseMove();
+        if (choice.value().isValid(getGameStateBoard(), choice.key())) {
+          Board newBoard = choice.value().doMovement(getGameStateBoard(), choice.key());
+          Position position = choice.key();
+          LOG.info("{} executed at {},{}", choice.value().getName(), position.i(), position.j());
+          myGame.setBoard(newBoard);
+        }
+        else {
+          LOG.warn("Player {}'s move was not valid", playerID);
         }
       }
-      resetSelected();
-      clearMarkers();
     }
-
-    LOG.info("Valid Moves for selected piece are {} ", board.getValidMoves());
   }
 
-  //checks to see if any of the win conditions are satisfied and if they are it sets the winner on the board.
-  private Board checkForWin(Board board) {
-    for(WinCondition winCondition : getWinConditions()){
-      if(winCondition.isOver(board)){
-        return board.setWinner(winCondition.getWinner(board));
-      }
-    }
-    return board;
+  public void onCellSelect(int i, int j) {
+    Board board = getGameStateBoard();
+    Player activePlayer = myPlayers.get(board.getPlayer());
+    activePlayer.onCellSelect(i, j);
   }
+
+//  @Override
+//  public void onCellSelect(int x, int y) throws OutOfBoardException {
+//    Board board = getGameStateBoard();
+//    Position cellClicked = new Position(x, y);
+//    if (!myIsPieceSelected) {
+//      makePieceSelected(x, y);
+//    }
+//    else {
+//      Optional<Move> move = myOracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
+//      if (move.isPresent()) {
+//        Board newBoard = move.get().doMovement(board, mySelectedCell.i(), mySelectedCell.j());
+//        LOG.info("{} executed at {},{}", move.get().getName(), x, y);
+//        newBoard = myOracle.checkForWin(newBoard);
+//        myGame.setBoard(newBoard);
+//        resetSelected();
+//        setMarkers(new HashSet<>());
+//        return;
+//      }
+//      resetSelected();
+//      setMarkers(new HashSet<>());
+//    }
+//
+//    LOG.info("Valid Moves for selected piece are {} ", board.getValidMoves());
+//  }
 
   private void makePieceSelected(int x, int y) {
-    Board board = getGame().getBoard();
+    Board board = getGameStateBoard();
 
     // makes position selected if board has piece with current player or position is empty
     // should this condition exist, or should it be baked into rules?
     if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {
       myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
-      myValidMoves = new HashSet<>(getValidMoves());
+      myValidMoves = new HashSet<>(myOracle.getRepresentativePoints(myOracle.getValidMovesForPosition(board, mySelectedCell), mySelectedCell));
       setMarkers(myValidMoves);
       LOG.info("{} valid moves for this piece\n", myValidMoves.size());
     }
-  }
-
-  private boolean hasValidMove(int x, int y) {
-    return myValidMoves.contains(new Position(x, y));
-  }
-
-  /**
-   * maybe should return Map<Position, Movement>
-   * @return
-   */
-  private List<Position> getValidMoves() {
-    int i = mySelectedCell.i();
-    int j = mySelectedCell.j();
-    Stream<Move> moves = getValidMovesForPosition(getGameStateBoard(), mySelectedCell);
-
-    return getRepresentativePoints(moves, mySelectedCell);
-  }
-
-  private List<Position> getRepresentativePoints(Stream<Move> moves, Position referencePoint) {
-    int i = referencePoint.i();
-    int j = referencePoint.j();
-    List<Position> positions = new ArrayList<>();
-    moves.forEach((move) -> positions.add(move.getRepresentativeCell(i,j)));
-
-    return positions;
-  }
-
-  /**
-   * Returns valid moves for given position and board
-   * If you want to use the game's current board, you can
-   * use the gameGameStateBoard() function
-   *
-   * Note: this returns all available moves, not specific to
-   * a player
-   *
-   * @param board
-   * @param referencePoint
-   * @return
-   */
-  public Stream<Move> getValidMovesForPosition(Board board, Position referencePoint) {
-    return getMoves().stream().filter((move) -> move.isValid(board, referencePoint.i(), referencePoint.j()));
-  }
-
-  /**
-   * Outer map
-   * @param board
-   * @return two dimensional map, where outer map key is the 'reference point' for the move, while the
-   * inner map key is the 'representative point' of the move, or the
-   */
-  public Map<Position, Stream<Move>> getAllValidMoves(Board board) {
-    Map<Position, Stream<Move>> allMoves = new HashMap<>();
-    for (PositionState cell: board) {
-      Position position = cell.position();
-      allMoves.put(position, getValidMovesForPosition(board, position));
-    }
-    return allMoves;
   }
 
   /**
@@ -187,23 +137,9 @@ public class PieceSelectionEngine extends Engine {
     if (move.isValid(getGameStateBoard(), i, j) && myPlayers.get(activePlayer) == player) {
       board = move.doMovement(board, i, j);
     }
-    board = applyRules(board);
-    getGame().setBoard(board);
+    board = myOracle.applyRules(board);
+    myGame.setBoard(board);
   }
-
-  /**
-   * Applies persistent rules to a board
-   * @param board
-   * @return
-   */
-  public Board applyRules(Board board) {
-    for (Move rule: myPersistentRules) {
-      board = rule.doMovement(board, 0, 0);
-    }
-    return board;
-  }
-
-
 
   /**
    *
@@ -211,12 +147,18 @@ public class PieceSelectionEngine extends Engine {
    */
   @Override
   public Board getGameStateBoard() {
-    return getGame().getBoard();
+    return myGame.getBoard();
   }
 
   private void resetSelected() {
     myIsPieceSelected = false;
     mySelectedCell = null;
     myValidMoves = null;
+  }
+
+  private void setMarkers(Set<Position> validMoves){
+    if(validMoves != null) {
+      setViewValidMarks.accept(validMoves);
+    }
   }
 }

@@ -17,7 +17,7 @@ public class AIPlayer extends Player {
   private final Difficulty difficulty;
 
   public AIPlayer(int playerNumber, StateEvaluator stateEvaluator, Difficulty difficulty) {
-    super(null); // should be engine
+    super(null, null); // should be engine
     this.playerNumber = playerNumber;
     this.stateEvaluator = stateEvaluator;
     this.difficulty = difficulty;
@@ -29,7 +29,12 @@ public class AIPlayer extends Player {
 
 
   @Override
-  public Pair<Position, Move> chooseMove(Engine oracle, Board board) {
+  public Pair<Position, Move> chooseMove() {
     return null;
+  }
+
+  @Override
+  public void onCellSelect(int i, int j) {
+
   }
 }

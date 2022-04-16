@@ -1,10 +1,9 @@
 package oogasalad.engine.model.player;
 
 import oogasalad.engine.model.Oracle;
-import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.engine.Engine;
+import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Move;
 import oogasalad.engine.model.utilities.Pair;
 
@@ -15,16 +14,31 @@ import oogasalad.engine.model.utilities.Pair;
 
 public abstract class Player implements PlayerInterface {
 
-  Engine myEngine;
-  protected Player(Engine engine) {
-    myEngine = engine;
+  private Oracle oracle;
+  private Game myGame;
+
+  protected Player(Oracle oracle, Game game) {
+    this.oracle = oracle;
+    myGame = game;
   }
 
   @Override
-  public abstract Pair<Position, Move> chooseMove(Engine oracle, Board board);
+  public abstract Pair<Position, Move> chooseMove();
 
   public boolean isMyTurn() {
-    Board board = myEngine.getGameStateBoard();
     return false;
+  }
+
+  protected Oracle getOracle() {
+    return oracle;
+  }
+
+  /**
+   * Returns the current game board
+   * Players should not be able to set the current game board
+   * @return
+   */
+  protected Board getGameBoard() {
+    return myGame.getBoard();
   }
 }

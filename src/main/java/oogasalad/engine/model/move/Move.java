@@ -54,6 +54,10 @@ public class Move {
     }
   }
 
+  public boolean isValid(Board board, Position referencePoint) {
+    return isValid(board, referencePoint.i(), referencePoint.j());
+  }
+
   /**
    * Returns the name given to this rule
    * @return
@@ -71,8 +75,11 @@ public class Move {
     return new Position(myRepI + i, myRepJ + j);
   }
 
-  public Board doMovement(Board board, int refI, int refJ)
-      throws OutOfBoardException {
+  public Position getRepresentativeCell(Position referencePoint) {
+    return getRepresentativeCell(referencePoint.i(), referencePoint.j());
+  }
+
+  public Board doMovement(Board board, int refI, int refJ) {
     if (isValid(board, refI, refJ)) {
 
       LOG.info("{} has {} conditions and {} actions", myName, myConditions.length, myActions.length);
@@ -84,5 +91,9 @@ public class Move {
       return board;
     }
     return null;
+  }
+
+  public Board doMovement(Board board, Position referencePoint) {
+    return doMovement(board, referencePoint.i(), referencePoint.j());
   }
 }

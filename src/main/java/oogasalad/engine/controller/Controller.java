@@ -28,7 +28,6 @@ public class Controller {
   private Collection<WinCondition> winConditions;
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
-  private Consumer0 clearViewMarkers;
 
 
   public Controller(Board board) {
@@ -42,7 +41,7 @@ public class Controller {
       winConditions = parser.readWinConditions();
 
       // TODO: figure out better way to pass in view lambdas
-      myEngine = new PieceSelectionEngine(myGame, moves, winConditions, null, null, null);
+      myEngine = new PieceSelectionEngine(myGame, moves, winConditions, null, null);
 
     } catch (Exception e){
       e.printStackTrace();
@@ -55,7 +54,7 @@ public class Controller {
   public Board resetGame() {
     myGame = new Game(myBoard, updateView);
 
-    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks, clearViewMarkers);
+    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks);
 
     return myBoard;
   }
@@ -64,15 +63,18 @@ public class Controller {
     myEngine.onCellSelect(i, j);
   }
 
-  public Board setCallbackUpdates(Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers){
+  public Board setCallbackUpdates(Consumer<Board> update, Consumer<Set<Position>> setValidMarks){
     updateView = update;
     setViewValidMarks = setValidMarks;
-    clearViewMarkers = clearMarkers;
 
     myGame = new Game(myBoard, updateView);
-    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks, clearViewMarkers);
+    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks);
 
     return myBoard;
+  }
+
+  public void startGame() {
+    myEngine.gameLoop();
   }
 
 

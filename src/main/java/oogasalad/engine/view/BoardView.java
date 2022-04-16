@@ -87,7 +87,7 @@ public class BoardView implements PropertyChangeListener{
 
   public void addController(Controller c) {
     myController = c;
-    Board board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers, this::clearValidMarks);
+    Board board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers);
     updateBoard(board);
   }
 
@@ -160,6 +160,7 @@ public class BoardView implements PropertyChangeListener{
    * @param validMoves - current Game Board
    */
   private void setValidMarkers(Set<Position> validMoves) {
+    clearValidMarks();
     for(Position pos : validMoves){
       myGrid[pos.i()][pos.j()].addValidMarker();
     }
