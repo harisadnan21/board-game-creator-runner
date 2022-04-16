@@ -74,7 +74,7 @@ public class BuilderView {
     }, tabResources);
     login.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
     ChoiceBox<String> language = new ChoiceBox<>();
-    language.getItems().addAll(languageChoice);
+    System.out.println(language.getValue());
     language.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
     buttonHolder.getChildren().addAll(login);
     BorderPane buttonPane = new BorderPane();
