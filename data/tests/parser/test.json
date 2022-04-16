@@ -93,7 +93,7 @@
         {
             "name": "White capture down left",
             "representativePoint": {
-                "x": 2,
+                "x": -2,
                 "y": -2
             },
             "conditions": ["emptyDoubleDownLeft","belongsToBlackDownLeft", "belongsToWhite", "whiteTurn"],
@@ -103,7 +103,7 @@
             "name": "Black capture up right",
             "representativePoint": {
                 "x": 2,
-                "y": -2
+                "y": 2
             },
             "conditions": ["emptyDoubleUpRight","belongsToWhiteUpRight", "belongsToBlack", "blackTurn"],
             "actions": ["moveDoubleUpRight", "captureUpRight"]
@@ -111,8 +111,8 @@
         {
             "name": "Black capture up left",
             "representativePoint": {
-                "x": 2,
-                "y": -2
+                "x": -2,
+                "y": 2
             },
             "conditions": ["emptyDoubleUpLeft","belongsToWhiteUpLeft", "belongsToBlack", "blackTurn"],
             "actions": ["moveDoubleUpLeft", "captureUpLeft"]
@@ -224,53 +224,71 @@
         {
             "name": "moveUpRight",
             "type": "move",
+            "srcx": 0,
+            "srcy": 0,
             "x": 1,
             "y": 1
         },
         {
             "name": "moveUpLeft",
             "type": "move",
+            "srcx": 0,
+            "srcy": 0,
             "x": -1,
             "y": 1
         },
         {
             "name": "moveDownRight",
             "type": "move",
+            "srcx": 0,
+            "srcy": 0,
             "x": 1,
             "y": -1
         },
         {
             "name": "moveDownLeft",
             "type": "move",
+            "srcx": 0,
+            "srcy": 0,
             "x": -1,
             "y": -1
         },
         {
             "name": "moveDoubleUpRight",
             "type": "move",
+            "srcx": 0,
+            "srcy": 0,
             "x": 2,
             "y": 2
         },
         {
             "name": "moveDoubleUpLeft",
             "type": "move",
+            "srcx": 0,
+            "srcy": 0,
             "x": -2,
             "y": 2
         },
         {
             "name": "moveDoubleDownRight",
             "type": "move",
+            "srcx": 0,
+            "srcy": 0,
             "x": 2,
             "y": -2
         },        {
             "name": "moveDoubleDownLeft",
             "type": "move",
+            "srcx": 0,
+            "srcy": 0,
             "x": -2,
             "y": -2
         },
         {
             "name": "moveDoubleUpRight",
             "type": "move",
+            "srcx": 0,
+            "srcy": 0,
             "x": 2,
             "y": 2
         },
