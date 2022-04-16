@@ -3,6 +3,8 @@ package oogasalad.engine.model.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import oogasalad.engine.model.board.Board;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,10 +16,13 @@ import org.json.JSONObject;
  */
 public class BoardParser extends AbstractParser<Board> {
 
+  private final Map<Integer, Integer> pieceMap;
+
   /**
    * Creates a board parser
    */
   public BoardParser() {
+    pieceMap = new HashMap<>();
   }
 
   /**
@@ -28,25 +33,35 @@ public class BoardParser extends AbstractParser<Board> {
    */
   public Board parse(File configFile) throws FileNotFoundException {
     JSONObject root = fileToJSON(configFile);
+    parsePieces(root);
     JSONObject boardObj = findAttribute(root, "board");
 
     int width = boardObj.getInt("width");
     int height = boardObj.getInt("height");
     JSONArray pieceConfigJSON = boardObj.getJSONArray("pieceConfiguration");
-    JSONArray playerConfigJSON = boardObj.getJSONArray("playerConfiguration");
     int[][] pieceConfiguration = intArrayFromJSON(pieceConfigJSON, width, height);
-    int[][] playerConfiguration = intArrayFromJSON(playerConfigJSON, width, height);
 
-    return placePieces(width, height, pieceConfiguration, playerConfiguration);
+    return placePieces(width, height, pieceConfiguration);
+  }
+
+  // Creates a mapping of piece ID to player ID, eliminating the need for a player config array
+  private void parsePieces(JSONObject root) {
+    JSONArray piecesJSON = root.getJSONArray("pieces");
+    for (int i = 0; i < piecesJSON.length(); i++) {
+      JSONObject piece = piecesJSON.getJSONObject(i);
+      //TODO: Remove magic values
+      //TODO: Add separate piece parser that parses more data about the pieces, such as image
+      pieceMap.put(piece.getInt("id"), piece.getInt("player"));
+    }
   }
 
   // Creates a new board with the configurations specified in the arguments
-  private Board placePieces(int width, int height, int[][] pieceConfig, int[][] playerConfig) {
+  private Board placePieces(int width, int height, int[][] pieceConfig) {
     Board board = new Board(height, width);
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (pieceConfig[i][j] != -1) {
-          board.placeNewPiece(i, j, pieceConfig[i][j], playerConfig[i][j]);
+          board.placeNewPiece(i, j, pieceConfig[i][j], pieceMap.get(pieceConfig[i][j]));
         }
       }
     }
