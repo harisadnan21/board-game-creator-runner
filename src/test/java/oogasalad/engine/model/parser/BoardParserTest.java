@@ -19,14 +19,14 @@ public class BoardParserTest {
   private static final String TEST_PARSE_FILENAME = "data/tests/parser/test.json";
   private static final int EXPECTED_WIDTH = 8;
   private static final int EXPECTED_HEIGHT = 7;
-  
+
   private static final int[][] EXPECTED_PIECE_CONFIG = {{-1, -1, -1, -1, -1, -1, -1, -1},
       {-1, -1, 1, -1, -1, -1, -1, -1},
       {-1, 1, -1, -1, 0, -1, -1, -1},
       {-1, -1, -1, 0, -1, -1, -1, -1},
       {-1, 0, 1, -1, -1, -1, -1, -1},
       {-1, -1, 1, -1, -1, -1, -1, -1},
-      {-1,-1,-1,-1,-1,-1,-1,-1}};
+      {-1, -1, -1, -1, -1, -1, -1, -1}};
 
   private BoardParser parser;
 
@@ -44,9 +44,8 @@ public class BoardParserTest {
     for (int i = 0; i < EXPECTED_HEIGHT; i++) {
       for (int j = 0; j < EXPECTED_WIDTH; j++) {
         if (EXPECTED_PIECE_CONFIG[i][j] == -1) {
-          assertFalse(board.getPieceRecord(i,j).isPresent());
-        }
-        else {
+          assertFalse(board.getPieceRecord(i, j).isPresent());
+        } else {
           assertEquals(EXPECTED_PIECE_CONFIG[i][j], board.getPieceRecord(i, j).get().type());
         }
       }
