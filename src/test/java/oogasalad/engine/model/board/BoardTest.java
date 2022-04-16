@@ -9,11 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Stream;
-import oogasalad.engine.model.player.Player;
-import org.jooq.SelectWhereStep;
 import org.jooq.lambda.Seq;
-import org.jooq.lambda.tuple.Range;
-import org.jooq.lambda.tuple.Tuple2;
 import org.jooq.lambda.tuple.Tuple3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +28,8 @@ class BoardTest {
   @Test
   void testPlacement() {
     Board b = myBoard.placePiece(new PositionState(new Position(0,1),new Piece(1,1)));
-    assertTrue(b.hasPieceAtLocation(0,1));
-    assertFalse(myBoard.hasPieceAtLocation(0,1));
+    assertTrue(b.isOccupied(0,1));
+    assertFalse(myBoard.isOccupied(0,1));
   }
 
   @ParameterizedTest
@@ -73,7 +69,7 @@ class BoardTest {
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.removePiece(position));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.placePiece(new PositionState(position, new Piece(1,1))));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.movePiece(position, new Position(0,0)));
-      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.hasPieceAtLocation(position.i(), position.j()));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.isOccupied(position.i(), position.j()));
     }
   }
 
@@ -162,13 +158,13 @@ void testBoardIsPersistentAdvanced() {
   @Test
   void placeNewPiece() throws OutOfBoardException {
     myBoard = myBoard.placeNewPiece(1,1, 0, 0);
-    assertTrue(myBoard.hasPieceAtLocation(1,1));
+    assertTrue(myBoard.isOccupied(1,1));
   }
 
   @Test
   void remove() throws OutOfBoardException {
     myBoard = myBoard.placeNewPiece(1,1, 0, 0);
-    assertTrue(myBoard.hasPieceAtLocation(1,1));
+    assertTrue(myBoard.isOccupied(1,1));
     myBoard = myBoard.remove(1,1);
     assertTrue(myBoard.isEmpty(1,1));
   }
@@ -189,7 +185,7 @@ void testBoardIsPersistentAdvanced() {
     // Validate that board is still full
     board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(positionState.piece().equals(Piece.EMPTY)));
     board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(board.isEmpty(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(board.hasPieceAtLocation(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(board.isOccupied(positionState.i(), positionState.j())));
 
   }
 
@@ -210,7 +206,7 @@ void testBoardIsPersistentAdvanced() {
     board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(positionState.type() == Piece.BLANK_TYPE));
     board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(positionState.player() == Piece.PLAYER_ONE));
     board.getPositionStatesStream().forEach(positionState -> Assertions.assertFalse(board.isEmpty(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(board.hasPieceAtLocation(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(board.isOccupied(positionState.i(), positionState.j())));
     board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(board.isValidPosition(positionState.i(), positionState.j())));
     board.getPositionStatesStream().forEach(positionState -> Assertions.assertTrue(positionState.piece().equals(new Piece(1, Piece.PLAYER_ONE))));
   }

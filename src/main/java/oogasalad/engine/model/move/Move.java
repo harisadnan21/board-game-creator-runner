@@ -76,13 +76,12 @@ public class Move {
     if (isValid(board, refI, refJ)) {
 
       LOG.info("{} has {} conditions and {} actions", myName, myConditions.length, myActions.length);
-      Board boardCopy = board;
 
       for (Action action: myActions) {
-        boardCopy = action.execute(board, refI, refJ);
+        board = action.execute(board, refI, refJ);
       }
-      boardCopy = boardCopy.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
-      return boardCopy;
+      board = board.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
+      return board;
     }
     return null;
   }

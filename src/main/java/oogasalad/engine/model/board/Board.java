@@ -148,9 +148,9 @@ public class Board implements DisplayableBoard {
 
 
   @Override
-  public boolean hasPieceAtLocation(int row, int column) {
-    var positionState = myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
-    return !positionState.piece().equals(Piece.EMPTY);
+  public boolean isOccupied(int row, int column) {
+    PositionState positionState = myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
+    return positionState.isPresent();
   }
 
   @Override
@@ -262,7 +262,7 @@ public class Board implements DisplayableBoard {
   }
 
   public boolean isEmpty(int i, int j) {
-    return !hasPieceAtLocation(i,j);
+    return !isOccupied(i,j);
   }
 
   @Deprecated

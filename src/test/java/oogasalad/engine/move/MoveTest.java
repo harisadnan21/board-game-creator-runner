@@ -34,25 +34,73 @@ public class MoveTest {
     myMove = new Move("Jump", conditions, actions, 2,2);
   }
 
+  void createJumpMove() {
+    PieceCondition[] conditions = new PieceCondition[2];
+    conditions[0] = new IsOccupied(new int[]{0,0});
+    conditions[1] = new IsOccupied(new int[]{1,1});
+
+    Action[] actions = new Action[2];
+    actions[0] = new Translate(new int[]{0,0,2,2});
+    actions[1] = new Remove(new int[]{1,1});
+
+    myMove = new Move("Jump", conditions, actions, 2,2);
+  }
+
+  void createSingleMove() {
+    PieceCondition[] conditions = new PieceCondition[2];
+    conditions[0] = new IsOccupied(new int[]{0,0});
+    conditions[1] = new IsEmpty(new int[]{1,1});
+
+    Action[] actions = new Action[1];
+    actions[0] = new Translate(new int[]{0,0,1,1});
+
+    myMove = new Move("Jump", conditions, actions, 1,1);
+
+  }
+
   @Test
-  void basicTest() throws OutOfBoardException {
+  void basicSingleTest() {
+    createSingleMove();
+
+    assertFalse(myMove.isValid(myBoard, 0,0));
+
+    myBoard = myBoard.placeNewPiece(0,0,0,0);
+
+    assertTrue(myMove.isValid(myBoard, 0, 0));
+
+    assertTrue(myBoard.isOccupied(0,0));
+    assertTrue(myBoard.isEmpty(1,1));
+
+    myBoard = myMove.doMovement(myBoard, 0, 0);
+
+    assertTrue(myBoard.isEmpty(0,0));
+    assertTrue(myBoard.isOccupied(1,1));
+
+    assertFalse(myMove.isValid(myBoard, 0,0));
+    assertTrue(myMove.isValid(myBoard, 1,1));
+  }
+
+  @Test
+  void basicJumpTest() throws OutOfBoardException {
+
+    createJumpMove();
     assertFalse(myMove.isValid(myBoard, 0,0));
 
     myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
     myBoard = myBoard.placeNewPiece(0,0,0,0);
 
     assertFalse(myBoard.isEmpty(0,0));
-    assertTrue(myBoard.isEmpty(2,2));
     assertFalse(myBoard.isEmpty(1,1));
+    assertTrue(myBoard.isEmpty(2,2));
 
     assertTrue(myMove.isValid(myBoard, 0,0));
 
     myBoard = myMove.doMovement(myBoard, 0,0);
 
     assertTrue(myBoard.isEmpty(0,0));
-    assertFalse(myBoard.isEmpty(2,2));
     assertTrue(myBoard.isEmpty(1,1));
-    
+    assertFalse(myBoard.isEmpty(2,2));
+
     assertFalse(myMove.isValid(myBoard, 0,0));
   }
 }
