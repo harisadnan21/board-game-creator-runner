@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 public class ActionParserTest {
 
   private static final String TEST_PARSE_FILENAME = "data/tests/parser/test.json";
-  private static final String ACTION_TO_RESOLVE = "moveTopRight";
+  private static final String ACTION_TO_RESOLVE = "moveUpRight";
 
   private ActionParser parser;
 
@@ -27,7 +27,7 @@ public class ActionParserTest {
   }
 
   @Test
-  void testParseBoard() throws FileNotFoundException, ClassNotFoundException,
+  void testParseActions() throws FileNotFoundException, ClassNotFoundException,
       InvocationTargetException, NoSuchMethodException, InstantiationException,
       IllegalAccessException {
     File file = new File(TEST_PARSE_FILENAME);

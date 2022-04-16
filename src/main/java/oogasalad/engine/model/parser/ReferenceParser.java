@@ -91,7 +91,14 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
 
   // Finds the value of a reference's property given its name and the reference's name
   private String findPropertyValue(String name, String propertyName) {
-    return referenceMap.get(name).get(propertyName);
+    Map<String, String> reference = referenceMap.get(name);
+    if (reference == null) {
+      throw new ReferenceNotFoundException();
+    }
+    if (!reference.containsKey(propertyName)) {
+      throw new MissingRequiredPropertyException();
+    }
+    return reference.get(propertyName);
   }
 
   // Makes an object of type T using reflection
