@@ -1,5 +1,6 @@
 package oogasalad.engine.model.engine;
 
+import java.util.Collection;
 import oogasalad.engine.model.actions.winner.MostPieces;
 import oogasalad.engine.model.actions.winner.Winner;
 import oogasalad.engine.model.conditions.WinCondition;
@@ -32,8 +33,8 @@ public class PieceSelectionEngine extends Engine {
   private Position mySelectedCell = null;
   private Set<Position> myValidMoves = null;
 
-  public PieceSelectionEngine(Game game, List<Rule> rules,
-      List<WinCondition> winConditions) {
+  public PieceSelectionEngine(Game game, Collection<Rule> rules,
+      Collection<WinCondition> winConditions) {
     super(game, rules, winConditions);
 
     //createWinCondition();

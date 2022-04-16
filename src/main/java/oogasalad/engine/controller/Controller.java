@@ -1,36 +1,35 @@
 package oogasalad.engine.controller;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.engine.NoSelectionEngine;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
 import oogasalad.engine.model.move.Rule;
-import oogasalad.engine.model.parsing.GameParser;
-import oogasalad.engine.view.BoardView;
+import oogasalad.engine.model.parser.GameParser;
 
 public class Controller {
 
   private Board myBoard;
   private Engine myEngine;
   private Game myGame;
-  private List<Rule> rules;
-  private List<WinCondition> winConditions;
+  private Collection<Rule> rules;
+  private Collection<WinCondition> winConditions;
 
 
 
   public Controller(Board board, int rows, int columns) {
     try {
-//      myBoard = GameParser.getCheckersBoard();
-//      rules = GameParser.getCheckersRules();
+      // TODO: Replace this with some way to pick the configuration directory
+      GameParser parser = new GameParser(new File("data/checkers/config.json"));
       myBoard = board;
-      rules = Arrays.asList(GameParser.readRules(GameParser.CHECKERS_FILE));
-      winConditions = GameParser.getCheckersWinConditions();
+      rules = parser.readRules();
+      winConditions = parser.readWinConditions();
       myGame = new Game(myBoard);
       myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
     } catch (Exception e){

@@ -163,11 +163,11 @@ public class Board implements Iterable<Pair<Position, Piece>> {
   }
 
   private boolean isValidY(int j) {
-    return Utilities.isPositive(j) && (j < myRows);
+    return Utilities.isPositive(j) && (j < myColumns);
   }
 
   private boolean isValidX(int i) {
-    return Utilities.isPositive(i) && (i < myColumns);
+    return Utilities.isPositive(i) && (i < myRows);
   }
 
   public Board deepCopy() throws OutOfBoardException {
