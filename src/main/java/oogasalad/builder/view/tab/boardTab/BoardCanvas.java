@@ -112,7 +112,7 @@ public class BoardCanvas {
   private void populateBoardTypeMap() {
     // TODO: Pull the Bank of Boards and create Map?
 
-    boardTypeFunctionMap = Map.of(resources.getString("checkers"), e -> drawCheckerBoard(e[0], e[1]));
+    boardTypeFunctionMap = Map.of(resources.getString("games/checkers"), e -> drawCheckerBoard(e[0], e[1]));
   }
 
 

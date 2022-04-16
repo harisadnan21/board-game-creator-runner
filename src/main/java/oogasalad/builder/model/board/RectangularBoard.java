@@ -78,7 +78,7 @@ public class RectangularBoard implements Board {
     obj.put("height", height);
     obj.put("pieceConfiguration", pieceConfigToJSON());
     obj.put("activePlayer", 0);
-    obj.put("background", "checkers");
+    obj.put("background", "games/checkers");
     obj.put("selectionsRequired", true);
     return obj.toString();
   }

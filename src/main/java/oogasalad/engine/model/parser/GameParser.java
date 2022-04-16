@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashSet;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.conditions.WinCondition;
-import oogasalad.engine.model.move.Rule;
+import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
+import oogasalad.engine.model.move.Move;
 
 /**
  * Parser that reads an existing game configuration from a directory. Responsible for creating a
@@ -52,7 +52,7 @@ public class GameParser {
    *
    * @return an array of rules
    */
-  public Collection<Rule> readRules() throws FileNotFoundException {
+  public Collection<Move> readRules() throws FileNotFoundException {
     return ruleParser.parse(configFile);
   }
 

@@ -25,7 +25,7 @@
 5. Cells in backend listen to the front-end
 6. Player gets shown all possible moves for a selected piece
 7. Player can click on possible options and cause appropriate move to execute
-8. Allow rules to apply to different sets of pieces (one type, all types, one roles, etc)
+8. Allow moves to apply to different sets of pieces (one type, all types, one roles, etc)
 9. add new piece type in builder
 10. make engine into application so that you can open json files with the engine
 11. make gamehub
@@ -33,9 +33,9 @@
 
 ### Robert
 1. Create the multiple splash screen template that will be used in the builder.
-2. The builder can create a JSON file with the rules/settings specified
+2. The builder can create a JSON file with the moves/settings specified
 3. Allow the player to customize the apperance of the game in game.
-4. Allow the glayer to edit game rules mid game.
+4. Allow the glayer to edit game moves mid game.
 5. Allow for pass and play implementation.
 6. Allow for networking between players on seperate computers.
 7. Allow for a timer to be implemented into games
@@ -53,7 +53,7 @@
 7. allow the user to pause the game(show a pause screen in game)
 8. allow the user to choose color themes.
 9. allow users to save a game into a JSON file into a location of their choice.
-10. users define their rules through an interface
+10. users define their moves through an interface
 
 ### Alexander
 1. Artificial Intelligence using basic minimax approach to try to beat player.
@@ -68,16 +68,16 @@
 6. Change type of piece on board mid game
 7. Change color of piece (color wheel pops up? is this possible?)
 8. Save piece types (piece library?)
-9. Save rules (rule library?)
+9. Save moves (rule library?)
 10. Delete grid squares
 
 ### Cynthia
 1. User specifies grid size and design
 2. Customize image, number, and type of game pieces
-3. Define movement rules for each piece, win/lose states
+3. Define movement moves for each piece, win/lose states
 4. Save and load game configurations
 5. Make further changes in existing (loaded in) configurations
-6. Identify "regions" on the board where specific rules apply
+6. Identify "regions" on the board where specific moves apply
 7. Theme & language options
 8. Display possible move locations based on piece selected
 9. Captured pieces (if applicable) are moved to side area to be used later (or not)

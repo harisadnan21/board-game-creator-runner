@@ -7,7 +7,7 @@ import java.util.HashSet;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
-import oogasalad.engine.model.move.Rule;
+import oogasalad.engine.model.move.Move;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,12 +17,13 @@ import org.json.JSONObject;
  *
  * @author Shaan Gondalia
  */
-public class RuleParser extends AbstractParser<Collection<Rule>> {
+public class RuleParser extends AbstractParser<Collection<Move>> {
 
   public static final String ACTIONS = "actions";
   public static final String CONDITIONS = "conditions";
   private static final String RULES = "rules";
   private static final String REPRESENTATIVE_POINT = "representativePoint";
+  private static final String NAME = "name";
   private final ActionParser actionParser;
   private final ConditionParser conditionParser;
 
@@ -43,17 +44,18 @@ public class RuleParser extends AbstractParser<Collection<Rule>> {
    * @throws FileNotFoundException if the file is not found
    */
   @Override
-  public Collection<Rule> parse(File configFile) throws FileNotFoundException {
-    Collection<Rule> rules = new HashSet<>();
+  public Collection<Move> parse(File configFile) throws FileNotFoundException {
+    Collection<Move> rules = new HashSet<>();
     parseConditionsAndActions(configFile);
     JSONObject root = fileToJSON(configFile);
     JSONArray rulesJSON = root.getJSONArray(RULES);
     for (int i = 0; i < rulesJSON.length(); i++) {
       JSONObject rule = rulesJSON.getJSONObject(i);
+      String name = rule.getString("name");
       Position repPoint = getRepresentativePoint(rule.getJSONObject(REPRESENTATIVE_POINT));
       Action[] actions = resolveActions(rule);
       PieceCondition[] conditions = resolveConditions(rule);
-      rules.add(new Rule(conditions, actions, repPoint.i(), repPoint.j()));
+      rules.add(new Move(name, conditions, actions, repPoint.i(), repPoint.j()));
     }
     return rules;
   }

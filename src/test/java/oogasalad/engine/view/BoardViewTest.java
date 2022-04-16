@@ -1,12 +1,12 @@
 package oogasalad.engine.view;
 
+import java.io.IOException;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import static org.junit.jupiter.api.Assertions.*;
-
 import oogasalad.engine.model.board.Board;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
@@ -22,15 +22,16 @@ public class BoardViewTest extends DukeApplicationTest {
   @Override
   public void start (Stage stage) {
     board = new BoardView(3, 3, 300, 300);
+
     Board backEndBoard = new Board(3,3);
-    controller = new Controller(backEndBoard, 3, 3);
+    controller = new Controller(backEndBoard);
 
     board.addController(controller);
 //    root = new Group();
 //    root.getChildren().add(board.getRoot());
     root = board.getRoot();
 
-    ViewManager manager = new ViewManager();
+    ViewManager manager = new ViewManager(stage);
     scene = manager.createGameView(board, controller).makeScene();
     s = stage;
     s.setScene(scene);

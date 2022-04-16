@@ -1,0 +1,46 @@
+Notes/Ideas for abstractions:
+
+All of these functions below should have their argument's encapsulated into some class, and then all of the ones
+that return Boolean can extend from the buiilt in predicate functional interface, and then they can be used in all of
+the built in utilities where predicate can be (filter, etc).
+
+Why functions? Makes it easy to define modular, uncoupled abstractions between different parts, and also easy to do
+open-closed. If we create good functional interface we can add new rule types by implementing the functional interfaces in new ways.
+
+Also, we should do "pure" functions (only use variables passed in as parameter, only returns something does not modify) for a few reasons:
+1. Very easy to test: same inputs will always have same outputs so easier to test for correctness
+2. Vert easy to memoize function. Instead of having to manually code which actions will "invalidate" previous caches of rule states
+and having to do every possible edge case, can just make a concurrenthashmap of functions with parameters as keys and return value as
+values, because the value for that key can never change, so it is never invalid. Then just use computeIfAbsent to get new values. Also easy
+to add cache eviction strategy (likely LRU) if we want.
+3. There is not really much benefit to making all of these into objects because they aren't stateful, they don't have an internal state which
+would benefit from encapsulating inside them, rather they are just functions/utilities that should be checked for Validity/Truth/Correctness.
+
+rule:
+- function/mapping between a state of the board, an action, and a player that returns a Boolean
+- (Board, Action, Player) -> Boolean
+- ex. verticalMove(Board, Action, Player) -> Boolean
+- ex. unBlockedMove(Board, Action, Player) -> Boolean
+
+composedRule -> a function/mapping between a state of the board, an action, a player, and a list of moves that returns a Boolean
+- ex. unBlockedMoveInDirection(Board, Action, Player, Rule[])-> Boolean
+
+legalMove -> a function/mapping between a state of the board, an action, a player, and a list of moves that returns a Boolean
+- (Board, Action, Player, Rule[]) -> Boolean
+
+pieceAvailableMoves -> a function/mapping between a state of the board, a piece, a player, and a list of moves that returns a list of actions
+- (Board, Piece, Player, Rule[]) ->  Action[]
+
+available actions -> a function/mapping between a state of the board, a player, and a list of moves that returns a list of actions
+- (Board, Player, Rule[]) -> Action[]
+- 
+
+boardTrait -> a function/mapping between a state of the board and a Boolean
+- (Board, Player) -> Boolean
+- ex. noBlankSpaces(Board)
+
+positionsTrait -> a function/mapping between an array of positions and a Boolean
+- (Postions[]) -> Boolean
+- ex. isLine(positions)
+
+

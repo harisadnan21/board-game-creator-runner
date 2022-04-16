@@ -223,7 +223,7 @@
     "actions": [
         {
             "name": "moveUpRight",
-            "type": "move",
+            "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": 1,
@@ -231,7 +231,7 @@
         },
         {
             "name": "moveUpLeft",
-            "type": "move",
+            "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": -1,
@@ -239,7 +239,7 @@
         },
         {
             "name": "moveDownRight",
-            "type": "move",
+            "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": 1,
@@ -247,7 +247,7 @@
         },
         {
             "name": "moveDownLeft",
-            "type": "move",
+            "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": -1,
@@ -255,7 +255,7 @@
         },
         {
             "name": "moveDoubleUpRight",
-            "type": "move",
+            "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": 2,
@@ -263,7 +263,7 @@
         },
         {
             "name": "moveDoubleUpLeft",
-            "type": "move",
+            "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": -2,
@@ -271,14 +271,14 @@
         },
         {
             "name": "moveDoubleDownRight",
-            "type": "move",
+            "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": 2,
             "y": -2
         },        {
             "name": "moveDoubleDownLeft",
-            "type": "move",
+            "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": -2,
@@ -286,7 +286,7 @@
         },
         {
             "name": "moveDoubleUpRight",
-            "type": "move",
+            "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": 2,
@@ -294,25 +294,25 @@
         },
         {
             "name": "captureUpRight",
-            "type": "remove",
+            "type": "Remove",
             "x": 1,
             "y": 1
         },
         {
             "name": "captureUpLeft",
-            "type": "remove",
+            "type": "Remove",
             "x": -1,
             "y": 1
         },
         {
             "name": "captureDownRight",
-            "type": "remove",
+            "type": "Remove",
             "x": 1,
             "y": -1
         },
         {
             "name": "captureDownLeft",
-            "type": "remove",
+            "type": "Remove",
             "x": -1,
             "y": -1
         }

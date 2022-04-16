@@ -1,6 +1,6 @@
 package oogasalad.engine.model.conditions.piece_conditions;
 
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 
 /**
@@ -30,7 +30,7 @@ public class IsEmpty extends PieceCondition {
 
     int i = myParameters[0]+refI;
     int j = myParameters[1]+refJ;
-    if (!board.isValid(i, j)) {
+    if (!board.isValidPosition(i, j)) {
       return false;
     }
     return board.isEmpty(i, j);

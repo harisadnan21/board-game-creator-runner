@@ -4,13 +4,19 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import oogasalad.engine.model.conditions.WinCondition;
+import java.util.Set;
+import java.util.function.Consumer;
+import oogasalad.engine.model.board.OutOfBoardException;
+import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
+import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
-import oogasalad.engine.model.Game;
-import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
-import oogasalad.engine.model.move.Rule;
+
+import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.setup.Constants;
+import org.jooq.lambda.function.Consumer0;
 import oogasalad.engine.model.parser.GameParser;
 
 public class Controller {
@@ -18,20 +24,26 @@ public class Controller {
   private Board myBoard;
   private Engine myEngine;
   private Game myGame;
-  private Collection<Rule> rules;
+  private Collection<Move> moves;
   private Collection<WinCondition> winConditions;
+  private Consumer<Board> updateView;
+  private Consumer<Set<Position>> setViewValidMarks;
+  private Consumer0 clearViewMarkers;
 
 
-
-  public Controller(Board board, int rows, int columns) {
+  public Controller(Board board) {
     try {
       // TODO: Replace this with some way to pick the configuration directory
       GameParser parser = new GameParser(new File("data/checkers/config.json"));
       myBoard = board;
-      rules = parser.readRules();
+      myGame = new Game(myBoard, null);
+
+      moves = parser.readRules();
       winConditions = parser.readWinConditions();
-      myGame = new Game(myBoard);
-      myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
+
+      // TODO: figure out better way to pass in view lambdas
+      myEngine = new PieceSelectionEngine(myGame, moves, winConditions, null, null, null);
+
     } catch (Exception e){
       e.printStackTrace();
     }
@@ -40,15 +52,27 @@ public class Controller {
   /**
    * resets the board model to the initial game state
    */
-  public void resetGame() {
-    myGame = new Game(myBoard);
-    myEngine = new PieceSelectionEngine(myGame, rules, winConditions);
+  public Board resetGame() {
+    myGame = new Game(myBoard, updateView);
+
+    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks, clearViewMarkers);
+
+    return myBoard;
   }
 
-  public Board click(int i, int j) throws OutOfBoardException {
-    Board board = myEngine.onCellSelect(i, j);
-    System.out.printf("Player %d's turn\n", board.getPlayer());
-    return board;
+  public void click(int i, int j ) throws OutOfBoardException {
+    myEngine.onCellSelect(i, j);
+  }
+
+  public Board setCallbackUpdates(Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers){
+    updateView = update;
+    setViewValidMarks = setValidMarks;
+    clearViewMarkers = clearMarkers;
+
+    myGame = new Game(myBoard, updateView);
+    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks, clearViewMarkers);
+
+    return myBoard;
   }
 
 

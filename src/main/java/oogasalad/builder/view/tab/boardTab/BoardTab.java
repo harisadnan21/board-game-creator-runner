@@ -116,7 +116,7 @@ public class BoardTab extends BorderPane {
 
   private Node setupBoardTypeBox() {
     //TODO : get the boardTypes from somewhere good
-    List<String> boardTypeList = List.of(new String[]{resources.getString("checkers")});
+    List<String> boardTypeList = List.of(new String[]{resources.getString("games/checkers")});
     ObservableList<String> boardTypes = FXCollections.observableArrayList(boardTypeList);
 
     boardTypeBox = new ComboBox<>(boardTypes);

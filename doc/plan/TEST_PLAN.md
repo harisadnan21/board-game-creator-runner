@@ -32,7 +32,7 @@ There are a few strategies our team discussed to make our code more testable.
 ### Jake - Apply Rules to Pieces
 1. Verify that a rule can be applied to a piece
 2. Verify that a rule accurately restricts moves that a piece can make
-3. Verify that applying conflicting rules to a piece throws an exception
+3. Verify that applying conflicting moves to a piece throws an exception
 ### Robert - Managing Pieces on the Board
 1. Verify that pieces can be placed on cells of the board
 2. Verify that pieces can be moved on a board, clearing the old cell and occupying a new one
@@ -43,7 +43,7 @@ There are a few strategies our team discussed to make our code more testable.
 3. Verify that an error message appears when a piece is attempted to be placed on an occupied cell (in the view)
 ### Haris - JSON Loading in Builder
 1. Verify that the loader properly parses a board configuration
-2. Verify that the loader properly parses a piece and its rules
+2. Verify that the loader properly parses a piece and its moves
 3. Verify that loading a JSON file missing a required element will throw an exception
 ### Alexander - Simple Artificial Player
 1. Verify that any artificial player can play a move

@@ -1,91 +1,119 @@
 package oogasalad.engine.model.engine;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
+import oogasalad.engine.model.driver.Game;
+import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.player.HumanPlayer;
+import oogasalad.engine.model.player.Player;
+import oogasalad.engine.model.utilities.Pair;
+
 import java.util.Collection;
 import oogasalad.engine.model.actions.winner.MostPieces;
 import oogasalad.engine.model.actions.winner.Winner;
-import oogasalad.engine.model.conditions.WinCondition;
+import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
 import oogasalad.engine.model.conditions.board_conditions.PlayerHasNoPieces;
 import oogasalad.engine.model.conditions.board_conditions.NoMovesLeft;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import oogasalad.engine.model.Game;
-import oogasalad.engine.model.OutOfBoardException;
-import oogasalad.engine.model.actions.Action;
-import oogasalad.engine.model.actions.Move;
-import oogasalad.engine.model.actions.Remove;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
-import oogasalad.engine.model.conditions.piece_conditions.IsEmpty;
-import oogasalad.engine.model.conditions.piece_conditions.IsOccupied;
-import oogasalad.engine.model.conditions.piece_conditions.IsPlayer;
-import oogasalad.engine.model.conditions.piece_conditions.IsPlayerPiece;
-import oogasalad.engine.model.move.Rule;
+import org.jooq.lambda.function.Consumer0;
 
 public class PieceSelectionEngine extends Engine {
   private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
   private boolean myIsPieceSelected = false;
   private Position mySelectedCell = null;
   private Set<Position> myValidMoves = null;
+  private List<Move> myPersistentRules = new ArrayList<>();
+  private Map<Integer, Player> myPlayers = new HashMap<>();
 
-  public PieceSelectionEngine(Game game, Collection<Rule> rules,
-      Collection<WinCondition> winConditions) {
-    super(game, rules, winConditions);
+  public PieceSelectionEngine(Game game, List<Move> moves,
+      List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
+    super(game, moves, winConditions, update, setValidMarks, clearMarkers);
+    myPlayers.put(0, new HumanPlayer(this, setValidMarks, clearMarkers));
+    myPlayers.put(1, new HumanPlayer(this, setValidMarks, clearMarkers));
+  }
+
+  public void gameLoop() {
+    while (true) {
+      for (int playerID : myPlayers.keySet()) {
+        Player player = myPlayers.get(playerID);
+        Pair<Position, Move> choice = player.chooseMove(this, getGameStateBoard());
+      }
+    }
+  }
+
+  public PieceSelectionEngine(Game game, Collection<Move> rules,
+      Collection<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
+    super(game, rules, winConditions, update, setValidMarks, clearMarkers);
 
     //createWinCondition();
     //createCheckersMove();
     //createPlayer1Moves();
-
   }
 
   @Override
-  public Board onCellSelect(int x, int y) throws OutOfBoardException {
+  public void onCellSelect(int x, int y) throws OutOfBoardException {
     Board board = getGame().getBoard();
     Position cellClicked = new Position(x, y);
     if (!myIsPieceSelected) {
       makePieceSelected(x, y);
     }
     else {
-      for (Rule move: getMoves()) {
+      for (Move move: getMoves()) {
         if (move.isValid(board, mySelectedCell.i(), mySelectedCell.j()) && move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()).equals(cellClicked)) {
           Board newBoard = move.doMovement(board, mySelectedCell.i(), mySelectedCell.j());
-          checkForWin(newBoard);
+          LOG.info("{} executed at {},{}", move.getName(), x, y);
+          newBoard = checkForWin(newBoard);
           getGame().setBoard(newBoard);
           resetSelected();
-          return newBoard;
+          clearMarkers();
+          return;
         }
       }
       resetSelected();
-      board.setValidMoves(null);
+      clearMarkers();
     }
 
     LOG.info("Valid Moves for selected piece are {} ", board.getValidMoves());
-    return board;
   }
 
   //checks to see if any of the win conditions are satisfied and if they are it sets the winner on the board.
-  private void checkForWin(Board board) {
+  private Board checkForWin(Board board) {
     for(WinCondition winCondition : getWinConditions()){
       if(winCondition.isOver(board)){
-        board.setWinner(winCondition.getWinner(board));
+        return board.setWinner(winCondition.getWinner(board));
       }
     }
+    return board;
   }
 
   private void makePieceSelected(int x, int y) {
     Board board = getGame().getBoard();
 
-    if (!board.isEmpty(x, y) && board.getPieceRecord(x, y).get().player() == board.getPlayer()) {
+    // makes position selected if board has piece with current player or position is empty
+    // should this condition exist, or should it be baked into rules?
+    if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {
       myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
-      myValidMoves = getValidMoves();
-      board.setValidMoves(myValidMoves);
-      System.out.printf("%d valid moves for this piece\n", myValidMoves.size());
+      myValidMoves = new HashSet<>(getValidMoves());
+      setMarkers(myValidMoves);
+      LOG.info("{} valid moves for this piece\n", myValidMoves.size());
     }
   }
 
@@ -97,100 +125,98 @@ public class PieceSelectionEngine extends Engine {
    * maybe should return Map<Position, Movement>
    * @return
    */
-  private Set<Position> getValidMoves() {
-    Set<Position> validMoves = new HashSet<>();
-    for (Rule move : getMoves()) {
-      if (move.isValid(getGame().getBoard(), mySelectedCell.i(), mySelectedCell.j())) {
-        validMoves.add(move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()));
-      }
+  private List<Position> getValidMoves() {
+    int i = mySelectedCell.i();
+    int j = mySelectedCell.j();
+    Stream<Move> moves = getValidMovesForPosition(getGameStateBoard(), mySelectedCell);
+
+    return getRepresentativePoints(moves, mySelectedCell);
+  }
+
+  private List<Position> getRepresentativePoints(Stream<Move> moves, Position referencePoint) {
+    int i = referencePoint.i();
+    int j = referencePoint.j();
+    List<Position> positions = new ArrayList<>();
+    moves.forEach((move) -> positions.add(move.getRepresentativeCell(i,j)));
+
+    return positions;
+  }
+
+  /**
+   * Returns valid moves for given position and board
+   * If you want to use the game's current board, you can
+   * use the gameGameStateBoard() function
+   *
+   * Note: this returns all available moves, not specific to
+   * a player
+   *
+   * @param board
+   * @param referencePoint
+   * @return
+   */
+  public Stream<Move> getValidMovesForPosition(Board board, Position referencePoint) {
+    return getMoves().stream().filter((move) -> move.isValid(board, referencePoint.i(), referencePoint.j()));
+  }
+
+  /**
+   * Outer map
+   * @param board
+   * @return two dimensional map, where outer map key is the 'reference point' for the move, while the
+   * inner map key is the 'representative point' of the move, or the
+   */
+  public Map<Position, Stream<Move>> getAllValidMoves(Board board) {
+    Map<Position, Stream<Move>> allMoves = new HashMap<>();
+    for (PositionState cell: board) {
+      Position position = cell.position();
+      allMoves.put(position, getValidMovesForPosition(board, position));
     }
-    return validMoves;
+    return allMoves;
+  }
+
+  /**
+   * Plays a turn, presumably executed from the Player class
+   * Updates the game's board with the resultant board
+   * @param player
+   * @param move
+   * @param i
+   * @param j
+   */
+  public void playTurn(Player player, Move move, int i, int j) {
+    Board board = getGameStateBoard();
+    int activePlayer = board.getPlayer();
+    if (move.isValid(getGameStateBoard(), i, j) && myPlayers.get(activePlayer) == player) {
+      board = move.doMovement(board, i, j);
+    }
+    board = applyRules(board);
+    getGame().setBoard(board);
+  }
+
+  /**
+   * Applies persistent rules to a board
+   * @param board
+   * @return
+   */
+  public Board applyRules(Board board) {
+    for (Move rule: myPersistentRules) {
+      board = rule.doMovement(board, 0, 0);
+    }
+    return board;
+  }
+
+
+
+  /**
+   *
+   * @return the board which is at the head of the game's board stack
+   */
+  @Override
+  public Board getGameStateBoard() {
+    return getGame().getBoard();
   }
 
   private void resetSelected() {
     myIsPieceSelected = false;
     mySelectedCell = null;
     myValidMoves = null;
-  }
-
-  // while we don't have json reading, this method is used to create a rule
-  private void createCheckersMove() {
-    PieceCondition empty0 = new IsEmpty(new int[]{1, 1});
-    PieceCondition occupied0 = new IsOccupied(new int[]{0, 0});
-    PieceCondition isPlayer0 = new IsPlayer(new int[]{0});
-    PieceCondition isPlayersPiece = new IsPlayerPiece(new int[]{0, 0, 0});
-    PieceCondition[] conditions = new PieceCondition[]{empty0, occupied0, isPlayer0};
-    Action[] actions = new Action[]{new Move(new int[]{0, 0, 1, 1})};
-
-    getMoves().add(new Rule(conditions, actions, 1, 1));
-
-    PieceCondition empty01 = new IsEmpty(new int[]{-1, 1});
-    PieceCondition occupied01 = new IsOccupied(new int[]{0, 0});
-    PieceCondition isPlayer01 = new IsPlayer(new int[]{0});
-    PieceCondition isPlayersPiece01 = new IsPlayerPiece(new int[]{0, 0, 0});
-    PieceCondition[] conditions01 = new PieceCondition[]{empty01, occupied01, isPlayer01};
-    Action[] actions01 = new Action[]{new Move(new int[]{0, 0, -1, 1})};
-
-    getMoves().add(new Rule(conditions01, actions01, -1, 1));
-
-    PieceCondition empty1 = new IsEmpty(new int[]{2, 2});
-    PieceCondition isPlayer1 = new IsPlayer(new int[]{0});
-    PieceCondition occupied1 = new IsOccupied(new int[]{0, 0});
-    PieceCondition occupied2 = new IsOccupied(new int[]{1, 1});
-    PieceCondition isOpposite = new IsPlayerPiece(new int[]{1, 1, 1});
-
-    PieceCondition[] conditions1 = new PieceCondition[]{empty1, isPlayer1, occupied1, occupied2, isOpposite};
-
-    Action remove = new Remove(new int[]{1,1});
-    Action move = new Move(new int[]{0, 0, 2, 2});
-    Action[] actions1 = new Action[]{remove, move};
-
-    getMoves().add(new Rule(conditions1, actions1, 2, 2));
-  }
-
-  private void createPlayer1Moves() {
-    PieceCondition empty0 = new IsEmpty(new int[]{-1, -1});
-    PieceCondition occupied0 = new IsOccupied(new int[]{0, 0});
-    PieceCondition isPlayer0 = new IsPlayer(new int[]{1});
-    PieceCondition[] conditions = new PieceCondition[]{empty0, occupied0, isPlayer0};
-    Action[] actions = new Action[]{new Move(new int[]{0, 0, -1, -1})};
-
-    getMoves().add(new Rule(conditions, actions, -1, -1));
-
-    PieceCondition empty11 = new IsEmpty(new int[]{1, -1});
-    PieceCondition occupied11 = new IsOccupied(new int[]{0, 0});
-    PieceCondition isPlayer11 = new IsPlayer(new int[]{1});
-    PieceCondition isPlayersPiece11 = new IsPlayerPiece(new int[]{0, 0, 0});
-    PieceCondition[] conditions11 = new PieceCondition[]{empty11, occupied11, isPlayer11};
-    Action[] actions11 = new Action[]{new Move(new int[]{0, 0, 1, -1})};
-
-    getMoves().add(new Rule(conditions11, actions11, 1, -1));
-
-    PieceCondition empty1 = new IsEmpty(new int[]{-2, -2});
-    PieceCondition isPlayer1 = new IsPlayer(new int[]{1});
-    PieceCondition occupied1 = new IsOccupied(new int[]{0, 0});
-    PieceCondition occupied2 = new IsOccupied(new int[]{-2, -2});
-    PieceCondition isOpposite = new IsPlayerPiece(new int[]{-1, -1, 0});
-
-    PieceCondition[] conditions1 = new PieceCondition[]{empty1, isPlayer1, occupied1, occupied2, isOpposite};
-
-    Action remove = new Remove(new int[]{-1,-1});
-    Action move = new Move(new int[]{0, 0, -2, -2});
-    Action[] actions1 = new Action[]{remove, move};
-
-    getMoves().add(new Rule(conditions1, actions1, -2, -2));
-  }
-  //temporary to create win conditions
-  private void createWinCondition(){
-    BoardCondition noPiecesLeft = new PlayerHasNoPieces();
-    Winner mostPieces = new MostPieces();
-
-    getWinConditions().add(new WinCondition(new BoardCondition[]{noPiecesLeft}, mostPieces));
-  }
-  private void createDrawCondition(){
-
-    BoardCondition noMovesLeft= new NoMovesLeft();
-    getWinConditions().add(new WinCondition(new BoardCondition[]{noMovesLeft}, null));
-
   }
 }

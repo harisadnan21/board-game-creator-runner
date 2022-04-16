@@ -62,7 +62,7 @@ public class BoardParser extends AbstractParser<Board> {
       for (int j = 0; j < width; j++) {
         //TODO: Remove magic value of -1
         if (pieceConfig[i][j] != -1) {
-          board.placeNewPiece(i, j, pieceConfig[i][j], pieceMap.get(pieceConfig[i][j]));
+          board = board.placeNewPiece(i, j, pieceConfig[i][j], pieceMap.get(pieceConfig[i][j]));
         }
       }
     }

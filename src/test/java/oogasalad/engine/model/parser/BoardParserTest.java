@@ -44,9 +44,9 @@ public class BoardParserTest {
     for (int i = 0; i < EXPECTED_HEIGHT; i++) {
       for (int j = 0; j < EXPECTED_WIDTH; j++) {
         if (EXPECTED_PIECE_CONFIG[i][j] == -1) {
-          assertFalse(board.getPieceRecord(i, j).isPresent());
+          assertFalse(board.getPositionStateAt(i,j).isPresent());
         } else {
-          assertEquals(EXPECTED_PIECE_CONFIG[i][j], board.getPieceRecord(i, j).get().type());
+          assertEquals(EXPECTED_PIECE_CONFIG[i][j], board.getPositionStateAt(i,j).piece().type());
         }
       }
     }
