@@ -2,8 +2,10 @@ package oogasalad.engine.model.engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
@@ -89,7 +91,7 @@ public class PieceSelectionEngine extends Engine {
     if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {
       myIsPieceSelected = true;
       mySelectedCell = new Position(x, y);
-      myValidMoves = getValidMoves();
+      myValidMoves = new HashSet<>(getValidMoves());
       setMarkers(myValidMoves);
       LOG.info("{} valid moves for this piece\n", myValidMoves.size());
     }
@@ -103,14 +105,21 @@ public class PieceSelectionEngine extends Engine {
    * maybe should return Map<Position, Movement>
    * @return
    */
-  private Set<Position> getValidMoves() {
-    Set<Position> validMoves = new HashSet<>();
-    for (Move move : getMoves()) {
-      if (move.isValid(getGame().getBoard(), mySelectedCell.i(), mySelectedCell.j())) {
-        validMoves.add(move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()));
-      }
-    }
-    return validMoves;
+  private List<Position> getValidMoves() {
+    int i = mySelectedCell.i();
+    int j = mySelectedCell.j();
+    Stream<Move> moves = getValidMovesForPosition(getGameStateBoard(), mySelectedCell);
+
+    return getRepresentativePoints(moves, mySelectedCell);
+  }
+
+  private List<Position> getRepresentativePoints(Stream<Move> moves, Position referencePoint) {
+    int i = referencePoint.i();
+    int j = referencePoint.j();
+    List<Position> positions = new ArrayList<>();
+    moves.forEach((move) -> positions.add(move.getRepresentativeCell(i,j)));
+
+    return positions;
   }
 
   /**
@@ -122,21 +131,11 @@ public class PieceSelectionEngine extends Engine {
    * a player
    *
    * @param board
-   * @param i
-   * @param j
+   * @param referencePoint
    * @return
    */
-  @Override
-  public Set<Move> getValidMoves(Board board, int i, int j) {
-    // If a player wants to display the moves on a screen, they should use the representative point
-    // of the move with rule.getRepresentativePoint(i, j)
-    Set<Move> moves = new HashSet<>();
-    for (Move move: getMoves()) {
-      if (move.isValid(board, i, j)) {
-        moves.add(move);
-      }
-    }
-    return moves;
+  public Stream<Move> getValidMovesForPosition(Board board, Position referencePoint) {
+    return getMoves().stream().filter((move) -> move.isValid(board, referencePoint.i(), referencePoint.j()));
   }
 
   /**
@@ -145,11 +144,11 @@ public class PieceSelectionEngine extends Engine {
    * @return two dimensional map, where outer map key is the 'reference point' for the move, while the
    * inner map key is the 'representative point' of the move, or the
    */
-  public Map<Position, Set<Move>> getAllValidMoves(Board board) {
-    Map<Position, Set<Move>> allMoves = new HashMap<>();
+  public Map<Position, Stream<Move>> getAllValidMoves(Board board) {
+    Map<Position, Stream<Move>> allMoves = new HashMap<>();
     for (PositionState cell: board) {
       Position position = cell.position();
-      allMoves.put(position, getValidMoves(board, position.i(), position.j()));
+      allMoves.put(position, getValidMovesForPosition(board, position));
     }
     return allMoves;
   }

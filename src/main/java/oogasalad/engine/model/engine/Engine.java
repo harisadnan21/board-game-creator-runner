@@ -76,7 +76,5 @@ public abstract class Engine {
   public abstract void onCellSelect(int x, int y)
       throws OutOfBoardException;
 
-  public abstract Set<Move> getValidMoves(Board board, int i, int j);
-
   public abstract Board getGameStateBoard();
 }
