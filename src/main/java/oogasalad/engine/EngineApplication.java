@@ -1,5 +1,6 @@
 package oogasalad.engine;
 
+import java.io.File;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,10 +19,10 @@ public class EngineApplication extends Application {
   @Override
   public void start(Stage stage) throws Exception {
 
-    Board board = GameParser.readInitialBoard(GameParser.CHECKERS_FILE);
-
+    // TODO: Replace this with some way to pick the configuration directory
+    GameParser parser = new GameParser(new File("data/checkers/config.json"));
+    Board board = parser.parseBoard();
     BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), 350, 350);
-
     Controller controller = new Controller(board, 3, 3);
 
     boardView.addController(controller);

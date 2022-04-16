@@ -1,4 +1,4 @@
-package oogasalad.engine.model.parser;
+package oogasalad.engine.model.parser.exception;
 
 /**
  * This exception is thrown when the parser does not find a required property

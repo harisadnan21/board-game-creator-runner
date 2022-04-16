@@ -22,7 +22,6 @@ import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.engine.PieceSelectionEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import oogasalad.engine.model.parser.GameParser;
 
 public class BoardView implements PropertyChangeListener{
   private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
@@ -138,14 +137,9 @@ public class BoardView implements PropertyChangeListener{
     if(board.getWinner() != Board.NO_WINNER_YET){
       System.out.printf("gameOver! Player %d wins%n", board.getWinner());
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
-      try {
-        displayGameOver(board);
-        updateBoard(GameParser.getCheckersBoard());
-      }
-      catch(IOException e){
-        e.printStackTrace();
-        //TODO: Change
-      }
+      displayGameOver(board);
+      //updateBoard(GameParser.getCheckersBoard());
+      //TODO: This broke but was bad design anyway
     }
   }
 

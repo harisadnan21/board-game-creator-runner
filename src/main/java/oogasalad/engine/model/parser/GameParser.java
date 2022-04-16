@@ -2,6 +2,8 @@ package oogasalad.engine.model.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collection;
+import java.util.HashSet;
 import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.move.Rule;
 import oogasalad.engine.model.board.Board;
@@ -16,7 +18,7 @@ import oogasalad.engine.model.board.Board;
  *
  * @author Shaan Gondalia
  */
-public class ConfigParser {
+public class GameParser {
 
   private final File configFile;
   private final BoardParser boardParser;
@@ -28,7 +30,7 @@ public class ConfigParser {
    *
    * @param configFile the configuration file to parse from
    */
-  public ConfigParser(File configFile) {
+  public GameParser(File configFile) {
     this.configFile = configFile;
     boardParser = new BoardParser();
     ruleParser = new RuleParser();
@@ -50,8 +52,8 @@ public class ConfigParser {
    *
    * @return an array of rules
    */
-  public Rule[] readRules() throws FileNotFoundException {
-    return ruleParser.parse(configFile).toArray(new Rule[0]);
+  public Collection<Rule> readRules() throws FileNotFoundException {
+    return ruleParser.parse(configFile);
   }
 
   /**
@@ -59,8 +61,8 @@ public class ConfigParser {
    *
    * @return a collection of win conditions
    */
-  public WinCondition[] readWinConditions() {
-    return null;
+  public Collection<WinCondition> readWinConditions() {
+    return new HashSet<>();
   }
 
 }

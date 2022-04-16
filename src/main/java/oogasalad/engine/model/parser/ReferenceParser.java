@@ -7,7 +7,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import oogasalad.builder.model.exception.InvalidFormException;
+import oogasalad.engine.model.parser.exception.MissingRequiredPropertyException;
+import oogasalad.engine.model.parser.exception.ReferenceNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

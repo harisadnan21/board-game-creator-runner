@@ -1,6 +1,7 @@
 package oogasalad.engine.model.engine;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import oogasalad.engine.model.Game;
 import oogasalad.engine.model.OutOfBoardException;
@@ -15,22 +16,22 @@ public abstract class Engine {
 
   private Game myGame;
 
-  private List<Rule> myMoves;
-  private List<WinCondition> myWinConditions;
+  private Collection<Rule> myMoves;
+  private Collection<WinCondition> myWinConditions;
 
-  private List<Player> players;
+  private Collection<Player> players;
 
-  public Engine(Game game, List<Rule> rules,
-      List<WinCondition> winConditions) {
+  public Engine(Game game, Collection<Rule> rules,
+      Collection<WinCondition> winConditions) {
     myGame = game;
     myWinConditions = winConditions;
     myMoves = rules;
   }
 
-  protected List<Rule> getMoves() {
+  protected Collection<Rule> getMoves() {
     return myMoves;
   }
-  protected List<WinCondition> getWinConditions() {
+  protected Collection<WinCondition> getWinConditions() {
     return myWinConditions;
   }
 
