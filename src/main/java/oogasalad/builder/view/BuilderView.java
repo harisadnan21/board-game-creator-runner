@@ -5,8 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -14,8 +13,6 @@ import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.element.ElementRecord;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 
 import javafx.scene.layout.BorderPane;
@@ -35,9 +32,11 @@ public class BuilderView {
 
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
-  private static final String SPLASH_PACKAGE = "SplashLogin";
-  private static final String TAB_LANGUAGE = "English";
+  private static final String SPLASH_PACKAGE = "SplashLogin.css";
+  // private static final String TAB_LANGUAGE = "English";
+  private static String TAB_LANGUAGE = "English";
   private static final String TAB_FORMAT = "tabFormat.css";
+  private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
   private Stage stage;
   private BoardTab boardTabPane;
@@ -50,37 +49,49 @@ public class BuilderView {
   private HBox buttonHolder;
   private ResourceBundle splashResources;
   private ResourceBundle tabResources;
+  private ChoiceBox<String> languageBox;
+  private Label myLabel;
 
   private BuilderController controller; //FIXME: Use Event handlers instead of this
 
   public BuilderView(Stage mainStage) {
-    splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
+    //splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
     tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
     controller = new BuilderController();
     stage = mainStage;
-    displayWelcome(stage);
-    stage.show();
+    displayWelcome();
+    //stage.show();
   }
 
-  private void displayWelcome(Stage myStage) {
+  private void displayWelcome() {
     boardPane = new BorderPane();
     buttonHolder = new HBox();
-    myWelcome = new Label(splashResources.getString("Welcome"));
+    myWelcome = new Label(tabResources.getString("Welcome"));
     myWelcome.setFont(new Font("Inter", 30));
+    //boardPane.getChildren().add(myWelcome);
     boardPane.setLeft(myWelcome);
 
-    Button login = makeButton("Login", event -> {
-      setupTabs();
-    }, splashResources);
-    login.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
-    buttonHolder.getChildren().add(login);
-    buttonHolder.setAlignment(Pos.CENTER_LEFT);
-    boardPane.setCenter(buttonHolder);
+    Button login = makeButton("Proceed", event -> {setupTabs();}, tabResources);
+    languageBox = new ChoiceBox<>();
+    languageBox.getItems().addAll(languageChoice);
+    languageBox.setOnAction(this::getLanguage);
+    buttonHolder.getChildren().addAll(login, languageBox);
+
+    //boardPane.setCenter(languageBox);
+    //boardPane.setBottom(buttonHolder);
 
     Scene myLoginScene = new Scene(boardPane, 600, 650);
-    boardPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0), Insets.EMPTY)));
-    myStage.setScene(myLoginScene);
-    myStage.show();
+    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
+    boardPane.getStyleClass().add("boardPane");
+    languageBox.getStyleClass().add("languageBox");
+    login.getStyleClass().add("buttonHolder");
+    boardPane.setCenter(buttonHolder);
+    //boardPane.setBottom(buttonHolder);
+    stage = new Stage();
+    stage.setScene(myLoginScene);
+    stage.show();
+   // myStage.setScene(myLoginScene);
+    //myStage.show();
   }
 
   // Can possibly extend tab for each of the tab classes instead of just having toNode() to add them to the tabs
@@ -129,9 +140,14 @@ public class BuilderView {
     return result;
   }
 
-  //public int[][] getBoardConfig(){
-  public int[][] getBoardConfig() {
-    return boardTabPane.getBoardConfig();
+  private void getLanguage(ActionEvent event) {
+    String myLanguage = languageBox.getValue();
+    //myLabel.setText(myLanguage);
+    TAB_LANGUAGE = myLanguage;
+    tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
+    displayWelcome();
+
   }
+
 }
 

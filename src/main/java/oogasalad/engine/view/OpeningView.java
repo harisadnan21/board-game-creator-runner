@@ -31,6 +31,8 @@ public class OpeningView {
   private Button playGame;
   private FileOpener fileOpener;
 
+  private File myFileChoice;
+
   public OpeningView(double w, double h) {
     width = w;
     height = h;
@@ -57,6 +59,10 @@ public class OpeningView {
 
   public JSONObject getFileObject() {
     return fileObject;
+  }
+
+  public File getFileChoice() {
+    return myFileChoice;
   }
 
   private void setupText() {
@@ -95,6 +101,7 @@ public class OpeningView {
     uploadFile.setOnAction(e -> {
       try {
         File script = fileOpener.fileChoice(myStage);
+        myFileChoice = script;
         handleInput(fileOpener.getRootObject(script));
         playGame.setDisable(false);
       } catch (NullPointerException nullPointerException) {

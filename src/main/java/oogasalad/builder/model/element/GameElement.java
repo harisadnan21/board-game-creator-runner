@@ -64,7 +64,6 @@ public abstract class GameElement implements Element {
    * @param json the JSON string
    * @return an element made from the JSON string
    */
-  @Override
   public Element fromJSON(String json) {
     return null;
   }

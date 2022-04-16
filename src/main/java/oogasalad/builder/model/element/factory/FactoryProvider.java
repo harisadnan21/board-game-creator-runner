@@ -1,10 +1,18 @@
 package oogasalad.builder.model.element.factory;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collection;
-import oogasalad.builder.model.property.Property;
+import java.util.HashSet;
+import oogasalad.builder.model.element.FileMapper;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
+import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.PropertyFactory;
 
 /**
  * Class that provides a specific GameElementFactory based on the type of the desired game element.
@@ -70,4 +78,14 @@ public class FactoryProvider {
     };
   }
 
+  /**
+   * Creates a game element from a JSON string
+   *
+   * @param type the type of the game element
+   * @param json the JSON string to make an element from
+   * @return a new game element made from the json string
+   */
+  public GameElement fromJSON(String type, String json) {
+    return getFactory(type).fromJSON(json);
+  }
 }

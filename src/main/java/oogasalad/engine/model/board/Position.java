@@ -8,6 +8,13 @@ public record Position (int i, int j) implements Comparable<Position> {
     this(tuple2.v1(), tuple2.v2());
   }
 
+  public Position withNewI(int newI) {
+    return new Position(newI, this.j);
+  }
+
+  public Position withNewJ(int newJ) {
+    return new Position(this.i, newJ);
+  }
 
   /**
    * Compares positions by the following rules:

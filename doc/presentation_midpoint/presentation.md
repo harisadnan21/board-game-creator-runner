@@ -12,7 +12,7 @@ to create strategy games in the following domain:
 * Sequential & not “real-time” turns
 * Perfect information
 
-We intend two create two functionally separate application, a builder and a game engine. The builder
+We intend to create two functionally separate applications, a builder and a game engine. The builder
 will be responsible for allowing users to create game configurations that specify the board, pieces,
 moves, and conditions of a game. The engine is responsible for loading these configurations and
 allowing users to play the games.

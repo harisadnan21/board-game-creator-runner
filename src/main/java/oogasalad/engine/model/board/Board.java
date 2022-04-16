@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
+import oogasalad.engine.model.utilities.Utilities;
 import org.jooq.lambda.Seq;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -121,7 +122,7 @@ public class Board implements DisplayableBoard {
   public Board movePiece(Position oldPosition, Position newPosition) {
     throwIfInvalid(oldPosition);
     throwIfInvalid(newPosition);
-    PositionState oldPositionState = this.getPositionStateAt(oldPosition);
+    var oldPositionState = this.getPositionStateAt(oldPosition);
     Board returnBoard = this.clone();
 
     PositionState newPositionState = new PositionState(newPosition, oldPositionState.piece());
@@ -147,9 +148,9 @@ public class Board implements DisplayableBoard {
 
 
   @Override
-  public boolean hasPieceAtLocation(int row, int column) {
+  public boolean isOccupied(int row, int column) {
     PositionState positionState = myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
-    return !positionState.piece().equals(Piece.EMPTY);
+    return positionState.isPresent();
   }
 
   @Override
@@ -178,6 +179,14 @@ public class Board implements DisplayableBoard {
   @Override
   public int getWidth() {
     return numCols;
+  }
+
+  private boolean isValidY(int j) {
+    return Utilities.isPositive(j) && (j < numCols);
+  }
+
+  private boolean isValidX(int i) {
+    return Utilities.isPositive(i) && (i < numRows);
   }
 
   @Override
@@ -225,10 +234,10 @@ public class Board implements DisplayableBoard {
   }
 
   public Map<Integer, Integer> numPiecesByPlayer(){
-    Map<Integer, Integer> map = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
-    map.putIfAbsent(Piece.PLAYER_ONE, 0);
-    map.putIfAbsent(Piece.PLAYER_TWO, 0);
-    return map;
+    Map<Integer, Integer> piecesByPlayer = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
+    piecesByPlayer.putIfAbsent(Piece.PLAYER_ONE, 0);
+    piecesByPlayer.putIfAbsent(Piece.PLAYER_TWO, 0);
+    return piecesByPlayer;
   }
 
   @Override
@@ -253,7 +262,7 @@ public class Board implements DisplayableBoard {
   }
 
   public boolean isEmpty(int i, int j) {
-    return !hasPieceAtLocation(i,j);
+    return !isOccupied(i,j);
   }
 
   @Deprecated
@@ -261,8 +270,10 @@ public class Board implements DisplayableBoard {
     currentValidMoves = moves;
   }
 
-  public void setWinner(int winner) {
-    myWinner = winner;
+  public Board setWinner(int winner) {
+    Board copy = clone();
+    copy.myWinner = winner;
+    return copy;
   }
 
   /**

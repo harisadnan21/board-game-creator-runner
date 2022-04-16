@@ -1,8 +1,12 @@
 package oogasalad.builder.controller;
 
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
@@ -13,6 +17,8 @@ import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 /**
  * Controller for the Builder. Interfaces between the Builder View and Builder Model.
@@ -21,6 +27,7 @@ import oogasalad.builder.model.property.Property;
  */
 public class BuilderController {
 
+    private static final String JSON_FILENAME = "/config.json";
     private final BuilderModel gameConfig;
 
     /**
@@ -102,7 +109,7 @@ public class BuilderController {
         ElementRecord elementRecord = gameConfig.findElementInfo(type, name);
         for (Property prop : elementRecord.properties()) {
             if (prop.name().equals(key)) {
-                return prop.value();
+                return prop.valueAsString();
             }
         }
         throw new ElementNotFoundException();
@@ -143,15 +150,18 @@ public class BuilderController {
     }
 
     /**
-     * Saves the existing Game Configuration to a JSON file
+     * Saves the existing Game Configuration to a directory, storing the JSON configuration as
+     * well as the resources used to create the game (images, etc.)
      *
-     * @param file the File to save the Game Configuration to.
+     * @param directory the Directory that the game configuration will be located in
      */
-    public void save(File file) throws NullBoardException {
+    public void save(File directory) throws NullBoardException {
+        File configFile = new File(directory.toString() + JSON_FILENAME);
         try {
-            FileWriter writer = new FileWriter(file);
+            FileWriter writer = new FileWriter(configFile);
             writer.write(gameConfig.toJSON());
             writer.close();
+            gameConfig.copyFiles(directory);
         } catch (IOException | ElementNotFoundException e) {
             // TODO: Exception Handling
             e.printStackTrace();
@@ -161,10 +171,20 @@ public class BuilderController {
     /**
      * Loads a Game Configuration from a JSON File
      *
-     * @param file the file to load the game configuration from
+     * @param directory the directory to load the game configuration from
      */
-    public void load(File file) {
-        // TODO implement here
+    public void load(File directory) {
+        File configFile = new File(directory.toString() + JSON_FILENAME);
+        InputStream is = null;
+        try {
+            is = new DataInputStream(new FileInputStream(configFile));
+            JSONTokener tokener = new JSONTokener(is);
+            JSONObject object = new JSONObject(tokener);
+            gameConfig.fromJSON(object.toString());
+        } catch (FileNotFoundException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
     }
 
 }

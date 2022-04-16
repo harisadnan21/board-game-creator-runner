@@ -1,5 +1,8 @@
 package oogasalad.engine.model.engine;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -18,16 +21,18 @@ public abstract class Engine {
 
   private Game myGame;
 
-  private List<Move> myMoves;
-  private List<WinCondition> myWinConditions;
+  private Collection<Move> myMoves;
+  private Collection<WinCondition> myWinConditions;
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
   private Consumer0 clearViewMarkers;
 
-  private List<Player> players;
+  private Collection<Player> players;
 
-  public Engine(Game game, List<Move> moves,
-      List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
+  public Engine(Game game, Collection<Move> moves,
+      Collection<WinCondition> winConditions, Consumer<Board> update,
+      Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
+
     myGame = game;
     myWinConditions = winConditions;
     myMoves = moves;
@@ -40,10 +45,11 @@ public abstract class Engine {
     myGame = game;
   }
 
-  protected List<Move> getMoves() {
+  protected Collection<Move> getMoves() {
     return myMoves;
   }
-  protected List<WinCondition> getWinConditions() {
+
+  protected Collection<WinCondition> getWinConditions() {
     return myWinConditions;
   }
 
@@ -58,6 +64,7 @@ public abstract class Engine {
   protected void updateView(Board board){
     updateView.accept(board);
   }
+
   protected void setMarkers(Set<Position> validMoves){
     if(validMoves != null) {
       setViewValidMarks.accept(validMoves);
@@ -73,8 +80,6 @@ public abstract class Engine {
 
   public abstract void onCellSelect(int x, int y)
       throws OutOfBoardException;
-
-  public abstract Set<Move> getValidMoves(Board board, int i, int j);
 
   public abstract Board getGameStateBoard();
 }

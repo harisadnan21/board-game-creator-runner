@@ -1,13 +1,18 @@
 package oogasalad.engine.view;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.setup.parsing.GameParser;
+
+
 import oogasalad.engine.view.dashboard.Dashboard;
 import oogasalad.engine.view.dashboard.GameSelection;
+
+import oogasalad.engine.model.parser.GameParser;
+
 
 public class ViewManager {
   public static double WIDTH = 600;
@@ -41,7 +46,8 @@ public class ViewManager {
 
   private void startGame() {
     try {
-      Board board = GameParser.readInitialBoard(openingView.getFileObject());
+      GameParser parser = new GameParser(openingView.getFileChoice());
+      Board board = parser.parseBoard();
       BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), 350, 350);
       Controller controller = new Controller(board);
       boardView.addController(controller);

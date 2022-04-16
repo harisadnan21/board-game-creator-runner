@@ -26,13 +26,13 @@ public class NInARow extends BoardCondition{
 
   //check for n pieces of the same type in a horizontal row
   private boolean checkForHorizontal(Board board) {
-    var posStates = board.getRows().values().stream();
-    return anyHaveNInARow(posStates);
+    var rows = board.getRows().values().stream();
+    return anyHaveNInARow(rows);
   }
 
   private boolean checkForVertical(Board board) {
-    var posStates = board.getCols().values().stream();
-    return anyHaveNInARow(posStates);
+    var cols = board.getCols().values().stream();
+    return anyHaveNInARow(cols);
 
   }
 
