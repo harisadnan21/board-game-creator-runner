@@ -32,6 +32,6 @@ public class ActionParserTest {
       IllegalAccessException {
     File file = new File(TEST_PARSE_FILENAME);
     parser.parse(file);
-    parser.resolveAction(ACTION_TO_RESOLVE);
+    parser.resolve(ACTION_TO_RESOLVE);
   }
 }
