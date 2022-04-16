@@ -1,6 +1,7 @@
 package oogasalad.engine.model.parser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Defines the public API for a parser.
@@ -16,6 +17,6 @@ public interface Parser<T> {
    * @param configFile the configuration file to parse from
    * @return an object that is parsed form a configuration file
    */
-  T parse(File configFile);
+  T parse(File configFile) throws FileNotFoundException;
 
 }
