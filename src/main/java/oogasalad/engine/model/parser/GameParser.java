@@ -4,14 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashSet;
+import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.conditions.WinCondition;
 import oogasalad.engine.model.move.Rule;
-import oogasalad.engine.model.board.Board;
 
 /**
  * Parser that reads an existing game configuration from a directory. Responsible for creating a
  * board, reading rules, and creating win conditions.
- *
+ * <p>
  * TODO: Maybe make this class implement the Parser Interface. This would require there to be a
  * TODO: single data structure that encapsulates the board, rules, winconditions, etc. Need to
  * TODO: discuss this more with entire team.
@@ -38,7 +38,7 @@ public class GameParser {
 
   /**
    * Reads a board from the configuration file attached to the parser
-   *
+   * <p>
    * TODO: Add Piece parsing to this to get images of pieces from config
    *
    * @return a board with the correct starting configuration

@@ -14,8 +14,8 @@ import org.json.JSONObject;
 
 /**
  * Abstract parser that deals with resolving references to objects. This is needed in the case of
- * actions and conditions, which are referenced in rules by name only. This class was made to
- * reduce the amount of repeated code in the action and condition parsers.
+ * actions and conditions, which are referenced in rules by name only. This class was made to reduce
+ * the amount of repeated code in the action and condition parsers.
  *
  * @author Shaan Gondalia
  */
@@ -31,7 +31,7 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
   /**
    * Creates a new reference parser with the given type of reference
    *
-   * @param type the type of the reference for the parser
+   * @param type                the type of the reference for the parser
    * @param reflectionResources the resource bundle used to get info about required params and
    *                            reflection class paths
    */
@@ -67,7 +67,8 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
   }
 
   /**
-   * Resolves a reference based on the previously loaded referenceMap as well as the name of the reference
+   * Resolves a reference based on the previously loaded referenceMap as well as the name of the
+   * reference
    *
    * @param name the name of the reference to resolve
    * @return a new object that was created based on the name that was provided
@@ -81,15 +82,16 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
   // Converts all required parameters (based on type) of a reference to an ordered integer array
   private int[] paramsToIntArray(String name, String type) {
     //TODO: Make this line easier to understand
-    String[] requiredParams = referenceResources.getString(type).split(REFLECTION_DELIMITER)[1].split(PARAMETER_DELIMITER);
+    String[] requiredParams = referenceResources.getString(type)
+        .split(REFLECTION_DELIMITER)[1].split(PARAMETER_DELIMITER);
     int[] params = new int[requiredParams.length];
     for (int i = 0; i < requiredParams.length; i++) {
       //TODO: Implement variables here
       params[i] = Integer.parseInt(findPropertyValue(name, requiredParams[i]));
       //TODO: THIS SUCKS! Standardize how we differentiate (x,y) and (i,j)
       if (requiredParams[i].equals("y")) {
-        int temp = params[i-1];
-        params[i-1] = -params[i];
+        int temp = params[i - 1];
+        params[i - 1] = -params[i];
         params[i] = temp;
       }
     }
@@ -110,7 +112,7 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
 
   // Makes an object of type T using reflection
   private T getReferenceReflection(String type, int[] parameters) {
-    try{
+    try {
       String className = referenceResources.getString(type).split(REFLECTION_DELIMITER)[0];
       Class clazz = Class.forName(className);
       Constructor ctor = clazz.getConstructor(int[].class);

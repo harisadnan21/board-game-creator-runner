@@ -12,7 +12,8 @@ public class ActionParser extends ReferenceParser<Action> {
 
   private static final String ACTIONS = "actions";
   private static final String ACTION_RESOURCES_PATH = "engine-resources.Actions";
-  private static final ResourceBundle ACTION_RESOURCES = ResourceBundle.getBundle(ACTION_RESOURCES_PATH);
+  private static final ResourceBundle ACTION_RESOURCES = ResourceBundle.getBundle(
+      ACTION_RESOURCES_PATH);
 
   /**
    * Creates a new action parser

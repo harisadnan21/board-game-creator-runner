@@ -5,10 +5,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -45,7 +42,7 @@ public abstract class AbstractParser<T> implements Parser<T> {
   /**
    * Finds an attribute from a root json object
    *
-   * @param root the root JSON Object to search from
+   * @param root      the root JSON Object to search from
    * @param attribute the key of the attribute to search for
    * @return a JSONObject representing the attribute
    */

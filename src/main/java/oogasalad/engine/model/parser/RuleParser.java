@@ -17,12 +17,12 @@ import org.json.JSONObject;
  *
  * @author Shaan Gondalia
  */
-public class RuleParser extends AbstractParser<Collection<Rule>>{
+public class RuleParser extends AbstractParser<Collection<Rule>> {
 
-  private static final String RULES = "rules";
-  private static final String REPRESENTATIVE_POINT = "representativePoint";
   public static final String ACTIONS = "actions";
   public static final String CONDITIONS = "conditions";
+  private static final String RULES = "rules";
+  private static final String REPRESENTATIVE_POINT = "representativePoint";
   private final ActionParser actionParser;
   private final ConditionParser conditionParser;
 

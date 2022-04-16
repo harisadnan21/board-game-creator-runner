@@ -12,7 +12,8 @@ public class ConditionParser extends ReferenceParser<PieceCondition> {
 
   private static final String CONDITIONS = "conditions";
   private static final String CONDITION_RESOURCES_PATH = "engine-resources.Conditions";
-  private static final ResourceBundle CONDITION_RESOURCES = ResourceBundle.getBundle(CONDITION_RESOURCES_PATH);
+  private static final ResourceBundle CONDITION_RESOURCES = ResourceBundle.getBundle(
+      CONDITION_RESOURCES_PATH);
 
   /**
    * Creates a new condition parser
