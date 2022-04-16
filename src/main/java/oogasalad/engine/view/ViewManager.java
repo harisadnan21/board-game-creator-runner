@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.setup.parsing.GameParser;
+import oogasalad.engine.view.dashboard.Dashboard;
+import oogasalad.engine.view.dashboard.GameSelection;
 
 public class ViewManager {
   public static double WIDTH = 600;
@@ -18,7 +20,7 @@ public class ViewManager {
 
   public ViewManager(Stage s) {
     currScene = createOpeningView().makeScene();
-    //currScene = new Scene(new GameSelection(), WIDTH, HEIGHT);
+    //currScene = new Scene(new Dashboard(), WIDTH, HEIGHT);
     stage = s;
   }
 
