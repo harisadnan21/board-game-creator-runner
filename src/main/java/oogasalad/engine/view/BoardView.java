@@ -144,6 +144,7 @@ public class BoardView implements PropertyChangeListener{
       text.gameIsWon(board.getWinner());
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
       //displayGameOver(board);
+      displayGameOver(board);
       Board newBoard = myController.resetGame();
       updateBoard(newBoard);
     }

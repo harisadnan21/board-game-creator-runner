@@ -1,9 +1,8 @@
 package oogasalad.builder.model.element.factory;
 
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.*;
-import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ class GameElementFactoryTest {
     private Map<Class<? extends GameElement>, GameElementFactory> factories;
     private TestRuleFactory testRuleFactory;
     private Collection<Property> testProperties = Set.of(PropertyFactory.makeProperty("thingy", "hello there"),
-            PropertyFactory.makeProperty("name", "123"));
+            PropertyFactory.makeProperty("name", 123));
 
     private class TestRuleFactory extends GameElementFactory<Rule> {
         public TestRuleFactory(String path) {
@@ -26,6 +25,11 @@ class GameElementFactoryTest {
         @Override
         public Rule createElement(String name, Collection<Property> properties) {
             return new Rule(name, properties);
+        }
+
+        @Override
+        public Rule fromJSON(String json) {
+            return null;
         }
     }
 

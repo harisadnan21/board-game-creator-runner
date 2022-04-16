@@ -1,20 +1,22 @@
 package oogasalad.builder.model;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.model.property.Property;
 
 /**
  * Describes the external API of the Builder Model.
  *
  * @author Shaan Gondalia
  */
-public interface BuilderModel extends JSONSerializable<BuilderModel> {
+public interface BuilderModel extends JSONSerializable, JSONParseable<BuilderModel> {
 
   /**
    * Creates a new board with the given dimensions.
@@ -102,5 +104,12 @@ public interface BuilderModel extends JSONSerializable<BuilderModel> {
    * @return a model made from the JSON string
    */
   BuilderModel fromJSON(String json);
+
+  /**
+   * Copies the original files to a new directory, using the data stored in the file mapper.
+   *
+   * @param directory The new directory to copy the game configuration resources to
+   */
+  void copyFiles(File directory) throws IOException;
 
 }

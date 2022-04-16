@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.element.Piece;
 import oogasalad.builder.model.element.Rule;
 import oogasalad.builder.model.element.WinCondition;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

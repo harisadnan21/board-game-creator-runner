@@ -68,12 +68,6 @@ public class RectangularBoardTest {
     assertEquals(1, countMatches(json, Integer.toString(PIECE_ID)));
   }
 
-  @Test
-  void testLoad() throws OccupiedCellException {
-    // TODO: Change test when loading is implemented
-    Board b = board.fromJSON("test");
-  }
-
   private int countMatches(String str, String target) {
     int lastIndex = 0;
     int count = 0;

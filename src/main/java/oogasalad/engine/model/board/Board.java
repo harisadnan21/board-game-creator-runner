@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
+import oogasalad.engine.model.utilities.Utilities;
 import org.jooq.lambda.Seq;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -178,6 +179,14 @@ public class Board implements DisplayableBoard {
   @Override
   public int getWidth() {
     return numCols;
+  }
+
+  private boolean isValidY(int j) {
+    return Utilities.isPositive(j) && (j < numCols);
+  }
+
+  private boolean isValidX(int i) {
+    return Utilities.isPositive(i) && (i < numRows);
   }
 
   @Override

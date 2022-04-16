@@ -1,5 +1,6 @@
 package oogasalad.engine.model.engine;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,6 +14,15 @@ import oogasalad.engine.model.move.Move;
 import oogasalad.engine.model.player.HumanPlayer;
 import oogasalad.engine.model.player.Player;
 import oogasalad.engine.model.utilities.Pair;
+
+import java.util.Collection;
+import oogasalad.engine.model.actions.winner.MostPieces;
+import oogasalad.engine.model.actions.winner.Winner;
+import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
+import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
+import oogasalad.engine.model.conditions.board_conditions.PlayerHasNoPieces;
+import oogasalad.engine.model.conditions.board_conditions.NoMovesLeft;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,12 +50,21 @@ public class PieceSelectionEngine extends Engine {
   }
 
   public void gameLoop() {
-    while(true) {
-      for (int playerID: myPlayers.keySet()) {
+    while (true) {
+      for (int playerID : myPlayers.keySet()) {
         Player player = myPlayers.get(playerID);
         Pair<Position, Move> choice = player.chooseMove(this, getGameStateBoard());
       }
     }
+  }
+
+  public PieceSelectionEngine(Game game, Collection<Move> rules,
+      Collection<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
+    super(game, rules, winConditions, update, setValidMarks, clearMarkers);
+
+    //createWinCondition();
+    //createCheckersMove();
+    //createPlayer1Moves();
   }
 
   @Override
@@ -59,6 +78,7 @@ public class PieceSelectionEngine extends Engine {
       for (Move move: getMoves()) {
         if (move.isValid(board, mySelectedCell.i(), mySelectedCell.j()) && move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()).equals(cellClicked)) {
           Board newBoard = move.doMovement(board, mySelectedCell.i(), mySelectedCell.j());
+          LOG.info("{} executed at {},{}", move.getName(), x, y);
           newBoard = checkForWin(newBoard);
           getGame().setBoard(newBoard);
           resetSelected();
