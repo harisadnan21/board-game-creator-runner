@@ -261,8 +261,10 @@ public class Board implements DisplayableBoard {
     currentValidMoves = moves;
   }
 
-  public void setWinner(int winner) {
-    myWinner = winner;
+  public Board setWinner(int winner) {
+    Board copy = clone();
+    copy.myWinner = winner;
+    return copy;
   }
 
   /**

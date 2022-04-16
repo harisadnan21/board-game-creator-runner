@@ -39,7 +39,7 @@ public class Controller {
       moves = Arrays.asList(GameParser.readRules(Constants.CHECKERS_FILE));
       winConditions = Arrays.asList(GameParser.readWinConditions(Constants.CHECKERS_FILE));
 
-      myGame = new Game(myBoard);
+      myGame = new Game(myBoard, updateView);
 
     } catch (Exception e){
       e.printStackTrace();
@@ -50,7 +50,7 @@ public class Controller {
    * resets the board model to the initial game state
    */
   public Board resetGame() {
-    myGame = new Game(myBoard);
+    myGame = new Game(myBoard, updateView);
 
     myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks, clearViewMarkers);
 
@@ -60,13 +60,16 @@ public class Controller {
   public void click(int i, int j ) throws OutOfBoardException {
     myEngine.onCellSelect(i, j);
   }
-  public void setCallbackUpdates(Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers){
+
+  public Board setCallbackUpdates(Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers){
     updateView = update;
     setViewValidMarks = setValidMarks;
     clearViewMarkers = clearMarkers;
 
+    myGame = new Game(myBoard, updateView);
     myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks, clearViewMarkers);
 
+    return myBoard;
   }
 
 

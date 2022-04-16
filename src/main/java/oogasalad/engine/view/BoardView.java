@@ -87,7 +87,8 @@ public class BoardView implements PropertyChangeListener{
 
   public void addController(Controller c) {
     myController = c;
-    myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers, this::clearValidMarks);
+    Board board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers, this::clearValidMarks);
+    updateBoard(board);
   }
 
   public Text getText() {

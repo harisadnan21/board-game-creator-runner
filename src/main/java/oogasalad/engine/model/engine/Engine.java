@@ -43,6 +43,7 @@ public abstract class Engine {
   protected List<Move> getMoves() {
     return myMoves;
   }
+
   protected List<WinCondition> getWinConditions() {
     return myWinConditions;
   }
@@ -58,6 +59,7 @@ public abstract class Engine {
   protected void updateView(Board board){
     updateView.accept(board);
   }
+
   protected void setMarkers(Set<Position> validMoves){
     if(validMoves != null) {
       setViewValidMarks.accept(validMoves);

@@ -8,7 +8,9 @@ import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.player.HumanPlayer;
 import oogasalad.engine.model.player.Player;
+import oogasalad.engine.model.utilities.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,14 +27,23 @@ public class PieceSelectionEngine extends Engine {
   private boolean myIsPieceSelected = false;
   private Position mySelectedCell = null;
   private Set<Position> myValidMoves = null;
-  private Map<Integer, Player> myPlayers = new HashMap<>();
   private List<Move> myPersistentRules = new ArrayList<>();
-
+  private Map<Integer, Player> myPlayers = new HashMap<>();
 
   public PieceSelectionEngine(Game game, List<Move> moves,
       List<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
     super(game, moves, winConditions, update, setValidMarks, clearMarkers);
+    myPlayers.put(0, new HumanPlayer(this, setValidMarks, clearMarkers));
+    myPlayers.put(1, new HumanPlayer(this, setValidMarks, clearMarkers));
+  }
 
+  public void gameLoop() {
+    while(true) {
+      for (int playerID: myPlayers.keySet()) {
+        Player player = myPlayers.get(playerID);
+        Pair<Position, Move> choice = player.chooseMove(this, getGameStateBoard());
+      }
+    }
   }
 
   @Override
@@ -46,11 +57,10 @@ public class PieceSelectionEngine extends Engine {
       for (Move move: getMoves()) {
         if (move.isValid(board, mySelectedCell.i(), mySelectedCell.j()) && move.getRepresentativeCell(mySelectedCell.i(), mySelectedCell.j()).equals(cellClicked)) {
           Board newBoard = move.doMovement(board, mySelectedCell.i(), mySelectedCell.j());
-          checkForWin(newBoard);
+          newBoard = checkForWin(newBoard);
           getGame().setBoard(newBoard);
           resetSelected();
           clearMarkers();
-          updateView(newBoard);
           return;
         }
       }
@@ -59,16 +69,16 @@ public class PieceSelectionEngine extends Engine {
     }
 
     LOG.info("Valid Moves for selected piece are {} ", board.getValidMoves());
-    updateView(board);
   }
 
   //checks to see if any of the win conditions are satisfied and if they are it sets the winner on the board.
-  private void checkForWin(Board board) {
+  private Board checkForWin(Board board) {
     for(WinCondition winCondition : getWinConditions()){
       if(winCondition.isOver(board)){
-        board.setWinner(winCondition.getWinner(board));
+        return board.setWinner(winCondition.getWinner(board));
       }
     }
+    return board;
   }
 
   private void makePieceSelected(int x, int y) {
@@ -161,7 +171,6 @@ public class PieceSelectionEngine extends Engine {
     board = applyRules(board);
     getGame().setBoard(board);
   }
-
 
   /**
    * Applies persistent rules to a board
