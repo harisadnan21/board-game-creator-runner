@@ -32,11 +32,11 @@ public class BuilderView {
 
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
-  private static final String SPLASH_PACKAGE = "SplashLogin";
+  private static final String SPLASH_PACKAGE = "SplashLogin.css";
   // private static final String TAB_LANGUAGE = "English";
-  private static final String TAB_LANGUAGE = "Spanish";
+  private static String TAB_LANGUAGE = "English";
   private static final String TAB_FORMAT = "tabFormat.css";
-  private String[] languageChoice = {"English", "Spanish", "Italian", "Pig Latin"};
+  private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
   private Stage stage;
   private BoardTab boardTabPane;
@@ -49,6 +49,8 @@ public class BuilderView {
   private HBox buttonHolder;
   private ResourceBundle splashResources;
   private ResourceBundle tabResources;
+  private ChoiceBox<String> languageBox;
+  private Label myLabel;
 
   private BuilderController controller; //FIXME: Use Event handlers instead of this
 
@@ -57,11 +59,11 @@ public class BuilderView {
     tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
     controller = new BuilderController();
     stage = mainStage;
-    displayWelcome(stage);
-    stage.show();
+    displayWelcome();
+    //stage.show();
   }
 
-  private void displayWelcome(Stage myStage) {
+  private void displayWelcome() {
     boardPane = new BorderPane();
     buttonHolder = new HBox();
     myWelcome = new Label(tabResources.getString("Welcome"));
@@ -69,28 +71,27 @@ public class BuilderView {
     //boardPane.getChildren().add(myWelcome);
     boardPane.setLeft(myWelcome);
 
-    Button login = makeButton("Proceed", event -> {
-      setupTabs();
-    }, tabResources);
-    login.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
-    ChoiceBox<String> language = new ChoiceBox<>();
-    System.out.println(language.getValue());
-    language.setStyle("-fx-border-color: #fcba03; -fx-border-width: 2px; -fx-background-color: #fffaef; ");
-    buttonHolder.getChildren().addAll(login);
-    BorderPane buttonPane = new BorderPane();
-    BorderPane dropDownMenu = new BorderPane();
-    buttonPane.getChildren().addAll(buttonHolder);
-    dropDownMenu.getChildren().addAll(buttonHolder);
-    buttonPane.setAlignment(buttonHolder, Pos.CENTER);
-    dropDownMenu.setAlignment(language, Pos.CENTER_LEFT);
+    Button login = makeButton("Proceed", event -> {setupTabs();}, tabResources);
+    languageBox = new ChoiceBox<>();
+    languageBox.getItems().addAll(languageChoice);
+    languageBox.setOnAction(this::getLanguage);
+    buttonHolder.getChildren().addAll(login, languageBox);
 
-    boardPane.setCenter(language);
-    boardPane.setBottom(buttonHolder);
+    //boardPane.setCenter(languageBox);
+    //boardPane.setBottom(buttonHolder);
 
     Scene myLoginScene = new Scene(boardPane, 600, 650);
-    boardPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0), Insets.EMPTY)));
-    myStage.setScene(myLoginScene);
-    myStage.show();
+    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
+    boardPane.getStyleClass().add("boardPane");
+    languageBox.getStyleClass().add("languageBox");
+    login.getStyleClass().add("buttonHolder");
+    boardPane.setCenter(buttonHolder);
+    //boardPane.setBottom(buttonHolder);
+    stage = new Stage();
+    stage.setScene(myLoginScene);
+    stage.show();
+   // myStage.setScene(myLoginScene);
+    //myStage.show();
   }
 
   // Can possibly extend tab for each of the tab classes instead of just having toNode() to add them to the tabs
@@ -137,6 +138,15 @@ public class BuilderView {
     result.setText(label);
     result.setOnAction(handler);
     return result;
+  }
+
+  private void getLanguage(ActionEvent event) {
+    String myLanguage = languageBox.getValue();
+    //myLabel.setText(myLanguage);
+    TAB_LANGUAGE = myLanguage;
+    tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
+    displayWelcome();
+
   }
 
 }
