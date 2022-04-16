@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import oogasalad.builder.model.exception.InvalidFormException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -70,8 +71,7 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
    * @param name the name of the reference to resolve
    * @return a new object that was created based on the name that was provided
    */
-  public T resolve(String name) throws ClassNotFoundException, InvocationTargetException,
-      NoSuchMethodException, InstantiationException, IllegalAccessException {
+  public T resolve(String name) {
     String type = findPropertyValue(name, "type");
     int[] params = paramsToIntArray(name, type);
     return getReferenceReflection(type, params);
@@ -102,13 +102,15 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
   }
 
   // Makes an object of type T using reflection
-  private T getReferenceReflection(String type, int[] parameters)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    String className = referenceResources.getString(type).split(REFLECTION_DELIMITER)[0];
-    Class clazz = Class.forName(className);
-    Constructor ctor = clazz.getConstructor(int[].class);
-    return (T) ctor.newInstance(parameters);
+  private T getReferenceReflection(String type, int[] parameters) {
+    try{
+      String className = referenceResources.getString(type).split(REFLECTION_DELIMITER)[0];
+      Class clazz = Class.forName(className);
+      Constructor ctor = clazz.getConstructor(int[].class);
+      return (T) ctor.newInstance(parameters);
+    } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
+        InstantiationException | IllegalAccessException e) {
+      throw new ReferenceNotFoundException(e.getMessage()); // TODO: Handle this properly
+    }
   }
-
-
 }
