@@ -149,7 +149,7 @@ public class ControllerTest extends DukeApplicationTest {
     File file = new File(TEST_LOAD_DIRECTORY);
     controller.load(file);
     file = new File(TEST_SAVE_EXCEPTION_FILENAME);
-    controller.save(file);
+    controller.save(new SaveCallback(file));
   }
 
   private int countMatches(String str, String target) {
