@@ -112,7 +112,7 @@
             ]
         ],
         "shape": "rectangle",
-        "background": "checkers",
+        "background": "games/checkers",
         "width": 10,
         "activePlayer": 0,
         "height": 8,
