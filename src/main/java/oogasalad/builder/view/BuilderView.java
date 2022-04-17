@@ -70,8 +70,8 @@ public class BuilderView {
     myWelcome.setFont(new Font("Inter", 30));
     //boardPane.getChildren().add(myWelcome);
     boardPane.setLeft(myWelcome);
-
-    Button login = makeButton("Proceed", event -> {setupTabs();}, tabResources);
+    // line below was edited to debug
+    Button login = makeButton("Proceed", event -> {setupTabs();}, ResourceBundle.getBundle((DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE)));
     languageBox = new ChoiceBox<>();
     languageBox.getItems().addAll(languageChoice);
     languageBox.setOnAction(this::getLanguage);
