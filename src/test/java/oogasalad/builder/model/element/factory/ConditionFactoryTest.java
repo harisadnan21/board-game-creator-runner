@@ -23,7 +23,7 @@ public class ConditionFactoryTest {
   private ConditionFactory conditionFactory;
   private static final String CONDITION_NAME = "emptyTopRight";
   private static final String PROPERTY_NAME_TYPE = "type";
-  private static final String CONDITION_TYPE = "isEmpty";
+  private static final String CONDITION_TYPE = "IsEmpty";
   private static final String INVALID_CONDITION_TYPE = "emptyAt";
   private static final String PROPERTY_NAME_ONE = "x";
   private static final String PROPERTY_VALUE_ONE = "1";
