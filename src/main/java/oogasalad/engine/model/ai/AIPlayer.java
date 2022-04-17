@@ -26,8 +26,7 @@ public class AIPlayer extends Player {
     this.difficulty = difficulty;
     this.searchType = searchType;
     this.AIOracle = AIOracle;
-//    this.searcher = SearcherFactory.makeSearcher(this);
-    this.searcher = null;
+    implementation)
   }
 
   public AIChoice chooseAction(Board board) {
