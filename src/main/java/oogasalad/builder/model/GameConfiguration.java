@@ -19,6 +19,7 @@ import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -219,11 +220,16 @@ public class GameConfiguration implements BuilderModel {
     // TODO: Remove magic values
     board = new RectangularBoard(0, 0).fromJSON(obj.getJSONObject("board").toString());
     resetElements();
-    addJSONArray(obj.getJSONArray("pieces"), PIECE);
-    addJSONArray(obj.getJSONArray("rules"), RULE);
-    addJSONArray(obj.getJSONArray("conditions"), CONDITION);
-    addJSONArray(obj.getJSONArray("actions"), ACTION);
-    addJSONObject(obj.getJSONObject(METADATA), METADATA);
+    try{
+      addJSONArray(obj.getJSONArray("pieces"), PIECE);
+      addJSONArray(obj.getJSONArray("rules"), RULE);
+      addJSONArray(obj.getJSONArray("conditions"), CONDITION);
+      addJSONArray(obj.getJSONArray("actions"), ACTION);
+      addJSONObject(obj.getJSONObject(METADATA), METADATA);
+    } catch (JSONException ignored) {
+      // Do nothing if certain parts of the json file are not found
+      // TODO: Maybe throw an exception here?
+    }
     return this;
   }
 
