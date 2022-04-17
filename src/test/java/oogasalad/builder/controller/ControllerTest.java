@@ -41,6 +41,10 @@ public class ControllerTest extends DukeApplicationTest {
   private static final String PIECE_TYPE = "piece";
   private static final String RULE_TYPE = "rule";
   private static final String RULE_NAME = "jump";
+  private static final int RULE_REP_X = 1;
+  private static final int RULE_REP_Y = 2;
+  private static final String REPRESENTATIVE_X = "representativeX";
+  private static final String REPRESENTATIVE_Y = "representativeY";
   private static final String EMPTY = "empty";
   private static final String TEST_SAVE_DIRECTORY = "data/tests/save/";
   private static final String TEST_SAVE_EXCEPTION_FILENAME = "data/tests/exception/";
@@ -132,6 +136,8 @@ public class ControllerTest extends DukeApplicationTest {
     properties = new HashSet<>();
     properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
+    properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
+    properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
     controller.update(new UpdateGameElementCallback(RULE_TYPE, RULE_NAME, properties));
     File file = new File(TEST_SAVE_DIRECTORY);
     controller.save(new SaveCallback(file));
