@@ -38,7 +38,11 @@ public class AIPlayer extends Player {
   public void chooseMove() {
     Board board = super.getGameBoard();
     AIChoice AIChoice = this.chooseAction(board);
+<<<<<<< Updated upstream
     super.executeMove(this, new Choice(null, null));
+=======
+    super.executeMove(this, AIChoice);
+>>>>>>> Stashed changes
   }
 
   @Override
