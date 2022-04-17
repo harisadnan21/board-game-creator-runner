@@ -2,6 +2,7 @@
     "metadata": {
         "name": "Checkers",
         "author": "Shaan Gondalia",
+        "description": "This game is a clone of checkers without piece transformations and double jumps",
         "creationDate": "1648158653",
         "lastModifiedDate": "1648158780"
     },
