@@ -1,8 +1,9 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.ControlPanel;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import oogasalad.engine.view.ControlPanel.ControlPanel;
 
 public class SettingsControlPanel extends ControlPanel {
   public static String INFO_IMAGE = IMAGES_FOLDER + "info.png";

@@ -1,9 +1,10 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.ControlPanel;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import oogasalad.engine.controller.Controller;
+import oogasalad.engine.view.ControlPanel.ControlPanel;
 
 public class GameControlPanel extends ControlPanel {
   public static String HOME_IMAGE = IMAGES_FOLDER + "home.png";

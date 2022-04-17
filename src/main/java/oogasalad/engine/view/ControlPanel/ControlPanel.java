@@ -1,4 +1,4 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.ControlPanel;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -9,7 +9,7 @@ public abstract class ControlPanel {
   public static String IMAGES_FOLDER = "images/";
   public static int ICON_SIZE = 25;
 
-  VBox root;
+  protected VBox root;
 
   public ControlPanel() {
     root = new VBox();
