@@ -13,7 +13,7 @@
     -fx-max-width: infinity;
     -fx-alignment: center;
     -fx-border-color: black;
-    -fx-background-color: #F0F8FF;
+    -fx-background-color: blue;
 }
 
 .rightPane{
@@ -22,24 +22,24 @@
     -fx-padding: 10;
     -fx-spacing: 30;
     -fx-border-color: BLACK;
-    -fx-background-color: #F0F8FF;
-    -fx-color: #FFE4C4;
+    -fx-background-color: blue;
+    -fx-color: #7BAFD4;
 }
 .gameElementList{
     -fx-border-color: BLACK;
-    -fx-background-color: #F0F8FF;
-    -fx-color: #FFE4C4;
+    -fx-background-color: blue;
+    -fx-color: #7BAFD4;
 }
 .list-view .list-cell:even {
-    -fx-background-color: #F0F8FF;
-    -fx-text-fill: black;
+    -fx-background-color: blue;
+    -fx-text-fill: white;
 }
 .list-view .list-cell:odd {
-    -fx-background-color: #F0FFFF;
-    -fx-text-fill: black;
+    -fx-background-color: blue;
+    -fx-text-fill: white;
 }
 .boardCanvas{
-    -fx-background-color: #F0F8FF;
+    -fx-background-color: blue;
 }
 
 #buttonBox{
@@ -55,7 +55,7 @@
     -fx-alignment: center;
     -fx-padding: 10;
     -fx-spacing: 20;
-    -fx-border-color: BLACK;
+    -fx-border-color: blue;
     -fx-fill-color: whitesmoke;
 }
 HBox {
@@ -66,7 +66,7 @@ HBox {
 
 
 #boardCanvas {
-    -fx-border-color: BLACK;
+    -fx-border-color: blue;
     -fx-alignment: center;
     -fx-padding: 10;
     -fx-min-width: 400;
@@ -83,8 +83,8 @@ ToggleButton:hover {
     -fx-padding: 10;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
-    -fx-background-color: #FFEBCD;
-    -fx-border-color:gray;
+    -fx-background-color: #7BAFD4;
+    -fx-border-color:blue;
 }
 
 .button {
@@ -94,15 +94,15 @@ ToggleButton:hover {
     -fx-background-radius: 20;
 }
 .button:hover {
-    -fx-background-color: #FFEBCD;
-    -fx-border-color:gray;
+    -fx-background-color: #7BAFD4;
+    -fx-border-color:blue;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
     -fx-padding:10;
 }
 .combo-box:hover {
-    -fx-background-color: #FFEBCD;
-    -fx-border-color:gray;
+    -fx-background-color: #7BAFD4;
+    -fx-border-color:blue;
     -fx-border-radius: 25;
     -fx-background-radius: 25;
     -fx-padding:5;
