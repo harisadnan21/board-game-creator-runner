@@ -20,4 +20,5 @@ open module oogasalad_app {
     exports oogasalad;
   exports oogasalad.engine.view;
   exports oogasalad.engine.view.dashboard;
+    exports oogasalad.engine.view.ControlPanel;
 }
