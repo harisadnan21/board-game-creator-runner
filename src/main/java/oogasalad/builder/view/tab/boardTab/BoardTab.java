@@ -211,5 +211,10 @@ public class BoardTab extends BorderPane {
     return buttonCreated;
   }
 
+  // For testing
+  BoardCanvas getBoardCanvas() {
+    return boardCanvas;
+  }
+
 
 }
