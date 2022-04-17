@@ -35,7 +35,7 @@ public class PropertyEditor extends VBox {
   /**
    * Sets the properties of an element to display to the user
    *
-   * @param properties The required properties of an element
+   * @param properties The rgequired properties of an element
    */
   public void setElementProperties(Collection<Property> properties) {
     getChildren().clear();
@@ -43,7 +43,11 @@ public class PropertyEditor extends VBox {
     properties.forEach(this::addProperty);
   }
 
-
+  /**
+   * Creates all the elements that correspond to a specified type.
+   *
+   * @param typeName
+   */
   public void setCorrespondingElementProperties(String typeName) {
     getChildren().clear();
     selectors.clear();
@@ -55,6 +59,12 @@ public class PropertyEditor extends VBox {
   }
 
 
+  /**
+   * Given a Collection of all the properties, finds the type-selector and makes the corresponding
+   * element for it
+   *
+   * @param properties
+   */
   public void setElementPropertyTypeChoice(Collection<Property> properties) {
     getChildren().clear();
     allProperties = properties;
