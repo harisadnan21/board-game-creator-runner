@@ -2,14 +2,14 @@ package oogasalad.engine.model.ai.searchTypes;
 
 import java.util.Set;
 import oogasalad.engine.model.ai.AIOracle;
-import oogasalad.engine.model.ai.Choice;
+import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.Seq;
 
 public class EasySearcher extends Searcher{
 
-  private Set<Choice> choices;
+  private Set<AIChoice> AIChoices;
 
 
   public EasySearcher(int maxDepth, int forPlayer,
@@ -18,13 +18,13 @@ public class EasySearcher extends Searcher{
     super(maxDepth, forPlayer, stateEvaluator, Oracle);
   }
 
-  protected Choice nextChoiceToExplore() {
-    return Seq.seq(choices).maxBy(choice -> stateEvaluator.evaluate(choice.getResultingBoard(), forPlayer)).get();
+  protected AIChoice nextChoiceToExplore() {
+    return Seq.seq(AIChoices).maxBy(choice -> stateEvaluator.evaluate(choice.getResultingBoard(), forPlayer)).get();
   }
 
   @Override
-  public Choice selectChoice(Board board) {
-    this.choices = this.Oracle.getChoices(board, forPlayer);
+  public AIChoice selectChoice(Board board) {
+    this.AIChoices = this.Oracle.getChoices(board, forPlayer);
     return nextChoiceToExplore();
   }
 }

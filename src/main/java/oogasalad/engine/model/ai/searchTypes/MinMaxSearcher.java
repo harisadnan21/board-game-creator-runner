@@ -3,10 +3,9 @@ package oogasalad.engine.model.ai.searchTypes;
 import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.stream.Stream;
+import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
-import oogasalad.engine.model.ai.Choice;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.ai.searchTypes.depthlimiting.LimitsDepth;
 import oogasalad.engine.model.board.Board;
@@ -24,17 +23,17 @@ public class MinMaxSearcher extends Searcher {
 
 
   @Override
-  public Choice selectChoice(Board board) {
+  public AIChoice selectChoice(Board board) {
 //    this.limitsDepth.reset();
-    Collection<Choice> choices = this.Oracle.getChoices(board, forPlayer);
-    return Seq.seq(choices).maxBy(choice -> runMinimax(choice.getResultingBoard(), forPlayer, maxDepth)).get();
+    Collection<AIChoice> AIChoices = this.Oracle.getChoices(board, forPlayer);
+    return Seq.seq(AIChoices).maxBy(choice -> runMinimax(choice.getResultingBoard(), forPlayer, maxDepth)).get();
   }
 
   protected int runMinimax(Board board, int player, int depth) {
     if(depth==0 || Oracle.isWinningState(board)) {
       return this.stateEvaluator.evaluate(board, player);
     }
-    Stream<Board> boards = this.Oracle.getChoices(board, player).stream().map(Choice::getResultingBoard);
+    Stream<Board> boards = this.Oracle.getChoices(board, player).stream().map(AIChoice::getResultingBoard);
     int nextPlayer = player==PLAYER_ONE ? Piece.PLAYER_TWO : PLAYER_ONE;
     return Seq.seq(boards).mapToInt(currBoard -> runMinimax(currBoard, nextPlayer, depth-1)).max().getAsInt();
   }

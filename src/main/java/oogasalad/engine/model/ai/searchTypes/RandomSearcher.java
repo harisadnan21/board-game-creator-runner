@@ -2,13 +2,13 @@ package oogasalad.engine.model.ai.searchTypes;
 
 import java.util.Random;
 import java.util.Set;
+import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
-import oogasalad.engine.model.ai.Choice;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 
 public class RandomSearcher extends Searcher{
-  private Set<Choice> choices;
+  private Set<AIChoice> AIChoices;
 
   public RandomSearcher(int maxDepth, int forPlayer,
       StateEvaluator stateEvaluator,
@@ -16,22 +16,22 @@ public class RandomSearcher extends Searcher{
     super(maxDepth, forPlayer, stateEvaluator, Oracle);
   }
 
-  protected Choice nextChoiceToExplore() {
-    int numChoices = choices.size();
+  protected AIChoice nextChoiceToExplore() {
+    int numChoices = AIChoices.size();
     Random random = new Random();
     int selection = random.nextInt(0, numChoices);
-    var iterator = choices.iterator();
-    Choice choice = iterator.next();
+    var iterator = AIChoices.iterator();
+    AIChoice AIChoice = iterator.next();
     for(int i = 0; i < selection; i++) {
-      choice = iterator.next();
+      AIChoice = iterator.next();
     }
-    return choice;
+    return AIChoice;
   }
 
 
   @Override
-  public Choice selectChoice(Board board) {
-    this.choices = this.Oracle.getChoices(board, forPlayer);
+  public AIChoice selectChoice(Board board) {
+    this.AIChoices = this.Oracle.getChoices(board, forPlayer);
     return nextChoiceToExplore();
   }
 }
