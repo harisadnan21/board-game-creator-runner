@@ -19,7 +19,7 @@ import org.jooq.lambda.function.Consumer0;
  *
  * @author Jake Heller
  */
-public class AIOracle {
+public class Oracle {
 
   private List<Move> myMoves;
   private List<WinCondition> myWinConditions; //Might be work making final & also using an immutable object

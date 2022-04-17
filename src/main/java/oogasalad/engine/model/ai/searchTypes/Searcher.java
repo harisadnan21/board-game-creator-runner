@@ -1,6 +1,6 @@
 package oogasalad.engine.model.ai.searchTypes;
 
-import oogasalad.engine.model.AIOracle;
+import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.ai.Choice;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
@@ -10,14 +10,16 @@ public abstract class Searcher {
   protected final int maxDepth;
   protected final int forPlayer;
   protected final StateEvaluator stateEvaluator;
-  protected final AIOracle AIOracle;
+  protected final AIOracle Oracle;
 
-  protected Searcher(int maxDepth, int forPlayer, StateEvaluator stateEvaluator, AIOracle AIOracle) {
+  protected Searcher(int maxDepth, int forPlayer, StateEvaluator stateEvaluator, AIOracle Oracle) {
     this.maxDepth = maxDepth;
     this.forPlayer = forPlayer;
     this.stateEvaluator = stateEvaluator;
-    this.AIOracle = AIOracle;
+    this.Oracle = Oracle;
   }
 
-  abstract Choice selectChoice(Board board);
+  protected abstract Choice nextChoiceToExplore();
+
+  public abstract Choice selectChoice(Board board);
 }
