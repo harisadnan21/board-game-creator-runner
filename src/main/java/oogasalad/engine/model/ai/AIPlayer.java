@@ -48,8 +48,7 @@ public class AIPlayer extends Player {
 
 
   @Override
-  public oogasalad.engine.model.engine.Choice chooseMove() {
-    return null;
+  public void chooseMove() {
   }
 
   @Override

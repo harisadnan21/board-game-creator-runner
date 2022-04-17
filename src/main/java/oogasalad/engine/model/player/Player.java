@@ -24,7 +24,7 @@ public abstract class Player implements PlayerInterface {
   }
 
   @Override
-  public abstract Choice chooseMove();
+  public abstract void chooseMove();
 
   public boolean isMyTurn() {
     return false;
