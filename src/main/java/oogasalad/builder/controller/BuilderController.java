@@ -213,4 +213,8 @@ public class BuilderController {
         }
     }
 
+    public void showError(Throwable t) {
+        builderView.showError(t);
+    }
+
 }
