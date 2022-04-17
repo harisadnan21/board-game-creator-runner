@@ -26,12 +26,10 @@ public class HumanPlayer extends Player{
   private Choice myChoice;
 
   private Consumer<Set<Position>> mySetValidMarks;
-  private BiConsumer<Player, Choice> myExecuteMove;
 
   public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
-    super(oracle, game);
+    super(oracle, game, executeMove);
     mySetValidMarks = setValidMarks;
-    myExecuteMove = executeMove;
   }
 
   @Override
@@ -61,7 +59,7 @@ public class HumanPlayer extends Player{
         myChoice = new Choice(mySelectedCell, mySelectedMove);
         LOG.info("Move {} selected", mySelectedMove.getName());
         resetSelected();
-        myExecuteMove.accept(this, myChoice);
+        executeMove(this, myChoice);
       }
       resetSelected();
     }

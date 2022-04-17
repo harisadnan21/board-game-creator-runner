@@ -1,5 +1,6 @@
 package oogasalad.engine.model.player;
 
+import java.util.function.BiConsumer;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
@@ -14,10 +15,12 @@ public abstract class Player implements PlayerInterface {
 
   private Oracle oracle;
   private Game myGame;
+  private BiConsumer<Player, Choice> myExecuteMove;
 
-  protected Player(Oracle oracle, Game game) {
+  protected Player(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove) {
     this.oracle = oracle;
     myGame = game;
+    myExecuteMove = executeMove;
   }
 
   @Override
@@ -29,6 +32,10 @@ public abstract class Player implements PlayerInterface {
 
   protected Oracle getOracle() {
     return oracle;
+  }
+
+  protected void executeMove(Player player, Choice choice) {
+    myExecuteMove.accept(player, choice);
   }
 
   /**

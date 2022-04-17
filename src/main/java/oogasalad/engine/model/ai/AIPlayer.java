@@ -22,7 +22,7 @@ public class AIPlayer extends Player {
 
   public AIPlayer(int playerNumberForAI, StateEvaluator stateEvaluator, Difficulty difficulty,
       SearchType searchType, AIOracle AIOracle) {
-    super(null, null); // should be engine
+    super(null, null, null); // should be engine
     this.playerNumber = playerNumberForAI;
     this.stateEvaluator = stateEvaluator;
     this.difficulty = difficulty;
