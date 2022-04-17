@@ -1,6 +1,5 @@
 package oogasalad.builder.view;
 
-import java.util.Locale.Builder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -9,20 +8,20 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import oogasalad.builder.controller.BuilderController;
-import oogasalad.builder.model.element.ElementRecord;
 
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import oogasalad.builder.view.callback.Callback;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.tab.ActionsTab;
 import oogasalad.builder.view.tab.ConditionsTab;
 import oogasalad.builder.view.tab.RulesTab;
-import oogasalad.builder.view.tab.SplashLogin;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
-import oogasalad.builder.view.tab.pieceTab.PiecesTab;
+import oogasalad.builder.view.tab.PiecesTab;
 import java.util.ResourceBundle;
 
 /**
@@ -52,12 +51,11 @@ public class BuilderView {
   private ChoiceBox<String> languageBox;
   private Label myLabel;
 
-  private BuilderController controller; //FIXME: Use Event handlers instead of this
+  private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
     //splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
     tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
-    controller = new BuilderController();
     stage = mainStage;
     displayWelcome();
     //stage.show();
@@ -100,20 +98,20 @@ public class BuilderView {
   private void setupTabs() {
     TabPane tabPane = new TabPane();
 
-    boardTabPane = new BoardTab(tabResources, controller);
+    boardTabPane = new BoardTab(tabResources, callbackDispatcher);
     boardTabPane.setId("boardTab");
     Tab boardTab = new Tab("Board", boardTabPane);
 
-    pieceTabPane = new PiecesTab(controller);
+    pieceTabPane = new PiecesTab(callbackDispatcher);
     pieceTabPane.setId("pieceTab");
-    Tab pieceTab = new Tab("OldPiece", pieceTabPane);
-    actionsTabPane = new ActionsTab(controller);
+    Tab pieceTab = new Tab("Piece", pieceTabPane);
+    actionsTabPane = new ActionsTab(callbackDispatcher);
     actionsTabPane.setId("actionTab");
     Tab actionTab = new Tab("Action", actionsTabPane);
-    conditionsTabPane = new ConditionsTab(controller);
+    conditionsTabPane = new ConditionsTab(callbackDispatcher);
     conditionsTabPane.setId("conditionTab");
     Tab conditionsTab = new Tab("Condition", conditionsTabPane);
-    rulesTabPane = new RulesTab(controller);
+    rulesTabPane = new RulesTab(callbackDispatcher);
     rulesTabPane.setId("ruleTab");
     Tab rulesTab = new Tab("Rule", rulesTabPane);
 
@@ -149,5 +147,15 @@ public class BuilderView {
 
   }
 
+  /**
+   * Register a handler to be used when a given type of callback is needed
+   * @param callback the callback to handle
+   * @param handler the handler that can handle that type of callback
+   * @param <R> the type that the handler must return
+   * @param <C> the type of the callback
+   */
+  public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback, CallbackHandler<R, C> handler) {
+    callbackDispatcher.registerCallbackHandler(callback, handler);
+  }
 }
 

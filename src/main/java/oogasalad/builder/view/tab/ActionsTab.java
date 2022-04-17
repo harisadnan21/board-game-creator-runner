@@ -1,7 +1,7 @@
 package oogasalad.builder.view.tab;
 
 
-import oogasalad.builder.controller.BuilderController;
+import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
  * Class that represents the Actions Tab
@@ -9,7 +9,7 @@ import oogasalad.builder.controller.BuilderController;
 public class ActionsTab extends GameElementTab {
     public static String ACTION = "action";
 
-    public ActionsTab(BuilderController controller) {
-        super(controller, ACTION);
+    public ActionsTab(CallbackDispatcher dispatcher) {
+        super(dispatcher, ACTION);
     }
 }
