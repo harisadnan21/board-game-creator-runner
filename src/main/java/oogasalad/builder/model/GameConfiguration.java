@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import oogasalad.builder.model.board.Board;
 import oogasalad.builder.model.board.RectangularBoard;
@@ -36,6 +37,7 @@ public class GameConfiguration implements BuilderModel {
   private static final String CONDITION = "condition";
   private static final String ID = "id";
   private static final int INDENT_FACTOR = 4;
+  public static final String METADATA = "metadata";
   private final Map<String, Map<String, GameElement>> elements;
   private final FactoryProvider provider;
   private final FileMapper mapper;
@@ -196,6 +198,7 @@ public class GameConfiguration implements BuilderModel {
     checkBoardCreated();
     JSONObject obj = new JSONObject();
     // TODO: Remove magic values
+    obj.put(METADATA, metaDataToJSON());
     obj.put("pieces", elementsToJSONArray(PIECE));
     obj.put("board", new JSONObject(board.toJSON()));
     obj.put("rules", elementsToJSONArray(RULE));
@@ -220,6 +223,7 @@ public class GameConfiguration implements BuilderModel {
     addJSONArray(obj.getJSONArray("rules"), RULE);
     addJSONArray(obj.getJSONArray("conditions"), CONDITION);
     addJSONArray(obj.getJSONArray("actions"), ACTION);
+    addJSONObject(obj.getJSONObject(METADATA), METADATA);
     return this;
   }
 
@@ -256,9 +260,23 @@ public class GameConfiguration implements BuilderModel {
   private void addJSONArray(JSONArray arr, String type) {
     for (int i = 0; i < arr.length(); i++) {
       JSONObject obj = arr.getJSONObject(i);
-      GameElement element = provider.fromJSON(type, obj.toString());
-      elements.get(type).put(element.toRecord().name(), element);
+      addJSONObject(obj, type);
     }
+  }
+
+  // Adds the contents of a json object to the map of game elements
+  private void addJSONObject(JSONObject obj, String type) {
+    GameElement element = provider.fromJSON(type, obj.toString());
+    elements.get(type).put(element.toRecord().name(), element);
+  }
+
+  // Converts metadata to a json String
+  private JSONObject metaDataToJSON() {
+    for (GameElement element : elements.get(METADATA).values()) {
+      ElementRecord record = element.toRecord();
+      return new JSONObject(record.toJSON());
+    }
+    return new JSONObject();
   }
 
   // Resets the map of game elements
@@ -267,6 +285,7 @@ public class GameConfiguration implements BuilderModel {
     elements.put(RULE, new HashMap<>());
     elements.put(ACTION, new HashMap<>());
     elements.put(CONDITION, new HashMap<>());
+    elements.put(METADATA, new HashMap<>());
   }
 
 }
