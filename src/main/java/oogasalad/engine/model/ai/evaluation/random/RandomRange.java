@@ -14,11 +14,10 @@ public class RandomRange implements StateEvaluator {
     this.closedMin = closedMin;
     this.closedMax = closedMax;
     this.random = new Random();
-    random.nextInt(closedMin, closedMax+1);
   }
 
   @Override
   public int evaluate(Board board, int player) {
-    return random.nextInt();
+    return random.nextInt(closedMin, closedMax+1);
   }
 }
