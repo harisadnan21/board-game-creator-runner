@@ -26,7 +26,7 @@ public class Game {
   }
 
   /**
-   * removes all boards after the current board ffrom history and sets the param Board as the current board
+   * removes all boards after the current board from history and sets the param Board as the current board
    * @param board
    */
   public void setBoard(Board board) {
