@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
 import oogasalad.builder.view.tab.boardTab.BoardTabAccessor;
@@ -28,6 +29,7 @@ class BuilderViewTest extends DukeApplicationTest {
     private Stage stage;
     private Stack<PlacePieceCallback> piecePlacedCB = new Stack<>();
     private Stack<ClearCellCallback> pieceErasedCB = new Stack<>();
+    private Stack<MakeBoardCallback> makeBoardCB = new Stack<>();
 
     @Override
     public void start(Stage stage) {
@@ -37,6 +39,7 @@ class BuilderViewTest extends DukeApplicationTest {
         builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class, cb -> cb.key().equals("image") ? "checkers/pieces/normalWhite.png" : null);
         builderView.registerCallbackHandler(PlacePieceCallback.class, cb -> {piecePlacedCB.push(cb); return null;});
         builderView.registerCallbackHandler(ClearCellCallback.class, cb -> {pieceErasedCB.push(cb); return null;});
+        builderView.registerCallbackHandler(MakeBoardCallback.class, cb -> {makeBoardCB.push(cb); return null;});
         clickOn("#loginButton");
     }
 
@@ -61,9 +64,10 @@ class BuilderViewTest extends DukeApplicationTest {
 
     @Test
     void testDrawBoard() {
+        makeBoardCB.clear();
         boardSetup();
-        assertEquals(builderView.getBoardConfig().length, Y_DIM);
-        assertEquals(builderView.getBoardConfig()[0].length, X_DIM);
+        assertEquals(1, makeBoardCB.size());
+        assertEquals(new MakeBoardCallback(X_DIM, Y_DIM), makeBoardCB.get(0));
         assertEquals(BoardTabAccessor.getColor(lookup("#boardTab").queryAs(BoardTab.class), 1), Color.BLUE);
     }
 

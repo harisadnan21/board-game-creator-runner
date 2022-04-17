@@ -157,16 +157,5 @@ public class BuilderView {
   public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback, CallbackHandler<R, C> handler) {
     callbackDispatcher.registerCallbackHandler(callback, handler);
   }
-
-  /**
-   * Register a handler to be used when a given type of callback is needed
-   * @param callback the callback to handle
-   * @param handler the handler that can handle that type of callback
-   * @param <R> the type that the handler must return
-   * @param <C> the type of the callback
-   */
-  public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback, CallbackHandler<R, C> handler) {
-    callbackDispatcher.registerCallbackHandler(callback, handler);
-  }
 }
 
