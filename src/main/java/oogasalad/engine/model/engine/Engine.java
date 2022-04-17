@@ -70,8 +70,10 @@ public class Engine {
         LOG.info("{} executed at {},{}", move.getName(), referencePoint.i(), referencePoint.j());
 
         board = myOracle.incrementPlayer(board);
-
         myGame.setBoard(board);
+
+        // ping next player
+        myPlayers.get(board.getPlayer()).chooseMove();
 
       } else {
         LOG.warn("Player's move is not valid");

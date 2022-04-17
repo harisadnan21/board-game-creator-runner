@@ -23,17 +23,16 @@ public abstract class Player implements PlayerInterface {
     myExecuteMove = executeMove;
   }
 
-  @Override
-  public abstract Choice chooseMove();
-
-  public boolean isMyTurn() {
-    return false;
-  }
-
   protected Oracle getOracle() {
     return oracle;
   }
 
+  /**
+   * Sends move choice to Engine
+   * 
+   * @param player
+   * @param choice
+   */
   protected void executeMove(Player player, Choice choice) {
     myExecuteMove.accept(player, choice);
   }

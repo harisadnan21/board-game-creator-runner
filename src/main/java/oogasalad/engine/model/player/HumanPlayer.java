@@ -12,7 +12,6 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Move;
-import oogasalad.engine.model.utilities.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,16 +32,10 @@ public class HumanPlayer extends Player{
   }
 
   @Override
-  public Choice chooseMove() {
+  // empty because player uses user interaction
+  public void chooseMove() {
 
     LOG.info("Player asked to choose move");
-    while (mySelectedMove == null || mySelectedCell == null) {
-
-    }
-    Choice choice = new Choice(mySelectedCell, mySelectedMove);
-    resetSelected();
-    LOG.info("Choice about to be returned");
-    return choice;
   }
 
   public void onCellSelect(int i, int j) {
