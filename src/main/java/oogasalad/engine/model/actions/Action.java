@@ -1,6 +1,6 @@
 package oogasalad.engine.model.actions;
 
-import oogasalad.engine.model.OutOfBoardException;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 
 /**
@@ -12,7 +12,7 @@ import oogasalad.engine.model.board.Board;
 public abstract class Action {
 
   protected int[] myParameters;
-  public Action(int[] parameters) {
+  protected Action(int[] parameters) {
     myParameters = parameters;
   }
 
@@ -23,5 +23,6 @@ public abstract class Action {
    * @param refJ reference j
    * @throws OutOfBoardException
    */
-  public abstract void execute(Board board, int refI, int refJ) throws OutOfBoardException;
+  public abstract Board execute(Board board, int refI, int refJ)
+      throws OutOfBoardException;
 }

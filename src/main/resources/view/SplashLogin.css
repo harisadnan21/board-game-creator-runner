@@ -1,12 +1,16 @@
-/* 1 Login */
+.boardPane{
+    -fx-background-color: #FFFFFF;
+    -fx-alignment: center;
+}
 
-.border-pane {
-    position: relative;
-    width: 949px;
-    height: 822px;
+.languageBox{
+    -fx-border-color: #fcba03;
+    -fx-border-width: 2px;
+    -fx-background-color: #fffaef;
+}
 
-    /* White */
-
-    /* -fx-background-color: rgba(255, 250, 239, 1); */
-    background: rgb(187, 25, 76);
+.buttonHolder{
+    -fx-border-color: #fcba03;
+    -fx-border-width: 2px;
+    -fx-background-color: #fffaef;
 }

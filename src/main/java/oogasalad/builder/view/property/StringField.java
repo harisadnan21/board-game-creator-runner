@@ -1,5 +1,6 @@
 package oogasalad.builder.view.property;
 
+import javafx.beans.value.ChangeListener;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.StringProperty;
 
@@ -28,5 +29,10 @@ public class StringField extends Field{
   public Property getProperty() {
     String[] nameParts = property().name().split("-");
     return new StringProperty(nameParts[nameParts.length - 1], text(), property().form());
+  }
+
+  @Override
+  public void addListener(ChangeListener updateFields) {
+
   }
 }

@@ -43,8 +43,8 @@ This game was chosen because it has a fairly simple winning condition, but will 
 games where pieces "move" and "collide" instead of being placed (like tic-tac-toe). It introduces
 the concepts of capturing, piece removal, and more complex moves.
 
-Checkers also has some more complex rules that can be implemented once the basic implementation is
-complete. These rules include:
+Checkers also has some more complex moves that can be implemented once the basic implementation is
+complete. These moves include:
 
 * Multiple jumps per turn, allowing multiple pieces to get captured in a single move.
 * Pieces turning into "kings" once they reach the end of the board. Kings can move backward as well,
@@ -62,10 +62,10 @@ rows) of disc(s) is bordered at each end by a disc of your colour. (A "row" may 
 more discs). These "rows" can be horizontal, vertical, or at a 45 degree diagonal in any direction.
 
 For a visual description of this ruleset,
-see [this link](https://www.worldothello.org/about/about-othello/othello-rules/official-rules/english)
+see [this link](https://www.worldothello.org/about/about-othello/othello-moves/official-moves/english)
 .
 
 Othello was chosen because, while similar to tic-tac-toe, it demonstrates a more complex ruleset 
 regarding how pieces are placed and the actual consequences of placing a piece. This game will 
 challenge our abstractions of pieces (can pieces transform from black to white and vice versa),
-rules (how can pieces be placed? only when they outflank the opponent), and winning conditions.
+moves (how can pieces be placed? only when they outflank the opponent), and winning conditions.

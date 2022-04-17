@@ -1,26 +1,33 @@
 package oogasalad.engine.model.engine;
 
-import oogasalad.engine.model.Game;
-import oogasalad.engine.model.OutOfBoardException;
+import java.util.Set;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.driver.Game;
+import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.utilities.Pair;
 
 /**
  * @author Haris Adnan
  * Class that saves a game to a log and creates a JSON File that is saved.
  *
  */
-public class SaveGameEngine extends Engine{
+// TODO: I don't see why this would be a subclass of engine
+public class SaveGameEngine {
 
-  public SaveGameEngine(Game game) {
-    super(game, null, null);
+  public void onCellSelect(int x, int y) throws OutOfBoardException {
   }
 
-  @Override
-  public Board onCellSelect(int x, int y) throws OutOfBoardException {
+  public Pair<Position, Set<Move>> getValidMoves(Board board, int i, int j) {
     return null;
   }
+
+  public Board getGameStateBoard() {
+    return null;
+  }
+
   public void saveGame(){
-    Board board = getGame().getBoard();
   }
 
 

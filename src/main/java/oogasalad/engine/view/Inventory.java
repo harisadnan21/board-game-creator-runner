@@ -20,7 +20,7 @@ public class Inventory {
     root.setPrefWrapLength(50);
     //root.setStyle("-fx-background-color: DAE6F3;");
 
-    descriptor = new Text("Piece Inventory");
+    descriptor = new Text("OldPiece Inventory");
     root.getChildren().addAll(descriptor, new ExtraPiece(BLACK_KNIGHT).getRoot());
   }
 

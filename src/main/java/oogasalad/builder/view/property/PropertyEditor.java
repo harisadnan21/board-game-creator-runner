@@ -22,83 +22,111 @@ import java.util.stream.Collectors;
  */
 public class PropertyEditor extends VBox {
 
-    private final Map<Property, PropertySelector> selectors = new HashMap<>();
+  private final Map<Property, PropertySelector> selectors = new HashMap<>();
 
-    /**
-     * Creates a new PropertyEditor.
-     */
-    public PropertyEditor() {
+  private Collection<Property> allProperties;
+
+  /**
+   * Creates a new PropertyEditor.
+   */
+  public PropertyEditor() {
+  }
+
+  /**
+   * Sets the properties of an element to display to the user
+   *
+   * @param properties The required properties of an element
+   */
+  public void setElementProperties(Collection<Property> properties) {
+    getChildren().clear();
+    selectors.clear();
+    properties.forEach(this::addProperty);
+  }
+
+
+  public void setCorrespondingElementProperties(String typeName) {
+    getChildren().clear();
+    selectors.clear();
+    for (Property prop : allProperties) {
+      if (prop.name().contains(typeName) || prop.name().contains("type")) {
+        addProperty(prop);
+      }
+    }
+  }
+
+
+  public void setElementPropertyTypeChoice(Collection<Property> properties) {
+    getChildren().clear();
+    allProperties = properties;
+    selectors.clear();
+    boolean hasTypeProperty = false;
+    for (Property prop : properties) {
+      if (prop.name().contains("type")) {
+        addProperty(prop);
+        hasTypeProperty = true;
+      }
+    }
+    if (!hasTypeProperty) {
+      properties.forEach(this::addProperty);
     }
 
-    /**
-     * Sets the properties of an element to display to the user
-     *
-     * @param properties The required properties of an element
-     */
-    public void setElementProperties(Collection<Property> properties) {
-        clear();
-        properties.forEach(this::addProperty);
-    }
+  }
 
-    /**
-     * Clears the property editor (for instance, after the user saves)
-     */
-    public void clear() {
-        getChildren().clear();
-        selectors.clear();
-    }
+  /**
+   * Gets a property based on its name
+   *
+   * @param name the name of the property to retrieve
+   * @return a property with the value field filled out
+   */
+  private Property getElementProperty(String name) {
+    // TODO Use Property.withValue() if we add that back
+    return selectors.entrySet().stream()
+        .filter(entry -> entry.getKey().name().equals(name))
+        .map(entry -> entry.getValue().getProperty())
+        .findFirst()
+        .orElseThrow();
+  }
 
-    /**
-     * Gets a property based on its name
-     *
-     * @param name the name of the property to retrieve
-     * @return a property with the value field filled out
-     */
-    private Property getElementProperty(String name) {
-        // TODO Use Property.withValue() if we add that back
-        return selectors.entrySet().stream()
-                .filter(entry -> entry.getKey().name().equals(name))
-                .map(entry -> entry.getValue().getProperty())
-                .findFirst()
-                .orElseThrow();
-    }
+  /**
+   * Gets a Collection of all properties for an element after the user has entered them.
+   *
+   * @return a collection of properties that have been entered by the user
+   */
+  public Collection<Property> getElementProperties() {
+    return selectors.keySet().stream()
+        .map(prop -> getElementProperty(prop.name()))
+        .collect(Collectors.toList());
+  }
 
-    /**
-     * Gets a Collection of all properties for an element after the user has entered them.
-     *
-     * @return a collection of properties that have been entered by the user
-     */
-    public Collection<Property> getElementProperties() {
-        return selectors.keySet().stream()
-                .map(prop -> getElementProperty(prop.name()))
-                .collect(Collectors.toList());
+  // Adds a property to the display, using the form of the property
+  private void addProperty(Property property) {
+    HBox propertyBox = new HBox();
+    PropertySelector propertySelector = makePropertySelector(property);
+    selectors.put(property, propertySelector);
+    if (property.name().contains("type")) {
+      propertySelector.addListener(
+          (observable, oldValue, newValue) -> setCorrespondingElementProperties(
+              (String) newValue));
     }
+    String[] propertyNameParts = property.name().split("-");
+    propertyBox.getChildren().addAll(
+        new Label(propertyNameParts[propertyNameParts.length - 1]),
+        propertySelector.display()
+    );
+    getChildren().add(propertyBox);
+  }
 
-    // Adds a property to the display, using the form of the property
-    private void addProperty(Property property) {
-        HBox propertyBox = new HBox();
-        PropertySelector propertySelector = makePropertySelector(property);
-        selectors.put(property, propertySelector);
-
-        String[] propertyNameParts = property.name().split("-");
-        propertyBox.getChildren().addAll(
-            new Label(propertyNameParts[propertyNameParts.length - 1]),
-            propertySelector.display()
-        );
-        getChildren().add(propertyBox);
+  // Makes a PropertySelector Using reflection, based on the form of the required property
+  private PropertySelector makePropertySelector(Property property) {
+    try {
+      String className = property.form();
+      Class<?> clss = Class.forName(className);
+      Constructor<?> ctor = clss.getDeclaredConstructor(Property.class);
+      return (PropertySelector) ctor.newInstance(property);
+    } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
+        InstantiationException | IllegalAccessException e) {
+      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
     }
-
-    // Makes a PropertySelector Using reflection, based on the form of the required property
-    private PropertySelector makePropertySelector(Property property) {
-        try {
-            String className = property.form();
-            Class<?> clss = Class.forName(className);
-            Constructor<?> ctor = clss.getDeclaredConstructor(Property.class);
-            return (PropertySelector) ctor.newInstance(property);
-        } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
-            InstantiationException | IllegalAccessException e) {
-            throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
-        }
-    }
+  }
 
 }

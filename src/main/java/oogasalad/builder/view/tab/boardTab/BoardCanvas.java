@@ -1,6 +1,5 @@
 package oogasalad.builder.view.tab.boardTab;
 
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -11,8 +10,13 @@ import javafx.scene.paint.Paint;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
-import oogasalad.builder.view.callback.*;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.MakeBoardCallback;
+import oogasalad.builder.view.callback.PlacePieceCallback;
 
+import java.io.File;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -30,9 +34,10 @@ public class BoardCanvas {
   private Map<String, Consumer<int[]>> boardTypeFunctionMap;
   private double rectWidth;
   private double rectHeight;
-  private int[][] containsPiece;
   private BorderPane borderPane;
   private String currentPiece;
+  private int xDimension;
+  private int yDimension;
 
   private final CallbackDispatcher callbackDispatcher;
 
@@ -54,16 +59,16 @@ public class BoardCanvas {
 
 
   public void drawBoard(int xDim, int yDim, String type) throws NullBoardException {
+    xDimension = xDim;
+    yDimension = yDim;
     boardGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
     calculateAndChangeCanvasSize();
-    callbackDispatcher.call(new MakeBoardCallback(xDim, yDim));
+    callbackDispatcher.call(new MakeBoardCallback(xDimension, yDimension));
 
-    rectWidth = boardCanvas.getWidth() / xDim;
-    rectHeight = boardCanvas.getHeight() / yDim;
+    rectWidth = boardCanvas.getWidth() / xDimension;
+    rectHeight = boardCanvas.getHeight() / yDimension;
 
-    containsPiece = new int[xDim][yDim];
     clearBoard();
-
 
     if (boardTypeFunctionMap.containsKey(type)){
       boardTypeFunctionMap.get(type).accept(new int[]{xDim, yDim});
@@ -88,17 +93,14 @@ public class BoardCanvas {
 
     pieceCanvas = new Canvas(boardCanvas.getWidth(), boardCanvas.getHeight());
     pieceGraphics = pieceCanvas.getGraphicsContext2D();
+    boardCanvas.getStyleClass().add("boardCanvas");
   }
 
-  public int[][] getBoardConfig(){
-    return containsPiece;
-  }
 
   public void clearBoard() throws NullBoardException {
     pieceGraphics.clearRect(0, 0, pieceCanvas.getWidth(), pieceCanvas.getHeight());
-    containsPiece = new int[containsPiece[0].length][containsPiece.length];
-    for (int i = 0; i < containsPiece.length; i++) {
-      for (int j = 0; j < containsPiece[0].length; j++) {
+    for (int i = 0; i < xDimension; i++) {
+      for (int j = 0; j < yDimension; j++) {
         callbackDispatcher.call(new ClearCellCallback(j, i));
       }
     }
@@ -113,13 +115,15 @@ public class BoardCanvas {
   private void populateBoardTypeMap() {
     // TODO: Pull the Bank of Boards and create Map?
 
-    boardTypeFunctionMap = Map.of(resources.getString("checkers"), e -> drawCheckerBoard(e[0], e[1]));
+    boardTypeFunctionMap = Map.of(resources.getString("games/checkers"), e -> drawCheckerBoard(e[0], e[1]));
   }
 
 
   private void drawCheckerBoard(int xDim, int yDim) {
-    for (int x = 0; x < xDim; x++) {
-      for (int y = 0; y < yDim; y++) {
+    xDimension = xDim;
+    yDimension = yDim;
+    for (int x = 0; x < xDimension; x++) {
+      for (int y = 0; y < yDimension; y++) {
         if (((y % 2 == 0) && (x % 2 == 0)) || ((y % 2 == 1) && (x % 2 == 1))) {
           boardGraphics.setFill(colorOne);
         } else {
@@ -161,13 +165,11 @@ public class BoardCanvas {
     double clickY = click.getY();
 
     int[] blockIndex = findSquare(clickX, clickY);
-    System.out.println(" xPos: " + blockIndex[0] + " yPos: " + blockIndex[1]);
 
     callbackDispatcher.call(new PlacePieceCallback(blockIndex[0], blockIndex[1], currentPiece));
 
-    String filePath = callbackDispatcher.call(new GetElementPropertyByKeyCallback("piece", currentPiece, "image")).orElseThrow();
-
-    Image pieceImage = new Image(filePath);
+    String filePath =  callbackDispatcher.call(new GetElementPropertyByKeyCallback("piece", currentPiece, "image")).orElseThrow();
+    Image pieceImage = new Image(new File(filePath).toURI().toString());
     pieceGraphics.drawImage(pieceImage,blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
 
   }

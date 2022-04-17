@@ -38,6 +38,7 @@ import java.util.Collection;
  */
 public class BuilderController {
 
+    private static final String JSON_FILENAME = "/config.json";
     private final BuilderModel gameConfig;
     private final BuilderView builderView;
 
@@ -174,15 +175,18 @@ public class BuilderController {
     }
 
     /**
-     * Saves the existing Game Configuration to a JSON file
+     * Saves the existing Game Configuration to a directory, storing the JSON configuration as
+     * well as the resources used to create the game (images, etc.)
      *
-     * @param callback callback object containing the File to save the Game Configuration to.
+     * @param callback callback object containing the directory that the game configuration will be located in.
      */
     Void save(SaveCallback callback) throws NullBoardException {
+        File configFile = new File(callback.file().toString() + JSON_FILENAME);
         try {
-            FileWriter writer = new FileWriter(callback.file());
+            FileWriter writer = new FileWriter(configFile);
             writer.write(gameConfig.toJSON());
             writer.close();
+            gameConfig.copyFiles(callback.file());
         } catch (IOException | ElementNotFoundException e) {
             // TODO: Exception Handling
             e.printStackTrace();
@@ -193,13 +197,13 @@ public class BuilderController {
     /**
      * Loads a Game Configuration from a JSON File
      *
-     * @param file the file to load the game configuration from
+     * @param directory the directory to load the game configuration from
      */
-    public void load(File file) {
-
+    public void load(File directory) {
+        File configFile = new File(directory.toString() + JSON_FILENAME);
         InputStream is = null;
         try {
-            is = new DataInputStream(new FileInputStream(file));
+            is = new DataInputStream(new FileInputStream(configFile));
             JSONTokener tokener = new JSONTokener(is);
             JSONObject object = new JSONObject(tokener);
             gameConfig.fromJSON(object.toString());

@@ -14,7 +14,7 @@ to create strategy games in the following domain:
 
 We intend two create two functionally separate application, a builder and a game engine. The builder
 will be responsible for allowing users to create game configurations that specify the board, pieces,
-rules, and conditions of a game. The engine is responsible for loading these configurations and 
+moves, and conditions of a game. The engine is responsible for loading these configurations and 
 allowing users to play the games.
 
 ## Design Details
@@ -26,13 +26,13 @@ allowing users to play the games.
 [Builder Wireframe](https://www.figma.com/file/R75cgz0MIS9m1zZj4H3HDi/Figma-Wireframing-Kit-(Community)?node-id=1009%3A489)
 
 The builder is responsible for allowing users to create custom game configurations. The basic 
-game elements that the user will be allowed to create are to the board, the pieces, the rules, and
+game elements that the user will be allowed to create are to the board, the pieces, the moves, and
 the winning conditions of a game. 
 
 The builder will provide a collection of tabs, each of which corresponds to game elements that the
 user wishes to create. For instance, there will be a "piece" tab that allows the user to define the 
 properties of the pieces in the game, such as their color, movement patterns, and image. There will
-likewise be a tab for rules, the board, and winning conditions.
+likewise be a tab for moves, the board, and winning conditions.
 
 Each of these tabs is responsible for displaying an intuitive UI for creating game elements, which 
 are stored in the back end as game elements. When the view wishes to display the properties of 
@@ -74,7 +74,7 @@ are only needed by the model for JSON serialization).
 [Engine Wireframe Demo](engine_wireframe_demo.mov "wireframe walkthrough")
 
 We imagine our game engine to be a generalized class which has functionalities like generating
-possible actions for next moves, determining if a move obeys the rules.
+possible actions for next moves, determining if a move obeys the moves.
 
 The engine uses a Game class which contains the game loop, telling each player to play their turn.
 

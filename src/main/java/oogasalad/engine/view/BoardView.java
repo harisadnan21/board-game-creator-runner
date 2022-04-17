@@ -2,9 +2,9 @@ package oogasalad.engine.view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -15,17 +15,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
-import oogasalad.engine.model.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.engine.PieceSelectionEngine;
+import oogasalad.engine.model.board.PositionState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import oogasalad.engine.model.parsing.GameParser;
 
 public class BoardView implements PropertyChangeListener{
-  private static final Logger LOG = LogManager.getLogger(PieceSelectionEngine.class);
+  private static final Logger LOG = LogManager.getLogger(BoardView.class);
   public static String IMAGES_FOLDER = "images/";
   public static String BLACK_KNIGHT = IMAGES_FOLDER + "blueWhiteOrbit.png";
   public static String WHITE_KNIGHT = IMAGES_FOLDER + "purpleBlackOrbit.png";
@@ -81,15 +79,16 @@ public class BoardView implements PropertyChangeListener{
     root.setAlignment(Pos.CENTER);
   }
 
-  public void cellClicked(MouseEvent e, int i, int j) throws OutOfBoardException {
-    Board nextState = myController.click(i, j);
+  public void cellClicked(MouseEvent e, int i, int j)
+      throws OutOfBoardException {
+    myController.click(i, j);
     selectCell(i, j);
-    updateBoard(nextState);
-    text.updateText(nextState.getPlayer());
   }
 
   public void addController(Controller c) {
     myController = c;
+    Board board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers, this::clearValidMarks);
+    updateBoard(board);
   }
 
   public Text getText() {
@@ -119,53 +118,52 @@ public class BoardView implements PropertyChangeListener{
     return new Pair<>(cellWidth, cellHeight);
   }
 
-  private void updateBoard(Board board) {
-    setValidMarkers(board);
-    for (Pair<Position, Piece> piece: board) {
-      Position pos = piece.getKey();
-      if (piece.getValue() != null) {
-        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(piece.getValue().getPieceRecord().player()));
+  private void updateBoard(Object newBoard) {
+    Board board = (Board)newBoard;
+    text.updateText(board.getPlayer());
+    for (PositionState cell: board) {
+      Position pos = cell.position();
+      if (cell.isPresent()) {
+        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(cell.player()));
       }
       else {
-        myGrid[pos.i()][pos.j()].removePiece();
+        try {
+          myGrid[pos.i()][pos.j()].removePiece();
+        } catch (Exception e) {
+          LOG.warn("Exception thrown", e);
+        }
       }
     }
     checkForWin(board);
+    text.updateText(board.getPlayer());
   }
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
   private void checkForWin(Board board) {
     if(board.getWinner() != Board.NO_WINNER_YET){
-      System.out.printf("gameOver! Player %d wins%n", board.getWinner());
+      text.gameIsWon(board.getWinner());
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
-      try {
-        displayGameOver(board);
-        updateBoard(GameParser.getCheckersBoard());
-      }
-      catch(IOException e){
-        e.printStackTrace();
-        //TODO: Change
-      }
+      //displayGameOver(board);
+      displayGameOver(board);
+      Board newBoard = myController.resetGame();
+      updateBoard(newBoard);
     }
   }
 
   private void displayGameOver(Board board) {
+
     myController.resetGame();
   }
 
   /**
    * Adds a marker to all the cells that are valid moves for the currently selected piece
-   * @param board - current Game Board
+   * @param validMoves - current Game Board
    */
-  private void setValidMarkers(Board board) {
-    if(board.getValidMoves()==null){
-      clearValidMarks();
+  private void setValidMarkers(Set<Position> validMoves) {
+    for(Position pos : validMoves){
+      myGrid[pos.i()][pos.j()].addValidMarker();
     }
-    else{
-      for(Position pos : board.getValidMoves()){
-        myGrid[pos.i()][pos.j()].addValidMarker();
-      }
-    }
+
   }
 
   /**
