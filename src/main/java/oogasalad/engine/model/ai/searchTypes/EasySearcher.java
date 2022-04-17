@@ -1,13 +1,14 @@
 package oogasalad.engine.model.ai.searchTypes;
 
 import java.util.Set;
-import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.ai.AIChoice;
+import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.Seq;
 
-public class EasySearcher extends Searcher{
+@Deprecated
+public class EasySearcher extends Searcher implements Selects {
 
   private Set<AIChoice> AIChoices;
 

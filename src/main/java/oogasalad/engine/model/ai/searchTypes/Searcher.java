@@ -1,11 +1,9 @@
 package oogasalad.engine.model.ai.searchTypes;
 
-import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
-import oogasalad.engine.model.board.Board;
 
-public abstract class Searcher {
+public abstract class Searcher implements Selects {
 
   protected final int maxDepth;
   protected final int forPlayer;
@@ -20,5 +18,4 @@ public abstract class Searcher {
   }
 
 
-  public abstract AIChoice selectChoice(Board board);
 }
