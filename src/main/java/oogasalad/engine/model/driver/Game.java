@@ -1,5 +1,6 @@
 package oogasalad.engine.model.driver;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -19,12 +20,22 @@ public class Game {
 
   public Game(Board startingBoard, Consumer<Board> updateView) {
     myBoard = startingBoard;
-    myBoardHistory = new LinkedList<Board>();
+    myBoardHistory = new ArrayList<Board>();
     myUpdateView = updateView;
     backInHistory =0;
   }
 
+  /**
+   * removes all boards after the current board ffrom history and sets the param Board as the current board
+   * @param board
+   */
   public void setBoard(Board board) {
+    if (backInHistory != 0){
+
+      for(int i = 0; i<backInHistory; i++){
+        myBoardHistory.remove(myBoardHistory.size() -1);
+      }
+    }
     myBoardHistory.add(myBoard);
     myBoard = board;
     myUpdateView.accept(board);
@@ -39,14 +50,14 @@ public class Game {
    * function saves the current board and sets the previous board as the current board
    */
   public void back() throws BoardHistoryException{
-    if (getLinkedListLength(myBoardHistory) == 0){
+    if (myBoardHistory.size() == 0){
       throw new BoardHistoryException("You have gone too far back in the history, no board to show");
     }
     else{
 
     }
     backInHistory++;
-    myBoard = (Board) getNode(getLinkedListLength(myBoardHistory)-1-backInHistory, myBoardHistory);
+    myBoard = myBoardHistory.get(myBoardHistory.size()-1-backInHistory);
     myBoardHistory.add(myBoard);
     myUpdateView.accept(myBoard);
   }
@@ -61,7 +72,7 @@ public class Game {
     else{
       myBoardHistory.add(myBoard);
       backInHistory--;
-      myBoard = (Board) getNode(getLinkedListLength(myBoardHistory)-1-backInHistory, myBoardHistory);
+      myBoard =myBoardHistory.get(myBoardHistory.size()-1-backInHistory);
       myUpdateView.accept(myBoard);
 
     }
@@ -77,24 +88,17 @@ public class Game {
       back();
     }
   }
+
+  /**
+   * function goes number boards forward in the history of boards and makes this the current board
+   * @param Number
+   * @throws BoardHistoryException
+   */
   public void forwardByAmount(int Number) throws BoardHistoryException{
     for(int i = 0; i< Number; i++){
       forward();
     }
   }
-  private int getLinkedListLength(List list){
-    return list.size();
-  }
-
-  private Object getNode(int indexOfNode, List list){
-    for (int i = 0; i < getLinkedListLength(list) ; i++){
-      if( i == indexOfNode){
-        return list.get(i);
-      }
-    }
-    return null;
-  }
-
 
 
 }
