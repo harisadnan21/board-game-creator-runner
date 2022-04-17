@@ -19,7 +19,6 @@ public abstract class Searcher {
     this.Oracle = Oracle;
   }
 
-  protected abstract Choice nextChoiceToExplore();
 
   public abstract Choice selectChoice(Board board);
 }

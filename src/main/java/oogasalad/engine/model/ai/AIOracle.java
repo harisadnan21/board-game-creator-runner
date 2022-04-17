@@ -1,11 +1,17 @@
 package oogasalad.engine.model.ai;
 
+import io.vavr.control.Either;
+import io.vavr.control.Option;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
+import org.jooq.lambda.tuple.Tuple2;
 
-@FunctionalInterface
 public interface AIOracle {
   Set<Choice> getChoices(Board board, int player);
+
+  // left is whether someone wins, right is winner if someone wins
+  Boolean isWinningState(Board board);
 
 }

@@ -283,7 +283,7 @@ void testBoardIsPersistentAdvanced() {
   }
 
   private Seq<Map<Integer, Integer>> getMap(Board[] boards) {
-    return Seq.seq(Arrays.stream(boards)).map(board -> board.numPiecesByPlayer());
+    return Seq.seq(Arrays.stream(boards)).map(Board::numPiecesByPlayer);
   }
 
   @Test
@@ -294,6 +294,6 @@ void testBoardIsPersistentAdvanced() {
     maps = getMap(boards);
     maps.forEach(integerListMap -> assertEquals(0, integerListMap.get(Piece.PLAYER_TWO) ));
     maps = getMap(boards);
-    Seq.zip(maps, Stream.of(boards)).forEach(tuple2 -> assertEquals(tuple2.v1.get(Piece.EMPTY), tuple2.v2.getHeight() * tuple2.v2.getWidth()));
+    Seq.zip(maps, Stream.of(boards)).forEach(tuple2 -> assertEquals(tuple2.v1.get(Piece.NO_PLAYER), tuple2.v2.getHeight() * tuple2.v2.getWidth()));
   }
 }
