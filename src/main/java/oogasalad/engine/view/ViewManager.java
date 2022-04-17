@@ -1,6 +1,5 @@
 package oogasalad.engine.view;
 
-import java.io.File;
 import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,6 +16,8 @@ import oogasalad.engine.model.parser.GameParser;
 public class ViewManager {
   public static double WIDTH = 600;
   public static double HEIGHT = 400;
+  public static double BOARDX = 400;
+  public static double BOARDY = 400;
 
   private OpeningView openingView;
   private GameView gameView;
@@ -25,7 +26,6 @@ public class ViewManager {
 
   public ViewManager(Stage s) {
     currScene = createOpeningView().makeScene();
-    //currScene = new Scene(new Dashboard(), WIDTH, HEIGHT);
     stage = s;
   }
 
@@ -48,7 +48,7 @@ public class ViewManager {
     try {
       GameParser parser = new GameParser(openingView.getFileChoice());
       Board board = parser.parseBoard();
-      BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), 350, 350);
+      BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), BOARDX, BOARDY);
       Controller controller = new Controller(board);
       boardView.addController(controller);
       currScene = createGameView(boardView, controller).makeScene();
