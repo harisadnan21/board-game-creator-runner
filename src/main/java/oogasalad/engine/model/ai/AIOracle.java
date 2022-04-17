@@ -11,7 +11,6 @@ import org.jooq.lambda.tuple.Tuple2;
 public interface AIOracle {
   Set<Choice> getChoices(Board board, int player);
 
-  // left is whether someone wins, right is winner if someone wins
   Boolean isWinningState(Board board);
 
 }

@@ -13,6 +13,6 @@ public class CenterAround implements Regularizes {
   @Override
   public int regularizeEvaluationScore(StateEvaluator stateEvaluator, Board board, int player) {
     int originalScore = stateEvaluator.evaluate(board, player);
-    return Math.abs(center - originalScore);
+    return -1 * Math.abs(center - originalScore);
   }
 }
