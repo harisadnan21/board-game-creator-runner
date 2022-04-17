@@ -36,11 +36,13 @@ public class HumanPlayer extends Player{
   @Override
   public Pair<Position, Move> chooseMove() {
 
+    LOG.info("Player asked to choose move");
     while (mySelectedMove == null || mySelectedCell == null) {
 
     }
     Pair<Position, Move> choice = new Pair<>(mySelectedCell, mySelectedMove);
     resetSelected();
+    LOG.info("Choice about to be returned");
     return choice;
   }
 
@@ -55,6 +57,7 @@ public class HumanPlayer extends Player{
       Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
       if (move.isPresent()) {
         mySelectedMove = move.get();
+        LOG.info("Move {} selected", mySelectedMove.getName());
       }
       resetSelected();
     }

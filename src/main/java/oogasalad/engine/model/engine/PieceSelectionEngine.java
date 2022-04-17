@@ -78,6 +78,24 @@ public class PieceSelectionEngine extends Engine {
     }
   }
 
+  private void playTurn(Player player, Move move, Position referencePoint) {
+
+    if (move.isValid(getGameStateBoard(), referencePoint)) {
+      Board newBoard = move.doMovement(getGameStateBoard(), referencePoint);
+      LOG.info("{} executed at {},{}", move.getName(), referencePoint.i(), referencePoint.j());
+      myGame.setBoard(newBoard);
+    }
+    else {
+      int queryingPlayerID = -1;
+      for (int playerID : myPlayers.keySet()) {
+        if (myPlayers.get(playerID) == player) {
+          queryingPlayerID = playerID;
+        }
+      }
+      LOG.warn("Player {}'s move was not valid", queryingPlayerID);
+    }
+  }
+
   public void onCellSelect(int i, int j) {
     Board board = getGameStateBoard();
     Player activePlayer = myPlayers.get(board.getPlayer());
@@ -123,23 +141,6 @@ public class PieceSelectionEngine extends Engine {
     }
   }
 
-  /**
-   * Plays a turn, presumably executed from the Player class
-   * Updates the game's board with the resultant board
-   * @param player
-   * @param move
-   * @param i
-   * @param j
-   */
-  public void playTurn(Player player, Move move, int i, int j) {
-    Board board = getGameStateBoard();
-    int activePlayer = board.getPlayer();
-    if (move.isValid(getGameStateBoard(), i, j) && myPlayers.get(activePlayer) == player) {
-      board = move.doMovement(board, i, j);
-    }
-    board = myOracle.applyRules(board);
-    myGame.setBoard(board);
-  }
 
   /**
    *
