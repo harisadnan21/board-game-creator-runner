@@ -1,8 +1,5 @@
 package oogasalad.engine.model.ai;
 
-import oogasalad.engine.model.ai.searchTypes.EasySearcher;
-import oogasalad.engine.model.ai.searchTypes.MinMaxSearcher;
-import oogasalad.engine.model.ai.searchTypes.RandomSearcher;
 import oogasalad.engine.model.ai.searchTypes.SearchType;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.ai.searchTypes.Searcher;
@@ -28,31 +25,23 @@ public class AIPlayer extends Player {
     this.difficulty = difficulty;
     this.searchType = searchType;
     this.AIOracle = AIOracle;
-    this.searcher = this.makeSearcher();
+    this.searcher = SearcherFactory.makeSearcher(this);
   }
 
-  // TODO: clean this up
-  private Searcher makeSearcher() {
-    return switch (this.difficulty) {
-      case RANDOM -> new RandomSearcher(1, playerNumber, stateEvaluator, AIOracle);
-      case EASY -> new EasySearcher(1, playerNumber, stateEvaluator, AIOracle);
-      case MEDIUM -> new MinMaxSearcher(3, playerNumber, stateEvaluator, AIOracle, null);
-      case HARD -> new MinMaxSearcher(5, playerNumber, stateEvaluator, AIOracle, null);
-      case EXPERT -> new MinMaxSearcher(8, playerNumber, stateEvaluator, AIOracle, null);
-    };
-  }
-
-  public Choice chooseAction(Board board) {
+  public AIChoice chooseAction(Board board) {
     return searcher.selectChoice(board);
   }
 
 
   @Override
   public void chooseMove() {
+    Board board = super.getGameBoard();
+    AIChoice AIChoice = this.chooseAction(board);
+    super.executeMove(this, AIChoice);
   }
 
   @Override
   public void onCellSelect(int i, int j) {
-
+    throw new NoSuchMethodError("no");
   }
 }
