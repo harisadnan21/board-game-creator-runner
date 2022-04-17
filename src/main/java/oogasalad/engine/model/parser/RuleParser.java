@@ -22,7 +22,8 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
   public static final String ACTIONS = "actions";
   public static final String CONDITIONS = "conditions";
   private static final String RULES = "rules";
-  private static final String REPRESENTATIVE_POINT = "representativePoint";
+  private static final String REPRESENTATIVE_POINT_X = "representativeX";
+  private static final String REPRESENTATIVE_POINT_Y = "representativeY";
   private static final String NAME = "name";
   private final ActionParser actionParser;
   private final ConditionParser conditionParser;
@@ -51,8 +52,8 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
     JSONArray rulesJSON = root.getJSONArray(RULES);
     for (int i = 0; i < rulesJSON.length(); i++) {
       JSONObject rule = rulesJSON.getJSONObject(i);
-      String name = rule.getString("name");
-      Position repPoint = getRepresentativePoint(rule.getJSONObject(REPRESENTATIVE_POINT));
+      String name = rule.getString(NAME);
+      Position repPoint = getRepresentativePoint(rule);
       Action[] actions = resolveActions(rule);
       PieceCondition[] conditions = resolveConditions(rule);
       rules.add(new Move(name, conditions, actions, repPoint.i(), repPoint.j()));
@@ -86,11 +87,10 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
     conditionParser.parse(configFile);
   }
 
-  // Gets a representative point from a JSONObject
-  private Position getRepresentativePoint(JSONObject representativePoint) {
-    //TODO: Remove magic values and make sure this is correct
-    int i = -representativePoint.getInt("y");
-    int j = representativePoint.getInt("x");
+  // Gets a representative point from a JSONObject representing a rule
+  private Position getRepresentativePoint(JSONObject rule) {
+    int i = -rule.getInt(REPRESENTATIVE_POINT_Y);
+    int j = rule.getInt(REPRESENTATIVE_POINT_X);
     return new Position(i, j);
   }
 
