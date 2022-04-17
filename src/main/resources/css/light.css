@@ -1,0 +1,34 @@
+.root {
+  -fx-background-color: #EEEEEE
+
+}
+
+/*
+Opening View
+*/
+#opening-text {
+  -fx-font-size: 48;
+  -fx-font-family: "Montserrat";
+  -fx-fill: #464646;
+}
+
+#game-text {
+  -fx-alignment: center;
+}
+
+#opening-button-layout, #opening-button-row{
+  -fx-spacing: 20;
+  -fx-alignment: center;
+}
+
+#opening-button {
+  -fx-font-family: "Montserrat";
+  -fx-font-size: 17;
+  -fx-fill: #464646;
+  -fx-alignment: center;
+  -fx-max-width: 120;
+  -fx-min-width: 120;
+  -fx-max-height: 45;
+  -fx-min-height: 45;
+}
+
