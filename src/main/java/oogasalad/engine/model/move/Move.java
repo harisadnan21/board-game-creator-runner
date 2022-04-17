@@ -5,7 +5,6 @@ import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
-import oogasalad.engine.model.engine.PieceSelectionEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

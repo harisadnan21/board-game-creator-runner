@@ -21,13 +21,13 @@ class DirectionTest {
   void values() {
     // Resource: https://stackoverflow.com/questions/26663399/why-do-the-new-java-8-streams-return-an-object-array-on-toarray-calls
     String[] values = Arrays.stream(Direction.values()).map(Direction::toString).toArray(String[]::new);
-    Assertions.assertArrayEquals(values, DIRECTIONS_ARRY);
+    assertArrayEquals(values, DIRECTIONS_ARRY);
   }
 
   @Test
   void valueOf() {
     for (String dir: DIRECTIONS_ARRY) {
-      Assertions.assertNotNull(Direction.valueOf(dir));
+      assertNotNull(Direction.valueOf(dir));
     }
   }
 
@@ -37,7 +37,7 @@ class DirectionTest {
     try {
       Direction.valueOf(badVal);
     } catch (IllegalArgumentException exception) {
-      Assertions.assertTrue(true);
+      assertTrue(true);
     }
   }
 

@@ -3,7 +3,9 @@ package oogasalad.engine.model.engine;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.OutOfBoardException;
@@ -13,24 +15,100 @@ import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Move;
 
+import oogasalad.engine.model.player.HumanPlayer;
 import oogasalad.engine.model.player.Player;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jooq.lambda.function.Consumer0;
 
 
-public abstract class Engine {
+public class Engine {
+
+  private static final Logger LOG = LogManager.getLogger(Engine.class);
+
+  private Map<Integer, Player> myPlayers = new HashMap<>();
+
+  // from Engine
+  private Game myGame;
+
+  private Oracle myOracle;
+
+  private Collection<Move> myMoves;
+  private Consumer<Set<Position>> setViewValidMarks;
 
   public Engine(Game game, Collection<Move> moves,
-      Collection<WinCondition> winConditions, Consumer<Board> update,
-      Consumer<Set<Position>> setValidMarks) {
+      Collection<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks) {
+
+    myGame = game;
+    myMoves = moves;
+    setViewValidMarks = setValidMarks;
+
+    int numPlayers = 2; //TODO: automate player creation
+
+    myOracle = new Oracle(moves, winConditions, new ArrayList<>(), numPlayers);
+
+    myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
+    myPlayers.put(1, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
+
+
+    //createWinCondition();
+    //createCheckersMove();
+    //createPlayer1Moves();
   }
 
-  public Engine(Game game){
+  public void gameLoop() {
   }
 
-  public abstract void gameLoop();
+  private void playTurn(Player player, Choice choice) {
 
-  public abstract void onCellSelect(int x, int y)
-      throws OutOfBoardException;
+    if (isActivePlayer(player)) {
+      Move move = choice.move();
+      Position referencePoint = choice.position();
+      if (move.isValid(getGameStateBoard(), referencePoint)) {
+        Board board = move.doMovement(getGameStateBoard(), referencePoint);
+        board = board.setPlayer(board.getPlayer()+1);
+        LOG.info("{} executed at {},{}", move.getName(), referencePoint.i(), referencePoint.j());
 
-  public abstract Board getGameStateBoard();
+        board = myOracle.incrementPlayer(board);
+
+        myGame.setBoard(board);
+
+      } else {
+        LOG.warn("Player's move is not valid");
+      }
+    }
+  }
+
+  public boolean isActivePlayer(Player player) {
+    int playerID = getPlayerID(player);
+    Board board = getGameStateBoard();
+    return playerID == board.getPlayer();
+  }
+
+  private int getPlayerID(Player player) {
+    int queryingPlayerID = -1;
+    for (int playerID : myPlayers.keySet()) {
+      if (myPlayers.get(playerID) == player) {
+        queryingPlayerID = playerID;
+      }
+    }
+    if (queryingPlayerID == -1) {
+      throw new RuntimeException("Player does not exist in this game");
+    }
+    return queryingPlayerID;
+  }
+
+  public void onCellSelect(int i, int j) {
+    Board board = getGameStateBoard();
+    Player activePlayer = myPlayers.get(board.getPlayer());
+    activePlayer.onCellSelect(i, j);
+  }
+
+  /**
+   *
+   * @return the board which is at the head of the game's board stack
+   */
+  public Board getGameStateBoard() {
+    return myGame.getBoard();
+  }
 }

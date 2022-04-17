@@ -1,6 +1,4 @@
-package oogasalad.engine.model.ai.evaluation.regularization;
-
-import static org.junit.jupiter.api.Assertions.*;
+package oogasalad.engine.model.ai.evaluation.meta;
 
 import org.junit.jupiter.api.Test;
 

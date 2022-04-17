@@ -1,11 +1,9 @@
 package oogasalad.engine.model.player;
 
-import oogasalad.engine.model.Oracle;
+import oogasalad.engine.model.engine.Choice;
+import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.driver.Game;
-import oogasalad.engine.model.move.Move;
-import oogasalad.engine.model.utilities.Pair;
 
 /**
  * Abstract class that defines a player and has methods that executes a player's turn.
@@ -23,7 +21,7 @@ public abstract class Player implements PlayerInterface {
   }
 
   @Override
-  public abstract Pair<Position, Move> chooseMove();
+  public abstract Choice chooseMove();
 
   public boolean isMyTurn() {
     return false;

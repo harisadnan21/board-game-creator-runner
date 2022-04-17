@@ -1,4 +1,4 @@
-package oogasalad.engine.model;
+package oogasalad.engine.model.engine;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,13 +30,13 @@ public class Oracle {
   private Collection<WinCondition> myWinConditions;
   private Collection<Move> myPersistentRules;
 
+  private int myNumPlayers;
 
-
-  public Oracle(Collection<Move> moves, Collection<WinCondition> winConditions, Collection<Move> persistentRules) {
+  public Oracle(Collection<Move> moves, Collection<WinCondition> winConditions, Collection<Move> persistentRules, int numPlayers) {
     myMoves = moves;
     myWinConditions = winConditions;
     myPersistentRules = persistentRules;
-
+    myNumPlayers = numPlayers;
   }
   /**
    *
@@ -120,6 +120,11 @@ public class Oracle {
     moves.forEach((move) -> positions.add(move.getRepresentativeCell(i,j)));
 
     return positions;
+  }
+
+  public Board incrementPlayer(Board board) {
+    int nextPlayer = (board.getPlayer() + 1) % myNumPlayers;
+    return board.setPlayer(nextPlayer);
   }
 
 }

@@ -51,32 +51,32 @@ public class PositionTest {
     Position p3 = new Position(2,1);
     Position p4 = new Position(2,2);
 
-    Assertions.assertTrue(p1.compareTo(p2) < 0);
-    Assertions.assertTrue(p1.compareTo(p3) < 0);
-    Assertions.assertTrue(p1.compareTo(p4) < 0);
+    assertTrue(p1.compareTo(p2) < 0);
+    assertTrue(p1.compareTo(p3) < 0);
+    assertTrue(p1.compareTo(p4) < 0);
 
-    Assertions.assertTrue(p2.compareTo(p3) < 0);
-    Assertions.assertTrue(p2.compareTo(p4) < 0);
+    assertTrue(p2.compareTo(p3) < 0);
+    assertTrue(p2.compareTo(p4) < 0);
 
-    Assertions.assertTrue(p3.compareTo(p4) < 0);
+    assertTrue(p3.compareTo(p4) < 0);
 
   }
 
   @Test
   void i() {
     for(int i = 0; i < positions1.length; i++){
-      Assertions.assertEquals(positions1[i].i(), positions2[i].i());
-      Assertions.assertEquals(positions1[i].i(), ROW_VALS[i]);
-      Assertions.assertEquals(positions2[i].i(), ROW_VALS[i]);
+      assertEquals(positions1[i].i(), positions2[i].i());
+      assertEquals(positions1[i].i(), ROW_VALS[i]);
+      assertEquals(positions2[i].i(), ROW_VALS[i]);
     }
   }
 
   @Test
   void j() {
     for(int i = 0; i < positions1.length; i++){
-      Assertions.assertEquals(positions1[i].j(), positions2[i].j());
-      Assertions.assertEquals(positions1[i].j(), COL_VALS[i]);
-      Assertions.assertEquals(positions2[i].j(), COL_VALS[i]);
+      assertEquals(positions1[i].j(), positions2[i].j());
+      assertEquals(positions1[i].j(), COL_VALS[i]);
+      assertEquals(positions2[i].j(), COL_VALS[i]);
     }
   }
 
@@ -88,10 +88,10 @@ public class PositionTest {
   @Test
   void noError() {
     for(int i = 0; i < positions1.length; i++){
-      Assertions.assertDoesNotThrow(positions1[i]::i);
-      Assertions.assertDoesNotThrow(positions1[i]::j);
-      Assertions.assertDoesNotThrow(positions2[i]::i);
-      Assertions.assertDoesNotThrow(positions2[i]::j);
+      assertDoesNotThrow(positions1[i]::i);
+      assertDoesNotThrow(positions1[i]::j);
+      assertDoesNotThrow(positions2[i]::i);
+      assertDoesNotThrow(positions2[i]::j);
     }
   }
 
@@ -101,7 +101,7 @@ public class PositionTest {
       Position prev = positions1[i];
       for(int j = i+1; j < positions1.length; j++){
         Position curr = positions1[j];
-        Assertions.assertTrue(prev.compareTo(curr) < 0);
+        assertTrue(prev.compareTo(curr) < 0);
       }
     }
   }

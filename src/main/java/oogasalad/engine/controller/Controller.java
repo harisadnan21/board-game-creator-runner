@@ -1,9 +1,7 @@
 package oogasalad.engine.controller;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.OutOfBoardException;
@@ -12,11 +10,8 @@ import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.engine.PieceSelectionEngine;
 
 import oogasalad.engine.model.move.Move;
-import oogasalad.engine.model.setup.Constants;
-import org.jooq.lambda.function.Consumer0;
 import oogasalad.engine.model.parser.GameParser;
 
 public class Controller {
@@ -41,7 +36,7 @@ public class Controller {
       winConditions = parser.readWinConditions();
 
       // TODO: figure out better way to pass in view lambdas
-      myEngine = new PieceSelectionEngine(myGame, moves, winConditions, null, null);
+      myEngine = new Engine(myGame, moves, winConditions, null, null);
 
     } catch (Exception e){
       e.printStackTrace();
@@ -54,7 +49,7 @@ public class Controller {
   public Board resetGame() {
     myGame = new Game(myBoard, updateView);
 
-    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks);
+    myEngine = new Engine(myGame, moves, winConditions, updateView, setViewValidMarks);
 
     return myBoard;
   }
@@ -68,7 +63,7 @@ public class Controller {
     setViewValidMarks = setValidMarks;
 
     myGame = new Game(myBoard, updateView);
-    myEngine = new PieceSelectionEngine(myGame, moves, winConditions, updateView, setViewValidMarks);
+    myEngine = new Engine(myGame, moves, winConditions, updateView, setViewValidMarks);
 
     return myBoard;
   }

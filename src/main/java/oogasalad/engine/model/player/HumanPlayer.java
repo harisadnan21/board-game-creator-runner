@@ -1,18 +1,16 @@
 package oogasalad.engine.model.player;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Optional;
+
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import oogasalad.engine.model.Oracle;
-import oogasalad.engine.model.actions.Action;
+import oogasalad.engine.model.engine.Choice;
+import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.driver.Game;
-import oogasalad.engine.model.engine.Engine;
-import oogasalad.engine.model.engine.PieceSelectionEngine;
 import oogasalad.engine.model.move.Move;
 import oogasalad.engine.model.utilities.Pair;
 import org.apache.logging.log4j.LogManager;
@@ -25,22 +23,25 @@ public class HumanPlayer extends Player{
   private Set<Position> myValidMoves = null;
 
   private Move mySelectedMove = null;
+  private Choice myChoice;
 
   private Consumer<Set<Position>> mySetValidMarks;
+  private BiConsumer<Player, Choice> myExecuteMove;
 
-  public HumanPlayer(Oracle oracle, Game game, Consumer<Set<Position>> setValidMarks) {
+  public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
     super(oracle, game);
     mySetValidMarks = setValidMarks;
+    myExecuteMove = executeMove;
   }
 
   @Override
-  public Pair<Position, Move> chooseMove() {
+  public Choice chooseMove() {
 
     LOG.info("Player asked to choose move");
     while (mySelectedMove == null || mySelectedCell == null) {
 
     }
-    Pair<Position, Move> choice = new Pair<>(mySelectedCell, mySelectedMove);
+    Choice choice = new Choice(mySelectedCell, mySelectedMove);
     resetSelected();
     LOG.info("Choice about to be returned");
     return choice;
@@ -57,7 +58,10 @@ public class HumanPlayer extends Player{
       Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
       if (move.isPresent()) {
         mySelectedMove = move.get();
+        myChoice = new Choice(mySelectedCell, mySelectedMove);
         LOG.info("Move {} selected", mySelectedMove.getName());
+        resetSelected();
+        myExecuteMove.accept(this, myChoice);
       }
       resetSelected();
     }
