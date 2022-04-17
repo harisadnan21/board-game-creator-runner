@@ -1,6 +1,7 @@
 package oogasalad.engine.model.board;
 
 import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class PositionStateTest {
@@ -18,40 +19,78 @@ class PositionStateTest {
 
   @Test
   void i() {
-    Assertions.assertNotNull(POSITION_STATE_1.i());
-    Assertions.assertNotNull(POSITION_STATE_2.i());
-    Assertions.assertNotNull(POSITION_STATE_3.i());
-    Assertions.assertNotNull(POSITION_STATE_4.i());
+    assertNotNull(POSITION_STATE_1.i());
+    assertNotNull(POSITION_STATE_2.i());
+    assertNotNull(POSITION_STATE_3.i());
+    assertNotNull(POSITION_STATE_4.i());
+    assertInstanceOf(int.class, POSITION_STATE_1.i());
+    assertInstanceOf(int.class, POSITION_STATE_2.i());
+    assertInstanceOf(int.class, POSITION_STATE_3.i());
+    assertInstanceOf(int.class, POSITION_STATE_4.i());
   }
 
   @Test
   void j() {
-    Assertions.assertNotNull(POSITION_STATE_1.j());
-    Assertions.assertNotNull(POSITION_STATE_2.j());
-    Assertions.assertNotNull(POSITION_STATE_3.j());
-    Assertions.assertNotNull(POSITION_STATE_4.j());
+    assertNotNull(POSITION_STATE_1.j());
+    assertNotNull(POSITION_STATE_2.j());
+    assertNotNull(POSITION_STATE_3.j());
+    assertNotNull(POSITION_STATE_4.j());
+    assertInstanceOf(int.class, POSITION_STATE_1.j());
+    assertInstanceOf(int.class, POSITION_STATE_2.j());
+    assertInstanceOf(int.class, POSITION_STATE_3.j());
+    assertInstanceOf(int.class, POSITION_STATE_4.j());
   }
   @Test
   void position() {
-    Assertions.assertNotNull(POSITION_STATE_1.position());
-    Assertions.assertNotNull(POSITION_STATE_2.position());
-    Assertions.assertNotNull(POSITION_STATE_3.position());
-    Assertions.assertNotNull(POSITION_STATE_4.position());
+    assertNotNull(POSITION_STATE_1.position());
+    assertNotNull(POSITION_STATE_2.position());
+    assertNotNull(POSITION_STATE_3.position());
+    assertNotNull(POSITION_STATE_4.position());
+    assertInstanceOf(int.class, POSITION_STATE_1.position());
+    assertInstanceOf(int.class, POSITION_STATE_2.position());
+    assertInstanceOf(int.class, POSITION_STATE_3.position());
+    assertInstanceOf(int.class, POSITION_STATE_4.position());
   }
 
   @Test
   void player() {
-    Assertions.assertNotNull(POSITION_STATE_1.piece());
-    Assertions.assertNotNull(POSITION_STATE_2.piece());
-    Assertions.assertNotNull(POSITION_STATE_3.piece());
-    Assertions.assertNotNull(POSITION_STATE_4.piece());
+    assertNotNull(POSITION_STATE_1.piece());
+    assertNotNull(POSITION_STATE_2.piece());
+    assertNotNull(POSITION_STATE_3.piece());
+    assertNotNull(POSITION_STATE_4.piece());
+    assertInstanceOf(int.class, POSITION_STATE_1.player());
+    assertInstanceOf(int.class, POSITION_STATE_2.player());
+    assertInstanceOf(int.class, POSITION_STATE_3.player());
+    assertInstanceOf(int.class, POSITION_STATE_4.player());
   }
 
   @Test
   void pieceType() {
-    Assertions.assertNotNull(POSITION_STATE_1.type());
-    Assertions.assertNotNull(POSITION_STATE_2.type());
-    Assertions.assertNotNull(POSITION_STATE_3.type());
-    Assertions.assertNotNull(POSITION_STATE_4.type());
+    assertNotNull(POSITION_STATE_1.type());
+    assertNotNull(POSITION_STATE_2.type());
+    assertNotNull(POSITION_STATE_3.type());
+    assertNotNull(POSITION_STATE_4.type());
+    assertInstanceOf(int.class, POSITION_STATE_1.type());
+    assertInstanceOf(int.class, POSITION_STATE_2.type());
+    assertInstanceOf(int.class, POSITION_STATE_3.type());
+    assertInstanceOf(int.class, POSITION_STATE_4.type());
+  }
+
+  @Test
+  void with() {
+    Piece piecet = new Piece(100, Piece.PLAYER_TWO);
+    Piece piecef = new Piece(100, Piece.PLAYER_ONE);
+    var posState1 = POSITION_STATE_1.with(piecet);
+    var posState2 = POSITION_STATE_2.with(piecet);
+    var posState3 = POSITION_STATE_3.with(piecet);
+    var posState4 = POSITION_STATE_4.with(piecet);
+  }
+
+  @Test
+  void testWith() {
+  }
+
+  @Test
+  void withEmpty() {
   }
 }
