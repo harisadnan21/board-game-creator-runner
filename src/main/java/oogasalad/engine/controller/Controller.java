@@ -67,6 +67,9 @@ public class Controller {
 
     return myBoard;
   }
+  public Game getGame(){
+    return myGame;
+  }
 
   public void startGame() {
     myEngine.gameLoop();
