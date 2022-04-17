@@ -26,11 +26,7 @@ public class AIPlayer extends Player {
     this.difficulty = difficulty;
     this.searchType = searchType;
     this.AIOracle = AIOracle;
-<<<<<<< Updated upstream
-    implementation)
-=======
     this.searcher = SearcherFactory.makeSearcher(this);
->>>>>>> Stashed changes
   }
 
   public AIChoice chooseAction(Board board) {
@@ -42,11 +38,7 @@ public class AIPlayer extends Player {
   public void chooseMove() {
     Board board = super.getGameBoard();
     AIChoice AIChoice = this.chooseAction(board);
-<<<<<<< Updated upstream
     super.executeMove(this, new Choice(null, null));
-=======
-    super.executeMove(this, AIChoice);
->>>>>>> Stashed changes
   }
 
   @Override
