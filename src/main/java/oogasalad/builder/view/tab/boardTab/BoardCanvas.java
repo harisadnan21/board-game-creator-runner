@@ -1,5 +1,7 @@
 package oogasalad.builder.view.tab.boardTab;
 
+import static oogasalad.builder.view.BuilderView.DEFAULT_RESOURCE_PACKAGE;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -23,12 +25,12 @@ import java.util.function.Consumer;
 
 public class BoardCanvas {
 
-
+  public static String BOARD_PROPERTIES = "BoardTypes";
   private Paint colorOne;
   private Paint colorTwo;
   private Canvas boardCanvas;
   private Canvas pieceCanvas;
-  private ResourceBundle resources;
+  private ResourceBundle boardResources;
   private GraphicsContext boardGraphics;
   private GraphicsContext pieceGraphics;
   private Map<String, Consumer<int[]>> boardTypeFunctionMap;
@@ -41,8 +43,8 @@ public class BoardCanvas {
 
   private final CallbackDispatcher callbackDispatcher;
 
-  public BoardCanvas(ResourceBundle rb, BorderPane boardTab, CallbackDispatcher dispatcher) {
-    resources = rb;
+  public BoardCanvas(BorderPane boardTab, CallbackDispatcher dispatcher) {
+    boardResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + BOARD_PROPERTIES);
     borderPane = boardTab;
     this.callbackDispatcher = dispatcher;
 
@@ -87,7 +89,7 @@ public class BoardCanvas {
     pieceCanvas.setWidth(boardCanvas.getWidth());
   }
   public void setupBoard(){
-    boardCanvas = new Canvas(Integer.parseInt(resources.getString("boardSizeX")), Integer.parseInt(resources.getString("boardSizeY")));
+    boardCanvas = new Canvas();
     boardGraphics = boardCanvas.getGraphicsContext2D();
     boardCanvas.setId("builderBoard");
 
@@ -115,7 +117,7 @@ public class BoardCanvas {
   private void populateBoardTypeMap() {
     // TODO: Pull the Bank of Boards and create Map?
 
-    boardTypeFunctionMap = Map.of(resources.getString("games/checkers"), e -> drawCheckerBoard(e[0], e[1]));
+    boardTypeFunctionMap = Map.of(("Checkers"), e -> drawCheckerBoard(e[0], e[1]));
   }
 
 

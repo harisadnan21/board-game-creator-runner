@@ -19,10 +19,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.exception.NullBoardException;
+import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.SaveCallback;
@@ -35,7 +34,6 @@ import oogasalad.builder.view.tab.TitlePane;
 public class BoardTab extends BorderPane {
 
   private BoardCanvas boardCanvas;
-  private ResourceBundle resources;
   private Spinner<Integer> xDimensionPicker;
   private Spinner<Integer> yDimensionPicker;
   private ColorPicker colorPickerA;
@@ -44,8 +42,7 @@ public class BoardTab extends BorderPane {
 
   private CallbackDispatcher callbackDispatcher;
 
-  public BoardTab(ResourceBundle resourcesBundle, CallbackDispatcher dispatcher) {
-    resources = resourcesBundle;
+  public BoardTab(CallbackDispatcher dispatcher) {
     this.callbackDispatcher = dispatcher;
 
 
@@ -60,7 +57,7 @@ public class BoardTab extends BorderPane {
   }
 
   private void setupBlankBoard() {
-    boardCanvas = new BoardCanvas(resources, this, callbackDispatcher);
+    boardCanvas = new BoardCanvas(this, callbackDispatcher);
 
     Pane canvasPane = boardCanvas.getCanvasPane();
     canvasPane.prefWidthProperty().bind(this.widthProperty().multiply(0.7));
@@ -103,8 +100,8 @@ public class BoardTab extends BorderPane {
 
   private Node setupDimensionChoiceBox() {
     HBox numberPickerBox = new HBox();
-    Label xDimLabel = new Label(resources.getString("xDimLabel"));
-    Label yDimLabel = new Label(resources.getString("yDimLabel"));
+    Label xDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("xDimLabel"));
+    Label yDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("yDimLabel"));
 
     //TODO CHANGE FROM MAGIC NUMBER
     xDimensionPicker = new Spinner<>(0, 50, 8, 1);
@@ -119,11 +116,11 @@ public class BoardTab extends BorderPane {
 
   private Node setupBoardTypeBox() {
     //TODO : get the boardTypes from somewhere good
-    List<String> boardTypeList = List.of(new String[]{resources.getString("games/checkers")});
+    List<String> boardTypeList = List.of(new String[]{"Checkers"});
     ObservableList<String> boardTypes = FXCollections.observableArrayList(boardTypeList);
 
     boardTypeBox = new ComboBox<>(boardTypes);
-    boardTypeBox.setPromptText(resources.getString("boardTypePicker"));
+    boardTypeBox.setPromptText(ViewResourcesSingleton.getInstance().getString("boardTypePicker"));
     boardTypeBox.setValue(boardTypeList.get(0));
     return boardTypeBox;
   }
@@ -154,7 +151,7 @@ public class BoardTab extends BorderPane {
   }
 
   private ToggleButton createEraserButton() {
-    ToggleButton eraseButton = new ToggleButton(resources.getString("eraser"));
+    ToggleButton eraseButton = new ToggleButton(ViewResourcesSingleton.getInstance().getString("eraser"));
     eraseButton.setOnAction(e -> toggleErase(eraseButton));
     return eraseButton;
   }
@@ -175,7 +172,7 @@ public class BoardTab extends BorderPane {
 
     choosePieceBox.setOnMouseEntered(e -> updatePieceOptions(choosePieceBox));
 
-    choosePieceBox.setPromptText(resources.getString("placePiece"));
+    choosePieceBox.setPromptText(ViewResourcesSingleton.getInstance().getString("placePiece"));
     choosePieceBox.valueProperty().addListener(
         (observableValue, s, t1) -> boardCanvas.setCurrentPiece(t1));
 
@@ -202,7 +199,7 @@ public class BoardTab extends BorderPane {
   public Button makeButton(String labelName, EventHandler<ActionEvent> handler) {
 
     Button buttonCreated = new Button();
-    String buttonLabel = resources.getString(labelName);
+    String buttonLabel = ViewResourcesSingleton.getInstance().getString(labelName);
 
     buttonCreated.setText(buttonLabel);
     buttonCreated.setOnAction(handler);
