@@ -7,26 +7,26 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.GameElementList;
-import oogasalad.builder.view.property.PropertyEditor;
 import oogasalad.builder.view.ViewResourcesSingleton;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.GetElementPropertiesCallback;
+import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.callback.UpdateGameElementCallback;
+import oogasalad.builder.view.property.PropertyEditor;
 
-import java.util.*;
+import java.util.Collection;
 
 /**
  *
  */
 public class GameElementTab extends BorderPane {
-
-
   public int CLICK_PAD = 10;
-  // FIXME Remove this
-  private BuilderController controller;
+  private final CallbackDispatcher callbackDispatcher;
 
   private GameElementList elementList;
 
@@ -39,11 +39,12 @@ public class GameElementTab extends BorderPane {
   /**
    * Default constructor
    */
-  public GameElementTab(BuilderController controller, String type) {
-    this.controller = controller;
+  public GameElementTab(CallbackDispatcher dispatcher, String type) {
+    this.callbackDispatcher = dispatcher;
     this.type = type;
 
     setupCenterPane();
+    setupRightPane();
     setupTitle();
   }
 
@@ -75,7 +76,7 @@ public class GameElementTab extends BorderPane {
   // FIXME handle error
   private void createElement() {
     try {
-      Collection<Property> properties = controller.getRequiredProperties(type);
+      Collection<Property> properties = callbackDispatcher.call(new GetPropertiesCallback(type)).orElseThrow();
       propertyEditor.setElementPropertyTypeChoice(properties);
     } catch (InvalidTypeException | MissingRequiredPropertyException e) {
       e.printStackTrace();
@@ -85,12 +86,15 @@ public class GameElementTab extends BorderPane {
   private void elementSelected(String oldElement, String newElement) {
     if (newElement != null) {
       nameField.setText(newElement);
-      propertyEditor.setElementProperties(controller.getElementProperties(type, newElement));
+      propertyEditor.setElementProperties(callbackDispatcher.call(new GetElementPropertiesCallback(type, newElement)).orElseThrow());
     }
   }
 
   private void saveCurrentElement() {
-    controller.update(type, nameField.getText(), propertyEditor.getElementProperties());
+    if(!propertyEditor.hasProperties()) {
+      return;
+    }
+    callbackDispatcher.call(new UpdateGameElementCallback(type, nameField.getText(), propertyEditor.getElementProperties()));
     elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
   }
 
