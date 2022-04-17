@@ -1,5 +1,7 @@
 package oogasalad.engine.model.ai;
 
+import oogasalad.engine.model.board.Board;
+
 public abstract class Choice {
 
   @Override
@@ -7,6 +9,9 @@ public abstract class Choice {
 
   @Override
   public abstract int hashCode();
+
+  public abstract Board getResultingBoard();
+
 
 
 }
