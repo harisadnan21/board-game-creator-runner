@@ -31,11 +31,11 @@ class LimitlessTest {
   @Test
   void getCurrentDepth() {
     // start equal
-    assertEquals(limitless1, limitless2);
-    assertEquals(limitless2, limitless3);
+    assertEquals(limitless1.getCurrentDepth(), limitless2.getCurrentDepth());
+    assertEquals(limitless2.getCurrentDepth(), limitless3.getCurrentDepth());
 
     limitless1.incrementCurrentDepth();
-    assertEquals(limitless1.getCurrentDepth(), 1);
+    assertEquals(1, limitless1.getCurrentDepth());
     assertNotEquals(limitless1.getCurrentDepth(), limitless2.getCurrentDepth());
     assertNotEquals(limitless1.getCurrentDepth(), limitless3.getCurrentDepth());
 
