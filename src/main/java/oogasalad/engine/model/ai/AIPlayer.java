@@ -1,7 +1,7 @@
 package oogasalad.engine.model.ai;
 
+import oogasalad.engine.model.AI.SearchType;
 import oogasalad.engine.model.Oracle;
-import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
@@ -15,20 +15,27 @@ public class AIPlayer extends Player {
   private final int playerNumber;
   private StateEvaluator stateEvaluator;
   private final Difficulty difficulty;
+  private final SearchType searchType;
+  private final Oracle oracle;
 
-  public AIPlayer(int playerNumber, StateEvaluator stateEvaluator, Difficulty difficulty) {
+  public AIPlayer(int playerNumberForAI, StateEvaluator stateEvaluator, Difficulty difficulty,
+      SearchType searchType, Oracle oracle) {
     super(null); // should be engine
-    this.playerNumber = playerNumber;
+    this.playerNumber = playerNumberForAI;
     this.stateEvaluator = stateEvaluator;
     this.difficulty = difficulty;
+    this.searchType = searchType;
+    this.oracle = oracle;
   }
 
-  public Choice chooseMove(Board board) {
+  public Choice chooseAction(Board board) {
     return null; //TODO: implement move choosing
   }
 
 
-  @Override
+  @Override @Deprecated
+  //Oracle needs to be passed in at construction: AI should not change which Oracle it uses during the game
+  //AI should not know/care about having a Pair, it will return a "Choice" allows us encapsulate any necessary information for move
   public Pair<Position, Move> chooseMove(Engine oracle, Board board) {
     return null;
   }

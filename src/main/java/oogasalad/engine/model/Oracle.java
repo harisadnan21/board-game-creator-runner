@@ -22,7 +22,7 @@ import org.jooq.lambda.function.Consumer0;
 public class Oracle {
 
   private List<Move> myMoves;
-  private List<WinCondition> myWinConditions;
+  private List<WinCondition> myWinConditions; //Might be work making final & also using an immutable object
   private final List<Move> myPersistentRules = new ArrayList<>(); //How are these rules being added? Might be worth making this an immutable list object
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
