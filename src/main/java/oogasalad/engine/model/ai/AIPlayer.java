@@ -4,6 +4,7 @@ import oogasalad.engine.model.ai.searchTypes.SearchType;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.ai.searchTypes.Searcher;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.player.Player;
 
 
@@ -25,7 +26,8 @@ public class AIPlayer extends Player {
     this.difficulty = difficulty;
     this.searchType = searchType;
     this.AIOracle = AIOracle;
-    this.searcher = SearcherFactory.makeSearcher(this);
+//    this.searcher = SearcherFactory.makeSearcher(this);
+    this.searcher = null;
   }
 
   public AIChoice chooseAction(Board board) {
@@ -37,7 +39,7 @@ public class AIPlayer extends Player {
   public void chooseMove() {
     Board board = super.getGameBoard();
     AIChoice AIChoice = this.chooseAction(board);
-    super.executeMove(this, AIChoice);
+    super.executeMove(this, new Choice(null, null));
   }
 
   @Override
