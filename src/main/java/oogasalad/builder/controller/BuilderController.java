@@ -13,6 +13,7 @@ import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindCellBackgroundCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
@@ -135,6 +136,16 @@ public class BuilderController {
     Void clearCellBackground(ClearCellBackgroundCallback callback) {
         gameConfig.clearCellBackground(callback.x(), callback.y());
         return null;
+    }
+
+    /**
+     * Finds the background color of a piece at the given coordinates
+     *
+     * @param callback a callback object containing the x and y location to query
+     * @return the hexadecimal value of the background color of the cell at the given coordinates
+     */
+    String findCellBackground(FindCellBackgroundCallback callback) throws NullBoardException, ElementNotFoundException {
+        return gameConfig.findCellBackground(callback.x(), callback.y());
     }
 
     /**
