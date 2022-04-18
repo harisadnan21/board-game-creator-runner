@@ -121,6 +121,7 @@ public class BoardTab extends BasicTab {
 
     boardCanvas.setColor(colorPickerA.getValue(), 1);
     boardCanvas.setColor(colorPickerB.getValue(), 2);
+    boardCanvas.changeCanvasSize(getCenter().getBoundsInParent().getWidth() * getSplitPane().getDividerPositions()[0], getCenter().getBoundsInParent().getHeight());
     boardCanvas.drawBoard(xDimensionPicker.getValue(), yDimensionPicker.getValue(),
         boardTypeBox.getValue());
   }

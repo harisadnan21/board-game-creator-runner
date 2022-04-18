@@ -60,7 +60,6 @@ public class BoardCanvas {
     xDimension = xDim;
     yDimension = yDim;
     boardGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
-    calculateAndChangeCanvasSize();
     callbackDispatcher.call(new MakeBoardCallback(xDimension, yDimension));
 
     rectWidth = boardCanvas.getWidth() / xDimension;
@@ -77,10 +76,10 @@ public class BoardCanvas {
       System.out.println("not a board type");
     }
   }
-  private void calculateAndChangeCanvasSize(){
-    //FIXME :: HARD CODED VALUES RIGHT NOW BECAUSE CANT FIGURE THIS OUT
-    boardCanvas.setWidth(600);
-    boardCanvas.setHeight(600);
+  public void changeCanvasSize(double width, double height){
+
+    boardCanvas.setWidth(width);
+    boardCanvas.setHeight(height);
 
     pieceCanvas.setHeight(boardCanvas.getHeight());
     pieceCanvas.setWidth(boardCanvas.getWidth());
