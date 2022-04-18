@@ -1,6 +1,7 @@
 package oogasalad.engine.view.dashboard;
 
 import java.util.ResourceBundle;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -27,11 +28,11 @@ public class InfoPanel extends StackPane {
 
   private void displayText() {
     infoHolder.getChildren().clear();
-    Text infoTitle = new Text(title);
+    Label infoTitle = new Label(title);
     infoTitle.getStyleClass().add("infoTitle");
-    Text infoAuthor = new Text("Author: " + author);
+    Label infoAuthor = new Label("Author: " + author);
     infoAuthor.getStyleClass().add("infoAuthor");
-    Text infoDescription = new Text(description);
+    Label infoDescription = new Label(description);
     infoDescription.getStyleClass().add("infoDescription");
     infoHolder.getChildren().addAll(infoTitle, infoAuthor, infoDescription);
   }

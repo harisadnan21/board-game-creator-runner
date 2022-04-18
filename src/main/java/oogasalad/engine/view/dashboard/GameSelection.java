@@ -1,17 +1,17 @@
 package oogasalad.engine.view.dashboard;
 
-
-import static java.lang.Math.ceil;
-
 import java.io.File;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 import javafx.scene.layout.FlowPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class GameSelection extends FlowPane {
+  private static final Logger LOG = LogManager.getLogger(GameSelection.class);
   public static final double GRID_WIDTH = 3;
   private double grid_length;
 
@@ -47,7 +47,7 @@ public class GameSelection extends FlowPane {
     return Stream.of(list).anyMatch(input :: contains);
   }
   private void startGame(File folder){
-    System.out.println(folder.getName());
+    LOG.info(folder.getName());
   }
       
   

@@ -2,6 +2,7 @@ package oogasalad.engine.view.dashboard;
 
 import java.io.File;
 import java.util.function.Consumer;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -31,7 +32,7 @@ public class GameIcon extends VBox {
 
   private void createIcon() {
     this.getChildren().add(image);
-    Text name = new Text(myName);
+    Label name = new Label(myName);
     name.getStyleClass().add("iconName");
     this.getChildren().add(new Text(myName));
   }

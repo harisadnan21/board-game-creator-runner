@@ -2,8 +2,12 @@ package oogasalad.engine.view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,11 +27,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BoardView implements PropertyChangeListener{
+  //TODO: add file path and strings
+  private FileInputStream fis = new FileInputStream("data/Properties/BoardViewProperties.properties");
   private static final Logger LOG = LogManager.getLogger(BoardView.class);
   public static String IMAGES_FOLDER = "images/";
-  public static String BLACK_KNIGHT = IMAGES_FOLDER + "blueWhiteOrbit.png";
-  public static String WHITE_KNIGHT = IMAGES_FOLDER + "purpleBlackOrbit.png";
-  public static double BOARD_OUTLINE_SIZE = 4;
 
   public static Map<Integer, String> PIECE_TYPES = new HashMap<>();
 
@@ -39,7 +42,18 @@ public class BoardView implements PropertyChangeListener{
   private GridPane gridRoot;
   private GameUpdateText text;
 
-  public BoardView(int rows, int columns, double width, double height) {
+  private String BLACK_KNIGHT;
+  String WHITE_KNIGHT;
+  double BOARD_OUTLINE_SIZE;
+  private Properties prop;
+  public BoardView(int rows, int columns, double width, double height)
+      throws IOException {
+    prop = new Properties();
+    prop.load(fis);
+    BLACK_KNIGHT = IMAGES_FOLDER + prop.getProperty("BLACKNIGHT");
+    WHITE_KNIGHT = IMAGES_FOLDER + prop.getProperty("WHITENIGHT");
+    BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
+
     // TODO: extract this code to read data file
     PIECE_TYPES.put(0, WHITE_KNIGHT);
     PIECE_TYPES.put(1, BLACK_KNIGHT);
@@ -102,12 +116,12 @@ public class BoardView implements PropertyChangeListener{
   }
 
   private void makeBoardBacking(double width, double height, Pair<Double, Double> cellSize, int rows, int cols) {
-    Rectangle foundation = new Rectangle(width, height, Color.web("#BEDDDB"));
+    Rectangle foundation = new Rectangle(width, height, Color.web(prop.getProperty("RECTANGLEFOUNDATIONCOLOR")));
     System.out.println(cellSize.toString());
     double cellW = cellSize.getKey();
     double cellH = cellSize.getValue();
 
-    Rectangle outline = new Rectangle((cellW*cols)+BOARD_OUTLINE_SIZE, (cellH*rows)+BOARD_OUTLINE_SIZE, Color.web("#97CDC9"));
+    Rectangle outline = new Rectangle((cellW*cols)+BOARD_OUTLINE_SIZE, (cellH*rows)+BOARD_OUTLINE_SIZE, Color.web(prop.getProperty("RECTANGLEOUTLINECOLOR")));
     root.getChildren().addAll(foundation, outline);
   }
 
