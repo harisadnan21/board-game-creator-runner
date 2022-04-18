@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 import javafx.scene.layout.FlowPane;
 import org.apache.logging.log4j.LogManager;
@@ -50,11 +49,4 @@ public class GameSelection extends FlowPane {
   private boolean stringContainsAny(String input, String[] list){
     return Stream.of(list).anyMatch(input :: contains);
   }
-
-
-
-      
-  
-
-
 }

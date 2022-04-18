@@ -1,7 +1,7 @@
 package oogasalad.engine.view;
 
+import java.io.File;
 import java.io.IOException;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -19,9 +19,10 @@ public class BoardViewTest extends DukeApplicationTest {
   Scene scene;
   Stage s;
 
+
   @Override
   public void start (Stage stage) throws IOException {
-    board = new BoardView(3, 3, 300, 300, "/css/light.css");
+    board = new BoardView(new File("data/games/checkers"), 3, 3, 300, 300, "/css/light.css");
 
     Board backEndBoard = new Board(3,3);
     controller = new Controller(backEndBoard);

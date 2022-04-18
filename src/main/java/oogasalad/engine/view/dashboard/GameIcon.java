@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,9 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import lombok.extern.java.Log;
 import oogasalad.engine.model.parser.GameParser;
-import oogasalad.engine.view.GameUpdateText;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,7 +56,7 @@ public class GameIcon extends VBox {
   private void iconClicked() {
     GameParser parser = new GameParser(
         Objects.requireNonNull(myGameFolder.listFiles(getConfigFile))[0]);
-    LOG.info((myGameFolder.listFiles(getConfigFile))[0]);
+    LOG.info((Objects.requireNonNull(myGameFolder.listFiles(getConfigFile)))[0]);
 
     try{
       LOG.info(parser.readMetadata());

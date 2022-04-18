@@ -2,8 +2,8 @@ package oogasalad.engine.view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -17,7 +17,6 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -53,7 +52,8 @@ public class BoardView implements PropertyChangeListener{
   String WHITE_KNIGHT;
   double BOARD_OUTLINE_SIZE;
   private Properties prop;
-  public BoardView(int rows, int columns, double width, double height, String css)
+  public BoardView(File game, int rows, int columns, double width, double height,
+      String css)
       throws IOException {
     cssFilePath = css;
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
@@ -138,6 +138,9 @@ public class BoardView implements PropertyChangeListener{
     outline.setId("board-outline");
     root.getChildren().addAll(foundation, outline);
   }
+//  private void setupPieces(File game){
+//    File
+//  }
 
   private Pair<Double, Double> calcCellSize(int rows, int cols, double width, double height) {
     double cellWidth = width / (rows + 1);

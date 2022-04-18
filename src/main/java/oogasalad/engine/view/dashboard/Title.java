@@ -1,6 +1,5 @@
 package oogasalad.engine.view.dashboard;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 

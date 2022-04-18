@@ -1,7 +1,6 @@
 package oogasalad.engine.view.dashboard;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -9,10 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import oogasalad.engine.model.parser.GameParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jooq.lambda.function.Consumer0;
 
 public class InfoPanel extends StackPane {
   public static final String DEFAULT = "/";
@@ -73,12 +70,5 @@ public class InfoPanel extends StackPane {
     Button play = new Button("Play Game");
     play.setOnAction( game-> startGame.accept(currentGame));
     infoHolder.getChildren().add(play);
-
   }
-
-
-
-
-
-
 }
