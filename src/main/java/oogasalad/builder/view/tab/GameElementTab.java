@@ -40,7 +40,7 @@ public class GameElementTab extends BasicTab {
   @Override
   protected Node setupRightSide() {
     rightBox = new VBox();
-    propertyEditor = new PropertyEditor();
+    propertyEditor = new PropertyEditor(getCallbackDispatcher());
     nameField = new TextField(
         ViewResourcesSingleton.getInstance().getString("defaultName-" + getType()));
     rightBox.getChildren().addAll(
