@@ -15,7 +15,6 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
-import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import org.json.JSONObject;
@@ -103,7 +102,7 @@ public class GameConfigurationTest {
 
   @Test
   void testPiecePlacement()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
+      throws NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     game.makeBoard(WIDTH, HEIGHT);
     assertThrows(ElementNotFoundException.class, () -> game.placeBoardPiece(X, Y, PIECE_NAME));
     addPiece();
@@ -114,7 +113,7 @@ public class GameConfigurationTest {
 
   @Test
   void testEmpty()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
+      throws NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     addPiece();
     game.makeBoard(WIDTH, HEIGHT);
     for (int i = 0; i < WIDTH; i++) {
@@ -129,7 +128,7 @@ public class GameConfigurationTest {
 
   @Test
   void testSerialization()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
+      throws NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     game.makeBoard(WIDTH, HEIGHT);
 
     Collection<Property> properties = new HashSet<>();
@@ -158,7 +157,7 @@ public class GameConfigurationTest {
   }
 
   @Test
-  void testLoad() throws OccupiedCellException, FileNotFoundException {
+  void testLoad() throws FileNotFoundException {
     // TODO: Change test when loading is implemented
     InputStream is = null;
     is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));

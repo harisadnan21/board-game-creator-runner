@@ -59,6 +59,7 @@ class BuilderViewTest extends DukeApplicationTest {
         xSpinner.commitValue();
         ySpinner.commitValue();
         lookup("#colorPickerA").queryAs(ColorPicker.class).setValue(Color.BLUE);
+        select(lookup("#boardTypePicker").queryAs(ComboBox.class), "Checkers");
         clickOn("#drawBoard");
     }
 

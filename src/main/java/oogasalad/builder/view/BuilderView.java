@@ -69,6 +69,7 @@ public class BuilderView {
     myWelcome.setFont(new Font("Inter", 30));
     boardPane.setLeft(myWelcome);
     Button login = makeButton("Proceed", event -> setupTabs());
+    login.setId("loginButton");
     languageBox = new ChoiceBox<>();
     languageBox.getItems().addAll(languageChoice);
     languageBox.setOnAction(this::getLanguage);
