@@ -188,7 +188,18 @@ public class GameConfiguration implements BuilderModel {
   public void colorCellBackground(int x, int y, String color) throws NullBoardException {
     checkBoardCreated();
     board.colorCellBackground(x, y, color);
+  }
 
+  /**
+   * Finds the background color of the cell at the given coordinates
+   *
+   * @param x the x location to query
+   * @param y the y location to query
+   * @return the background color of the cell at the given coordinates
+   */
+  @Override
+  public String findCellBackground(int x, int y){
+    return board.findCellBackground(x, y);
   }
 
   /**

@@ -99,6 +99,15 @@ public interface BuilderModel extends JSONSerializable, JSONParseable<BuilderMod
   void colorCellBackground(int x, int y, String color) throws NullBoardException;
 
   /**
+   * Finds the background color of the cell at the given coordinates
+   *
+   * @param x the x location to query
+   * @param y the y location to query
+   * @return the background color of the cell at the given coordinates
+   */
+  String findCellBackground(int x, int y);
+
+  /**
    * Returns the required properties of a game element
    *
    * @return the required properties of a game element

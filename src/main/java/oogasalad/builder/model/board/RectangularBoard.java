@@ -97,6 +97,19 @@ public class RectangularBoard implements Board {
   }
 
   /**
+   * Finds the background color of the cell at the given coordinates
+   *
+   * @param x the x location to query
+   * @param y the y location to query
+   * @return the background color of the cell at the given coordinates
+   */
+  @Override
+  public String findCellBackground(int x, int y){
+    checkInBounds(x, y);
+    return cellColors[y][x];
+  }
+
+  /**
    * Converts a Board into a String representing the board's JSON Format
    *
    * @return a String representation of the board's JSON Format

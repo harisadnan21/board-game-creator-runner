@@ -47,6 +47,15 @@ public interface Board extends JSONSerializable, JSONParseable<Board> {
   void clearCellBackground(int x, int y);
 
   /**
+   * Finds the background color of the cell at the given coordinates
+   *
+   * @param x the x location to query
+   * @param y the y location to query
+   * @return the background color of the cell at the given coordinates
+   */
+  String findCellBackground(int x, int y);
+
+  /**
    * Colors the background of the cell at the given coordinates with the given color
    *
    * @param x the x location to color
