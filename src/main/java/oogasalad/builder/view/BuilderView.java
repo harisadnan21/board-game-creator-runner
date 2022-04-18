@@ -2,8 +2,10 @@ package oogasalad.builder.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -62,29 +64,24 @@ public class BuilderView {
   }
 
   private void displayWelcome() {
-    buttonHolder = new HBox();
+    BorderPane buttonHolder = new BorderPane();
     VBox leftPanel = new VBox();
     VBox rightPanel = new VBox();
-    myWelcome = new Label(tabProperties.getString("Welcome"));
-    myWelcome.setFont(new Font("Inter", 30));
-
+    VBox rightPanelElements = new VBox();
     Button proceed = makeButton("Proceed", event -> {setupTabs();});
     myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
     //TODO : MAKE COME FROM CSS
-    myWelcome.setFont(new Font("Inter", 30));
-    //boardPane.setLeft(myWelcome);
-    //Button login = makeButton("Proceed", event -> setupTabs());
     languageBox = new ChoiceBox<>();
     languageBox.getItems().addAll(languageChoice);
     languageBox.setOnAction(this::getLanguage);
     
     leftPanel.getChildren().addAll(myWelcome);
-    rightPanel.getChildren().addAll(proceed, languageBox);
-
-    myWelcome.setAlignment(Pos.TOP_LEFT);
-    buttonHolder.getChildren().addAll(leftPanel, rightPanel);
-    leftPanel.setAlignment(Pos.CENTER_LEFT);
-    rightPanel.setAlignment(Pos.CENTER_RIGHT);
+    rightPanelElements.getChildren().addAll(proceed, languageBox);
+    rightPanel.getChildren().addAll(rightPanelElements);
+    rightPanelElements.setAlignment(Pos.CENTER);
+    rightPanel.setAlignment(Pos.CENTER);
+    buttonHolder.setLeft(leftPanel);
+    buttonHolder.setRight(rightPanel);
     Scene myLoginScene = new Scene(buttonHolder, 600, 650);
     myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
     myWelcome.getStyleClass().add("myWelcome");
@@ -94,45 +91,7 @@ public class BuilderView {
     stage = new Stage();
     stage.setScene(myLoginScene);
     stage.show();
-//    boardPane = new BorderPane();
-//    buttonHolder = new HBox();
-//    myWelcome = new Label(tabResources.getString("Welcome"));
-//    myWelcome.setFont(new Font("Inter", 30));
-//    //boardPane.getChildren().add(myWelcome);
-//    boardPane.setLeft(myWelcome);
-//    // line below was edited to debug
-//    Button login = makeButton("Proceed", event -> {setupTabs();}, ResourceBundle.getBundle((DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE)));
-//    languageBox = new ChoiceBox<>();
-//    languageBox.getItems().addAll(languageChoice);
-//    languageBox.setOnAction(this::getLanguage);
-//    buttonHolder.getChildren().addAll(login, languageBox);
 
-    //boardPane.setCenter(languageBox);
-    //boardPane.setBottom(buttonHolder);
-
-//    Scene myLoginScene = new Scene(boardPane, 600, 650);
-//    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
-//    boardPane.getStyleClass().add("boardPane");
-//    languageBox.getStyleClass().add("languageBox");
-//    login.getStyleClass().add("buttonHolder");
-//    boardPane.setCenter(buttonHolder);
-//    //boardPane.setBottom(buttonHolder);
-//    stage = new Stage();
-//    stage.setScene(myLoginScene);
-//    stage.show();
-   // myStage.setScene(myLoginScene);
-    //myStage.show();
-
-
-//    Scene myLoginScene = new Scene(boardPane, Integer.parseInt(tabProperties.getString("sceneSizeX")), Integer.parseInt(tabProperties.getString("sceneSizeY")));
-//    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
-//    boardPane.getStyleClass().add("boardPane");
-//    languageBox.getStyleClass().add("languageBox");
-//    login.getStyleClass().add("buttonHolder");
-//    boardPane.setCenter(buttonHolder);
-//    stage = new Stage();
-//    stage.setScene(myLoginScene);
-//    stage.show();
   }
 
   /**
