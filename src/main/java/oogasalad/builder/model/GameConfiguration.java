@@ -15,9 +15,9 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
-import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -36,6 +36,7 @@ public class GameConfiguration implements BuilderModel {
   private static final String CONDITION = "condition";
   private static final String ID = "id";
   private static final int INDENT_FACTOR = 4;
+  public static final String METADATA = "metadata";
   private final Map<String, Map<String, GameElement>> elements;
   private final FactoryProvider provider;
   private final FileMapper mapper;
@@ -121,12 +122,11 @@ public class GameConfiguration implements BuilderModel {
    * @param x    the x location to place
    * @param y    the y location to place
    * @param name the name of the piece to place
-   * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
    * @throws NullBoardException    if the board has not been initialized
    */
   @Override
   public void placeBoardPiece(int x, int y, String name)
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException {
+      throws NullBoardException, ElementNotFoundException {
     checkBoardCreated();
     board.placePiece(x, y, pieceNameToID(name));
   }
@@ -154,17 +154,6 @@ public class GameConfiguration implements BuilderModel {
     return EMPTY;
   }
 
-  private int pieceNameToID(String name) throws ElementNotFoundException {
-    //TODO: Remove magic values
-    ElementRecord record = findElementInfo(PIECE, name);
-    for (Property property : record.properties()) {
-      if (property.name().equals(ID)) {
-        return Integer.parseInt(property.valueAsString());
-      }
-    }
-    throw new ElementNotFoundException();
-  }
-
   /**
    * Clears the cell on the board at the given coordinates
    *
@@ -174,6 +163,43 @@ public class GameConfiguration implements BuilderModel {
   public void clearBoardCell(int x, int y) throws NullBoardException {
     checkBoardCreated();
     board.clearCell(x, y);
+  }
+
+  /**
+   * Clears the background of the cell at the given coordinates
+   *
+   * @param x the x location to clear
+   * @param y the y location to clear
+   */
+  @Override
+  public void clearCellBackground(int x, int y) throws NullBoardException {
+    checkBoardCreated();
+    board.clearCellBackground(x, y);
+  }
+
+  /**
+   * Colors the background of the cell at the given coordinates with the given color
+   *
+   * @param x the x location to color
+   * @param y the y location to color
+   * @param color the hexadecimal string of the color to set at the cell
+   */
+  @Override
+  public void colorCellBackground(int x, int y, String color) throws NullBoardException {
+    checkBoardCreated();
+    board.colorCellBackground(x, y, color);
+  }
+
+  /**
+   * Finds the background color of the cell at the given coordinates
+   *
+   * @param x the x location to query
+   * @param y the y location to query
+   * @return the background color of the cell at the given coordinates
+   */
+  @Override
+  public String findCellBackground(int x, int y){
+    return board.findCellBackground(x, y);
   }
 
   /**
@@ -196,6 +222,7 @@ public class GameConfiguration implements BuilderModel {
     checkBoardCreated();
     JSONObject obj = new JSONObject();
     // TODO: Remove magic values
+    obj.put(METADATA, metaDataToJSON());
     obj.put("pieces", elementsToJSONArray(PIECE));
     obj.put("board", new JSONObject(board.toJSON()));
     obj.put("rules", elementsToJSONArray(RULE));
@@ -216,10 +243,16 @@ public class GameConfiguration implements BuilderModel {
     // TODO: Remove magic values
     board = new RectangularBoard(0, 0).fromJSON(obj.getJSONObject("board").toString());
     resetElements();
-    addJSONArray(obj.getJSONArray("pieces"), PIECE);
-    addJSONArray(obj.getJSONArray("rules"), RULE);
-    addJSONArray(obj.getJSONArray("conditions"), CONDITION);
-    addJSONArray(obj.getJSONArray("actions"), ACTION);
+    try{
+      addJSONArray(obj.getJSONArray("pieces"), PIECE);
+      addJSONArray(obj.getJSONArray("rules"), RULE);
+      addJSONArray(obj.getJSONArray("conditions"), CONDITION);
+      addJSONArray(obj.getJSONArray("actions"), ACTION);
+      addJSONObject(obj.getJSONObject(METADATA), METADATA);
+    } catch (JSONException ignored) {
+      // Do nothing if certain parts of the json file are not found
+      // TODO: Maybe throw an exception here?
+    }
     return this;
   }
 
@@ -256,9 +289,36 @@ public class GameConfiguration implements BuilderModel {
   private void addJSONArray(JSONArray arr, String type) {
     for (int i = 0; i < arr.length(); i++) {
       JSONObject obj = arr.getJSONObject(i);
+      addJSONObject(obj, type);
+    }
+  }
+
+  // Adds the contents of a json object to the map of game elements
+  private void addJSONObject(JSONObject obj, String type) {
+    if (obj.get("name") != null) {
       GameElement element = provider.fromJSON(type, obj.toString());
       elements.get(type).put(element.toRecord().name(), element);
     }
+  }
+
+  // Converts metadata to a json String
+  private JSONObject metaDataToJSON() {
+    for (GameElement element : elements.get(METADATA).values()) {
+      ElementRecord record = element.toRecord();
+      return new JSONObject(record.toJSON());
+    }
+    return new JSONObject();
+  }
+
+  // Gets a piece's id from its name
+  private int pieceNameToID(String name) throws ElementNotFoundException {
+    ElementRecord record = findElementInfo(PIECE, name);
+    for (Property property : record.properties()) {
+      if (property.name().equals(ID)) {
+        return Integer.parseInt(property.valueAsString());
+      }
+    }
+    throw new ElementNotFoundException();
   }
 
   // Resets the map of game elements
@@ -267,6 +327,7 @@ public class GameConfiguration implements BuilderModel {
     elements.put(RULE, new HashMap<>());
     elements.put(ACTION, new HashMap<>());
     elements.put(CONDITION, new HashMap<>());
+    elements.put(METADATA, new HashMap<>());
   }
 
 }

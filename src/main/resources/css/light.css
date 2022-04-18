@@ -1,6 +1,9 @@
 .root {
-  -fx-background-color: #EEEEEE
-
+  -fx-background-color: #EEEEEE;
+  --dark-gray: #464646;
+  --light-blue: #72E8E1;
+  --board-color-A: #BEDDDB;
+  --board-color-B: #97CDC9;
 }
 
 /*
@@ -9,7 +12,7 @@ Opening View
 #opening-text {
   -fx-font-size: 48;
   -fx-font-family: "Montserrat";
-  -fx-fill: #464646;
+  -fx-fill: var(--dark-gray);
 }
 
 #game-text {
@@ -32,3 +35,33 @@ Opening View
   -fx-min-height: 45;
 }
 
+/*
+Game View
+*/
+
+#game-view-root {
+  -fx-padding: 10;
+}
+
+#pause-message-text {
+  -fx-font-size: 20;
+  -fx-font-family: "Montserrat";
+  -fx-fill: #72E8E1;
+}
+
+#pause-root {
+  -fx-spacing: 5;
+  -fx-background-color: rgba(70, 70, 70, 0.8);
+  -fx-padding: 20;
+  -fx-alignment: center;
+}
+
+#resume-button {
+}
+
+/*
+Board View
+*/
+#board-foundation {
+  -fx-fill: var(--board-color-A);
+}

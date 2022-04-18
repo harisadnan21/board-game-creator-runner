@@ -1,5 +1,7 @@
 package oogasalad.engine.view;
 
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -7,22 +9,26 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class GameUpdateText {
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
   private String updateText;
   private Text text;
+  private ResourceBundle myResources;
   private static final Logger LOG = LogManager.getLogger(GameUpdateText.class);
 
   public GameUpdateText() {
-    updateText = "Begin Game";
+    String language = "English";
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+    updateText = myResources.getString("BeginGame");
     text = makeText(updateText);
   }
 
   public void updateText(int player) {
-    updateText = String.format("Player %s's turn", player);
+    updateText = MessageFormat.format(myResources.getString("PlayerTurn"), player);
     text.setText(updateText);
   }
 
   public void gameIsWon(int player) {
-    updateText = String.format("Game over! Player %s wins", player);
+    updateText = MessageFormat.format(myResources.getString("GameOver"), player);
     text.setText(updateText);
   }
 
@@ -32,8 +38,9 @@ public class GameUpdateText {
 
   private Text makeText(String text) {
     Text myText = new Text(text);
-    myText.setFont(Font.font("Montserrat", 20));
-    myText.setFill(Color.web("464646"));
+    myText.setId("player-text");
+//    myText.setFont(Font.font("Montserrat", 20));
+//    myText.setFill(Color.web("464646"));
     return myText;
   }
 }

@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
+import oogasalad.builder.view.callback.CallbackDispatcher;
 
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
  * @author Ricky Weerts and Shaan Gondalia
  */
 public class PropertyEditor extends VBox {
+  private final CallbackDispatcher callbackDispatcher;
 
   private final Map<Property, PropertySelector> selectors = new HashMap<>();
 
@@ -29,13 +31,14 @@ public class PropertyEditor extends VBox {
   /**
    * Creates a new PropertyEditor.
    */
-  public PropertyEditor() {
+  public PropertyEditor(CallbackDispatcher dispatcher) {
+    this.callbackDispatcher = dispatcher;
   }
 
   /**
    * Sets the properties of an element to display to the user
    *
-   * @param properties The required properties of an element
+   * @param properties The rgequired properties of an element
    */
   public void setElementProperties(Collection<Property> properties) {
     getChildren().clear();
@@ -43,7 +46,11 @@ public class PropertyEditor extends VBox {
     properties.forEach(this::addProperty);
   }
 
-
+  /**
+   * Creates all the elements that correspond to a specified type.
+   *
+   * @param typeName
+   */
   public void setCorrespondingElementProperties(String typeName) {
     getChildren().clear();
     selectors.clear();
@@ -55,6 +62,12 @@ public class PropertyEditor extends VBox {
   }
 
 
+  /**
+   * Given a Collection of all the properties, finds the type-selector and makes the corresponding
+   * element for it
+   *
+   * @param properties
+   */
   public void setElementPropertyTypeChoice(Collection<Property> properties) {
     getChildren().clear();
     allProperties = properties;
@@ -121,10 +134,11 @@ public class PropertyEditor extends VBox {
     try {
       String className = property.form();
       Class<?> clss = Class.forName(className);
-      Constructor<?> ctor = clss.getDeclaredConstructor(Property.class);
-      return (PropertySelector) ctor.newInstance(property);
+      Constructor<?> ctor = clss.getDeclaredConstructor(Property.class, CallbackDispatcher.class);
+      return (PropertySelector) ctor.newInstance(property, callbackDispatcher);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
+      e.printStackTrace();
       throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
     }
   }

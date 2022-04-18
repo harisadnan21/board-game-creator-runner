@@ -3,6 +3,7 @@ package oogasalad.builder.view.property;
 import javafx.beans.value.ChangeListener;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.StringProperty;
+import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
  * The most basic form of a PropertySelector, essentially just a wrapper for a JavaFX text box.
@@ -16,8 +17,8 @@ public class StringField extends Field{
    *
    * @param property the property that will be "filled in" by the Field
    */
-  public StringField(Property property){
-    super(property);
+  public StringField(Property property, CallbackDispatcher dispatcher){
+    super(property, dispatcher);
   }
 
   /**

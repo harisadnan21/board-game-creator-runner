@@ -1,11 +1,14 @@
 {
     "pieces": [{
-        "image": "/resources/normal.png",
+        "image": "/resources/back.png",
         "name": "checker",
         "id": 100,
         "player": 0
     }],
+    "metadata": {},
     "rules": [{
+        "representativeX": 1,
+        "representativeY": 2,
         "name": "jump",
         "conditions": "atTopRight",
         "actions": "moveTopRight"
@@ -112,10 +115,106 @@
             ]
         ],
         "shape": "rectangle",
-        "background": "games/checkers",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ]
+        ],
         "width": 10,
         "activePlayer": 0,
-        "height": 8,
-        "selectionsRequired": true
+        "height": 8
     }
 }

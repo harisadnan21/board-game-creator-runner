@@ -1,20 +1,21 @@
 package oogasalad.builder.model.exception;
 
+import oogasalad.builder.controller.ExceptionResourcesSingleton;
+
 /**
  * This exception is thrown when the board is updated without being initialized.
  *
  * @author Shaan Gondalia
+ * @author Ricky Weerts
  */
 public class NullBoardException extends RuntimeException {
-
-  // TODO: Replace hardcoded exception message with properties file
-  private static final String DEFAULT_MESSAGE = "Board has not been initialized";
+  private static final String DEFAULT_MESSAGE_KEY = "NullBoard";
 
   /**
    * Creates new NullBoardException with the default message
    */
   public NullBoardException() {
-    super(DEFAULT_MESSAGE);
+    this(ExceptionResourcesSingleton.getInstance().getString(DEFAULT_MESSAGE_KEY));
   }
 
   /**
