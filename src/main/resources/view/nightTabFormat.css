@@ -12,8 +12,8 @@
     -fx-padding: 10;
     -fx-max-width: infinity;
     -fx-alignment: center;
-    -fx-border-color: black;
-    -fx-background-color: blue;
+    -fx-border-color: whitesmoke;
+    -fx-background-color: black;
 }
 
 .rightPane{
@@ -21,25 +21,25 @@
     -fx-alignment: center;
     -fx-padding: 10;
     -fx-spacing: 30;
-    -fx-border-color: BLACK;
-    -fx-background-color: blue;
-    -fx-color: #7BAFD4;
+    -fx-border-color: whitesmoke;
+    -fx-background-color: black;
+    -fx-color: red;
 }
 .gameElementList{
-    -fx-border-color: BLACK;
-    -fx-background-color: blue;
-    -fx-color: #7BAFD4;
+    -fx-border-color: whitesmoke;
+    -fx-background-color: black;
+    -fx-color: red;
 }
 .list-view .list-cell:even {
-    -fx-background-color: blue;
-    -fx-text-fill: white;
+    -fx-background-color: black;
+    -fx-text-fill: whitesmoke;
 }
 .list-view .list-cell:odd {
-    -fx-background-color: blue;
-    -fx-text-fill: white;
+    -fx-background-color: black;
+    -fx-text-fill: whitesmoke;
 }
 .boardCanvas{
-    -fx-background-color: blue;
+    -fx-background-color: black;
 }
 
 #buttonBox{
@@ -55,7 +55,7 @@
     -fx-alignment: center;
     -fx-padding: 10;
     -fx-spacing: 20;
-    -fx-border-color: blue;
+    -fx-border-color: black;
     -fx-fill-color: whitesmoke;
 }
 HBox {
