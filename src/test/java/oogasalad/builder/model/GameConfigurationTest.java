@@ -53,11 +53,11 @@ public class GameConfigurationTest {
 
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
-  private static final String TEST_LOAD_FILENAME = "data/tests/testLoad.json";
+  private static final String TEST_LOAD_FILENAME = "data/tests/load/config.json";
 
   private static final String REPRESENTATIVE_X = "representativeX";
   private static final String REPRESENTATIVE_Y = "representativeY";
-  private static final String BLACK = "#000000";
+  private static final String BLACK = "0x000000ff";
 
   private Collection<Property> properties;
   private BuilderModel game;
@@ -114,6 +114,7 @@ public class GameConfigurationTest {
 
   @Test
   void testColoring() {
+    game.makeBoard(WIDTH, HEIGHT);
     game.colorCellBackground(X, Y, BLACK);
     game.clearCellBackground(X, Y);
   }

@@ -16,8 +16,8 @@ public class RectangularBoardTest {
   private static final int HEIGHT = 8;
   private static final int WIDTH = 10;
   private static final int PIECE_ID = 100;
-  private static final String WHITE = "#FFFFFF";
-  private static final String BLACK = "#000000";
+  private static final String WHITE = "0xffffffff";
+  private static final String BLACK = "0x000000ff";
   private static final int EMPTY = -1;
   private static final int X = 5;
   private static final int Y = 7;

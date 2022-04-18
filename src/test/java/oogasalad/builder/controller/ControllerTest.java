@@ -36,7 +36,7 @@ public class ControllerTest extends DukeApplicationTest {
   private static final int HEIGHT = 8;
   private static final int WIDTH = 10;
   private static final String PIECE_NAME = "checker";
-  private static final String PIECE_IMAGE = "normal.png";
+  private static final String PIECE_IMAGE = "data/images/back.png";
   private static final int PIECE_PLAYER = 0;
   private static final int PIECE_ID = 100;
   private static final String PIECE_TYPE = "piece";
@@ -62,7 +62,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
-  private static final String BLACK = "#000000";
+  private static final String BLACK = "0x000000ff";
 
   private BuilderController controller;
   private Collection<Property> properties;
