@@ -7,4 +7,8 @@ class RegularizesTest {
   @Test
   void regularizeEvaluationScore() {
   }
+
+  @Test
+  void testRegularizeEvaluationScore() {
+  }
 }

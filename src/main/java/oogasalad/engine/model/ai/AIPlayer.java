@@ -1,6 +1,8 @@
 package oogasalad.engine.model.ai;
 
 import java.util.Collection;
+import oogasalad.engine.model.ai.enums.Difficulty;
+import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
 import oogasalad.engine.model.ai.searchTypes.SearchType;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;

@@ -2,8 +2,9 @@ package oogasalad.engine.model.ai;
 
 import io.vavr.collection.TreeSet;
 import java.util.Collection;
+import oogasalad.engine.model.ai.enums.Difficulty;
+import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
-import oogasalad.engine.model.ai.evaluation.meta.CenterAround;
 import oogasalad.engine.model.ai.evaluation.meta.SeekEquality;
 import oogasalad.engine.model.ai.evaluation.patterns.DiffBasedPatternProximityEvaluator;
 import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
@@ -14,7 +15,7 @@ import oogasalad.engine.model.ai.searchTypes.RandomSearcher;
 import oogasalad.engine.model.ai.searchTypes.Selects;
 import oogasalad.engine.model.board.Piece;
 
-// TODO: clean this up
+// TODO: clean this up - maybe create classes for each difficulty and use reflection?
 public class SelectorFactory {
 
   public static Selects makeSelector(Difficulty difficulty, WinType winType, int playerNumber, AIOracle aiOracle, Collection<Pattern> patterns) {
