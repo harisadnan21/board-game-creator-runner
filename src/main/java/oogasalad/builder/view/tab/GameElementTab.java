@@ -91,10 +91,4 @@ public class GameElementTab extends BasicTab {
     elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
   }
 
-  public static Button makeButton(String property, EventHandler<ActionEvent> handler) {
-    Button result = new Button();
-    result.setText(ViewResourcesSingleton.getInstance().getString(property));
-    result.setOnAction(handler);
-    return result;
-  }
 }
