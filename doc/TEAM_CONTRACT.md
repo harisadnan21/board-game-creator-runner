@@ -47,7 +47,7 @@ times each week.
     * Meeting notes will be posted to slack, and missing members should keep track of these notes to
       know their responsibilities
 * Policy for handling disagreements, major decisions, or priorities during the meeting
-    * All members are open to discuss any design choices or the meeting structure
+    * All members are open to discuss any design AIChoices or the meeting structure
     * Disagreements must be resolved in 15 minutes to allow for other topics in meetings
 
 ### Communications

@@ -19,13 +19,13 @@ public class Ray {
   }
 
   public static Stream<PositionState> getDirectionalRay(Board board, Position position, Direction direction) {
-    return Ray.getDirectionalRayWhileCondition(board, position, direction, positionState -> true);
+    return getDirectionalRayWhileCondition(board, position, direction, positionState -> true);
   }
 
   public static Map<Direction, Stream<PositionState>> getDirectionalRays(Board board, Position position, Collection<Direction> directions) {
     return Seq.seq(directions)
               .toMap(direction -> direction,
-                     direction -> Ray.getDirectionalRayWhileCondition(board, position, direction, positionState -> true));
+                     direction -> getDirectionalRayWhileCondition(board, position, direction, positionState -> true));
   }
 
 

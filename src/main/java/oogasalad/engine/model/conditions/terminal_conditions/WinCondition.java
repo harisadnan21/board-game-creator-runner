@@ -7,7 +7,7 @@ import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
  * Class to hold one specific win condition. A win condition consists of a set of conditions that
  * signal that the game is over and a decision for how to decide which player wins the game
  *
- * @author Robert Cranston
+ * @author Robert Cranston, Haris Adnan
  * @see Winner
  * @see BoardCondition
  */
@@ -27,7 +27,7 @@ public class WinCondition{
   /**
    * Returns true if all the end game conditions are met and false otherwise
    * @param board current game board
-   * @return whether end conditions have been met
+   * @return true if all end conditions met, false if not
    */
   public boolean isOver(Board board) {
     for(BoardCondition endCondition : myEndConditions){

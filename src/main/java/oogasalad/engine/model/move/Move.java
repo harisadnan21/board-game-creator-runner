@@ -5,7 +5,6 @@ import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
-import oogasalad.engine.model.engine.PieceSelectionEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,9 +22,8 @@ public class Move {
   private String myName;
   private PieceCondition[] myConditions;
   private Action[] myActions;
-  private int myRepI; // i value for the "representative cell" for this action
-  private int myRepJ; // j value for the "representative cell" for this action
-
+  private int myRepI;
+  private int myRepJ;
   /**
    *
    * @param conditions
@@ -54,6 +52,10 @@ public class Move {
     }
   }
 
+  public boolean isValid(Board board, Position referencePoint) {
+    return isValid(board, referencePoint.i(), referencePoint.j());
+  }
+
   /**
    * Returns the name given to this rule
    * @return
@@ -71,8 +73,11 @@ public class Move {
     return new Position(myRepI + i, myRepJ + j);
   }
 
-  public Board doMovement(Board board, int refI, int refJ)
-      throws OutOfBoardException {
+  public Position getRepresentativeCell(Position referencePoint) {
+    return getRepresentativeCell(referencePoint.i(), referencePoint.j());
+  }
+
+  public Board doMovement(Board board, int refI, int refJ) {
     if (isValid(board, refI, refJ)) {
 
       LOG.info("{} has {} conditions and {} actions", myName, myConditions.length, myActions.length);
@@ -84,5 +89,9 @@ public class Move {
       return board;
     }
     return null;
+  }
+
+  public Board doMovement(Board board, Position referencePoint) {
+    return doMovement(board, referencePoint.i(), referencePoint.j());
   }
 }
