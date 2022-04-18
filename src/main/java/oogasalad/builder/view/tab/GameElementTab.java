@@ -17,7 +17,10 @@ import oogasalad.builder.view.property.PropertyEditor;
 import java.util.Collection;
 
 /**
- * @author Ricky Weerts, Mike Keohane
+ * Generic Game element tab, containing common methods for creating/editing elements and displaying
+ * them.
+ *
+ * @author Ricky Weerts, Mike Keohane & Shaan Gondalia
  */
 public class GameElementTab extends BasicTab {
 
@@ -27,7 +30,10 @@ public class GameElementTab extends BasicTab {
   private VBox rightBox;
 
   /**
-   * Default constructor
+   * Creates a game element tab with the given callback dispatcher and type
+   *
+   * @param dispatcher the callback dispatcher to communicate with the controller
+   * @param type the type of the game element hosted in the tab
    */
   public GameElementTab(CallbackDispatcher dispatcher, String type) {
     super(type, dispatcher);
@@ -35,6 +41,7 @@ public class GameElementTab extends BasicTab {
 
   /**
    * Sets up the right side of the split pane to be the corresponding Property Selectors
+   *
    * @return Node for the VBox containing the elements
    */
   @Override
@@ -54,6 +61,7 @@ public class GameElementTab extends BasicTab {
 
   /**
    * Sets up the left side of the Split Pane to the elementList
+   *
    * @return Node corresponding to the elementList
    */
   @Override
@@ -62,6 +70,7 @@ public class GameElementTab extends BasicTab {
     return elementList;
   }
 
+  // Callback method for creating a game element
   private void createElement() {
     try {
       Collection<Property> properties = getCallbackDispatcher().call(new GetPropertiesCallback(getType()))
@@ -72,6 +81,7 @@ public class GameElementTab extends BasicTab {
     }
   }
 
+  // Callback method for when an element is selected
   private void elementSelected(String oldElement, String newElement) {
     if (newElement != null) {
       nameField.setText(newElement);
@@ -81,10 +91,18 @@ public class GameElementTab extends BasicTab {
     }
   }
 
+  // Callback method for saving a currently selected game element
   private void saveCurrentElement() {
     getCallbackDispatcher().call(new UpdateGameElementCallback(getType(), nameField.getText(),
         propertyEditor.getElementProperties()));
     elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
+  }
+
+  /**
+   * Loads all elements into a tab (read from the model)
+   *
+   */
+  public void loadElements() {
   }
 
 }

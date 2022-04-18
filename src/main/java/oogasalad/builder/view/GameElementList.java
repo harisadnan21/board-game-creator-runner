@@ -64,9 +64,10 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
     }
 
     /**
-     * @param name
-     * @param properties
-     * @return
+     * Puts a new game element into the game element list
+     *
+     * @param name the name of the game element
+     * @param properties the properties of the game element
      */
     public void putGameElement(String name, Collection<Property> properties) {
         GameElementData elementData = new GameElementData(name, properties);
