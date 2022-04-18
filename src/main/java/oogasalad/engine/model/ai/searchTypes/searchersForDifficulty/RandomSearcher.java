@@ -12,7 +12,7 @@ import oogasalad.engine.model.board.Board;
 public class RandomSearcher implements Selects {
 
   private final Random random;
-  private AIOracle aiOracle;
+  private final AIOracle aiOracle;
 
   public RandomSearcher(AIOracle aiOracle) {
     this.aiOracle = aiOracle;
