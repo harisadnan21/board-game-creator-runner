@@ -1,5 +1,6 @@
 package oogasalad.engine.view.ControlPanel;
 
+import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -7,10 +8,10 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.view.ControlPanel.ControlPanel;
 
 public class GameControlPanel extends ControlPanel {
-  public static String HOME_IMAGE = IMAGES_FOLDER + "home.png";
-  public static String RESTART_IMAGE = IMAGES_FOLDER + "restart.png";
-  public static String BACK_IMAGE = IMAGES_FOLDER + "back.png";
-  public static String PAUSE_IMAGE = IMAGES_FOLDER + "pause.png";
+  public static String HOME_IMAGE = IMAGES_FOLDER + imBundle.getString("Home");
+  public static String RESTART_IMAGE = IMAGES_FOLDER + imBundle.getString("Restart");
+  public static String BACK_IMAGE = IMAGES_FOLDER + imBundle.getString("Back");
+  public static String PAUSE_IMAGE = IMAGES_FOLDER + imBundle.getString("Pause");
 
   Controller myController;
   Button home;
@@ -19,10 +20,8 @@ public class GameControlPanel extends ControlPanel {
   Button pause;
 
   public GameControlPanel(Controller controller) {
+    super();
     myController = controller;
-    root = new VBox();
-    root.setSpacing(5);
-    createButtons();
   }
 
   public Node getRoot() {
