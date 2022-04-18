@@ -35,8 +35,8 @@ public class ViewManager {
 
 
   public ViewManager(Stage s) throws IOException {
-    //currScene = createOpeningView().makeScene();
-    currScene = new Scene(new Dashboard(), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
+    currScene = createOpeningView().makeScene();
+    //currScene = new Scene(new Dashboard(), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
 
     stage = s;
     fis = new FileInputStream("data/Properties/ViewManagerProperties.properties");

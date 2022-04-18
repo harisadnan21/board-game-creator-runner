@@ -1,8 +1,7 @@
 .root{
-  -fx-primaryColor: #FFFFFF;
+  -fx-primaryColor: white;
   -fx-secondaryColor: lightgray;
   -fx-triColor: black;
-
 }
 
 .Text{
@@ -12,6 +11,7 @@
 .BorderPane{
   -fx-padding: 10px;
 }
+
 .cell{
   -fx-alignment: center;
 }
@@ -67,21 +67,21 @@
   -fx-background-color: -fx-secondaryColor;
   -fx-alignment: center;
 }
+
 .infoTitle{
   -fx-font-size: 30;
   -fx-underline: true;
   -fx-text-fill: -fx-triColor;
   -fx-font-weight: bold;
 }
+
 .infoAuthor{
   -fx-font-size: 20;
   -fx-text-fill: -fx-triColor;
 }
+
 .infoDescription{
   -fx-text-fill: -fx-triColor;
   -fx-font-size: 15;
-
   -fx-wrap-text: true;
-
-
 }
