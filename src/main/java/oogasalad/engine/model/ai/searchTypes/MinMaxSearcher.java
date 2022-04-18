@@ -12,7 +12,7 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import org.jooq.lambda.Seq;
 
-public class MinMaxSearcher implements Selects {
+public class MinMaxSearcher implements Selects, DepthLimit  {
   protected final int maxDepth;
   protected final int forPlayer;
   protected final StateEvaluator stateEvaluator;
@@ -27,18 +27,29 @@ public class MinMaxSearcher implements Selects {
 
   }
 
-
   public AIChoice selectChoice(Board board) {
-    Collection<AIChoice> choices = this.AIOracle.getChoices(board, forPlayer);
-    return Seq.seq(choices).maxBy(choice -> runMinimax(choice.getResultingBoard(), forPlayer, maxDepth)).get();
+    return getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(), forPlayer, maxDepth)).get();
+  }
+
+  protected final Seq<AIChoice> getChoices(Board board, int forPlayer) {
+    return Seq.seq(this.AIOracle.getChoices(board, forPlayer));
   }
 
   protected int runMinimax(Board board, int player, int depth) {
-    if(depth==0 || AIOracle.isWinningState(board)) {
+    if(limitReached(board, depth)) {
       return this.stateEvaluator.evaluate(board, player);
     }
-    Stream<Board> boards = this.AIOracle.getChoices(board, player).stream().map(AIChoice::getResultingBoard);
+    Stream<Board> boards = getChoices(board, player).stream().map(AIChoice::getResultingBoard);
     int nextPlayer = player==PLAYER_ONE ? Piece.PLAYER_TWO : PLAYER_ONE;
     return Seq.seq(boards).mapToInt(currBoard -> runMinimax(currBoard, nextPlayer, depth-1)).max().getAsInt();
+  }
+
+  protected boolean limitReached(Board board, int depth) {
+    return depth == 0 || AIOracle.isWinningState(board);
+  }
+
+  @Override
+  public int getDepthLimit() {
+    return maxDepth;
   }
 }

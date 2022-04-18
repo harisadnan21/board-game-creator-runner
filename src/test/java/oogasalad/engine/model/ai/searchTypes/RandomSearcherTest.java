@@ -2,6 +2,7 @@ package oogasalad.engine.model.ai.searchTypes;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import oogasalad.engine.model.ai.searchTypes.searchersForDifficulty.RandomSearcher;
 import org.junit.jupiter.api.Test;
 
 class RandomSearcherTest {

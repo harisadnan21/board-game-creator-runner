@@ -11,7 +11,7 @@ import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
 import oogasalad.engine.model.ai.evaluation.totals.TotalPieces;
 import oogasalad.engine.model.ai.searchTypes.AlphaBetaSearcher;
 import oogasalad.engine.model.ai.searchTypes.MinMaxSearcher;
-import oogasalad.engine.model.ai.searchTypes.RandomSearcher;
+import oogasalad.engine.model.ai.searchTypes.searchersForDifficulty.RandomSearcher;
 import oogasalad.engine.model.ai.searchTypes.Selects;
 import oogasalad.engine.model.board.Piece;
 

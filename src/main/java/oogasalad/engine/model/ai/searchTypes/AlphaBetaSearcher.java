@@ -22,18 +22,16 @@ public class AlphaBetaSearcher extends MinMaxSearcher implements Selects {
 
   @Override
   public AIChoice selectChoice(Board board) {
-    Collection<AIChoice> AIChoices = this.AIOracle.getChoices(board, forPlayer);
-    return Seq.seq(AIChoices).maxBy(choice -> runAlphaBeta(choice.getResultingBoard(), forPlayer, maxDepth, 0, 0)).get();
+    return this.getChoices(board, forPlayer).maxBy(choice -> runAlphaBeta(choice.getResultingBoard(), forPlayer, maxDepth, 0, 0)).get();
   }
 
   protected int runAlphaBeta(Board board, int player, int depth, int alpha, int beta) {
     //TODO: change this to be Alpha-Beta
-    if(depth==0 || AIOracle.isWinningState(board)) {
-      return this.stateEvaluator.evaluate(board, player);
-    }
-    Stream<Board> boards = this.AIOracle.getChoices(board, player).stream().map(AIChoice::getResultingBoard);
+    if(this.limitReached(board, depth)) { return this.stateEvaluator.evaluate(board, player); }
+
+    var boards = this.getChoices(board, player).map(AIChoice::getResultingBoard);
     int nextPlayer = player==PLAYER_ONE ? Piece.PLAYER_TWO : PLAYER_ONE;
-    return Seq.seq(boards).mapToInt(currBoard -> runAlphaBeta(currBoard, nextPlayer, depth-1, alpha, beta)).max().getAsInt();
+    return boards.mapToInt(currBoard -> runAlphaBeta(currBoard, nextPlayer, depth-1, alpha, beta)).max().getAsInt();
   }
 
 }
