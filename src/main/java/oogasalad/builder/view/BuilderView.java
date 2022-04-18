@@ -19,11 +19,9 @@ import javafx.stage.Stage;
 import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
-import oogasalad.builder.view.tab.ActionsTab;
-import oogasalad.builder.view.tab.ConditionsTab;
-import oogasalad.builder.view.tab.RulesTab;
+import oogasalad.builder.view.tab.*;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
-import oogasalad.builder.view.tab.PiecesTab;
+
 import java.util.ResourceBundle;
 
 /** Creates the scene and handles the builder GUI and the tabs within it
@@ -34,25 +32,20 @@ public class BuilderView {
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
   private static final String SPLASH_PACKAGE = "SplashLogin.css";
-  // private static final String TAB_LANGUAGE = "English";
   private static String TAB_LANGUAGE = "English";
   private static String TAB_PROPERTIES = "tabResources";
   private static final String TAB_FORMAT = "tabFormat.css";
   private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
-  private Stage stage;
+  private static Stage stage;
   private BoardTab boardTabPane;
   private PiecesTab pieceTabPane;
   private ActionsTab actionsTabPane;
   private ConditionsTab conditionsTabPane;
   private RulesTab rulesTabPane;
-  private Label myWelcome;
-  private BorderPane boardPane;
-  private HBox buttonHolder;
   private ResourceBundle splashResources;
   private ResourceBundle tabProperties;
   private ChoiceBox<String> languageBox;
-  private Label myLabel;
 
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
@@ -63,42 +56,14 @@ public class BuilderView {
     displayWelcome();
   }
 
-  private void displayWelcome() {
-    BorderPane buttonHolder = new BorderPane();
-    VBox leftPanel = new VBox();
-    VBox rightPanel = new VBox();
-    VBox rightPanelElements = new VBox();
-    Button proceed = makeButton("Proceed", event -> {setupTabs();});
-    myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
-    //TODO : MAKE COME FROM CSS
-
-    languageBox = new ChoiceBox<>();
-    languageBox.getItems().addAll(languageChoice);
-    languageBox.setOnAction(this::getLanguage);
-    
-    leftPanel.getChildren().addAll(myWelcome);
-    rightPanelElements.getChildren().addAll(proceed, languageBox);
-    rightPanel.getChildren().addAll(rightPanelElements);
-    rightPanelElements.setAlignment(Pos.CENTER);
-    rightPanel.setAlignment(Pos.CENTER);
-    buttonHolder.setLeft(leftPanel);
-    buttonHolder.setRight(rightPanel);
-    Scene myLoginScene = new Scene(buttonHolder, 600, 650);
-    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
-    myWelcome.getStyleClass().add("myWelcome");
-    leftPanel.getStyleClass().add("leftPanel");
-    proceed.getStyleClass().add("proceed");
-    buttonHolder.getStyleClass().add("buttonHolder");
-    stage = new Stage();
-    stage.setScene(myLoginScene);
-    stage.show();
-
+  public static void displayWelcome() {
+    SplashLogin newWindow = new SplashLogin();
   }
 
   /**
    * Setups all of the tabs and adds them to the scene
    */
-  private void setupTabs() {
+  public void setupTabs() {
     TabPane tabPane = new TabPane();
 
     boardTabPane = new BoardTab(callbackDispatcher);
@@ -136,13 +101,6 @@ public class BuilderView {
     result.setText(label);
     result.setOnAction(handler);
     return result;
-  }
-
-  private void getLanguage(ActionEvent event) {
-    String myLanguage = languageBox.getValue();
-    ViewResourcesSingleton.getInstance().setLanguage(myLanguage);
-    displayWelcome();
-
   }
 
   public void showError(Throwable t) {
