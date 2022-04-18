@@ -40,4 +40,8 @@ public class GameControlPanel extends ControlPanel {
   public Button getPause() {
     return pause;
   }
+
+  public Button getHome() {
+    return home;
+  }
 }

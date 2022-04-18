@@ -64,6 +64,7 @@ public class ViewManager {
 
   public GameView createGameView(BoardView board, Controller controller) {
     gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath);
+    gameView.getHome().setOnAction(e -> goHome());
     return gameView;
   }
 
@@ -79,6 +80,11 @@ public class ViewManager {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private void goHome() {
+    currScene = createOpeningView().makeScene();
+    updateStage();
   }
 
   private void updateStage() {

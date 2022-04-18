@@ -17,6 +17,6 @@ public class MostPieces implements Winner {
   @Override
   public int decideWinner(Board board) {
     Seq<PositionState> nonEmptyPositionStates = board.getNotSatisfyingPositionStatesSeq(positionState -> positionState.piece()== Piece.EMPTY);
-    return nonEmptyPositionStates.map(PositionState::player).mode().get();
+    return nonEmptyPositionStates.map(PositionState:: player).mode().get();
   }
 }
