@@ -2,12 +2,8 @@ package oogasalad.builder.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -23,9 +19,11 @@ import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.ActionsTab;
 import oogasalad.builder.view.tab.ConditionsTab;
 import oogasalad.builder.view.tab.MetaDataTab;
-import oogasalad.builder.view.tab.RulesTab;
-import oogasalad.builder.view.tab.boardTab.BoardTab;
 import oogasalad.builder.view.tab.PiecesTab;
+import oogasalad.builder.view.tab.RulesTab;
+import oogasalad.builder.view.tab.SplashLogin;
+import oogasalad.builder.view.tab.boardTab.BoardTab;
+
 import java.util.ResourceBundle;
 
 /** Creates the scene and handles the builder GUI and the tabs within it
@@ -35,61 +33,24 @@ public class BuilderView {
 
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
-  private static final String SPLASH_PACKAGE = "SplashLogin.css";
-  // private static final String TAB_LANGUAGE = "English";
-  private static String TAB_LANGUAGE = "English";
   private static String TAB_PROPERTIES = "tabResources";
   private static final String TAB_FORMAT = "tabFormat.css";
-  private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
-  private Stage stage;
+  private static Stage stage;
   private BoardTab boardTabPane;
   private PiecesTab pieceTabPane;
   private ActionsTab actionsTabPane;
   private ConditionsTab conditionsTabPane;
   private RulesTab rulesTabPane;
   private MetaDataTab metadataTabPane;
-  private Label myWelcome;
-  private BorderPane boardPane;
-  private HBox buttonHolder;
-  private ResourceBundle splashResources;
   private ResourceBundle tabProperties;
-  private ChoiceBox<String> languageBox;
-  private Label myLabel;
 
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
-    //splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
     tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
     stage = mainStage;
-    displayWelcome();
-  }
-
-  private void displayWelcome() {
-    boardPane = new BorderPane();
-    buttonHolder = new HBox();
-    myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
-    //TODO : MAKE COME FROM CSS
-    myWelcome.setFont(new Font("Inter", 30));
-    boardPane.setLeft(myWelcome);
-    Button login = makeButton("Proceed", event -> buildView());
-    login.setId("loginButton");
-    languageBox = new ChoiceBox<>();
-    languageBox.getItems().addAll(languageChoice);
-    languageBox.setOnAction(this::getLanguage);
-    buttonHolder.getChildren().addAll(login, languageBox);
-
-
-    Scene myLoginScene = new Scene(boardPane, Integer.parseInt(tabProperties.getString("sceneSizeX")), Integer.parseInt(tabProperties.getString("sceneSizeY")));
-    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
-    boardPane.getStyleClass().add("boardPane");
-    languageBox.getStyleClass().add("languageBox");
-    login.getStyleClass().add("buttonHolder");
-    boardPane.setCenter(buttonHolder);
-    stage = new Stage();
-    stage.setScene(myLoginScene);
-    stage.show();
+    SplashLogin newWindow = new SplashLogin(e -> buildView());
   }
 
   // Builds the view, including all tabs and menus
@@ -104,6 +65,7 @@ public class BuilderView {
     tabScene.getStylesheets()
         .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + TAB_FORMAT).toExternalForm());
     stage.setScene(tabScene);
+    stage.show();
   }
 
   //Sets up all tabs in the tab pane
@@ -150,13 +112,6 @@ public class BuilderView {
     result.setText(label);
     result.setOnAction(handler);
     return result;
-  }
-
-  // Sets the language of the builder view
-  private void getLanguage(ActionEvent event) {
-    String myLanguage = languageBox.getValue();
-    ViewResourcesSingleton.getInstance().setLanguage(myLanguage);
-    displayWelcome();
   }
 
   // Saves the configuration of the game using a callback to call the controller
