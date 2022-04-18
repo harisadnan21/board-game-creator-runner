@@ -23,10 +23,10 @@ class PositionStateTest {
     assertNotNull(POSITION_STATE_2.i());
     assertNotNull(POSITION_STATE_3.i());
     assertNotNull(POSITION_STATE_4.i());
-    assertInstanceOf(int.class, POSITION_STATE_1.i());
-    assertInstanceOf(int.class, POSITION_STATE_2.i());
-    assertInstanceOf(int.class, POSITION_STATE_3.i());
-    assertInstanceOf(int.class, POSITION_STATE_4.i());
+    assertInstanceOf(Integer.class, POSITION_STATE_1.i());
+    assertInstanceOf(Integer.class, POSITION_STATE_2.i());
+    assertInstanceOf(Integer.class, POSITION_STATE_3.i());
+    assertInstanceOf(Integer.class, POSITION_STATE_4.i());
   }
 
   @Test
@@ -35,10 +35,10 @@ class PositionStateTest {
     assertNotNull(POSITION_STATE_2.j());
     assertNotNull(POSITION_STATE_3.j());
     assertNotNull(POSITION_STATE_4.j());
-    assertInstanceOf(int.class, POSITION_STATE_1.j());
-    assertInstanceOf(int.class, POSITION_STATE_2.j());
-    assertInstanceOf(int.class, POSITION_STATE_3.j());
-    assertInstanceOf(int.class, POSITION_STATE_4.j());
+    assertInstanceOf(Integer.class, POSITION_STATE_1.j());
+    assertInstanceOf(Integer.class, POSITION_STATE_2.j());
+    assertInstanceOf(Integer.class, POSITION_STATE_3.j());
+    assertInstanceOf(Integer.class, POSITION_STATE_4.j());
   }
   @Test
   void position() {
@@ -46,10 +46,10 @@ class PositionStateTest {
     assertNotNull(POSITION_STATE_2.position());
     assertNotNull(POSITION_STATE_3.position());
     assertNotNull(POSITION_STATE_4.position());
-    assertInstanceOf(int.class, POSITION_STATE_1.position());
-    assertInstanceOf(int.class, POSITION_STATE_2.position());
-    assertInstanceOf(int.class, POSITION_STATE_3.position());
-    assertInstanceOf(int.class, POSITION_STATE_4.position());
+    assertInstanceOf(Position.class, POSITION_STATE_1.position());
+    assertInstanceOf(Position.class, POSITION_STATE_2.position());
+    assertInstanceOf(Position.class, POSITION_STATE_3.position());
+    assertInstanceOf(Position.class, POSITION_STATE_4.position());
   }
 
   @Test
@@ -58,10 +58,10 @@ class PositionStateTest {
     assertNotNull(POSITION_STATE_2.piece());
     assertNotNull(POSITION_STATE_3.piece());
     assertNotNull(POSITION_STATE_4.piece());
-    assertInstanceOf(int.class, POSITION_STATE_1.player());
-    assertInstanceOf(int.class, POSITION_STATE_2.player());
-    assertInstanceOf(int.class, POSITION_STATE_3.player());
-    assertInstanceOf(int.class, POSITION_STATE_4.player());
+    assertInstanceOf(Integer.class, POSITION_STATE_1.player());
+    assertInstanceOf(Integer.class, POSITION_STATE_2.player());
+    assertInstanceOf(Integer.class, POSITION_STATE_3.player());
+    assertInstanceOf(Integer.class, POSITION_STATE_4.player());
   }
 
   @Test
@@ -70,10 +70,10 @@ class PositionStateTest {
     assertNotNull(POSITION_STATE_2.type());
     assertNotNull(POSITION_STATE_3.type());
     assertNotNull(POSITION_STATE_4.type());
-    assertInstanceOf(int.class, POSITION_STATE_1.type());
-    assertInstanceOf(int.class, POSITION_STATE_2.type());
-    assertInstanceOf(int.class, POSITION_STATE_3.type());
-    assertInstanceOf(int.class, POSITION_STATE_4.type());
+    assertInstanceOf(Integer.class, POSITION_STATE_1.type());
+    assertInstanceOf(Integer.class, POSITION_STATE_2.type());
+    assertInstanceOf(Integer.class, POSITION_STATE_3.type());
+    assertInstanceOf(Integer.class, POSITION_STATE_4.type());
   }
 
   @Test

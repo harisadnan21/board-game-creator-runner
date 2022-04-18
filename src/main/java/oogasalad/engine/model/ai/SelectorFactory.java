@@ -37,23 +37,23 @@ public class SelectorFactory {
   private static Selects getAdaptiveEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
     boolean isPlayerOne = playerNumber== Piece.PLAYER_ONE;
     StateEvaluator adaptiveEvaluator = new SeekEquality(evaluator, isPlayerOne, !isPlayerOne);
-    return new MinMaxSearcher(DifficultyDepth.ADAPTIVE, playerNumber, adaptiveEvaluator, aiOracle);
+    return new MinMaxSearcher(DifficultyDepthConstants.ADAPTIVE, playerNumber, adaptiveEvaluator, aiOracle);
   }
 
   private static Selects getExpertEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
-    return new AlphaBetaSearcher(DifficultyDepth.EXPERT, playerNumber, evaluator, aiOracle);
+    return new AlphaBetaSearcher(DifficultyDepthConstants.EXPERT, playerNumber, evaluator, aiOracle);
   }
 
   private static Selects getHardEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
-    return new MinMaxSearcher(DifficultyDepth.HARD, playerNumber, evaluator, aiOracle);
+    return new MinMaxSearcher(DifficultyDepthConstants.HARD, playerNumber, evaluator, aiOracle);
   }
 
   private static Selects getMediumEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
-    return new MinMaxSearcher(DifficultyDepth.MEDIUM, playerNumber, evaluator, aiOracle);
+    return new MinMaxSearcher(DifficultyDepthConstants.MEDIUM, playerNumber, evaluator, aiOracle);
   }
 
   private static Selects getEasyEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
-    return new MinMaxSearcher(DifficultyDepth.EASY, playerNumber, evaluator, aiOracle);
+    return new MinMaxSearcher(DifficultyDepthConstants.EASY, playerNumber, evaluator, aiOracle);
   }
 
   private static StateEvaluator getEvaluator(WinType winType, Collection<Pattern> patterns) {
