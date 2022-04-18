@@ -21,7 +21,7 @@ public class BoardViewTest extends DukeApplicationTest {
 
   @Override
   public void start (Stage stage) throws IOException {
-    board = new BoardView(3, 3, 300, 300);
+    board = new BoardView(3, 3, 300, 300, "/css/light.css");
 
     Board backEndBoard = new Board(3,3);
     controller = new Controller(backEndBoard);

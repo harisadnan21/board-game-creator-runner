@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -70,21 +69,6 @@ public class GameView {
       root.setEffect(new GaussianBlur());
       MessageView pauseView = new MessageView(myResources.getString("PauseMessage"),
           myResources.getString("Resume"), cssFilePath);
-//      VBox pauseRoot = new VBox();
-//      pauseRoot.setId("pause-root");
-//      Text text = new Text(myResources.getString("PauseMessage"));
-//      text.setId("pause-message-text");
-//      pauseRoot.getChildren().add(text);
-//
-//      Button resume = new Button(myResources.getString("Resume"));
-//      resume.setId("resume-button");
-//      pauseRoot.getChildren().add(resume);
-//
-//      Stage popupStage = new Stage(StageStyle.TRANSPARENT);
-//      popupStage.initModality(Modality.APPLICATION_MODAL);
-//      Scene pauseScene = new Scene(pauseRoot);
-//      pauseScene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
-//      popupStage.setScene(pauseScene);
       Stage popupStage = pauseView.getStage();
       pauseView.getButton().setOnAction(event -> {
         root.setEffect(null);
