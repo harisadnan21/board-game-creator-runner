@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+import oogasalad.engine.model.ai.AIChoice;
+import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
@@ -24,7 +26,7 @@ import org.jooq.lambda.function.Consumer0;
  *
  * @author Jake Heller
  */
-public class Oracle {
+public class Oracle implements AIOracle {
 
   private Collection<Move> myMoves;
   private Collection<WinCondition> myWinConditions;
@@ -127,4 +129,13 @@ public class Oracle {
     return board.setPlayer(nextPlayer);
   }
 
+  @Override
+  public Set<AIChoice> getChoices(Board board, int player) {
+    return null;
+  }
+
+  @Override
+  public Boolean isWinningState(Board board) {
+    return null;
+  }
 }
