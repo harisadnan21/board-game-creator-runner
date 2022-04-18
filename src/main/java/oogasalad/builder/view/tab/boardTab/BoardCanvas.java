@@ -1,9 +1,5 @@
 package oogasalad.builder.view.tab.boardTab;
 
-import java.io.File;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.function.Consumer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -11,10 +7,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
-import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.exception.OccupiedCellException;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.MakeBoardCallback;
+import oogasalad.builder.view.callback.PlacePieceCallback;
+
+import java.io.File;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class BoardCanvas {
 
@@ -34,12 +39,12 @@ public class BoardCanvas {
   private int xDimension;
   private int yDimension;
 
-  private BuilderController controller; //FIXME: Use Event handlers instead of this
+  private final CallbackDispatcher callbackDispatcher;
 
-  public BoardCanvas(ResourceBundle rb, BorderPane boardTab, BuilderController controller) {
+  public BoardCanvas(ResourceBundle rb, BorderPane boardTab, CallbackDispatcher dispatcher) {
     resources = rb;
     borderPane = boardTab;
-    this.controller = controller;
+    this.callbackDispatcher = dispatcher;
 
     setupBoard();
     populateBoardTypeMap();
@@ -58,22 +63,18 @@ public class BoardCanvas {
     yDimension = yDim;
     boardGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
     calculateAndChangeCanvasSize();
-    controller.makeBoard(xDimension, yDimension);
+    callbackDispatcher.call(new MakeBoardCallback(xDimension, yDimension));
 
     rectWidth = boardCanvas.getWidth() / xDimension;
     rectHeight = boardCanvas.getHeight() / yDimension;
 
-
     clearBoard();
-
 
     if (boardTypeFunctionMap.containsKey(type)){
       boardTypeFunctionMap.get(type).accept(new int[]{xDim, yDim});
       setClickToPlace();
-    }
-    else{
-      //TODO : THROW EXCEPTION
-      System.out.println("not a board type");
+    } else {
+      throw new IllegalBoardTypeException(type);
     }
   }
   private void calculateAndChangeCanvasSize(){
@@ -98,7 +99,7 @@ public class BoardCanvas {
     pieceGraphics.clearRect(0, 0, pieceCanvas.getWidth(), pieceCanvas.getHeight());
     for (int i = 0; i < xDimension; i++) {
       for (int j = 0; j < yDimension; j++) {
-        controller.clearCell(j, i);
+        callbackDispatcher.call(new ClearCellCallback(j, i));
       }
     }
   }
@@ -147,7 +148,7 @@ public class BoardCanvas {
   private void erasePiece(MouseEvent click){
     int[] blockIndex = findSquare(click.getX(), click.getY());
     pieceGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
-    controller.clearCell(blockIndex[0], blockIndex[1]);
+    callbackDispatcher.call(new ClearCellCallback(blockIndex[0], blockIndex[1]));
   }
 
   private void addPiece(MouseEvent click)
@@ -163,9 +164,9 @@ public class BoardCanvas {
 
     int[] blockIndex = findSquare(clickX, clickY);
 
-    controller.placePiece(blockIndex[0], blockIndex[1], currentPiece);
+    callbackDispatcher.call(new PlacePieceCallback(blockIndex[0], blockIndex[1], currentPiece));
 
-    String filePath =  controller.getElementPropertyByKey("piece", currentPiece, "image");
+    String filePath =  callbackDispatcher.call(new GetElementPropertyByKeyCallback("piece", currentPiece, "image")).orElseThrow();
     Image pieceImage = new Image(new File(filePath).toURI().toString());
     pieceGraphics.drawImage(pieceImage,blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
 
@@ -176,6 +177,13 @@ public class BoardCanvas {
     double yPos = yCord / rectHeight;
 
     return new int[]{(int) xPos, (int) yPos};
+  }
+
+  Paint getColor(int index) {
+    return switch(index) {
+      case 2 -> colorTwo;
+      default -> colorOne;
+    };
   }
 
 }

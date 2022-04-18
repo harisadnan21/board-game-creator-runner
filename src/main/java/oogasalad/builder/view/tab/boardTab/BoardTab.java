@@ -23,6 +23,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.model.exception.NullBoardException;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.GetElementNamesCallback;
+import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.TitlePane;
 
 
@@ -39,11 +42,11 @@ public class BoardTab extends BorderPane {
   private ColorPicker colorPickerB;
   private ComboBox<String> boardTypeBox;
 
-  private BuilderController controller; // FIXME: Use event handlers instead
+  private CallbackDispatcher callbackDispatcher;
 
-  public BoardTab(ResourceBundle resourcesBundle, BuilderController controller) {
+  public BoardTab(ResourceBundle resourcesBundle, CallbackDispatcher dispatcher) {
     resources = resourcesBundle;
-    this.controller = controller;
+    this.callbackDispatcher = dispatcher;
 
 
     setupBlankBoard();
@@ -57,7 +60,7 @@ public class BoardTab extends BorderPane {
   }
 
   private void setupBlankBoard() {
-    boardCanvas = new BoardCanvas(resources, this, controller);
+    boardCanvas = new BoardCanvas(resources, this, callbackDispatcher);
 
     Pane canvasPane = boardCanvas.getCanvasPane();
     canvasPane.prefWidthProperty().bind(this.widthProperty().multiply(0.7));
@@ -128,8 +131,7 @@ public class BoardTab extends BorderPane {
   private void createBoard()
       throws NullBoardException {
     if (boardTypeBox.getValue() == null) {
-      System.out.println("No Board Type Chosen Error");
-      return;
+      throw new IllegalBoardTypeException("");
     }
 
     boardCanvas.setColor(colorPickerA.getValue(), 1);
@@ -182,7 +184,7 @@ public class BoardTab extends BorderPane {
   private void updatePieceOptions(ComboBox<String> pieceBox) {
     //TODO: Remove Magic Value
     String currVal = pieceBox.getValue();
-    Collection<String> pieceNames = controller.getElementNames("piece");
+    Collection<String> pieceNames = callbackDispatcher.call(new GetElementNamesCallback("piece")).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
   }
@@ -192,7 +194,7 @@ public class BoardTab extends BorderPane {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     //TODO: Remove Magic Value
     directoryChooser.setTitle("Choose Configuration Save Location");
-    controller.save(directoryChooser.showDialog(stage));
+    callbackDispatcher.call(new SaveCallback(directoryChooser.showDialog(stage)));
   }
 
   //create buttons with their own names and actions
@@ -206,6 +208,11 @@ public class BoardTab extends BorderPane {
     buttonCreated.setId(labelName);
 
     return buttonCreated;
+  }
+
+  // For testing
+  BoardCanvas getBoardCanvas() {
+    return boardCanvas;
   }
 
 
