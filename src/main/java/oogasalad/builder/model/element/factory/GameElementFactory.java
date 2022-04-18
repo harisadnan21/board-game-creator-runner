@@ -99,7 +99,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     JSONObject obj = new JSONObject(json);
     for (String key : obj.keySet()) {
       if (key.equals(NAME)) {
-        return key;
+        return obj.getString(key);
       }
     }
     return null; // Perhaps throw an exception
