@@ -79,13 +79,15 @@ public class ViewManager {
 
   private void startGame(File game) {
     try {
+      Stage newStage= new Stage();
+      newStage.setTitle(game.getName());
       GameParser parser = new GameParser(Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
       Board board = parser.parseBoard();
       BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath);
       Controller controller = new Controller(board);
       boardView.addController(controller);
-      currScene = createGameView(boardView, controller).makeScene();
-      updateStage();
+      newStage.setScene(createGameView(boardView, controller).makeScene());
+      newStage.show();
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -27,7 +27,6 @@ public class EngineApplication extends Application {
 
     //scene.getStylesheets().add(getClass().getResource("/css/engine.css").toExternalForm());
 
-
     stage.setTitle("OOGABOOGA Engine");
     stage.setScene(scene);
     stage.show();
