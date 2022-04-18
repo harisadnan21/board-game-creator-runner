@@ -5,6 +5,7 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -142,15 +143,24 @@ public class BoardCanvas {
   public void setClickToPlace(){
     pieceCanvas.setOnMouseClicked(this::addPiece);
   }
+  public void setClickToEditBoard(ColorPicker colorPicker){
+    pieceCanvas.setOnMouseClicked(click -> changeCellColor(click, colorPicker.getValue()));
+  }
 
   private void erasePiece(MouseEvent click){
     int[] blockIndex = findSquare(click.getX(), click.getY());
     pieceGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
     callbackDispatcher.call(new ClearCellCallback(blockIndex[0], blockIndex[1]));
   }
+  private void changeCellColor(MouseEvent click, Paint color){
+    int[] blockIndex = findSquare(click.getX(), click.getY());
+    boardGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
+    boardGraphics.setFill(color);
+    boardGraphics.fillRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
+  }
 
   private void addPiece(MouseEvent click)
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException {
+      throws NullBoardException, ElementNotFoundException {
 
     if (currentPiece == null){
       System.out.println("No piece Selected");
