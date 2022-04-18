@@ -2,8 +2,10 @@ package oogasalad.builder.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -20,9 +22,11 @@ import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.tab.ActionsTab;
 import oogasalad.builder.view.tab.ConditionsTab;
 import oogasalad.builder.view.tab.MetaDataTab;
-import oogasalad.builder.view.tab.RulesTab;
-import oogasalad.builder.view.tab.boardTab.BoardTab;
 import oogasalad.builder.view.tab.PiecesTab;
+import oogasalad.builder.view.tab.RulesTab;
+import oogasalad.builder.view.tab.SplashLogin;
+import oogasalad.builder.view.tab.boardTab.BoardTab;
+
 import java.util.ResourceBundle;
 
 /** Creates the scene and handles the builder GUI and the tabs within it
@@ -33,13 +37,12 @@ public class BuilderView {
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
   private static final String SPLASH_PACKAGE = "SplashLogin.css";
-  // private static final String TAB_LANGUAGE = "English";
   private static String TAB_LANGUAGE = "English";
   private static String TAB_PROPERTIES = "TabResources";
   private static final String TAB_FORMAT = "tabFormat.css";
   private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
-  private Stage stage;
+  private static Stage stage;
   private BoardTab boardTabPane;
   private PiecesTab pieceTabPane;
   private ActionsTab actionsTabPane;
@@ -54,6 +57,7 @@ public class BuilderView {
   private Label myLabel;
   public static ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
 
+
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
@@ -63,37 +67,15 @@ public class BuilderView {
     displayWelcome();
   }
 
-  private void displayWelcome() {
-    boardPane = new BorderPane();
-    buttonHolder = new HBox();
-    myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
-    //TODO : MAKE COME FROM CSS
-    myWelcome.setFont(new Font("Inter", 30));
-    boardPane.setLeft(myWelcome);
-    Button login = makeButton("Proceed", event -> setupTabs());
-    login.setId("loginButton");
-    languageBox = new ChoiceBox<>();
-    languageBox.getItems().addAll(languageChoice);
-    languageBox.setOnAction(this::getLanguage);
-    buttonHolder.getChildren().addAll(login, languageBox);
-
-
-    Scene myLoginScene = new Scene(boardPane, Integer.parseInt(tabProperties.getString("sceneSizeX")), Integer.parseInt(tabProperties.getString("sceneSizeY")));
-    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
-    boardPane.getStyleClass().add("boardPane");
-    languageBox.getStyleClass().add("languageBox");
-    login.getStyleClass().add("buttonHolder");
-    boardPane.setCenter(buttonHolder);
-    stage = new Stage();
-    stage.setScene(myLoginScene);
-    stage.show();
+  public static void displayWelcome() {
+    SplashLogin newWindow = new SplashLogin();
   }
 
   /**
    * Set ups all the tabs and adds them to the scene
    */
-  private void setupTabs() {
-    System.out.println("We at da tabs!");
+  public void setupTabs() {
+
     TabPane tabPane = new TabPane();
 
     boardTabPane = new BoardTab(callbackDispatcher);
@@ -134,13 +116,6 @@ public class BuilderView {
     result.setText(label);
     result.setOnAction(handler);
     return result;
-  }
-
-  private void getLanguage(ActionEvent event) {
-    String myLanguage = languageBox.getValue();
-    ViewResourcesSingleton.getInstance().setLanguage(myLanguage);
-    displayWelcome();
-
   }
 
   public void showError(Throwable t) {
