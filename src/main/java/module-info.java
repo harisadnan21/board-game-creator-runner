@@ -11,7 +11,7 @@ open module oogasalad_app {
     requires java.desktop;
     requires io.vavr;
     requires org.jooq.jool;
-    requires com.google.gson;
+    //requires com.google.gson;
     requires org.apache.logging.log4j;
     requires com.github.benmanes.caffeine;
     requires lombok;
