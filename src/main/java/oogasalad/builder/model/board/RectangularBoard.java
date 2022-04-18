@@ -11,7 +11,14 @@ import org.json.JSONObject;
 public class RectangularBoard implements Board {
 
   private static final int EMPTY = -1;
-  private static final String WHITE = "#FFFFFF";
+  private static final String WHITE = "0xffffffff";
+  public static final String PIECE_CONFIGURATION = "pieceConfiguration";
+  public static final String COLOR_CONFIGURATION = "colorConfiguration";
+  public static final String HEIGHT = "height";
+  public static final String WIDTH = "width";
+  public static final String ACTIVE_PLAYER = "activePlayer";
+  public static final String SHAPE = "shape";
+  public static final String RECTANGLE = "rectangle";
   private int[][] cells;
   private String[][] cellColors;
   private int width;
@@ -97,14 +104,11 @@ public class RectangularBoard implements Board {
   @Override
   public String toJSON() {
     JSONObject obj = new JSONObject();
-    // TODO: Remove magic values
-    obj.put("shape", "rectangle");
-    obj.put("width", width);
-    obj.put("height", height);
-    obj.put("pieceConfiguration", pieceConfigToJSON());
-    obj.put("activePlayer", 0);
-    obj.put("background", "games/checkers");
-    obj.put("selectionsRequired", true);
+    obj.put(SHAPE, RECTANGLE);
+    obj.put(WIDTH, width);
+    obj.put(HEIGHT, height);
+    obj.put(ACTIVE_PLAYER, 0); // TODO: Maybe make this an option for the user
+    configToJSON(obj);
     return obj.toString();
   }
 
@@ -117,9 +121,10 @@ public class RectangularBoard implements Board {
   @Override
   public Board fromJSON(String json) {
     JSONObject obj = new JSONObject(json);
-    width = obj.getInt("width");
-    height = obj.getInt("height");
-    cells = pieceConfigFromJSON(obj.getJSONArray("pieceConfiguration"));
+    width = obj.getInt(WIDTH);
+    height = obj.getInt(HEIGHT);
+    cells = pieceConfigFromJSON(obj.getJSONArray(PIECE_CONFIGURATION));
+    cellColors = colorConfigFromJSON(obj.getJSONArray(COLOR_CONFIGURATION));
     return this;
   }
 
@@ -142,17 +147,22 @@ public class RectangularBoard implements Board {
     }
   }
 
-  // Converts the piece configuration to a JSON array
-  private JSONArray pieceConfigToJSON() {
-    JSONArray config = new JSONArray();
+  // Stores the piece and color configurations to a JSON object
+  private void configToJSON(JSONObject obj) {
+    JSONArray colorConfig = new JSONArray();
+    JSONArray pieceConfig = new JSONArray();
     for (int i = 0; i < height; i++) {
-      JSONArray row = new JSONArray();
+      JSONArray pieceRow = new JSONArray();
+      JSONArray colorRow = new JSONArray();
       for (int j = 0; j < width; j++) {
-        row.put(cells[i][j]);
+        pieceRow.put(cells[i][j]);
+        colorRow.put(cellColors[i][j]);
       }
-      config.put(row);
+      pieceConfig.put(pieceRow);
+      colorConfig.put(colorRow);
     }
-    return config;
+    obj.put(PIECE_CONFIGURATION, pieceConfig);
+    obj.put(COLOR_CONFIGURATION, colorConfig);
   }
 
   // Converts the piece configuration to a JSON array
@@ -162,6 +172,18 @@ public class RectangularBoard implements Board {
       JSONArray row = pieceConfiguration.getJSONArray(i);
       for (int j = 0; j < width; j++) {
         config[i][j] = row.getInt(j);
+      }
+    }
+    return config;
+  }
+
+  // Converts the piece configuration to a JSON array
+  private String[][] colorConfigFromJSON(JSONArray colorConfiguration) {
+    String[][] config = new String[height][width];
+    for (int i = 0; i < height; i++) {
+      JSONArray row = colorConfiguration.getJSONArray(i);
+      for (int j = 0; j < width; j++) {
+        config[i][j] = row.getString(j);
       }
     }
     return config;

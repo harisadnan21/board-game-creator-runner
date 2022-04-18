@@ -64,6 +64,8 @@ public class BuilderController {
         builderView.registerCallbackHandler(PlacePieceCallback.class, this::placePiece);
         builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class, this::getElementPropertyByKey);
         builderView.registerCallbackHandler(MakeBoardCallback.class, this::makeBoard);
+        builderView.registerCallbackHandler(ClearCellBackgroundCallback.class, this::clearCellBackground);
+        builderView.registerCallbackHandler(ColorCellBackgroundCallback.class, this::colorCellBackground);
     }
 
     /**

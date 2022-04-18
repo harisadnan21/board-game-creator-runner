@@ -284,8 +284,10 @@ public class GameConfiguration implements BuilderModel {
 
   // Adds the contents of a json object to the map of game elements
   private void addJSONObject(JSONObject obj, String type) {
-    GameElement element = provider.fromJSON(type, obj.toString());
-    elements.get(type).put(element.toRecord().name(), element);
+    if (obj.get("name") != null) {
+      GameElement element = provider.fromJSON(type, obj.toString());
+      elements.get(type).put(element.toRecord().name(), element);
+    }
   }
 
   // Converts metadata to a json String
@@ -297,6 +299,7 @@ public class GameConfiguration implements BuilderModel {
     return new JSONObject();
   }
 
+  // Gets a piece's id from its name
   private int pieceNameToID(String name) throws ElementNotFoundException {
     ElementRecord record = findElementInfo(PIECE, name);
     for (Property property : record.properties()) {
