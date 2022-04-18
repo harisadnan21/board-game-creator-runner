@@ -13,7 +13,10 @@ import oogasalad.builder.view.ViewResourcesSingleton;
  */
 public abstract class BasicTab extends BorderPane {
 
-  protected String type;
+  private String type;
+  private SplitPane splitPane;
+
+
   public BasicTab(String type) {
     this.type = type;
     setupTitle();
@@ -25,7 +28,7 @@ public abstract class BasicTab extends BorderPane {
   }
 
   private void setupSplitPane() {
-    SplitPane splitPane = new SplitPane(setupLeftSide(), setupRightSide());
+    splitPane = new SplitPane(setupLeftSide(), setupRightSide());
     splitPane.setDividerPositions(0.7f);
     setCenter(splitPane);
   }
@@ -34,6 +37,12 @@ public abstract class BasicTab extends BorderPane {
     result.setText(ViewResourcesSingleton.getInstance().getString(property));
     result.setOnAction(handler);
     return result;
+  }
+  protected SplitPane getSplitPane(){
+    return splitPane;
+  }
+  protected String getType(){
+    return type;
   }
 
   protected abstract Node setupRightSide();

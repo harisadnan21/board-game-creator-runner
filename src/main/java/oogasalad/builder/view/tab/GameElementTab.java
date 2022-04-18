@@ -45,9 +45,9 @@ public class GameElementTab extends BasicTab {
     rightBox = new VBox();
     propertyEditor = new PropertyEditor();
     nameField = new TextField(
-        ViewResourcesSingleton.getInstance().getString("defaultName-" + type));
+        ViewResourcesSingleton.getInstance().getString("defaultName-" + getType()));
     rightBox.getChildren().addAll(
-        makeButton("new-" + type, e -> createElement()), nameField, propertyEditor,
+        makeButton("new-" + getType(), e -> createElement()), nameField, propertyEditor,
         makeButton(
             "save", e -> saveCurrentElement()));
     rightBox.setId("rightGameElementsPane");
@@ -70,7 +70,7 @@ public class GameElementTab extends BasicTab {
   // FIXME handle error
   private void createElement() {
     try {
-      Collection<Property> properties = callbackDispatcher.call(new GetPropertiesCallback(type))
+      Collection<Property> properties = callbackDispatcher.call(new GetPropertiesCallback(getType()))
           .orElseThrow();
       propertyEditor.setElementPropertyTypeChoice(properties);
     } catch (InvalidTypeException | MissingRequiredPropertyException e) {
@@ -82,7 +82,7 @@ public class GameElementTab extends BasicTab {
     if (newElement != null) {
       nameField.setText(newElement);
       propertyEditor.setElementProperties(
-          callbackDispatcher.call(new GetElementPropertiesCallback(type, newElement))
+          callbackDispatcher.call(new GetElementPropertiesCallback(getType(), newElement))
               .orElseThrow());
     }
   }
@@ -91,7 +91,7 @@ public class GameElementTab extends BasicTab {
     if (!propertyEditor.hasProperties()) {
       return;
     }
-    callbackDispatcher.call(new UpdateGameElementCallback(type, nameField.getText(),
+    callbackDispatcher.call(new UpdateGameElementCallback(getType(), nameField.getText(),
         propertyEditor.getElementProperties()));
     elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
   }
