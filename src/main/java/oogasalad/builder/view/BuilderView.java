@@ -95,7 +95,7 @@ public class BuilderView {
   private void setupTabs() {
     TabPane tabPane = new TabPane();
 
-    boardTabPane = new BoardTab(callbackDispatcher);
+    boardTabPane = new BoardTab(tabProperties, callbackDispatcher);
     boardTabPane.setId("boardTab");
     Tab boardTab = new Tab(ViewResourcesSingleton.getInstance().getString("board"), boardTabPane);
     pieceTabPane = new PiecesTab(callbackDispatcher);
