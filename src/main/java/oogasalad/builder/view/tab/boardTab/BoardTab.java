@@ -49,7 +49,7 @@ public class BoardTab extends BasicTab {
   protected Node setupRightSide() {
     VBox rightBox = new VBox();
 
-    rightBox.getChildren().addAll(setupButtonBar(), setupBoardConfigInput());
+    rightBox.getChildren().addAll(setupButtonBar(), setupBoardEditChoiceToggle(), setupBoardConfigInput());
     rightBox.setId("rightBoardPane");
     rightBox.getStyleClass().add("rightPane");
     return rightBox;
@@ -57,13 +57,9 @@ public class BoardTab extends BasicTab {
 
   @Override
   protected Node setupLeftSide() {
-    // TODO : ADD A WAY TO TELL THE CANVAS SIZING -- this.getCenter().boundsInLocalProperty(),
     boardCanvas = new BoardCanvas(getCallbackDispatcher());
 
-    Pane canvasPane = boardCanvas.getCanvasPane();
-
-    canvasPane.setId("boardCanvas");
-    return canvasPane;
+    return boardCanvas;
   }
 
   private Node setupBoardConfigInput() {
@@ -77,6 +73,7 @@ public class BoardTab extends BasicTab {
         .addAll(setupColorChoiceBox(), setupDimensionChoiceBox(), setupBoardTypeBox(),
             confirmBoardButton);
     boardConfigBox.setId("boardConfigBox");
+    boardConfigBox.getStyleClass().add("boardConfigBox");
     return boardConfigBox;
   }
 
@@ -142,6 +139,7 @@ public class BoardTab extends BasicTab {
     buttonBox.getChildren()
         .addAll(setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");
+    buttonBox.getStyleClass().add("boardConfigBox");
     return buttonBox;
   }
 
@@ -174,6 +172,27 @@ public class BoardTab extends BasicTab {
     choosePieceBox.setId("choosePieceBox");
 
     return choosePieceBox;
+  }
+  private Node setupBoardEditChoiceToggle() {
+    VBox editBoardBox = new VBox();
+    ColorPicker boardEditColorPicker = new ColorPicker();
+
+    ToggleButton editBoardButton = new ToggleButton(ViewResourcesSingleton.getInstance().getString("editSquare"));
+    editBoardButton.setOnAction(e -> toggleEditBoard(editBoardButton, boardEditColorPicker));
+
+    editBoardBox.getChildren().addAll(editBoardButton, boardEditColorPicker);
+    editBoardBox.getStyleClass().add("boardConfigBox");
+    return editBoardBox;
+  }
+
+  private void toggleEditBoard(ToggleButton editBoardToggle, ColorPicker colorPicker) {
+    if (editBoardToggle.isSelected()) {
+      boardCanvas.setClickToEditBoard(colorPicker);
+      setCursor(Cursor.HAND);
+    } else {
+      boardCanvas.setClickToPlace();
+      setCursor(Cursor.DEFAULT);
+    }
   }
 
   private void updatePieceOptions(ComboBox<String> pieceBox) {

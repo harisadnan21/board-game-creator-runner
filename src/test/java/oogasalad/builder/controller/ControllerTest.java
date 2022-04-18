@@ -8,7 +8,10 @@ import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import oogasalad.builder.view.BuilderView;
+import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindCellBackgroundCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
@@ -35,7 +38,7 @@ public class ControllerTest extends DukeApplicationTest {
   private static final int HEIGHT = 8;
   private static final int WIDTH = 10;
   private static final String PIECE_NAME = "checker";
-  private static final String PIECE_IMAGE = "normal.png";
+  private static final String PIECE_IMAGE = "data/images/back.png";
   private static final int PIECE_PLAYER = 0;
   private static final int PIECE_ID = 100;
   private static final String PIECE_TYPE = "piece";
@@ -61,6 +64,8 @@ public class ControllerTest extends DukeApplicationTest {
 
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
+  private static final String BLACK = "0x000000ff";
+  private static final String WHITE = "0xffffffff";
 
   private BuilderController controller;
   private Collection<Property> properties;
@@ -156,6 +161,15 @@ public class ControllerTest extends DukeApplicationTest {
     controller.load(new LoadCallback(file));
     file = new File(TEST_SAVE_EXCEPTION_FILENAME);
     controller.save(new SaveCallback(file));
+  }
+
+  @Test
+  void testColoring() {
+    controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
+    controller.colorCellBackground(new ColorCellBackgroundCallback(X, Y, BLACK));
+    assertEquals(BLACK, controller.findCellBackground(new FindCellBackgroundCallback(X, Y)));
+    controller.clearCellBackground(new ClearCellBackgroundCallback(X, Y));
+    assertEquals(WHITE, controller.findCellBackground(new FindCellBackgroundCallback(X, Y)));
   }
 
   private int countMatches(String str, String target) {
