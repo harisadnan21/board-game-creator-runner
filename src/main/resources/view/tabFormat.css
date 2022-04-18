@@ -31,11 +31,11 @@
   -fx-color: #FFFAEF;
 }
 .list-view .list-cell:even {
-  -fx-background-color: #FFFAEF;
+  -fx-background-color: #E0F9FF;
   -fx-text-fill: black;
 }
 .list-view .list-cell:odd {
-  -fx-background-color: #FFFAEF;
+  -fx-background-color: #F2F8FF;
   -fx-text-fill: black;
 }
 .boardCanvas{
