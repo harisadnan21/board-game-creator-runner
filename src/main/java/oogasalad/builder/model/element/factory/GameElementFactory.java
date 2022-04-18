@@ -120,7 +120,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
         return property.valueAsString();
       }
     }
-    throw new MissingRequiredPropertyException();
+    throw new MissingRequiredPropertyException(target);
   }
 
   // Validates that the given properties are correct
@@ -137,7 +137,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       }
     }
     if (!validateType(type)) {
-      throw new MissingRequiredPropertyException();
+      throw new MissingRequiredPropertyException(type);
     }
     validateNamespace(type, properties);
   }
