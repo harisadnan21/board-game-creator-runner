@@ -58,7 +58,7 @@ public class BuilderView {
 
   public BuilderView(Stage mainStage) {
     //splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
-    tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
+    tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_);
     stage = mainStage;
     displayWelcome();
   }
