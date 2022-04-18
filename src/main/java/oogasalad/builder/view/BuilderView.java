@@ -35,7 +35,7 @@ public class BuilderView {
   private static final String SPLASH_PACKAGE = "SplashLogin.css";
   // private static final String TAB_LANGUAGE = "English";
   private static String TAB_LANGUAGE = "English";
-  private static String TAB_PROPERTIES = "tabResources";
+  private static String TAB_PROPERTIES = "TabResources";
   private static final String TAB_FORMAT = "tabFormat.css";
   private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
@@ -50,15 +50,15 @@ public class BuilderView {
   private BorderPane boardPane;
   private HBox buttonHolder;
   private ResourceBundle splashResources;
-  private ResourceBundle tabProperties;
   private ChoiceBox<String> languageBox;
   private Label myLabel;
+  public static ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
 
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
     //splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
-    tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
+
     stage = mainStage;
     displayWelcome();
   }
@@ -95,7 +95,7 @@ public class BuilderView {
   private void setupTabs() {
     TabPane tabPane = new TabPane();
 
-    boardTabPane = new BoardTab(tabProperties, callbackDispatcher);
+    boardTabPane = new BoardTab(callbackDispatcher);
     boardTabPane.setId("boardTab");
     Tab boardTab = new Tab(ViewResourcesSingleton.getInstance().getString("board"), boardTabPane);
     pieceTabPane = new PiecesTab(callbackDispatcher);

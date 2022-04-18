@@ -1,6 +1,7 @@
 package oogasalad.builder.view.tab.boardTab;
 
 import static oogasalad.builder.view.BuilderView.DEFAULT_RESOURCE_PACKAGE;
+import static oogasalad.builder.view.BuilderView.tabProperties;
 
 import java.util.*;
 import javafx.scene.Cursor;
@@ -37,13 +38,12 @@ public class BoardTab extends BasicTab {
   private ColorPicker colorPickerA;
   private ColorPicker colorPickerB;
   private ComboBox<String> boardTypeBox;
-  private ResourceBundle tabProperties;
   private static final ResourceBundle boardTypes = ResourceBundle.getBundle(
       DEFAULT_RESOURCE_PACKAGE + BOARD_PROPERTIES);
 
-  public BoardTab(ResourceBundle tabRb, CallbackDispatcher dispatcher) {
+  public BoardTab(CallbackDispatcher dispatcher) {
     super(BOARD_TYPE, dispatcher);
-    tabProperties = tabRb;
+
   }
 
   @Override
@@ -103,10 +103,6 @@ public class BoardTab extends BasicTab {
         Integer.parseInt(tabProperties.getString("numPickerMax")),
         Integer.parseInt(tabProperties.getString("defaultBoardY")),
         Integer.parseInt(tabProperties.getString("numPickerStep")));
-    xDimensionPicker.setEditable(true);
-    yDimensionPicker.setEditable(true);
-    xDimensionPicker.setId("xDimEntry");
-    yDimensionPicker.setId("yDimEntry");
 
     VBox xDimBox = new VBox(xDimLabel, xDimensionPicker);
     VBox yDimBox = new VBox(yDimLabel, yDimensionPicker);

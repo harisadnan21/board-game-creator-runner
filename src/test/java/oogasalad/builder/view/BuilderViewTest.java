@@ -44,9 +44,11 @@ class BuilderViewTest extends DukeApplicationTest {
     }
 
     @Test
-    void testLogin() {
+    void testLogin() throws InterruptedException {
         // We know the board tab will exist after logging in, so just use that to check
+        Thread.sleep(1000);
         assertTrue(lookup("#boardTab").tryQuery().isPresent());
+
     }
 
     void boardSetup() {
