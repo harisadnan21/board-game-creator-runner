@@ -90,9 +90,10 @@ public class BuilderView {
   }
 
   /**
-   * Setups all of the tabs and adds them to the scene
+   * Set ups all the tabs and adds them to the scene
    */
   private void setupTabs() {
+    System.out.println("We at da tabs!");
     TabPane tabPane = new TabPane();
 
     boardTabPane = new BoardTab(callbackDispatcher);
