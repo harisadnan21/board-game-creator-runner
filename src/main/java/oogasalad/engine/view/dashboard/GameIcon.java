@@ -20,18 +20,13 @@ public class GameIcon extends VBox {
   private Consumer<File> myStartGame;
 
   public GameIcon(File gameFolder, String imagePath, String name, Consumer<File> startGame) {
-
     image = new ImageView(new Image(imagePath, ICON_WIDTH, ICON_HEIGHT, true, true));
-    Pane imageHolder = new Pane();
-    imageHolder.getChildren().add(image);
-    image.getStyleClass().add("iconImage");
     this.getStyleClass().add("gameIcon");
     myName = name;
     myGameFolder = gameFolder;
     myStartGame = startGame;
     createIcon();
     addMouseClick();
-
   }
 
   private void createIcon() {

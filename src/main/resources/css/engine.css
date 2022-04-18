@@ -4,9 +4,16 @@
   -fx-triColor: black;
 
 }
+
+.Text{
+  -fx-text-fill: white;
+}
+
+.BorderPane{
+  -fx-padding: 10px;
+}
 .cell{
   -fx-alignment: center;
-
 }
 
 .title{
@@ -40,4 +47,29 @@
 
 .iconName{
   -fx-alignment: center;
+}
+
+.infoHolder{
+  -fx-padding: 10px
+}
+
+.infoPanel{
+  -fx-padding: 50px;
+  -fx-spacing: 20px;
+  -fx-background-radius: 15px;
+  -fx-border-radius: 15px;
+  -fx-background-color: -fx-secondaryColor;
+  -fx-alignment: center;
+}
+.infoTitle{
+  -fx-font-size: 60;
+  -fx-underline: true;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+}
+.infoAuthor{
+  -fx-font-size: 50;
+}
+.infoDescription{
+  -fx-font-size: 30;
 }

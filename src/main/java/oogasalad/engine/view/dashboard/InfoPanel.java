@@ -1,18 +1,24 @@
 package oogasalad.engine.view.dashboard;
 
 import java.util.ResourceBundle;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class InfoPanel extends VBox {
+public class InfoPanel extends StackPane {
   public static final String DEFAULT = "/";
   private String title;
   private String author;
+  private VBox infoHolder;
   private String description;
   private String language;
   private ResourceBundle INITIAL_TEXT;
 
   public InfoPanel(){
+    this.getStyleClass().add("infoHolder");
+    infoHolder = new VBox();
+    infoHolder.getStyleClass().add("infoPanel");
+    this.getChildren().add(infoHolder);
     language = "English";
     INITIAL_TEXT = ResourceBundle.getBundle(DEFAULT + "view/" +language);
     setInitialValues();
@@ -20,14 +26,14 @@ public class InfoPanel extends VBox {
   }
 
   private void displayText() {
-    this.getChildren().clear();
+    infoHolder.getChildren().clear();
     Text infoTitle = new Text(title);
     infoTitle.getStyleClass().add("infoTitle");
-    Text infoAuthor = new Text(author);
+    Text infoAuthor = new Text("Author: " + author);
     infoTitle.getStyleClass().add("infoAuthor");
     Text infoDescription = new Text(description);
     infoTitle.getStyleClass().add("infoDescription");
-    this.getChildren().addAll(infoTitle, infoAuthor, infoDescription);
+    infoHolder.getChildren().addAll(infoTitle, infoAuthor, infoDescription);
   }
 
   private void setInitialValues() {
