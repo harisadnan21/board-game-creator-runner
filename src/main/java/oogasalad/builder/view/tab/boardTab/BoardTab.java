@@ -29,7 +29,7 @@ import oogasalad.builder.view.tab.TitlePane;
 
 
 /**
- *
+ * @author Mike Keohane
  */
 public class BoardTab extends BorderPane {
 
