@@ -62,32 +62,59 @@ public class BuilderView {
   }
 
   private void displayWelcome() {
-    boardPane = new BorderPane();
     buttonHolder = new HBox();
+    VBox leftPanel = new VBox();
+    VBox rightPanel = new VBox();
     myWelcome = new Label(tabResources.getString("Welcome"));
     myWelcome.setFont(new Font("Inter", 30));
-    //boardPane.getChildren().add(myWelcome);
-    boardPane.setLeft(myWelcome);
-    // line below was edited to debug
-    Button login = makeButton("Proceed", event -> {setupTabs();}, ResourceBundle.getBundle((DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE)));
+
+    Button proceed = makeButton("Proceed", event -> {setupTabs();}, ResourceBundle.getBundle((DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE)));
     languageBox = new ChoiceBox<>();
     languageBox.getItems().addAll(languageChoice);
     languageBox.setOnAction(this::getLanguage);
-    buttonHolder.getChildren().addAll(login, languageBox);
+
+    leftPanel.getChildren().addAll(myWelcome);
+    rightPanel.getChildren().addAll(proceed, languageBox);
+
+    myWelcome.setAlignment(Pos.TOP_LEFT);
+    buttonHolder.getChildren().addAll(leftPanel, rightPanel);
+    leftPanel.setAlignment(Pos.CENTER_LEFT);
+    rightPanel.setAlignment(Pos.CENTER_RIGHT);
+    Scene myLoginScene = new Scene(buttonHolder, 600, 650);
+    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
+    myWelcome.getStyleClass().add("myWelcome");
+    leftPanel.getStyleClass().add("leftPanel");
+    proceed.getStyleClass().add("proceed");
+    buttonHolder.getStyleClass().add("buttonHolder");
+    stage = new Stage();
+    stage.setScene(myLoginScene);
+    stage.show();
+//    boardPane = new BorderPane();
+//    buttonHolder = new HBox();
+//    myWelcome = new Label(tabResources.getString("Welcome"));
+//    myWelcome.setFont(new Font("Inter", 30));
+//    //boardPane.getChildren().add(myWelcome);
+//    boardPane.setLeft(myWelcome);
+//    // line below was edited to debug
+//    Button login = makeButton("Proceed", event -> {setupTabs();}, ResourceBundle.getBundle((DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE)));
+//    languageBox = new ChoiceBox<>();
+//    languageBox.getItems().addAll(languageChoice);
+//    languageBox.setOnAction(this::getLanguage);
+//    buttonHolder.getChildren().addAll(login, languageBox);
 
     //boardPane.setCenter(languageBox);
     //boardPane.setBottom(buttonHolder);
 
-    Scene myLoginScene = new Scene(boardPane, 600, 650);
-    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
-    boardPane.getStyleClass().add("boardPane");
-    languageBox.getStyleClass().add("languageBox");
-    login.getStyleClass().add("buttonHolder");
-    boardPane.setCenter(buttonHolder);
-    //boardPane.setBottom(buttonHolder);
-    stage = new Stage();
-    stage.setScene(myLoginScene);
-    stage.show();
+//    Scene myLoginScene = new Scene(boardPane, 600, 650);
+//    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
+//    boardPane.getStyleClass().add("boardPane");
+//    languageBox.getStyleClass().add("languageBox");
+//    login.getStyleClass().add("buttonHolder");
+//    boardPane.setCenter(buttonHolder);
+//    //boardPane.setBottom(buttonHolder);
+//    stage = new Stage();
+//    stage.setScene(myLoginScene);
+//    stage.show();
    // myStage.setScene(myLoginScene);
     //myStage.show();
   }
