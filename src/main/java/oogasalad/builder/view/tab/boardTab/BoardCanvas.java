@@ -13,6 +13,7 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
@@ -146,8 +147,10 @@ public class BoardCanvas extends Pane{
       for (int y = 0; y < yDimension; y++) {
         if (((y % 2 == 0) && (x % 2 == 0)) || ((y % 2 == 1) && (x % 2 == 1))) {
           boardGraphics.setFill(colorOne);
+          callbackDispatcher.call(new ColorCellBackgroundCallback(x, y, colorOne.toString()));
         } else {
           boardGraphics.setFill(colorTwo);
+          callbackDispatcher.call(new ColorCellBackgroundCallback(x, y, colorTwo.toString()));
         }
         boardGraphics.fillRect(x * rectWidth, y * rectHeight, (x + 1) * rectWidth,
             (y + 1) * rectHeight);
@@ -197,7 +200,7 @@ public class BoardCanvas extends Pane{
     boardGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
     boardGraphics.setFill(color);
     boardGraphics.fillRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
-    //callbackDispatcher.colorCellBackgroundCallback(blockIndex[0], blockIndex[1], color.toString());
+    callbackDispatcher.call(new ColorCellBackgroundCallback(blockIndex[0], blockIndex[1], color.toString()));
   }
 
   //adds a piece to the board

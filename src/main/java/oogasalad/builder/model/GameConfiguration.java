@@ -154,17 +154,6 @@ public class GameConfiguration implements BuilderModel {
     return EMPTY;
   }
 
-  private int pieceNameToID(String name) throws ElementNotFoundException {
-    //TODO: Remove magic values
-    ElementRecord record = findElementInfo(PIECE, name);
-    for (Property property : record.properties()) {
-      if (property.name().equals(ID)) {
-        return Integer.parseInt(property.valueAsString());
-      }
-    }
-    throw new ElementNotFoundException();
-  }
-
   /**
    * Clears the cell on the board at the given coordinates
    *
@@ -174,6 +163,43 @@ public class GameConfiguration implements BuilderModel {
   public void clearBoardCell(int x, int y) throws NullBoardException {
     checkBoardCreated();
     board.clearCell(x, y);
+  }
+
+  /**
+   * Clears the background of the cell at the given coordinates
+   *
+   * @param x the x location to clear
+   * @param y the y location to clear
+   */
+  @Override
+  public void clearCellBackground(int x, int y) throws NullBoardException {
+    checkBoardCreated();
+    board.clearCellBackground(x, y);
+  }
+
+  /**
+   * Colors the background of the cell at the given coordinates with the given color
+   *
+   * @param x the x location to color
+   * @param y the y location to color
+   * @param color the hexadecimal string of the color to set at the cell
+   */
+  @Override
+  public void colorCellBackground(int x, int y, String color) throws NullBoardException {
+    checkBoardCreated();
+    board.colorCellBackground(x, y, color);
+  }
+
+  /**
+   * Finds the background color of the cell at the given coordinates
+   *
+   * @param x the x location to query
+   * @param y the y location to query
+   * @return the background color of the cell at the given coordinates
+   */
+  @Override
+  public String findCellBackground(int x, int y){
+    return board.findCellBackground(x, y);
   }
 
   /**
@@ -269,8 +295,10 @@ public class GameConfiguration implements BuilderModel {
 
   // Adds the contents of a json object to the map of game elements
   private void addJSONObject(JSONObject obj, String type) {
-    GameElement element = provider.fromJSON(type, obj.toString());
-    elements.get(type).put(element.toRecord().name(), element);
+    if (obj.get("name") != null) {
+      GameElement element = provider.fromJSON(type, obj.toString());
+      elements.get(type).put(element.toRecord().name(), element);
+    }
   }
 
   // Converts metadata to a json String
@@ -280,6 +308,17 @@ public class GameConfiguration implements BuilderModel {
       return new JSONObject(record.toJSON());
     }
     return new JSONObject();
+  }
+
+  // Gets a piece's id from its name
+  private int pieceNameToID(String name) throws ElementNotFoundException {
+    ElementRecord record = findElementInfo(PIECE, name);
+    for (Property property : record.properties()) {
+      if (property.name().equals(ID)) {
+        return Integer.parseInt(property.valueAsString());
+      }
+    }
+    throw new ElementNotFoundException();
   }
 
   // Resets the map of game elements

@@ -53,10 +53,12 @@ public class GameConfigurationTest {
 
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
-  private static final String TEST_LOAD_FILENAME = "data/tests/testLoad.json";
+  private static final String TEST_LOAD_FILENAME = "data/tests/load/config.json";
 
   private static final String REPRESENTATIVE_X = "representativeX";
   private static final String REPRESENTATIVE_Y = "representativeY";
+  private static final String BLACK = "0x000000ff";
+  private static final String WHITE = "0xffffffff";
 
   private Collection<Property> properties;
   private BuilderModel game;
@@ -109,6 +111,15 @@ public class GameConfigurationTest {
 
     game.placeBoardPiece(X, Y, PIECE_NAME);
     assertEquals(PIECE_NAME, game.findBoardPieceAt(X, Y));
+  }
+
+  @Test
+  void testColoring() {
+    game.makeBoard(WIDTH, HEIGHT);
+    game.colorCellBackground(X, Y, BLACK);
+    assertEquals(BLACK, game.findCellBackground(X, Y));
+    game.clearCellBackground(X, Y);
+    assertEquals(WHITE, game.findCellBackground(X, Y));
   }
 
   @Test
