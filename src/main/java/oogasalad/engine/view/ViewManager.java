@@ -1,6 +1,8 @@
 package oogasalad.engine.view;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
@@ -14,19 +16,29 @@ import oogasalad.engine.model.parser.GameParser;
 
 
 public class ViewManager {
-  public static double WIDTH = 600;
-  public static double HEIGHT = 400;
-  public static double BOARDX = 400;
-  public static double BOARDY = 400;
+  private FileInputStream fis;
+  public static double WIDTH;
+  public static double HEIGHT;
+  public static double BOARDX;
+  public static double BOARDY ;
 
   private OpeningView openingView;
   private GameView gameView;
   private Scene currScene;
   private Stage stage;
 
-  public ViewManager(Stage s) {
+  public ViewManager(Stage s) throws IOException {
     currScene = createOpeningView().makeScene();
     stage = s;
+    fis = new FileInputStream("data/Properties/ViewManagerProperties.properties");
+    Properties prop = new Properties();
+    prop.load(fis);
+
+    WIDTH = Double.parseDouble(prop.getProperty("WIDTH"));
+    HEIGHT = Double.parseDouble(prop.getProperty("HEIGHT"));
+    BOARDX = Double.parseDouble(prop.getProperty("BOARDX"));
+    BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
+
   }
 
   public Scene getCurrScene() {

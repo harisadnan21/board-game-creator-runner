@@ -90,4 +90,6 @@ public class GameView {
       popupStage.show();
     });
   }
+
+  //TODO: add methods that give functionality to back, forward, setting and home functions
 }
