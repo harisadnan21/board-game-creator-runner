@@ -134,14 +134,13 @@ public class BoardTab extends BasicTab {
 
   private Node setupButtonBar() {
     VBox buttonBox = new VBox();
-    Button saveButton = makeButton("saveBoard", e -> saveBoardConfig());
-    Button loadButton = makeButton("loadBoard", e -> loadBoardConfig());
+    //Button saveButton = makeButton("saveBoard", e -> saveBoardConfig());
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
     resetPiecesButton.setId("clearPieces");
 
     buttonBox.getChildren()
-        .addAll(saveButton, loadButton, setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
+        .addAll(setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");
     return buttonBox;
   }
@@ -183,22 +182,6 @@ public class BoardTab extends BasicTab {
     Collection<String> pieceNames = getCallbackDispatcher().call(new GetElementNamesCallback("piece")).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
-  }
-
-  private void saveBoardConfig() {
-    Stage stage = new Stage();
-    DirectoryChooser directoryChooser = new DirectoryChooser();
-    //TODO: Remove Magic Value
-    directoryChooser.setTitle("Choose Configuration Save Location");
-    getCallbackDispatcher().call(new SaveCallback(directoryChooser.showDialog(stage)));
-  }
-
-  private void loadBoardConfig() {
-    Stage stage = new Stage();
-    DirectoryChooser directoryChooser = new DirectoryChooser();
-    //TODO: Remove Magic Value
-    directoryChooser.setTitle("Choose Configuration Load Location");
-    getCallbackDispatcher().call(new LoadCallback(directoryChooser.showDialog(stage)));
   }
 
   // For testing

@@ -13,10 +13,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
+import oogasalad.builder.view.callback.LoadCallback;
+import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.ActionsTab;
 import oogasalad.builder.view.tab.ConditionsTab;
 import oogasalad.builder.view.tab.RulesTab;
@@ -113,7 +116,11 @@ public class BuilderView {
 
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
-    Scene tabScene = new Scene(tabPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
+    BorderPane borderPane = new BorderPane();
+    borderPane.setCenter(tabPane);
+    borderPane.setBottom(makeMenu());
+
+    Scene tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
         Integer.parseInt(tabProperties.getString("sceneSizeY")));
 
     tabScene.getStylesheets()
@@ -121,8 +128,15 @@ public class BuilderView {
     stage.setScene(tabScene);
   }
 
+  private HBox makeMenu() {
+    HBox menu = new HBox();
+    menu.getChildren().add(makeButton("save", e -> saveConfig()));
+    menu.getChildren().add(makeButton("load", e -> loadConfig()));
+    return menu;
+  }
+
   //returns a button with the title provided linked to the event passed as a parameter
-  public static Button makeButton(String property, EventHandler<ActionEvent> handler) {
+  private Button makeButton(String property, EventHandler<ActionEvent> handler) {
     Button result = new Button();
     String label = ViewResourcesSingleton.getInstance().getString(property);
     result.setText(label);
@@ -130,13 +144,37 @@ public class BuilderView {
     return result;
   }
 
+  // Sets the language of the builder view
   private void getLanguage(ActionEvent event) {
     String myLanguage = languageBox.getValue();
     ViewResourcesSingleton.getInstance().setLanguage(myLanguage);
     displayWelcome();
+  }
+
+  // Saves the configuration of the game using a callback to call the controller
+  private void saveConfig() {
+    Stage stage = new Stage();
+    DirectoryChooser directoryChooser = new DirectoryChooser();
+    //TODO: Remove Magic Value
+    directoryChooser.setTitle("Choose Configuration Save Location");
+    callbackDispatcher.call(new SaveCallback(directoryChooser.showDialog(stage)));
+  }
+
+  // Saves the configuration of the game using a callback to call the controller
+  private void loadConfig() {
+    Stage stage = new Stage();
+    DirectoryChooser directoryChooser = new DirectoryChooser();
+    //TODO: Remove Magic Value
+    directoryChooser.setTitle("Choose Configuration Save Location");
+    callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(stage)));
 
   }
 
+  /**
+   * Shows a throwable error
+   *
+   * @param t a throwable error
+   */
   public void showError(Throwable t) {
     new Alert(Alert.AlertType.ERROR, t.getMessage()).showAndWait();
   }
