@@ -15,7 +15,7 @@ public class BuilderMain extends Application {
     try {
       BuilderController controller = new BuilderController(new BuilderView(stage));
       Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
-        logger.error(throwable);
+        logger.throwing(throwable);
         controller.showError(throwable);
       });
     } catch(Exception e) {

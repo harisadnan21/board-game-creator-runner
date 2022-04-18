@@ -35,7 +35,7 @@ public class StringListProperty extends AbstractProperty<Collection<String>> {
    * @param form  the form of the property
    */
   public StringListProperty(String name, String value, String form) {
-    super(name, List.of(value.split(DELIMITER)), form);
+    super(name, value.isBlank() ? List.of() : List.of(value.split(DELIMITER)), form);
   }
 
   // Converts a collection of string to a single string

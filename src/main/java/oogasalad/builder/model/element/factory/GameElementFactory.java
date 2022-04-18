@@ -99,7 +99,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     JSONObject obj = new JSONObject(json);
     for (String key : obj.keySet()) {
       if (key.equals(NAME)) {
-        return key;
+        return obj.getString(key);
       }
     }
     return null; // Perhaps throw an exception
@@ -120,7 +120,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
         return property.valueAsString();
       }
     }
-    throw new MissingRequiredPropertyException();
+    throw new MissingRequiredPropertyException(target);
   }
 
   // Validates that the given properties are correct
@@ -137,7 +137,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       }
     }
     if (!validateType(type)) {
-      throw new MissingRequiredPropertyException();
+      throw new MissingRequiredPropertyException(type);
     }
     validateNamespace(type, properties);
   }

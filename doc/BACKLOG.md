@@ -52,7 +52,7 @@
 6. The user is provided with a selector to choose which image they want as the component inside the game - like what to display as a pawn / king
 7. allow the user to pause the game(show a pause screen in game)
 8. allow the user to choose color themes.
-9. allow users to save a game into a JSON file into a location of their choice.
+9. allow users to save a game into a JSON file into a location of their AIChoice.
 10. users define their moves through an interface
 
 ### Alexander

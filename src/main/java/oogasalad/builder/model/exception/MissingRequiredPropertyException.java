@@ -14,16 +14,7 @@ public class MissingRequiredPropertyException extends RuntimeException {
   /**
    * Creates new MissingRequiredPropertyException with the default message
    */
-  public MissingRequiredPropertyException() {
-    this(ExceptionResourcesSingleton.getInstance().getString(DEFAULT_MESSAGE_KEY));
-  }
-
-  /**
-   * Creates new MissingRequiredPropertyException with the provided message
-   *
-   * @param message the error message for this exception
-   */
-  public MissingRequiredPropertyException(String message) {
-    super(message);
+  public MissingRequiredPropertyException(String target) {
+    super(ExceptionResourcesSingleton.getInstance().getString(DEFAULT_MESSAGE_KEY, target));
   }
 }
