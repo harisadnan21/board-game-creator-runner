@@ -68,24 +68,25 @@ public class GameView {
   private void setPause() {
     myGameControl.getPause().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
-
-      VBox pauseRoot = new VBox();
-      pauseRoot.setId("pause-root");
-      Text text = new Text(myResources.getString("PauseMessage"));
-      text.setId("pause-message-text");
-      pauseRoot.getChildren().add(text);
-
-      Button resume = new Button(myResources.getString("Resume"));
-      resume.setId("resume-button");
-      pauseRoot.getChildren().add(resume);
-
-      Stage popupStage = new Stage(StageStyle.TRANSPARENT);
-      popupStage.initModality(Modality.APPLICATION_MODAL);
-      Scene pauseScene = new Scene(pauseRoot);
-      pauseScene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
-      popupStage.setScene(pauseScene);
-
-      resume.setOnAction(event -> {
+      MessageView pauseView = new MessageView(myResources.getString("PauseMessage"),
+          myResources.getString("Resume"), cssFilePath);
+//      VBox pauseRoot = new VBox();
+//      pauseRoot.setId("pause-root");
+//      Text text = new Text(myResources.getString("PauseMessage"));
+//      text.setId("pause-message-text");
+//      pauseRoot.getChildren().add(text);
+//
+//      Button resume = new Button(myResources.getString("Resume"));
+//      resume.setId("resume-button");
+//      pauseRoot.getChildren().add(resume);
+//
+//      Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+//      popupStage.initModality(Modality.APPLICATION_MODAL);
+//      Scene pauseScene = new Scene(pauseRoot);
+//      pauseScene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
+//      popupStage.setScene(pauseScene);
+      Stage popupStage = pauseView.getStage();
+      pauseView.getButton().setOnAction(event -> {
         root.setEffect(null);
         popupStage.hide();
       });
