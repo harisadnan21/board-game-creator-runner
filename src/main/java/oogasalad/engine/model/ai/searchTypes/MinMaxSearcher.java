@@ -37,6 +37,7 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
     return getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(), forPlayer, maxDepth)).get();
   }
 
+  // TODO: change to return boards
   protected final Seq<AIChoice> getChoices(Board board, int forPlayer) {
     return Seq.seq(this.AIOracle.getChoices(board, forPlayer));
   }
@@ -45,9 +46,13 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
     if(limitReached(board, depth)) {
       return getEvaluation(board, player);
     }
-    var boards = getChoices(board, player).stream().map(AIChoice::getResultingBoard);
-    int nextPlayer = player==PLAYER_ONE ? Piece.PLAYER_TWO : PLAYER_ONE;
+    var boards = getChoices(board, player).map(AIChoice::getResultingBoard);
+    int nextPlayer = getNextPlayer(player);
     return boards.mapToInt(currBoard -> runMinimax(currBoard, nextPlayer, depth-1)).max().getAsInt();
+  }
+
+  protected int getNextPlayer(int player) {
+    return player == PLAYER_ONE ? Piece.PLAYER_TWO : PLAYER_ONE;
   }
 
   protected int getEvaluation(Board board, int player) {

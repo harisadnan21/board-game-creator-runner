@@ -26,12 +26,16 @@ public class AlphaBetaSearcher extends MinMaxSearcher implements Selects {
   }
 
   protected int runAlphaBeta(Board board, int player, int depth, int alpha, int beta) {
-    //TODO: change this to be Alpha-Beta
     if(this.limitReached(board, depth)) { return this.getEvaluation(board, player); }
 
     var boards = this.getChoices(board, player).map(AIChoice::getResultingBoard);
-    int nextPlayer = player==PLAYER_ONE ? Piece.PLAYER_TWO : PLAYER_ONE;
+    int nextPlayer = this.getNextPlayer(player);
     return boards.mapToInt(currBoard -> runAlphaBeta(currBoard, nextPlayer, depth-1, alpha, beta)).max().getAsInt();
+  }
+
+  @Override
+  protected boolean limitReached(Board board, int depth) {
+    return super.limitReached(board, depth) || false; // TODO: replace false with proper alpha-beta end condition
   }
 
 }
