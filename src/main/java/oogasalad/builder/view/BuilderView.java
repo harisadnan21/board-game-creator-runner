@@ -28,6 +28,7 @@ import oogasalad.builder.view.tab.RulesTab;
 import oogasalad.builder.view.tab.SplashLogin;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
 
+
 import java.util.ResourceBundle;
 
 /** Creates the scene and handles the builder GUI and the tabs within it

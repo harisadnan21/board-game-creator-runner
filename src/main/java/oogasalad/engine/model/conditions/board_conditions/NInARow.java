@@ -24,7 +24,7 @@ public class NInARow extends BoardCondition{
     return checkForHorizontal(board) || checkForVertical(board);
   }
 
-  //check for n pieces of the same type in a horizontal row
+
   private boolean checkForHorizontal(Board board) {
     var rows = board.getRows().values().stream();
     return anyHaveNInARow(rows);

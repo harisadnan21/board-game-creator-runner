@@ -71,7 +71,9 @@ public class Cell {
    * @return - ImageView created from image path
    */
   private ImageView createImageView(String imagePath, double width, double height) {
-    ImageView myImageView = new ImageView( new Image(imagePath));
+    ImageView myImageView = new ImageView(new Image(imagePath));
+    //ImageView myImageView = new ImageView();
+    myImageView.setId("valid-marker");
     myImageView.setFitWidth(width);
     myImageView.setFitHeight(height);
     return myImageView;
@@ -83,7 +85,6 @@ public class Cell {
       myRoot.getChildren().remove(myPiece);
     }
     myPiece = null;
-
   }
 
   /**
@@ -107,9 +108,7 @@ public class Cell {
 
   public void addSelectedHighlight() {
     highlight = new Rectangle(myWidth-BUFFER, myHeight-BUFFER);
-    highlight.setFill(Color.web("#ECF036"));
-    highlight.setStroke(Color.web("#ECF036"));
-    highlight.setOpacity(OPACITY);
+    highlight.setId("cell-highlight");
 
     myRoot.getChildren().add(highlight);
     System.out.println("selected");
@@ -126,10 +125,10 @@ public class Cell {
 
   private void setColor() {
     if ((myX+myY)%2 == 0) {
-      myShape.setFill(Color.web("#BEDDDB"));
+      myShape.setId("cell-type-A");
     }
     else {
-      myShape.setFill(Color.web("#97CDC9"));
+      myShape.setId("cell-type-B");
     }
   }
 }

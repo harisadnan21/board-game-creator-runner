@@ -6,6 +6,6 @@ import oogasalad.engine.model.board.Position;
 
 @FunctionalInterface
 public interface GetPositionNeighbor {
-  public Optional<Position> getNeighbor(Position pos, Board board);
+  Optional<Position> getNeighbor(Position pos, Board board);
 
 }
