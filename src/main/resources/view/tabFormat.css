@@ -42,14 +42,8 @@
   -fx-background-color: #FFFAEF;
 }
 
-#buttonBox{
-  -fx-min-width: 50;
-  -fx-pref-width: 150;
-  -fx-alignment: top-center;
-  -fx-padding: 10;
-  -fx-spacing: 20;
-}
-#boardConfigBox{
+
+.boardConfigBox{
   -fx-min-width: 100;
   -fx-pref-width: 200;
   -fx-alignment: center;
