@@ -69,7 +69,8 @@ public class ViewManager {
     return gameView;
   }
   private void showGames(){
-    currScene = new Scene(new Dashboard(), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
+    currScene = new Scene(new Dashboard(this::startGame), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
+    currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
     updateStage();
   }
 

@@ -53,7 +53,6 @@ public class OpeningView {
   public Scene makeScene() {
     Scene scene = new Scene(root, width, height);
     scene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
-
     return scene;
   }
 

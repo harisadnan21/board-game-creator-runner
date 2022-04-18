@@ -4,24 +4,25 @@ import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import org.jooq.lambda.function.Consumer0;
 
 public class InfoPanel extends StackPane {
   public static final String DEFAULT = "/";
+  public static final String RESOURCES = DEFAULT + "view/";
   private String title;
   private String author;
   private VBox infoHolder;
   private String description;
   private String language;
-  private ResourceBundle INITIAL_TEXT;
+  private ResourceBundle initialText;
 
-  public InfoPanel(){
+  public InfoPanel(Consumer0 startGame){
     this.getStyleClass().add("infoHolder");
     infoHolder = new VBox();
     infoHolder.getStyleClass().add("infoPanel");
     this.getChildren().add(infoHolder);
     language = "English";
-    INITIAL_TEXT = ResourceBundle.getBundle(DEFAULT + "view/" +language);
+    initialText = ResourceBundle.getBundle(RESOURCES +language);
     setInitialValues();
     displayText();
   }
@@ -38,9 +39,11 @@ public class InfoPanel extends StackPane {
   }
 
   private void setInitialValues() {
-    title = INITIAL_TEXT.getString("initialInfoTitle");
-    author = INITIAL_TEXT.getString("initialInfoAuthor");
-    description = INITIAL_TEXT.getString("initialInfoDescription");
+    title = initialText.getString("initialInfoTitle");
+    author = initialText.getString("initialInfoAuthor");
+    description = initialText.getString("initialInfoDescription");
   }
+
+
 
 }

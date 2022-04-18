@@ -47,5 +47,9 @@ public class GameIcon extends VBox {
     myStartGame.accept(myGameFolder);
   }
 
+  private void readJSON(){
+
+  }
+
 
 }
