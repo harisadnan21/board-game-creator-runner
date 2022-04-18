@@ -45,7 +45,9 @@ public class GameElementListSelector implements PropertySelector {
   private void setup() {
     elementsList.setEditable(true);
     String startElements = property.valueAsString();
-    elementsList.getItems().setAll(Arrays.stream(startElements.substring(1, startElements.length() - 1).split(",")).map(s -> s.substring(1, s.length() - 1)).toList());
+    if(startElements.length() > 2) {
+      elementsList.getItems().setAll(Arrays.stream(startElements.substring(1, startElements.length() - 1).split(",")).map(s -> s.substring(1, s.length() - 1)).toList());
+    }
     elementsList.setCellFactory(view -> new ListCell<>() {
       @Override
       protected void updateItem(String elementName, boolean b) {
