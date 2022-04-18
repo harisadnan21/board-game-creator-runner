@@ -163,8 +163,9 @@ public class BuilderController {
      */
     Void update(UpdateGameElementCallback callback)
         throws InvalidTypeException, MissingRequiredPropertyException {
-       gameConfig.addGameElement(callback.type(), callback.name(), callback.properties());
-       return null;
+        LOG.info("Updating {} with name {}", callback.type(), callback.name());
+        gameConfig.addGameElement(callback.type(), callback.name(), callback.properties());
+        return null;
     }
 
     /**
