@@ -1,10 +1,12 @@
 package oogasalad.builder.view.tab.boardTab;
 
+
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import oogasalad.builder.model.exception.ElementNotFoundException;
@@ -18,32 +20,28 @@ import oogasalad.builder.view.callback.PlacePieceCallback;
 
 import java.io.File;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 public class BoardCanvas {
-
 
   private Paint colorOne;
   private Paint colorTwo;
   private Canvas boardCanvas;
   private Canvas pieceCanvas;
-  private ResourceBundle resources;
   private GraphicsContext boardGraphics;
   private GraphicsContext pieceGraphics;
   private Map<String, Consumer<int[]>> boardTypeFunctionMap;
   private double rectWidth;
   private double rectHeight;
-  private BorderPane borderPane;
+  private ReadOnlyObjectProperty
+      <javafx.geometry.Bounds> centerBoundProperty;
   private String currentPiece;
   private int xDimension;
   private int yDimension;
 
   private final CallbackDispatcher callbackDispatcher;
 
-  public BoardCanvas(ResourceBundle rb, BorderPane boardTab, CallbackDispatcher dispatcher) {
-    resources = rb;
-    borderPane = boardTab;
+  public BoardCanvas(CallbackDispatcher dispatcher) {
     this.callbackDispatcher = dispatcher;
 
     setupBoard();
@@ -62,7 +60,6 @@ public class BoardCanvas {
     xDimension = xDim;
     yDimension = yDim;
     boardGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
-    calculateAndChangeCanvasSize();
     callbackDispatcher.call(new MakeBoardCallback(xDimension, yDimension));
 
     rectWidth = boardCanvas.getWidth() / xDimension;
@@ -77,15 +74,16 @@ public class BoardCanvas {
       throw new IllegalBoardTypeException(type);
     }
   }
-  private void calculateAndChangeCanvasSize(){
-    boardCanvas.setWidth(borderPane.getWidth() - borderPane.getRight().getBoundsInParent().getWidth());
-    boardCanvas.setHeight(borderPane.getHeight() - borderPane.getTop().getBoundsInParent().getHeight());
+  public void changeCanvasSize(double width, double height){
+
+    boardCanvas.setWidth(width);
+    boardCanvas.setHeight(height);
 
     pieceCanvas.setHeight(boardCanvas.getHeight());
     pieceCanvas.setWidth(boardCanvas.getWidth());
   }
   public void setupBoard(){
-    boardCanvas = new Canvas(Integer.parseInt(resources.getString("boardSizeX")), Integer.parseInt(resources.getString("boardSizeY")));
+    boardCanvas = new Canvas();
     boardGraphics = boardCanvas.getGraphicsContext2D();
     boardCanvas.setId("builderBoard");
 
@@ -113,7 +111,7 @@ public class BoardCanvas {
   private void populateBoardTypeMap() {
     // TODO: Pull the Bank of Boards and create Map?
 
-    boardTypeFunctionMap = Map.of(resources.getString("games/checkers"), e -> drawCheckerBoard(e[0], e[1]));
+    boardTypeFunctionMap = Map.of(("Checkers"), e -> drawCheckerBoard(e[0], e[1]));
   }
 
 
