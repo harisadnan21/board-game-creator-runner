@@ -15,7 +15,7 @@ import oogasalad.engine.model.ai.searchTypes.searchersForDifficulty.RandomSearch
 import oogasalad.engine.model.ai.searchTypes.Selects;
 import oogasalad.engine.model.board.Piece;
 
-// TODO: clean this up - maybe create classes for each difficulty and use reflection?
+// TODO: clean this up - use reflection
 public class SelectorFactory {
 
   public static Selects makeSelector(Difficulty difficulty, WinType winType, int playerNumber, AIOracle aiOracle, Collection<Pattern> patterns) {
