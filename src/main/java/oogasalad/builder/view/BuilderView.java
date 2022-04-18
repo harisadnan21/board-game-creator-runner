@@ -73,7 +73,7 @@ public class BuilderView {
     //TODO : MAKE COME FROM CSS
     myWelcome.setFont(new Font("Inter", 30));
     boardPane.setLeft(myWelcome);
-    Button login = makeButton("Proceed", event -> setupTabs());
+    Button login = makeButton("Proceed", event -> buildView());
     login.setId("loginButton");
     languageBox = new ChoiceBox<>();
     languageBox.getItems().addAll(languageChoice);
@@ -92,12 +92,25 @@ public class BuilderView {
     stage.show();
   }
 
-  /**
-   * Setups all of the tabs and adds them to the scene
-   */
-  private void setupTabs() {
-    TabPane tabPane = new TabPane();
+  // Builds the view, including all tabs and menus
+  private void buildView() {
+    BorderPane borderPane = new BorderPane();
+    borderPane.setCenter(setupTabs());
+    borderPane.setBottom(makeMenu());
 
+    Scene tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
+        Integer.parseInt(tabProperties.getString("sceneSizeY")));
+
+    tabScene.getStylesheets()
+        .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + TAB_FORMAT).toExternalForm());
+    stage.setScene(tabScene);
+  }
+
+  //Sets up all tabs in the tab pane
+  private TabPane setupTabs() {
+    // TODO: Maybe refactor this into its own class?
+    TabPane tabPane = new TabPane();
+    // TODO: Replace this with a method call and reflection
     boardTabPane = new BoardTab(callbackDispatcher);
     boardTabPane.setId("boardTab");
     Tab boardTab = new Tab(ViewResourcesSingleton.getInstance().getString("board"), boardTabPane);
@@ -116,23 +129,13 @@ public class BuilderView {
     metadataTabPane = new MetaDataTab(callbackDispatcher);
     metadataTabPane.setId("metadataTab");
     Tab metadataTab = new Tab(ViewResourcesSingleton.getInstance().getString("metadata"), metadataTabPane);
-
     tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, metadataTab);
-
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
-    BorderPane borderPane = new BorderPane();
-    borderPane.setCenter(tabPane);
-    borderPane.setBottom(makeMenu());
-
-    Scene tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
-        Integer.parseInt(tabProperties.getString("sceneSizeY")));
-
-    tabScene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + TAB_FORMAT).toExternalForm());
-    stage.setScene(tabScene);
+    return tabPane;
   }
 
+  // Makes the menu bar, which holds the save and load buttons
   private HBox makeMenu() {
     HBox menu = new HBox();
     menu.getChildren().add(makeButton("save", e -> saveConfig()));
@@ -170,7 +173,7 @@ public class BuilderView {
     Stage stage = new Stage();
     DirectoryChooser directoryChooser = new DirectoryChooser();
     //TODO: Remove Magic Value
-    directoryChooser.setTitle("Choose Configuration Save Location");
+    directoryChooser.setTitle("Choose Configuration Load Location");
     callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(stage)));
 
   }
