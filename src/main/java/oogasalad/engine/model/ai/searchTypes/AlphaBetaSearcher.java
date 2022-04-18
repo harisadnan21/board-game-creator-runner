@@ -7,10 +7,10 @@ import oogasalad.engine.model.board.Board;
 
 public class AlphaBetaSearcher extends MinMaxSearcher implements Selects {
 
-  public AlphaBetaSearcher(int maxDepth, int forPlayer,
+  public AlphaBetaSearcher(int maxDepth,
       StateEvaluator stateEvaluator,
       AIOracle Oracle) {
-    super(maxDepth, forPlayer, stateEvaluator, Oracle);
+    super(maxDepth, stateEvaluator, Oracle);
   }
 
 

@@ -9,8 +9,8 @@ class RandomSearcherTest {
 
   @Test
   void goodErros() {
-    assertThrows(IllegalStateException.class, () -> new RandomSearcher(null, 0));
-    assertThrows(IllegalStateException.class, () -> new RandomSearcher(null, 1));
+    assertThrows(IllegalStateException.class, () -> new RandomSearcher(null));
+    assertThrows(IllegalStateException.class, () -> new RandomSearcher(null));
   }
 
   @Test

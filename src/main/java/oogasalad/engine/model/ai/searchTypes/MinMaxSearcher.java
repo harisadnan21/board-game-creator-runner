@@ -15,14 +15,8 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
   private final AIOracle AIOracle;
 
 
-  public MinMaxSearcher(int maxDepth, int forPlayer, StateEvaluator stateEvaluator, AIOracle AIOracle) {
+  public MinMaxSearcher(int maxDepth, StateEvaluator stateEvaluator, AIOracle AIOracle) {
     this.maxDepth = maxDepth;
-    this.stateEvaluator = stateEvaluator;
-    this.AIOracle = AIOracle;
-  }
-
-  public MinMaxSearcher(int forPlayer, StateEvaluator stateEvaluator, AIOracle AIOracle) {
-    this.maxDepth = 5;
     this.stateEvaluator = stateEvaluator;
     this.AIOracle = AIOracle;
   }
@@ -32,15 +26,13 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
         forPlayer, maxDepth)).get();
   }
 
-  // TODO: change to return boards
   protected final Seq<AIChoice> getChoices(Board board, int forPlayer) {
     return Seq.seq(this.AIOracle.getChoices(board, forPlayer));
   }
 
   protected int runMinimax(Board board, int player, int depth) {
-    if(limitReached(board, depth)) {
-      return getEvaluation(board, player);
-    }
+    if(limitReached(board, depth)) { return getEvaluation(board, player); }
+
     var boards = getNextBoards(board, player);
     int nextPlayer = getNextPlayer(player);
     return boards.mapToInt(currBoard -> runMinimax(currBoard, nextPlayer, depth-1)).max().getAsInt();

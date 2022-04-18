@@ -37,23 +37,23 @@ public class SelectorFactory {
   private static Selects getAdaptiveEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
     boolean isPlayerOne = playerNumber== Piece.PLAYER_ONE;
     StateEvaluator adaptiveEvaluator = new SeekEquality(evaluator, isPlayerOne, !isPlayerOne);
-    return new MinMaxSearcher(DifficultyDepthConstants.ADAPTIVE, playerNumber, adaptiveEvaluator, aiOracle);
+    return new MinMaxSearcher(DifficultyDepthConstants.ADAPTIVE, adaptiveEvaluator, aiOracle);
   }
 
   private static Selects getExpertEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
-    return new AlphaBetaSearcher(DifficultyDepthConstants.EXPERT, playerNumber, evaluator, aiOracle);
+    return new AlphaBetaSearcher(DifficultyDepthConstants.EXPERT, evaluator, aiOracle);
   }
 
   private static Selects getHardEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
-    return new MinMaxSearcher(DifficultyDepthConstants.HARD, playerNumber, evaluator, aiOracle);
+    return new MinMaxSearcher(DifficultyDepthConstants.HARD, evaluator, aiOracle);
   }
 
   private static Selects getMediumEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
-    return new MinMaxSearcher(DifficultyDepthConstants.MEDIUM, playerNumber, evaluator, aiOracle);
+    return new MinMaxSearcher(DifficultyDepthConstants.MEDIUM, evaluator, aiOracle);
   }
 
   private static Selects getEasyEvaluator(StateEvaluator evaluator, int playerNumber, AIOracle aiOracle) {
-    return new MinMaxSearcher(DifficultyDepthConstants.EASY, playerNumber, evaluator, aiOracle);
+    return new MinMaxSearcher(DifficultyDepthConstants.EASY, evaluator, aiOracle);
   }
 
   private static StateEvaluator getEvaluator(WinType winType, Collection<Pattern> patterns) {
@@ -62,7 +62,7 @@ public class SelectorFactory {
   }
 
   private static Selects makeRandomSelector(AIOracle aiOracle, int player) {
-    return new RandomSearcher(aiOracle, player);
+    return new RandomSearcher(aiOracle);
   }
 
 }

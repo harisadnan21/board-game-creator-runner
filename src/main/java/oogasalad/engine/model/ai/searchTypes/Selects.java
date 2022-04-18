@@ -9,10 +9,4 @@ public interface Selects {
 
   AIChoice selectChoice(Board board, int forPlayer);
 
-  static void validate(AIOracle aiOracle) {
-    if(aiOracle == null) {
-      throw new IllegalStateException();
-    }
-
-  }
 }
