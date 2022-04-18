@@ -30,7 +30,7 @@ public class AIPlayer extends Player {
   }
 
   public AIChoice chooseAction(Board board) {
-    return selector.selectChoice(board);
+    return selector.selectChoice(board, this.playerNumber);
   }
 
 

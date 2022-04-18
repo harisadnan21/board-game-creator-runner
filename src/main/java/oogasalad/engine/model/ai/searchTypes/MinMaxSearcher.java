@@ -2,9 +2,6 @@ package oogasalad.engine.model.ai.searchTypes;
 
 import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Stream;
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
@@ -14,27 +11,25 @@ import org.jooq.lambda.Seq;
 
 public class MinMaxSearcher implements Selects, DepthLimit  {
   private final int maxDepth;
-  protected final int forPlayer;
   private final StateEvaluator stateEvaluator;
   private final AIOracle AIOracle;
 
 
   public MinMaxSearcher(int maxDepth, int forPlayer, StateEvaluator stateEvaluator, AIOracle AIOracle) {
     this.maxDepth = maxDepth;
-    this.forPlayer = forPlayer;
     this.stateEvaluator = stateEvaluator;
     this.AIOracle = AIOracle;
   }
 
   public MinMaxSearcher(int forPlayer, StateEvaluator stateEvaluator, AIOracle AIOracle) {
     this.maxDepth = 5;
-    this.forPlayer = forPlayer;
     this.stateEvaluator = stateEvaluator;
     this.AIOracle = AIOracle;
   }
 
-  public AIChoice selectChoice(Board board) {
-    return getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(), forPlayer, maxDepth)).get();
+  public AIChoice selectChoice(Board board, int forPlayer) {
+    return getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(),
+        forPlayer, maxDepth)).get();
   }
 
   // TODO: change to return boards
@@ -46,9 +41,13 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
     if(limitReached(board, depth)) {
       return getEvaluation(board, player);
     }
-    var boards = getChoices(board, player).map(AIChoice::getResultingBoard);
+    var boards = getNextBoards(board, player);
     int nextPlayer = getNextPlayer(player);
     return boards.mapToInt(currBoard -> runMinimax(currBoard, nextPlayer, depth-1)).max().getAsInt();
+  }
+
+  protected Seq<Board> getNextBoards(Board board, int player) {
+    return getChoices(board, player).map(AIChoice::getResultingBoard);
   }
 
   protected int getNextPlayer(int player) {

@@ -7,7 +7,7 @@ import oogasalad.engine.model.board.Board;
 @FunctionalInterface
 public interface Selects {
 
-  AIChoice selectChoice(Board board);
+  AIChoice selectChoice(Board board, int forPlayer);
 
   static void validate(AIOracle aiOracle) {
     if(aiOracle == null) {

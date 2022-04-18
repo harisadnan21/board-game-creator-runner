@@ -21,8 +21,8 @@ public class RandomSearcher implements Selects {
     this.random = new Random();
   }
 
-  public AIChoice selectChoice(Board board) {
-    this.choices = this.aiOracle.getChoices(board, forPlayer);
+  public AIChoice selectChoice(Board board, int forPlayer) {
+    this.choices = this.aiOracle.getChoices(board, this.forPlayer);
 
     int numChoices = choices.size();
     int selection = random.nextInt(0, numChoices);
