@@ -1,41 +1,48 @@
 package oogasalad.builder.view.property;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import oogasalad.builder.model.property.Property;
-import oogasalad.builder.view.GameElementList;
+import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 
-import java.io.File;
+import java.util.List;
 
 public class GameElementListSelector implements PropertySelector {
+  private static final String IMAGE_PROPERTY_NAME = "image";
+
+  private final CallbackDispatcher callbackDispatcher;
   private final Property property;
   private final String type;
+
   private final BorderPane pane;
-  private final CallbackDispatcher callbackDispatcher;
+  private final ComboBox<String> addElement;
+  private final ListView<String> elementsList;
+
 
   protected GameElementListSelector(Property property, String type, CallbackDispatcher dispatcher) {
     this.property = property;
     this.type = type;
     this.callbackDispatcher = dispatcher;
     pane = new BorderPane();
+    addElement = new ComboBox<>();
+    elementsList = new ListView<>();
     setup();
   }
 
   private void setup() {
-    ListView<String> listView = new ListView<>();
-    listView.setEditable(true);
-    listView.getItems().setAll("a", "b", "c");
-    listView.setCellFactory(view -> new ListCell<>() {
+    elementsList.setEditable(true);
+    elementsList.getItems().setAll("a", "b", "c");
+    elementsList.setCellFactory(view -> new ListCell<>() {
       @Override
       protected void updateItem(String elementName, boolean b) {
         super.updateItem(elementName, b);
@@ -49,7 +56,23 @@ public class GameElementListSelector implements PropertySelector {
         setGraphic(pane);
       }
     });
-    pane.setCenter(listView);
+
+    addElement.setPromptText(ViewResourcesSingleton.getInstance().getString("game-element-list-add-" + type));
+    addElement.getItems().setAll(callbackDispatcher.call(new GetElementNamesCallback(type)).orElse(List.of()));
+    addElement.setOnAction(e -> addGameElement(addElement.getSelectionModel().getSelectedItem()));
+
+    pane.setTop(addElement);
+    pane.setCenter(elementsList);
+  }
+
+  private void addGameElement(String element) {
+    if(element != null) {
+      elementsList.getItems().add(element);
+      Platform.runLater(() -> {
+        addElement.getSelectionModel().clearSelection();
+        addElement.setValue(null);
+      });
+    }
   }
 
   @Override
