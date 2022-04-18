@@ -1,5 +1,6 @@
 package oogasalad.builder.controller;
 
+import oogasalad.builder.BuilderMain;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
@@ -7,10 +8,12 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
-import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.BuilderView;
+import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindCellBackgroundCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
@@ -19,6 +22,8 @@ import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.callback.UpdateGameElementCallback;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -41,6 +46,7 @@ public class BuilderController {
     private static final String JSON_FILENAME = "/config.json";
     private final BuilderModel gameConfig;
     private final BuilderView builderView;
+    private final Logger LOG;
 
     /**
      * Creates a BuilderController Object that interfaces between the view and model.
@@ -49,6 +55,7 @@ public class BuilderController {
     public BuilderController(BuilderView view) {
         gameConfig = new GameConfiguration();
         builderView = view;
+        LOG = LogManager.getLogger(BuilderController.class);
 
         registerHandlers();
     }
@@ -63,6 +70,8 @@ public class BuilderController {
         builderView.registerCallbackHandler(PlacePieceCallback.class, this::placePiece);
         builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class, this::getElementPropertyByKey);
         builderView.registerCallbackHandler(MakeBoardCallback.class, this::makeBoard);
+        builderView.registerCallbackHandler(ClearCellBackgroundCallback.class, this::clearCellBackground);
+        builderView.registerCallbackHandler(ColorCellBackgroundCallback.class, this::colorCellBackground);
     }
 
     /**
@@ -79,11 +88,10 @@ public class BuilderController {
      * Attempts to place a piece at the given coordinates
      *
      * @param callback callback object representing what piece and where to place it
-     * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
      * @throws NullBoardException    if the board has not been initialized
      */
     Void placePiece(PlacePieceCallback callback)
-        throws OccupiedCellException, NullBoardException, ElementNotFoundException {
+        throws NullBoardException, ElementNotFoundException {
         gameConfig.placeBoardPiece(callback.x(), callback.y(), callback.piece());
         return null;
     }
@@ -108,6 +116,36 @@ public class BuilderController {
     Void clearCell(ClearCellCallback callback) throws NullBoardException {
         gameConfig.clearBoardCell(callback.x(), callback.y());
         return null;
+    }
+
+    /**
+     * Sets the background color of the cell at the given coordinates
+     *
+     * @param callback callback object containing the x and y location and hexadecimal color
+     */
+    Void colorCellBackground(ColorCellBackgroundCallback callback) {
+        gameConfig.colorCellBackground(callback.x(), callback.y(), callback.color());
+        return null;
+    }
+
+    /**
+     * Clears the background color of the cell at the given coordinates
+     *
+     * @param callback callback object containing the x and y location to clear
+     */
+    Void clearCellBackground(ClearCellBackgroundCallback callback) {
+        gameConfig.clearCellBackground(callback.x(), callback.y());
+        return null;
+    }
+
+    /**
+     * Finds the background color of a piece at the given coordinates
+     *
+     * @param callback a callback object containing the x and y location to query
+     * @return the hexadecimal value of the background color of the cell at the given coordinates
+     */
+    String findCellBackground(FindCellBackgroundCallback callback) throws NullBoardException, ElementNotFoundException {
+        return gameConfig.findCellBackground(callback.x(), callback.y());
     }
 
     /**
@@ -160,8 +198,9 @@ public class BuilderController {
      */
     Void update(UpdateGameElementCallback callback)
         throws InvalidTypeException, MissingRequiredPropertyException {
-       gameConfig.addGameElement(callback.type(), callback.name(), callback.properties());
-       return null;
+        LOG.info("Updating {} with name {}", callback.type(), callback.name());
+        gameConfig.addGameElement(callback.type(), callback.name(), callback.properties());
+        return null;
     }
 
     /**
@@ -181,16 +220,17 @@ public class BuilderController {
      * @param callback callback object containing the directory that the game configuration will be located in.
      */
     Void save(SaveCallback callback) throws NullBoardException {
+        LOG.info("Attempting to save configuration to folder {}", callback.file().getAbsolutePath());
         File configFile = new File(callback.file().toString() + JSON_FILENAME);
         try {
             FileWriter writer = new FileWriter(configFile);
             writer.write(gameConfig.toJSON());
             writer.close();
             gameConfig.copyFiles(callback.file());
-        } catch (IOException | ElementNotFoundException e) {
-            // TODO: Exception Handling
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        LOG.info("Successfully saved {}", gameConfig.getElementNames(GameConfiguration.METADATA).stream().findFirst().orElse("Untitled"));
         return null;
     }
 
@@ -200,6 +240,7 @@ public class BuilderController {
      * @param directory the directory to load the game configuration from
      */
     public void load(File directory) {
+        LOG.info("Attempting to load configuration from folder {}", directory.getAbsolutePath());
         File configFile = new File(directory.toString() + JSON_FILENAME);
         InputStream is = null;
         try {
@@ -208,9 +249,13 @@ public class BuilderController {
             JSONObject object = new JSONObject(tokener);
             gameConfig.fromJSON(object.toString());
         } catch (FileNotFoundException e) {
-            // TODO: Exception Handling
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+        LOG.info("Successfully loaded {}", gameConfig.getElementNames(GameConfiguration.METADATA).stream().findFirst().orElse("Untitled"));
+    }
+
+    public void showError(Throwable t) {
+        builderView.showError(t);
     }
 
 }

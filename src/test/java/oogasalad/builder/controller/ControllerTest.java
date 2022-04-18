@@ -5,11 +5,13 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
-import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import oogasalad.builder.view.BuilderView;
+import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindCellBackgroundCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
@@ -35,12 +37,16 @@ public class ControllerTest extends DukeApplicationTest {
   private static final int HEIGHT = 8;
   private static final int WIDTH = 10;
   private static final String PIECE_NAME = "checker";
-  private static final String PIECE_IMAGE = "normal.png";
+  private static final String PIECE_IMAGE = "data/images/back.png";
   private static final int PIECE_PLAYER = 0;
   private static final int PIECE_ID = 100;
   private static final String PIECE_TYPE = "piece";
   private static final String RULE_TYPE = "rule";
   private static final String RULE_NAME = "jump";
+  private static final int RULE_REP_X = 1;
+  private static final int RULE_REP_Y = 2;
+  private static final String REPRESENTATIVE_X = "representativeX";
+  private static final String REPRESENTATIVE_Y = "representativeY";
   private static final String EMPTY = "empty";
   private static final String TEST_SAVE_DIRECTORY = "data/tests/save/";
   private static final String TEST_SAVE_EXCEPTION_FILENAME = "data/tests/exception/";
@@ -57,6 +63,8 @@ public class ControllerTest extends DukeApplicationTest {
 
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
+  private static final String BLACK = "0x000000ff";
+  private static final String WHITE = "0xffffffff";
 
   private BuilderController controller;
   private Collection<Property> properties;
@@ -102,7 +110,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Test
   void testPiecePlacement()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
+      throws NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
     addPiece();
     controller.placePiece(new PlacePieceCallback(X, Y, PIECE_NAME));
@@ -111,7 +119,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Test
   void testEmpty()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
+      throws NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
     for (int i = 0; i < WIDTH; i++) {
       for (int j = 0; j < HEIGHT; j++) {
@@ -126,12 +134,14 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Test
   void testSave()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
+      throws NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
     addPiece();
     properties = new HashSet<>();
     properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
+    properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
+    properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
     controller.update(new UpdateGameElementCallback(RULE_TYPE, RULE_NAME, properties));
     File file = new File(TEST_SAVE_DIRECTORY);
     controller.save(new SaveCallback(file));
@@ -144,12 +154,21 @@ public class ControllerTest extends DukeApplicationTest {
   }
 
   @Test
-  void testLoad() throws OccupiedCellException {
+  void testLoad() {
     // TODO: Change test when loading is implemented
     File file = new File(TEST_LOAD_DIRECTORY);
     controller.load(file);
     file = new File(TEST_SAVE_EXCEPTION_FILENAME);
     controller.save(new SaveCallback(file));
+  }
+
+  @Test
+  void testColoring() {
+    controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
+    controller.colorCellBackground(new ColorCellBackgroundCallback(X, Y, BLACK));
+    assertEquals(BLACK, controller.findCellBackground(new FindCellBackgroundCallback(X, Y)));
+    controller.clearCellBackground(new ClearCellBackgroundCallback(X, Y));
+    assertEquals(WHITE, controller.findCellBackground(new FindCellBackgroundCallback(X, Y)));
   }
 
   private int countMatches(String str, String target) {

@@ -1,20 +1,21 @@
 package oogasalad.builder.model.exception;
 
+import oogasalad.builder.controller.ExceptionResourcesSingleton;
+
 /**
  * This exception is thrown when the board is updated without being initialized.
  *
  * @author Shaan Gondalia
+ * @author Ricky Weerts
  */
 public class ElementNotFoundException extends RuntimeException {
-
-  // TODO: Replace hardcoded exception message with properties file
-  private static final String DEFAULT_MESSAGE = "Requested game element was not found";
+  private static final String DEFAULT_MESSAGE_KEY = "GameElementNotFound";
 
   /**
    * Creates new ElementNotFoundException with the default message
    */
   public ElementNotFoundException() {
-    super(DEFAULT_MESSAGE);
+    this(ExceptionResourcesSingleton.getInstance().getString(DEFAULT_MESSAGE_KEY));
   }
 
   /**

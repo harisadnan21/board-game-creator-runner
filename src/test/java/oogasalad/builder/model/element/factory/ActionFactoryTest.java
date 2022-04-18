@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 public class ActionFactoryTest {
 
   private ActionFactory actionFactory;
-  private static final String ACTION_NAME = "moveTopRight";
+  private static final String ACTION_NAME = "placeTopRight";
   private static final String PROPERTY_NAME_TYPE = "type";
-  private static final String ACTION_TYPE = "move";
+  private static final String ACTION_TYPE = "Place";
   private static final String INVALID_ACTION_TYPE = "moveTo";
   private static final String PROPERTY_NAME_ONE = "x";
   private static final int PROPERTY_VALUE_ONE = 1;

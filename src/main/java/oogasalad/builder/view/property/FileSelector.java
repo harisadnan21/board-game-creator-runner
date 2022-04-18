@@ -10,6 +10,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.StringProperty;
+import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
  * PropertySelector that allows users to choose a file to set as the value of a property. For
@@ -31,7 +32,7 @@ public class FileSelector implements PropertySelector {
    *
    * @param property the property that will be "filled in" by the Field
    */
-  public FileSelector(Property property) {
+  public FileSelector(Property property, CallbackDispatcher dispatcher) {
     this.property = property;
     chooseButton = new Button();
     //String buttonLabel = resources.getString(labelName);
