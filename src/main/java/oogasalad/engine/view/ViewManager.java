@@ -41,8 +41,8 @@ public class ViewManager {
     HEIGHT = Double.parseDouble(prop.getProperty("HEIGHT"));
     BOARDX = Double.parseDouble(prop.getProperty("BOARDX"));
     BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
-    currScene = createGameView(new BoardView(2, 2, 200, 200), new Controller(new Board(3, 3))).makeScene();
-    //currScene = createOpeningView().makeScene();
+    //currScene = createGameView(new BoardView(2, 2, 200, 200), new Controller(new Board(3, 3))).makeScene();
+    currScene = createOpeningView().makeScene();
   }
 
   public Scene getCurrScene() {
