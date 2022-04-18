@@ -16,6 +16,8 @@ public class RectangularBoardTest {
   private static final int HEIGHT = 8;
   private static final int WIDTH = 10;
   private static final int PIECE_ID = 100;
+  private static final String WHITE = "0xffffffff";
+  private static final String BLACK = "0x000000ff";
   private static final int EMPTY = -1;
   private static final int X = 5;
   private static final int Y = 7;
@@ -40,6 +42,14 @@ public class RectangularBoardTest {
   void testPiecePlacement() {
     board.placePiece(X, Y, PIECE_ID);
     assertEquals(PIECE_ID, board.findPieceAt(X, Y));
+  }
+
+  @Test
+  void testColoring() {
+    board.colorCellBackground(X, Y, BLACK);
+    assertEquals(BLACK, board.findCellBackground(X, Y));
+    board.clearCellBackground(X, Y);
+    assertEquals(WHITE, board.findCellBackground(X, Y));
   }
 
   @Test
