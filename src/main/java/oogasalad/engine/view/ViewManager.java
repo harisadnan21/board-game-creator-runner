@@ -1,7 +1,9 @@
 package oogasalad.engine.view;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,6 +13,7 @@ import oogasalad.engine.model.board.Board;
 
 
 import oogasalad.engine.view.dashboard.Dashboard;
+import oogasalad.engine.view.dashboard.GameIcon;
 import oogasalad.engine.view.dashboard.GameSelection;
 
 import oogasalad.engine.model.parser.GameParser;
@@ -74,9 +77,10 @@ public class ViewManager {
     updateStage();
   }
 
-  private void startGame() {
+  private void startGame(File game) {
     try {
-      GameParser parser = new GameParser(openingView.getFileChoice());
+
+      GameParser parser = new GameParser(Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
       Board board = parser.parseBoard();
       BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath);
       Controller controller = new Controller(board);

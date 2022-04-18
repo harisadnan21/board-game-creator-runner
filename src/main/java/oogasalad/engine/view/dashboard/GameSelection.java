@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 import javafx.scene.layout.FlowPane;
 import org.apache.logging.log4j.LogManager;
@@ -22,17 +24,19 @@ public class GameSelection extends FlowPane {
   private final String RESOURCES_PATH = "/";
   private final String[] imageTypes= { ".jpeg", ".jpg", ".png" };
 
-  public GameSelection(){
+  public GameSelection(BiConsumer<Map<String, String>, File> updateInfo){
     File gameFolder = new File(IMG_FOLDER_PATH);
     allGames = gameFolder.listFiles();
     this.getStyleClass().add("gameSelection");
     for(File game : allGames) {
-      displayGameIcon(game, getImagePath(new File(IMG_FOLDER_PATH+RESOURCES_PATH+game.getName()+RESOURCES_PATH), game.getName()), game.getName());
+      displayGameIcon(updateInfo, game, getImagePath(new File(IMG_FOLDER_PATH+RESOURCES_PATH+game.getName()+RESOURCES_PATH), game.getName()), game.getName());
     }
   }
 
-  private void displayGameIcon(File game, String imagePath, String name){
-    this.getChildren().add(new GameIcon(game, imagePath, name, this::startGame ));
+  private void displayGameIcon(
+      BiConsumer<Map<String, String>, File> updateInfo,
+      File game, String imagePath, String name){
+    this.getChildren().add(new GameIcon(updateInfo, game, imagePath, name));
   }
 
   private String getImagePath(File folder, String name){
@@ -46,9 +50,9 @@ public class GameSelection extends FlowPane {
   private boolean stringContainsAny(String input, String[] list){
     return Stream.of(list).anyMatch(input :: contains);
   }
-  private void startGame(File folder){
-    LOG.info(folder.getName());
-  }
+
+
+
       
   
 

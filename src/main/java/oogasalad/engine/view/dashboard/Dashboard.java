@@ -1,18 +1,19 @@
 package oogasalad.engine.view.dashboard;
 
+import java.io.File;
+import java.util.function.Consumer;
 import javafx.scene.layout.BorderPane;
-import org.jooq.lambda.function.Consumer0;
 
 
 public class Dashboard extends BorderPane {
   private final GameSelection myGames;
   private final InfoPanel myInfoTab;
 
-  public Dashboard(Consumer0 startGame){
+  public Dashboard(Consumer<File> startGame){
     myInfoTab = new InfoPanel(startGame);
-    myGames = new GameSelection();
+    myGames = new GameSelection(myInfoTab::update);
     this.setTop(new Title());
     this.setCenter(myGames);
-    this.setRight(new InfoPanel(startGame));
+    this.setRight(myInfoTab);
   }
 }

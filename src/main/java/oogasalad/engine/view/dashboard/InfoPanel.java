@@ -1,48 +1,83 @@
 package oogasalad.engine.view.dashboard;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import oogasalad.engine.model.parser.GameParser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jooq.lambda.function.Consumer0;
 
 public class InfoPanel extends StackPane {
   public static final String DEFAULT = "/";
   public static final String RESOURCES = DEFAULT + "view/";
-  private String title;
-  private String author;
+  private static final Logger LOG = LogManager.getLogger(InfoPanel.class);
   private VBox infoHolder;
-  private String description;
+  private Label infoTitle;
+  private Label infoAuthor;
+  private Label infoDescription;
   private String language;
   private ResourceBundle initialText;
+  private boolean displayButton;
+  private File currentGame;
+  private Consumer<File> startGame;
 
-  public InfoPanel(Consumer0 startGame){
+
+  public InfoPanel(Consumer<File> startGame){
+    this.startGame = startGame;
     this.getStyleClass().add("infoHolder");
     infoHolder = new VBox();
     infoHolder.getStyleClass().add("infoPanel");
     this.getChildren().add(infoHolder);
     language = "English";
     initialText = ResourceBundle.getBundle(RESOURCES +language);
-    setInitialValues();
     displayText();
+    setInitialValues();
   }
 
   private void displayText() {
-    infoHolder.getChildren().clear();
-    Label infoTitle = new Label(title);
+    infoTitle = new Label();
     infoTitle.getStyleClass().add("infoTitle");
-    Label infoAuthor = new Label("Author: " + author);
+    infoAuthor = new Label();
     infoAuthor.getStyleClass().add("infoAuthor");
-    Label infoDescription = new Label(description);
+    infoDescription = new Label();
     infoDescription.getStyleClass().add("infoDescription");
     infoHolder.getChildren().addAll(infoTitle, infoAuthor, infoDescription);
   }
 
   private void setInitialValues() {
-    title = initialText.getString("initialInfoTitle");
-    author = initialText.getString("initialInfoAuthor");
-    description = initialText.getString("initialInfoDescription");
+    infoTitle.setText(initialText.getString("initialInfoTitle"));
+    infoAuthor.setText(initialText.getString("initialInfoAuthor"));
+    infoDescription.setText(initialText.getString("initialInfoDescription"));
   }
+
+  public void update(Map<String, String> data, File gameFolder) {
+    LOG.info("new data {}", data);
+    infoTitle.setText(data.get("name"));
+    infoAuthor.setText(data.get("author"));
+    infoDescription.setText(data.get("description"));
+    currentGame = gameFolder;
+    if(!displayButton) {
+      displayPlay();
+    }
+  }
+
+  private void displayPlay() {
+    displayButton = true;
+    Button play = new Button("Play Game");
+    play.setOnAction( game-> startGame.accept(currentGame));
+    infoHolder.getChildren().add(play);
+
+  }
+
+
+
 
 
 

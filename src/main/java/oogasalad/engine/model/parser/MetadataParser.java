@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class MetadataParser extends AbstractParser{
   private Map<String, String> metadata = new HashMap<>();
-  private List<String> headers = List.of("title", "author", "description");
+  private List<String> headers = List.of("name", "author", "description");
   /**
    * Returns a Map that is parsed from a configuration file, throwing errors if the file is
    * malformed or missing required properties.
