@@ -58,10 +58,7 @@ public class BoardTab extends BasicTab {
   protected Node setupLeftSide() {
     boardCanvas = new BoardCanvas(getCallbackDispatcher());
 
-    Pane canvasPane = boardCanvas.getCanvasPane();
-
-    canvasPane.setId("boardCanvas");
-    return canvasPane;
+    return boardCanvas;
   }
 
   private Node setupBoardConfigInput() {
