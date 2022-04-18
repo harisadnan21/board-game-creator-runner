@@ -131,8 +131,7 @@ public class BoardTab extends BorderPane {
   private void createBoard()
       throws NullBoardException {
     if (boardTypeBox.getValue() == null) {
-      System.out.println("No Board Type Chosen Error");
-      return;
+      throw new IllegalBoardTypeException("");
     }
 
     boardCanvas.setColor(colorPickerA.getValue(), 1);

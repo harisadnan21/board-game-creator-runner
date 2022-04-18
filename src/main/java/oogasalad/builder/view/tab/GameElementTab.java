@@ -73,13 +73,12 @@ public class GameElementTab extends BorderPane {
     setTop(new TitlePane(type + "Title").toNode());
   }
 
-  // FIXME handle error
   private void createElement() {
     try {
       Collection<Property> properties = callbackDispatcher.call(new GetPropertiesCallback(type)).orElseThrow();
       propertyEditor.setElementPropertyTypeChoice(properties);
     } catch (InvalidTypeException | MissingRequiredPropertyException e) {
-      e.printStackTrace();
+      throw new ElementCreationException(type, e);
     }
   }
 

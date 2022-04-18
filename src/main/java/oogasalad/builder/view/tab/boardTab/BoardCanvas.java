@@ -73,10 +73,8 @@ public class BoardCanvas {
     if (boardTypeFunctionMap.containsKey(type)){
       boardTypeFunctionMap.get(type).accept(new int[]{xDim, yDim});
       setClickToPlace();
-    }
-    else{
-      //TODO : THROW EXCEPTION
-      System.out.println("not a board type");
+    } else {
+      throw new IllegalBoardTypeException(type);
     }
   }
   private void calculateAndChangeCanvasSize(){

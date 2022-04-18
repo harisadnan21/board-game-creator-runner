@@ -187,9 +187,8 @@ public class BuilderController {
             writer.write(gameConfig.toJSON());
             writer.close();
             gameConfig.copyFiles(callback.file());
-        } catch (IOException | ElementNotFoundException e) {
-            // TODO: Exception Handling
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -208,9 +207,12 @@ public class BuilderController {
             JSONObject object = new JSONObject(tokener);
             gameConfig.fromJSON(object.toString());
         } catch (FileNotFoundException e) {
-            // TODO: Exception Handling
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+    }
+
+    public void showError(Throwable t) {
+        builderView.showError(t);
     }
 
 }
