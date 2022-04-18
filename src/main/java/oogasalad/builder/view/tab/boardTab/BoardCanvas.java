@@ -2,7 +2,6 @@ package oogasalad.builder.view.tab.boardTab;
 
 
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -11,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
-import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
@@ -150,7 +148,7 @@ public class BoardCanvas {
   }
 
   private void addPiece(MouseEvent click)
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException {
+      throws NullBoardException, ElementNotFoundException {
 
     if (currentPiece == null){
       System.out.println("No piece Selected");

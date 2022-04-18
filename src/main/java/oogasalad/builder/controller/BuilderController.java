@@ -7,7 +7,6 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
-import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.callback.ClearCellCallback;
@@ -79,11 +78,10 @@ public class BuilderController {
      * Attempts to place a piece at the given coordinates
      *
      * @param callback callback object representing what piece and where to place it
-     * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
      * @throws NullBoardException    if the board has not been initialized
      */
     Void placePiece(PlacePieceCallback callback)
-        throws OccupiedCellException, NullBoardException, ElementNotFoundException {
+        throws NullBoardException, ElementNotFoundException {
         gameConfig.placeBoardPiece(callback.x(), callback.y(), callback.piece());
         return null;
     }

@@ -8,7 +8,6 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
-import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 
 /**
@@ -59,11 +58,10 @@ public interface BuilderModel extends JSONSerializable, JSONParseable<BuilderMod
    * @param x    the x location to place
    * @param y    the y location to place
    * @param name the name of the piece to place
-   * @throws OccupiedCellException if the cell at x, y is already occupied by a piece
    * @throws NullBoardException    if the board has not been initialized
    */
   void placeBoardPiece(int x, int y, String name)
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException;
+      throws NullBoardException, ElementNotFoundException;
 
   /**
    * Finds the name of the piece at the given coordinates
