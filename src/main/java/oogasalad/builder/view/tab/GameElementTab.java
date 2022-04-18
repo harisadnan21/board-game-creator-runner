@@ -82,9 +82,6 @@ public class GameElementTab extends BasicTab {
   }
 
   private void saveCurrentElement() {
-    if (!propertyEditor.hasProperties()) {
-      return;
-    }
     getCallbackDispatcher().call(new UpdateGameElementCallback(getType(), nameField.getText(),
         propertyEditor.getElementProperties()));
     elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
