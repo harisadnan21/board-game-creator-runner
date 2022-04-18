@@ -42,11 +42,6 @@ public class Oracle {
    *
    * @param board
    */
-  // not sure this is how winning should work, I'd like to see
-  // right now it is designed like this so the front end could
-  // use it as a signal to see who won, the winner variable has
-  // no functionality in the engine
-  //checks to see if any of the win conditions are satisfied and if they are it sets the winner on the board.
   public Board checkForWin(Board board) {
     for (Iterator<WinCondition> it = myWinConditions.iterator(); it.hasNext(); ) {
       WinCondition winCondition = it.next();

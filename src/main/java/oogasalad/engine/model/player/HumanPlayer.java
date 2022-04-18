@@ -32,7 +32,6 @@ public class HumanPlayer extends Player{
   }
 
   @Override
-  // empty because player uses user interaction
   public void chooseMove() {
 
     LOG.info("Player asked to choose move");
@@ -60,9 +59,6 @@ public class HumanPlayer extends Player{
 
   private void makePieceSelected(int x, int y) {
     Board board = getGameBoard();
-
-    // makes position selected if board has piece with current player or position is empty
-    // should this condition exist, or should it be baked into rules?
     if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {
       mySelectedCell = new Position(x, y);
       myValidMoves = new HashSet<>(getOracle().getRepresentativePoints(getOracle().getValidMovesForPosition(board, mySelectedCell), mySelectedCell));

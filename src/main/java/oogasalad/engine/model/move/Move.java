@@ -22,9 +22,8 @@ public class Move {
   private String myName;
   private PieceCondition[] myConditions;
   private Action[] myActions;
-  private int myRepI; // i value for the "representative cell" for this action
-  private int myRepJ; // j value for the "representative cell" for this action
-
+  private int myRepI;
+  private int myRepJ;
   /**
    *
    * @param conditions

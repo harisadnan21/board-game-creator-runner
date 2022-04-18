@@ -12,7 +12,7 @@ public record Choice(Position position, Move move) implements AIChoice {
     return move.isValid(board, position);
   }
 
-  @Override // return the board that would result if this choice was made
+  @Override
   public Board getResultingBoard() {
     return null;
   }

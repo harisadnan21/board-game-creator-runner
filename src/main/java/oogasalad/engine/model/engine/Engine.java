@@ -50,10 +50,6 @@ public class Engine {
     myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
     myPlayers.put(1, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
 
-
-    //createWinCondition();
-    //createCheckersMove();
-    //createPlayer1Moves();
   }
 
   public void gameLoop() {

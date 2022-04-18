@@ -40,7 +40,7 @@ public class OpeningLogin {
         myWelcome = new Label(myResources.getString("Welcome"));
         myWelcome.setId("welcome-text");
         myContainer.setId("opening-login");
-        // myWelcome.setTextAlignment(TextAlignment.CENTER);
+
         myContainer.getChildren().addAll(myWelcome);
     }
 
