@@ -14,6 +14,7 @@ public class RandomSearcher implements Selects {
   private int forPlayer;
 
   public RandomSearcher(AIOracle aiOracle, int forPlayer) {
+    Selects.validate(aiOracle);
     this.aiOracle = aiOracle;
     this.forPlayer = forPlayer;
     this.random = new Random();
@@ -25,10 +26,10 @@ public class RandomSearcher implements Selects {
     int numChoices = choices.size();
     int selection = random.nextInt(0, numChoices);
     var iterator = choices.iterator();
-    AIChoice AIChoice = iterator.next();
+    AIChoice aiChoice = iterator.next();
     for(int i = 0; i < selection; i++) {
-      AIChoice = iterator.next();
+      aiChoice = iterator.next();
     }
-    return AIChoice;
+    return aiChoice;
   }
 }
