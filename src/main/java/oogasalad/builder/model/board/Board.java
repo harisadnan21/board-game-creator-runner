@@ -39,6 +39,23 @@ public interface Board extends JSONSerializable, JSONParseable<Board> {
   void clearCell(int x, int y);
 
   /**
+   * Clears the background of the cell at the given coordinates
+   *
+   * @param x the x location to clear
+   * @param y the y location to clear
+   */
+  void clearCellBackground(int x, int y);
+
+  /**
+   * Colors the background of the cell at the given coordinates with the given color
+   *
+   * @param x the x location to color
+   * @param y the y location to color
+   * @param color the hexadecimal string of the color to set at the cell
+   */
+  void colorCellBackground(int x, int y, String color);
+
+  /**
    * Converts a Board into a String representing the board's JSON Format
    *
    * @return a String representation of the board's JSON Format
