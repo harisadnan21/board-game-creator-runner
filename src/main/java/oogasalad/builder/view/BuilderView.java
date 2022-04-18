@@ -71,6 +71,7 @@ public class BuilderView {
     myWelcome.setFont(new Font("Inter", 30));
     boardPane.setLeft(myWelcome);
     Button login = makeButton("Proceed", event -> setupTabs());
+    login.setId("loginButton");
     languageBox = new ChoiceBox<>();
     languageBox.getItems().addAll(languageChoice);
     languageBox.setOnAction(this::getLanguage);
@@ -96,22 +97,22 @@ public class BuilderView {
 
     boardTabPane = new BoardTab(callbackDispatcher);
     boardTabPane.setId("boardTab");
-    Tab boardTab = new Tab("Board", boardTabPane);
+    Tab boardTab = new Tab(ViewResourcesSingleton.getInstance().getString("board"), boardTabPane);
     pieceTabPane = new PiecesTab(callbackDispatcher);
     pieceTabPane.setId("pieceTab");
-    Tab pieceTab = new Tab("Piece", pieceTabPane);
+    Tab pieceTab = new Tab(ViewResourcesSingleton.getInstance().getString("piece"), pieceTabPane);
     actionsTabPane = new ActionsTab(callbackDispatcher);
     actionsTabPane.setId("actionTab");
-    Tab actionTab = new Tab("Action", actionsTabPane);
+    Tab actionTab = new Tab(ViewResourcesSingleton.getInstance().getString("action"), actionsTabPane);
     conditionsTabPane = new ConditionsTab(callbackDispatcher);
     conditionsTabPane.setId("conditionTab");
-    Tab conditionsTab = new Tab("Condition", conditionsTabPane);
+    Tab conditionsTab = new Tab(ViewResourcesSingleton.getInstance().getString("condition"), conditionsTabPane);
     rulesTabPane = new RulesTab(callbackDispatcher);
     rulesTabPane.setId("ruleTab");
-    Tab rulesTab = new Tab("Rule", rulesTabPane);
+    Tab rulesTab = new Tab(ViewResourcesSingleton.getInstance().getString("rule"), rulesTabPane);
     metadataTabPane = new MetaDataTab(callbackDispatcher);
     metadataTabPane.setId("metadataTab");
-    Tab metadataTab = new Tab("Metadata", metadataTabPane);
+    Tab metadataTab = new Tab(ViewResourcesSingleton.getInstance().getString("metadata"), metadataTabPane);
 
     tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, metadataTab);
 

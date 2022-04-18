@@ -1,20 +1,21 @@
 package oogasalad.builder.model.exception;
 
+import oogasalad.builder.controller.ExceptionResourcesSingleton;
+
 /**
  * This exception is thrown when a parameter with an invalid form is requested.
  *
  * @author Shaan Gondalia
+ * @author Ricky Weerts
  */
 public class InvalidFormException extends RuntimeException {
-
-  // TODO: Replace hardcoded exception message with properties file
-  private static final String DEFAULT_MESSAGE = "Invalid Parameter Form";
+  private static final String DEFAULT_MESSAGE_KEY = "InvalidForm";
 
   /**
    * Creates new InvalidFormException with the default message
    */
   public InvalidFormException() {
-    super(DEFAULT_MESSAGE);
+    this(ExceptionResourcesSingleton.getInstance().getString(DEFAULT_MESSAGE_KEY));
   }
 
   /**

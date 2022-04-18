@@ -1,20 +1,21 @@
 package oogasalad.builder.model.exception;
 
+import oogasalad.builder.controller.ExceptionResourcesSingleton;
+
 /**
  * This exception is thrown when an invalid type of game element is requested.
  *
  * @author Shaan Gondalia
+ * @author Ricky Weerts
  */
 public class InvalidTypeException extends RuntimeException {
-
-  // TODO: Replace hardcoded exception message with properties file
-  private static final String DEFAULT_MESSAGE = "Invalid GameElement type requested";
+  private static final String DEFAULT_MESSAGE_KEY = "InvalidGameElementType";
 
   /**
    * Creates new InvalidTypeException with the default message
    */
   public InvalidTypeException() {
-    super(DEFAULT_MESSAGE);
+    this(ExceptionResourcesSingleton.getInstance().getString(DEFAULT_MESSAGE_KEY));
   }
 
   /**

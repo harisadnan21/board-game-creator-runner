@@ -1,6 +1,5 @@
 package oogasalad.builder.model.board;
 
-import oogasalad.builder.model.exception.OccupiedCellException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -34,9 +33,8 @@ public class RectangularBoard implements Board {
    * @param x  the x location to place
    * @param y  the y location to place
    * @param id the name of the piece to place
-   * @throws OccupiedCellException if the requested indices are already occupied by a piece
    */
-  public void placePiece(int x, int y, int id) throws OccupiedCellException {
+  public void placePiece(int x, int y, int id) {
     checkInBounds(x, y);
     cells[y][x] = id;
   }
