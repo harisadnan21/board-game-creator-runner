@@ -41,11 +41,22 @@ public class BoardTab extends BasicTab {
   private static final ResourceBundle boardTypes = ResourceBundle.getBundle(
       DEFAULT_RESOURCE_PACKAGE + BOARD_PROPERTIES);
 
+  /**
+   * Default Constructor to create the BoardTab which extends Basic Tab.
+   *
+   * @param dispatcher
+   */
   public BoardTab(CallbackDispatcher dispatcher) {
     super(BOARD_TYPE, dispatcher);
 
   }
 
+  /**
+   * Sets up the right side as a VBox of various buttons and selectors to specify options for the
+   * board.
+   *
+   * @return rightBox - to be added to the scene
+   */
   @Override
   protected Node setupRightSide() {
     VBox rightBox = new VBox();
@@ -57,6 +68,10 @@ public class BoardTab extends BasicTab {
     return rightBox;
   }
 
+  /**
+   * Sets up the boardCanvas and returns it as the left side
+   * @return
+   */
   @Override
   protected Node setupLeftSide() {
     boardCanvas = new BoardCanvas(getCallbackDispatcher());
