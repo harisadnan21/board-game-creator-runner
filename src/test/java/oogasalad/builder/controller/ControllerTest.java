@@ -5,7 +5,6 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
-import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import oogasalad.builder.view.BuilderView;
@@ -106,7 +105,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Test
   void testPiecePlacement()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
+      throws NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
     addPiece();
     controller.placePiece(new PlacePieceCallback(X, Y, PIECE_NAME));
@@ -115,7 +114,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Test
   void testEmpty()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
+      throws NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
     for (int i = 0; i < WIDTH; i++) {
       for (int j = 0; j < HEIGHT; j++) {
@@ -130,7 +129,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Test
   void testSave()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
+      throws NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
     addPiece();
     properties = new HashSet<>();
@@ -150,7 +149,7 @@ public class ControllerTest extends DukeApplicationTest {
   }
 
   @Test
-  void testLoad() throws OccupiedCellException {
+  void testLoad() {
     // TODO: Change test when loading is implemented
     File file = new File(TEST_LOAD_DIRECTORY);
     controller.load(file);

@@ -66,6 +66,7 @@ public class BoardTab extends BasicTab {
 
     Button confirmBoardButton = makeButton("drawBoard", e ->
         createBoard());
+    confirmBoardButton.setId("drawBoard");
 
     boardConfigBox.getChildren()
         .addAll(setupColorChoiceBox(), setupDimensionChoiceBox(), setupBoardTypeBox(),
@@ -80,6 +81,8 @@ public class BoardTab extends BasicTab {
 
     colorPickerA = new ColorPicker();
     colorPickerB = new ColorPicker(Color.BLACK);
+    colorPickerA.setId("colorPickerA");
+    colorPickerB.setId("colorPickerB");
     colorChoiceBox.getChildren().addAll(colorPickerA, colorPickerB);
     return colorChoiceBox;
   }
@@ -92,6 +95,8 @@ public class BoardTab extends BasicTab {
     //TODO CHANGE FROM MAGIC NUMBER
     xDimensionPicker = new Spinner<>(0, 50, 8, 1);
     yDimensionPicker = new Spinner<>(0, 50, 8, 1);
+    xDimensionPicker.setId("xDimEntry");
+    yDimensionPicker.setId("yDimEntry");
 
     VBox xDimBox = new VBox(xDimLabel, xDimensionPicker);
     VBox yDimBox = new VBox(yDimLabel, yDimensionPicker);
@@ -107,6 +112,7 @@ public class BoardTab extends BasicTab {
 
 
     boardTypeBox.setPromptText(ViewResourcesSingleton.getInstance().getString("boardTypePicker"));
+    boardTypeBox.setId("boardTypePicker");
     return boardTypeBox;
   }
   private void createBoard()
@@ -127,6 +133,7 @@ public class BoardTab extends BasicTab {
     Button saveButton = makeButton("saveBoard", e -> saveBoardConfig());
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
+    resetPiecesButton.setId("clearPieces");
 
     buttonBox.getChildren()
         .addAll(saveButton, setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
@@ -138,6 +145,7 @@ public class BoardTab extends BasicTab {
   private ToggleButton createEraserButton() {
     ToggleButton eraseButton = new ToggleButton(ViewResourcesSingleton.getInstance().getString("eraser"));
     eraseButton.setOnAction(e -> toggleErase(eraseButton));
+    eraseButton.setId("eraserButton");
     return eraseButton;
   }
 
@@ -160,6 +168,7 @@ public class BoardTab extends BasicTab {
     choosePieceBox.setPromptText(ViewResourcesSingleton.getInstance().getString("placePiece"));
     choosePieceBox.valueProperty().addListener(
         (observableValue, s, t1) -> boardCanvas.setCurrentPiece(t1));
+    choosePieceBox.setId("choosePieceBox");
 
     return choosePieceBox;
   }

@@ -19,6 +19,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.tab.ActionsTab;
 import oogasalad.builder.view.tab.ConditionsTab;
+import oogasalad.builder.view.tab.MetaDataTab;
 import oogasalad.builder.view.tab.RulesTab;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
 import oogasalad.builder.view.tab.PiecesTab;
@@ -44,6 +45,7 @@ public class BuilderView {
   private ActionsTab actionsTabPane;
   private ConditionsTab conditionsTabPane;
   private RulesTab rulesTabPane;
+  private MetaDataTab metadataTabPane;
   private Label myWelcome;
   private BorderPane boardPane;
   private HBox buttonHolder;
@@ -69,6 +71,7 @@ public class BuilderView {
     myWelcome.setFont(new Font("Inter", 30));
     boardPane.setLeft(myWelcome);
     Button login = makeButton("Proceed", event -> setupTabs());
+    login.setId("loginButton");
     languageBox = new ChoiceBox<>();
     languageBox.getItems().addAll(languageChoice);
     languageBox.setOnAction(this::getLanguage);
@@ -107,8 +110,11 @@ public class BuilderView {
     rulesTabPane = new RulesTab(callbackDispatcher);
     rulesTabPane.setId("ruleTab");
     Tab rulesTab = new Tab(ViewResourcesSingleton.getInstance().getString("rule"), rulesTabPane);
+    metadataTabPane = new MetaDataTab(callbackDispatcher);
+    metadataTabPane.setId("metadataTab");
+    Tab metadataTab = new Tab(ViewResourcesSingleton.getInstance().getString("metadata"), metadataTabPane);
 
-    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab);
+    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, metadataTab);
 
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
