@@ -32,3 +32,27 @@ Opening View
   -fx-min-height: 45;
 }
 
+/*
+Game View
+*/
+
+#game-view-root {
+  -fx-padding: 10;
+}
+
+#pause-message-text {
+  -fx-font-size: 20;
+  -fx-font-family: "Montserrat";
+  -fx-fill: #72E8E1;
+}
+
+#pause-root {
+  -fx-spacing: 5;
+  -fx-background-color: rgba(70, 70, 70, 0.8);
+  -fx-padding: 20;
+  -fx-alignment: center;
+}
+
+#resume-button {
+
+}

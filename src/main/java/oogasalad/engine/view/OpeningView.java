@@ -16,6 +16,7 @@ import javafx.util.Pair;
 import org.json.JSONObject;
 
 public class OpeningView {
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
 
   private Double width;
   private Double height;
@@ -29,10 +30,8 @@ public class OpeningView {
   private Button gameBuilder;
   private Button playGame;
   private FileOpener fileOpener;
-
   private File myFileChoice;
   private ResourceBundle myResources;
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
   private String cssFilePath;
 
   public OpeningView(double w, double h, String css) {

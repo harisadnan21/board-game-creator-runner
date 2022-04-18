@@ -33,7 +33,6 @@ public class ViewManager {
   public ViewManager(Stage s) throws IOException {
     stage = s;
     cssFilepath = CSS_RESOURCE + "light.css";
-    System.out.println(cssFilepath);
     fis = new FileInputStream("data/Properties/ViewManagerProperties.properties");
     Properties prop = new Properties();
     prop.load(fis);
@@ -42,7 +41,8 @@ public class ViewManager {
     HEIGHT = Double.parseDouble(prop.getProperty("HEIGHT"));
     BOARDX = Double.parseDouble(prop.getProperty("BOARDX"));
     BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
-    currScene = createOpeningView().makeScene();
+    currScene = createGameView(new BoardView(2, 2, 200, 200), new Controller(new Board(3, 3))).makeScene();
+    //currScene = createOpeningView().makeScene();
   }
 
   public Scene getCurrScene() {
