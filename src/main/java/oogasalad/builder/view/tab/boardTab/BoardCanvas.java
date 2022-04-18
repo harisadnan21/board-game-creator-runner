@@ -157,6 +157,8 @@ public class BoardCanvas {
     boardGraphics.clearRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
     boardGraphics.setFill(color);
     boardGraphics.fillRect(blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
+    System.out.println(color.toString());
+    //callbackDispatcher.colorCellBackgroundCallback(blockIndex[0], blockIndex[1], color.toString());
   }
 
   private void addPiece(MouseEvent click)
