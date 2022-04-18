@@ -14,6 +14,7 @@ import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
@@ -62,6 +63,7 @@ public class BuilderController {
         builderView.registerCallbackHandler(PlacePieceCallback.class, this::placePiece);
         builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class, this::getElementPropertyByKey);
         builderView.registerCallbackHandler(MakeBoardCallback.class, this::makeBoard);
+        builderView.registerCallbackHandler(LoadCallback.class, this::load);
     }
 
     /**
@@ -194,19 +196,19 @@ public class BuilderController {
     /**
      * Loads a Game Configuration from a JSON File
      *
-     * @param directory the directory to load the game configuration from
+     * @param callback a LoadCallback that contains a directory to load a game from
      */
-    public void load(File directory) {
-        File configFile = new File(directory.toString() + JSON_FILENAME);
-        InputStream is = null;
+    Void load(LoadCallback callback) {
+        File configFile = new File(callback.directory().toString() + JSON_FILENAME);
         try {
-            is = new DataInputStream(new FileInputStream(configFile));
+            InputStream is = new DataInputStream(new FileInputStream(configFile));
             JSONTokener tokener = new JSONTokener(is);
             JSONObject object = new JSONObject(tokener);
             gameConfig.fromJSON(object.toString());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
     public void showError(Throwable t) {

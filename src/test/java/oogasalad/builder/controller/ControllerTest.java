@@ -10,6 +10,7 @@ import oogasalad.builder.model.property.PropertyFactory;
 import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
+import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
@@ -152,7 +153,7 @@ public class ControllerTest extends DukeApplicationTest {
   void testLoad() {
     // TODO: Change test when loading is implemented
     File file = new File(TEST_LOAD_DIRECTORY);
-    controller.load(file);
+    controller.load(new LoadCallback(file));
     file = new File(TEST_SAVE_EXCEPTION_FILENAME);
     controller.save(new SaveCallback(file));
   }
