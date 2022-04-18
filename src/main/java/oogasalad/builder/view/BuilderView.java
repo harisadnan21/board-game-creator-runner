@@ -95,7 +95,6 @@ public class BuilderView {
     boardTabPane = new BoardTab(callbackDispatcher);
     boardTabPane.setId("boardTab");
     Tab boardTab = new Tab("Board", boardTabPane);
-
     pieceTabPane = new PiecesTab(callbackDispatcher);
     pieceTabPane.setId("pieceTab");
     Tab pieceTab = new Tab("Piece", pieceTabPane);

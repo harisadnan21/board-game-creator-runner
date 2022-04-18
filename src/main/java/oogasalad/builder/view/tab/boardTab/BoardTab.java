@@ -1,10 +1,8 @@
 package oogasalad.builder.view.tab.boardTab;
 
+import static oogasalad.builder.view.BuilderView.DEFAULT_RESOURCE_PACKAGE;
+
 import java.util.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,7 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -25,55 +22,47 @@ import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.SaveCallback;
-import oogasalad.builder.view.tab.TitlePane;
+import oogasalad.builder.view.tab.BasicTab;
 
 
 /**
  * @author Mike Keohane
  */
-public class BoardTab extends BorderPane {
+public class BoardTab extends BasicTab {
 
+  public static final String BOARD_TYPE = "board";
+  public static String BOARD_PROPERTIES = "BoardTypes";
   private BoardCanvas boardCanvas;
   private Spinner<Integer> xDimensionPicker;
   private Spinner<Integer> yDimensionPicker;
   private ColorPicker colorPickerA;
   private ColorPicker colorPickerB;
   private ComboBox<String> boardTypeBox;
-
-  private CallbackDispatcher callbackDispatcher;
+  private static final ResourceBundle boardTypes = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + BOARD_PROPERTIES);
 
   public BoardTab(CallbackDispatcher dispatcher) {
-    this.callbackDispatcher = dispatcher;
-
-
-    setupBlankBoard();
-    setupRightPane();
-    setupTitle();
+    super(BOARD_TYPE, dispatcher);
   }
 
-
-  private void setupTitle() {
-    setTop(new TitlePane("boardTitle").toNode());
-  }
-
-  private void setupBlankBoard() {
-    boardCanvas = new BoardCanvas(this, callbackDispatcher);
-
-    Pane canvasPane = boardCanvas.getCanvasPane();
-    canvasPane.prefWidthProperty().bind(this.widthProperty().multiply(0.7));
-    canvasPane.prefHeightProperty().bind(this.heightProperty());
-
-    canvasPane.setId("boardCanvas");
-    setCenter(canvasPane);
-  }
-
-  private void setupRightPane() {
+  @Override
+  protected Node setupRightSide() {
     VBox rightBox = new VBox();
 
     rightBox.getChildren().addAll(setupButtonBar(), setupBoardConfigInput());
     rightBox.setId("rightBoardPane");
     rightBox.getStyleClass().add("rightPane");
-    setRight(rightBox);
+    return rightBox;
+  }
+
+  @Override
+  protected Node setupLeftSide() {
+
+    boardCanvas = new BoardCanvas(this, getCallbackDispatcher());
+
+    Pane canvasPane = boardCanvas.getCanvasPane();
+
+    canvasPane.setId("boardCanvas");
+    return canvasPane;
   }
 
   private Node setupBoardConfigInput() {
@@ -115,16 +104,14 @@ public class BoardTab extends BorderPane {
   }
 
   private Node setupBoardTypeBox() {
-    //TODO : get the boardTypes from somewhere good
-    List<String> boardTypeList = List.of(new String[]{"Checkers"});
-    ObservableList<String> boardTypes = FXCollections.observableArrayList(boardTypeList);
 
-    boardTypeBox = new ComboBox<>(boardTypes);
+    boardTypeBox = new ComboBox<>();
+    boardTypes.keySet().forEach(key -> boardTypeBox.getItems().add(boardTypes.getString(key)));
+
+
     boardTypeBox.setPromptText(ViewResourcesSingleton.getInstance().getString("boardTypePicker"));
-    boardTypeBox.setValue(boardTypeList.get(0));
     return boardTypeBox;
   }
-
   private void createBoard()
       throws NullBoardException {
     if (boardTypeBox.getValue() == null) {
@@ -182,7 +169,7 @@ public class BoardTab extends BorderPane {
   private void updatePieceOptions(ComboBox<String> pieceBox) {
     //TODO: Remove Magic Value
     String currVal = pieceBox.getValue();
-    Collection<String> pieceNames = callbackDispatcher.call(new GetElementNamesCallback("piece")).orElse(new ArrayList<>());
+    Collection<String> pieceNames = getCallbackDispatcher().call(new GetElementNamesCallback("piece")).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
   }
@@ -192,21 +179,9 @@ public class BoardTab extends BorderPane {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     //TODO: Remove Magic Value
     directoryChooser.setTitle("Choose Configuration Save Location");
-    callbackDispatcher.call(new SaveCallback(directoryChooser.showDialog(stage)));
+    getCallbackDispatcher().call(new SaveCallback(directoryChooser.showDialog(stage)));
   }
 
-  //create buttons with their own names and actions
-  public Button makeButton(String labelName, EventHandler<ActionEvent> handler) {
-
-    Button buttonCreated = new Button();
-    String buttonLabel = ViewResourcesSingleton.getInstance().getString(labelName);
-
-    buttonCreated.setText(buttonLabel);
-    buttonCreated.setOnAction(handler);
-    buttonCreated.setId(labelName);
-
-    return buttonCreated;
-  }
 
 
 }

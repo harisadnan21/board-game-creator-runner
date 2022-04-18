@@ -25,7 +25,6 @@ import java.util.function.Consumer;
 
 public class BoardCanvas {
 
-  public static String BOARD_PROPERTIES = "BoardTypes";
   private Paint colorOne;
   private Paint colorTwo;
   private Canvas boardCanvas;
@@ -44,7 +43,6 @@ public class BoardCanvas {
   private final CallbackDispatcher callbackDispatcher;
 
   public BoardCanvas(BorderPane boardTab, CallbackDispatcher dispatcher) {
-    boardResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + BOARD_PROPERTIES);
     borderPane = boardTab;
     this.callbackDispatcher = dispatcher;
 
@@ -82,8 +80,8 @@ public class BoardCanvas {
     }
   }
   private void calculateAndChangeCanvasSize(){
-    boardCanvas.setWidth(borderPane.getWidth() - borderPane.getRight().getBoundsInParent().getWidth());
-    boardCanvas.setHeight(borderPane.getHeight() - borderPane.getTop().getBoundsInParent().getHeight());
+    boardCanvas.setWidth(borderPane.getCenter().getBoundsInParent().getHeight());
+    boardCanvas.setHeight(borderPane.getCenter().getBoundsInParent().getHeight());
 
     pieceCanvas.setHeight(boardCanvas.getHeight());
     pieceCanvas.setWidth(boardCanvas.getWidth());

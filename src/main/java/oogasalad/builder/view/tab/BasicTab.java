@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import oogasalad.builder.view.ViewResourcesSingleton;
+import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
  * @author Mike Keohane
@@ -15,10 +16,12 @@ public abstract class BasicTab extends BorderPane {
 
   private String type;
   private SplitPane splitPane;
+  private CallbackDispatcher callbackDispatcher;
 
 
-  public BasicTab(String type) {
+  public BasicTab(String type, CallbackDispatcher dispatcher) {
     this.type = type;
+    this.callbackDispatcher = dispatcher;
     setupTitle();
     setupSplitPane();
   }
@@ -45,6 +48,9 @@ public abstract class BasicTab extends BorderPane {
     return type;
   }
 
+  protected CallbackDispatcher getCallbackDispatcher(){
+    return callbackDispatcher;
+  }
   protected abstract Node setupRightSide();
 
   protected abstract Node setupLeftSide();

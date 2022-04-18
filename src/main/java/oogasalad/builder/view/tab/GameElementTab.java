@@ -21,8 +21,6 @@ import java.util.Collection;
  */
 public class GameElementTab extends BasicTab {
 
-  private final CallbackDispatcher callbackDispatcher;
-
   private GameElementList elementList;
   private TextField nameField;
   private PropertyEditor propertyEditor;
@@ -32,8 +30,7 @@ public class GameElementTab extends BasicTab {
    * Default constructor
    */
   public GameElementTab(CallbackDispatcher dispatcher, String type) {
-    super(type);
-    this.callbackDispatcher = dispatcher;
+    super(type, dispatcher);
   }
 
   /**
@@ -70,7 +67,7 @@ public class GameElementTab extends BasicTab {
   // FIXME handle error
   private void createElement() {
     try {
-      Collection<Property> properties = callbackDispatcher.call(new GetPropertiesCallback(getType()))
+      Collection<Property> properties = getCallbackDispatcher().call(new GetPropertiesCallback(getType()))
           .orElseThrow();
       propertyEditor.setElementPropertyTypeChoice(properties);
     } catch (InvalidTypeException | MissingRequiredPropertyException e) {
@@ -82,7 +79,7 @@ public class GameElementTab extends BasicTab {
     if (newElement != null) {
       nameField.setText(newElement);
       propertyEditor.setElementProperties(
-          callbackDispatcher.call(new GetElementPropertiesCallback(getType(), newElement))
+          getCallbackDispatcher().call(new GetElementPropertiesCallback(getType(), newElement))
               .orElseThrow());
     }
   }
@@ -91,7 +88,7 @@ public class GameElementTab extends BasicTab {
     if (!propertyEditor.hasProperties()) {
       return;
     }
-    callbackDispatcher.call(new UpdateGameElementCallback(getType(), nameField.getText(),
+    getCallbackDispatcher().call(new UpdateGameElementCallback(getType(), nameField.getText(),
         propertyEditor.getElementProperties()));
     elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
   }
