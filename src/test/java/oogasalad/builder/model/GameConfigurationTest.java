@@ -15,7 +15,6 @@ import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
-import oogasalad.builder.model.exception.OccupiedCellException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import org.json.JSONObject;
@@ -36,6 +35,8 @@ public class GameConfigurationTest {
   private static final String PIECE_NAME = "thisIsAPiece";
   private static final String RULE = "rule";
   private static final String RULE_NAME = "knightMoveTopRight";
+  private static final int RULE_REP_X = 1;
+  private static final int RULE_REP_Y = 2;
   private static final int EMPTY = -1;
   private static final String EMPTY_STRING = "empty";
   private static final String PLAYER = "player";
@@ -52,7 +53,12 @@ public class GameConfigurationTest {
 
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
-  private static final String TEST_LOAD_FILENAME = "data/tests/testLoad.json";
+  private static final String TEST_LOAD_FILENAME = "data/tests/load/config.json";
+
+  private static final String REPRESENTATIVE_X = "representativeX";
+  private static final String REPRESENTATIVE_Y = "representativeY";
+  private static final String BLACK = "0x000000ff";
+  private static final String WHITE = "0xffffffff";
 
   private Collection<Property> properties;
   private BuilderModel game;
@@ -98,7 +104,7 @@ public class GameConfigurationTest {
 
   @Test
   void testPiecePlacement()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
+      throws NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     game.makeBoard(WIDTH, HEIGHT);
     assertThrows(ElementNotFoundException.class, () -> game.placeBoardPiece(X, Y, PIECE_NAME));
     addPiece();
@@ -108,8 +114,17 @@ public class GameConfigurationTest {
   }
 
   @Test
+  void testColoring() {
+    game.makeBoard(WIDTH, HEIGHT);
+    game.colorCellBackground(X, Y, BLACK);
+    assertEquals(BLACK, game.findCellBackground(X, Y));
+    game.clearCellBackground(X, Y);
+    assertEquals(WHITE, game.findCellBackground(X, Y));
+  }
+
+  @Test
   void testEmpty()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
+      throws NullBoardException, ElementNotFoundException, MissingRequiredPropertyException, InvalidTypeException {
     addPiece();
     game.makeBoard(WIDTH, HEIGHT);
     for (int i = 0; i < WIDTH; i++) {
@@ -124,12 +139,14 @@ public class GameConfigurationTest {
 
   @Test
   void testSerialization()
-      throws OccupiedCellException, NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
+      throws NullBoardException, ElementNotFoundException, InvalidTypeException, MissingRequiredPropertyException {
     game.makeBoard(WIDTH, HEIGHT);
 
     Collection<Property> properties = new HashSet<>();
     properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
+    properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
+    properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
     game.addGameElement(RULE, RULE_NAME, properties);
 
     addPiece();
@@ -151,7 +168,7 @@ public class GameConfigurationTest {
   }
 
   @Test
-  void testLoad() throws OccupiedCellException, FileNotFoundException {
+  void testLoad() throws FileNotFoundException {
     // TODO: Change test when loading is implemented
     InputStream is = null;
     is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));

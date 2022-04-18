@@ -26,6 +26,7 @@ public class FactoryProvider {
   private final WinConditionFactory winConditionFactory;
   private final ActionFactory actionFactory;
   private final ConditionFactory conditionFactory;
+  private final MetaDataFactory metaDataFactory;
 
   /**
    * Creates a new factory provider
@@ -36,6 +37,7 @@ public class FactoryProvider {
     winConditionFactory = new WinConditionFactory();
     actionFactory = new ActionFactory();
     conditionFactory = new ConditionFactory();
+    metaDataFactory = new MetaDataFactory();
   }
 
   /**
@@ -74,6 +76,7 @@ public class FactoryProvider {
       case "win condition" -> winConditionFactory;
       case "action" -> actionFactory;
       case "condition" -> conditionFactory;
+      case "metadata" -> metaDataFactory;
       default -> throw new InvalidTypeException();
     };
   }

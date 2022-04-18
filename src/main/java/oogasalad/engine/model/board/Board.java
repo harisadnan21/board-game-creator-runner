@@ -41,9 +41,9 @@ public class Board implements DisplayableBoard {
 
   private SortedMap<Position, PositionState> myBoard;
 
-  public Board(PositionState[][] positionStates) {
+  public Board(final PositionState[][] positionStates) {
     this.numRows = positionStates.length;
-    this.numCols = Board.getNumColumnsInLongestRow(positionStates);
+    this.numCols = getNumColumnsInLongestRow(positionStates);
     this.lastRow = numRows - 1;
     this.lastCol = numCols - 1;
     this.myBoard = getPositionStatesMap(positionStates);

@@ -1,0 +1,122 @@
+.label{
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 10pt;
+}
+
+#titleText{
+    -fx-padding: 10;
+    -fx-font-size: 20pt;
+}
+
+.titleBox{
+    -fx-padding: 10;
+    -fx-max-width: infinity;
+    -fx-alignment: center;
+    -fx-border-color: black;
+    -fx-background-color: blue;
+}
+
+.rightPane{
+    -fx-min-width: 50;
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-spacing: 30;
+    -fx-border-color: BLACK;
+    -fx-background-color: blue;
+    -fx-color: #7BAFD4;
+}
+.gameElementList{
+    -fx-border-color: BLACK;
+    -fx-background-color: blue;
+    -fx-color: #7BAFD4;
+}
+.list-view .list-cell:even {
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+}
+.boardCanvas{
+    -fx-background-color: blue;
+}
+
+#buttonBox{
+    -fx-min-width: 50;
+    -fx-pref-width: 150;
+    -fx-alignment: top-center;
+    -fx-padding: 10;
+    -fx-spacing: 20;
+}
+#boardConfigBox{
+    -fx-min-width: 100;
+    -fx-pref-width: 200;
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-spacing: 20;
+    -fx-border-color: blue;
+    -fx-fill-color: whitesmoke;
+}
+HBox {
+    -fx-alignment: center;
+    -fx-spacing: 5;
+}
+
+
+
+#boardCanvas {
+    -fx-border-color: blue;
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-min-width: 400;
+    -fx-min-height: 400;
+}
+
+ToggleButton {
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+ToggleButton:hover {
+    -fx-padding: 10;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-color: #7BAFD4;
+    -fx-border-color:blue;
+}
+
+.button {
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+.button:hover {
+    -fx-background-color: #7BAFD4;
+    -fx-border-color:blue;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding:10;
+}
+.combo-box:hover {
+    -fx-background-color: #7BAFD4;
+    -fx-border-color:blue;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-padding:5;
+}
+.color-picker {
+    -fx-color-label-visible: false;
+}
+
+.combo-box {
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-font-size: 10pt;
+    -fx-alignment: center;
+    -fx-padding: 5;
+}
+
+

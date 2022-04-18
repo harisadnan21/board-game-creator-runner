@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Spinner;
 import oogasalad.builder.model.property.IntegerProperty;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
  * Field that takes in integer input, returning an integer property.
@@ -21,7 +22,7 @@ public class IntegerSelector implements PropertySelector{
    *
    * @param property the property that will be "filled in" by the Field
    */
-  public IntegerSelector(Property property){
+  public IntegerSelector(Property property, CallbackDispatcher dispatcher) {
     this.property = property;
     //TODO: REPLACE MAGIC VALUES
     numberPicker = new Spinner<>(0, 50, 0, 1);

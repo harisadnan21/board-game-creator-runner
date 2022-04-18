@@ -24,8 +24,6 @@ public class Constants {
   public static final String ACTION_RESOURCES_PATH = "engine-resources.actions";
   public static final ResourceBundle ACTION_RESOURCES = ResourceBundle.getBundle(ACTION_RESOURCES_PATH);
 
-  //private static Logger log = LoggerFinder.getLoggerFinder().getLogger("Logger", "oogasald.engine");
-
   private Constants() {
     throw new IllegalStateException("Doesn't Support Instantiation");
   }

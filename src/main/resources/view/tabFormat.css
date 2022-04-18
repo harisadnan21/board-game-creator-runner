@@ -23,33 +23,27 @@
   -fx-spacing: 30;
   -fx-border-color: BLACK;
   -fx-background-color: #F0F8FF;
-  -fx-color: #FFE4C4;
+  -fx-color: #FFFAEF;
 }
 .gameElementList{
   -fx-border-color: BLACK;
   -fx-background-color: #F0F8FF;
-  -fx-color: #FFE4C4;
+  -fx-color: #FFFAEF;
 }
 .list-view .list-cell:even {
-  -fx-background-color: #F0F8FF;
+  -fx-background-color: #E0F9FF;
   -fx-text-fill: black;
 }
 .list-view .list-cell:odd {
-  -fx-background-color: #F0FFFF;
+  -fx-background-color: #F2F8FF;
   -fx-text-fill: black;
 }
 .boardCanvas{
-  -fx-background-color: #F0F8FF;
+  -fx-background-color: #FFFAEF;
 }
 
-#buttonBox{
-  -fx-min-width: 50;
-  -fx-pref-width: 150;
-  -fx-alignment: top-center;
-  -fx-padding: 10;
-  -fx-spacing: 20;
-}
-#boardConfigBox{
+
+.boardConfigBox{
   -fx-min-width: 100;
   -fx-pref-width: 200;
   -fx-alignment: center;
@@ -83,7 +77,7 @@ ToggleButton:hover {
   -fx-padding: 10;
   -fx-border-radius: 20;
   -fx-background-radius: 20;
-  -fx-background-color: #FFEBCD;
+  -fx-background-color: #FFFAEF;
   -fx-border-color:gray;
 }
 
@@ -94,14 +88,14 @@ ToggleButton:hover {
   -fx-background-radius: 20;
 }
 .button:hover {
-  -fx-background-color: #FFEBCD;
+  -fx-background-color: #FFFAEF;
   -fx-border-color:gray;
   -fx-border-radius: 20;
   -fx-background-radius: 20;
   -fx-padding:10;
 }
 .combo-box:hover {
-  -fx-background-color: #FFEBCD;
+  -fx-background-color: #FFFAEF;
   -fx-border-color:gray;
   -fx-border-radius: 25;
   -fx-background-radius: 25;

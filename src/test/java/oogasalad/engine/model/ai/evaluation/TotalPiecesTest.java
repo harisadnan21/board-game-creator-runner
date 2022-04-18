@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 
 class TotalPiecesTest {
-  private static StateEvaluator evaluator = new TotalPieces();
+  private static final StateEvaluator evaluator = new TotalPieces();
 
   @Test
   void emptyBoardEvaluation() {
@@ -42,12 +42,14 @@ class TotalPiecesTest {
           board2 = board2.placePiece(new PositionState(new Position(row, col), new Piece(1, Piece.PLAYER_TWO)));
         }
       }
+      boards1[index] = board1;
+      boards2[index] = board2;
     }
 
     for(int index = 0; index < boards1.length; index++) {
       Board board1 = boards1[index];
       Board board2 = boards2[index];
-      int numPositions = board1.getWidth() * board2.getHeight();
+      int numPositions = board1.getWidth() * board1.getHeight();
 
       assertEquals(numPositions, evaluator.evaluate(board1, Piece.PLAYER_ONE));
       assertEquals(-1 * numPositions, evaluator.evaluate(board1, Piece.PLAYER_TWO));
