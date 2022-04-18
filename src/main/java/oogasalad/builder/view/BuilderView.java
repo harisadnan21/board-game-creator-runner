@@ -136,6 +136,10 @@ public class BuilderView {
 
   }
 
+  public void showError(Throwable t) {
+    new Alert(Alert.AlertType.ERROR, t.getMessage()).showAndWait();
+  }
+
   /**
    * Register a handler to be used when a given type of callback is needed
    * @param callback the callback to handle

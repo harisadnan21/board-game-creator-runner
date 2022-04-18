@@ -36,6 +36,8 @@ public class GameConfigurationTest {
   private static final String PIECE_NAME = "thisIsAPiece";
   private static final String RULE = "rule";
   private static final String RULE_NAME = "knightMoveTopRight";
+  private static final int RULE_REP_X = 1;
+  private static final int RULE_REP_Y = 2;
   private static final int EMPTY = -1;
   private static final String EMPTY_STRING = "empty";
   private static final String PLAYER = "player";
@@ -53,6 +55,9 @@ public class GameConfigurationTest {
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
   private static final String TEST_LOAD_FILENAME = "data/tests/testLoad.json";
+
+  private static final String REPRESENTATIVE_X = "representativeX";
+  private static final String REPRESENTATIVE_Y = "representativeY";
 
   private Collection<Property> properties;
   private BuilderModel game;
@@ -130,6 +135,8 @@ public class GameConfigurationTest {
     Collection<Property> properties = new HashSet<>();
     properties.add(PropertyFactory.makeProperty(ACTIONS, ACTION_NAME));
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
+    properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
+    properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
     game.addGameElement(RULE, RULE_NAME, properties);
 
     addPiece();

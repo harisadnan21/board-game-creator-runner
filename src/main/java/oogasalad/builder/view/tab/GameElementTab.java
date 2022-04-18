@@ -62,16 +62,13 @@ public class GameElementTab extends BasicTab {
     return elementList;
   }
 
-
-
-  // FIXME handle error
   private void createElement() {
     try {
       Collection<Property> properties = getCallbackDispatcher().call(new GetPropertiesCallback(getType()))
           .orElseThrow();
       propertyEditor.setElementPropertyTypeChoice(properties);
     } catch (InvalidTypeException | MissingRequiredPropertyException e) {
-      e.printStackTrace();
+      throw new ElementCreationException(getType(), e);
     }
   }
 
