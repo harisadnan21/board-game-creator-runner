@@ -56,8 +56,8 @@ public class BoardTab extends BasicTab {
 
   @Override
   protected Node setupLeftSide() {
-
-    boardCanvas = new BoardCanvas(this, getCallbackDispatcher());
+    // TODO : ADD A WAY TO TELL THE CANVAS SIZING -- this.getCenter().boundsInLocalProperty(),
+    boardCanvas = new BoardCanvas(getCallbackDispatcher());
 
     Pane canvasPane = boardCanvas.getCanvasPane();
 

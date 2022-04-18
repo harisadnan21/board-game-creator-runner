@@ -1,12 +1,12 @@
 package oogasalad.builder.view.tab.boardTab;
 
-import static oogasalad.builder.view.BuilderView.DEFAULT_RESOURCE_PACKAGE;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import oogasalad.builder.model.exception.ElementNotFoundException;
@@ -20,7 +20,6 @@ import oogasalad.builder.view.callback.PlacePieceCallback;
 
 import java.io.File;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 public class BoardCanvas {
@@ -29,21 +28,20 @@ public class BoardCanvas {
   private Paint colorTwo;
   private Canvas boardCanvas;
   private Canvas pieceCanvas;
-  private ResourceBundle boardResources;
   private GraphicsContext boardGraphics;
   private GraphicsContext pieceGraphics;
   private Map<String, Consumer<int[]>> boardTypeFunctionMap;
   private double rectWidth;
   private double rectHeight;
-  private BorderPane borderPane;
+  private ReadOnlyObjectProperty
+      <javafx.geometry.Bounds> centerBoundProperty;
   private String currentPiece;
   private int xDimension;
   private int yDimension;
 
   private final CallbackDispatcher callbackDispatcher;
 
-  public BoardCanvas(BorderPane boardTab, CallbackDispatcher dispatcher) {
-    borderPane = boardTab;
+  public BoardCanvas(CallbackDispatcher dispatcher) {
     this.callbackDispatcher = dispatcher;
 
     setupBoard();
@@ -80,8 +78,9 @@ public class BoardCanvas {
     }
   }
   private void calculateAndChangeCanvasSize(){
-    boardCanvas.setWidth(borderPane.getCenter().getBoundsInParent().getHeight());
-    boardCanvas.setHeight(borderPane.getCenter().getBoundsInParent().getHeight());
+    //FIXME :: HARD CODED VALUES RIGHT NOW BECAUSE CANT FIGURE THIS OUT
+    boardCanvas.setWidth(600);
+    boardCanvas.setHeight(600);
 
     pieceCanvas.setHeight(boardCanvas.getHeight());
     pieceCanvas.setWidth(boardCanvas.getWidth());
