@@ -7,6 +7,13 @@ import oogasalad.engine.model.board.Board;
  * @author Robert Cranston
  */
 public interface Winner {
+
+  /**
+   * Function decides who the winner of the game is depending on what the game is and what the state
+   * of the board is
+   * @param board
+   * @return : int 0 or 1, depending on who won
+   */
   int decideWinner(Board board);
 
   /**
