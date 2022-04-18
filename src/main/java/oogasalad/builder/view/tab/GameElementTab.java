@@ -9,6 +9,7 @@ import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.GameElementList;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
+import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
 import oogasalad.builder.view.callback.UpdateGameElementCallback;
@@ -100,9 +101,13 @@ public class GameElementTab extends BasicTab {
 
   /**
    * Loads all elements into a tab (read from the model)
-   *
    */
   public void loadElements() {
+    Collection<String> names = getCallbackDispatcher().call(new GetElementNamesCallback(getType())).orElseThrow();
+    for (String name : names) {
+      Collection<Property> properties = getCallbackDispatcher().call(new GetElementPropertiesCallback(getType(), name)).orElseThrow();
+      elementList.putGameElement(name, properties);
+    }
   }
 
 }
