@@ -24,8 +24,8 @@ import oogasalad.builder.view.tab.boardTab.BoardTab;
 import oogasalad.builder.view.tab.PiecesTab;
 import java.util.ResourceBundle;
 
-/**
- *
+/** Creates the scene and handles the builder GUI and the tabs within it
+ * @author Mike Keohane
  */
 public class BuilderView {
 
@@ -34,6 +34,7 @@ public class BuilderView {
   private static final String SPLASH_PACKAGE = "SplashLogin.css";
   // private static final String TAB_LANGUAGE = "English";
   private static String TAB_LANGUAGE = "English";
+  private static String TAB_PROPERTIES = "tabResources";
   private static final String TAB_FORMAT = "tabFormat.css";
   private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
@@ -47,7 +48,7 @@ public class BuilderView {
   private BorderPane boardPane;
   private HBox buttonHolder;
   private ResourceBundle splashResources;
-  private ResourceBundle tabResources;
+  private ResourceBundle tabProperties;
   private ChoiceBox<String> languageBox;
   private Label myLabel;
 
@@ -55,24 +56,28 @@ public class BuilderView {
 
   public BuilderView(Stage mainStage) {
     //splashResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE);
-    tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
+    tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
     stage = mainStage;
     displayWelcome();
-    //stage.show();
   }
 
   private void displayWelcome() {
     buttonHolder = new HBox();
     VBox leftPanel = new VBox();
     VBox rightPanel = new VBox();
-    myWelcome = new Label(tabResources.getString("Welcome"));
+    myWelcome = new Label(tabProperties.getString("Welcome"));
     myWelcome.setFont(new Font("Inter", 30));
 
-    Button proceed = makeButton("Proceed", event -> {setupTabs();}, ResourceBundle.getBundle((DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE)));
+    Button proceed = makeButton("Proceed", event -> {setupTabs();});
+    myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
+    //TODO : MAKE COME FROM CSS
+    myWelcome.setFont(new Font("Inter", 30));
+    //boardPane.setLeft(myWelcome);
+    //Button login = makeButton("Proceed", event -> setupTabs());
     languageBox = new ChoiceBox<>();
     languageBox.getItems().addAll(languageChoice);
     languageBox.setOnAction(this::getLanguage);
-
+    
     leftPanel.getChildren().addAll(myWelcome);
     rightPanel.getChildren().addAll(proceed, languageBox);
 
@@ -117,18 +122,28 @@ public class BuilderView {
 //    stage.show();
    // myStage.setScene(myLoginScene);
     //myStage.show();
+
+
+//    Scene myLoginScene = new Scene(boardPane, Integer.parseInt(tabProperties.getString("sceneSizeX")), Integer.parseInt(tabProperties.getString("sceneSizeY")));
+//    myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
+//    boardPane.getStyleClass().add("boardPane");
+//    languageBox.getStyleClass().add("languageBox");
+//    login.getStyleClass().add("buttonHolder");
+//    boardPane.setCenter(buttonHolder);
+//    stage = new Stage();
+//    stage.setScene(myLoginScene);
+//    stage.show();
   }
 
-  // Can possibly extend tab for each of the tab classes instead of just having toNode() to add them to the tabs
-  // public void setupTabs() {
-  // Creates all the tabs
+  /**
+   * Setups all of the tabs and adds them to the scene
+   */
   private void setupTabs() {
     TabPane tabPane = new TabPane();
 
-    boardTabPane = new BoardTab(tabResources, callbackDispatcher);
+    boardTabPane = new BoardTab(callbackDispatcher);
     boardTabPane.setId("boardTab");
     Tab boardTab = new Tab("Board", boardTabPane);
-
     pieceTabPane = new PiecesTab(callbackDispatcher);
     pieceTabPane.setId("pieceTab");
     Tab pieceTab = new Tab("Piece", pieceTabPane);
@@ -146,9 +161,8 @@ public class BuilderView {
 
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
-    //TODO get this size from file and add more to the scene
-    Scene tabScene = new Scene(tabPane, Integer.parseInt(tabResources.getString("sceneSizeX")),
-        Integer.parseInt(tabResources.getString("sceneSizeY")));
+    Scene tabScene = new Scene(tabPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
+        Integer.parseInt(tabProperties.getString("sceneSizeY")));
 
     tabScene.getStylesheets()
         .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + TAB_FORMAT).toExternalForm());
@@ -156,10 +170,9 @@ public class BuilderView {
   }
 
   //returns a button with the title provided linked to the event passed as a parameter
-  public static Button makeButton(String property, EventHandler<ActionEvent> handler,
-                                  ResourceBundle resources) {
+  public static Button makeButton(String property, EventHandler<ActionEvent> handler) {
     Button result = new Button();
-    String label = resources.getString(property);
+    String label = ViewResourcesSingleton.getInstance().getString(property);
     result.setText(label);
     result.setOnAction(handler);
     return result;
@@ -167,9 +180,7 @@ public class BuilderView {
 
   private void getLanguage(ActionEvent event) {
     String myLanguage = languageBox.getValue();
-    //myLabel.setText(myLanguage);
-    TAB_LANGUAGE = myLanguage;
-    tabResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_LANGUAGE);
+    ViewResourcesSingleton.getInstance().setLanguage(myLanguage);
     displayWelcome();
 
   }
