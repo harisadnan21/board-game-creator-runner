@@ -17,8 +17,9 @@ open module oogasalad_app {
     requires lombok;
 
     // allow other classes to access listed packages in your project
+
     exports oogasalad;
-  exports oogasalad.engine.view;
-  exports oogasalad.engine.view.dashboard;
+    exports oogasalad.engine.view;
+    exports oogasalad.engine.view.dashboard;
     exports oogasalad.engine.view.ControlPanel;
 }

@@ -11,8 +11,8 @@ class AIPlayerTest {
 
   @Test
   void noErrors() {
-    assertDoesNotThrow(() -> new AIPlayer(Piece.PLAYER_ONE, null, Difficulty.EASY, null, null, WinType.TOTAL, null));
-    assertDoesNotThrow(() -> new AIPlayer(Piece.PLAYER_TWO, null, Difficulty.EASY, null, null, WinType.TOTAL, null));
+    assertDoesNotThrow(() -> new AIPlayer(Piece.PLAYER_ONE, null, Difficulty.EASY, null, WinType.TOTAL, null));
+    assertDoesNotThrow(() -> new AIPlayer(Piece.PLAYER_TWO, null, Difficulty.EASY, null, WinType.TOTAL, null));
   }
 
   @Test

@@ -4,7 +4,6 @@ import java.util.Collection;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
-import oogasalad.engine.model.ai.searchTypes.SearchType;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.ai.searchTypes.Selects;
 import oogasalad.engine.model.board.Board;
@@ -17,18 +16,15 @@ public class AIPlayer extends Player {
   private final int playerNumber;
   private StateEvaluator stateEvaluator;
   private final Difficulty difficulty;
-  private final SearchType searchType;
   private final AIOracle AIOracle;
   private Selects selector;
 
 
-  public AIPlayer(int playerNumberForAI, StateEvaluator stateEvaluator, Difficulty difficulty,
-      SearchType searchType, AIOracle AIOracle, WinType winType, Collection<Pattern> patterns) {
+  public AIPlayer(int playerNumberForAI, StateEvaluator stateEvaluator, Difficulty difficulty, AIOracle AIOracle, WinType winType, Collection<Pattern> patterns) {
     super(null, null, null); // should be engine
     this.playerNumber = playerNumberForAI;
     this.stateEvaluator = stateEvaluator;
     this.difficulty = difficulty;
-    this.searchType = searchType;
     this.AIOracle = AIOracle;
     this.selector = SelectorFactory.makeSelector(difficulty, winType, playerNumber, AIOracle, patterns); //FIX
   }
