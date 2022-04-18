@@ -56,6 +56,10 @@ public class GameView {
     return scene;
   }
 
+  public Button getHome() {
+    return myGameControl.getHome();
+  }
+
   private void setUpRoot() {
     root = new BorderPane();
     root.setId("game-view-root");
