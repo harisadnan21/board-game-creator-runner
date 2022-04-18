@@ -3,7 +3,6 @@ package oogasalad.builder.model.board;
 
 import oogasalad.builder.model.JSONParseable;
 import oogasalad.builder.model.JSONSerializable;
-import oogasalad.builder.model.exception.OccupiedCellException;
 
 /**
  * The Board interface describes the API for accessing and modifying the state of the board. Board
@@ -19,9 +18,8 @@ public interface Board extends JSONSerializable, JSONParseable<Board> {
    * @param x  the x location to place
    * @param y  the y location to place
    * @param id the id of the piece to place
-   * @throws OccupiedCellException if the requested indices are already occupied by a piece
    */
-  void placePiece(int x, int y, int id) throws OccupiedCellException;
+  void placePiece(int x, int y, int id);
 
   /**
    * Finds the name of the piece at the given coordinates
@@ -39,6 +37,32 @@ public interface Board extends JSONSerializable, JSONParseable<Board> {
    * @param y the y location to clear
    */
   void clearCell(int x, int y);
+
+  /**
+   * Clears the background of the cell at the given coordinates
+   *
+   * @param x the x location to clear
+   * @param y the y location to clear
+   */
+  void clearCellBackground(int x, int y);
+
+  /**
+   * Finds the background color of the cell at the given coordinates
+   *
+   * @param x the x location to query
+   * @param y the y location to query
+   * @return the background color of the cell at the given coordinates
+   */
+  String findCellBackground(int x, int y);
+
+  /**
+   * Colors the background of the cell at the given coordinates with the given color
+   *
+   * @param x the x location to color
+   * @param y the y location to color
+   * @param color the hexadecimal string of the color to set at the cell
+   */
+  void colorCellBackground(int x, int y, String color);
 
   /**
    * Converts a Board into a String representing the board's JSON Format

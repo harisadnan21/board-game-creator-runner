@@ -1,14 +1,12 @@
 package oogasalad.engine.view;
 
-import javafx.geometry.Insets;
+import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -18,6 +16,7 @@ import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
 
 public class GameView {
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
 
   private Double width;
   private Double height;
@@ -27,8 +26,13 @@ public class GameView {
   private SettingsControlPanel mySettingsControl;
   private Text myPlayerText;
   private BorderPane root;
+  private ResourceBundle myResources;
+  private String cssFilePath;
 
-  public GameView(BoardView board, Controller controller, double w, double h) {
+  public GameView(BoardView board, Controller controller, double w, double h, String css) {
+    String language = "English";
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+    cssFilePath = css;
     width = w;
     height = h;
     myBoard = board;
@@ -48,39 +52,34 @@ public class GameView {
     root.setBottom(myPlayerText);
     root.setAlignment(myPlayerText, Pos.CENTER);
     Scene scene = new Scene(root, width, height);
-    scene.setFill(Color.web("#EEEEEE"));
-    root.setBottom(myPlayerText);
+    scene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
     return scene;
   }
 
   private void setUpRoot() {
     root = new BorderPane();
-    root.setPadding(new Insets(10, 10, 10, 10));
+    root.setId("game-view-root");
   }
 
   private void setPause() {
     myGameControl.getPause().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
 
-      VBox pauseRoot = new VBox(5);
-      Text text = new Text("paused");
-      text.setFont(Font.font("Montserrat", 20));
-      text.setFill(Color.web("72E8E1"));
+      VBox pauseRoot = new VBox();
+      pauseRoot.setId("pause-root");
+      Text text = new Text(myResources.getString("PauseMessage"));
+      text.setId("pause-message-text");
       pauseRoot.getChildren().add(text);
-      pauseRoot.setStyle("-fx-background-color: rgba(70, 70, 70, 0.8);");
-      pauseRoot.setAlignment(Pos.CENTER);
-      pauseRoot.setPadding(new Insets(20));
 
-      Button resume = new Button("Resume");
+      Button resume = new Button(myResources.getString("Resume"));
+      resume.setId("resume-button");
       pauseRoot.getChildren().add(resume);
 
       Stage popupStage = new Stage(StageStyle.TRANSPARENT);
       popupStage.initModality(Modality.APPLICATION_MODAL);
       Scene pauseScene = new Scene(pauseRoot);
-      pauseScene.setFill(Color.web("464646"));
-      popupStage.setOpacity(0.8);
+      pauseScene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
       popupStage.setScene(pauseScene);
-
 
       resume.setOnAction(event -> {
         root.setEffect(null);

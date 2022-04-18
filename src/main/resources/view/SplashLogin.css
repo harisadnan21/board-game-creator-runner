@@ -1,16 +1,24 @@
-.boardPane{
-    -fx-background-color: #FFFFFF;
+
+.myWelcome{
+    -fx-text-fill: black;
+    -fx-font-size: 24;
+    -fx-font-family: "Inter";
     -fx-alignment: center;
 }
 
-.languageBox{
-    -fx-border-color: #fcba03;
-    -fx-border-width: 2px;
-    -fx-background-color: #fffaef;
+.leftPanel{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, darkseagreen, seagreen);
+    -fx-alignment: baseline-left;
+}
+
+.proceed{
+        -fx-border-color: seagreen;
+        -fx-border-width: 2px;
+        -fx-background-color: #ffffff;
 }
 
 .buttonHolder{
-    -fx-border-color: #fcba03;
-    -fx-border-width: 2px;
-    -fx-background-color: #fffaef;
+    -fx-background: #ffffff;
 }
+
+

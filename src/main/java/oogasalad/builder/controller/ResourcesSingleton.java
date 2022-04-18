@@ -24,7 +24,7 @@ public class ResourcesSingleton {
      * Creates a ResourcesSingleton that uses .properties files from the root of the resources folder.
      */
     protected ResourcesSingleton() {
-        this("/");
+        this("");
     }
 
     /**
@@ -54,7 +54,7 @@ public class ResourcesSingleton {
      * @param lang the language to use
      */
     public void setLanguage(String lang) {
-        resources = ResourceBundle.getBundle(path + lang + ".properties");
+        resources = ResourceBundle.getBundle(path + lang);
     }
 
     /**

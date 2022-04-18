@@ -14,7 +14,7 @@ public class ExceptionResourcesSingleton extends ResourcesSingleton {
      * Creates an ExceptionResourcesSingleton that uses .properties files from the exceptions folder.
      */
     protected ExceptionResourcesSingleton() {
-        super("/exceptions/");
+        super("exceptions.");
     }
 
     /**
