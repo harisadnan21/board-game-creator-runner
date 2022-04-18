@@ -3,10 +3,10 @@ package oogasalad.engine.model.ai.evaluation.meta;
 import org.junit.jupiter.api.Test;
 
 class SeekEqualityTest {
-  private static SeekEquality seekEquality = new SeekEquality();
-  private static CenterAround centerAroundWithZero = new CenterAround(0);
-  private static CenterAround centerAroundWithFive = new CenterAround(5);
-  private static CenterAround centerAroundWithTen = new CenterAround(10);
+//  private static SeekEquality seekEquality = new SeekEquality();
+//  private static CenterAround centerAroundWithZero = new CenterAround(0);
+//  private static CenterAround centerAroundWithFive = new CenterAround(5);
+//  private static CenterAround centerAroundWithTen = new CenterAround(10);
 
   @Test
   void regularizeEvaluationScore() {

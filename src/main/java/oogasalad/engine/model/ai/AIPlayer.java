@@ -1,8 +1,10 @@
 package oogasalad.engine.model.ai;
 
+import java.util.Collection;
+import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
 import oogasalad.engine.model.ai.searchTypes.SearchType;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
-import oogasalad.engine.model.ai.searchTypes.Searcher;
+import oogasalad.engine.model.ai.searchTypes.Selects;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.player.Player;
@@ -15,22 +17,22 @@ public class AIPlayer extends Player {
   private final Difficulty difficulty;
   private final SearchType searchType;
   private final AIOracle AIOracle;
-  private Searcher searcher;
+  private Selects selector;
 
 
   public AIPlayer(int playerNumberForAI, StateEvaluator stateEvaluator, Difficulty difficulty,
-      SearchType searchType, AIOracle AIOracle) {
+      SearchType searchType, AIOracle AIOracle, WinType winType, Collection<Pattern> patterns) {
     super(null, null, null); // should be engine
     this.playerNumber = playerNumberForAI;
     this.stateEvaluator = stateEvaluator;
     this.difficulty = difficulty;
     this.searchType = searchType;
     this.AIOracle = AIOracle;
-    this.searcher = SearcherFactory.makeSearcher(this);
+    this.selector = SelectorFactory.makeSelector(difficulty, winType, playerNumber, AIOracle, patterns); //FIX
   }
 
   public AIChoice chooseAction(Board board) {
-    return searcher.selectChoice(board);
+    return selector.selectChoice(board);
   }
 
 

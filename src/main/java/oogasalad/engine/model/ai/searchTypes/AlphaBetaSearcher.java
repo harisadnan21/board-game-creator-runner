@@ -6,19 +6,16 @@ import java.util.Collection;
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
-import oogasalad.engine.model.ai.Choice;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
-import oogasalad.engine.model.ai.searchTypes.depthlimiting.LimitsDepth;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.engine.Oracle;
 import org.jooq.lambda.Seq;
 
 public class AlphaBetaSearcher extends MinMaxSearcher implements Selects {
 
   public AlphaBetaSearcher(int maxDepth, int forPlayer,
       StateEvaluator stateEvaluator,
-      AIOracle Oracle, LimitsDepth limitsDepth) {
+      AIOracle Oracle) {
     super(maxDepth, forPlayer, stateEvaluator, Oracle);
   }
 
