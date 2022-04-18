@@ -121,6 +121,7 @@ public class BoardTab extends BasicTab {
     boardTypes.keySet().forEach(key -> boardTypeBox.getItems().add(boardTypes.getString(key)));
 
     boardTypeBox.setPromptText(ViewResourcesSingleton.getInstance().getString("boardTypePicker"));
+    boardTypeBox.setValue(boardTypes.getString("checkers"));
     boardTypeBox.setId("boardTypePicker");
     return boardTypeBox;
   }
