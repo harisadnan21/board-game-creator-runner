@@ -11,10 +11,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.model.property.StringListProperty;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameElementListSelector implements PropertySelector {
@@ -41,18 +44,24 @@ public class GameElementListSelector implements PropertySelector {
 
   private void setup() {
     elementsList.setEditable(true);
-    elementsList.getItems().setAll("a", "b", "c");
+    String startElements = property.valueAsString();
+    elementsList.getItems().setAll(Arrays.stream(startElements.substring(1, startElements.length() - 1).split(",")).map(s -> s.substring(1, s.length() - 1)).toList());
     elementsList.setCellFactory(view -> new ListCell<>() {
       @Override
       protected void updateItem(String elementName, boolean b) {
         super.updateItem(elementName, b);
+        setText(null);
         if(elementName == null) {
+          setGraphic(null);
           return;
         }
         BorderPane pane = new BorderPane();
         pane.setCenter(new Label(elementName));
-        pane.setRight(new Button("X"));
-        setText(null);
+
+        Button deleteButton = new Button("X");
+        deleteButton.setOnAction(e -> removeElement(this.getIndex()));
+        pane.setRight(deleteButton);
+
         setGraphic(pane);
       }
     });
@@ -63,6 +72,10 @@ public class GameElementListSelector implements PropertySelector {
 
     pane.setTop(addElement);
     pane.setCenter(elementsList);
+  }
+
+  private void removeElement(int index) {
+    elementsList.getItems().remove(index);
   }
 
   private void addGameElement(String element) {
@@ -81,8 +94,9 @@ public class GameElementListSelector implements PropertySelector {
   }
 
   @Override
-  public Property getProperty() {
-    return property;
+  public StringListProperty getProperty() {
+    String[] nameParts = property.name().split("-");
+    return new StringListProperty(nameParts[nameParts.length - 1], new ArrayList<>(elementsList.getItems()), property.form());
   }
 
   @Override
