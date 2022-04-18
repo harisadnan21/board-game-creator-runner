@@ -33,10 +33,12 @@ public class OpeningView {
   private File myFileChoice;
   private ResourceBundle myResources;
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  private String cssFilePath;
 
-  public OpeningView(double w, double h) {
+  public OpeningView(double w, double h, String css) {
     String language = "English";
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+    cssFilePath = css;
     width = w;
     height = h;
     root = new BorderPane();
@@ -51,7 +53,7 @@ public class OpeningView {
 
   public Scene makeScene() {
     Scene scene = new Scene(root, width, height);
-    scene.getStylesheets().add(getClass().getResource("/css/light.css").toExternalForm());
+    scene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
 
     return scene;
   }

@@ -1,5 +1,6 @@
 package oogasalad.engine.view;
 
+import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -27,8 +28,12 @@ public class GameView {
   private SettingsControlPanel mySettingsControl;
   private Text myPlayerText;
   private BorderPane root;
+  private ResourceBundle myResources;
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
 
-  public GameView(BoardView board, Controller controller, double w, double h) {
+  public GameView(BoardView board, Controller controller, double w, double h, String cssFilepath) {
+    String language = "English";
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     width = w;
     height = h;
     myBoard = board;
