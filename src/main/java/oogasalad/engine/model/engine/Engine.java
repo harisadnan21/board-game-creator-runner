@@ -3,7 +3,9 @@ package oogasalad.engine.model.engine;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.OutOfBoardException;
@@ -13,73 +15,98 @@ import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.move.Move;
 
+import oogasalad.engine.model.player.HumanPlayer;
 import oogasalad.engine.model.player.Player;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jooq.lambda.function.Consumer0;
 
 
-public abstract class Engine {
+public class Engine {
 
+  private static final Logger LOG = LogManager.getLogger(Engine.class);
+
+  private Map<Integer, Player> myPlayers = new HashMap<>();
+
+  // from Engine
   private Game myGame;
 
-  private Collection<Move> myMoves;
-  private Collection<WinCondition> myWinConditions;
-  private Consumer<Board> updateView;
-  private Consumer<Set<Position>> setViewValidMarks;
-  private Consumer0 clearViewMarkers;
+  private Oracle myOracle;
 
-  private Collection<Player> players;
+  private Collection<Move> myMoves;
+  private Consumer<Set<Position>> setViewValidMarks;
 
   public Engine(Game game, Collection<Move> moves,
-      Collection<WinCondition> winConditions, Consumer<Board> update,
-      Consumer<Set<Position>> setValidMarks, Consumer0 clearMarkers) {
+      Collection<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks) {
 
     myGame = game;
-    myWinConditions = winConditions;
     myMoves = moves;
-    updateView = update;
     setViewValidMarks = setValidMarks;
-    clearViewMarkers = clearMarkers;
+
+    int numPlayers = 2; //TODO: automate player creation
+
+    myOracle = new Oracle(moves, winConditions, new ArrayList<>(), numPlayers);
+
+    myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
+    myPlayers.put(1, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
+
   }
 
-  public Engine(Game game){
-    myGame = game;
+  public void gameLoop() {
   }
 
-  protected Collection<Move> getMoves() {
-    return myMoves;
+  private void playTurn(Player player, Choice choice) {
+
+    if (isActivePlayer(player)) {
+      Move move = choice.move();
+      Position referencePoint = choice.position();
+      if (move.isValid(getGameStateBoard(), referencePoint)) {
+        Board board = move.doMovement(getGameStateBoard(), referencePoint);
+        board = board.setPlayer(board.getPlayer()+1);
+        LOG.info("{} executed at {},{}", move.getName(), referencePoint.i(), referencePoint.j());
+
+        board = myOracle.incrementPlayer(board);
+        myGame.setBoard(board);
+
+        // ping next player
+        myPlayers.get(board.getPlayer()).chooseMove();
+
+      } else {
+        LOG.warn("Player's move is not valid");
+      }
+    }
   }
 
-  protected Collection<WinCondition> getWinConditions() {
-    return myWinConditions;
+  public boolean isActivePlayer(Player player) {
+    int playerID = getPlayerID(player);
+    Board board = getGameStateBoard();
+    return playerID == board.getPlayer();
+  }
+
+  private int getPlayerID(Player player) {
+    int queryingPlayerID = -1;
+    for (int playerID : myPlayers.keySet()) {
+      if (myPlayers.get(playerID) == player) {
+        queryingPlayerID = playerID;
+      }
+    }
+    if (queryingPlayerID == -1) {
+      throw new RuntimeException("Player does not exist in this game");
+    }
+    return queryingPlayerID;
+  }
+
+  public void onCellSelect(int i, int j) {
+    Board board = getGameStateBoard();
+    Player activePlayer = myPlayers.get(board.getPlayer());
+    activePlayer.onCellSelect(i, j);
   }
 
   /**
-   * @param player player requesting possible actions
-   * @return
+   *
+   * @return the board which is at the head of the game's board stack
    */
-  public Move[] getPossibleActions(int player) {
-
-    return null;
+  public Board getGameStateBoard() {
+    return myGame.getBoard();
   }
-  protected void updateView(Board board){
-    updateView.accept(board);
-  }
-
-  protected void setMarkers(Set<Position> validMoves){
-    if(validMoves != null) {
-      setViewValidMarks.accept(validMoves);
-    }
-  }
-  protected void clearMarkers(){
-    clearViewMarkers.accept();
-  }
-
-  protected Game getGame() {
-    return myGame;
-  }
-
-  public abstract void onCellSelect(int x, int y)
-      throws OutOfBoardException;
-
-  public abstract Board getGameStateBoard();
 }

@@ -13,6 +13,5 @@ public class Dashboard extends BorderPane {
     this.setTop(new Title());
     this.setCenter(myGames);
     this.setRight(new InfoPanel());
-
   }
 }

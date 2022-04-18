@@ -20,7 +20,7 @@ public class BoardViewTest extends DukeApplicationTest {
   Stage s;
 
   @Override
-  public void start (Stage stage) {
+  public void start (Stage stage) throws IOException {
     board = new BoardView(3, 3, 300, 300);
 
     Board backEndBoard = new Board(3,3);

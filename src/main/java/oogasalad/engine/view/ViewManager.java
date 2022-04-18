@@ -1,7 +1,8 @@
 package oogasalad.engine.view;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
@@ -15,20 +16,38 @@ import oogasalad.engine.model.parser.GameParser;
 
 
 public class ViewManager {
+
   public static double WIDTH = 600;
   public static double HEIGHT = 400;
   public static double GAME_SELECTION_WIDTH = 1000;
   public static double GAME_SELECTION_HEIGHT = 600;
+
+  private FileInputStream fis;
+
+  public static double BOARDX;
+  public static double BOARDY ;
+
 
   private OpeningView openingView;
   private GameView gameView;
   private Scene currScene;
   private Stage stage;
 
-  public ViewManager(Stage s) {
+
+  public ViewManager(Stage s) throws IOException {
     //currScene = createOpeningView().makeScene();
     currScene = new Scene(new Dashboard(), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
+
     stage = s;
+    fis = new FileInputStream("data/Properties/ViewManagerProperties.properties");
+    Properties prop = new Properties();
+    prop.load(fis);
+
+    WIDTH = Double.parseDouble(prop.getProperty("WIDTH"));
+    HEIGHT = Double.parseDouble(prop.getProperty("HEIGHT"));
+    BOARDX = Double.parseDouble(prop.getProperty("BOARDX"));
+    BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
+
   }
 
   public Scene getCurrScene() {
@@ -50,7 +69,7 @@ public class ViewManager {
     try {
       GameParser parser = new GameParser(openingView.getFileChoice());
       Board board = parser.parseBoard();
-      BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), 350, 350);
+      BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), BOARDX, BOARDY);
       Controller controller = new Controller(board);
       boardView.addController(controller);
       currScene = createGameView(boardView, controller).makeScene();

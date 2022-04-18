@@ -1,8 +1,5 @@
 package oogasalad.engine.view;
 
-import java.io.File;
-import java.util.Enumeration;
-import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,6 +14,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import oogasalad.engine.controller.Controller;
+import oogasalad.engine.view.ControlPanel.GameControlPanel;
+import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
 
 public class GameView {
 
@@ -34,7 +33,7 @@ public class GameView {
     height = h;
     myBoard = board;
     myController = controller;
-    myGameControl = new GameControlPanel();
+    myGameControl = new GameControlPanel(controller);
     mySettingsControl = new SettingsControlPanel();
     myPlayerText = board.getText();
     setUpRoot();
@@ -91,4 +90,6 @@ public class GameView {
       popupStage.show();
     });
   }
+
+  //TODO: add methods that give functionality to back, forward, setting and home functions
 }

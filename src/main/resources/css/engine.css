@@ -24,6 +24,7 @@
 
 .gameSelection{
   -fx-background-color: -fx-primaryColor;
+  -fx-alignment: center;
   -fx-padding: 10px;
   -fx-vgap: 10px;
   -fx-hgap: 10px;
@@ -37,6 +38,7 @@
 
 .gameIcon{
   -fx-background-color: -fx-secondaryColor;
+  -fx-padding: 10px;
   -fx-border-radius: 8px;
   -fx-background-radius: 8px;
   -fx-border-color: -fx-triColor;
@@ -62,14 +64,14 @@
   -fx-alignment: center;
 }
 .infoTitle{
-  -fx-font-size: 60;
+  -fx-font-size: 30;
   -fx-underline: true;
   -fx-text-fill: white;
   -fx-font-weight: bold;
 }
 .infoAuthor{
-  -fx-font-size: 50;
+  -fx-font-size: 20;
 }
 .infoDescription{
-  -fx-font-size: 30;
+  -fx-font-size: 15;
 }

@@ -11,12 +11,7 @@ public class TotalPieces implements StateEvaluator {
   public int evaluate(Board board, int player) {
     StateEvaluator.throwIfInvalid(board);
     Map<Integer, Integer> piecesByPlayer = board.numPiecesByPlayer();
-    int difference = piecesByPlayer.get(Piece.PLAYER_ONE) - piecesByPlayer.get(Piece.PLAYER_TWO);
-    int evaluation = difference;
-
-    if(player == Piece.PLAYER_TWO) {
-      evaluation = -1 * evaluation;
-    }
-    return evaluation;
+    int evaluation = piecesByPlayer.get(Piece.PLAYER_ONE) - piecesByPlayer.get(Piece.PLAYER_TWO);
+    return (player==Piece.PLAYER_ONE) ? evaluation : evaluation * -1;
   }
 }

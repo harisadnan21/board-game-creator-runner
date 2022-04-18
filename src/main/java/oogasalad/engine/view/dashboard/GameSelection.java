@@ -27,12 +27,9 @@ public class GameSelection extends FlowPane {
     allGames = gameFolder.listFiles();
     this.getStyleClass().add("gameSelection");
     for(File game : allGames) {
-      displayGameIcon(game, getImagePath(new File(IMG_FOLDER_PATH+RESOURCES_PATH+"checkers/"), "checkers"), "checkers");
+      displayGameIcon(game, getImagePath(new File(IMG_FOLDER_PATH+RESOURCES_PATH+game.getName()+RESOURCES_PATH), game.getName()), game.getName());
     }
-
   }
-
-
 
   private void displayGameIcon(File game, String imagePath, String name){
     this.getChildren().add(new GameIcon(game, imagePath, name, this::startGame ));

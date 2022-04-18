@@ -25,8 +25,6 @@ public class IsEmpty extends PieceCondition {
    */
   @Override
   public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
-//    boolean cond = board.getPiece(myParameters[0]+refI, myParameters[1]+refJ).isPresent();
-//    System.out.printf("Checking if (%d, %d) is occupied: %b\n", myParameters[0]+refI, myParameters[1]+refJ, cond);
 
     int i = myParameters[0]+refI;
     int j = myParameters[1]+refJ;

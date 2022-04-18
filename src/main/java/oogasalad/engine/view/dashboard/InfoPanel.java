@@ -30,9 +30,9 @@ public class InfoPanel extends StackPane {
     Text infoTitle = new Text(title);
     infoTitle.getStyleClass().add("infoTitle");
     Text infoAuthor = new Text("Author: " + author);
-    infoTitle.getStyleClass().add("infoAuthor");
+    infoAuthor.getStyleClass().add("infoAuthor");
     Text infoDescription = new Text(description);
-    infoTitle.getStyleClass().add("infoDescription");
+    infoDescription.getStyleClass().add("infoDescription");
     infoHolder.getChildren().addAll(infoTitle, infoAuthor, infoDescription);
   }
 

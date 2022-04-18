@@ -24,10 +24,13 @@ public class EngineApplication extends Application {
 
     Scene scene = manager.getCurrScene();
 
+
     scene.getStylesheets().add(getClass().getResource("/css/engine.css").toExternalForm());
+
 
     stage.setTitle("OOGABOOGA Engine");
     stage.setScene(scene);
     stage.show();
   }
+
 }
