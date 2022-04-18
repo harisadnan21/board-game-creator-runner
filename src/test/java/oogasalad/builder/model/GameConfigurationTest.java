@@ -57,6 +57,7 @@ public class GameConfigurationTest {
 
   private static final String REPRESENTATIVE_X = "representativeX";
   private static final String REPRESENTATIVE_Y = "representativeY";
+  private static final String BLACK = "#000000";
 
   private Collection<Property> properties;
   private BuilderModel game;
@@ -109,6 +110,12 @@ public class GameConfigurationTest {
 
     game.placeBoardPiece(X, Y, PIECE_NAME);
     assertEquals(PIECE_NAME, game.findBoardPieceAt(X, Y));
+  }
+
+  @Test
+  void testColoring() {
+    game.colorCellBackground(X, Y, BLACK);
+    game.clearCellBackground(X, Y);
   }
 
   @Test

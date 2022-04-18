@@ -8,7 +8,9 @@ import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import oogasalad.builder.view.BuilderView;
+import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
@@ -60,6 +62,7 @@ public class ControllerTest extends DukeApplicationTest {
 
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
+  private static final String BLACK = "#000000";
 
   private BuilderController controller;
   private Collection<Property> properties;
@@ -155,6 +158,13 @@ public class ControllerTest extends DukeApplicationTest {
     controller.load(file);
     file = new File(TEST_SAVE_EXCEPTION_FILENAME);
     controller.save(new SaveCallback(file));
+  }
+
+  @Test
+  void testColoring() {
+    controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
+    controller.colorCellBackground(new ColorCellBackgroundCallback(X, Y, BLACK));
+    controller.clearCellBackground(new ClearCellBackgroundCallback(X, Y));
   }
 
   private int countMatches(String str, String target) {
