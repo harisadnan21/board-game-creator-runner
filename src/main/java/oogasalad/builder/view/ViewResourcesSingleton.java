@@ -16,7 +16,7 @@ public class ViewResourcesSingleton extends ResourcesSingleton {
      * Creates a ViewResourcesSingleton that uses .properties files from the view folder.
      */
     protected ViewResourcesSingleton() {
-        super("/view/");
+        super("view.");
     }
 
     /**
