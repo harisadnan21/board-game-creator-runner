@@ -5,18 +5,22 @@ import java.beans.PropertyChangeListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
@@ -28,9 +32,12 @@ import org.apache.logging.log4j.Logger;
 
 public class BoardView implements PropertyChangeListener{
   //TODO: add file path and strings
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
   private FileInputStream fis = new FileInputStream("data/Properties/BoardViewProperties.properties");
   private static final Logger LOG = LogManager.getLogger(BoardView.class);
   public static String IMAGES_FOLDER = "images/";
+  private ResourceBundle myResources;
+  private String cssFilePath;
 
   public static Map<Integer, String> PIECE_TYPES = new HashMap<>();
 
@@ -46,8 +53,10 @@ public class BoardView implements PropertyChangeListener{
   String WHITE_KNIGHT;
   double BOARD_OUTLINE_SIZE;
   private Properties prop;
-  public BoardView(int rows, int columns, double width, double height)
+  public BoardView(int rows, int columns, double width, double height, String css)
       throws IOException {
+    cssFilePath = css;
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     prop = new Properties();
     prop.load(fis);
     BLACK_KNIGHT = IMAGES_FOLDER + prop.getProperty("BLACKNIGHT");
@@ -169,8 +178,17 @@ public class BoardView implements PropertyChangeListener{
   }
 
   private void displayGameOver(Board board) {
-
     myController.resetGame();
+    root.setEffect(new GaussianBlur());
+    MessageView pauseView = new MessageView(
+        MessageFormat.format(myResources.getString("GameOver"), board.getWinner()),
+        myResources.getString("NewGame"), cssFilePath);
+    Stage popupStage = pauseView.getStage();
+    pauseView.getButton().setOnAction(event -> {
+      root.setEffect(null);
+      popupStage.hide();
+    });
+    popupStage.show();
   }
 
   /**

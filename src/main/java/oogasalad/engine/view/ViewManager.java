@@ -77,7 +77,7 @@ public class ViewManager {
     try {
       GameParser parser = new GameParser(openingView.getFileChoice());
       Board board = parser.parseBoard();
-      BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), BOARDX, BOARDY);
+      BoardView boardView = new BoardView(board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath);
       Controller controller = new Controller(board);
       boardView.addController(controller);
       currScene = createGameView(boardView, controller).makeScene();
