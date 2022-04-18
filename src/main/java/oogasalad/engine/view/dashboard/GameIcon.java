@@ -6,18 +6,26 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 
 public class GameIcon extends VBox {
+  public static final int ICON_WIDTH = 150;
+  public static final int ICON_HEIGHT = 150;
   private ImageView image;
   private String myName;
   private File myGameFolder;
   private Consumer<File> myStartGame;
 
   public GameIcon(File gameFolder, String imagePath, String name, Consumer<File> startGame) {
-    image = new ImageView(new Image(imagePath));
+
+    image = new ImageView(new Image(imagePath, ICON_WIDTH, ICON_HEIGHT, true, true));
+    Pane imageHolder = new Pane();
+    imageHolder.getChildren().add(image);
+    image.getStyleClass().add("iconImage");
+    this.getStyleClass().add("gameIcon");
     myName = name;
     myGameFolder = gameFolder;
     myStartGame = startGame;
@@ -42,12 +50,6 @@ public class GameIcon extends VBox {
   private void iconClicked(){
     myStartGame.accept(myGameFolder);
   }
-
-
-
-
-
-
 
 
 }

@@ -17,6 +17,8 @@ import oogasalad.engine.model.parser.GameParser;
 public class ViewManager {
   public static double WIDTH = 600;
   public static double HEIGHT = 400;
+  public static double GAME_SELECTION_WIDTH = 1000;
+  public static double GAME_SELECTION_HEIGHT = 600;
 
   private OpeningView openingView;
   private GameView gameView;
@@ -24,8 +26,8 @@ public class ViewManager {
   private Stage stage;
 
   public ViewManager(Stage s) {
-    currScene = createOpeningView().makeScene();
-    //currScene = new Scene(new Dashboard(), WIDTH, HEIGHT);
+    //currScene = createOpeningView().makeScene();
+    currScene = new Scene(new Dashboard(), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
     stage = s;
   }
 

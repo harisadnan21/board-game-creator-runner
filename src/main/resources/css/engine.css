@@ -1,11 +1,43 @@
+.root{
+  -fx-primaryColor: #FFFFFF;
+  -fx-secondaryColor: lightgray;
+  -fx-triColor: black;
+
+}
 .cell{
   -fx-alignment: center;
+
+}
+
+.title{
+  -fx-alignment: center;
+  -fx-font-size: 40;
+  -fx-background-color: -fx-secondaryColor;
 }
 
 .gameSelection{
+  -fx-background-color: -fx-primaryColor;
+  -fx-padding: 10px;
+  -fx-vgap: 10px;
+  -fx-hgap: 10px;
+}
 
+.iconImage{
+  -fx-background-color: -fx-secondaryColor;
+  -fx-max-width: 10px;
+  -fx-max-height: 150px;
+}
+
+.gameIcon{
+  -fx-background-color: -fx-secondaryColor;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-border-color: -fx-triColor;
+  -fx-font-size: 30;
+  -fx-font-weight: bold;
+  -fx-alignment: center;
 }
 
 .iconName{
-
+  -fx-alignment: center;
 }

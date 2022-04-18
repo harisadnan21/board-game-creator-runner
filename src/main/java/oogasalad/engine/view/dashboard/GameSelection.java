@@ -1,15 +1,20 @@
 package oogasalad.engine.view.dashboard;
 
 
+import static java.lang.Math.ceil;
+
 import java.io.File;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.FlowPane;
 
-public class GameSelection extends HBox {
+
+public class GameSelection extends FlowPane {
+  public static final double GRID_WIDTH = 3;
+  private double grid_length;
+
   private Map<String, String> availableGames;
   private File[] allGames;
   private final String GAME_PATH= "games";
@@ -20,11 +25,14 @@ public class GameSelection extends HBox {
   public GameSelection(){
     File gameFolder = new File(IMG_FOLDER_PATH);
     allGames = gameFolder.listFiles();
-    this.setId("gameSelection");
+    this.getStyleClass().add("gameSelection");
     for(File game : allGames) {
       displayGameIcon(game, getImagePath(new File(IMG_FOLDER_PATH+RESOURCES_PATH+"checkers/"), "checkers"), "checkers");
     }
+
   }
+
+
 
   private void displayGameIcon(File game, String imagePath, String name){
     this.getChildren().add(new GameIcon(game, imagePath, name, this::startGame ));
