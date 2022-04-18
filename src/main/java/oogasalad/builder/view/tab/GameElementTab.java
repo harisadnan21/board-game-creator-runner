@@ -1,9 +1,6 @@
 package oogasalad.builder.view.tab;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -39,6 +36,10 @@ public class GameElementTab extends BasicTab {
     this.callbackDispatcher = dispatcher;
   }
 
+  /**
+   * Sets up the right side of the split pane to be the corresponding Property Selectors
+   * @return Node for the VBox containing the elements
+   */
   @Override
   protected Node setupRightSide() {
     rightBox = new VBox();
@@ -54,6 +55,10 @@ public class GameElementTab extends BasicTab {
     return rightBox;
   }
 
+  /**
+   * Sets up the left side of the Split Pane to the elementList
+   * @return Node corresponding to the elementList
+   */
   @Override
   protected Node setupLeftSide(){
     elementList = new GameElementList(this::elementSelected);
