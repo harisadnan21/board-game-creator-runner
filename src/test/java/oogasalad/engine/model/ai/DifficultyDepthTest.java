@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 class DifficultyDepthTest {
   @Test
   void testPresence() {
-    assertInstanceOf(int.class, DifficultyDepth.EASY);
-    assertInstanceOf(int.class, DifficultyDepth.MEDIUM);
-    assertInstanceOf(int.class, DifficultyDepth.HARD);
-    assertInstanceOf(int.class, DifficultyDepth.EXPERT);
-    assertInstanceOf(int.class, DifficultyDepth.ADAPTIVE);
+    assertInstanceOf(Integer.class, DifficultyDepth.EASY);
+    assertInstanceOf(Integer.class, DifficultyDepth.MEDIUM);
+    assertInstanceOf(Integer.class, DifficultyDepth.HARD);
+    assertInstanceOf(Integer.class, DifficultyDepth.EXPERT);
+    assertInstanceOf(Integer.class, DifficultyDepth.ADAPTIVE);
 
   }
 

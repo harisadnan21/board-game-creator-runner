@@ -15,7 +15,7 @@ class UnlimitedTimeTest {
   @Test
   void isTimeUp() { // Can't explain why this test fails, JUnit says it returned <java.lang.Boolean> but the method signature is boolean so idek
     assertDoesNotThrow(() -> timeLimit.isTimeUp());
-    assertInstanceOf(boolean.class, timeLimit.isTimeUp());
+    assertInstanceOf(Boolean.class, timeLimit.isTimeUp());
     assertFalse(timeLimit.isTimeUp());
   }
 }
