@@ -2,10 +2,14 @@ package oogasalad.engine.model.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.json.JSONObject;
 
 public class MetadataParser extends AbstractParser{
-
+  private Map<String, String> metadata = new HashMap<>();
+  private List<String> headers = List.of("title", "author", "description");
   /**
    * Returns a Map that is parsed from a configuration file, throwing errors if the file is
    * malformed or missing required properties.
@@ -14,12 +18,17 @@ public class MetadataParser extends AbstractParser{
    * @return an object that is parsed form a configuration file
    */
   @Override
-  public Object parse(File configFile) throws FileNotFoundException {
+  public Map<String, String> parse(File configFile) throws FileNotFoundException {
     JSONObject root = fileToJSON(configFile);
-    parseInfo();
+    JSONObject boardObj = findAttribute(root, "metadata");
+    parseInfo(boardObj);
+    return metadata;
   }
 
-  private void parseInfo() {
+  private void parseInfo(JSONObject boardObj) {
+    for(String header : headers){
+      metadata.put(header,boardObj.getString(header));
+    }
 
   }
 }
