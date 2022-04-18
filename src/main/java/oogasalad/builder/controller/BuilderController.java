@@ -1,5 +1,6 @@
 package oogasalad.builder.controller;
 
+import oogasalad.builder.BuilderMain;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
@@ -20,6 +21,8 @@ import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.callback.UpdateGameElementCallback;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -42,6 +45,7 @@ public class BuilderController {
     private static final String JSON_FILENAME = "/config.json";
     private final BuilderModel gameConfig;
     private final BuilderView builderView;
+    private final Logger LOG;
 
     /**
      * Creates a BuilderController Object that interfaces between the view and model.
@@ -50,6 +54,7 @@ public class BuilderController {
     public BuilderController(BuilderView view) {
         gameConfig = new GameConfiguration();
         builderView = view;
+        LOG = LogManager.getLogger(BuilderController.class);
 
         registerHandlers();
     }
@@ -182,8 +187,9 @@ public class BuilderController {
      */
     Void update(UpdateGameElementCallback callback)
         throws InvalidTypeException, MissingRequiredPropertyException {
-       gameConfig.addGameElement(callback.type(), callback.name(), callback.properties());
-       return null;
+        LOG.info("Updating {} with name {}", callback.type(), callback.name());
+        gameConfig.addGameElement(callback.type(), callback.name(), callback.properties());
+        return null;
     }
 
     /**
@@ -203,6 +209,7 @@ public class BuilderController {
      * @param callback callback object containing the directory that the game configuration will be located in.
      */
     Void save(SaveCallback callback) throws NullBoardException {
+        LOG.info("Attempting to save configuration to folder {}", callback.file().getAbsolutePath());
         File configFile = new File(callback.file().toString() + JSON_FILENAME);
         try {
             FileWriter writer = new FileWriter(configFile);
@@ -212,6 +219,7 @@ public class BuilderController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        LOG.info("Successfully saved {}", gameConfig.getElementNames(GameConfiguration.METADATA).stream().findFirst().orElse("Untitled"));
         return null;
     }
 
@@ -221,6 +229,7 @@ public class BuilderController {
      * @param directory the directory to load the game configuration from
      */
     public void load(File directory) {
+        LOG.info("Attempting to load configuration from folder {}", directory.getAbsolutePath());
         File configFile = new File(directory.toString() + JSON_FILENAME);
         InputStream is = null;
         try {
@@ -231,6 +240,7 @@ public class BuilderController {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        LOG.info("Successfully loaded {}", gameConfig.getElementNames(GameConfiguration.METADATA).stream().findFirst().orElse("Untitled"));
     }
 
     public void showError(Throwable t) {
