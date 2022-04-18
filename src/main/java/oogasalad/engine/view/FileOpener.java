@@ -5,13 +5,20 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ResourceBundle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.JSONObject;
 
 public class FileOpener {
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+
   private FileChooser myFileChooser;
+  private ResourceBundle myResources;
+
   public FileOpener(){
+    String language = "English";
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     myFileChooser = makeFileChooser();
   }
 
@@ -24,7 +31,7 @@ public class FileOpener {
 
   private FileChooser makeFileChooser() {
     FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Choose File");
+    fileChooser.setTitle(myResources.getString("ChooseFiles"));
     fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
     return fileChooser;
   }
