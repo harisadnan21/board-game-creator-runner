@@ -154,17 +154,6 @@ public class GameConfiguration implements BuilderModel {
     return EMPTY;
   }
 
-  private int pieceNameToID(String name) throws ElementNotFoundException {
-    //TODO: Remove magic values
-    ElementRecord record = findElementInfo(PIECE, name);
-    for (Property property : record.properties()) {
-      if (property.name().equals(ID)) {
-        return Integer.parseInt(property.valueAsString());
-      }
-    }
-    throw new ElementNotFoundException();
-  }
-
   /**
    * Clears the cell on the board at the given coordinates
    *
@@ -174,6 +163,32 @@ public class GameConfiguration implements BuilderModel {
   public void clearBoardCell(int x, int y) throws NullBoardException {
     checkBoardCreated();
     board.clearCell(x, y);
+  }
+
+  /**
+   * Clears the background of the cell at the given coordinates
+   *
+   * @param x the x location to clear
+   * @param y the y location to clear
+   */
+  @Override
+  public void clearCellBackground(int x, int y) throws NullBoardException {
+    checkBoardCreated();
+    board.clearCellBackground(x, y);
+  }
+
+  /**
+   * Colors the background of the cell at the given coordinates with the given color
+   *
+   * @param x the x location to color
+   * @param y the y location to color
+   * @param color the hexadecimal string of the color to set at the cell
+   */
+  @Override
+  public void colorCellBackground(int x, int y, String color) throws NullBoardException {
+    checkBoardCreated();
+    board.colorCellBackground(x, y, color);
+
   }
 
   /**
@@ -280,6 +295,16 @@ public class GameConfiguration implements BuilderModel {
       return new JSONObject(record.toJSON());
     }
     return new JSONObject();
+  }
+
+  private int pieceNameToID(String name) throws ElementNotFoundException {
+    ElementRecord record = findElementInfo(PIECE, name);
+    for (Property property : record.properties()) {
+      if (property.name().equals(ID)) {
+        return Integer.parseInt(property.valueAsString());
+      }
+    }
+    throw new ElementNotFoundException();
   }
 
   // Resets the map of game elements

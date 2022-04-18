@@ -9,7 +9,9 @@ import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.BuilderView;
+import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
@@ -105,6 +107,26 @@ public class BuilderController {
      */
     Void clearCell(ClearCellCallback callback) throws NullBoardException {
         gameConfig.clearBoardCell(callback.x(), callback.y());
+        return null;
+    }
+
+    /**
+     * Sets the background color of the cell at the given coordinates
+     *
+     * @param callback callback object containing the x and y location and hexadecimal color
+     */
+    Void colorCellBackground(ColorCellBackgroundCallback callback) {
+        gameConfig.colorCellBackground(callback.x(), callback.y(), callback.color());
+        return null;
+    }
+
+    /**
+     * Clears the background color of the cell at the given coordinates
+     *
+     * @param callback callback object containing the x and y location to clear
+     */
+    Void clearCellBackground(ClearCellBackgroundCallback callback) {
+        gameConfig.clearCellBackground(callback.x(), callback.y());
         return null;
     }
 

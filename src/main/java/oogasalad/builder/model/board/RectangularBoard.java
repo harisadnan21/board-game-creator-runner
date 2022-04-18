@@ -11,7 +11,9 @@ import org.json.JSONObject;
 public class RectangularBoard implements Board {
 
   private static final int EMPTY = -1;
+  private static final String WHITE = "#FFFFFF";
   private int[][] cells;
+  private String[][] cellColors;
   private int width;
   private int height;
 
@@ -24,7 +26,7 @@ public class RectangularBoard implements Board {
   public RectangularBoard(int width, int height) {
     this.width = width;
     this.height = height;
-    cells = initializeCells(width, height);
+    initializeCells(width, height);
   }
 
   /**
@@ -60,6 +62,31 @@ public class RectangularBoard implements Board {
   public void clearCell(int x, int y) {
     checkInBounds(x, y);
     cells[y][x] = EMPTY;
+  }
+
+  /**
+   * Clears the background of the cell at the given coordinates
+   *
+   * @param x the x location to clear
+   * @param y the y location to clear
+   */
+  @Override
+  public void clearCellBackground(int x, int y) {
+    checkInBounds(x, y);
+    cellColors[y][x] = WHITE;
+  }
+
+  /**
+   * Colors the background of the cell at the given coordinates with the given color
+   *
+   * @param x the x location to color
+   * @param y the y location to color
+   * @param color the hexadecimal string of the color to set at the cell
+   */
+  @Override
+  public void colorCellBackground(int x, int y, String color) {
+    checkInBounds(x, y);
+    cellColors[y][x] = color;
   }
 
   /**
@@ -104,14 +131,15 @@ public class RectangularBoard implements Board {
   }
 
   // Initializes the cells to be empty
-  private int[][] initializeCells(int width, int height) {
-    int[][] cells = new int[height][width];
+  private void initializeCells(int width, int height) {
+    cells = new int[height][width];
+    cellColors = new String[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         cells[i][j] = EMPTY;
+        cellColors[i][j] = WHITE;
       }
     }
-    return cells;
   }
 
   // Converts the piece configuration to a JSON array
