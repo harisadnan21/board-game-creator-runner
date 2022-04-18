@@ -11,6 +11,7 @@ import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindCellBackgroundCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
@@ -63,6 +64,7 @@ public class ControllerTest extends DukeApplicationTest {
   private static final String ACTIONS = "actions";
   private static final String CONDITIONS = "conditions";
   private static final String BLACK = "0x000000ff";
+  private static final String WHITE = "0xffffffff";
 
   private BuilderController controller;
   private Collection<Property> properties;
@@ -164,7 +166,9 @@ public class ControllerTest extends DukeApplicationTest {
   void testColoring() {
     controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
     controller.colorCellBackground(new ColorCellBackgroundCallback(X, Y, BLACK));
+    assertEquals(BLACK, controller.findCellBackground(new FindCellBackgroundCallback(X, Y)));
     controller.clearCellBackground(new ClearCellBackgroundCallback(X, Y));
+    assertEquals(WHITE, controller.findCellBackground(new FindCellBackgroundCallback(X, Y)));
   }
 
   private int countMatches(String str, String target) {

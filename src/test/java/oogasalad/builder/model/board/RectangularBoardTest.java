@@ -47,7 +47,9 @@ public class RectangularBoardTest {
   @Test
   void testColoring() {
     board.colorCellBackground(X, Y, BLACK);
+    assertEquals(BLACK, board.findCellBackground(X, Y));
     board.clearCellBackground(X, Y);
+    assertEquals(WHITE, board.findCellBackground(X, Y));
   }
 
   @Test
