@@ -116,12 +116,17 @@ public class BoardView implements PropertyChangeListener{
   }
 
   private void makeBoardBacking(double width, double height, Pair<Double, Double> cellSize, int rows, int cols) {
-    Rectangle foundation = new Rectangle(width, height, Color.web(prop.getProperty("RECTANGLEFOUNDATIONCOLOR")));
+
+    Rectangle foundation = new Rectangle(width, height);
+    foundation.setId("board-foundation");
+
     System.out.println(cellSize.toString());
     double cellW = cellSize.getKey();
     double cellH = cellSize.getValue();
 
-    Rectangle outline = new Rectangle((cellW*cols)+BOARD_OUTLINE_SIZE, (cellH*rows)+BOARD_OUTLINE_SIZE, Color.web(prop.getProperty("RECTANGLEOUTLINECOLOR")));
+
+    Rectangle outline = new Rectangle((cellW*cols)+BOARD_OUTLINE_SIZE, (cellH*rows)+BOARD_OUTLINE_SIZE);
+    outline.setId("board-outline");
     root.getChildren().addAll(foundation, outline);
   }
 
@@ -157,7 +162,6 @@ public class BoardView implements PropertyChangeListener{
     if(board.getWinner() != Board.NO_WINNER_YET){
       text.gameIsWon(board.getWinner());
       LOG.info("gameOver! Player {} wins%n", board.getWinner());
-      //displayGameOver(board);
       displayGameOver(board);
       Board newBoard = myController.resetGame();
       updateBoard(newBoard);
