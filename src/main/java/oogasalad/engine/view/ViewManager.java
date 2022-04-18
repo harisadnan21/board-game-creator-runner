@@ -50,6 +50,7 @@ public class ViewManager {
     BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
     //currScene = createGameView(new BoardView(2, 2, 200, 200), new Controller(new Board(3, 3))).makeScene();
     currScene = createOpeningView().makeScene();
+
   }
 
   public Scene getCurrScene() {
@@ -58,7 +59,7 @@ public class ViewManager {
 
   public OpeningView createOpeningView() {
     openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath);
-    openingView.getPlayGame().setOnAction(e -> startGame());
+    openingView.getPlayGame().setOnAction(e -> showGames());
     return openingView;
   }
 
@@ -66,6 +67,10 @@ public class ViewManager {
     gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath);
     gameView.getHome().setOnAction(e -> goHome());
     return gameView;
+  }
+  private void showGames(){
+    currScene = new Scene(new Dashboard(), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
+    updateStage();
   }
 
   private void startGame() {

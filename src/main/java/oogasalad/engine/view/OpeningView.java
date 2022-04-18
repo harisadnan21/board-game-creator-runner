@@ -92,7 +92,7 @@ public class OpeningView {
     setupFileUpload();
     gameBuilder = makeButton(myResources.getString("GameBuilder"));
     playGame = makeButton(myResources.getString("PlayGame"));
-    playGame.setDisable(true);
+
   }
 
   private void setupFileUpload() {
@@ -102,7 +102,6 @@ public class OpeningView {
         File script = fileOpener.fileChoice(myStage);
         myFileChoice = script;
         handleInput(fileOpener.getRootObject(script));
-        playGame.setDisable(false);
       } catch (NullPointerException nullPointerException) {
         System.out.println(nullPointerException.getMessage());
       } catch (Exception err) {
