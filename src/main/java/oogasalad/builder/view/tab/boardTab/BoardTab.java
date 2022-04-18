@@ -21,6 +21,7 @@ import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
+import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.BasicTab;
 
@@ -134,12 +135,13 @@ public class BoardTab extends BasicTab {
   private Node setupButtonBar() {
     VBox buttonBox = new VBox();
     Button saveButton = makeButton("saveBoard", e -> saveBoardConfig());
+    Button loadButton = makeButton("loadBoard", e -> loadBoardConfig());
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
     resetPiecesButton.setId("clearPieces");
 
     buttonBox.getChildren()
-        .addAll(saveButton, setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
+        .addAll(saveButton, loadButton, setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");
     return buttonBox;
   }
@@ -191,6 +193,13 @@ public class BoardTab extends BasicTab {
     getCallbackDispatcher().call(new SaveCallback(directoryChooser.showDialog(stage)));
   }
 
+  private void loadBoardConfig() {
+    Stage stage = new Stage();
+    DirectoryChooser directoryChooser = new DirectoryChooser();
+    //TODO: Remove Magic Value
+    directoryChooser.setTitle("Choose Configuration Load Location");
+    getCallbackDispatcher().call(new LoadCallback(directoryChooser.showDialog(stage)));
+  }
 
   // For testing
   BoardCanvas getBoardCanvas() {
