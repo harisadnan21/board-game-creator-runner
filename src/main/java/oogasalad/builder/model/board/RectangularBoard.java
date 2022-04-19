@@ -110,6 +110,26 @@ public class RectangularBoard implements Board {
   }
 
   /**
+   * Returns the width of the board
+   *
+   * @return the width of the board
+   */
+  @Override
+  public int getWidth() {
+    return width;
+  }
+
+  /**
+   * Returns the height of the board
+   *
+   * @return the height of the board
+   */
+  @Override
+  public int getHeight(){
+    return height;
+  }
+
+  /**
    * Converts a Board into a String representing the board's JSON Format
    *
    * @return a String representation of the board's JSON Format
