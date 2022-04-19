@@ -2,8 +2,10 @@ package oogasalad.builder.view.property;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
  * @author Ricky Weerts and Shaan Gondalia
  */
 public class PropertyEditor extends VBox {
+  private static final String TYPE_PROPERTY_NAME = "type";
+
   private final CallbackDispatcher callbackDispatcher;
 
   private final Map<Property, PropertySelector> selectors = new HashMap<>();
@@ -52,15 +56,31 @@ public class PropertyEditor extends VBox {
    * @param typeName
    */
   public void setCorrespondingElementProperties(String typeName) {
-    getChildren().clear();
-    selectors.clear();
+    // Remove all non-type properties
+    List<Property> nonType = new ArrayList<>();
+    selectors.forEach((prop, selector) -> {
+      if(!isTypeProperty(prop)) {
+        getChildren().remove(selector.display().getParent()); // FIXME Assumes display() result won't change between calls
+        nonType.add(prop);
+      }
+    });
+    nonType.forEach(selectors::remove);
+
     for (Property prop : allProperties) {
-      if (prop.name().contains(typeName) || prop.name().contains("type")) {
+      if (prop.name().contains(typeName)) {
         addProperty(prop);
       }
     }
   }
 
+  private boolean isTypeProperty(Property prop) {
+    return getLastPropertyNameSegment(prop).equals(TYPE_PROPERTY_NAME);
+  }
+
+  private String getLastPropertyNameSegment(Property prop) {
+    String[] nameParts = prop.name().split("-");
+    return nameParts[nameParts.length - 1];
+  }
 
   /**
    * Given a Collection of all the properties, finds the type-selector and makes the corresponding
