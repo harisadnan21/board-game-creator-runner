@@ -27,7 +27,7 @@ sonar_analysis:
 java_testing:
   stage: test
   script:
-    - mvn -Dtestfx.robot=glass -Dtestfx.headless=true -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw -DargLine= verify
+    - mvn -Dtestfx.robot=glass -Dtestfx.headless=true -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw -Dprism.text=t2k -DargLine= verify
   artifacts:
     when: always
     reports:
