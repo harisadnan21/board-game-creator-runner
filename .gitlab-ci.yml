@@ -23,3 +23,15 @@ sonar_analysis:
     - sonarqube
   only:
     - master
+
+java_testing:
+  stage: test
+  script:
+    - mvn verify
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - target/surefire-reports/TEST-*.xml
+        - target/failsafe-reports/TEST-*.xml
+
