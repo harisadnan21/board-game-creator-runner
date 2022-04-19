@@ -84,7 +84,7 @@ public class ViewManager {
       GameParser parser = new GameParser(Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
       Board board = parser.parseBoard();
       BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath);
-      Controller controller = new Controller(board);
+      Controller controller = new Controller(board, parser);
       boardView.addController(controller);
       newStage.setScene(createGameView(boardView, controller).makeScene());
       newStage.show();

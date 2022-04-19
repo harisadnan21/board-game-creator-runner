@@ -1,4 +1,4 @@
-package oogasalad.engine.model.conditions.board_conditions;
+package oogasalad.engine.model.conditions.position_independent_conditions;
 
 import java.util.PrimitiveIterator.OfInt;
 import java.util.stream.IntStream;
@@ -15,7 +15,7 @@ class BoardFullTest {
   void isTrue() {
     Board board = getBoard();
     BoardFull boardFull = new BoardFull(null);
-    Assertions.assertTrue(boardFull.isTrue(board));
+    Assertions.assertTrue(boardFull.isTrue(board, null));
   }
 
   private Board getBoard() {

@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.Move;
 
 /**
  * Parser that reads an existing game configuration from a directory. Responsible for creating a

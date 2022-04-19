@@ -1,10 +1,10 @@
-package oogasalad.engine.model.move;
+package oogasalad.engine.model.rule;
 
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
+import oogasalad.engine.model.conditions.Condition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +20,7 @@ public class Move {
   private Board myNextState;
 
   private String myName;
-  private PieceCondition[] myConditions;
+  private Condition[] myConditions;
   private Action[] myActions;
   private int myRepI;
   private int myRepJ;
@@ -31,7 +31,7 @@ public class Move {
    * @param repI
    * @param repJ
    */
-  public Move(String name, PieceCondition[] conditions, Action[] actions, int repI, int repJ) {
+  public Move(String name, Condition[] conditions, Action[] actions, int repI, int repJ) {
     myName = name;
     myConditions = conditions;
     myActions = actions;
@@ -39,10 +39,10 @@ public class Move {
     myRepJ = repJ;
   }
 
-  public boolean isValid(Board board, int refI, int refJ) {
+  private boolean isValid(Board board, int refI, int refJ) {
     try {
-      for (PieceCondition condition : myConditions) {
-        if (!condition.isTrue(board, refI, refJ)) {
+      for (Condition condition : myConditions) {
+        if (!condition.isTrue(board, new Position(refI, refJ))) {
           return false;
         }
       }
@@ -53,7 +53,16 @@ public class Move {
   }
 
   public boolean isValid(Board board, Position referencePoint) {
-    return isValid(board, referencePoint.i(), referencePoint.j());
+    try {
+      for (Condition condition : myConditions) {
+        if (!condition.isTrue(board, referencePoint)) {
+          return false;
+        }
+      }
+      return true;
+    } catch (OutOfBoardException e) {
+      return false;
+    }
   }
 
   /**
@@ -63,21 +72,21 @@ public class Move {
   public String getName() {
     return myName;
   }
-  /**
-   *
-   * @param i location of selected piece
-   * @param j location of selected piece
-   * @return
-   */
-  public Position getRepresentativeCell(int i, int j) {
+
+  private Position getRepresentativeCell(int i, int j) {
     return new Position(myRepI + i, myRepJ + j);
   }
 
+  /**
+   *
+   * @param referencePoint reference point for move
+   * @return
+   */
   public Position getRepresentativeCell(Position referencePoint) {
     return getRepresentativeCell(referencePoint.i(), referencePoint.j());
   }
 
-  public Board doMovement(Board board, int refI, int refJ) {
+  private Board doMovement(Board board, int refI, int refJ) {
     if (isValid(board, refI, refJ)) {
 
       LOG.info("{} has {} conditions and {} actions", myName, myConditions.length, myActions.length);

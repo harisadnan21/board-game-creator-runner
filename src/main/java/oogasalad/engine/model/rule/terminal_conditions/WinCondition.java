@@ -1,7 +1,9 @@
-package oogasalad.engine.model.conditions.terminal_conditions;
+package oogasalad.engine.model.rule.terminal_conditions;
 import oogasalad.engine.model.actions.winner.Winner;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
+import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.conditions.position_independent_conditions.BoardCondition;
 
 /**
  * Class to hold one specific win condition. A win condition consists of a set of conditions that
@@ -9,10 +11,10 @@ import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
  *
  * @author Robert Cranston, Haris Adnan
  * @see Winner
- * @see BoardCondition
+ * @see Condition
  */
 public class WinCondition{
-  private final  BoardCondition[] myEndConditions;
+  private final  Condition[] myEndConditions;
   private final Winner myWinDecision;
 
   /**
@@ -20,18 +22,21 @@ public class WinCondition{
    * @param endConditions set of conditions that signal the game is over for this specific win condition
    * @param winDecision Winner decision on how to determine a winner
    */
-  public WinCondition(BoardCondition[] endConditions, Winner winDecision){
+  public WinCondition(Condition[] endConditions, Winner winDecision){
     myWinDecision = winDecision;
     myEndConditions = endConditions;
   }
+
   /**
    * Returns true if all the end game conditions are met and false otherwise
    * @param board current game board
    * @return true if all end conditions met, false if not
    */
   public boolean isOver(Board board) {
-    for(BoardCondition endCondition : myEndConditions){
-      if(!endCondition.isTrue(board)){
+    for(Condition endCondition : myEndConditions){
+      // in the end conditions, you can use all the piece conditions with absolute parameters
+      // if 0,0 is always the reference point
+      if(!endCondition.isTrue(board, new Position(0,0))){
         return false;
       }
     }

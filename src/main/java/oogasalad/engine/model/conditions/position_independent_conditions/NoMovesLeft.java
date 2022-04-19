@@ -1,6 +1,7 @@
-package oogasalad.engine.model.conditions.board_conditions;
+package oogasalad.engine.model.conditions.position_independent_conditions;
 
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Position;
 
 /**
  * Class that evaluates if the game is at a standstill when no player has any available moves left
@@ -15,10 +16,11 @@ public class NoMovesLeft extends BoardCondition{
   /**
    *
    * @param board current board state
+   * @param referencePoint
    * @return Returns True if no moves left, else returns false
    */
   @Override
-  public boolean isTrue(Board board) {
+  public boolean isTrue(Board board, Position referencePoint) {
 
     return board.getValidMoves() == null;
   }

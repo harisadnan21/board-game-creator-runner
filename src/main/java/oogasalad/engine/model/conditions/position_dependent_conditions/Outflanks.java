@@ -1,8 +1,8 @@
-package oogasalad.engine.model.conditions.piece_conditions;
+package oogasalad.engine.model.conditions.position_dependent_conditions;
 
-import oogasalad.builder.model.element.Condition;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.OutOfBoardException;
+import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.conditions.Condition;
 
 /**
  * Defines outflanks condition
@@ -12,7 +12,7 @@ import oogasalad.engine.model.board.OutOfBoardException;
  *
  * @author Jake Heller
  */
-public class Outflanks extends PieceCondition {
+public class Outflanks extends Condition {
 
   /**
    *
@@ -23,7 +23,8 @@ public class Outflanks extends PieceCondition {
   }
 
   @Override
-  public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
+  public boolean isTrue(Board board, Position referencePoint) {
     return false;
   }
+
 }

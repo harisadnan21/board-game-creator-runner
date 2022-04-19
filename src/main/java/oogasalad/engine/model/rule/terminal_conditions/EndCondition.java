@@ -1,15 +1,16 @@
-package oogasalad.engine.model.conditions.terminal_conditions;
+package oogasalad.engine.model.rule.terminal_conditions;
 
 import oogasalad.engine.model.actions.winner.Winner;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.conditions.board_conditions.BoardCondition;
+import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.conditions.position_independent_conditions.BoardCondition;
 
 /**
  * Ahstract class that determines when end condtions - draw and or one player wins - are acheived.
  * @author Haris Adnan
  */
 public abstract class EndCondition {
-  private BoardCondition[] myEndConditions;
+  private Condition[] myEndConditions;
   private Winner myWinDecision;
 
   /**
@@ -18,8 +19,8 @@ public abstract class EndCondition {
    * @return whether end conditions have been met
    */
   public boolean isOver(Board board) {
-    for(BoardCondition endCondition : myEndConditions){
-      if(!endCondition.isTrue(board)){
+    for(Condition endCondition : myEndConditions){
+      if(!endCondition.isTrue(board, null)){
         return false;
       }
     }

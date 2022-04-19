@@ -1,6 +1,7 @@
-package oogasalad.engine.model.conditions.board_conditions;
+package oogasalad.engine.model.conditions.position_independent_conditions;
 
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
 import org.jooq.lambda.Seq;
 
@@ -17,10 +18,11 @@ public class PlayerHasNoPieces extends BoardCondition{
   /**
    * Counts the number of pieces each player has and returns true if a player has no pieces.
    * @param board current board state
+   * @param referencePoint
    * @return true if a player has no pieces left
    */
   @Override
-  public boolean isTrue(Board board) {
+  public boolean isTrue(Board board, Position referencePoint) {
     Seq<PositionState> player0 = board.getSatisfyingPositionStatesSeq(posState -> posState.player()==0);
     Seq<PositionState> player1 = board.getSatisfyingPositionStatesSeq(posState -> posState.player()==1);
     return player0.isEmpty() || player1.isEmpty();

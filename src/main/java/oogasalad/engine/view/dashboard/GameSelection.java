@@ -26,7 +26,7 @@ public class GameSelection extends FlowPane {
 
   public GameSelection(BiConsumer<Map<String, String>, File> updateInfo){
     File gameFolder = new File(IMG_FOLDER_PATH);
-    allGames = gameFolder.listFiles(name -> !name.isHidden());
+    allGames = gameFolder.listFiles(file -> !file.isHidden());
     this.getStyleClass().add("gameSelection");
     for(File game : allGames) {
       LOG.info("Game: {}", game.getName());

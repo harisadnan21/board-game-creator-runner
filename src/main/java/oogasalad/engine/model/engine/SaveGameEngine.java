@@ -4,8 +4,7 @@ import java.util.Set;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.driver.Game;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.rule.Move;
 import oogasalad.engine.model.utilities.Pair;
 
 /**

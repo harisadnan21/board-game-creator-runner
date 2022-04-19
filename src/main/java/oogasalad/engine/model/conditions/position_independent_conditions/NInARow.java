@@ -1,9 +1,9 @@
-package oogasalad.engine.model.conditions.board_conditions;
+package oogasalad.engine.model.conditions.position_independent_conditions;
 
 import java.util.List;
 import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
 
 
@@ -18,9 +18,10 @@ public class NInARow extends BoardCondition{
    * evaluates if the condition is true
    *
    * @param board current board state
+   * @param referencePoint
    */
   @Override
-  public boolean isTrue(Board board) {
+  public boolean isTrue(Board board, Position referencePoint) {
     return checkForHorizontal(board) || checkForVertical(board);
   }
 

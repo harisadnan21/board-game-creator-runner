@@ -1,4 +1,4 @@
-package oogasalad.engine.move;
+package oogasalad.engine.model.rule;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,10 +8,10 @@ import oogasalad.engine.model.actions.Remove;
 import oogasalad.engine.model.actions.Translate;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.conditions.piece_conditions.IsEmpty;
-import oogasalad.engine.model.conditions.piece_conditions.IsOccupied;
-import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.conditions.position_dependent_conditions.IsEmpty;
+import oogasalad.engine.model.conditions.position_dependent_conditions.IsOccupied;
+import oogasalad.engine.model.conditions.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ public class MoveTest {
   @BeforeEach
   void setup() {
     myBoard = new Board(3, 3);
-    PieceCondition[] conditions = new PieceCondition[2];
+    Condition[] conditions = new Condition[2];
     conditions[0] = new IsOccupied(new int[]{0,0});
     conditions[1] = new IsOccupied(new int[]{1,1});
 
@@ -35,7 +35,7 @@ public class MoveTest {
   }
 
   void createJumpMove() {
-    PieceCondition[] conditions = new PieceCondition[2];
+    Condition[] conditions = new Condition[2];
     conditions[0] = new IsOccupied(new int[]{0,0});
     conditions[1] = new IsOccupied(new int[]{1,1});
 
@@ -47,7 +47,7 @@ public class MoveTest {
   }
 
   void createSingleMove() {
-    PieceCondition[] conditions = new PieceCondition[2];
+    Condition[] conditions = new Condition[2];
     conditions[0] = new IsOccupied(new int[]{0,0});
     conditions[1] = new IsEmpty(new int[]{1,1});
 
@@ -62,29 +62,33 @@ public class MoveTest {
   void basicSingleTest() {
     createSingleMove();
 
-    assertFalse(myMove.isValid(myBoard, 0,0));
+    Position origin = new Position(0,0);
+
+    assertFalse(myMove.isValid(myBoard, origin));
 
     myBoard = myBoard.placeNewPiece(0,0,0,0);
 
-    assertTrue(myMove.isValid(myBoard, 0, 0));
+    assertTrue(myMove.isValid(myBoard, origin));
 
     assertTrue(myBoard.isOccupied(0,0));
     assertTrue(myBoard.isEmpty(1,1));
 
-    myBoard = myMove.doMovement(myBoard, 0, 0);
+    myBoard = myMove.doMovement(myBoard, origin);
 
     assertTrue(myBoard.isEmpty(0,0));
     assertTrue(myBoard.isOccupied(1,1));
 
-    assertFalse(myMove.isValid(myBoard, 0,0));
-    assertTrue(myMove.isValid(myBoard, 1,1));
+    assertFalse(myMove.isValid(myBoard, origin));
+    assertTrue(myMove.isValid(myBoard, new Position(1,1)));
   }
 
   @Test
   void basicJumpTest() throws OutOfBoardException {
 
+    Position origin = new Position(0,0);
+
     createJumpMove();
-    assertFalse(myMove.isValid(myBoard, 0,0));
+    assertFalse(myMove.isValid(myBoard, origin));
 
     myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
     myBoard = myBoard.placeNewPiece(0,0,0,0);
@@ -93,14 +97,14 @@ public class MoveTest {
     assertFalse(myBoard.isEmpty(1,1));
     assertTrue(myBoard.isEmpty(2,2));
 
-    assertTrue(myMove.isValid(myBoard, 0,0));
+    assertTrue(myMove.isValid(myBoard, origin));
 
-    myBoard = myMove.doMovement(myBoard, 0,0);
+    myBoard = myMove.doMovement(myBoard, origin);
 
     assertTrue(myBoard.isEmpty(0,0));
     assertTrue(myBoard.isEmpty(1,1));
     assertFalse(myBoard.isEmpty(2,2));
 
-    assertFalse(myMove.isValid(myBoard, 0,0));
+    assertFalse(myMove.isValid(myBoard, origin));
   }
 }

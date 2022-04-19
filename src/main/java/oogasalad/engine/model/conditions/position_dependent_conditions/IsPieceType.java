@@ -1,14 +1,15 @@
-package oogasalad.engine.model.conditions.piece_conditions;
+package oogasalad.engine.model.conditions.position_dependent_conditions;
 
-import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.conditions.Condition;
 
 /**
  * Returns true if piece type at (i, j) is of certain type
  * @author Jake Heller
  */
-public class IsPieceType extends PieceCondition {
+public class IsPieceType extends Condition {
 
   /**
    *
@@ -19,9 +20,9 @@ public class IsPieceType extends PieceCondition {
   }
 
   @Override
-  public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
-    int i = myParameters[0]+refI;
-    int j = myParameters[1]+refJ;
+  public boolean isTrue(Board board, Position referencePoint) {
+    int i = myParameters[0]+ referencePoint.i();
+    int j = myParameters[1]+ referencePoint.j();
     if (!board.isValidPosition(i,j)) {
       return false;
     }

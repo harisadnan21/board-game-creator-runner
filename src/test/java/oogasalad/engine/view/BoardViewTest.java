@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import static org.junit.jupiter.api.Assertions.*;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.parser.GameParser;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -24,8 +25,9 @@ public class BoardViewTest extends DukeApplicationTest {
   public void start (Stage stage) throws IOException {
     board = new BoardView(new File("data/games/checkers"), 3, 3, 300, 300, "/css/light.css");
 
+    GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
     Board backEndBoard = new Board(3,3);
-    controller = new Controller(backEndBoard);
+    controller = new Controller(backEndBoard, parser);
 
     board.addController(controller);
 //    root = new Group();

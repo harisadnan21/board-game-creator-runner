@@ -1,13 +1,14 @@
-package oogasalad.engine.model.conditions.piece_conditions;
+package oogasalad.engine.model.conditions.position_dependent_conditions;
 
-import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.conditions.Condition;
 
 /**
  * Returns true if piece at (i,j) is owned by player k
  * @author Jake Heller
  */
-public class IsPlayerPiece extends PieceCondition {
+public class IsPlayerPiece extends Condition {
 
   /**
    *
@@ -18,9 +19,9 @@ public class IsPlayerPiece extends PieceCondition {
   }
 
   @Override
-  public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
-    int i = myParameters[0]+refI;
-    int j = myParameters[1]+refJ;
+  public boolean isTrue(Board board, Position referencePoint) {
+    int i = myParameters[0]+referencePoint.i();
+    int j = myParameters[1]+ referencePoint.j();
     if (!board.isValidPosition(i, j)) {
       return false;
     }

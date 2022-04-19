@@ -11,7 +11,16 @@ import org.jooq.lambda.Seq;
  * Class that decides winner based on which player still has moves left
  * @author Haris Adnan
  */
-public class NoMovesForOnePlayer implements Winner{
+public class NoMovesForOnePlayer extends AbstractWinner {
+
+  /**
+   *
+   * @param parameters unused field
+   */
+  public NoMovesForOnePlayer(int[] parameters) {
+    super(parameters);
+  }
+
   /**
    * Checks which player has moves left and returns the player with moves still left
    * @param board current board state

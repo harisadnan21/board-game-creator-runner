@@ -1,13 +1,14 @@
-package oogasalad.engine.model.conditions.piece_conditions;
+package oogasalad.engine.model.conditions.position_independent_conditions;
 
-import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.conditions.Condition;
 
 /**
  *
  * @author Jake Heller
  */
-public class IsPlayer extends PieceCondition {
+public class IsPlayer extends Condition {
 
   /**
    *
@@ -18,7 +19,7 @@ public class IsPlayer extends PieceCondition {
   }
 
   @Override
-  public boolean isTrue(Board board, int refI, int refJ) throws OutOfBoardException {
+  public boolean isTrue(Board board, Position referencePoint) {
     return board.getPlayer() == myParameters[0];
   }
 }

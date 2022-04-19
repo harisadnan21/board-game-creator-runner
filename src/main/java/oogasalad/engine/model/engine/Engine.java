@@ -4,22 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
-import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.rule.Move;
 
 import oogasalad.engine.model.player.HumanPlayer;
 import oogasalad.engine.model.player.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jooq.lambda.function.Consumer0;
 
 
 public class Engine {
@@ -45,6 +42,9 @@ public class Engine {
 
     int numPlayers = 2; //TODO: automate player creation
 
+    if (moves == null) {
+      LOG.warn("moves are null");
+    }
     myOracle = new Oracle(moves, winConditions, new ArrayList<>(), numPlayers);
 
     myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
