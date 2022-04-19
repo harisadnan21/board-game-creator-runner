@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>CompSci308_2022Spring</groupId>
   <artifactId>oogasalad_OOGABOOGA</artifactId>
-  <version>master-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <!-- set up name for repeated values to make it easy to change -->
