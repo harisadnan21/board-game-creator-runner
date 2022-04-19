@@ -10,6 +10,7 @@ import java.util.Objects;
  *
  * @param <T> The type of the property. Concrete classes should not use generic typing.
  * @author Shaan Gondalia
+ * @author Ricky Weerts
  */
 public abstract class AbstractProperty<T> implements Property<T> {
 
@@ -29,6 +30,14 @@ public abstract class AbstractProperty<T> implements Property<T> {
     this.form = form;
     this.value = value;
   }
+
+  /**
+   * Returns a property identical to this one, except with a different value
+   *
+   * @param newValue the value to give the new property
+   * @return this new property with a different value
+   */
+  public abstract AbstractProperty<T> withValue(T newValue);
 
   /**
    * Returns the name of the property

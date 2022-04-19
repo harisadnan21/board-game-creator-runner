@@ -31,6 +31,17 @@ public class IntegerProperty extends AbstractProperty<Integer> {
   }
 
   /**
+   * Returns a property identical to this one, except with a different value
+   *
+   * @param newValue the value to give the new property
+   * @return this new property with a different value
+   */
+  @Override
+  public IntegerProperty withValue(Integer newValue) {
+    return new IntegerProperty(name(), newValue, form());
+  }
+
+  /**
    * Returns the string representation of the properties value
    *
    * @return the string representation of the properties value

@@ -20,6 +20,17 @@ public class StringProperty extends AbstractProperty<String> {
   }
 
   /**
+   * Returns a property identical to this one, except with a different value
+   *
+   * @param newValue the value to give the new property
+   * @return this new property with a different value
+   */
+  @Override
+  public StringProperty withValue(String newValue) {
+    return new StringProperty(name(), newValue, form());
+  }
+
+  /**
    * Returns the string representation of the properties value
    *
    * @return the string representation of the properties value

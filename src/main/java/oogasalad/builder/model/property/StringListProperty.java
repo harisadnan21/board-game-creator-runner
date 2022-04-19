@@ -38,6 +38,17 @@ public class StringListProperty extends AbstractProperty<Collection<String>> {
     super(name, value.isBlank() ? List.of() : List.of(value.split(DELIMITER)), form);
   }
 
+  /**
+   * Returns a property identical to this one, except with a different value
+   *
+   * @param newValue the value to give the new property
+   * @return this new property with a different value
+   */
+  @Override
+  public StringListProperty withValue(Collection<String> newValue) {
+    return new StringListProperty(name(), newValue, form());
+  }
+
   // Converts a collection of string to a single string
   private static String collectionToString(Collection<String> values) {
     JSONArray arr = new JSONArray(values);
