@@ -1,5 +1,5 @@
 package oogasalad.engine.model.rule.terminal_conditions;
-import oogasalad.engine.model.actions.winner.Winner;
+import oogasalad.engine.model.actions.winner.WinDecision;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.conditions.Condition;
@@ -10,19 +10,19 @@ import oogasalad.engine.model.rule.Rule;
  * signal that the game is over and a decision for how to decide which player wins the game
  *
  * @author Robert Cranston, Haris Adnan
- * @see Winner
+ * @see WinDecision
  * @see Condition
  */
 public class WinCondition implements Rule {
   private final  Condition[] myEndConditions;
-  private final Winner myWinDecision;
+  private final WinDecision myWinDecision;
 
   /**
    * Sets end and winner conditions
    * @param endConditions set of conditions that signal the game is over for this specific win condition
    * @param winDecision Winner decision on how to determine a winner
    */
-  public WinCondition(Condition[] endConditions, Winner winDecision) {
+  public WinCondition(Condition[] endConditions, WinDecision winDecision) {
     myWinDecision = winDecision;
     myEndConditions = endConditions;
   }

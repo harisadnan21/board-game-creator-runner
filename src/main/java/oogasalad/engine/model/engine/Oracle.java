@@ -65,6 +65,13 @@ public class Oracle implements AIOracle {
     return myMoves.stream().filter((move) -> move.isValid(board, referencePoint));
   }
 
+  private Stream<Choice> getValidChoicesForPosition(Board board, Position referencePoint) {
+    return getValidMovesForPosition(board, referencePoint).map(move -> new Choice(referencePoint, move));
+  }
+
+  public Stream<Choice> getValidChoices(Board board) {
+    return board.getPositionStatesStream().flatMap(positionState -> getValidChoicesForPosition(board, positionState.position()));
+  }
   /**
    * Outer map
    * @param board
