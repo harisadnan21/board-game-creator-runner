@@ -3,6 +3,7 @@ image: maven
 stages:
   - analyze
   - validate
+  - test
 
 checkstyle_analysis:
   stage: validate
