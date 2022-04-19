@@ -200,7 +200,7 @@ public class GameConfigurationTest {
     is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));
     JSONTokener tokener = new JSONTokener(is);
     JSONObject object = new JSONObject(tokener);
-    game.fromJSON(object.toString());
+    game.fromJSON(object.toString(), "");
   }
 
   private int countMatches(String str, String target) {
