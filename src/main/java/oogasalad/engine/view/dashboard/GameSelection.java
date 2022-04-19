@@ -20,15 +20,17 @@ public class GameSelection extends FlowPane {
   private File[] allGames;
   private final String GAME_PATH= "games";
   private final String IMG_FOLDER_PATH = "data/" + GAME_PATH;
+  private final String LOGO_NAME = "logo";
   private final String RESOURCES_PATH = "/";
   private final String[] imageTypes= { ".jpeg", ".jpg", ".png" };
 
   public GameSelection(BiConsumer<Map<String, String>, File> updateInfo){
     File gameFolder = new File(IMG_FOLDER_PATH);
-    allGames = gameFolder.listFiles();
+    allGames = gameFolder.listFiles(name -> !name.isHidden());
     this.getStyleClass().add("gameSelection");
     for(File game : allGames) {
-      displayGameIcon(updateInfo, game, getImagePath(new File(IMG_FOLDER_PATH+RESOURCES_PATH+game.getName()+RESOURCES_PATH), game.getName()), game.getName());
+      LOG.info("Game: {}", game.getName());
+      displayGameIcon(updateInfo, game, getImagePath(new File(IMG_FOLDER_PATH + File.separator + game.getName()), game.getName()), game.getName());
     }
   }
 
@@ -39,11 +41,13 @@ public class GameSelection extends FlowPane {
   }
 
   private String getImagePath(File folder, String name){
+    LOG.info("Folder {}\nName {}\n", folder, name);
+    LOG.info("Files list size {}", folder.listFiles().length);
     Optional<String> file = Stream.of(Objects.requireNonNull(folder.listFiles()))
         .map(File::getName)
         .filter(fileName -> stringContainsAny(fileName, imageTypes))
         .findFirst();
-    return GAME_PATH + RESOURCES_PATH + name + RESOURCES_PATH + file.get();
+    return GAME_PATH + File.separator + name + File.separator + file.get();
   }
 
   private boolean stringContainsAny(String input, String[] list){
