@@ -115,6 +115,20 @@ public interface BuilderModel extends JSONSerializable, JSONParseable<BuilderMod
   Collection<Property> getRequiredProperties(String type) throws InvalidTypeException;
 
   /**
+   * Returns the width of the board
+   *
+   * @return the width of the board
+   */
+  int getWidth();
+
+  /**
+   * Returns the height of the board
+   *
+   * @return the height of the board
+   */
+  int getHeight();
+
+  /**
    * Converts a Builder Model into a String representing the model's JSON Format
    *
    * @return a String representation of the model's JSON Format

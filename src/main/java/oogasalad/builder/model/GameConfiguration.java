@@ -213,6 +213,28 @@ public class GameConfiguration implements BuilderModel {
   }
 
   /**
+   * Returns the width of the board
+   *
+   * @return the width of the board
+   */
+  @Override
+  public int getWidth() {
+    checkBoardCreated();
+    return board.getWidth();
+  }
+
+  /**
+   * Returns the height of the board
+   *
+   * @return the height of the board
+   */
+  @Override
+  public int getHeight(){
+    checkBoardCreated();
+    return board.getHeight();
+  }
+
+  /**
    * Converts a Configuration into a String representing the model's JSON Format
    *
    * @return a String representation of the configuration's JSON Format
