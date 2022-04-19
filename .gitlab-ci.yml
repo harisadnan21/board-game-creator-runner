@@ -7,7 +7,7 @@ stages:
 
 checkstyle_analysis:
   stage: validate
-  script: mvn validate
+  script: mvn -Dglass.platform=Monocle -Dmonocle.platform=Headless validate
 
 sonar_analysis:
   stage: analyze
