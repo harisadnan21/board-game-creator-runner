@@ -4,6 +4,7 @@ import oogasalad.builder.BuilderMain;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.element.FileMapper;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -269,7 +270,7 @@ public class BuilderController {
             InputStream is = new DataInputStream(new FileInputStream(configFile));
             JSONTokener tokener = new JSONTokener(is);
             JSONObject object = new JSONObject(tokener);
-            gameConfig.fromJSON(object.toString());
+            gameConfig.fromJSON(object.toString(), callback.directory().toString());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
