@@ -7,7 +7,7 @@ import oogasalad.engine.model.board.Board;
  *
  * @author Jake Heller
  */
-public class PlayerWins extends AbstractWinner {
+public class PlayerWins extends AbstractWinDecision {
 
   /**
    *

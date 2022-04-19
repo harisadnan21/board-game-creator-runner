@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.PositionState;
-import org.jooq.lambda.Seq;
+
 /**
  * Class that decides winner based on which player still has moves left
  * @author Haris Adnan
  */
-public class NoMovesForOnePlayer extends AbstractWinner {
+public class NoMovesForOnePlayer extends AbstractWinDecision {
 
   /**
    *

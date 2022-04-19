@@ -7,7 +7,7 @@ import org.jooq.lambda.Seq;
  * Class that decides winner based on which player has more pieces currently on the board.
  * @author Robert Cranston
  */
-public class MostPieces extends AbstractWinner {
+public class MostPieces extends AbstractWinDecision {
 
   /**
    *

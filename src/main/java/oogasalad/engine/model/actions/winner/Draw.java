@@ -7,7 +7,7 @@ import oogasalad.engine.model.board.Piece;
  * Should always return the NO_PLAYER int value to indicate a draw
  * @author Jake Heller
  */
-public class Draw extends AbstractWinner {
+public class Draw extends AbstractWinDecision {
 
   /**
    *
