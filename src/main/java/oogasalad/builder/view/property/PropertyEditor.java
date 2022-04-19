@@ -94,7 +94,7 @@ public class PropertyEditor extends VBox {
     selectors.clear();
     boolean hasTypeProperty = false;
     for (Property prop : properties) {
-      if (prop.name().contains("type")) {
+      if (isTypeProperty(prop)) {
         addProperty(prop);
         hasTypeProperty = true;
       }
@@ -136,7 +136,7 @@ public class PropertyEditor extends VBox {
     HBox propertyBox = new HBox();
     PropertySelector propertySelector = makePropertySelector(property);
     selectors.put(property, propertySelector);
-    if (property.name().contains("type")) {
+    if (isTypeProperty(property)) {
       propertySelector.addListener(
           (observable, oldValue, newValue) -> setCorrespondingElementProperties(
               (String) newValue));
