@@ -1,5 +1,6 @@
 package oogasalad.builder.model;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -99,6 +100,21 @@ public class GameConfigurationTest {
     assertEquals(HEIGHT, game.getHeight());
   }
 
+  @Test
+  void testRequiredProperties() {
+    game.getRequiredProperties(PIECE);
+  }
+
+  @Test
+  void testGetElementNames() {
+    Collection<String> names = game.getElementNames(PIECE);
+    assertTrue(names.isEmpty());
+    addPiece();
+    names = game.getElementNames(PIECE);
+    for (String name : names) {
+      assertEquals(PIECE_NAME, name);
+    }
+  }
 
   @Test
   void testOutOfBounds() throws MissingRequiredPropertyException, InvalidTypeException {

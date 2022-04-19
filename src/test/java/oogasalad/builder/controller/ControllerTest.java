@@ -12,8 +12,11 @@ import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
 import oogasalad.builder.view.callback.FindCellBackgroundCallback;
+import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
+import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
 import oogasalad.builder.view.callback.GetHeightCallback;
+import oogasalad.builder.view.callback.GetPropertiesCallback;
 import oogasalad.builder.view.callback.GetWidthCallback;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
@@ -30,6 +33,7 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for BuilderController Class
@@ -69,6 +73,7 @@ public class ControllerTest extends DukeApplicationTest {
   private static final String CONDITIONS = "conditions";
   private static final String BLACK = "0x000000ff";
   private static final String WHITE = "0xffffffff";
+  public static final String BAD_PATH_TO_DIRECTORY = "bad/path/to/directory";
 
   private BuilderController controller;
   private Collection<Property> properties;
@@ -143,6 +148,46 @@ public class ControllerTest extends DukeApplicationTest {
     controller.placePiece(new PlacePieceCallback(X, Y, PIECE_NAME));
     controller.clearCell(new ClearCellCallback(X, Y));
     assertEquals(EMPTY, controller.findPieceAt(X, Y));
+  }
+
+  @Test
+  void testRequiredProperties() {
+    controller.getRequiredProperties(new GetPropertiesCallback(PIECE_TYPE));
+  }
+
+  @Test
+  void testGetElementNames() {
+    Collection<String> names = controller.getElementNames(new GetElementNamesCallback(PIECE_TYPE));
+    assertTrue(names.isEmpty());
+    addPiece();
+    names = controller.getElementNames(new GetElementNamesCallback(PIECE_TYPE));
+    for (String name : names) {
+      assertEquals(PIECE_NAME, name);
+    }
+  }
+
+  @Test
+  void testGetElementPropertyByKeyNotFound() {
+    assertThrows(ElementNotFoundException.class, () -> controller.getElementPropertyByKey(new GetElementPropertyByKeyCallback(PIECE_TYPE, PIECE_NAME, IMAGE)));
+  }
+
+  @Test
+  void testGetElementPropertyByKey() {
+    addPiece();
+    String image = controller.getElementPropertyByKey(new GetElementPropertyByKeyCallback(PIECE_TYPE, PIECE_NAME, IMAGE));
+    assertEquals(PIECE_IMAGE, image);
+  }
+
+  @Test
+  void testSaveFileNotFound() {
+    File file = new File(BAD_PATH_TO_DIRECTORY);
+    assertThrows(RuntimeException.class, () -> controller.save(new SaveCallback(file)));
+  }
+
+  @Test
+  void testLoadFileNotFound() {
+    File file = new File(BAD_PATH_TO_DIRECTORY);
+    assertThrows(RuntimeException.class, () -> controller.load(new LoadCallback(file)));
   }
 
   @Test
