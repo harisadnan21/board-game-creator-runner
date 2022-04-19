@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Jake Heller
  */
-public class Move {
+public class Move implements Rule {
 
   private static final Logger LOG = LogManager.getLogger(Move.class);
 
@@ -52,6 +52,12 @@ public class Move {
     }
   }
 
+  /**
+   * Checks to see if rule is valid
+   * @param board
+   * @param referencePoint
+   * @return
+   */
   public boolean isValid(Board board, Position referencePoint) {
     try {
       for (Condition condition : myConditions) {

@@ -42,7 +42,7 @@ public class Oracle implements AIOracle {
   public Board checkForWin(Board board) {
     for (Iterator<WinCondition> it = myWinConditions.iterator(); it.hasNext(); ) {
       WinCondition winCondition = it.next();
-      if(winCondition.isOver(board)){
+      if(winCondition.isValid(board, new Position(0,0))){
         return board.setWinner(winCondition.getWinner(board));
       }
     }
