@@ -13,11 +13,14 @@ import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
 import oogasalad.builder.view.callback.FindCellBackgroundCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
+import oogasalad.builder.view.callback.GetHeightCallback;
+import oogasalad.builder.view.callback.GetWidthCallback;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.callback.UpdateGameElementCallback;
+import org.jooq.impl.QOM.Ge;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -95,6 +98,15 @@ public class ControllerTest extends DukeApplicationTest {
     assertThrows(NullBoardException.class, () -> controller.placePiece(new PlacePieceCallback(HEIGHT+1, WIDTH + 1, PIECE_NAME)));
     assertThrows(NullBoardException.class, () -> controller.clearCell(new ClearCellCallback(HEIGHT+1, WIDTH + 1)));
     assertThrows(NullBoardException.class, () -> controller.findPieceAt(HEIGHT+1, WIDTH + 1));
+  }
+
+  @Test
+  void testDimensions() {
+    assertThrows(NullBoardException.class, () -> controller.getWidth(new GetWidthCallback()));
+    assertThrows(NullBoardException.class, () -> controller.getHeight(new GetHeightCallback()));
+    controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
+    assertEquals(WIDTH, controller.getWidth(new GetWidthCallback()));
+    assertEquals(HEIGHT, controller.getHeight(new GetHeightCallback()));
   }
 
   @Test

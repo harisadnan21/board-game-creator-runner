@@ -91,6 +91,16 @@ public class GameConfigurationTest {
   }
 
   @Test
+  void testDimensions() {
+    assertThrows(NullBoardException.class, () -> game.getWidth());
+    assertThrows(NullBoardException.class, () -> game.getHeight());
+    game.makeBoard(WIDTH, HEIGHT);
+    assertEquals(WIDTH, game.getWidth());
+    assertEquals(HEIGHT, game.getHeight());
+  }
+
+
+  @Test
   void testOutOfBounds() throws MissingRequiredPropertyException, InvalidTypeException {
     game.makeBoard(WIDTH, HEIGHT);
     addPiece();
