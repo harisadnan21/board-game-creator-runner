@@ -12,12 +12,18 @@ import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
 import oogasalad.builder.view.callback.FindCellBackgroundCallback;
+import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
+import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.GetHeightCallback;
+import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.callback.GetWidthCallback;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.callback.UpdateGameElementCallback;
+import org.jooq.impl.QOM.Ge;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -27,6 +33,7 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for BuilderController Class
@@ -66,6 +73,7 @@ public class ControllerTest extends DukeApplicationTest {
   private static final String CONDITIONS = "conditions";
   private static final String BLACK = "0x000000ff";
   private static final String WHITE = "0xffffffff";
+  public static final String BAD_PATH_TO_DIRECTORY = "bad/path/to/directory";
 
   private BuilderController controller;
   private Collection<Property> properties;
@@ -95,6 +103,15 @@ public class ControllerTest extends DukeApplicationTest {
     assertThrows(NullBoardException.class, () -> controller.placePiece(new PlacePieceCallback(HEIGHT+1, WIDTH + 1, PIECE_NAME)));
     assertThrows(NullBoardException.class, () -> controller.clearCell(new ClearCellCallback(HEIGHT+1, WIDTH + 1)));
     assertThrows(NullBoardException.class, () -> controller.findPieceAt(HEIGHT+1, WIDTH + 1));
+  }
+
+  @Test
+  void testDimensions() {
+    assertThrows(NullBoardException.class, () -> controller.getWidth(new GetWidthCallback()));
+    assertThrows(NullBoardException.class, () -> controller.getHeight(new GetHeightCallback()));
+    controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
+    assertEquals(WIDTH, controller.getWidth(new GetWidthCallback()));
+    assertEquals(HEIGHT, controller.getHeight(new GetHeightCallback()));
   }
 
   @Test
@@ -131,6 +148,46 @@ public class ControllerTest extends DukeApplicationTest {
     controller.placePiece(new PlacePieceCallback(X, Y, PIECE_NAME));
     controller.clearCell(new ClearCellCallback(X, Y));
     assertEquals(EMPTY, controller.findPieceAt(X, Y));
+  }
+
+  @Test
+  void testRequiredProperties() {
+    controller.getRequiredProperties(new GetPropertiesCallback(PIECE_TYPE));
+  }
+
+  @Test
+  void testGetElementNames() {
+    Collection<String> names = controller.getElementNames(new GetElementNamesCallback(PIECE_TYPE));
+    assertTrue(names.isEmpty());
+    addPiece();
+    names = controller.getElementNames(new GetElementNamesCallback(PIECE_TYPE));
+    for (String name : names) {
+      assertEquals(PIECE_NAME, name);
+    }
+  }
+
+  @Test
+  void testGetElementPropertyByKeyNotFound() {
+    assertThrows(ElementNotFoundException.class, () -> controller.getElementPropertyByKey(new GetElementPropertyByKeyCallback(PIECE_TYPE, PIECE_NAME, IMAGE)));
+  }
+
+  @Test
+  void testGetElementPropertyByKey() {
+    addPiece();
+    String image = controller.getElementPropertyByKey(new GetElementPropertyByKeyCallback(PIECE_TYPE, PIECE_NAME, IMAGE));
+    assertEquals(PIECE_IMAGE, image);
+  }
+
+  @Test
+  void testSaveFileNotFound() {
+    File file = new File(BAD_PATH_TO_DIRECTORY);
+    assertThrows(RuntimeException.class, () -> controller.save(new SaveCallback(file)));
+  }
+
+  @Test
+  void testLoadFileNotFound() {
+    File file = new File(BAD_PATH_TO_DIRECTORY);
+    assertThrows(RuntimeException.class, () -> controller.load(new LoadCallback(file)));
   }
 
   @Test
