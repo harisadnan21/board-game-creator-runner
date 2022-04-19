@@ -27,7 +27,7 @@ sonar_analysis:
 java_testing:
   stage: test
   script:
-    - mvn -DargLine=: verify
+    - mvn -DargLine= verify
   artifacts:
     when: always
     reports:
