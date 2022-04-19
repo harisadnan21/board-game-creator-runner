@@ -1,6 +1,8 @@
 package oogasalad.engine.model.ai;
 
 import io.vavr.collection.TreeSet;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.enums.WinType;
@@ -19,7 +21,7 @@ import oogasalad.engine.model.board.Piece;
 public class SelectorFactory {
 
   public static Selects makeSelector(Difficulty difficulty, WinType winType, int playerNumber, AIOracle aiOracle, Collection<Pattern> patterns) {
-    return difficulty.equals(Difficulty.RANDOM)? makeRandomSelector(aiOracle, playerNumber) : makeNonRandomSelector(difficulty, winType, playerNumber, aiOracle, patterns);
+    return difficulty.equals(Difficulty.RANDOM)? makeRandomSelector(aiOracle) : makeNonRandomSelector(difficulty, winType, playerNumber, aiOracle, patterns);
   }
 
   private static Selects makeNonRandomSelector(Difficulty difficulty, WinType winType, int playerNumber, AIOracle aiOracle, Collection<Pattern> patterns) {
@@ -61,8 +63,17 @@ public class SelectorFactory {
 
   }
 
-  private static Selects makeRandomSelector(AIOracle aiOracle, int player) {
-    return new RandomSearcher(aiOracle);
+  private static Selects makeRandomSelector(AIOracle aiOracle) {
+    var filePath = SearcherFinder.getFullyQualifiedClassName(Difficulty.RANDOM);
+    Selects selects = null;
+    try {
+      Class selectsClass = Class.forName(filePath);
+      Constructor<Selects> selectsConstructor = selectsClass.getConstructor(AIOracle.class);
+      selects = selectsConstructor.newInstance(aiOracle);
+    } catch (Exception e) {
+      throw new RuntimeException("bad");
+    }
+    return selects;
   }
 
 }
