@@ -7,7 +7,7 @@ stages:
 
 checkstyle_analysis:
   stage: validate
-  script: mvn -Dtestfx.robot=glass -Dtestfx.headless=true -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw validate
+  script: mvn -Dtestfx.robot=glass -Dtestfx.headless=true -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw test
 
 sonar_analysis:
   stage: analyze
