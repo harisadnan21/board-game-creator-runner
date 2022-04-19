@@ -10,6 +10,7 @@
   <!-- set up name for repeated values to make it easy to change -->
   <properties>
     <project.build.java.version>17</project.build.java.version>
+    <argLine></argLine>
   </properties>
   <dependencies>
     <!-- use the latest version of OpenJFX that fixes Mac ARM bug -->
