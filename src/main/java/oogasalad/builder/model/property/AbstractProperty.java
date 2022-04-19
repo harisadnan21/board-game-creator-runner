@@ -17,27 +17,34 @@ public abstract class AbstractProperty<T> implements Property<T> {
   private final String name;
   private final String form;
   private final T value;
+  private final T defaultValue;
 
   /**
    * Creates a new Abstract Property with a name and generic value
+   * Sets the set value to be the default value
    *
    * @param name  the name of the property
    * @param value the value of the property
    * @param form  the form of the property
    */
   public AbstractProperty(String name, T value, String form) {
-    this.name = name;
-    this.form = form;
-    this.value = value;
+    this(name, value, value, form);
   }
 
   /**
-   * Returns a property identical to this one, except with a different value
+   * Creates a new Abstract Property with a name and generic value
    *
-   * @param newValue the value to give the new property
-   * @return this new property with a different value
+   * @param name  the name of the property
+   * @param value the value of the property
+   * @param defaultValue the default value of the property
+   * @param form  the form of the property
    */
-  public abstract AbstractProperty<T> withValue(T newValue);
+  public AbstractProperty(String name, T value, T defaultValue, String form) {
+    this.name = name;
+    this.form = form;
+    this.value = value;
+    this.defaultValue = defaultValue;
+  }
 
   /**
    * Returns the name of the property
@@ -64,6 +71,15 @@ public abstract class AbstractProperty<T> implements Property<T> {
    */
   public T value() {
     return value;
+  }
+
+  /**
+   * Returns the default value of the property
+   *
+   * @return the default value of the property
+   */
+  public T defaultValue() {
+    return defaultValue;
   }
 
   /**

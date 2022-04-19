@@ -13,10 +13,23 @@ public class StringProperty extends AbstractProperty<String> {
    *
    * @param name  the name of the property
    * @param value a string
+   * @param defaultValue the default value of the property
+   * @param form  the form of the property
+   */
+  public StringProperty(String name, String value, String defaultValue, String form) {
+    super(name, value, defaultValue, form);
+  }
+
+  /**
+   * Creates a new property with a name and string value
+   * Sets the set value to be the default value
+   *
+   * @param name  the name of the property
+   * @param value a string
    * @param form  the form of the property
    */
   public StringProperty(String name, String value, String form) {
-    super(name, value, form);
+    this(name, value, value, form);
   }
 
   /**
@@ -27,7 +40,7 @@ public class StringProperty extends AbstractProperty<String> {
    */
   @Override
   public StringProperty withValue(String newValue) {
-    return new StringProperty(name(), newValue, form());
+    return new StringProperty(name(), newValue, defaultValue(), form());
   }
 
   /**

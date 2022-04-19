@@ -58,6 +58,21 @@ public interface Property<T> {
   T value();
 
   /**
+   * Returns the default value of the property
+   *
+   * @return the default value of the property
+   */
+  T defaultValue();
+
+  /**
+   * Returns a property identical to this one, except with a different value
+   *
+   * @param newValue the value to give the new property
+   * @return this new property with a different value
+   */
+  AbstractProperty<T> withValue(T newValue);
+
+  /**
    * Returns the string representation of the properties value
    *
    * @return the string representation of the properties value

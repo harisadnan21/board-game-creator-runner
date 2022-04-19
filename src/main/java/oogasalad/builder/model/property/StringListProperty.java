@@ -21,6 +21,19 @@ public class StringListProperty extends AbstractProperty<Collection<String>> {
    *
    * @param name  the name of the property
    * @param value a collection of strings
+   * @param defaultValue the default value of the property
+   * @param form  the form of the property
+   */
+  public StringListProperty(String name, Collection<String> value, Collection<String> defaultValue, String form) {
+    super(name, value, defaultValue, form);
+  }
+
+  /**
+   * Creates a new property with the given name and value.
+   * Sets the set value to be the default value
+   *
+   * @param name  the name of the property
+   * @param value a collection of strings
    * @param form  the form of the property
    */
   public StringListProperty(String name, Collection<String> value, String form) {
@@ -29,6 +42,7 @@ public class StringListProperty extends AbstractProperty<Collection<String>> {
 
   /**
    * Creates a new property with a name and integer value
+   * Sets the set value to be the default value
    *
    * @param name  the name of the property
    * @param value a string representation of an integer
