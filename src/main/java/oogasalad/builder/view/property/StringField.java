@@ -29,7 +29,7 @@ public class StringField extends Field{
   @Override
   public Property getProperty() {
     String[] nameParts = property().name().split("-");
-    return new StringProperty(nameParts[nameParts.length - 1], text(), property().form());
+    return new StringProperty(nameParts[nameParts.length - 1], text(), property().defaultValue().toString(), property().form());
   }
 
   @Override

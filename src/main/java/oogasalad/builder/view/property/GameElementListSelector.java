@@ -18,6 +18,7 @@ import oogasalad.builder.view.callback.GetElementNamesCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class GameElementListSelector implements PropertySelector {
@@ -98,7 +99,7 @@ public class GameElementListSelector implements PropertySelector {
   @Override
   public StringListProperty getProperty() {
     String[] nameParts = property.name().split("-");
-    return new StringListProperty(nameParts[nameParts.length - 1], new ArrayList<>(elementsList.getItems()), property.form());
+    return new StringListProperty(nameParts[nameParts.length - 1], new ArrayList<>(elementsList.getItems()), (Collection<String>)property.defaultValue(), property.form()); // FIXME casting
   }
 
   @Override
