@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.StringProperty;
+import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
  * The most basic form of a PropertySelector, essentially just a wrapper for a JavaFX text box.
@@ -20,7 +21,7 @@ public abstract class Field implements PropertySelector{
    *
    * @param property the property that will be "filled in" by the Field
    */
-  public Field(Property property){
+  public Field(Property property, CallbackDispatcher dispatcher){
     this.property = property;
     valueField = new TextField(property.valueAsString());
   }

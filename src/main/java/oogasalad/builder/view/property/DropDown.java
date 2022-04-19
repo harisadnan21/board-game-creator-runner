@@ -8,6 +8,7 @@ import javafx.scene.control.cell.MapValueFactory;
 import javax.security.auth.callback.Callback;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.StringProperty;
+import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
  * PropertySelector that allows users to make a choice from a drop-down menu. This is particularly
@@ -29,7 +30,7 @@ public class DropDown implements PropertySelector{
    *
    * @param property the property that will be "filled in" by the Field
    */
-  public DropDown(Property property){
+  public DropDown(Property property, CallbackDispatcher dispatcher){
     this.property = property;
     list = new ComboBox<>();
     //list.setPromptText(resources.getString(LIST_TEXT));
