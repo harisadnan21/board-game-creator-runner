@@ -176,7 +176,8 @@ public class BoardCanvas extends Pane{
             callbackDispatcher.call(new FindCellBackgroundCallback(x,y)).orElseThrow()));
         boardGraphics.fillRect(x*rectWidth, y*rectHeight, (x + 1) * rectWidth,
             (y + 1) * rectHeight);
-        if (callbackDispatcher.call(new FindPieceAtCallback(x,y)).orElseThrow() != EMPTY){
+        System.out.println(callbackDispatcher.call(new FindCellBackgroundCallback(x,y)).orElseThrow());
+        if (!callbackDispatcher.call(new FindPieceAtCallback(x,y)).orElseThrow().equals(EMPTY)){
           setCurrentPiece(callbackDispatcher.call(new FindPieceAtCallback(x,y)).orElseThrow());
           addPiece(x,y);
         }
