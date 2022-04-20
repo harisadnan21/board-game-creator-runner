@@ -122,6 +122,8 @@ public class BoardTab extends BasicTab {
         Integer.parseInt(tabProperties.getString("numPickerMax")),
         Integer.parseInt(tabProperties.getString("defaultBoardY")),
         Integer.parseInt(tabProperties.getString("numPickerStep")));
+    xDimensionPicker.setEditable(true);
+    yDimensionPicker.setEditable(true);
     xDimensionPicker.setId("xDimEntry");
     yDimensionPicker.setId("yDimEntry");
 
