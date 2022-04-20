@@ -5,6 +5,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
@@ -106,4 +107,30 @@ class BuilderViewTest extends DukeApplicationTest {
         assertTrue(pieceErasedCB.size() > 1);
         assertTrue(pieceErasedCB.contains(new ClearCellCallback(4, 6)));
     }
+
+    @Test
+    public void addPiece(){
+        clickOn("#new-piece");
+        var playerSelector = lookup("#integerSelector-player").queryAs(Spinner.class);
+        playerSelector.getEditor().setText(""+1);
+        playerSelector.commitValue();
+        var idSelector = lookup("#integerSelector-id").queryAs(Spinner.class);
+        idSelector.getEditor().setText(""+1);
+        idSelector.commitValue();
+        //HOW DO I SET FILECHOOSER PROPERLY AND GIVE IT A VALUE?
+        clickOn("#fileSelector-piece");
+        clickOn("#save-piece");
+        assertTrue(lookup("#elementList-piece").queryAs(GameElementList.class).hasProperties());
+    }
+    @Test
+    public void newPieceButtonWork(){
+        clickOn("#new-piece");
+        assertTrue(lookup("#integerSelector-player").tryQuery().isPresent());
+    }
+    @Test
+    public void newActionButtonWork(){
+        clickOn("#new-action");
+        assertTrue(lookup("#DropDown").tryQuery().isPresent());
+    }
+
 }
