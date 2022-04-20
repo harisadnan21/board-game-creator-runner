@@ -47,6 +47,7 @@ class BuilderViewTest extends DukeApplicationTest {
     void testLogin() {
         // We know the board tab will exist after logging in, so just use that to check
         assertTrue(lookup("#boardTab").tryQuery().isPresent());
+
     }
 
     void boardSetup() {

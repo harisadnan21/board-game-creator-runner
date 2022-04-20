@@ -102,6 +102,7 @@ public class GameElementTab extends BasicTab {
   /**
    * Loads all elements into a tab (read from the model)
    */
+  @Override
   public void loadElements() {
     Collection<String> names = getCallbackDispatcher().call(new GetElementNamesCallback(getType())).orElseThrow();
     for (String name : names) {
