@@ -1,6 +1,7 @@
 package oogasalad.builder.view.tab;
 
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -51,10 +52,14 @@ public class GameElementTab extends BasicTab {
     propertyEditor = new PropertyEditor(getCallbackDispatcher());
     nameField = new TextField(
         ViewResourcesSingleton.getInstance().getString("defaultName-" + getType()));
+    nameField.setId("#nameField-"+getType());
+    Button createNewButton = makeButton("new-" + getType(), e -> createElement());
+    createNewButton.setId("new-" + getType());
+    Button savePropertyButton = makeButton(
+        "save", e -> saveCurrentElement());
+    savePropertyButton.setId("save-" + getType());
     rightBox.getChildren().addAll(
-        makeButton("new-" + getType(), e -> createElement()), nameField, propertyEditor,
-        makeButton(
-            "save", e -> saveCurrentElement()));
+        createNewButton, nameField, propertyEditor, savePropertyButton);
     rightBox.setId("rightGameElementsPane");
     rightBox.getStyleClass().add("rightPane");
     return rightBox;
@@ -68,6 +73,7 @@ public class GameElementTab extends BasicTab {
   @Override
   protected Node setupLeftSide(){
     elementList = new GameElementList(this::elementSelected);
+    elementList.setId("elementList-" + getType());
     return elementList;
   }
 

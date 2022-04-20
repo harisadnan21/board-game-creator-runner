@@ -38,6 +38,7 @@ public class FileSelector implements PropertySelector {
     //String buttonLabel = resources.getString(labelName);
     chooseButton.setText(BUTTON_TEXT); // TODO: Replace magic value with resources file (languages)
     chooseButton.setOnAction(e -> chooseFile());
+    chooseButton.setId("fileSelector-" + this.property.name().split("-")[1]);
   }
 
   /**

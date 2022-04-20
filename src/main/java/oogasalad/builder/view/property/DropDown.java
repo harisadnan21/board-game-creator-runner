@@ -36,6 +36,7 @@ public class DropDown implements PropertySelector{
     //list.setPromptText(resources.getString(LIST_TEXT));
     list.setPromptText(LIST_TEXT); // TODO: Replace magic value with resources file (languages)
     list.getItems().setAll(this.property.valueAsString().split(LIST_DELIMITER));
+    list.setId("DropDown");
     //list.valueProperty().addListener((observable, oldValue, newValue) -> selection = newValue);
   }
 
