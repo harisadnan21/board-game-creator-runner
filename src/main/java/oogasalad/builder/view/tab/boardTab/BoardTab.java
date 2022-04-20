@@ -122,6 +122,8 @@ public class BoardTab extends BasicTab {
         Integer.parseInt(tabProperties.getString("numPickerMax")),
         Integer.parseInt(tabProperties.getString("defaultBoardY")),
         Integer.parseInt(tabProperties.getString("numPickerStep")));
+    xDimensionPicker.setId("xDimEntry");
+    yDimensionPicker.setId("yDimEntry");
 
     VBox xDimBox = new VBox(xDimLabel, xDimensionPicker);
     VBox yDimBox = new VBox(yDimLabel, yDimensionPicker);
