@@ -25,7 +25,6 @@ import oogasalad.builder.view.tab.GameElementTab;
 import oogasalad.builder.view.tab.MetaDataTab;
 import oogasalad.builder.view.tab.PiecesTab;
 import oogasalad.builder.view.tab.RulesTab;
-import oogasalad.builder.view.tab.SplashLogin;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
 
 
