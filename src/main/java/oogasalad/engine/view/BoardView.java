@@ -10,6 +10,7 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -28,10 +29,12 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.parser.CellParser;
 import oogasalad.engine.model.parser.PieceParser;
 import oogasalad.engine.view.dashboard.GameIcon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONException;
 
 public class BoardView implements PropertyChangeListener{
   //TODO: add file path and strings
@@ -81,10 +84,38 @@ public class BoardView implements PropertyChangeListener{
     double cellHeight = cellSize.getValue();
 
     makeBoardBacking(width, height, cellSize, rows, columns);
+    makeBoard(rows, columns, cellWidth, cellHeight, game);
+//    for (int i = 0; i < rows; i++) {
+//      for (int j = 0; j < columns; j++) {
+//        Cell temp = new Cell(i, j, cellWidth, cellHeight);
+//        gridRoot.add(temp.getMyRoot(), j, i); // documentation says the first input is column and the second is row
+//        myGrid[i][j] = temp;
+//
+//        int finalI = i;
+//        int finalJ = j;
+//
+//        myGrid[i][j].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+//          try {
+//            cellClicked(e, finalI, finalJ);
+//          } catch (OutOfBoardException ex) {
+//            ex.printStackTrace();
+//          }
+//        });
+//      }
+//    }
+//    root.getChildren().add(gridRoot);
+//    gridRoot.setAlignment(Pos.CENTER);
+//
+//    root.setAlignment(Pos.CENTER);
+  }
 
+  private void makeBoard(int rows, int columns, double cellWidth, double cellHeight, File game)
+      throws FileNotFoundException {
+    Optional<String[][]> colorConfig = getCellColors(game);
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
-        Cell temp = new Cell(i, j, cellWidth, cellHeight);
+        Optional<String> color = colorConfig.isPresent() ? Optional.of(colorConfig.get()[i][j]) : Optional.empty();
+        Cell temp = new Cell(i, j, cellWidth, cellHeight, color);
         gridRoot.add(temp.getMyRoot(), j, i); // documentation says the first input is column and the second is row
         myGrid[i][j] = temp;
 
@@ -104,6 +135,21 @@ public class BoardView implements PropertyChangeListener{
     gridRoot.setAlignment(Pos.CENTER);
 
     root.setAlignment(Pos.CENTER);
+  }
+
+//  private Optional<String[][]> getCellColors(File game) throws FileNotFoundException {
+//    CellParser cParser = new CellParser();
+//    return cParser.parse(game);
+//  }
+
+  private Optional<String[][]> getCellColors(File game) throws FileNotFoundException {
+    CellParser cParser = new CellParser();
+    try {
+      return Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
+    }
+    catch (JSONException e) {
+      return Optional.empty();
+    }
   }
 
   private void setPiecePaths(File game) throws FileNotFoundException {
