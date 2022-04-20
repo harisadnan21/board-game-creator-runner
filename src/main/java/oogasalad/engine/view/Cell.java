@@ -11,6 +11,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Jake Heller
@@ -20,7 +22,7 @@ public class Cell {
   public static int BUFFER = 2;
   public static String VALID_MARKER_PATH = BoardView.IMAGES_FOLDER + "valid_marker.png";
   public static double OPACITY = 0.6;
-
+  private static final Logger LOG = LogManager.getLogger(Cell.class);
   private Shape myShape;
   private StackPane myRoot;
   private ImageView myPiece;
@@ -71,6 +73,7 @@ public class Cell {
    * @return - ImageView created from image path
    */
   private ImageView createImageView(String imagePath, double width, double height) {
+    LOG.debug(imagePath);
     ImageView myImageView = new ImageView(new Image(imagePath));
     //ImageView myImageView = new ImageView();
     myImageView.setId("valid-marker");

@@ -4,10 +4,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -26,19 +28,22 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.parser.PieceParser;
+import oogasalad.engine.view.dashboard.GameIcon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BoardView implements PropertyChangeListener{
   //TODO: add file path and strings
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String GAME_PATH = "games/";
   private FileInputStream fis = new FileInputStream("data/Properties/BoardViewProperties.properties");
   private static final Logger LOG = LogManager.getLogger(BoardView.class);
   public static String IMAGES_FOLDER = "images/";
   private ResourceBundle myResources;
   private String cssFilePath;
 
-  public static Map<Integer, String> PIECE_TYPES = new HashMap<>();
+  private Map<Integer, String> PIECE_TYPES = new HashMap<>();
 
   private Controller myController;
 
@@ -63,9 +68,8 @@ public class BoardView implements PropertyChangeListener{
     WHITE_KNIGHT = IMAGES_FOLDER + prop.getProperty("WHITENIGHT");
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
 
-    // TODO: extract this code to read data file
-    PIECE_TYPES.put(0, WHITE_KNIGHT);
-    PIECE_TYPES.put(1, BLACK_KNIGHT);
+    setPiecePaths(game);
+
 
     text = new GameUpdateText();
     root = new StackPane();
@@ -100,6 +104,26 @@ public class BoardView implements PropertyChangeListener{
     gridRoot.setAlignment(Pos.CENTER);
 
     root.setAlignment(Pos.CENTER);
+  }
+
+  private void setPiecePaths(File game) throws FileNotFoundException {
+    PieceParser parser = new PieceParser();
+    Map<Integer, String> pieces = getConfigFile(game, parser);
+    for(Entry<Integer, String> entry : pieces.entrySet()){
+      PIECE_TYPES.put(entry.getKey(), GAME_PATH + game.getName()+ entry.getValue());
+    }
+  }
+
+  private Map<Integer, String> getConfigFile(File game, PieceParser parser) {
+    Map<Integer, String> pieces = null;
+    try {
+      pieces = parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
+    }
+    catch(FileNotFoundException e){
+      LOG.error("Config File Not Found");
+
+    }
+    return pieces;
   }
 
   public void cellClicked(MouseEvent e, int i, int j)

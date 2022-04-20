@@ -28,9 +28,9 @@ public class InfoPanel extends StackPane {
 
   public InfoPanel(Consumer<File> startGame){
     this.startGame = startGame;
-    this.getStyleClass().add("infoHolder");
+    this.getStyleClass().add("infoPanel");
     infoHolder = new VBox();
-    infoHolder.getStyleClass().add("infoPanel");
+    infoHolder.getStyleClass().add("infoHolder");
     this.getChildren().add(infoHolder);
     language = "English";
     initialText = ResourceBundle.getBundle(RESOURCES +language);
@@ -71,4 +71,5 @@ public class InfoPanel extends StackPane {
     play.setOnAction( game-> startGame.accept(currentGame));
     infoHolder.getChildren().add(play);
   }
+
 }
