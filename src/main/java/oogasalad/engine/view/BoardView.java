@@ -53,8 +53,7 @@ public class BoardView implements PropertyChangeListener{
   private GridPane gridRoot;
   private GameUpdateText text;
 
-  private String BLACK_KNIGHT;
-  String WHITE_KNIGHT;
+
   double BOARD_OUTLINE_SIZE;
   private Properties prop;
   public BoardView(File game, int rows, int columns, double width, double height,
@@ -64,12 +63,9 @@ public class BoardView implements PropertyChangeListener{
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     prop = new Properties();
     prop.load(fis);
-    BLACK_KNIGHT = IMAGES_FOLDER + prop.getProperty("BLACKNIGHT");
-    WHITE_KNIGHT = IMAGES_FOLDER + prop.getProperty("WHITENIGHT");
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
 
     setPiecePaths(game);
-
 
     text = new GameUpdateText();
     root = new StackPane();
@@ -179,7 +175,7 @@ public class BoardView implements PropertyChangeListener{
     for (PositionState cell: board) {
       Position pos = cell.position();
       if (cell.isPresent()) {
-        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(cell.player()));
+        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(cell.type()));
       }
       else {
         try {
