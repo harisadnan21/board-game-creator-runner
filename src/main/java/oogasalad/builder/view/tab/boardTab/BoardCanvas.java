@@ -8,13 +8,18 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindPieceAtCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.GetHeightCallback;
+import oogasalad.builder.view.callback.GetWidthCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 
@@ -153,6 +158,23 @@ public class BoardCanvas extends Pane{
           callbackDispatcher.call(new ColorCellBackgroundCallback(x, y, colorTwo.toString()));
         }
         boardGraphics.fillRect(x * rectWidth, y * rectHeight, (x + 1) * rectWidth,
+            (y + 1) * rectHeight);
+      }
+    }
+  }
+  /**
+   * using callbacks create board
+   */
+  private void loadBoard(){
+    int boardHeight = callbackDispatcher.call(new GetHeightCallback()).orElseThrow();
+    int boardWidth = callbackDispatcher.call(new GetWidthCallback()).orElseThrow();
+    for (int x = 0; x < boardWidth; x++){
+      for (int y = 0; y < boardHeight; y++){
+        boardGraphics.setFill(Paint.valueOf(
+            callbackDispatcher.call(new FindCellBackgroundCallback(x,y)).orElseThrow()));
+        boardGraphics.fillRect(x*rectWidth, y*rectHeight, (x + 1) * rectWidth,
+            (y + 1) * rectHeight);
+        pieceGraphics.drawImage(new Image(callbackDispatcher.call(new FindPieceAtCallback(x,y)).orElse("")), x*rectWidth, y*rectHeight, (x + 1) * rectWidth,
             (y + 1) * rectHeight);
       }
     }

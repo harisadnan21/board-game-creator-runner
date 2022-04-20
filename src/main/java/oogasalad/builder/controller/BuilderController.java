@@ -15,6 +15,7 @@ import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
 import oogasalad.builder.view.callback.FindCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindPieceAtCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
@@ -80,6 +81,8 @@ public class BuilderController {
         builderView.registerCallbackHandler(ColorCellBackgroundCallback.class, this::colorCellBackground);
         builderView.registerCallbackHandler(GetWidthCallback.class, this::getWidth);
         builderView.registerCallbackHandler(GetHeightCallback.class, this::getHeight);
+        builderView.registerCallbackHandler(FindPieceAtCallback.class, this::findPieceAt);
+        builderView.registerCallbackHandler(FindCellBackgroundCallback.class, this::findCellBackground);
     }
 
     /**
@@ -112,8 +115,8 @@ public class BuilderController {
      * @return the name of the piece
      * @throws NullBoardException if the board has not been initialized
      */
-    public String findPieceAt(int x, int y) throws NullBoardException, ElementNotFoundException {
-        return gameConfig.findBoardPieceAt(x, y);
+    String findPieceAt(FindPieceAtCallback callback) throws NullBoardException, ElementNotFoundException {
+        return gameConfig.findBoardPieceAt(callback.x(), callback.y());
     }
 
     /**

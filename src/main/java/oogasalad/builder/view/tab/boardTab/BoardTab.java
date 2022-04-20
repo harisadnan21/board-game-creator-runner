@@ -15,14 +15,10 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
-import oogasalad.builder.view.callback.LoadCallback;
-import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.BasicTab;
 
 

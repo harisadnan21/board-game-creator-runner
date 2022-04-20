@@ -12,6 +12,7 @@ import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
 import oogasalad.builder.view.callback.FindCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindPieceAtCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
@@ -102,7 +103,7 @@ public class ControllerTest extends DukeApplicationTest {
   void testNull(){
     assertThrows(NullBoardException.class, () -> controller.placePiece(new PlacePieceCallback(HEIGHT+1, WIDTH + 1, PIECE_NAME)));
     assertThrows(NullBoardException.class, () -> controller.clearCell(new ClearCellCallback(HEIGHT+1, WIDTH + 1)));
-    assertThrows(NullBoardException.class, () -> controller.findPieceAt(HEIGHT+1, WIDTH + 1));
+    assertThrows(NullBoardException.class, () -> controller.findPieceAt(new FindPieceAtCallback(HEIGHT+1, WIDTH + 1)));
   }
 
   @Test
@@ -120,10 +121,10 @@ public class ControllerTest extends DukeApplicationTest {
     addPiece();
     assertThrows(IndexOutOfBoundsException.class, () -> controller.placePiece(new PlacePieceCallback(HEIGHT+1, WIDTH + 1, PIECE_NAME)));
     assertThrows(IndexOutOfBoundsException.class, () -> controller.clearCell(new ClearCellCallback(HEIGHT+1, WIDTH + 1)));
-    assertThrows(IndexOutOfBoundsException.class, () -> controller.findPieceAt(HEIGHT+1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> controller.findPieceAt(new FindPieceAtCallback(+1, WIDTH + 1)));
     assertThrows(IndexOutOfBoundsException.class, () -> controller.placePiece(new PlacePieceCallback(-1, WIDTH + 1, PIECE_NAME)));
     assertThrows(IndexOutOfBoundsException.class, () -> controller.clearCell(new ClearCellCallback(-1, WIDTH + 1)));
-    assertThrows(IndexOutOfBoundsException.class, () -> controller.findPieceAt(-1, WIDTH + 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> controller.findPieceAt(new FindPieceAtCallback(-1, WIDTH + 1)));
   }
 
   @Test
@@ -132,7 +133,7 @@ public class ControllerTest extends DukeApplicationTest {
     controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
     addPiece();
     controller.placePiece(new PlacePieceCallback(X, Y, PIECE_NAME));
-    assertEquals(PIECE_NAME, controller.findPieceAt(X, Y));
+    assertEquals(PIECE_NAME, controller.findPieceAt(new FindPieceAtCallback(X, Y)));
   }
 
   @Test
@@ -141,13 +142,13 @@ public class ControllerTest extends DukeApplicationTest {
     controller.makeBoard(new MakeBoardCallback(WIDTH, HEIGHT));
     for (int i = 0; i < WIDTH; i++) {
       for (int j = 0; j < HEIGHT; j++) {
-        assertEquals(EMPTY, controller.findPieceAt(i, j));
+        assertEquals(EMPTY, controller.findPieceAt(new FindPieceAtCallback(i, j)));
       }
     }
     addPiece();
     controller.placePiece(new PlacePieceCallback(X, Y, PIECE_NAME));
     controller.clearCell(new ClearCellCallback(X, Y));
-    assertEquals(EMPTY, controller.findPieceAt(X, Y));
+    assertEquals(EMPTY, controller.findPieceAt(new FindPieceAtCallback(X, Y)));
   }
 
   @Test
