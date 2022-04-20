@@ -1,0 +1,25 @@
+
+.myWelcome{
+    -fx-text-fill: black;
+    -fx-font-size: 24;
+    -fx-font-family: "Inter";
+    -fx-alignment: center;
+}
+
+.image{
+    -fx-alignment: center;
+}
+
+.proceed{
+    -fx-border-color: seagreen;
+    -fx-border-width: 2px;
+    -fx-background-color: #ffffff;
+}
+
+.elementHolder{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4cca2b, #2bc1ca);
+}
+
+.backdrop{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4cca2b, #2bc1ca);
+}

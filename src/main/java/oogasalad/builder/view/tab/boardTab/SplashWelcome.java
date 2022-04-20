@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
 import javafx.stage.Stage;
 import oogasalad.builder.view.ViewResourcesSingleton;
 
@@ -17,7 +19,7 @@ import oogasalad.builder.view.ViewResourcesSingleton;
 public class SplashWelcome {
     public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
     public static final String WELCOME_IMAGE = DEFAULT_RESOURCE_PACKAGE + "welcome.jpg";
-    private static final String SPLASH_PACKAGE = "SplashLogin.css";
+    private static final String SPLASH_PACKAGE = "SplashWelcome.css";
     
     private Label myWelcome;
     private BorderPane elementHolder;
@@ -42,9 +44,10 @@ public class SplashWelcome {
         myWelcomeScene = new Scene(elementHolder, 600, 650);
         myWelcome.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
         myWelcome.getStyleClass().add("myWelcome");
-        myImageView.getStyleClass().add("leftPanel");
+        myImageView.getStyleClass().add("image");
         proceed.getStyleClass().add("proceed");
-        elementHolder.getStyleClass().add("buttonHolder");
+        elementHolder.getStyleClass().add("elementHolder");
+        //myWelcomeScene.setFill(Color.ALICEBLUE);
     }
 
     private void createElements() {
@@ -56,7 +59,7 @@ public class SplashWelcome {
 
     private void setupHolders(Button proceed) {
         elementHolder = new BorderPane();
-        elementHolder.setCenter(myImageView);
+        //elementHolder.setCenter(myImageView);
         elementHolder.setBottom(proceed);
         elementHolder.setTop(myWelcome);
     }
