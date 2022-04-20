@@ -1,6 +1,7 @@
 package oogasalad.engine.view;
 
 import java.util.Objects;
+import java.util.Optional;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -15,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * @author Jake Heller
+ * @author Jake Heller, Cynthia France
  */
 public class Cell {
 
@@ -41,7 +42,7 @@ public class Cell {
    * @param width cell width
    * @param height cell height
    */
-  public Cell(int x, int y, double width, double height) {
+  public Cell(int x, int y, double width, double height, Optional<String> hexColor) {
     myWidth = width;
     myHeight = height;
     myX = x;
@@ -49,7 +50,7 @@ public class Cell {
     myRoot = new StackPane();
     myRoot.getStyleClass().add("cell");
     myShape = new Rectangle(width, height);
-    setColor();
+    setColor(hexColor);
 
     myRoot.getChildren().add(myShape);
   }
@@ -126,7 +127,16 @@ public class Cell {
     return myRoot.getChildren().contains(myPiece);
   }
 
-  private void setColor() {
+  private void setColor(Optional<String> hexColor) {
+    if (hexColor.isPresent()) {
+      myShape.setFill(Color.web(hexColor.get()));
+    }
+    else {
+      setDefaultColor();
+    }
+  }
+
+  private void setDefaultColor() {
     if ((myX+myY)%2 == 0) {
       myShape.setId("cell-type-A");
     }
