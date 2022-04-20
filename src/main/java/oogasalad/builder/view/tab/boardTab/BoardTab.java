@@ -65,6 +65,13 @@ public class BoardTab extends BasicTab {
     return rightBox;
   }
 
+  @Override
+  public void loadElements() {
+    boardCanvas.changeCanvasSize(
+        getCenter().getBoundsInParent().getWidth() * getSplitPane().getDividerPositions()[0],
+        getCenter().getBoundsInParent().getHeight());
+    boardCanvas.loadBoard();
+  }
   /**
    * Sets up the boardCanvas and returns it as the left side
    * @return

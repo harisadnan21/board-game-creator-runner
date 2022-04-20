@@ -42,7 +42,7 @@ public class BuilderView {
   private static final String TAB_FORMAT = "tabFormat.css";
 
   private static Stage stage;
-  private Collection<GameElementTab> tabs;
+  private Collection<BasicTab> tabs;
   public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
 
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
@@ -94,11 +94,13 @@ public class BuilderView {
     tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, metadataTab);
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
+
     tabs.add(pieceTabPane);
     tabs.add(actionsTabPane);
     tabs.add(conditionsTabPane);
     tabs.add(rulesTabPane);
     tabs.add(metadataTabPane);
+    tabs.add(boardTabPane);
 
     return tabPane;
   }
@@ -136,7 +138,7 @@ public class BuilderView {
     //TODO: Remove Magic Value
     directoryChooser.setTitle("Choose Configuration Load Location");
     callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(stage)));
-    for (GameElementTab tab : tabs) {
+    for (BasicTab tab : tabs) {
       tab.loadElements();
     }
 
