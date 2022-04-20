@@ -163,7 +163,7 @@ public class BoardCanvas extends Pane{
     }
   }
   /**
-   * using callbacks create board
+   * using callbacks create the board that corresponds to the model
    */
   private void loadBoard(){
     int boardHeight = callbackDispatcher.call(new GetHeightCallback()).orElseThrow();
@@ -174,8 +174,10 @@ public class BoardCanvas extends Pane{
             callbackDispatcher.call(new FindCellBackgroundCallback(x,y)).orElseThrow()));
         boardGraphics.fillRect(x*rectWidth, y*rectHeight, (x + 1) * rectWidth,
             (y + 1) * rectHeight);
-        pieceGraphics.drawImage(new Image(callbackDispatcher.call(new FindPieceAtCallback(x,y)).orElse("")), x*rectWidth, y*rectHeight, (x + 1) * rectWidth,
-            (y + 1) * rectHeight);
+        if (callbackDispatcher.call(new FindPieceAtCallback(x,y)).isPresent()){
+          pieceGraphics.drawImage(new Image(callbackDispatcher.call(new FindPieceAtCallback(x,y)).get()), x*rectWidth, y*rectHeight, (x + 1) * rectWidth,
+              (y + 1) * rectHeight);
+        }
       }
     }
   }
