@@ -3,6 +3,7 @@ package oogasalad.engine.model.ai.evaluation.constant;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import org.assertj.core.util.Arrays;
@@ -18,10 +19,10 @@ class AlwaysZeroTest {
   void evaluate() {
     for(int player: Arrays.array(Piece.PLAYER_ONE, Piece.PLAYER_TWO)) {
       Stream<Board> randomBoards = getRandomBoards(2);
-      randomBoards.forEach(board -> assertEquals(0, alwaysZero.evaluate(board, player)));
+      randomBoards.forEach(board -> assertEquals(new Evaluation(0,0), alwaysZero.evaluate(board)));
 
       randomBoards = getRandomBoards(2);
-      randomBoards.forEach(board -> assertEquals(0, constant.evaluate(board, player)));
+      randomBoards.forEach(board -> assertEquals(new Evaluation(0,0), constant.evaluate(board)));
     }
   }
 
@@ -30,10 +31,10 @@ class AlwaysZeroTest {
   void noErrors() {
     for(int player: Arrays.array(Piece.PLAYER_ONE, Piece.PLAYER_TWO)) {
       Stream<Board> randomBoards = getRandomBoards(2);
-      randomBoards.forEach(board -> assertDoesNotThrow(() -> alwaysZero.evaluate(board, player)));
+      randomBoards.forEach(board -> assertDoesNotThrow(() -> alwaysZero.evaluate(board)));
 
       randomBoards = getRandomBoards(2);
-      randomBoards.forEach(board -> assertDoesNotThrow(() -> constant.evaluate(board, player)));
+      randomBoards.forEach(board -> assertDoesNotThrow(() -> constant.evaluate(board)));
 
     }
   }

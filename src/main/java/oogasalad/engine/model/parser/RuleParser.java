@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import oogasalad.engine.model.actions.Action;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.rule.Move;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,8 +22,9 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
   public static final String ACTIONS = "actions";
   public static final String CONDITIONS = "conditions";
   private static final String RULES = "rules";
-  private static final String REPRESENTATIVE_POINT_X = "representativeX";
-  private static final String REPRESENTATIVE_POINT_Y = "representativeY";
+  private static final String REPRESENTATIVE_POINT = "representativePoint";
+  private static final String REPRESENTATIVE_POINT_X = "x"; //?? "representativeX";
+  private static final String REPRESENTATIVE_POINT_Y = "y"; //?? "representativeY";
   private static final String NAME = "name";
   private final ActionParser actionParser;
   private final ConditionParser conditionParser;
@@ -55,7 +56,7 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
       String name = rule.getString(NAME);
       Position repPoint = getRepresentativePoint(rule);
       Action[] actions = resolveActions(rule);
-      PieceCondition[] conditions = resolveConditions(rule);
+      Condition[] conditions = resolveConditions(rule);
       rules.add(new Move(name, conditions, actions, repPoint.i(), repPoint.j()));
     }
     return rules;
@@ -72,13 +73,13 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
   }
 
   // Resolves all conditions in a rule
-  private PieceCondition[] resolveConditions(JSONObject ruleObj) {
-    Collection<PieceCondition> conditions = new HashSet<>();
+  private Condition[] resolveConditions(JSONObject ruleObj) {
+    Collection<Condition> conditions = new HashSet<>();
     JSONArray conditionsJSON = ruleObj.getJSONArray(CONDITIONS);
     for (int i = 0; i < conditionsJSON.length(); i++) {
       conditions.add(conditionParser.resolve(conditionsJSON.getString(i)));
     }
-    return conditions.toArray(new PieceCondition[0]);
+    return conditions.toArray(new Condition[0]);
   }
 
   // Initial parsing for conditions and actions without resolving them
@@ -89,8 +90,9 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
 
   // Gets a representative point from a JSONObject representing a rule
   private Position getRepresentativePoint(JSONObject rule) {
-    int i = -rule.getInt(REPRESENTATIVE_POINT_Y);
-    int j = rule.getInt(REPRESENTATIVE_POINT_X);
+    JSONObject representativePoint = rule.getJSONObject("representativePoint");
+    int i = -representativePoint.getInt(REPRESENTATIVE_POINT_Y);
+    int j = representativePoint.getInt(REPRESENTATIVE_POINT_X);
     return new Position(i, j);
   }
 

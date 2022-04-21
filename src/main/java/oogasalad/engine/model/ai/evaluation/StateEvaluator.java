@@ -6,7 +6,7 @@ import oogasalad.engine.model.board.Board;
 @FunctionalInterface
 public interface StateEvaluator {
 
-  int evaluate(Board board, int player);
+  Evaluation evaluate(Board board);
 
   static void throwIfInvalid(Board board) {
     if (board == null) {

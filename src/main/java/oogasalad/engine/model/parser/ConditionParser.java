@@ -1,14 +1,14 @@
 package oogasalad.engine.model.parser;
 
 import java.util.ResourceBundle;
-import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
+import oogasalad.engine.model.conditions.Condition;
 
 /**
  * Parses conditions, storing them in a map so that they can be resolved later
  *
  * @author Shaan Gondalia
  */
-public class ConditionParser extends ReferenceParser<PieceCondition> {
+public class ConditionParser extends ReferenceParser<Condition> {
 
   private static final String CONDITIONS = "conditions";
   private static final String CONDITION_RESOURCES_PATH = "engine-resources.Conditions";

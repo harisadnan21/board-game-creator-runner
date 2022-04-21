@@ -1,6 +1,7 @@
 package oogasalad.engine.view;
 
 import java.util.Objects;
+import java.util.Optional;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -11,16 +12,18 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * @author Jake Heller
+ * @author Jake Heller, Cynthia France
  */
 public class Cell {
 
   public static int BUFFER = 2;
   public static String VALID_MARKER_PATH = BoardView.IMAGES_FOLDER + "valid_marker.png";
   public static double OPACITY = 0.6;
-
+  private static final Logger LOG = LogManager.getLogger(Cell.class);
   private Shape myShape;
   private StackPane myRoot;
   private ImageView myPiece;
@@ -39,7 +42,7 @@ public class Cell {
    * @param width cell width
    * @param height cell height
    */
-  public Cell(int x, int y, double width, double height) {
+  public Cell(int x, int y, double width, double height, Optional<String> hexColor) {
     myWidth = width;
     myHeight = height;
     myX = x;
@@ -47,7 +50,7 @@ public class Cell {
     myRoot = new StackPane();
     myRoot.getStyleClass().add("cell");
     myShape = new Rectangle(width, height);
-    setColor();
+    setColor(hexColor);
 
     myRoot.getChildren().add(myShape);
   }
@@ -71,6 +74,7 @@ public class Cell {
    * @return - ImageView created from image path
    */
   private ImageView createImageView(String imagePath, double width, double height) {
+    LOG.debug(imagePath);
     ImageView myImageView = new ImageView(new Image(imagePath));
     //ImageView myImageView = new ImageView();
     myImageView.setId("valid-marker");
@@ -123,7 +127,16 @@ public class Cell {
     return myRoot.getChildren().contains(myPiece);
   }
 
-  private void setColor() {
+  private void setColor(Optional<String> hexColor) {
+    if (hexColor.isPresent()) {
+      myShape.setFill(Color.web(hexColor.get()));
+    }
+    else {
+      setDefaultColor();
+    }
+  }
+
+  private void setDefaultColor() {
     if ((myX+myY)%2 == 0) {
       myShape.setId("cell-type-A");
     }
