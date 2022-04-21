@@ -54,14 +54,16 @@ public class StringListProperty extends AbstractProperty<Collection<String>> {
   }
 
   /**
-   * Returns a property identical to this one, except with a different value
+   * Returns an instance of this property but with the information specified
    *
-   * @param newValue the value to give the new property
-   * @return this new property with a different value
+   * @param name the name of the new property
+   * @param value the value of the new property as a string
+   * @param defaultValue the default value of the new property as a string
+   * @param form the form of the new property
+   * @return a new property of the same type but with the provided information instead
    */
-  @Override
-  public StringListProperty withValue(Collection<String> newValue) {
-    return new StringListProperty(name(), newValue, form());
+  public StringListProperty with(String name, String value, String defaultValue, String form) {
+    return new StringListProperty(name, stringToValue(value), stringToValue(defaultValue), form);
   }
 
   // Converts a collection of string to a single string

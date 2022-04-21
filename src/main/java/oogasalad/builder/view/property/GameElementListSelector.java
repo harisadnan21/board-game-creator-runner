@@ -95,8 +95,7 @@ public class GameElementListSelector implements PropertySelector {
 
   @Override
   public StringListProperty getProperty() {
-    String[] nameParts = property.name().split("-");
-    return new StringListProperty(nameParts[nameParts.length - 1], new ArrayList<>(elementsList.getItems()), parseString(property.defaultValueAsString()), property.form());
+    return new StringListProperty(property.shortName(), new ArrayList<>(elementsList.getItems()), parseString(property.defaultValueAsString()), property.form());
   }
 
   private Collection<String> parseString(String toParse) {

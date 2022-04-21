@@ -129,12 +129,13 @@ public abstract class AbstractProperty<T> implements Property<T> {
 
   /**
    * Returns a property identical to this one, except with a different value
+   * In contrast to `with()`, the value is provided as an actual type rather than a string
    *
-   * @param newValue the value to give the new property as a String
+   * @param newValue the value to give the new property
    * @return this new property with a different value
    */
-  public Property<T> withValueAsString(String newValue) {
-    return withValue(stringToValue(newValue));
+  public Property<T> withValue(T newValue) {
+    return with(valueToString(newValue));
   }
 
   /**

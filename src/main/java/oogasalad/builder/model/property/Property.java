@@ -37,6 +37,16 @@ public interface Property<T> {
   int hashCode();
 
   /**
+   * Gets the actual property name, without the required- and namespace markers
+   *
+   * @return the actual property name
+   */
+  default String shortName() {
+    String[] nameParts = name().split("-");
+    return nameParts[nameParts.length - 1];
+  }
+
+  /**
    * Returns the name of the property
    *
    * @return the name of the property
@@ -65,20 +75,57 @@ public interface Property<T> {
   T defaultValue();
 
   /**
+   * Returns an instance of this property but with the information specified
+   *
+   * @param name the name of the new property
+   * @param value the value of the new property as a string
+   * @param defaultValue the default value of the new property as a string
+   * @param form the form of the new property
+   * @return a new property of the same type but with the provided information instead
+   */
+  Property<T> with(String name, String value, String defaultValue, String form);
+
+  /**
+   * Returns an instance of this property but with the information specified
+   *
+   * @param name the name of the new property
+   * @param value the value of the new property as a string
+   * @param defaultValue the default value of the new property as a string
+   * @return a new property of the same type but with the provided information instead
+   */
+  default Property<T> with(String name, String value, String defaultValue) {
+    return with(name, value, defaultValue, form());
+  }
+
+  /**
+   * Returns an instance of this property but with the specified name and value
+   *
+   * @param name the name of the new property
+   * @param value the value of the new property as a string
+   * @return a new property of the same type but with the provided name and value instead
+   */
+  default Property<T> with(String name, String value) {
+    return with(name, value, defaultValueAsString());
+  }
+
+  /**
+   * Returns an instance of this property but with the specified value
+   *
+   * @param value the value of the new property as a string
+   * @return a new property of the same type but with the provided value instead
+   */
+  default Property<T> with(String value) {
+    return with(name(), value);
+  }
+
+  /**
    * Returns a property identical to this one, except with a different value
+   * In contrast to `with()`, the value is provided as an actual type rather than a string
    *
    * @param newValue the value to give the new property
    * @return this new property with a different value
    */
   Property<T> withValue(T newValue);
-
-  /**
-   * Returns a property identical to this one, except with a different value
-   *
-   * @param newValue the value to give the new property as a String
-   * @return this new property with a different value
-   */
-  Property<T> withValueAsString(String newValue);
 
   /**
    * Returns the string representation of the property's default value
