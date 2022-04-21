@@ -141,7 +141,12 @@ public class BoardView implements PropertyChangeListener{
   private Optional<String[][]> getCellColors(File game) throws FileNotFoundException {
     CellParser cParser = new CellParser();
     try {
-      return Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
+      try {
+        return Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
+      }
+      catch(NullPointerException e) {
+        return Optional.of(cParser.parse(game));
+      }
     }
     catch (JSONException e) {
       return Optional.empty();
@@ -152,6 +157,7 @@ public class BoardView implements PropertyChangeListener{
     PieceParser parser = new PieceParser();
     Map<Integer, String> pieces = getConfigFile(game, parser);
     for(Entry<Integer, String> entry : pieces.entrySet()){
+      System.out.println("hello" + entry.getKey() + "     " + game.getName()+ entry.getValue());
       PIECE_TYPES.put(entry.getKey(), GAME_PATH + game.getName()+ entry.getValue());
     }
   }
@@ -159,7 +165,12 @@ public class BoardView implements PropertyChangeListener{
   private Map<Integer, String> getConfigFile(File game, PieceParser parser) {
     Map<Integer, String> pieces = null;
     try {
-      pieces = parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
+      try {
+        pieces = parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
+      }
+      catch(NullPointerException e) {
+        pieces = parser.parse(game);
+      }
     }
     catch(FileNotFoundException e){
       LOG.error("Config File Not Found");
