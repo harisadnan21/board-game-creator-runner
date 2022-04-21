@@ -25,9 +25,7 @@ import org.json.JSONObject;
  */
 public class WinConditionParser extends AbstractParser<Collection<WinCondition>> {
 
-  public static final String CONDITIONS = "conditions";
   private static final String WIN_CONDITIONS = "winDecisions";
-  private static final String NAME = "name";
   private final ConditionParser conditionParser;
 
   private static final String DECISION_RESOURCES_PATH = "engine-resources.WinDecisions";
@@ -59,11 +57,10 @@ public class WinConditionParser extends AbstractParser<Collection<WinCondition>>
     JSONArray winConditionsJSON = root.getJSONArray(WIN_CONDITIONS);
     for (int i = 0; i < winConditionsJSON.length(); i++) {
       JSONObject winCondition = winConditionsJSON.getJSONObject(i);
-      String name = winCondition.getString(NAME);
-      Condition[] conditions = resolveConditions(winCondition);
+      Condition[] conditions = conditionParser.resolveConditions(winCondition);
       String type = winCondition.getString("type");
       int[] params = paramsToIntArray(winCondition, type);
-      WinDecision decision = getWinDecisionReflection(type, params);
+      WinDecision decision = (WinDecision) getObjectReflection(type, params, DECISION_RESOURCES);
       winConditions.add(new WinCondition(conditions, decision));
     }
     return winConditions;
@@ -85,30 +82,6 @@ public class WinConditionParser extends AbstractParser<Collection<WinCondition>>
       }
     }
     return params;
-  }
-
-
-  // Resolves all conditions in a rule
-  private Condition[] resolveConditions(JSONObject ruleObj) {
-    Collection<Condition> conditions = new HashSet<>();
-    JSONArray conditionsJSON = ruleObj.getJSONArray(CONDITIONS);
-    for (int i = 0; i < conditionsJSON.length(); i++) {
-      conditions.add(conditionParser.resolve(conditionsJSON.getString(i)));
-    }
-    return conditions.toArray(new Condition[0]);
-  }
-
-  // Makes a win decision using reflection
-  private WinDecision getWinDecisionReflection(String type, int[] parameters) {
-    try {
-      String className = DECISION_RESOURCES.getString(type).split(REFLECTION_DELIMITER)[0];
-      Class clazz = Class.forName(className);
-      Constructor ctor = clazz.getConstructor(int[].class);
-      return (WinDecision) ctor.newInstance(parameters);
-    } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
-        InstantiationException | IllegalAccessException e) {
-      throw new ReferenceNotFoundException(e.getMessage()); // TODO: Handle this properly
-    }
   }
 
 }

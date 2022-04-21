@@ -19,8 +19,6 @@ import org.json.JSONObject;
  */
 public class RuleParser extends AbstractParser<Collection<Move>> {
 
-  public static final String ACTIONS = "actions";
-  public static final String CONDITIONS = "conditions";
   private static final String RULES = "rules";
   private static final String REPRESENTATIVE_POINT_X = "representativeX"; //?? "representativeX";
   private static final String REPRESENTATIVE_POINT_Y = "representativeY"; //?? "representativeY";
@@ -54,32 +52,13 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
       JSONObject rule = rulesJSON.getJSONObject(i);
       String name = rule.getString(NAME);
       Position repPoint = getRepresentativePoint(rule);
-      Action[] actions = resolveActions(rule);
-      Condition[] conditions = resolveConditions(rule);
+      Action[] actions = actionParser.resolveActions(rule);
+      Condition[] conditions = conditionParser.resolveConditions(rule);
       rules.add(new Move(name, conditions, actions, repPoint.i(), repPoint.j()));
     }
     return rules;
   }
 
-  // Resolves all actions in a rule
-  private Action[] resolveActions(JSONObject ruleObj) {
-    Collection<Action> actions = new HashSet<>();
-    JSONArray actionsJSON = ruleObj.getJSONArray(ACTIONS);
-    for (int i = 0; i < actionsJSON.length(); i++) {
-      actions.add(actionParser.resolve(actionsJSON.getString(i)));
-    }
-    return actions.toArray(new Action[0]);
-  }
-
-  // Resolves all conditions in a rule
-  private Condition[] resolveConditions(JSONObject ruleObj) {
-    Collection<Condition> conditions = new HashSet<>();
-    JSONArray conditionsJSON = ruleObj.getJSONArray(CONDITIONS);
-    for (int i = 0; i < conditionsJSON.length(); i++) {
-      conditions.add(conditionParser.resolve(conditionsJSON.getString(i)));
-    }
-    return conditions.toArray(new Condition[0]);
-  }
 
   // Initial parsing for conditions and actions without resolving them
   private void parseConditionsAndActions(File configFile) throws FileNotFoundException {
