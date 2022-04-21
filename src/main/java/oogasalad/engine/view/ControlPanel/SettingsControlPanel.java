@@ -6,16 +6,14 @@ import javafx.scene.layout.VBox;
 import oogasalad.engine.view.ControlPanel.ControlPanel;
 
 public class SettingsControlPanel extends ControlPanel {
-  public static String INFO_IMAGE = IMAGES_FOLDER + "info.png";
-  public static String SETTINGS_IMAGE = IMAGES_FOLDER + "gear.png";
+  public static String INFO_IMAGE = IMAGES_FOLDER + imBundle.getString("Info");
+  public static String SETTINGS_IMAGE = IMAGES_FOLDER + imBundle.getString("Gear");
   
   Button info;
   Button settings;
 
   public SettingsControlPanel() {
-    root = new VBox();
-    root.setSpacing(5);
-    createButtons();
+    super();
   }
 
   public Node getRoot() {

@@ -1,6 +1,7 @@
 package oogasalad.engine.model.ai.evaluation.random;
 
 import java.util.Random;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 
@@ -17,7 +18,11 @@ public class RandomRange implements StateEvaluator {
   }
 
   @Override
-  public int evaluate(Board board, int player) {
+  public Evaluation evaluate(Board board) {
+    return new Evaluation(getRandomValue(), getRandomValue());
+  }
+
+  private int getRandomValue() {
     return random.nextInt(closedMin, closedMax+1);
   }
 }

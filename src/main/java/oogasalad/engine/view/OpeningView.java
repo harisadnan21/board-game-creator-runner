@@ -28,6 +28,7 @@ public class OpeningView {
   private JSONObject fileObject;
   private Button uploadFile;
   private Button gameBuilder;
+  private Button dashboard;
   private Button playGame;
   private FileOpener fileOpener;
   private File myFileChoice;
@@ -53,12 +54,15 @@ public class OpeningView {
   public Scene makeScene() {
     Scene scene = new Scene(root, width, height);
     scene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
-
     return scene;
   }
 
   public Button getPlayGame() {
     return playGame;
+  }
+
+  public Button getDashboard() {
+    return dashboard;
   }
 
   public File getFileChoice() {
@@ -83,7 +87,7 @@ public class OpeningView {
   private HBox makeButtonRow() {
     HBox row = new HBox();
     row.setId("opening-button-row");
-    row.getChildren().addAll(uploadFile, gameBuilder);
+    row.getChildren().addAll(uploadFile, dashboard, gameBuilder);
     return row;
   }
 
@@ -93,6 +97,7 @@ public class OpeningView {
     gameBuilder = makeButton(myResources.getString("GameBuilder"));
     playGame = makeButton(myResources.getString("PlayGame"));
     playGame.setDisable(true);
+    dashboard = makeButton(myResources.getString("Dashboard"));
   }
 
   private void setupFileUpload() {

@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -56,6 +55,10 @@ public class GameView {
     return scene;
   }
 
+  public Button getHome() {
+    return myGameControl.getHome();
+  }
+
   private void setUpRoot() {
     root = new BorderPane();
     root.setId("game-view-root");
@@ -64,24 +67,10 @@ public class GameView {
   private void setPause() {
     myGameControl.getPause().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
-
-      VBox pauseRoot = new VBox();
-      pauseRoot.setId("pause-root");
-      Text text = new Text(myResources.getString("PauseMessage"));
-      text.setId("pause-message-text");
-      pauseRoot.getChildren().add(text);
-
-      Button resume = new Button(myResources.getString("Resume"));
-      resume.setId("resume-button");
-      pauseRoot.getChildren().add(resume);
-
-      Stage popupStage = new Stage(StageStyle.TRANSPARENT);
-      popupStage.initModality(Modality.APPLICATION_MODAL);
-      Scene pauseScene = new Scene(pauseRoot);
-      pauseScene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
-      popupStage.setScene(pauseScene);
-
-      resume.setOnAction(event -> {
+      MessageView pauseView = new MessageView(myResources.getString("PauseMessage"),
+          myResources.getString("Resume"), cssFilePath);
+      Stage popupStage = pauseView.getStage();
+      pauseView.getButton().setOnAction(event -> {
         root.setEffect(null);
         popupStage.hide();
       });

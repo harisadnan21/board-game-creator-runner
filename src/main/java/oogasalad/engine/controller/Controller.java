@@ -1,17 +1,16 @@
 package oogasalad.engine.controller;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
 
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.rule.Move;
 import oogasalad.engine.model.parser.GameParser;
 
 public class Controller {
@@ -25,10 +24,8 @@ public class Controller {
   private Consumer<Set<Position>> setViewValidMarks;
 
 
-  public Controller(Board board) {
+  public Controller(Board board, GameParser parser) {
     try {
-      // TODO: Replace this with some way to pick the configuration directory
-      GameParser parser = new GameParser(new File("data/checkers/config.json"));
       myBoard = board;
       myGame = new Game(myBoard, null);
 
