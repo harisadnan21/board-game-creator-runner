@@ -6,6 +6,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
+import oogasalad.engine.model.actions.winner.WinDecision;
+import oogasalad.engine.model.parser.exception.ReferenceNotFoundException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -15,6 +20,8 @@ import org.json.JSONTokener;
  * @author Shaan Gondalia
  */
 public abstract class AbstractParser<T> implements Parser<T> {
+
+  private static final String REFLECTION_DELIMITER = "\\|";
 
   /**
    * Returns an object that is parsed from a configuration file, throwing errors if the file is
@@ -48,6 +55,25 @@ public abstract class AbstractParser<T> implements Parser<T> {
    */
   protected JSONObject findAttribute(JSONObject root, String attribute) {
     return root.getJSONObject(attribute);
+  }
+
+  /**
+   * Returns an object that is found using reflection and a resource bundle
+   *
+   * @param type The name of the class that will be created using reflection
+   * @param parameters An integer array of parameters used to construct the object
+   * @return a new object created using reflection
+   */
+  protected Object getObjectReflection(String type, int[] parameters, ResourceBundle resources) {
+    try {
+      String className = resources.getString(type).split(REFLECTION_DELIMITER)[0];
+      Class clazz = Class.forName(className);
+      Constructor ctor = clazz.getConstructor(int[].class);
+      return ctor.newInstance(parameters);
+    } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
+        InstantiationException | IllegalAccessException e) {
+      throw new ReferenceNotFoundException(e.getMessage()); // TODO: Handle this properly
+    }
   }
 
 }
