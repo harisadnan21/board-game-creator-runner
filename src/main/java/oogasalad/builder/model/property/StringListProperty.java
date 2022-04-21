@@ -1,8 +1,10 @@
 package oogasalad.builder.model.property;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -74,7 +76,7 @@ public class StringListProperty extends AbstractProperty<Collection<String>> {
   }
 
   private static Collection<String> parseList(String string) {
-    return string.isBlank() ? Set.of() : Set.of(string.split(DELIMITER));
+    return string.isBlank() ? List.of() : List.of(string.split(DELIMITER));
   }
 
   /**
@@ -84,7 +86,7 @@ public class StringListProperty extends AbstractProperty<Collection<String>> {
    */
   @Override
   public Collection<String> value() {
-    return new HashSet<>(super.value());
+    return new ArrayList<>(super.value());
   }
 
 }
