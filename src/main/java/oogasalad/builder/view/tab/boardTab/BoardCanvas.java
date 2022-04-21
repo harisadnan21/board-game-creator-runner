@@ -128,7 +128,7 @@ public class BoardCanvas extends Pane{
     gridCanvas = new Canvas(boardCanvas.getWidth(), boardCanvas.getHeight());
     gridGraphics = gridCanvas.getGraphicsContext2D();
 
-    this.getChildren().addAll(boardCanvas, pieceCanvas, gridCanvas);
+    this.getChildren().addAll(boardCanvas, gridCanvas, pieceCanvas);
   }
 
   /**
