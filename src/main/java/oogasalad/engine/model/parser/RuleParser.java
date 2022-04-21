@@ -22,9 +22,8 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
   public static final String ACTIONS = "actions";
   public static final String CONDITIONS = "conditions";
   private static final String RULES = "rules";
-  private static final String REPRESENTATIVE_POINT = "representativePoint";
-  private static final String REPRESENTATIVE_POINT_X = "x"; //?? "representativeX";
-  private static final String REPRESENTATIVE_POINT_Y = "y"; //?? "representativeY";
+  private static final String REPRESENTATIVE_POINT_X = "representativeX"; //?? "representativeX";
+  private static final String REPRESENTATIVE_POINT_Y = "representativeY"; //?? "representativeY";
   private static final String NAME = "name";
   private final ActionParser actionParser;
   private final ConditionParser conditionParser;
@@ -90,9 +89,8 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
 
   // Gets a representative point from a JSONObject representing a rule
   private Position getRepresentativePoint(JSONObject rule) {
-    JSONObject representativePoint = rule.getJSONObject("representativePoint");
-    int i = -representativePoint.getInt(REPRESENTATIVE_POINT_Y);
-    int j = representativePoint.getInt(REPRESENTATIVE_POINT_X);
+    int i = -rule.getInt(REPRESENTATIVE_POINT_Y);
+    int j = rule.getInt(REPRESENTATIVE_POINT_X);
     return new Position(i, j);
   }
 
