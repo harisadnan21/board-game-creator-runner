@@ -1,6 +1,7 @@
 package oogasalad.builder.view.tab;
 
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -94,9 +95,18 @@ public class GameElementTab extends BasicTab {
 
   // Callback method for saving a currently selected game element
   private void saveCurrentElement() {
-    getCallbackDispatcher().call(new UpdateGameElementCallback(getType(), nameField.getText(),
-        propertyEditor.getElementProperties()));
-    elementList.putGameElement(nameField.getText(), propertyEditor.getElementProperties());
+    String name = nameField.getText();
+    if(validateName(name)) {
+      getCallbackDispatcher().call(new UpdateGameElementCallback(getType(), name,
+              propertyEditor.getElementProperties()));
+      elementList.putGameElement(name, propertyEditor.getElementProperties());
+    } else {
+      new Alert(Alert.AlertType.ERROR, ViewResourcesSingleton.getInstance().getString("InvalidElementName", getType())).showAndWait();
+    }
+  }
+
+  protected boolean validateName(String name) {
+    return name.matches("^[\\w\\d \\t?.\\-/!@#$%^&*()+=\\[\\]{}<>:;_]+$");
   }
 
   /**
