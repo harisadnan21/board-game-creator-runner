@@ -177,9 +177,11 @@ public class BoardTab extends BasicTab {
   private void toggleGrid(){
     if (gridCheck.isSelected()){
       boardCanvas.drawGrid(gridColorPicker.getValue());
+      //TODO: CALLBACK COLOR = gridColorPicker.getValue() and isShown = TRUE
     }
     else {
       boardCanvas.clearGrid();
+      //TODO: CALLBACK COLOR = idk if matters and isShown = FALSE
     }
   }
 
