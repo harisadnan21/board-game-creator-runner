@@ -30,9 +30,13 @@ public class GameControlPanel extends ControlPanel {
 
   protected void createButtons() {
     home = createButton(HOME_IMAGE);
+    home.setOnAction(e -> myController.startGame());
     restart = createButton(RESTART_IMAGE);
     restart.setOnAction(e -> myController.startGame());
     undo = createButton(BACK_IMAGE);
+    //TODO: add functionality for undo button
+    undo.setOnAction(e -> myController.undoGame());
+    //setting button
     pause = createButton(PAUSE_IMAGE);
     root.getChildren().addAll(home, restart, undo, pause);
   }
@@ -44,4 +48,9 @@ public class GameControlPanel extends ControlPanel {
   public Button getHome() {
     return home;
   }
+
+  public Button getUndo(){return undo;}
+
+  public Button getRestart(){return restart;}
+
 }
