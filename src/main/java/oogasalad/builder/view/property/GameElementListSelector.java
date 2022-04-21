@@ -94,8 +94,8 @@ public class GameElementListSelector implements PropertySelector {
   }
 
   @Override
-  public StringListProperty getProperty() {
-    return new StringListProperty(property.shortName(), new ArrayList<>(elementsList.getItems()), parseString(property.defaultValueAsString()), property.form());
+  public Property getProperty() {
+    return property.with(property.shortName(), String.join(",", elementsList.getItems()));
   }
 
   private Collection<String> parseString(String toParse) {

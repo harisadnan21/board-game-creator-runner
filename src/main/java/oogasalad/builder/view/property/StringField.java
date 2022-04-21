@@ -10,7 +10,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
  *
  * @author Shaan Gondalia
  */
-public class StringField extends Field{
+public class StringField extends Field {
 
   /**
    * Creates a new Field, which is the most simple property selector (Just a textfield)
@@ -28,8 +28,7 @@ public class StringField extends Field{
    */
   @Override
   public Property getProperty() {
-    String[] nameParts = property().name().split("-");
-    return new StringProperty(nameParts[nameParts.length - 1], text(), property().defaultValueAsString(), property().form());
+    return property().with(property().shortName(), text());
   }
 
   @Override

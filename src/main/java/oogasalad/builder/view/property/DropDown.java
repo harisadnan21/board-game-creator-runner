@@ -59,8 +59,7 @@ public class DropDown implements PropertySelector{
    */
   @Override
   public Property getProperty() {
-    String[] nameParts = property.name().split("-");
-    return new StringProperty(nameParts[nameParts.length - 1], list.getValue(), property.defaultValueAsString(), property.form()); // TODO use withValue()
+    return property.with(property.shortName(), list.getValue());
   }
 
   @Override
