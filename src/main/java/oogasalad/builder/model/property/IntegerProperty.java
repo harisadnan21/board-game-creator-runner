@@ -45,6 +45,18 @@ public class IntegerProperty extends AbstractProperty<Integer> {
   }
 
   /**
+   * Creates a new property with a name and integer value
+   *
+   * @param name  the name of the property
+   * @param value a string representation of an integer
+   * @param defaultValue a string representation of the default integer value
+   * @param form  the form of the property
+   */
+  public IntegerProperty(String name, String value, String defaultValue, String form) {
+    this(name, Integer.valueOf(value), Integer.valueOf(defaultValue), form);
+  }
+
+  /**
    * Returns a property identical to this one, except with a different value
    *
    * @param newValue the value to give the new property

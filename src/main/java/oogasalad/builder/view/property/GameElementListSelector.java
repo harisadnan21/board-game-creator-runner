@@ -45,10 +45,7 @@ public class GameElementListSelector implements PropertySelector {
 
   private void setup() {
     elementsList.setEditable(true);
-    String startElements = property.valueAsString();
-    if(startElements.length() > 2) {
-      elementsList.getItems().setAll(Arrays.stream(startElements.substring(1, startElements.length() - 1).split(",")).map(s -> s.substring(1, s.length() - 1)).toList());
-    }
+    elementsList.getItems().setAll(parseString(property.valueAsString()));
     elementsList.setCellFactory(view -> new ListCell<>() {
       @Override
       protected void updateItem(String elementName, boolean b) {
@@ -99,7 +96,11 @@ public class GameElementListSelector implements PropertySelector {
   @Override
   public StringListProperty getProperty() {
     String[] nameParts = property.name().split("-");
-    return new StringListProperty(nameParts[nameParts.length - 1], new ArrayList<>(elementsList.getItems()), (Collection<String>)property.defaultValue(), property.form()); // FIXME casting
+    return new StringListProperty(nameParts[nameParts.length - 1], new ArrayList<>(elementsList.getItems()), parseString(property.defaultValueAsString()), property.form());
+  }
+
+  private Collection<String> parseString(String toParse) {
+    return List.of(toParse.split(","));
   }
 
   @Override

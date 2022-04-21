@@ -37,7 +37,7 @@ public class IntegerSelector implements PropertySelector{
   @Override
   public Property getProperty() {
     String[] nameParts = property.name().split("-");
-    return new IntegerProperty(nameParts[nameParts.length - 1], numberPicker.getValue(), (Integer) property.defaultValue(), property.form()); //FIXME
+    return new IntegerProperty(nameParts[nameParts.length - 1], numberPicker.getValue().toString(), property.defaultValueAsString(), property.form()); //FIXME
   }
 
   @Override
