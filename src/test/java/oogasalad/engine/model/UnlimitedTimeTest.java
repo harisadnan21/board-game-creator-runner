@@ -2,6 +2,8 @@ package oogasalad.engine.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import oogasalad.engine.model.ai.TimeLimit;
+import oogasalad.engine.model.ai.UnlimitedTime;
 import org.junit.jupiter.api.Test;
 
 class UnlimitedTimeTest {
