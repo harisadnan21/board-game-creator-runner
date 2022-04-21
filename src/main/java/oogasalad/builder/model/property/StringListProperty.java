@@ -41,18 +41,6 @@ public class StringListProperty extends AbstractProperty<Collection<String>> {
   }
 
   /**
-   * Creates a new property with a name and integer value
-   * Sets the set value to be the default value
-   *
-   * @param name  the name of the property
-   * @param value a string representation of an integer
-   * @param form  the form of the property
-   */
-  public StringListProperty(String name, String value, String form) {
-    super(name, value.isBlank() ? List.of() : List.of(value.split(DELIMITER)), form);
-  }
-
-  /**
    * Returns a property identical to this one, except with a different value
    *
    * @param newValue the value to give the new property
@@ -64,18 +52,15 @@ public class StringListProperty extends AbstractProperty<Collection<String>> {
   }
 
   // Converts a collection of string to a single string
-  private static String collectionToString(Collection<String> values) {
-    JSONArray arr = new JSONArray(values);
+  @Override
+  protected String valueToString(Collection<String> value) {
+    JSONArray arr = new JSONArray(value);
     return arr.toString();
   }
 
-  /**
-   * Returns the string representation of the properties value
-   *
-   * @return the string representation of the properties value
-   */
-  public String valueAsString() {
-    return collectionToString(value());
+  @Override
+  protected Collection<String> stringToValue(String string) {
+    return string.isBlank() ? List.of() : List.of(string.split(DELIMITER));
   }
 
   /**

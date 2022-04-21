@@ -43,13 +43,15 @@ public class StringProperty extends AbstractProperty<String> {
     return new StringProperty(name(), newValue, defaultValue(), form());
   }
 
-  /**
-   * Returns the string representation of the properties value
-   *
-   * @return the string representation of the properties value
-   */
-  public String valueAsString() {
-    return value();
+  // These are useless here, but at least things are unified
+  @Override
+  protected String valueToString(String value) {
+    return value;
+  }
+
+  @Override
+  protected String stringToValue(String string) {
+    return string;
   }
 
 }

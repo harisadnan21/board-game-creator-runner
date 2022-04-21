@@ -55,13 +55,14 @@ public class IntegerProperty extends AbstractProperty<Integer> {
     return new IntegerProperty(name(), newValue, defaultValue(), form());
   }
 
-  /**
-   * Returns the string representation of the properties value
-   *
-   * @return the string representation of the properties value
-   */
-  public String valueAsString() {
-    return value().toString();
+  @Override
+  protected String valueToString(Integer value) {
+    return value.toString();
+  }
+
+  @Override
+  protected Integer stringToValue(String string) {
+    return Integer.parseInt(string);
   }
 
 }
