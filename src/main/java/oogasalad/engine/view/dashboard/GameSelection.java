@@ -47,7 +47,8 @@ public class GameSelection extends FlowPane {
         .map(File::getName)
         .filter(fileName -> stringContainsAny(fileName, imageTypes))
         .findFirst();
-    return GAME_PATH + File.separator + name + File.separator + file.get();
+    LOG.info("Image file: {}", file.get());
+    return GAME_PATH + RESOURCES_PATH + name + RESOURCES_PATH + file.get();
   }
 
   private boolean stringContainsAny(String input, String[] list){

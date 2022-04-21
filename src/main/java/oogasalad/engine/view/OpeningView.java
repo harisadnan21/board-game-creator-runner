@@ -28,6 +28,7 @@ public class OpeningView {
   private JSONObject fileObject;
   private Button uploadFile;
   private Button gameBuilder;
+  private Button dashboard;
   private Button playGame;
   private FileOpener fileOpener;
   private File myFileChoice;
@@ -60,6 +61,10 @@ public class OpeningView {
     return playGame;
   }
 
+  public Button getDashboard() {
+    return dashboard;
+  }
+
   public File getFileChoice() {
     return myFileChoice;
   }
@@ -82,7 +87,7 @@ public class OpeningView {
   private HBox makeButtonRow() {
     HBox row = new HBox();
     row.setId("opening-button-row");
-    row.getChildren().addAll(uploadFile, gameBuilder);
+    row.getChildren().addAll(uploadFile, dashboard, gameBuilder);
     return row;
   }
 
@@ -91,7 +96,8 @@ public class OpeningView {
     setupFileUpload();
     gameBuilder = makeButton(myResources.getString("GameBuilder"));
     playGame = makeButton(myResources.getString("PlayGame"));
-
+    playGame.setDisable(true);
+    dashboard = makeButton(myResources.getString("Dashboard"));
   }
 
   private void setupFileUpload() {
@@ -101,6 +107,7 @@ public class OpeningView {
         File script = fileOpener.fileChoice(myStage);
         myFileChoice = script;
         handleInput(fileOpener.getRootObject(script));
+        playGame.setDisable(false);
       } catch (NullPointerException nullPointerException) {
         System.out.println(nullPointerException.getMessage());
       } catch (Exception err) {

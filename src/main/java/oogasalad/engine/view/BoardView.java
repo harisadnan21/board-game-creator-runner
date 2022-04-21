@@ -4,10 +4,13 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -26,19 +29,26 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.parser.BoardParser;
+import oogasalad.engine.model.parser.CellParser;
+import oogasalad.engine.model.parser.MetadataParser;
+import oogasalad.engine.model.parser.PieceParser;
+import oogasalad.engine.view.dashboard.GameIcon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONException;
 
 public class BoardView implements PropertyChangeListener{
   //TODO: add file path and strings
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String GAME_PATH = "games/";
   private FileInputStream fis = new FileInputStream("data/Properties/BoardViewProperties.properties");
   private static final Logger LOG = LogManager.getLogger(BoardView.class);
   public static String IMAGES_FOLDER = "images/";
   private ResourceBundle myResources;
   private String cssFilePath;
 
-  public static Map<Integer, String> PIECE_TYPES = new HashMap<>();
+  private Map<Integer, String> PIECE_TYPES = new HashMap<>();
 
   private Controller myController;
 
@@ -48,8 +58,7 @@ public class BoardView implements PropertyChangeListener{
   private GridPane gridRoot;
   private GameUpdateText text;
 
-  private String BLACK_KNIGHT;
-  String WHITE_KNIGHT;
+
   double BOARD_OUTLINE_SIZE;
   private Properties prop;
   public BoardView(File game, int rows, int columns, double width, double height,
@@ -59,13 +68,9 @@ public class BoardView implements PropertyChangeListener{
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     prop = new Properties();
     prop.load(fis);
-    BLACK_KNIGHT = IMAGES_FOLDER + prop.getProperty("BLACKNIGHT");
-    WHITE_KNIGHT = IMAGES_FOLDER + prop.getProperty("WHITENIGHT");
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
 
-    // TODO: extract this code to read data file
-    PIECE_TYPES.put(0, WHITE_KNIGHT);
-    PIECE_TYPES.put(1, BLACK_KNIGHT);
+    setPiecePaths(game);
 
     text = new GameUpdateText();
     root = new StackPane();
@@ -77,10 +82,16 @@ public class BoardView implements PropertyChangeListener{
     double cellHeight = cellSize.getValue();
 
     makeBoardBacking(width, height, cellSize, rows, columns);
+    makeBoard(rows, columns, cellWidth, cellHeight, game);
+  }
 
+  private void makeBoard(int rows, int columns, double cellWidth, double cellHeight, File game)
+      throws FileNotFoundException {
+    Optional<String[][]> colorConfig = getCellColors(game);
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
-        Cell temp = new Cell(i, j, cellWidth, cellHeight);
+        Optional<String> color = colorConfig.isPresent() ? Optional.of(colorConfig.get()[i][j]) : Optional.empty();
+        Cell temp = new Cell(i, j, cellWidth, cellHeight, color);
         gridRoot.add(temp.getMyRoot(), j, i); // documentation says the first input is column and the second is row
         myGrid[i][j] = temp;
 
@@ -100,6 +111,47 @@ public class BoardView implements PropertyChangeListener{
     gridRoot.setAlignment(Pos.CENTER);
 
     root.setAlignment(Pos.CENTER);
+  }
+
+  private Optional<String[][]> getCellColors(File game) throws FileNotFoundException {
+    CellParser cParser = new CellParser();
+    try {
+      try {
+        return Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
+      }
+      catch(NullPointerException e) {
+        return Optional.of(cParser.parse(game));
+      }
+    }
+    catch (JSONException e) {
+      return Optional.empty();
+    }
+  }
+
+  private void setPiecePaths(File game) throws FileNotFoundException {
+    PieceParser parser = new PieceParser();
+    String name = new MetadataParser().parse(game).get("name");
+    Map<Integer, String> pieces = getConfigFile(game, parser);
+    for(Entry<Integer, String> entry : pieces.entrySet()) {
+      PIECE_TYPES.put(entry.getKey(), GAME_PATH + name + entry.getValue());
+    }
+  }
+
+  private Map<Integer, String> getConfigFile(File game, PieceParser parser) {
+    Map<Integer, String> pieces = null;
+    try {
+      try {
+        pieces = parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
+      }
+      catch(NullPointerException e) {
+        pieces = parser.parse(game);
+      }
+    }
+    catch(FileNotFoundException e){
+      LOG.error("Config File Not Found");
+
+    }
+    return pieces;
   }
 
   public void cellClicked(MouseEvent e, int i, int j)
@@ -155,7 +207,7 @@ public class BoardView implements PropertyChangeListener{
     for (PositionState cell: board) {
       Position pos = cell.position();
       if (cell.isPresent()) {
-        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(cell.player()));
+        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(cell.type()));
       }
       else {
         try {

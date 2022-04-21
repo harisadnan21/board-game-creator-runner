@@ -62,7 +62,8 @@ public class ViewManager {
 
   public OpeningView createOpeningView() {
     openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath);
-    openingView.getPlayGame().setOnAction(e -> showGames());
+    openingView.getPlayGame().setOnAction(e -> startGame(openingView.getFileChoice()));
+    openingView.getDashboard().setOnAction(e -> showGames());
     return openingView;
   }
 
@@ -81,7 +82,14 @@ public class ViewManager {
     try {
       Stage newStage= new Stage();
       newStage.setTitle(game.getName());
-      GameParser parser = new GameParser(Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
+      GameParser parser;
+      try {
+        parser = new GameParser(
+            Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
+      }
+      catch (NullPointerException e) {
+        parser = new GameParser(game);
+      }
       Board board = parser.parseBoard();
       BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath);
       Controller controller = new Controller(board, parser);

@@ -4,6 +4,8 @@ import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
 
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
+import oogasalad.engine.model.ai.TimeLimit;
+import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
@@ -12,13 +14,15 @@ import org.jooq.lambda.Seq;
 public class MinMaxSearcher implements Selects, DepthLimit  {
   private final int maxDepth;
   private final StateEvaluator stateEvaluator;
-  private final AIOracle AIOracle;
+  private final AIOracle aiOracle;
+  private final TimeLimit timeLimit;
 
 
-  public MinMaxSearcher(int maxDepth, StateEvaluator stateEvaluator, AIOracle AIOracle) {
-    this.maxDepth = maxDepth;
+  public MinMaxSearcher(Difficulty difficulty, StateEvaluator stateEvaluator, AIOracle aiOracle) {
+    this.maxDepth = difficulty.depth();
+    this.timeLimit = difficulty.timeLimit();
     this.stateEvaluator = stateEvaluator;
-    this.AIOracle = AIOracle;
+    this.aiOracle = aiOracle;
   }
 
   public AIChoice selectChoice(Board board, int forPlayer) {
@@ -27,7 +31,8 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
   }
 
   protected final Seq<AIChoice> getChoices(Board board, int forPlayer) {
-    return Seq.seq(this.AIOracle.getChoices(board, forPlayer));
+    timeLimit.start();
+    return Seq.seq(aiOracle.getChoices(board, forPlayer));
   }
 
   protected int runMinimax(Board board, int player, int depth) {
@@ -47,11 +52,11 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
   }
 
   protected int getEvaluation(Board board, int player) {
-    return this.stateEvaluator.evaluate(board, player);
+    return this.stateEvaluator.evaluate(board).forPlayer(player);
   }
 
   protected boolean limitReached(Board board, int depth) {
-    return depth == 0 || AIOracle.isWinningState(board);
+    return (depth == 0 || timeLimit.isTimeUp()) || aiOracle.isWinningState(board);
   }
 
   @Override

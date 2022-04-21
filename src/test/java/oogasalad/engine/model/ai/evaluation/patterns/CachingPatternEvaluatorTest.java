@@ -5,13 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import io.vavr.collection.SortedSet;
 import io.vavr.collection.TreeSet;
 import java.util.concurrent.PriorityBlockingQueue;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import org.junit.jupiter.api.Test;
 
-class DiffBasedPatternProximityEvaluatorTest {
+class CachingPatternEvaluatorTest {
 
-  static DiffBasedPatternProximityEvaluator diffBasedPatternProximityEvaluator = new DiffBasedPatternProximityEvaluator(getRandomPatterns());
+  static CachingPatternEvaluator cachingPatternEvaluator = new CachingPatternEvaluator();
   private Board randomBoard = new Board(3,3);
   private int randomPlayer = Piece.PLAYER_ONE;
 
@@ -21,12 +22,12 @@ class DiffBasedPatternProximityEvaluatorTest {
 
   @Test
   void evaluate() {
-    assertInstanceOf(Integer.class, Integer.valueOf(diffBasedPatternProximityEvaluator.evaluate(randomBoard, randomPlayer)));
+    assertInstanceOf(Evaluation.class, cachingPatternEvaluator.evaluate(randomBoard));
   }
 
   @Test
   void getPositionsToCheck() {
-    assertNotNull(diffBasedPatternProximityEvaluator.getPositionsToCheck());
-    assertInstanceOf(PriorityBlockingQueue.class, diffBasedPatternProximityEvaluator.getPositionsToCheck());
+    assertNotNull(cachingPatternEvaluator.getPositionsToCheck());
+    assertInstanceOf(PriorityBlockingQueue.class, cachingPatternEvaluator.getPositionsToCheck());
   }
 }
