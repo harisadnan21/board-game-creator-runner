@@ -128,10 +128,34 @@ public abstract class AbstractProperty<T> implements Property<T> {
   }
 
   /**
+   * Returns a property identical to this one, except with a different value
+   *
+   * @param newValue the value to give the new property as a String
+   * @return this new property with a different value
+   */
+  public Property<T> withValueAsString(String newValue) {
+    return withValue(stringToValue(newValue));
+  }
+
+  /**
    * Returns the string representation of the properties value
    *
    * @return the string representation of the properties value
    */
-  public abstract String valueAsString();
+  public String valueAsString() {
+    return valueToString(value());
+  }
+  /**
+   * Returns the string representation of the property's default value
+   *
+   * @return the string representation of the property's default value
+   */
+  public String defaultValueAsString() {
+    return valueToString(defaultValue());
+  }
+
+  protected abstract String valueToString(T value);
+
+  protected abstract T stringToValue(String string);
 
 }

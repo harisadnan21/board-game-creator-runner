@@ -70,12 +70,27 @@ public interface Property<T> {
    * @param newValue the value to give the new property
    * @return this new property with a different value
    */
-  AbstractProperty<T> withValue(T newValue);
+  Property<T> withValue(T newValue);
 
   /**
-   * Returns the string representation of the properties value
+   * Returns a property identical to this one, except with a different value
    *
-   * @return the string representation of the properties value
+   * @param newValue the value to give the new property as a String
+   * @return this new property with a different value
+   */
+  Property<T> withValueAsString(String newValue);
+
+  /**
+   * Returns the string representation of the property's default value
+   *
+   * @return the string representation of the property's default value
+   */
+  String defaultValueAsString();
+
+  /**
+   * Returns the string representation of the property's value
+   *
+   * @return the string representation of the property's value
    */
   String valueAsString();
 }
