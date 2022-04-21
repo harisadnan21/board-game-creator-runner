@@ -1,4 +1,4 @@
-package oogasalad.engine.model.actions.winner;
+package oogasalad.engine.model.logicelement.winner;
 
 public abstract class AbstractWinDecision implements WinDecision {
 

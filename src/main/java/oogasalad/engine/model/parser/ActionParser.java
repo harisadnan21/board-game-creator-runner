@@ -1,7 +1,7 @@
 package oogasalad.engine.model.parser;
 
 import java.util.ResourceBundle;
-import oogasalad.engine.model.actions.Action;
+import oogasalad.engine.model.logicelement.actions.Action;
 
 /**
  * Parses actions, storing them in a map so that they can be resolved later

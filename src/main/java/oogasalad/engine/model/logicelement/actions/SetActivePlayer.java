@@ -1,7 +1,8 @@
-package oogasalad.engine.model.actions;
+package oogasalad.engine.model.logicelement.actions;
 
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
+import oogasalad.engine.model.board.Position;
 
 public class SetActivePlayer extends Action {
 
@@ -14,7 +15,7 @@ public class SetActivePlayer extends Action {
   }
 
   @Override
-  public Board execute(Board board, int refI, int refJ) throws OutOfBoardException {
+  public Board execute(Board board, Position referencePoint) {
     return board.setPlayer(board.getPlayer() + myParameters[0]);
   }
 }

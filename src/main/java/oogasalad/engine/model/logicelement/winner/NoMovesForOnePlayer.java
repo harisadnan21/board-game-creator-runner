@@ -1,4 +1,4 @@
-package oogasalad.engine.model.actions.winner;
+package oogasalad.engine.model.logicelement.winner;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;

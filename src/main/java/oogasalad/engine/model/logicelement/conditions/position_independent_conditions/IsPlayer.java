@@ -1,8 +1,8 @@
-package oogasalad.engine.model.conditions.position_independent_conditions;
+package oogasalad.engine.model.logicelement.conditions.position_independent_conditions;
 
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.logicelement.conditions.Condition;
 
 /**
  *

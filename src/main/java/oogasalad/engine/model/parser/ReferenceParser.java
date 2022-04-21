@@ -4,11 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.parser.exception.MissingRequiredPropertyException;
 import oogasalad.engine.model.parser.exception.ReferenceNotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,6 +24,8 @@ import org.json.JSONObject;
  * @author Shaan Gondalia
  */
 public abstract class ReferenceParser<T> extends AbstractParser<Void> {
+
+  private static final Logger LOG = LogManager.getLogger(ReferenceParser.class);
 
   private static final String REFLECTION_DELIMITER = "\\|";
   private static final String PARAMETER_DELIMITER = "-";
@@ -84,6 +90,9 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
     //TODO: Make this line easier to understand
     String[] requiredParams = referenceResources.getString(type)
         .split(REFLECTION_DELIMITER)[1].split(PARAMETER_DELIMITER);
+
+    LOG.info("Type: {}\n", type);
+    LOG.info("Required params {}\n", Arrays.toString(requiredParams));
     int[] params = new int[requiredParams.length];
     for (int i = 0; i < requiredParams.length; i++) {
       //TODO: Implement variables here
@@ -95,6 +104,7 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
         params[i] = temp;
       }
     }
+    LOG.info("Int params {}\n", Arrays.toString(params));
     return params;
   }
 

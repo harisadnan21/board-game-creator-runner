@@ -1,7 +1,8 @@
-package oogasalad.engine.model.actions;
+package oogasalad.engine.model.logicelement.actions;
 
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Position;
 
 /**
  * Every action subclass constructor receives all the parameters
@@ -19,10 +20,8 @@ public abstract class Action {
   /**
    *
    * @param board
-   * @param refI reference i
-   * @param refJ reference j
-   * @throws OutOfBoardException
+   * @param referencePoint
+   * @return
    */
-  public abstract Board execute(Board board, int refI, int refJ)
-      throws OutOfBoardException;
+  public abstract Board execute(Board board, Position referencePoint);
 }

@@ -6,6 +6,7 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.logicelement.conditions.position_independent_conditions.BoardFull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
