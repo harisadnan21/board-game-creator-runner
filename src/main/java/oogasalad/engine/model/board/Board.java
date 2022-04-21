@@ -119,6 +119,10 @@ public class Board implements DisplayableBoard {
     return returnBoard;
   }
 
+  public Seq<Position> getPositions() {
+    return Seq.seq(myBoard.values().map(PositionState::position));
+  }
+
   public Board movePiece(Position oldPosition, Position newPosition) {
     throwIfInvalid(oldPosition);
     throwIfInvalid(newPosition);

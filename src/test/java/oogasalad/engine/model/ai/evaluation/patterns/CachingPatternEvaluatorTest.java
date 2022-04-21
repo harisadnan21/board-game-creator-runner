@@ -10,9 +10,9 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import org.junit.jupiter.api.Test;
 
-class CachingPatternEvaluatorTest {
+class PatternEvaluatorTest {
 
-  static CachingPatternEvaluator cachingPatternEvaluator = new CachingPatternEvaluator();
+  static PatternEvaluator patternEvaluator = new PatternEvaluator(null);
   private Board randomBoard = new Board(3,3);
   private int randomPlayer = Piece.PLAYER_ONE;
 
@@ -22,12 +22,12 @@ class CachingPatternEvaluatorTest {
 
   @Test
   void evaluate() {
-    assertInstanceOf(Evaluation.class, cachingPatternEvaluator.evaluate(randomBoard));
+    assertInstanceOf(Evaluation.class, patternEvaluator.evaluate(randomBoard));
   }
 
   @Test
   void getPositionsToCheck() {
-    assertNotNull(cachingPatternEvaluator.getPositionsToCheck());
-    assertInstanceOf(PriorityBlockingQueue.class, cachingPatternEvaluator.getPositionsToCheck());
+    assertNotNull(patternEvaluator.getPositionsToCheck());
+    assertInstanceOf(PriorityBlockingQueue.class, patternEvaluator.getPositionsToCheck());
   }
 }
