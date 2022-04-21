@@ -52,7 +52,7 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
   }
 
   protected int getEvaluation(Board board, int player) {
-    return this.stateEvaluator.evaluate(board, player);
+    return this.stateEvaluator.evaluate(board).forPlayer(player);
   }
 
   protected boolean limitReached(Board board, int depth) {

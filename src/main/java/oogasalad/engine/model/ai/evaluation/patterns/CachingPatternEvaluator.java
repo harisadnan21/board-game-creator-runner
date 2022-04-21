@@ -3,9 +3,9 @@ package oogasalad.engine.model.ai.evaluation.patterns;
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedMap;
 import io.vavr.collection.SortedSet;
-import io.vavr.collection.TreeSet;
 import java.util.Collection;
 import java.util.concurrent.PriorityBlockingQueue;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
@@ -26,8 +26,8 @@ public class CachingPatternEvaluator extends
 
 
   @Override
-  public int evaluate(Board board, int player) {
-    return 0;
+  public Evaluation evaluate(Board board) {
+    return null;
   }
 
   public PriorityBlockingQueue<Position> getPositionsToCheck() {

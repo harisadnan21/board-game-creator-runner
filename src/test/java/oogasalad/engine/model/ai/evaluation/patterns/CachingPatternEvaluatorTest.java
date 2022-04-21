@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import io.vavr.collection.SortedSet;
 import io.vavr.collection.TreeSet;
 import java.util.concurrent.PriorityBlockingQueue;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,7 @@ class CachingPatternEvaluatorTest {
 
   @Test
   void evaluate() {
-    assertInstanceOf(Integer.class, Integer.valueOf(
-        cachingPatternEvaluator.evaluate(randomBoard, randomPlayer)));
+    assertInstanceOf(Evaluation.class, cachingPatternEvaluator.evaluate(randomBoard));
   }
 
   @Test

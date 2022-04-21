@@ -9,23 +9,23 @@ import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.tuple.Tuple2;
 
 public class Memoize {
-  private LoadingCache<Tuple2<Board, Integer>, Integer> memoizer;
+  private LoadingCache<Board, Evaluation> memoizer;
 
   public Memoize(StateEvaluator stateEvaluator) {
     // Resource: https://github.com/ben-manes/caffeine/wiki/Population#loading
     memoizer = Caffeine.newBuilder()
         .maximumSize(1_000)
         .expireAfterWrite(20, TimeUnit.MINUTES)
-        .build(key -> stateEvaluator.evaluate(key.v1, key.v2));
+        .build(stateEvaluator::evaluate);
   }
 
-  public Integer get(Board board, Integer player) {
+  public Evaluation get(Board board) {
     // Resource: https://github.com/ben-manes/caffeine/wiki/Population#loading
     // Lookup and compute an entry if absent, or null if not computable
-    return memoizer.get(new Tuple2<>(board, player));
+    return memoizer.get(board);
   }
 
-  public Map<Tuple2<Board, Integer>, Integer> getAll(List<Tuple2<Board, Integer>> arguments) {
+  public Map<Board, Evaluation> getAll(List<Board> arguments) {
     // Resource: https://github.com/ben-manes/caffeine/wiki/Population#loading
     // Lookup and compute entries that are absent
     return memoizer.getAll(arguments);
