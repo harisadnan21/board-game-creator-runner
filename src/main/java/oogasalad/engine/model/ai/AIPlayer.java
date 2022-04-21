@@ -28,7 +28,7 @@ public class AIPlayer extends Player {
   public void chooseMove() {
     Board board = super.getGameBoard();
     AIChoice AIChoice = this.chooseAction(board);
-    super.executeMove(this, (Choice) AIChoice);
+    super.executeMove(this, (Choice) AIChoice); //Fix unsafe cast
   }
 
   @Override
