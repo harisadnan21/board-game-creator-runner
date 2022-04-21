@@ -22,13 +22,12 @@ class DifficultyTest {
     Difficulty[] difficulties = Difficulty.values();
     for (Difficulty difficulty : Arrays.asList(Difficulty.EASY, Difficulty.RANDOM,
         Difficulty.MEDIUM, Difficulty.HARD, Difficulty.EXPERT, Difficulty.ADAPTIVE)) {
-      assertInstanceOf(Integer.TYPE, difficulty.depth());
+      assertInstanceOf(Integer.class, difficulty.depth());
     }
   }
 
   @Test
   void timeLimit() {
-    Difficulty[] difficulties = Difficulty.values();
     for (Difficulty difficulty : Arrays.asList(Difficulty.EASY, Difficulty.RANDOM,
         Difficulty.MEDIUM, Difficulty.HARD, Difficulty.EXPERT, Difficulty.ADAPTIVE)) {
       assertInstanceOf(TimeLimit.class, difficulty.timeLimit());
