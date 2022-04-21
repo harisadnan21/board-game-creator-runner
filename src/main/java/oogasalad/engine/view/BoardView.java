@@ -29,7 +29,9 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.parser.BoardParser;
 import oogasalad.engine.model.parser.CellParser;
+import oogasalad.engine.model.parser.MetadataParser;
 import oogasalad.engine.model.parser.PieceParser;
 import oogasalad.engine.view.dashboard.GameIcon;
 import org.apache.logging.log4j.LogManager;
@@ -81,28 +83,6 @@ public class BoardView implements PropertyChangeListener{
 
     makeBoardBacking(width, height, cellSize, rows, columns);
     makeBoard(rows, columns, cellWidth, cellHeight, game);
-//    for (int i = 0; i < rows; i++) {
-//      for (int j = 0; j < columns; j++) {
-//        Cell temp = new Cell(i, j, cellWidth, cellHeight);
-//        gridRoot.add(temp.getMyRoot(), j, i); // documentation says the first input is column and the second is row
-//        myGrid[i][j] = temp;
-//
-//        int finalI = i;
-//        int finalJ = j;
-//
-//        myGrid[i][j].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
-//          try {
-//            cellClicked(e, finalI, finalJ);
-//          } catch (OutOfBoardException ex) {
-//            ex.printStackTrace();
-//          }
-//        });
-//      }
-//    }
-//    root.getChildren().add(gridRoot);
-//    gridRoot.setAlignment(Pos.CENTER);
-//
-//    root.setAlignment(Pos.CENTER);
   }
 
   private void makeBoard(int rows, int columns, double cellWidth, double cellHeight, File game)
@@ -133,11 +113,6 @@ public class BoardView implements PropertyChangeListener{
     root.setAlignment(Pos.CENTER);
   }
 
-//  private Optional<String[][]> getCellColors(File game) throws FileNotFoundException {
-//    CellParser cParser = new CellParser();
-//    return cParser.parse(game);
-//  }
-
   private Optional<String[][]> getCellColors(File game) throws FileNotFoundException {
     CellParser cParser = new CellParser();
     try {
@@ -155,10 +130,10 @@ public class BoardView implements PropertyChangeListener{
 
   private void setPiecePaths(File game) throws FileNotFoundException {
     PieceParser parser = new PieceParser();
+    String name = new MetadataParser().parse(game).get("name");
     Map<Integer, String> pieces = getConfigFile(game, parser);
-    for(Entry<Integer, String> entry : pieces.entrySet()){
-      System.out.println("hello" + entry.getKey() + "     " + game.getName()+ entry.getValue());
-      PIECE_TYPES.put(entry.getKey(), GAME_PATH + game.getName()+ entry.getValue());
+    for(Entry<Integer, String> entry : pieces.entrySet()) {
+      PIECE_TYPES.put(entry.getKey(), GAME_PATH + name + entry.getValue());
     }
   }
 
