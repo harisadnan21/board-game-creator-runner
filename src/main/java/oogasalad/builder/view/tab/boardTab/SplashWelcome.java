@@ -23,6 +23,7 @@ public class SplashWelcome {
     
     private Label myWelcome;
     private BorderPane elementHolder;
+    private HBox buttonHolder;
     private Button proceed;
     private static Stage stage;
     private Scene myWelcomeScene;
@@ -42,12 +43,12 @@ public class SplashWelcome {
 
     private void createScreen(Button proceed) {
         myWelcomeScene = new Scene(elementHolder, 600, 650);
-        myWelcome.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
+        myWelcomeScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
+        elementHolder.getStyleClass().add("elementHolder");
         myWelcome.getStyleClass().add("myWelcome");
         myImageView.getStyleClass().add("image");
         proceed.getStyleClass().add("proceed");
-        elementHolder.getStyleClass().add("elementHolder");
-        //myWelcomeScene.setFill(Color.ALICEBLUE);
+
     }
 
     private void createElements() {
@@ -59,8 +60,10 @@ public class SplashWelcome {
 
     private void setupHolders(Button proceed) {
         elementHolder = new BorderPane();
-        //elementHolder.setCenter(myImageView);
+        buttonHolder = new HBox();
         elementHolder.setBottom(proceed);
+        elementHolder.setAlignment(proceed, Pos.CENTER);
+        elementHolder.setCenter(myImageView);
         elementHolder.setTop(myWelcome);
     }
 
