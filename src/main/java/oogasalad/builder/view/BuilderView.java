@@ -22,6 +22,7 @@ import oogasalad.builder.view.tab.ActionsTab;
 import oogasalad.builder.view.tab.BasicTab;
 import oogasalad.builder.view.tab.ConditionsTab;
 import oogasalad.builder.view.tab.GameElementTab;
+import oogasalad.builder.view.tab.HelpTab;
 import oogasalad.builder.view.tab.MetaDataTab;
 import oogasalad.builder.view.tab.PiecesTab;
 import oogasalad.builder.view.tab.RulesTab;
@@ -91,8 +92,11 @@ public class BuilderView {
     GameElementTab metadataTabPane = new MetaDataTab(callbackDispatcher);
     metadataTabPane.setId("metadataTab");
     Tab metadataTab = new Tab(ViewResourcesSingleton.getInstance().getString("metadata"), metadataTabPane);
-    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, metadataTab);
+    BasicTab helpTabPane = new HelpTab(callbackDispatcher);
+    Tab helpTab = new Tab(ViewResourcesSingleton.getInstance().getString("help"), helpTabPane);
+    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, metadataTab, helpTab);
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+
 
 
     tabs.add(pieceTabPane);
