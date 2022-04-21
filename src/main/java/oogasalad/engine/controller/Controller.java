@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
@@ -19,7 +19,7 @@ public class Controller {
   private Engine myEngine;
   private Game myGame;
   private Collection<Move> moves;
-  private Collection<WinCondition> winConditions;
+  private Collection<EndRule> endRules;
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
 
@@ -30,10 +30,10 @@ public class Controller {
       myGame = new Game(myBoard, null);
 
       moves = parser.readRules();
-      winConditions = parser.readWinConditions();
+      endRules = parser.readWinConditions();
 
       // TODO: figure out better way to pass in view lambdas
-      myEngine = new Engine(myGame, moves, winConditions, null, null);
+      myEngine = new Engine(myGame, moves, endRules, null, null);
 
     } catch (Exception e){
       e.printStackTrace();
@@ -46,7 +46,7 @@ public class Controller {
   public Board resetGame() {
     myGame = new Game(myBoard, updateView);
 
-    myEngine = new Engine(myGame, moves, winConditions, updateView, setViewValidMarks);
+    myEngine = new Engine(myGame, moves, endRules, updateView, setViewValidMarks);
 
     return myBoard;
   }
@@ -60,7 +60,7 @@ public class Controller {
     setViewValidMarks = setValidMarks;
 
     myGame = new Game(myBoard, updateView);
-    myEngine = new Engine(myGame, moves, winConditions, updateView, setViewValidMarks);
+    myEngine = new Engine(myGame, moves, endRules, updateView, setViewValidMarks);
 
     return myBoard;
   }

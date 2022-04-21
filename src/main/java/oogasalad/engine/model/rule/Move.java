@@ -1,10 +1,10 @@
 package oogasalad.engine.model.rule;
 
 import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.actions.Action;
+import oogasalad.engine.model.logicelement.actions.Action;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.logicelement.conditions.Condition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,8 +16,6 @@ import org.apache.logging.log4j.Logger;
 public class Move implements Rule {
 
   private static final Logger LOG = LogManager.getLogger(Move.class);
-
-  private Board myNextState;
 
   private String myName;
   private Condition[] myConditions;
@@ -92,21 +90,17 @@ public class Move implements Rule {
     return getRepresentativeCell(referencePoint.i(), referencePoint.j());
   }
 
-  private Board doMovement(Board board, int refI, int refJ) {
-    if (isValid(board, refI, refJ)) {
+  public Board doMovement(Board board, Position referencePoint) {
+    if (isValid(board, referencePoint)) {
 
       LOG.info("{} has {} conditions and {} actions", myName, myConditions.length, myActions.length);
 
       for (Action action: myActions) {
-        board = action.execute(board, refI, refJ);
+        board = action.execute(board, referencePoint);
       }
       board = board.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
       return board;
     }
-    return null;
-  }
-
-  public Board doMovement(Board board, Position referencePoint) {
-    return doMovement(board, referencePoint.i(), referencePoint.j());
+    return board;
   }
 }

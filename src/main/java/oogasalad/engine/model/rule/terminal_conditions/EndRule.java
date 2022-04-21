@@ -1,8 +1,8 @@
 package oogasalad.engine.model.rule.terminal_conditions;
-import oogasalad.engine.model.actions.winner.WinDecision;
+import oogasalad.engine.model.logicelement.winner.WinDecision;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.logicelement.conditions.Condition;
 import oogasalad.engine.model.rule.Rule;
 
 /**
@@ -13,7 +13,7 @@ import oogasalad.engine.model.rule.Rule;
  * @see WinDecision
  * @see Condition
  */
-public class WinCondition implements Rule {
+public class EndRule implements Rule {
   private final  Condition[] myEndConditions;
   private final WinDecision myWinDecision;
 
@@ -22,7 +22,7 @@ public class WinCondition implements Rule {
    * @param endConditions set of conditions that signal the game is over for this specific win condition
    * @param winDecision Winner decision on how to determine a winner
    */
-  public WinCondition(Condition[] endConditions, WinDecision winDecision) {
+  public EndRule(Condition[] endConditions, WinDecision winDecision) {
     myWinDecision = winDecision;
     myEndConditions = endConditions;
   }

@@ -1,4 +1,4 @@
-package oogasalad.engine.model.conditions.position_independent_conditions;
+package oogasalad.engine.model.logicelement.conditions.position_independent_conditions;
 
 import java.util.List;
 import java.util.stream.Stream;

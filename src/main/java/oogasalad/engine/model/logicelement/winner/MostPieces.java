@@ -1,4 +1,4 @@
-package oogasalad.engine.model.actions.winner;
+package oogasalad.engine.model.logicelement.winner;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.PositionState;
