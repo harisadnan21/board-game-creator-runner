@@ -1,20 +1,24 @@
 package oogasalad.builder.view.tab.boardTab;
 
 
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindPieceAtCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.GetHeightCallback;
+import oogasalad.builder.view.callback.GetWidthCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 
@@ -27,6 +31,7 @@ import java.util.function.Consumer;
  */
 public class BoardCanvas extends Pane{
 
+  public static final String EMPTY = "empty";
   private Paint colorOne;
   private Paint colorTwo;
   private Canvas boardCanvas;
@@ -157,6 +162,28 @@ public class BoardCanvas extends Pane{
       }
     }
   }
+  /**
+   * using callbacks create the board that corresponds to the model
+   */
+  public void loadBoard(){
+    int boardHeight = callbackDispatcher.call(new GetHeightCallback()).orElseThrow();
+    int boardWidth = callbackDispatcher.call(new GetWidthCallback()).orElseThrow();
+    rectWidth = boardCanvas.getWidth() / boardWidth;
+    rectHeight = boardCanvas.getHeight() / boardHeight;
+    for (int x = 0; x < boardWidth; x++){
+      for (int y = 0; y < boardHeight; y++){
+        boardGraphics.setFill(Color.valueOf(
+            callbackDispatcher.call(new FindCellBackgroundCallback(x,y)).orElseThrow()));
+        boardGraphics.fillRect(x*rectWidth, y*rectHeight, (x + 1) * rectWidth,
+            (y + 1) * rectHeight);
+        System.out.println(callbackDispatcher.call(new FindCellBackgroundCallback(x,y)).orElseThrow());
+        if (!callbackDispatcher.call(new FindPieceAtCallback(x,y)).orElseThrow().equals(EMPTY)){
+          setCurrentPiece(callbackDispatcher.call(new FindPieceAtCallback(x,y)).orElseThrow());
+          addPiece(x,y);
+        }
+      }
+    }
+  }
 
   /**
    * Set current piece to be placed on board
@@ -177,7 +204,7 @@ public class BoardCanvas extends Pane{
    * Sets click action to place pieces
    */
   public void setClickToPlace(){
-    pieceCanvas.setOnMouseClicked(this::addPiece);
+    pieceCanvas.setOnMouseClicked(this::addPieceOnClick);
   }
 
   /**
@@ -203,12 +230,11 @@ public class BoardCanvas extends Pane{
     callbackDispatcher.call(new ColorCellBackgroundCallback(blockIndex[0], blockIndex[1], color.toString()));
   }
 
-  //adds a piece to the board
-  private void addPiece(MouseEvent click)
+  //adds a piece to the board where it is clicked
+  private void addPieceOnClick(MouseEvent click)
       throws NullBoardException, ElementNotFoundException {
 
     if (currentPiece == null){
-      System.out.println("No piece Selected");
       return;
     }
 
@@ -216,12 +242,16 @@ public class BoardCanvas extends Pane{
     double clickY = click.getY();
 
     int[] blockIndex = findSquare(clickX, clickY);
+    addPiece(blockIndex[0], blockIndex[1]);
+  }
 
-    callbackDispatcher.call(new PlacePieceCallback(blockIndex[0], blockIndex[1], currentPiece));
+  //adds piece on board at specified grid location
+  private void addPiece(int xloc, int yloc){
+    callbackDispatcher.call(new PlacePieceCallback(xloc, yloc, currentPiece));
 
     String filePath =  callbackDispatcher.call(new GetElementPropertyByKeyCallback("piece", currentPiece, "image")).orElseThrow();
     Image pieceImage = new Image(new File(filePath).toURI().toString());
-    pieceGraphics.drawImage(pieceImage,blockIndex[0] * rectWidth, blockIndex[1] * rectHeight, rectWidth, rectHeight);
+    pieceGraphics.drawImage(pieceImage,xloc * rectWidth, yloc * rectHeight, rectWidth, rectHeight);
 
   }
 
