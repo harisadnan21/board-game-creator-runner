@@ -34,6 +34,7 @@ public class GameConfiguration implements BuilderModel {
   private static final String RULE = "rule";
   private static final String ACTION = "action";
   private static final String CONDITION = "condition";
+  private static final String WIN_CONDITION = "winCondition";
   private static final String ID = "id";
   private static final int INDENT_FACTOR = 4;
   public static final String METADATA = "metadata";
@@ -250,6 +251,7 @@ public class GameConfiguration implements BuilderModel {
     obj.put("rules", elementsToJSONArray(RULE));
     obj.put("conditions", elementsToJSONArray(CONDITION));
     obj.put("actions", elementsToJSONArray(ACTION));
+    obj.put("winConditions", elementsToJSONArray(WIN_CONDITION));
     return obj.toString(INDENT_FACTOR);
   }
 
@@ -269,6 +271,7 @@ public class GameConfiguration implements BuilderModel {
       addJSONArray(obj.getJSONArray("rules"), RULE, workingDirectory);
       addJSONArray(obj.getJSONArray("conditions"), CONDITION, workingDirectory);
       addJSONArray(obj.getJSONArray("actions"), ACTION, workingDirectory);
+      addJSONArray(obj.getJSONArray("winDecisions"), WIN_CONDITION, workingDirectory);
       addJSONObject(obj.getJSONObject(METADATA), METADATA, workingDirectory);
     } catch (JSONException ignored) {
       // Do nothing if certain parts of the json file are not found
@@ -350,6 +353,7 @@ public class GameConfiguration implements BuilderModel {
     elements.put(ACTION, new HashMap<>());
     elements.put(CONDITION, new HashMap<>());
     elements.put(METADATA, new HashMap<>());
+    elements.put(WIN_CONDITION, new HashMap<>());
   }
 
 }
