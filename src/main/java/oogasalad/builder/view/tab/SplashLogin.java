@@ -77,7 +77,7 @@ public class SplashLogin extends Parent {
         rightPanel.getChildren().addAll(proceed, languageBox);
         rightPanel.setAlignment(Pos.CENTER);
         buttonHolder.setLeft(leftPanel);
-        buttonHolder.setRight(rightPanel);
+        buttonHolder.setCenter(rightPanel);
         buttonHolder.setAlignment(rightPanel, Pos.CENTER);
     }
 

@@ -43,8 +43,8 @@ public class BuilderView {
   public BuilderView(Stage mainStage) {
     tabs = new HashSet<>();
     stage = mainStage;
-    //SplashLogin newWindow = new SplashLogin(e -> buildView());
-    SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
+    SplashLogin newWindow = new SplashLogin(e -> buildView());
+    //SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
   }
 
   // Builds the view, including all tabs and menus
