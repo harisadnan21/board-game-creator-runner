@@ -13,6 +13,7 @@ import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.FactoryProvider;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MalformedConfigurationException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.property.Property;
@@ -274,8 +275,7 @@ public class GameConfiguration implements BuilderModel {
       addJSONArray(obj.getJSONArray("winDecisions"), WIN_CONDITION, workingDirectory);
       addJSONObject(obj.getJSONObject(METADATA), METADATA, workingDirectory);
     } catch (JSONException ignored) {
-      // Do nothing if certain parts of the json file are not found
-      // TODO: Maybe throw an exception here?
+      throw new MalformedConfigurationException();
     }
   }
 
