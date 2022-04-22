@@ -8,7 +8,6 @@ import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.engine.Oracle;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 class SelectorFactoryTest {
 
