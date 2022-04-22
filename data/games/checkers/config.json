@@ -33,65 +33,113 @@
     },
     "winDecisions": [{
         "name": "Player with no pieces loses",
-        "conditions": ["noPiecesLeftEitherPlayer"],
-        "type": "MostPieces"
+        "type": "MostPieces",
+        "conditions": ["noPiecesLeftEitherPlayer"]
     }],
     "rules": [
         {
             "representativeX": 1,
             "representativeY": -1,
             "name": "White move down and right",
-            "conditions": ["emptyDownRight-belongsToWhite-whiteTurn"],
+            "conditions": [
+                "emptyDownRight",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
             "actions": ["moveDownRight"]
         },
         {
             "representativeX": 2,
             "representativeY": -2,
             "name": "White capture down right",
-            "conditions": ["emptyDoubleDownRight-belongsToBlackDownRight-belongsToWhite-whiteTurn"],
-            "actions": ["moveDoubleDownRight-captureDownRight"]
+            "conditions": [
+                "emptyDoubleDownRight",
+                "belongsToBlackDownRight",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": [
+                "moveDoubleDownRight",
+                "captureDownRight"
+            ]
         },
         {
             "representativeX": 2,
             "representativeY": 2,
             "name": "Black capture up right",
-            "conditions": ["emptyDoubleUpRight-belongsToWhiteUpRight-belongsToBlack-blackTurn"],
-            "actions": ["moveDoubleUpRight-captureUpRight"]
+            "conditions": [
+                "emptyDoubleUpRight",
+                "belongsToWhiteUpRight",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": [
+                "moveDoubleUpRight",
+                "captureUpRight"
+            ]
         },
         {
             "representativeX": -1,
             "representativeY": -1,
             "name": "White move down and left",
-            "conditions": ["emptyDownLeft-belongsToWhite-whiteTurn"],
+            "conditions": [
+                "emptyDownLeft",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
             "actions": ["moveDownLeft"]
         },
         {
             "representativeX": -2,
             "representativeY": -2,
             "name": "White capture down left",
-            "conditions": ["emptyDoubleDownLeft-belongsToBlackDownLeft-belongsToWhite-whiteTurn"],
-            "actions": ["moveDoubleDownLeft-captureDownLeft"]
+            "conditions": [
+                "emptyDoubleDownLeft",
+                "belongsToBlackDownLeft",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": [
+                "moveDoubleDownLeft",
+                "captureDownLeft"
+            ]
         },
         {
             "representativeX": 1,
             "representativeY": 1,
             "name": "Black move up and right",
-            "conditions": ["emptyUpRight-belongsToBlack-blackTurn"],
+            "conditions": [
+                "emptyUpRight",
+                "belongsToBlack",
+                "blackTurn"
+            ],
             "actions": ["moveUpRight"]
         },
         {
             "representativeX": -1,
             "representativeY": 1,
             "name": "Black move up and left",
-            "conditions": ["emptyUpLeft-belongsToBlack-blackTurn"],
+            "conditions": [
+                "emptyUpLeft",
+                "belongsToBlack",
+                "blackTurn"
+            ],
             "actions": ["moveUpLeft"]
         },
         {
             "representativeX": -2,
             "representativeY": 2,
             "name": "Black capture up left",
-            "conditions": ["emptyDoubleUpLeft-belongsToWhiteUpLeft-belongsToBlack-blackTurn"],
-            "actions": ["moveDoubleUpLeft-captureUpLeft"]
+            "conditions": [
+                "emptyDoubleUpLeft",
+                "belongsToWhiteUpLeft",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": [
+                "moveDoubleUpLeft",
+                "captureUpLeft"
+            ]
         }
     ],
     "conditions": [
