@@ -34,7 +34,6 @@ public class SplashLogin extends Parent {
     private ChoiceBox<String> languageBox;
     private VBox leftPanel;
     private VBox rightPanel;
-    private VBox rightPanelElements;
     private BorderPane buttonHolder;
     private Button proceed;
     private static Stage stage;
@@ -74,14 +73,12 @@ public class SplashLogin extends Parent {
         buttonHolder = new BorderPane();
         leftPanel = new VBox();
         rightPanel = new VBox();
-        rightPanelElements = new VBox();
         leftPanel.getChildren().addAll(myWelcome);
-        rightPanelElements.getChildren().addAll(proceed, languageBox);
-        rightPanel.getChildren().addAll(rightPanelElements);
-        rightPanelElements.setAlignment(Pos.CENTER);
+        rightPanel.getChildren().addAll(proceed, languageBox);
         rightPanel.setAlignment(Pos.CENTER);
         buttonHolder.setLeft(leftPanel);
         buttonHolder.setRight(rightPanel);
+        buttonHolder.setAlignment(rightPanel, Pos.CENTER);
     }
 
     //Exits the splash screen, moving to the builder view

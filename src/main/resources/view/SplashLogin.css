@@ -12,9 +12,9 @@
 }
 
 .proceed{
-        -fx-border-color: seagreen;
-        -fx-border-width: 2px;
-        -fx-background-color: #ffffff;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4cca2b, #2bc1ca);
+    -fx-background-radius: 30 30 30 30;
+    -fx-text-fill: #ffffff;
 }
 
 .buttonHolder{
