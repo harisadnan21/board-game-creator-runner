@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
@@ -177,7 +178,7 @@ public class BoardView implements PropertyChangeListener{
 
   public void addController(Controller c) {
     myController = c;
-    Board board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers);
+    ImmutableBoard board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers);
     updateBoard(board);
   }
 
@@ -187,7 +188,7 @@ public class BoardView implements PropertyChangeListener{
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    Board board = (Board) evt.getSource();
+    ImmutableBoard board = (ImmutableBoard) evt.getSource();
     updateBoard(board);
   }
 
@@ -213,7 +214,7 @@ public class BoardView implements PropertyChangeListener{
     return new Pair<>(cellWidth, cellHeight);
   }
 
-  void updateBoard(Object newBoard) {
+  void updateBoard(ImmutableBoard newBoard) {
     Board board = (Board)newBoard;
     text.updateText(board.getPlayer());
     for (PositionState cell: board) {
@@ -236,7 +237,7 @@ public class BoardView implements PropertyChangeListener{
   private void endGame(int winner) {
     text.gameIsWon(winner);
     LOG.info("gameOver! Player {} wins%n", winner);
-    Board newBoard = myController.resetGame();
+    ImmutableBoard newBoard = myController.resetGame();
     updateBoard(newBoard);
     displayGameOver(winner);
   }

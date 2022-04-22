@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.driver.BoardHistoryException;
 
 public class GameControlPanel extends ControlPanel {
@@ -20,9 +21,9 @@ public class GameControlPanel extends ControlPanel {
   private Button restart;
   private Button undo;
   private Button pause;
-  private Consumer<Board> updateBoard;
+  private Consumer<ImmutableBoard> updateBoard;
 
-  public GameControlPanel(Controller controller, Consumer<Board> updateBoard) {
+  public GameControlPanel(Controller controller, Consumer<ImmutableBoard> updateBoard) {
     super();
     myController = controller;
     this.updateBoard = updateBoard;
