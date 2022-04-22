@@ -29,7 +29,7 @@ public class HumanPlayer extends Player{
 
   private Consumer<Set<Position>> mySetValidMarks;
 
-  public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) throws IOException {
+  public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
     super(oracle, game, executeMove);
     mySetValidMarks = setValidMarks;
   }

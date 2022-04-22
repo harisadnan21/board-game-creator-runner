@@ -44,7 +44,6 @@ public class GameView {
     mySettingsControl = new SettingsControlPanel();
     myPlayerText = board.getText();
     setUpRoot();
-    board.addController(myController);
   }
 
   public Scene getScene() {

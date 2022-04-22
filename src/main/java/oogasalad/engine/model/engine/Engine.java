@@ -57,6 +57,9 @@ public class Engine {
 
     boolean host = false;
 
+//    myPlayers.put(1, new RandomPlayer(myOracle, myGame, this::playTurn));
+//    myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
+
     try {
       if (host) {
         if(socket == null) {
