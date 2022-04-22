@@ -102,14 +102,13 @@ public class BuilderView {
     tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, winConditionsTab, metadataTab, helpTab);
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
-
-
     tabs.add(pieceTabPane);
     tabs.add(actionsTabPane);
     tabs.add(conditionsTabPane);
     tabs.add(rulesTabPane);
     tabs.add(metadataTabPane);
     tabs.add(boardTabPane);
+    tabs.add(winConditionsTabPane);
 
     return tabPane;
   }
