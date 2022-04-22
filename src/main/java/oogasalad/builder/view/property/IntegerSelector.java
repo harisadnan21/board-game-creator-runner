@@ -24,23 +24,7 @@ public class IntegerSelector implements PropertySelector{
    */
   public IntegerSelector(Property property, CallbackDispatcher dispatcher) {
     this.property = property;
-    numberPicker = new Spinner<>(new SpinnerValueFactory<>() {
-      {
-        setValue(Integer.parseInt(property.defaultValueAsString()));
-        setConverter(new IntegerStringConverter());
-      }
-
-      @Override
-      public void decrement(int i) {
-        setValue(getValue() - i);
-      }
-
-      @Override
-      public void increment(int i) {
-        setValue(getValue() + i);
-      }
-    });
-
+    numberPicker = new Spinner<>(Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.parseInt(property.defaultValueAsString()), 1);
     numberPicker.setEditable(true);
   }
 
