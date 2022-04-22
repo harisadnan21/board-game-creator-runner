@@ -19,8 +19,8 @@ import oogasalad.builder.view.callback.GetPropertiesCallback;
  */
 public class HelpTab extends BasicTab{
   public static String HELP = "help";
-  public static String HELP_RESOURCE_PATH = "/elements/help/";
-  public static String ELEMENTS_PACKAGE = "ElementsNameList";
+  public static String HELP_RESOURCE_PATH = "/view/";
+  public static String ELEMENTS_PACKAGE = "TabsList";
   private TextArea leftDisplay;
   private static final ResourceBundle elementNames = ResourceBundle.getBundle(HELP_RESOURCE_PATH + ELEMENTS_PACKAGE);
 
@@ -55,7 +55,7 @@ public class HelpTab extends BasicTab{
     boolean hasRequiredType = false;
     StringBuilder textToDisplay = new StringBuilder();
     textToDisplay.append(leftDisplay.getText());
-    if (!type.equals(BOARD_TYPE)){
+    if (!(type.equals(BOARD_TYPE) || type.equals(HELP))){
       Collection<Property> elementProperties = getCallbackDispatcher().call(new GetPropertiesCallback(type)).orElseThrow();
       for (Property property : elementProperties){
         String propertyName = property.name();
