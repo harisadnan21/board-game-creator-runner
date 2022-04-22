@@ -34,7 +34,7 @@ public class GameView {
     height = h;
     myBoard = board;
     myController = controller;
-    myGameControl = new GameControlPanel(controller);
+    myGameControl = new GameControlPanel(controller, board::updateBoard);
     mySettingsControl = new SettingsControlPanel();
     myPlayerText = board.getText();
     setUpRoot();

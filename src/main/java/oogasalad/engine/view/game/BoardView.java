@@ -210,7 +210,7 @@ public class BoardView implements PropertyChangeListener{
     return new Pair<>(cellWidth, cellHeight);
   }
 
-  private void updateBoard(Object newBoard) {
+  void updateBoard(Object newBoard) {
     Board board = (Board)newBoard;
     text.updateText(board.getPlayer());
     for (PositionState cell: board) {
