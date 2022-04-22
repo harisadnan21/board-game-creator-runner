@@ -15,6 +15,7 @@ public class TitlePane {
 
       Label titleText = new Label(ViewResourcesSingleton.getInstance().getString(titleKey));
       titleText.setId("titleText");
+      titleText.getStyleClass().add("titleText");
 
       titleBox.getChildren().add(titleText);
       titleBox.setId("titlePane");
