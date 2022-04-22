@@ -73,7 +73,7 @@ public class FactoryProvider {
     return switch (type) {
       case "piece" -> pieceFactory;
       case "rule" -> ruleFactory;
-      case "win condition" -> winConditionFactory;
+      case "winCondition" -> winConditionFactory;
       case "action" -> actionFactory;
       case "condition" -> conditionFactory;
       case "metadata" -> metaDataFactory;

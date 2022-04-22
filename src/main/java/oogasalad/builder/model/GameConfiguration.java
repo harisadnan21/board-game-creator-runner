@@ -251,7 +251,7 @@ public class GameConfiguration implements BuilderModel {
     obj.put("rules", elementsToJSONArray(RULE));
     obj.put("conditions", elementsToJSONArray(CONDITION));
     obj.put("actions", elementsToJSONArray(ACTION));
-    obj.put("winConditions", elementsToJSONArray(WIN_CONDITION));
+    obj.put("winDecisions", elementsToJSONArray(WIN_CONDITION));
     return obj.toString(INDENT_FACTOR);
   }
 
