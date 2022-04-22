@@ -94,7 +94,11 @@ public class Board implements Iterable<PositionState>, Cloneable{
     return this.clone();
   }
 
-
+  /**
+   * Method that removes a piece from the board and returns a new board with this property changed
+   * @param position : position where the piece is to be remoced from
+   * @return : new board
+   */
   public Board removePiece(Position position) {
     throwIfInvalid(position);
     Board returnBoard = this.clone();
@@ -108,6 +112,11 @@ public class Board implements Iterable<PositionState>, Cloneable{
     }
   }
 
+  /**
+   * Places a piece at the specified location and returns the new board with this updated feature
+   * @param positionState : the position state of the position on the board
+   * @return : new board
+   */
   public Board placePiece(PositionState positionState) {
     throwIfInvalid(positionState.position());
     Board returnBoard = this.clone();
@@ -168,7 +177,6 @@ public class Board implements Iterable<PositionState>, Cloneable{
    * method to acquire number of rows of board
    * @return
    */
-
   public int getHeight() {
     return numRows;
   }
@@ -181,10 +189,19 @@ public class Board implements Iterable<PositionState>, Cloneable{
     return numCols;
   }
 
+  /**
+   * tells if the row number is valid (contained in the board)
+   * @param row : row number
+   * @return : true or false
+   */
   public boolean isValidRow(int row) {
     return (row >= FIRST_ROW) && (row <= lastRow);
   }
-
+  /**
+   * tells if the column number is valid (contained in the board)
+   * @param column : column number
+   * @return : true or false
+   */
   public boolean isValidColumn(int column) {
     return (column >= FIRST_COL) && (column <= lastCol);
   }
@@ -206,6 +223,12 @@ public class Board implements Iterable<PositionState>, Cloneable{
     return getPositionStatesStream().iterator();
   }
 
+  /**
+   * returns if the position at the coordinates is empty or not
+   * @param i : x coordinate (row number)
+   * @param j : y coordinate (column number)
+   * @return : true or false
+   */
   public boolean isEmpty(int i, int j) {
     return !isOccupied(i,j);
   }
@@ -215,6 +238,11 @@ public class Board implements Iterable<PositionState>, Cloneable{
     currentValidMoves = moves;
   }
 
+  /**
+   * method sets the winner adn returns a new board with this property changed
+   * @param winner : player that is the winner
+   * @return : new board
+   */
   public Board setWinner(int winner) {
     Board copy = clone();
     copy.myWinner = winner;
@@ -232,15 +260,27 @@ public class Board implements Iterable<PositionState>, Cloneable{
     return this.placePiece(new PositionState(new Position(i,j), new Piece(type, player)));
   }
 
+  /**
+   * returns which player is the winner
+   * @return : integer that tells which player is the winner
+   */
   public int getWinner() {
     return myWinner;
   }
 
+  /**
+   * @return : returns all the valid moves that can be used
+   */
   @Deprecated
   public Set<Position> getValidMoves() {
     return currentValidMoves;
   }
 
+  /**
+   * makes a new board with the active player changed
+   * @param i: player number
+   * @return : new board with the appropriate player
+   */
   public Board setPlayer(int i) {
     Board copy = clone();
     copy.activePlayer = i;
