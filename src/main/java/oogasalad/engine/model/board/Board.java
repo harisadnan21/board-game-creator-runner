@@ -18,7 +18,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString
-public class Board implements Iterable<PositionState>, Cloneable{
+public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard{
 
   public static final int NO_WINNER_YET = -2; //Eh
   public static final String INVALID_POSITION = "Invalid Position";

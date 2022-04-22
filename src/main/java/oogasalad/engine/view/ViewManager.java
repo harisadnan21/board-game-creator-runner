@@ -38,7 +38,6 @@ public class ViewManager {
 
 
   private OpeningView openingView;
-  //private GameView gameView;
   private Scene currScene;
   private Stage stage;
   private String cssFilepath;
