@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
 
 /**
@@ -73,8 +73,7 @@ public class GameParser {
    *
    * @return a collection of win conditions
    */
-  public Collection<WinCondition> readWinConditions() throws FileNotFoundException {
+  public Collection<EndRule> readWinConditions() throws FileNotFoundException {
     return winConditionParser.parse(configFile);
   }
-
 }

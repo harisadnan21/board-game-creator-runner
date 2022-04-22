@@ -1,7 +1,6 @@
 package oogasalad.engine.model.ai;
 
-import oogasalad.engine.model.ai.evaluation.StateEvaluator;
-import oogasalad.engine.model.ai.searchTypes.Selects;
+import oogasalad.engine.model.ai.moveSelection.Selects;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.player.Player;

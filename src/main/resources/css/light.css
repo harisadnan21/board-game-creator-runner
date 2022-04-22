@@ -198,3 +198,34 @@ control panel
   -fx-font-size: 15;
   -fx-wrap-text: true;
 }
+
+#p-mode-insns, #ai-insns {
+  -fx-font-family: "Montserrat";
+  -fx-font-size: 24;
+  -fx-fill: -fx-dark-gray;
+}
+
+#p-mode-button {
+  -fx-font-family: "Montserrat";
+  -fx-font-size: 17;
+  -fx-fill: -fx-dark-gray;
+  -fx-alignment: center;
+  -fx-max-width: 120;
+  -fx-min-width: 120;
+  -fx-max-height: 45;
+  -fx-min-height: 45;
+}
+
+#p-mode-button-layout, #p-mode-window-layout, #ai-window-layout {
+  -fx-spacing: 20;
+  -fx-alignment: center;
+  -fx-max-width: 500;
+  -fx-min-width: 500;
+}
+
+#ai-button-layout {
+  -fx-alignment: center;
+  -fx-padding: 20;
+  -fx-vgap: 20;
+  -fx-hgap: 20;
+}

@@ -3,15 +3,15 @@ package oogasalad.engine.model.rule;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import oogasalad.engine.model.actions.Action;
-import oogasalad.engine.model.actions.Remove;
-import oogasalad.engine.model.actions.Translate;
+import oogasalad.engine.model.logicelement.actions.Action;
+import oogasalad.engine.model.logicelement.actions.Remove;
+import oogasalad.engine.model.logicelement.actions.Translate;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.position_dependent_conditions.IsEmpty;
-import oogasalad.engine.model.conditions.position_dependent_conditions.IsOccupied;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.logicelement.conditions.position_dependent_conditions.IsEmpty;
+import oogasalad.engine.model.logicelement.conditions.position_dependent_conditions.IsOccupied;
+import oogasalad.engine.model.logicelement.conditions.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,37 +24,40 @@ public class MoveTest {
   void setup() {
     myBoard = new Board(3, 3);
     Condition[] conditions = new Condition[2];
-    conditions[0] = new IsOccupied(new int[]{0,0});
-    conditions[1] = new IsOccupied(new int[]{1,1});
+    conditions[0] = new IsOccupied(new int[]{0,0,0});
+    conditions[1] = new IsOccupied(new int[]{1,1,0});
 
     Action[] actions = new Action[2];
-    actions[0] = new Translate(new int[]{0,0,2,2});
-    actions[1] = new Remove(new int[]{1,1});
+    actions[0] = new Translate(new int[]{0,0,2,2,0});
+    actions[1] = new Remove(new int[]{1,1,0});
+    Position repPoint = new Position(2,2);
 
-    myMove = new Move("Jump", conditions, actions, 2,2);
+    myMove = new Move("Jump", conditions, actions, repPoint);
   }
 
   void createJumpMove() {
     Condition[] conditions = new Condition[2];
-    conditions[0] = new IsOccupied(new int[]{0,0});
-    conditions[1] = new IsOccupied(new int[]{1,1});
+    conditions[0] = new IsOccupied(new int[]{0,0,0});
+    conditions[1] = new IsOccupied(new int[]{1,1,0});
 
     Action[] actions = new Action[2];
-    actions[0] = new Translate(new int[]{0,0,2,2});
-    actions[1] = new Remove(new int[]{1,1});
+    actions[0] = new Translate(new int[]{0,0,2,2,0});
+    actions[1] = new Remove(new int[]{1,10});
+    Position repPoint = new Position(2,2);
 
-    myMove = new Move("Jump", conditions, actions, 2,2);
+    myMove = new Move("Jump", conditions, actions, repPoint);
   }
 
   void createSingleMove() {
     Condition[] conditions = new Condition[2];
-    conditions[0] = new IsOccupied(new int[]{0,0});
-    conditions[1] = new IsEmpty(new int[]{1,1});
+    conditions[0] = new IsOccupied(new int[]{0,0,0});
+    conditions[1] = new IsEmpty(new int[]{1,1,0});
 
     Action[] actions = new Action[1];
-    actions[0] = new Translate(new int[]{0,0,1,1});
+    actions[0] = new Translate(new int[]{0,0,1,1,0});
+    Position repPoint = new Position(1,1);
 
-    myMove = new Move("Jump", conditions, actions, 1,1);
+    myMove = new Move("Jump", conditions, actions, repPoint);
 
   }
 
@@ -73,7 +76,7 @@ public class MoveTest {
     assertTrue(myBoard.isOccupied(0,0));
     assertTrue(myBoard.isEmpty(1,1));
 
-    myBoard = myMove.doMovement(myBoard, origin);
+    myBoard = myMove.doMove(myBoard, origin);
 
     assertTrue(myBoard.isEmpty(0,0));
     assertTrue(myBoard.isOccupied(1,1));
@@ -99,7 +102,7 @@ public class MoveTest {
 
     assertTrue(myMove.isValid(myBoard, origin));
 
-    myBoard = myMove.doMovement(myBoard, origin);
+    myBoard = myMove.doMove(myBoard, origin);
 
     assertTrue(myBoard.isEmpty(0,0));
     assertTrue(myBoard.isEmpty(1,1));

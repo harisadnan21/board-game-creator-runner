@@ -37,8 +37,8 @@ public class Ray {
 
   public static Stream<PositionState> getDirectionalRayWhileConditions(Board board, Position position, Direction direction, List<Predicate<PositionState>> positionStatePredicates) {
     Builder<PositionState> ray = Stream.builder();
-    int i = position.i();
-    int j = position.j();
+    int i = position.row();
+    int j = position.column();
     Delta delta = Constants.DIRECTIONDELTAS.get(direction);
     var positionStatePredicate = reducePredicates(positionStatePredicates); // Combines list of predicates into one predicate which is when they are all true
     while(isValid(board, i, j) && passesCondition(board, positionStatePredicate, i, j)){

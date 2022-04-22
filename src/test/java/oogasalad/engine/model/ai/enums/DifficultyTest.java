@@ -3,7 +3,7 @@ package oogasalad.engine.model.ai.enums;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
-import oogasalad.engine.model.ai.TimeLimit;
+import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import org.junit.jupiter.api.Test;
 
 class DifficultyTest {

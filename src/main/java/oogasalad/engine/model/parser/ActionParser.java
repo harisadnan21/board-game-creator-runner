@@ -3,7 +3,7 @@ package oogasalad.engine.model.parser;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.ResourceBundle;
-import oogasalad.engine.model.actions.Action;
+import oogasalad.engine.model.logicelement.actions.Action;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
