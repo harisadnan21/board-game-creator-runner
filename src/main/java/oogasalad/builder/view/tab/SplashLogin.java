@@ -63,6 +63,7 @@ public class SplashLogin extends Parent {
 
     private void createElements() {
         proceed = makeButton("Proceed", this::exitSplash);
+        proceed.setId("loginButton");
         myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
         languageBox = new ChoiceBox<>();
         languageBox.getItems().addAll(languageChoice);

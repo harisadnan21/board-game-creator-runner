@@ -25,7 +25,8 @@ public class IntegerSelector implements PropertySelector{
   public IntegerSelector(Property property, CallbackDispatcher dispatcher) {
     this.property = property;
     //TODO: REPLACE MAGIC VALUES
-    numberPicker = new Spinner<>(0, 50, 0, 1);
+    numberPicker = new Spinner<>(-50, 50, Integer.parseInt(property.defaultValueAsString()), 1);
+
     numberPicker.setEditable(true);
   }
 
@@ -36,8 +37,7 @@ public class IntegerSelector implements PropertySelector{
    */
   @Override
   public Property getProperty() {
-    String[] nameParts = property.name().split("-");
-    return new IntegerProperty(nameParts[nameParts.length - 1], numberPicker.getValue(), property.form());
+    return property.with(property.shortName(), numberPicker.getValue().toString());
   }
 
   @Override

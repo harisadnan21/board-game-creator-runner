@@ -22,10 +22,12 @@ import oogasalad.builder.view.tab.ActionsTab;
 import oogasalad.builder.view.tab.BasicTab;
 import oogasalad.builder.view.tab.ConditionsTab;
 import oogasalad.builder.view.tab.GameElementTab;
+import oogasalad.builder.view.tab.HelpTab;
 import oogasalad.builder.view.tab.MetaDataTab;
 import oogasalad.builder.view.tab.PiecesTab;
 import oogasalad.builder.view.tab.RulesTab;
 import oogasalad.builder.view.tab.SplashLogin;
+import oogasalad.builder.view.tab.WinConditionsTab;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
 
 
@@ -88,12 +90,17 @@ public class BuilderView {
     GameElementTab rulesTabPane = new RulesTab(callbackDispatcher);
     rulesTabPane.setId("ruleTab");
     Tab rulesTab = new Tab(ViewResourcesSingleton.getInstance().getString("rule"), rulesTabPane);
+    GameElementTab winConditionsTabPane = new WinConditionsTab(callbackDispatcher);
+    winConditionsTabPane.setId("winConditionTab");
+    Tab winConditionsTab = new Tab(ViewResourcesSingleton.getInstance().getString("winCondition"), winConditionsTabPane);
+
     GameElementTab metadataTabPane = new MetaDataTab(callbackDispatcher);
     metadataTabPane.setId("metadataTab");
     Tab metadataTab = new Tab(ViewResourcesSingleton.getInstance().getString("metadata"), metadataTabPane);
-    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, metadataTab);
+    BasicTab helpTabPane = new HelpTab(callbackDispatcher);
+    Tab helpTab = new Tab(ViewResourcesSingleton.getInstance().getString("help"), helpTabPane);
+    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, winConditionsTab, metadataTab, helpTab);
     tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
 
     tabs.add(pieceTabPane);
     tabs.add(actionsTabPane);
@@ -101,6 +108,7 @@ public class BuilderView {
     tabs.add(rulesTabPane);
     tabs.add(metadataTabPane);
     tabs.add(boardTabPane);
+    tabs.add(winConditionsTabPane);
 
     return tabPane;
   }

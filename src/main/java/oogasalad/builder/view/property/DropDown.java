@@ -35,7 +35,10 @@ public class DropDown implements PropertySelector{
     list = new ComboBox<>();
     //list.setPromptText(resources.getString(LIST_TEXT));
     list.setPromptText(LIST_TEXT); // TODO: Replace magic value with resources file (languages)
-    list.getItems().setAll(this.property.valueAsString().split(LIST_DELIMITER));
+    list.getItems().setAll(this.property.defaultValueAsString().split(LIST_DELIMITER));
+    if(!property.defaultValue().toString().equals(property.valueAsString())) {
+      list.getSelectionModel().select(property.valueAsString());
+    }
     //list.valueProperty().addListener((observable, oldValue, newValue) -> selection = newValue);
   }
 
@@ -56,8 +59,7 @@ public class DropDown implements PropertySelector{
    */
   @Override
   public Property getProperty() {
-    String[] nameParts = property.name().split("-");
-    return new StringProperty(nameParts[nameParts.length - 1], list.getValue(), property.form());
+    return property.with(property.shortName(), list.getValue());
   }
 
   @Override
