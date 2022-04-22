@@ -93,8 +93,8 @@ public class ViewManager {
     Scene newScene = pmv.makeScene();
     newStage.setScene(newScene);
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
-    pmv.getOnePlayer().setOnAction(e -> startGame(game, newStage));
-    pmv.getTwoPlayer().setOnAction(e -> selectAI(newStage));
+    pmv.getOnePlayer().setOnAction(e -> selectAI(newStage));
+    pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage));
     newStage.show();
   }
 
