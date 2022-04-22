@@ -1,4 +1,4 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.setup;
 
 import java.io.File;
 import java.io.IOException;

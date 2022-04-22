@@ -1,4 +1,4 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.setup;
 
 import java.io.File;
 import java.util.ResourceBundle;
@@ -26,7 +26,7 @@ public class OpeningView {
   private Button uploadFile;
   private Button gameBuilder;
   private Button dashboard;
-  private Button playGame;
+  private Button contSel;
   private FileOpener fileOpener;
   private File myFileChoice;
   private ResourceBundle myResources;
@@ -54,8 +54,8 @@ public class OpeningView {
     return scene;
   }
 
-  public Button getPlayGame() {
-    return playGame;
+  public Button getContSel() {
+    return contSel;
   }
 
   public Button getDashboard() {
@@ -78,7 +78,7 @@ public class OpeningView {
     buttonLayout = new VBox();
     buttonLayout.setId("opening-button-layout");
     makeButtons();
-    buttonLayout.getChildren().addAll(makeButtonRow(), playGame);
+    buttonLayout.getChildren().addAll(makeButtonRow(), contSel);
   }
 
   private HBox makeButtonRow() {
@@ -92,8 +92,8 @@ public class OpeningView {
     uploadFile = makeButton(myResources.getString("UploadFile"));
     setupFileUpload();
     gameBuilder = makeButton(myResources.getString("GameBuilder"));
-    playGame = makeButton(myResources.getString("PlayGame"));
-    playGame.setDisable(true);
+    contSel = makeButton(myResources.getString("Continue"));
+    contSel.setDisable(true);
     dashboard = makeButton(myResources.getString("Dashboard"));
   }
 
@@ -104,7 +104,7 @@ public class OpeningView {
         File script = fileOpener.fileChoice(myStage);
         myFileChoice = script;
         handleInput(fileOpener.getRootObject(script));
-        playGame.setDisable(false);
+        contSel.setDisable(false);
       } catch (NullPointerException nullPointerException) {
         System.out.println(nullPointerException.getMessage());
       } catch (Exception err) {

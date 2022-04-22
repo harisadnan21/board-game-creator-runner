@@ -1,4 +1,4 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.game;
 
 import java.util.ResourceBundle;
 import javafx.scene.Scene;

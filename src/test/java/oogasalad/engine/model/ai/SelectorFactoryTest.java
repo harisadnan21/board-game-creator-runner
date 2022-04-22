@@ -9,8 +9,6 @@ import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.engine.Oracle;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
 
 class SelectorFactoryTest {
 

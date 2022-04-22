@@ -1,13 +1,9 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.game;
 
-import java.util.Objects;
 import java.util.Optional;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
