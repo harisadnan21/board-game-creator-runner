@@ -8,15 +8,15 @@ import oogasalad.engine.model.ai.evaluation.meta.SeekEquality;
 import oogasalad.engine.model.ai.evaluation.patterns.PatternEvaluator;
 import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
 import oogasalad.engine.model.ai.evaluation.totals.TotalPieces;
-import oogasalad.engine.model.ai.searchTypes.MinMaxSearcher;
-import oogasalad.engine.model.ai.searchTypes.Selects;
+import oogasalad.engine.model.ai.moveSelection.TreeSearcher;
+import oogasalad.engine.model.ai.moveSelection.Selects;
 import oogasalad.engine.model.board.Piece;
 
 public class SelectorFactory {
 
   public static Selects makeSelector(Difficulty difficulty, WinType winType, int playerNumber, AIOracle aiOracle, Collection<Pattern> patterns) {
     StateEvaluator stateEvaluator = getStateEvaluator(winType, playerNumber, patterns, difficulty==Difficulty.ADAPTIVE);
-    return new MinMaxSearcher(difficulty, stateEvaluator, aiOracle);
+    return new TreeSearcher(difficulty, stateEvaluator, aiOracle);
   }
 
   private static StateEvaluator getStateEvaluator(WinType winType, int playerNumber, Collection<Pattern> patterns, boolean isAdaptive) {

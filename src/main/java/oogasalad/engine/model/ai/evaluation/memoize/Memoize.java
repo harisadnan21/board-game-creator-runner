@@ -1,15 +1,17 @@
-package oogasalad.engine.model.ai.evaluation;
+package oogasalad.engine.model.ai.evaluation.memoize;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
+import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.tuple.Tuple2;
 
 public class Memoize {
-  private LoadingCache<Board, Evaluation> memoizer;
+  private final LoadingCache<Board, Evaluation> memoizer;
 
   public Memoize(StateEvaluator stateEvaluator) {
     // Resource: https://github.com/ben-manes/caffeine/wiki/Population#loading

@@ -115,14 +115,6 @@ public class PatternEvaluator implements StateEvaluator {
     return playerAtPosition(board1, position) != playerAtPosition(board2, position);
   }
 
-  public SortedSet<Pattern> getPatterns() {
-    return patterns;
-  }
-
-  public SortedMap<Position, Set<Pattern>> getIncludes() {
-    return includes;
-  }
-
   public Set<Pattern> patternsAt(Position position) {
     return includes.get(position).getOrNull();
   }

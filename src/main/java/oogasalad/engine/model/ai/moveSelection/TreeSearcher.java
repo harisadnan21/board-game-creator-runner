@@ -1,24 +1,24 @@
-package oogasalad.engine.model.ai.searchTypes;
+package oogasalad.engine.model.ai.moveSelection;
 
 import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
 
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
-import oogasalad.engine.model.ai.TimeLimit;
+import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 import org.jooq.lambda.Seq;
 
-public class MinMaxSearcher implements Selects, DepthLimit  {
+public class TreeSearcher implements Selects {
   private final int maxDepth;
   private final StateEvaluator stateEvaluator;
   private final AIOracle aiOracle;
   private final TimeLimit timeLimit;
 
 
-  public MinMaxSearcher(Difficulty difficulty, StateEvaluator stateEvaluator, AIOracle aiOracle) {
+  public TreeSearcher(Difficulty difficulty, StateEvaluator stateEvaluator, AIOracle aiOracle) {
     this.maxDepth = difficulty.depth();
     this.timeLimit = difficulty.timeLimit();
     this.stateEvaluator = stateEvaluator;
@@ -27,7 +27,7 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
 
   public AIChoice selectChoice(Board board, int forPlayer) {
     return getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(),
-        forPlayer, maxDepth)).get();
+        forPlayer, getDepthLimit())).get();
   }
 
   protected final Seq<AIChoice> getChoices(Board board, int forPlayer) {
@@ -59,7 +59,6 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
     return (depth == 0 || timeLimit.isTimeUp()) || aiOracle.isWinningState(board);
   }
 
-  @Override
   public int getDepthLimit() {
     return maxDepth;
   }

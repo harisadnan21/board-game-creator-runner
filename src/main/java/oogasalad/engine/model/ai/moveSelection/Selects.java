@@ -1,7 +1,6 @@
-package oogasalad.engine.model.ai.searchTypes;
+package oogasalad.engine.model.ai.moveSelection;
 
 import oogasalad.engine.model.ai.AIChoice;
-import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
 
 @FunctionalInterface
