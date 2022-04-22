@@ -1,14 +1,15 @@
 package oogasalad.engine.model.ai.moveSelection;
 
+import static oogasalad.engine.model.board.Piece.*;
 import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
 
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
 import org.jooq.lambda.Seq;
 
 public class TreeSearcher implements Selects {
@@ -36,7 +37,7 @@ public class TreeSearcher implements Selects {
   }
 
   protected int runMinimax(Board board, int player, int depth) {
-    if(limitReached(board, depth)) { return getEvaluation(board, player); }
+    if(limitReached(board, depth)) { return getEvaluationForPlayer(board, player); }
 
     var boards = getNextBoards(board, player);
     int nextPlayer = getNextPlayer(player);
@@ -48,11 +49,19 @@ public class TreeSearcher implements Selects {
   }
 
   protected int getNextPlayer(int player) {
-    return player == PLAYER_ONE ? Piece.PLAYER_TWO : PLAYER_ONE;
+    return player == PLAYER_ONE ? PLAYER_TWO : PLAYER_ONE;
   }
 
-  protected int getEvaluation(Board board, int player) {
-    return this.stateEvaluator.evaluate(board).forPlayer(player);
+  protected int getEvaluationForPlayer(Board board, int player) {
+    return getEvaluation(board).forPlayer(player);
+  }
+
+  protected Evaluation getEvaluation(Board board) {
+    return getStateEvaluator().evaluate(board);
+  }
+
+  protected StateEvaluator getStateEvaluator() {
+    return this.stateEvaluator;
   }
 
   protected boolean limitReached(Board board, int depth) {

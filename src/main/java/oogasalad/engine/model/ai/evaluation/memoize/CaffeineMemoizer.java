@@ -8,12 +8,11 @@ import java.util.concurrent.TimeUnit;
 import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
-import org.jooq.lambda.tuple.Tuple2;
 
-public class Memoize {
+public class CaffeineMemoizer implements Memoizer {
   private final LoadingCache<Board, Evaluation> memoizer;
 
-  public Memoize(StateEvaluator stateEvaluator) {
+  public CaffeineMemoizer(StateEvaluator stateEvaluator) {
     // Resource: https://github.com/ben-manes/caffeine/wiki/Population#loading
     memoizer = Caffeine.newBuilder()
         .maximumSize(1_000)
@@ -21,6 +20,7 @@ public class Memoize {
         .build(stateEvaluator::evaluate);
   }
 
+  @Override
   public Evaluation get(Board board) {
     // Resource: https://github.com/ben-manes/caffeine/wiki/Population#loading
     // Lookup and compute an entry if absent, or null if not computable
