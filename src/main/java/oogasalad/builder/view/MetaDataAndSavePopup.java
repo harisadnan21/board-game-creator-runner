@@ -41,7 +41,9 @@ public class MetaDataAndSavePopup {
   private void setupMetaBox(){
     metaBox = new VBox();
     metaBox.setId("metaBox");
-    metaBox.getChildren().addAll(propertyEditor, makeButton("save", e -> saveAndCloseMeta()));
+    Button save = makeButton("save", e -> saveAndCloseMeta());
+    save.setId("metaSaveButton");
+    metaBox.getChildren().addAll(propertyEditor, save);
     metaBox.getStyleClass().add("rightPane");
   }
 
