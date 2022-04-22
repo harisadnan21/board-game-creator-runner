@@ -86,6 +86,7 @@ public class BuilderView {
     for (String tabKey : tabsList.keySet()){
       tabPane.getTabs().add(createTab(tabKey));
     }
+    tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
     return tabPane;
   }
 
