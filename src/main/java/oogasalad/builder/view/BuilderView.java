@@ -27,7 +27,6 @@ import oogasalad.builder.view.tab.PiecesTab;
 import oogasalad.builder.view.tab.RulesTab;
 import oogasalad.builder.view.tab.SplashLogin;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
-import oogasalad.builder.view.tab.boardTab.SplashWelcome;
 
 
 import java.util.ResourceBundle;
@@ -51,8 +50,8 @@ public class BuilderView {
   public BuilderView(Stage mainStage) {
     tabs = new HashSet<>();
     stage = mainStage;
-    //SplashLogin newWindow = new SplashLogin(e -> buildView());
-    SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
+    SplashLogin newWindow = new SplashLogin(e -> buildView());
+    //SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
   }
 
   // Builds the view, including all tabs and menus

@@ -7,7 +7,7 @@
 }
 
 .leftPanel{
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, darkseagreen, seagreen);
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4cca2b, #2bc1ca);
     -fx-alignment: baseline-left;
 }
 

@@ -1,4 +1,4 @@
-package oogasalad.builder.view.tab.boardTab;
+package oogasalad.builder.view.tab;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
