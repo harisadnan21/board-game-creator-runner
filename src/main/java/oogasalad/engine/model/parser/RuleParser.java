@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.engine.model.actions.Action;
+import oogasalad.engine.model.logicelement.actions.Action;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.logicelement.conditions.Condition;
 import oogasalad.engine.model.rule.Move;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -54,7 +54,7 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
       Position repPoint = getRepresentativePoint(rule);
       Action[] actions = actionParser.resolveActions(rule);
       Condition[] conditions = conditionParser.resolveConditions(rule);
-      rules.add(new Move(name, conditions, actions, repPoint.i(), repPoint.j()));
+      rules.add(new Move(name, conditions, actions, repPoint));
     }
     return rules;
   }

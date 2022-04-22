@@ -43,11 +43,11 @@ class BoardTest {
 
     var invalidColVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxCol+1, maxCol+3));
     var invalidRowVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxRow+1, maxRow+3));
-    var invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(Position::new).toList();
+    var invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(tuple -> new Position(tuple.v1(), tuple.v2())).toList();
     for(Position position: invalidPositions) {
-      assertFalse(board.isValidRow(position.i()));
-      assertFalse(board.isValidColumn(position.j()));
-      assertFalse(board.isValidPosition(position.i(), position.j()));
+      assertFalse(board.isValidRow(position.row()));
+      assertFalse(board.isValidColumn(position.column()));
+      assertFalse(board.isValidPosition(position.row(), position.column()));
       assertFalse(board.isValidPosition(position));
     }
   }
@@ -62,22 +62,22 @@ class BoardTest {
     int maxCol = vals.v3 - 1;
     var invalidRowVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxRow+1, maxRow+3));
     var invalidColVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxCol+1, maxCol+3));
-    var invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(Position::new).toList();
+    var invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(tuple -> new Position(tuple.v1(), tuple.v2())).toList();
     for(Position position: invalidPositions) {
-      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position.i(), position.j()));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position.row(), position.column()));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position));
-      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPiece(position.i(), position.j()));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPiece(position.row(), position.column()));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.removePiece(position));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.placePiece(new PositionState(position, new Piece(1,1))));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.movePiece(position, new Position(0,0)));
-      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.isOccupied(position.i(), position.j()));
-      assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position.i(), position.j()));
+      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.isOccupied(position.row(), position.column()));
+      assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position.row(), position.column()));
       assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position));
-      assertThrowsExactly(OutOfBoardException.class, () -> board.getPiece(position.i(), position.j()));
+      assertThrowsExactly(OutOfBoardException.class, () -> board.getPiece(position.row(), position.column()));
       assertThrowsExactly(OutOfBoardException.class, () -> board.removePiece(position));
       assertThrowsExactly(OutOfBoardException.class, () -> board.placePiece(new PositionState(position, new Piece(1,1))));
       assertThrowsExactly(OutOfBoardException.class, () -> board.movePiece(position, new Position(0,0)));
-      assertThrowsExactly(OutOfBoardException.class, () -> board.isOccupied(position.i(), position.j()));
+      assertThrowsExactly(OutOfBoardException.class, () -> board.isOccupied(position.row(), position.column()));
     }
   }
 
@@ -180,14 +180,15 @@ void testBoardIsPersistentAdvanced() {
   @Test
   void removeRobust() {
     PositionState[][] positionStates = new PositionState[3][3];
-    Seq.range(0, 3).crossSelfJoin().map(Position::new).forEach(position -> positionStates[position.i()][position.j()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
+    Seq.range(0, 3).crossSelfJoin().map(tuple -> new Position(tuple.v1(), tuple.v2())).forEach(position -> positionStates[position.row()][position.column()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
     Board board = new Board(positionStates);
-    Board emptyBoard = Seq.range(0, 3).crossSelfJoin().map(Position::new).foldLeft(board, (currBoard, position) -> currBoard.removePiece(position));
+    Board emptyBoard = Seq.range(0, 3).crossSelfJoin().map(tuple -> new Position(tuple.v1(), tuple.v2())).foldLeft(board, (currBoard, position) -> currBoard.removePiece(position));
 
     // Validate that emptyBoard is indeed empty
-    assertTrue(emptyBoard.getNotSatisfyingPositionStatesSeq(positionState -> positionState.piece().equals(Piece.EMPTY)).isEmpty());
-    assertEquals(emptyBoard.getSatisfyingPositionStatesSeq(
-        positionState -> positionState.piece().equals(Piece.EMPTY)).count(), (3 * 3));
+    assertTrue(
+        BoardUtilities.getNotSatisfyingPositionStatesSeq(emptyBoard, positionState -> positionState.piece().equals(Piece.EMPTY)).isEmpty());
+    assertEquals(BoardUtilities.getSatisfyingPositionStatesSeq(
+        emptyBoard, positionState -> positionState.piece().equals(Piece.EMPTY)).count(), (3 * 3));
     //TODO: implement Board.equals() so that this will work:
     //Assertions.assertEquals(emptyBoard, new Board(3,3));
 
@@ -211,7 +212,7 @@ void testBoardIsPersistentAdvanced() {
   @Test
   void fullBoardInit() {
     PositionState[][] positionStates = new PositionState[3][3];
-    Seq.range(0, 3).crossSelfJoin().map(Position::new).forEach(position -> positionStates[position.i()][position.j()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
+    Seq.range(0, 3).crossSelfJoin().map(tuple -> new Position(tuple.v1(), tuple.v2())).forEach(position -> positionStates[position.row()][position.column()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
     Board board = new Board(positionStates);
     board.getPositionStatesStream().forEach(positionState -> assertNotEquals(positionState.piece(), Piece.EMPTY));
     board.getPositionStatesStream().forEach(positionState -> assertNotEquals(positionState.player(), Piece.NO_PLAYER));
@@ -283,7 +284,7 @@ void testBoardIsPersistentAdvanced() {
   }
 
   private Seq<Map<Integer, Integer>> getMap(Board[] boards) {
-    return Seq.seq(Arrays.stream(boards)).map(Board::numPiecesByPlayer);
+    return Seq.seq(Arrays.stream(boards)).map(BoardUtilities::numPiecesByPlayer);
   }
 
   @Test

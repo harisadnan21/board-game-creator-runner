@@ -2,14 +2,9 @@ package oogasalad.engine.model.driver;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.function.Consumer;
-import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.PositionState;
-import oogasalad.engine.model.parser.GameParser;
-import oogasalad.engine.view.BoardView;
 import org.junit.jupiter.api.Test;
 
 /**

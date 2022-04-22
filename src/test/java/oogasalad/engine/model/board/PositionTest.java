@@ -22,7 +22,7 @@ public class PositionTest {
     positions2 = new Position[9];
     int count = 0;
     for(Tuple2<Integer, Integer> tup: zip(Arrays.stream(ROW_VALS), Arrays.stream(COL_VALS))){
-      positions1[count] = new Position(tup);
+      positions1[count] = new Position(tup.v1, tup.v2);
       positions2[count] = new Position(tup.v1, tup.v2);
       count+=1;
     }
@@ -40,6 +40,14 @@ public class PositionTest {
     assertEquals(myPosition, p3);
     assertEquals(myPosition, p4);
     assertNotEquals(myPosition, p5);
+  }
+
+  @Test
+  void testAdd() {
+    Position p1 = new Position(1, 2);
+    Position p2 = new Position(5, 2);
+    Position sum = p1.add(p2);
+    assertEquals(new Position(6, 4), sum);
   }
 
 
@@ -65,18 +73,18 @@ public class PositionTest {
   @Test
   void i() {
     for(int i = 0; i < positions1.length; i++){
-      assertEquals(positions1[i].i(), positions2[i].i());
-      assertEquals(positions1[i].i(), ROW_VALS[i]);
-      assertEquals(positions2[i].i(), ROW_VALS[i]);
+      assertEquals(positions1[i].row(), positions2[i].row());
+      assertEquals(positions1[i].row(), ROW_VALS[i]);
+      assertEquals(positions2[i].row(), ROW_VALS[i]);
     }
   }
 
   @Test
   void j() {
     for(int i = 0; i < positions1.length; i++){
-      assertEquals(positions1[i].j(), positions2[i].j());
-      assertEquals(positions1[i].j(), COL_VALS[i]);
-      assertEquals(positions2[i].j(), COL_VALS[i]);
+      assertEquals(positions1[i].column(), positions2[i].column());
+      assertEquals(positions1[i].column(), COL_VALS[i]);
+      assertEquals(positions2[i].column(), COL_VALS[i]);
     }
   }
 
@@ -88,10 +96,10 @@ public class PositionTest {
   @Test
   void noError() {
     for(int i = 0; i < positions1.length; i++){
-      assertDoesNotThrow(positions1[i]::i);
-      assertDoesNotThrow(positions1[i]::j);
-      assertDoesNotThrow(positions2[i]::i);
-      assertDoesNotThrow(positions2[i]::j);
+      assertDoesNotThrow(positions1[i]::row);
+      assertDoesNotThrow(positions1[i]::column);
+      assertDoesNotThrow(positions2[i]::row);
+      assertDoesNotThrow(positions2[i]::column);
     }
   }
 

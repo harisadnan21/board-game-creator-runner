@@ -7,13 +7,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.ResourceBundle;
-import oogasalad.engine.model.actions.Action;
-import oogasalad.engine.model.actions.winner.WinDecision;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.logicelement.conditions.Condition;
+import oogasalad.engine.model.logicelement.winner.WinDecision;
 import oogasalad.engine.model.parser.exception.ReferenceNotFoundException;
 import oogasalad.engine.model.rule.Move;
-import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,7 +22,7 @@ import org.json.JSONObject;
  *
  * @author Shaan Gondalia
  */
-public class WinConditionParser extends AbstractParser<Collection<WinCondition>> {
+public class WinConditionParser extends AbstractParser<Collection<EndRule>> {
 
   private static final String WIN_CONDITIONS = "winDecisions";
   private final ConditionParser conditionParser;
@@ -50,8 +49,8 @@ public class WinConditionParser extends AbstractParser<Collection<WinCondition>>
    * @throws FileNotFoundException if the file is not found
    */
   @Override
-  public Collection<WinCondition> parse(File configFile) throws FileNotFoundException {
-    Collection<WinCondition> winConditions = new HashSet<>();
+  public Collection<EndRule> parse(File configFile) throws FileNotFoundException {
+    Collection<EndRule> winConditions = new HashSet<>();
     conditionParser.parse(configFile);
     JSONObject root = fileToJSON(configFile);
     JSONArray winConditionsJSON = root.getJSONArray(WIN_CONDITIONS);
@@ -61,7 +60,7 @@ public class WinConditionParser extends AbstractParser<Collection<WinCondition>>
       String type = winCondition.getString("type");
       int[] params = paramsToIntArray(winCondition, type);
       WinDecision decision = (WinDecision) getObjectReflection(type, params, DECISION_RESOURCES);
-      winConditions.add(new WinCondition(conditions, decision));
+      winConditions.add(new EndRule(conditions, decision));
     }
     return winConditions;
   }
