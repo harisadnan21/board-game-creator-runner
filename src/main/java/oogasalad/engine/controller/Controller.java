@@ -98,7 +98,8 @@ public class Controller {
    * Undoes the action previously done
    * @throws BoardHistoryException
    */
-  public void undoGameOnce() throws BoardHistoryException {
+  public Board undoGameOnce() throws BoardHistoryException {
     myGame.back();
+    return myGame.getBoard();
   }
 }

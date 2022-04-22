@@ -38,15 +38,18 @@ public class GameControlPanel extends ControlPanel {
     restart = createButton(RESTART_IMAGE);
     restart.setOnAction(e -> restartGame());
     undo = createButton(BACK_IMAGE);
-    undo.setOnAction(e -> {
-      try {
-        myController.undoGameOnce();
-      } catch (BoardHistoryException ex) {
-        ex.printStackTrace();
-      }
-    });
+    undo.setOnAction(e -> undoMove());
     pause = createButton(PAUSE_IMAGE);
     root.getChildren().addAll(home, restart, undo, pause);
+  }
+
+  private void undoMove() {
+    try {
+      Board currBoard = myController.undoGameOnce();
+      updateBoard(currBoard);
+    } catch (BoardHistoryException ex) {
+      ex.printStackTrace();
+    }
   }
 
   private void restartGame() {
