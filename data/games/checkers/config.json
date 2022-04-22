@@ -6,19 +6,6 @@
         "creationDate": "1648158653",
         "lastModifiedDate": "1648158780"
     },
-    "basicInfo": {
-        "players": [
-            {
-                "name": "White",
-                "value": 0
-            },
-            {
-                "name": "Black",
-                "value": 1
-            }
-        ],
-        "firstMove": "White"
-    },
     "pieces": [
         {
             "image": "/resources/whitePawn.png",
