@@ -80,12 +80,6 @@ public class ViewManager {
     return gameView;
   }
 
-//  private void showGames(){
-//    currScene = new Scene(new Dashboard(this::startGame), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
-//    currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
-//    updateStage();
-//  }
-
   private void showGames() {
     currScene = new Scene(new Dashboard(this::selectMode), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
     currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
@@ -93,17 +87,18 @@ public class ViewManager {
   }
 
   private void selectMode(File game) {
-    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, game, this::startGame);
-    currScene = pmv.makeScene();
-    currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
-    pmv.getOnePlayer().setOnAction(e -> startGame(game));
-    updateStage();
+    Stage newStage = new Stage();
+    newStage.setTitle(game.getName());
+    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, game);
+    Scene newScene = pmv.makeScene();
+    newStage.setScene(newScene);
+    newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
+    pmv.getOnePlayer().setOnAction(e -> startGame(game, newStage));
+    newStage.show();
   }
 
-  private void startGame(File game) {
+  private void startGame(File game, Stage newStage) {
     try {
-      Stage newStage= new Stage();
-      newStage.setTitle(game.getName());
       GameParser parser;
       try {
         parser = new GameParser(
@@ -118,8 +113,8 @@ public class ViewManager {
       boardView.addController(controller);
       newStage.setScene(createGameView(boardView, controller).makeScene());
       gameStages.add(newStage);
-      newStage.show();
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       e.printStackTrace();
     }
   }

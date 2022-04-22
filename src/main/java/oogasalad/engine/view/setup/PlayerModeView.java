@@ -23,16 +23,14 @@ public class PlayerModeView {
   private double width;
   private double height;
   private File game;
-  private Consumer<File> startGame;
 
-  public PlayerModeView(double w, double h, String css, File game, Consumer<File> startGame) {
+  public PlayerModeView(double w, double h, String css, File game) {
     String language = "English";
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
     width = w;
     height = h;
     this.game = game;
-    this.startGame = startGame;
     setup();
     root = new BorderPane();
     root.setCenter(windowLayout);
@@ -65,7 +63,6 @@ public class PlayerModeView {
     buttonLayout = new HBox();
     buttonLayout.setId("p-mode-button-layout");
     onePlayer = makeButton(myResources.getString("1Player"));
-    onePlayer.setOnAction(e -> startGame.accept(game));
     twoPlayer = makeButton(myResources.getString("2Player"));
     buttonLayout.getChildren().addAll(onePlayer, twoPlayer);
   }
