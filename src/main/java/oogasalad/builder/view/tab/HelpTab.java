@@ -6,6 +6,7 @@ import static oogasalad.builder.view.tab.boardTab.BoardTab.BOARD_TYPE;
 import java.util.Collection;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import oogasalad.builder.model.property.Property;
@@ -18,7 +19,7 @@ public class HelpTab extends BasicTab{
   public static String HELP = "help";
   public static String HELP_RESOURCE_PATH = "/elements/help/";
   public static String ELEMENTS_PACKAGE = "ElementsNameList";
-  private VBox leftDisplay;
+  private TextArea leftDisplay;
   private static final ResourceBundle elementNames = ResourceBundle.getBundle(HELP_RESOURCE_PATH + ELEMENTS_PACKAGE);
 
   public HelpTab(CallbackDispatcher callbackDispatcher){
@@ -36,16 +37,18 @@ public class HelpTab extends BasicTab{
 
   @Override
   protected Node setupLeftSide() {
-    leftDisplay = new VBox();
+    leftDisplay = new TextArea();
     leftDisplay.getStyleClass().add("helpBox");
-    leftDisplay.getStyleClass().add("rightPane");
+    leftDisplay.setWrapText(true);
+    leftDisplay.setEditable(false);
     return leftDisplay;
   }
 
 
   public void displayHelpForElement(String type){
-    leftDisplay.getChildren().clear();
-    leftDisplay.getChildren().add(new Text(ViewResourcesSingleton.getInstance().getString(type + "-" + HELP)));
+    leftDisplay.clear();
+    leftDisplay.setText(ViewResourcesSingleton.getInstance().getString(type) + " Tab");
+    leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance().getString(type + "-" + HELP));
 
     if (!type.equals(BOARD_TYPE)){
       Collection<Property> elementProperties = getCallbackDispatcher().call(new GetPropertiesCallback(type)).orElseThrow();
@@ -54,7 +57,7 @@ public class HelpTab extends BasicTab{
         if (propertyName.contains("required-")){
           propertyName = propertyName.replace("required", type);
         }
-        leftDisplay.getChildren().add(new Text(ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP)));
+        leftDisplay.setText(leftDisplay.getText() + "\n \n" + ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
       }
     }
 

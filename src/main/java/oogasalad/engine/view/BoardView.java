@@ -70,7 +70,7 @@ public class BoardView implements PropertyChangeListener{
     prop.load(fis);
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
 
-    setPiecePaths(game);
+    setPiecePaths(game.listFiles(GameIcon.getConfigFile)[0]);
 
     text = new GameUpdateText();
     root = new StackPane();
@@ -82,7 +82,7 @@ public class BoardView implements PropertyChangeListener{
     double cellHeight = cellSize.getValue();
 
     makeBoardBacking(width, height, cellSize, rows, columns);
-    makeBoard(rows, columns, cellWidth, cellHeight, game);
+    makeBoard(rows, columns, cellWidth, cellHeight, game.listFiles(GameIcon.getConfigFile)[0]);
   }
 
   private void makeBoard(int rows, int columns, double cellWidth, double cellHeight, File game)
