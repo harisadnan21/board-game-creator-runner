@@ -31,6 +31,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
 
   private static final int PROPERTY_PARTS = 3;
   private static final String DELIMITER = "-";
+  private static final String LIST_DELIMITER = ",";
   private static final String REQUIRED = "required";
   private static final String NAME = "name";
   private static final String TYPE = "type";
@@ -104,7 +105,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       StringBuilder s = new StringBuilder();
       for (int i = 0; i < arr.length() - 1 ; i++) {
         s.append(arr.getString(i));
-        s.append(DELIMITER);
+        s.append(LIST_DELIMITER);
       }
       s.append(arr.getString(arr.length() - 1));
       return s.toString();
