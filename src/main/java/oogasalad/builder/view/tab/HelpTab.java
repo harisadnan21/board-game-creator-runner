@@ -13,7 +13,10 @@ import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
 
-
+/**
+ * Displays help to explain how all the other tabs work
+ * @author Mike Keohane
+ */
 public class HelpTab extends BasicTab{
   public static String HELP = "help";
   public static String HELP_RESOURCE_PATH = "/elements/help/";
@@ -43,8 +46,8 @@ public class HelpTab extends BasicTab{
     return leftDisplay;
   }
 
-
-  public void displayHelpForElement(String type){
+  //Displays the help for each Elemet
+  private void displayHelpForElement(String type){
     leftDisplay.clear();
     leftDisplay.setText(ViewResourcesSingleton.getInstance().getString(type) + " Tab");
     leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance().getString(type + "-" + HELP) +"\n");
@@ -77,6 +80,7 @@ public class HelpTab extends BasicTab{
     }
   }
 
+  //Displays the help for the properties of a type
   private void displayCorrespondingPropertiesOfType(String propType, String type){
     Collection<Property> elementProperties = getCallbackDispatcher().call(new GetPropertiesCallback(type)).orElseThrow();
     for (Property prop : elementProperties){
@@ -86,6 +90,9 @@ public class HelpTab extends BasicTab{
     }
   }
 
+  /**
+   * Need to implement abstract method but nothing needs to be loaded
+   */
   @Override
   public void loadElements() {}
 }
