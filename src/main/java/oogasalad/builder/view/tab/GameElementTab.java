@@ -24,9 +24,9 @@ import java.util.Collection;
  *
  * @author Ricky Weerts, Mike Keohane & Shaan Gondalia
  */
-public class GameElementTab extends BasicTab {
+public class GameElementTab extends AbstractTab {
   private static final String VALID_NAME_REGEX = "^[\\w\\d \\t?.\\-/!@#$%^&*()+=\\[\\]{}<>:;_]+$";
-
+  private static final double GAME_ELEMENT_DIVIDER_POSITION = 0.5;
   private GameElementList elementList;
   private TextField nameField;
   private PropertyEditor propertyEditor;
@@ -40,6 +40,7 @@ public class GameElementTab extends BasicTab {
    */
   public GameElementTab(CallbackDispatcher dispatcher, String type) {
     super(type, dispatcher);
+    getSplitPane().setDividerPositions(GAME_ELEMENT_DIVIDER_POSITION);
   }
 
   /**

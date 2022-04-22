@@ -16,7 +16,6 @@ import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.AllTabs;
-import oogasalad.builder.view.tab.SplashLogin;
 
 
 import java.util.ResourceBundle;
@@ -63,6 +62,7 @@ public class BuilderView {
     HBox menu = new HBox();
     menu.getChildren().add(makeButton("save", e -> saveConfig()));
     menu.getChildren().add(makeButton("load", e -> loadConfig()));
+    menu.getStyleClass().add("saveMenu");
     return menu;
   }
 

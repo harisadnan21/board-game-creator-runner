@@ -20,13 +20,13 @@ import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
-import oogasalad.builder.view.tab.BasicTab;
+import oogasalad.builder.view.tab.AbstractTab;
 
 
 /**
  * @author Mike Keohane
  */
-public class BoardTab extends BasicTab {
+public class BoardTab extends AbstractTab {
 
   public static final String BOARD_TYPE = "board";
   public static String BOARD_PROPERTIES = "BoardTypes";
