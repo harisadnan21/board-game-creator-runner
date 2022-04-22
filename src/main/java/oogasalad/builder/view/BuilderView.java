@@ -18,16 +18,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.SaveCallback;
-import oogasalad.builder.view.tab.ActionsTab;
-import oogasalad.builder.view.tab.BasicTab;
-import oogasalad.builder.view.tab.ConditionsTab;
-import oogasalad.builder.view.tab.GameElementTab;
-import oogasalad.builder.view.tab.HelpTab;
-import oogasalad.builder.view.tab.MetaDataTab;
-import oogasalad.builder.view.tab.PiecesTab;
-import oogasalad.builder.view.tab.RulesTab;
-import oogasalad.builder.view.tab.SplashLogin;
-import oogasalad.builder.view.tab.WinConditionsTab;
+import oogasalad.builder.view.tab.*;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
 
 
@@ -52,8 +43,8 @@ public class BuilderView {
   public BuilderView(Stage mainStage) {
     tabs = new HashSet<>();
     stage = mainStage;
-    SplashLogin newWindow = new SplashLogin(e -> buildView());
-    //SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
+    //SplashLogin newWindow = new SplashLogin(e -> buildView());
+    SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
   }
 
   // Builds the view, including all tabs and menus
