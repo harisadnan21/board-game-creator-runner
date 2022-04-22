@@ -211,7 +211,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       return (Property) ctor.newInstance(name, value, form);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
-      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
+      throw new InvalidFormException(e);
     }
   }
 
