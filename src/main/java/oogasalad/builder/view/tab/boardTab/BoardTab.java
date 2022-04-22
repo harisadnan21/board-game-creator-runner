@@ -28,6 +28,7 @@ import oogasalad.builder.view.tab.AbstractTab;
  */
 public class BoardTab extends AbstractTab {
 
+  private static final String PIECE_TYPE = "piece";
   public static final String BOARD_TYPE = "board";
   public static String BOARD_PROPERTIES = "BoardTypes";
   private BoardCanvas boardCanvas;
@@ -255,10 +256,9 @@ public class BoardTab extends AbstractTab {
   }
 
   private void updatePieceOptions(ComboBox<String> pieceBox) {
-    //TODO: Remove Magic Value
     String currVal = pieceBox.getValue();
     Collection<String> pieceNames = getCallbackDispatcher().call(
-        new GetElementNamesCallback("piece")).orElse(new ArrayList<>());
+        new GetElementNamesCallback(PIECE_TYPE)).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
   }
