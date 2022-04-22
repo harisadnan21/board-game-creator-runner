@@ -1,5 +1,6 @@
 package oogasalad.engine.model.player;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
@@ -63,7 +64,7 @@ public class NetworkedPlayer extends Player{
         System.out.println("received " + moveName);
         Move move = getOracle().getValidMovesForPosition(getGameBoard(), choicePos).filter(m -> m.getName().equals(moveName)).findFirst().orElseThrow();
         LOG.info("Move {} selected", move.getName());
-        executeMove(this, new Choice(choicePos, move));
+        Platform.runLater(() -> executeMove(this, new Choice(choicePos, move)));
       }).start();
     } catch(IOException e) {
       throw new RuntimeException(e);
