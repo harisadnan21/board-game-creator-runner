@@ -1,10 +1,10 @@
 package oogasalad.builder.view.property;
 
 import javafx.beans.value.ChangeListener;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Spinner;
-import oogasalad.builder.model.property.IntegerProperty;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.util.converter.IntegerStringConverter;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
@@ -24,8 +24,22 @@ public class IntegerSelector implements PropertySelector{
    */
   public IntegerSelector(Property property, CallbackDispatcher dispatcher) {
     this.property = property;
-    //TODO: REPLACE MAGIC VALUES
-    numberPicker = new Spinner<>(-50, 50, Integer.parseInt(property.defaultValueAsString()), 1);
+    numberPicker = new Spinner<>(new SpinnerValueFactory<>() {
+      {
+        setValue(Integer.parseInt(property.defaultValueAsString()));
+        setConverter(new IntegerStringConverter());
+      }
+
+      @Override
+      public void decrement(int i) {
+        setValue(getValue() - i);
+      }
+
+      @Override
+      public void increment(int i) {
+        setValue(getValue() + i);
+      }
+    });
 
     numberPicker.setEditable(true);
   }
