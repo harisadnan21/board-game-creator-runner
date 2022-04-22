@@ -24,7 +24,10 @@ import java.util.stream.Collectors;
  * @author Ricky Weerts and Shaan Gondalia
  */
 public class PropertyEditor extends VBox {
+
   private static final String TYPE_PROPERTY_NAME = "type";
+  private static final String REQUIRED = "required";
+  private static final String DELIMITER = "-";
 
   private final CallbackDispatcher callbackDispatcher;
 
@@ -56,10 +59,10 @@ public class PropertyEditor extends VBox {
    * @param typeName
    */
   public void setCorrespondingElementProperties(String typeName) {
-    // Remove all non-type properties
+    // Remove all non-type and non-required properties
     List<Property> nonType = new ArrayList<>();
     selectors.forEach((prop, selector) -> {
-      if(!isTypeProperty(prop)) {
+      if(!(isTypeProperty(prop) || isRequiredProperty(prop)) ) {
         getChildren().remove(selector.display().getParent()); // FIXME Assumes display() result won't change between calls
         nonType.add(prop);
       }
@@ -73,12 +76,19 @@ public class PropertyEditor extends VBox {
     }
   }
 
+  // Returns whether the property is a type property
   private boolean isTypeProperty(Property prop) {
     return getLastPropertyNameSegment(prop).equals(TYPE_PROPERTY_NAME);
   }
 
+  // Returns true if the property is in the required namespace
+  private boolean isRequiredProperty(Property prop) {
+    return prop.name().split(DELIMITER)[0].equals(REQUIRED);
+  }
+
+  // Gets the last name of a property, disregarding namespace
   private String getLastPropertyNameSegment(Property prop) {
-    String[] nameParts = prop.name().split("-");
+    String[] nameParts = prop.name().split(DELIMITER);
     return nameParts[nameParts.length - 1];
   }
 
@@ -92,17 +102,11 @@ public class PropertyEditor extends VBox {
     getChildren().clear();
     allProperties = properties;
     selectors.clear();
-    boolean hasTypeProperty = false;
     for (Property prop : properties) {
-      if (isTypeProperty(prop)) {
+      if (isTypeProperty(prop) || isRequiredProperty(prop)) {
         addProperty(prop);
-        hasTypeProperty = true;
       }
     }
-    if (!hasTypeProperty) {
-      properties.forEach(this::addProperty);
-    }
-
   }
 
   /**
@@ -159,7 +163,7 @@ public class PropertyEditor extends VBox {
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
       e.printStackTrace();
-      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
+      throw new InvalidFormException(e.getMessage());
     }
   }
 
