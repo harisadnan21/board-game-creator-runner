@@ -3,6 +3,7 @@ package oogasalad.engine.view.ControlPanel;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import oogasalad.engine.view.ControlPanel.ControlPanel;
 
 public class SettingsControlPanel extends ControlPanel {
@@ -11,6 +12,7 @@ public class SettingsControlPanel extends ControlPanel {
   
   Button info;
   Button settings;
+  private Stage settingsStage;
 
   public SettingsControlPanel() {
     super();
@@ -30,4 +32,6 @@ public class SettingsControlPanel extends ControlPanel {
   public Button getInfoButton(){
     return info;
   }
+  public Button getSettingsButton(){return settings;}
+
 }

@@ -1,5 +1,6 @@
 package oogasalad.engine.view.game;
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +13,10 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
 
+/**
+ * Class that sets up the game screen, with buttons
+ * @author Cynthia France, Haris Adnan
+ */
 public class GameView {
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
 
@@ -51,6 +56,7 @@ public class GameView {
     root.setLeft(myGameControl.getRoot());
     setPause();
     setInfo();
+    setSettings();
     root.setRight(mySettingsControl.getRoot());
     root.setBottom(myPlayerText);
     root.setAlignment(myPlayerText, Pos.CENTER);
@@ -91,6 +97,21 @@ public class GameView {
           myResources.getString("Resume"), cssFilePath);
       Stage popupStage = infoView.getStage();
       infoView.getButton().setOnAction(event -> {
+        root.setEffect(null);
+        popupStage.hide();
+      });
+      popupStage.show();
+    });
+  }
+
+  private void setSettings(){
+    mySettingsControl.getSettingsButton().setOnAction(e -> {
+      root.setEffect(new GaussianBlur());
+      MessageView pauseView = new MessageView(
+          myResources.getString("SettingsDisplay"),
+          myResources.getString("Continue"), cssFilePath);
+      Stage popupStage = pauseView.getStage();
+      pauseView.getButton().setOnAction(event -> {
         root.setEffect(null);
         popupStage.hide();
       });
