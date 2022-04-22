@@ -145,11 +145,6 @@ public class Board implements DisplayableBoard {
     return Arrays.stream(positionStates).mapToInt(Array::getLength).max().orElse(0);
   }
 
-//  public boolean hasPieceAtLocation(int i, int j) {
-//    PositionState positionState = myBoard.get(new Position(i, j)).get();
-//    return positionState.piece() != Piece.EMPTY;
-//  }
-
 
   @Override
   public boolean isOccupied(int row, int column) {
@@ -183,14 +178,6 @@ public class Board implements DisplayableBoard {
   @Override
   public int getWidth() {
     return numCols;
-  }
-
-  private boolean isValidY(int j) {
-    return Utilities.isPositive(j) && (j < numCols);
-  }
-
-  private boolean isValidX(int i) {
-    return Utilities.isPositive(i) && (i < numRows);
   }
 
   @Override
@@ -329,17 +316,6 @@ public class Board implements DisplayableBoard {
   public Board move(int i1, int j1, int i2, int j2) {
     return this.movePiece(new Position(i1,j1), new Position(i2,j2));
   }
-
-  // TODO: implement this
-  // LEAVE COMMENTED OUT UNTIL IMPLEMENTED
-//  @Override
-//  public boolean equals(Object o) {
-//    if(o.getClass().equals(Board.class)) {
-//      return false;
-//    }
-//    else {
-//
-//    }
 
 
   /**
