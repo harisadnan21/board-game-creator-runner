@@ -3,23 +3,18 @@ package oogasalad.engine.model.engine;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
-import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
-import oogasalad.engine.model.move.Move;
-import org.jooq.lambda.function.Consumer0;
+import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.Move;
 
 /**
  * This class controls game logic, such as generation of available moves, checking rules, etc
@@ -47,7 +42,7 @@ public class Oracle implements AIOracle {
   public Board checkForWin(Board board) {
     for (Iterator<WinCondition> it = myWinConditions.iterator(); it.hasNext(); ) {
       WinCondition winCondition = it.next();
-      if(winCondition.isOver(board)){
+      if(winCondition.isValid(board, new Position(0,0))){
         return board.setWinner(winCondition.getWinner(board));
       }
     }
@@ -67,9 +62,16 @@ public class Oracle implements AIOracle {
    * @return
    */
   public Stream<Move> getValidMovesForPosition(Board board, Position referencePoint) {
-    return myMoves.stream().filter((move) -> move.isValid(board, referencePoint.i(), referencePoint.j()));
+    return myMoves.stream().filter((move) -> move.isValid(board, referencePoint));
   }
 
+  private Stream<Choice> getValidChoicesForPosition(Board board, Position referencePoint) {
+    return getValidMovesForPosition(board, referencePoint).map(move -> new Choice(referencePoint, move));
+  }
+
+  public Stream<Choice> getValidChoices(Board board) {
+    return board.getPositionStatesStream().flatMap(positionState -> getValidChoicesForPosition(board, positionState.position()));
+  }
   /**
    * Outer map
    * @param board
@@ -93,7 +95,7 @@ public class Oracle implements AIOracle {
   public Board applyRules(Board board) {
     Board finalBoard = board;
     for (Move rule: myPersistentRules) {
-      board = rule.doMovement(board, 0, 0);
+      board = rule.doMovement(board, new Position(0,0));
     }
     return board;
   }
@@ -105,16 +107,14 @@ public class Oracle implements AIOracle {
    * @return
    */
   public Optional<Move> getMoveSatisfying(Board board, Position p1, Position p2) {
-    Optional<Move> choice = myMoves.stream().filter(move -> move.isValid(board, p1.i(), p1.j())).filter(move -> move.getRepresentativeCell(
-        p1.i(), p1.j()).equals(p2)).findFirst();
+    Optional<Move> choice = myMoves.stream().filter(move -> move.isValid(board, p1)).filter(move -> move.getRepresentativeCell(
+        p1).equals(p2)).findFirst();
     return choice;
   }
 
   public List<Position> getRepresentativePoints(Stream<Move> moves, Position referencePoint) {
-    int i = referencePoint.i();
-    int j = referencePoint.j();
     List<Position> positions = new ArrayList<>();
-    moves.forEach((move) -> positions.add(move.getRepresentativeCell(i,j)));
+    moves.forEach((move) -> positions.add(move.getRepresentativeCell(referencePoint)));
 
     return positions;
   }

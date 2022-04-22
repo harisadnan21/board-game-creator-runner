@@ -1,0 +1,487 @@
+{
+    "metadata": {
+        "name": "Checkers",
+        "author": "Shaan Gondalia",
+        "description": "This game is a clone of checkers without piece transformations and double jumps",
+        "creationDate": "1648158653",
+        "lastModifiedDate": "1648158780"
+    },
+    "basicInfo": {
+        "players": [
+            {
+                "name": "White",
+                "value": 0
+            },
+            {
+                "name": "Black",
+                "value": 1
+            }
+        ],
+        "firstMove": "White"
+    },
+    "pieces": [
+        {
+            "image": "/resources/whitePawn.png",
+            "name": "White Pawn",
+            "id": 0,
+            "player": 0
+        },
+        {
+            "image": "/resources/whiteKing.png",
+            "name": "White King",
+            "id": 1,
+            "player": 0
+        },
+        {
+            "image": "/resources/blackKing.png",
+            "name": "Black Pawn",
+            "id": 2,
+            "player": 1
+        },
+        {
+            "image": "/resources/blackKing.png",
+            "name": "Black King",
+            "id": 3,
+            "player": 1
+        }
+    ],
+    "rules": [
+        {
+            "name": "White move down and right",
+            "representativeX": 1,
+            "representativeY": -1,
+            "conditions": ["emptyDownRight", "belongsToWhite", "whiteTurn"],
+            "actions": ["moveDownRight"]
+        },
+        {
+            "name": "White move down and left",
+            "representativeX": -1,
+            "representativeY": -1,
+            "conditions": ["emptyDownLeft", "belongsToWhite", "whiteTurn"],
+            "actions": ["moveDownLeft"]
+        },
+        {
+            "name": "Black move up and left",
+            "representativeX": -1,
+            "representativeY": 1,
+            "conditions": ["emptyUpLeft", "belongsToBlack", "blackTurn"],
+            "actions": ["moveUpLeft"]
+        },
+        {
+            "name": "Black move up and right",
+            "representativeX": 1,
+            "representativeY": 1,
+            "conditions": ["emptyUpRight", "belongsToBlack", "blackTurn"],
+            "actions": ["moveUpRight"]
+        },
+        {
+            "name": "White capture down right",
+            "representativeX": 2,
+            "representativeY": -2,
+            "conditions": ["emptyDoubleDownRight","belongsToBlackDownRight", "belongsToWhite", "whiteTurn"],
+            "actions": ["moveDoubleDownRight", "captureDownRight"]
+        },
+        {
+            "name": "White capture down left",
+            "representativeX": -2,
+            "representativeY": -2,
+            "conditions": ["emptyDoubleDownLeft","belongsToBlackDownLeft", "belongsToWhite", "whiteTurn"],
+            "actions": ["moveDoubleDownLeft", "captureDownLeft"]
+        },
+        {
+            "name": "Black capture up right",
+            "representativeX": 2,
+            "representativeY": 2,
+            "conditions": ["emptyDoubleUpRight","belongsToWhiteUpRight", "belongsToBlack", "blackTurn"],
+            "actions": ["moveDoubleUpRight", "captureUpRight"]
+        },
+        {
+            "name": "Black capture up left",
+            "representativeX": -2,
+            "representativeY": 2,
+            "conditions": ["emptyDoubleUpLeft","belongsToWhiteUpLeft", "belongsToBlack", "blackTurn"],
+            "actions": ["moveDoubleUpLeft", "captureUpLeft"]
+        }
+    ],
+    "winDecisions": [
+        {
+            "name": "Player with no pieces loses",
+            "type": "MostPieces",
+            "conditions": ["noPiecesLeftEitherPlayer"]
+        }
+    ],
+    "conditions": [
+        {
+            "name": "noPiecesLeftEitherPlayer",
+            "type": "PlayerHasNoPieces"
+        },
+        {
+            "name": "emptyDownRight",
+            "type": "IsEmpty",
+            "x": 1,
+            "y": -1
+        },
+        {
+            "name": "emptyDownLeft",
+            "type": "IsEmpty",
+            "x": -1,
+            "y": -1
+        },
+        {
+            "name": "emptyUpRight",
+            "type": "IsEmpty",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "name": "emptyUpLeft",
+            "type": "IsEmpty",
+            "x": -1,
+            "y": 1
+        },
+        {
+            "name": "whiteTurn",
+            "type": "IsPlayer",
+            "id": 0
+        },
+        {
+            "name": "blackTurn",
+            "type": "IsPlayer",
+            "id": 1
+        },
+        {
+            "name": "belongsToWhite",
+            "type": "IsPlayerPiece",
+            "x": 0,
+            "y": 0,
+            "id": 0
+        },
+        {
+            "name": "belongsToBlack",
+            "type": "IsPlayerPiece",
+            "x": 0,
+            "y": 0,
+            "id": 1
+        },
+        {
+            "name": "belongsToBlackDownRight",
+            "type": "IsPlayerPiece",
+            "x": 1,
+            "y": -1,
+            "id": 1
+        },
+        {
+            "name": "belongsToBlackDownLeft",
+            "type": "IsPlayerPiece",
+            "x": -1,
+            "y": -1,
+            "id": 1
+        },
+        {
+            "name": "belongsToWhiteUpRight",
+            "type": "IsPlayerPiece",
+            "x": 1,
+            "y": 1,
+            "id": 0
+        },
+        {
+            "name": "belongsToWhiteUpLeft",
+            "type": "IsPlayerPiece",
+            "x": -1,
+            "y": 1,
+            "id": 0
+        },
+        {
+            "name": "emptyDoubleDownRight",
+            "type": "IsEmpty",
+            "x": 2,
+            "y": -2
+        },
+        {
+            "name": "emptyDoubleDownLeft",
+            "type": "IsEmpty",
+            "x": -2,
+            "y": -2
+        },
+        {
+            "name": "emptyDoubleUpRight",
+            "type": "IsEmpty",
+            "x": 2,
+            "y": 2
+        },
+        {
+            "name": "emptyDoubleUpLeft",
+            "type": "IsEmpty",
+            "x": -2,
+            "y": 2
+        }
+    ],
+    "actions": [
+        {
+            "name": "moveUpRight",
+            "type": "Translate",
+            "srcx": 0,
+            "srcy": 0,
+            "x": 1,
+            "y": 1
+        },
+        {
+            "name": "moveUpLeft",
+            "type": "Translate",
+            "srcx": 0,
+            "srcy": 0,
+            "x": -1,
+            "y": 1
+        },
+        {
+            "name": "moveDownRight",
+            "type": "Translate",
+            "srcx": 0,
+            "srcy": 0,
+            "x": 1,
+            "y": -1
+        },
+        {
+            "name": "moveDownLeft",
+            "type": "Translate",
+            "srcx": 0,
+            "srcy": 0,
+            "x": -1,
+            "y": -1
+        },
+        {
+            "name": "moveDoubleUpRight",
+            "type": "Translate",
+            "srcx": 0,
+            "srcy": 0,
+            "x": 2,
+            "y": 2
+        },
+        {
+            "name": "moveDoubleUpLeft",
+            "type": "Translate",
+            "srcx": 0,
+            "srcy": 0,
+            "x": -2,
+            "y": 2
+        },
+        {
+            "name": "moveDoubleDownRight",
+            "type": "Translate",
+            "srcx": 0,
+            "srcy": 0,
+            "x": 2,
+            "y": -2
+        },        {
+            "name": "moveDoubleDownLeft",
+            "type": "Translate",
+            "srcx": 0,
+            "srcy": 0,
+            "x": -2,
+            "y": -2
+        },
+        {
+            "name": "moveDoubleUpRight",
+            "type": "Translate",
+            "srcx": 0,
+            "srcy": 0,
+            "x": 2,
+            "y": 2
+        },
+        {
+            "name": "captureUpRight",
+            "type": "Remove",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "name": "captureUpLeft",
+            "type": "Remove",
+            "x": -1,
+            "y": 1
+        },
+        {
+            "name": "captureDownRight",
+            "type": "Remove",
+            "x": 1,
+            "y": -1
+        },
+        {
+            "name": "captureDownLeft",
+            "type": "Remove",
+            "x": -1,
+            "y": -1
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                -1
+            ],
+            [
+                -1,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                -1,
+                0
+            ],
+            [
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                2,
+                -1,
+                2,
+                -1,
+                2,
+                -1,
+                2
+            ],
+            [
+                2,
+                -1,
+                2,
+                -1,
+                2,
+                -1,
+                2,
+                -1
+            ],
+            [
+                -1,
+                2,
+                -1,
+                2,
+                -1,
+                2,
+                -1,
+                2
+            ]
+        ],
+        "colorConfiguration": [
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ]
+        ],
+        "shape": "rectangle",
+        "background": "checkers",
+        "width": 8,
+        "activePlayer": 0,
+        "height": 8
+    }
+}

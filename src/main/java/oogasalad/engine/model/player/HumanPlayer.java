@@ -11,7 +11,7 @@ import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.driver.Game;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.rule.Move;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

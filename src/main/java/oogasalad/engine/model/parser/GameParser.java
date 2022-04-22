@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.Move;
 
 /**
  * Parser that reads an existing game configuration from a directory. Responsible for creating a
@@ -23,6 +24,8 @@ public class GameParser {
   private final File configFile;
   private final BoardParser boardParser;
   private final RuleParser ruleParser;
+  private final WinConditionParser winConditionParser;
+  private final MetadataParser metadataParser;
 
 
   /**
@@ -34,12 +37,12 @@ public class GameParser {
     this.configFile = configFile;
     boardParser = new BoardParser();
     ruleParser = new RuleParser();
+    winConditionParser = new WinConditionParser();
+    metadataParser = new MetadataParser();
   }
 
   /**
    * Reads a board from the configuration file attached to the parser
-   * <p>
-   * TODO: Add Piece parsing to this to get images of pieces from config
    *
    * @return a board with the correct starting configuration
    */
@@ -57,12 +60,21 @@ public class GameParser {
   }
 
   /**
+   * Reads an array of rules from the configuration file attached to the parser
+   *
+   * @return an array of rules
+   */
+  public Map<String, String> readMetadata() throws FileNotFoundException {
+    return metadataParser.parse(configFile);
+  }
+
+  /**
    * Reads a collection of win conditions from the configuration file attached to the parser
    *
    * @return a collection of win conditions
    */
-  public Collection<WinCondition> readWinConditions() {
-    return new HashSet<>();
+  public Collection<WinCondition> readWinConditions() throws FileNotFoundException {
+    return winConditionParser.parse(configFile);
   }
 
 }

@@ -1,11 +1,14 @@
 package oogasalad.engine.view.ControlPanel;
 
+import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public abstract class ControlPanel {
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static ResourceBundle imBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Image");
   public static String IMAGES_FOLDER = "images/";
   public static int ICON_SIZE = 25;
 
@@ -13,7 +16,7 @@ public abstract class ControlPanel {
 
   public ControlPanel() {
     root = new VBox();
-    root.setSpacing(5);
+    root.setId("cp-root");
     createButtons();
   }
 
@@ -21,10 +24,11 @@ public abstract class ControlPanel {
 
   protected Button createButton(String imagePath) {
     ImageView buttonImage = new ImageView(new Image(imagePath));
+    buttonImage.setId("cp-button-image");
     buttonImage.setFitWidth(ICON_SIZE);
     buttonImage.setFitHeight(ICON_SIZE);
     Button b = new Button("", buttonImage);
-    b.setStyle("-fx-background-color: #7C7C7C");
+    b.setId("cp-button");
     return b;
   }
 }

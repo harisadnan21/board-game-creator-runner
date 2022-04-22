@@ -36,8 +36,10 @@ public class BoardCanvas extends Pane{
   private Paint colorTwo;
   private Canvas boardCanvas;
   private Canvas pieceCanvas;
+  private Canvas gridCanvas;
   private GraphicsContext boardGraphics;
   private GraphicsContext pieceGraphics;
+  private GraphicsContext gridGraphics;
   private Map<String, Consumer<int[]>> boardTypeFunctionMap;
   private double rectWidth;
   private double rectHeight;
@@ -87,7 +89,7 @@ public class BoardCanvas extends Pane{
     rectHeight = boardCanvas.getHeight() / yDimension;
 
     clearBoard();
-
+    clearGrid();
     if (boardTypeFunctionMap.containsKey(type)){
       boardTypeFunctionMap.get(type).accept(new int[]{xDim, yDim});
       setClickToPlace();
@@ -108,6 +110,9 @@ public class BoardCanvas extends Pane{
 
     pieceCanvas.setHeight(boardCanvas.getHeight());
     pieceCanvas.setWidth(boardCanvas.getWidth());
+
+    gridCanvas.setHeight(boardCanvas.getHeight());
+    gridCanvas.setWidth(boardCanvas.getWidth());
   }
 
   //Sets up the canvases
@@ -120,7 +125,10 @@ public class BoardCanvas extends Pane{
     pieceGraphics = pieceCanvas.getGraphicsContext2D();
     boardCanvas.getStyleClass().add("boardCanvas");
 
-    this.getChildren().addAll(boardCanvas, pieceCanvas);
+    gridCanvas = new Canvas(boardCanvas.getWidth(), boardCanvas.getHeight());
+    gridGraphics = gridCanvas.getGraphicsContext2D();
+
+    this.getChildren().addAll(boardCanvas, gridCanvas, pieceCanvas);
   }
 
   /**
@@ -168,6 +176,8 @@ public class BoardCanvas extends Pane{
   public void loadBoard(){
     int boardHeight = callbackDispatcher.call(new GetHeightCallback()).orElseThrow();
     int boardWidth = callbackDispatcher.call(new GetWidthCallback()).orElseThrow();
+    xDimension = boardWidth;
+    yDimension = boardHeight;
     rectWidth = boardCanvas.getWidth() / boardWidth;
     rectHeight = boardCanvas.getHeight() / boardHeight;
     for (int x = 0; x < boardWidth; x++){
@@ -183,6 +193,18 @@ public class BoardCanvas extends Pane{
         }
       }
     }
+  }
+  public void drawGrid(Color gridColor){
+    gridGraphics.setStroke(gridColor);
+    for(int x = 0; x <= xDimension; x++){
+      gridGraphics.strokeLine(x*rectWidth, 0, x*rectWidth, boardCanvas.getHeight());
+    }
+    for(int y = 0; y <= yDimension; y++){
+      gridGraphics.strokeLine(0, y*rectHeight, boardCanvas.getWidth(), y*rectHeight);
+    }
+  }
+  public void clearGrid(){
+    gridGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
   }
 
   /**

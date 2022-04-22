@@ -1,15 +1,15 @@
 package oogasalad.engine.model.ai.evaluation.meta;
 
 import java.util.Arrays;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
 import java.util.SortedMap;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
 
+@Deprecated
 public class Probabalistic implements StateEvaluator {
   private SortedMap<Double, StateEvaluator> stateEvaluatorMap;
   private Random random;
@@ -33,14 +33,14 @@ public class Probabalistic implements StateEvaluator {
 
 
   @Override
-  public int evaluate(Board board, int player) {
+  public Evaluation evaluate(Board board) {
     double r = random.nextDouble();
     for(var entry: stateEvaluatorMap.entrySet()) {
       if (r < entry.getKey()) {
-        return entry.getValue().evaluate(board, player);
+        return entry.getValue().evaluate(board);
       }
     }
-    return stateEvaluatorMap.get(stateEvaluatorMap.lastKey()).evaluate(board, player);
+    return stateEvaluatorMap.get(stateEvaluatorMap.lastKey()).evaluate(board);
 
   }
 }
