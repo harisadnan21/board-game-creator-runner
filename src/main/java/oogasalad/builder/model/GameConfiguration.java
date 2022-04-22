@@ -314,7 +314,7 @@ public class GameConfiguration implements BuilderModel {
 
   // Adds the contents of a json object to the map of game elements
   private void addJSONObject(JSONObject obj, String type, String workingDir) {
-    if (obj.get(NAME) != null) {
+    if (obj.has(NAME)) {
       GameElement element = provider.fromJSON(type, obj.toString());
       Collection<Property> resolvedProperties = mapper.resolveResourcePaths(element.toRecord()
           .properties(), workingDir);

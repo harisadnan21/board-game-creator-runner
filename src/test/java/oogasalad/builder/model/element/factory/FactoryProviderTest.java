@@ -38,8 +38,9 @@ public class FactoryProviderTest {
   private static final String CONDITION = "condition";
   private static final String CONDITION_NAME = "emptyAtTopRight";
   private static final String CONDITION_TYPE = "IsEmpty";
-  private static final String WIN_CONDITION = "win condition";
-  private static final String WIN_CONDITION_NAME = "winIfCaptured";
+  private static final String WIN_CONDITION = "winCondition";
+  private static final String WIN_CONDITION_NAME = "Draw the game";
+  private static final String WIN_CONDITION_TYPE = "Draw";
   private static final String RULE = "rule";
   private static final String RULE_NAME = "knightMoveTopRight";
   private static final int RULE_REP_X = 1;
@@ -101,6 +102,11 @@ public class FactoryProviderTest {
   @Test
   void testCreateWinCondition() throws InvalidTypeException, MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
+    Collection<String> conditions = new HashSet<>();
+    conditions.add(CONDITION_NAME);
+    properties.add(PropertyFactory.makeProperty(CONDITIONS, conditions));
+    properties.add(PropertyFactory.makeProperty(TYPE, WIN_CONDITION_TYPE));
+
     GameElement winCondition = provider.createElement(WIN_CONDITION, WIN_CONDITION_NAME, properties);
     ElementRecord record = winCondition.toRecord();
     assertEquals(properties, record.properties());
