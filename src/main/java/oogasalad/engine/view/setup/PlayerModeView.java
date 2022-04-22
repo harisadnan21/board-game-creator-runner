@@ -45,6 +45,9 @@ public class PlayerModeView {
   public Button getOnePlayer() {
     return onePlayer;
   }
+  public Button getTwoPlayer() {
+    return twoPlayer;
+  }
 
   private void setup() {
     windowLayout = new VBox();
@@ -71,9 +74,5 @@ public class PlayerModeView {
     Button b = new Button(text);
     b.setId("p-mode-button");
     return b;
-  }
-
-  private void AISelect() {
-
   }
 }
