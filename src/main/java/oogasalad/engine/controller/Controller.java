@@ -38,7 +38,7 @@ public class Controller {
       endRules = parser.readWinConditions();
 
       // TODO: figure out better way to pass in view lambdas
-      myEngine = new Engine(myGame, moves, endRules, null, null);
+      //myEngine = new Engine(myGame, moves, endRules, null, null);
 
     } catch (Exception e){
       e.printStackTrace();

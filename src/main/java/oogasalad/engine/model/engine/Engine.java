@@ -76,12 +76,18 @@ public class Engine {
     } catch(IOException e) {
       throw new RuntimeException(e);
     }
+
+    myPlayers.get(0).chooseMove(null);
+  }
+
+  public void startGame() {
+
   }
 
   public void gameLoop() throws InterruptedException {
     while(true) {
       Thread.sleep(2000);
-      myPlayers.get(getGameStateBoard().getPlayer()).chooseMove();
+      // FIXME myPlayers.get(getGameStateBoard().getPlayer()).chooseMove();
     }
   }
 
@@ -99,7 +105,7 @@ public class Engine {
         myGame.setBoard(board);
 
         // ping next player
-        myPlayers.get(board.getPlayer()).chooseMove();
+        myPlayers.get(board.getPlayer()).chooseMove(choice);
 
       } else {
         LOG.warn("Player's move is not valid");

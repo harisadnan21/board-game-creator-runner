@@ -18,7 +18,7 @@ public class RandomPlayer extends Player {
   }
 
   @Override
-  public void chooseMove() {
+  public void chooseMove(Choice lastChoice) {
     Stream<Choice> choices = getOracle().getValidChoices(getGameBoard());
     List<Choice> choicesList = choices.toList();
     Random rand = new Random();

@@ -29,16 +29,13 @@ public class HumanPlayer extends Player{
 
   private Consumer<Set<Position>> mySetValidMarks;
 
-  private DataOutputStream socketStream;
-
   public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) throws IOException {
     super(oracle, game, executeMove);
     mySetValidMarks = setValidMarks;
-    socketStream = new DataOutputStream(Engine.socket.getOutputStream());
   }
 
   @Override
-  public void chooseMove() {
+  public void chooseMove(Choice lastChoice) {
 
     LOG.info("Player asked to choose move");
   }
@@ -54,23 +51,12 @@ public class HumanPlayer extends Player{
       Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
       if (move.isPresent()) {
         mySelectedMove = move.get();
-        writePosition(mySelectedCell);
-        writePosition(cellClicked);
         myChoice = new Choice(mySelectedCell, mySelectedMove);
         LOG.info("Move {} selected", mySelectedMove.getName());
         resetSelected();
         executeMove(this, myChoice);
       }
       resetSelected();
-    }
-  }
-
-  private void writePosition(Position p) {
-    try {
-      socketStream.writeInt(p.row());
-      socketStream.writeInt(p.column());
-    } catch (IOException e) {
-      throw new RuntimeException(e);
     }
   }
 
