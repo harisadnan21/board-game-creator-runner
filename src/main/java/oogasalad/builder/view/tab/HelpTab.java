@@ -37,6 +37,7 @@ public class HelpTab extends BasicTab{
   @Override
   protected Node setupLeftSide() {
     leftDisplay = new VBox();
+    leftDisplay.getStyleClass().add("helpBox");
     leftDisplay.getStyleClass().add("rightPane");
     return leftDisplay;
   }
