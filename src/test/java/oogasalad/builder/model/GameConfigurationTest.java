@@ -1,5 +1,6 @@
 package oogasalad.builder.model;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -91,6 +92,31 @@ public class GameConfigurationTest {
   }
 
   @Test
+  void testDimensions() {
+    assertThrows(NullBoardException.class, () -> game.getWidth());
+    assertThrows(NullBoardException.class, () -> game.getHeight());
+    game.makeBoard(WIDTH, HEIGHT);
+    assertEquals(WIDTH, game.getWidth());
+    assertEquals(HEIGHT, game.getHeight());
+  }
+
+  @Test
+  void testRequiredProperties() {
+    game.getRequiredProperties(PIECE);
+  }
+
+  @Test
+  void testGetElementNames() {
+    Collection<String> names = game.getElementNames(PIECE);
+    assertTrue(names.isEmpty());
+    addPiece();
+    names = game.getElementNames(PIECE);
+    for (String name : names) {
+      assertEquals(PIECE_NAME, name);
+    }
+  }
+
+  @Test
   void testOutOfBounds() throws MissingRequiredPropertyException, InvalidTypeException {
     game.makeBoard(WIDTH, HEIGHT);
     addPiece();
@@ -174,7 +200,7 @@ public class GameConfigurationTest {
     is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));
     JSONTokener tokener = new JSONTokener(is);
     JSONObject object = new JSONObject(tokener);
-    game.fromJSON(object.toString());
+    game.fromJSON(object.toString(), "");
   }
 
   private int countMatches(String str, String target) {

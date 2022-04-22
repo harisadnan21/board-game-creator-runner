@@ -37,6 +37,8 @@ public class Move implements Rule {
     myRepJ = repJ;
   }
 
+  
+
   private boolean isValid(Board board, int refI, int refJ) {
     try {
       for (Condition condition : myConditions) {

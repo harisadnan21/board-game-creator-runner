@@ -34,6 +34,7 @@ public class GameConfiguration implements BuilderModel {
   private static final String RULE = "rule";
   private static final String ACTION = "action";
   private static final String CONDITION = "condition";
+  private static final String WIN_CONDITION = "winCondition";
   private static final String ID = "id";
   private static final int INDENT_FACTOR = 4;
   public static final String METADATA = "metadata";
@@ -213,6 +214,28 @@ public class GameConfiguration implements BuilderModel {
   }
 
   /**
+   * Returns the width of the board
+   *
+   * @return the width of the board
+   */
+  @Override
+  public int getWidth() {
+    checkBoardCreated();
+    return board.getWidth();
+  }
+
+  /**
+   * Returns the height of the board
+   *
+   * @return the height of the board
+   */
+  @Override
+  public int getHeight(){
+    checkBoardCreated();
+    return board.getHeight();
+  }
+
+  /**
    * Converts a Configuration into a String representing the model's JSON Format
    *
    * @return a String representation of the configuration's JSON Format
@@ -228,6 +251,7 @@ public class GameConfiguration implements BuilderModel {
     obj.put("rules", elementsToJSONArray(RULE));
     obj.put("conditions", elementsToJSONArray(CONDITION));
     obj.put("actions", elementsToJSONArray(ACTION));
+    obj.put("winConditions", elementsToJSONArray(WIN_CONDITION));
     return obj.toString(INDENT_FACTOR);
   }
 
@@ -235,25 +259,24 @@ public class GameConfiguration implements BuilderModel {
    * Converts a JSON String into a Builder Model
    *
    * @param json the JSON string
-   * @return a model made from the JSON string
+   * @param workingDirectory the working directory of the configuration file
    */
-  @Override
-  public BuilderModel fromJSON(String json) {
+  public void fromJSON(String json, String workingDirectory) {
     JSONObject obj = new JSONObject(json);
     // TODO: Remove magic values
     board = new RectangularBoard(0, 0).fromJSON(obj.getJSONObject("board").toString());
     resetElements();
     try{
-      addJSONArray(obj.getJSONArray("pieces"), PIECE);
-      addJSONArray(obj.getJSONArray("rules"), RULE);
-      addJSONArray(obj.getJSONArray("conditions"), CONDITION);
-      addJSONArray(obj.getJSONArray("actions"), ACTION);
-      addJSONObject(obj.getJSONObject(METADATA), METADATA);
+      addJSONArray(obj.getJSONArray("pieces"), PIECE, workingDirectory);
+      addJSONArray(obj.getJSONArray("rules"), RULE, workingDirectory);
+      addJSONArray(obj.getJSONArray("conditions"), CONDITION, workingDirectory);
+      addJSONArray(obj.getJSONArray("actions"), ACTION, workingDirectory);
+      addJSONArray(obj.getJSONArray("winDecisions"), WIN_CONDITION, workingDirectory);
+      addJSONObject(obj.getJSONObject(METADATA), METADATA, workingDirectory);
     } catch (JSONException ignored) {
       // Do nothing if certain parts of the json file are not found
       // TODO: Maybe throw an exception here?
     }
-    return this;
   }
 
   /**
@@ -286,18 +309,20 @@ public class GameConfiguration implements BuilderModel {
   }
 
   // Adds the contents of a json array to the map of game elements
-  private void addJSONArray(JSONArray arr, String type) {
+  private void addJSONArray(JSONArray arr, String type, String workingDir) {
     for (int i = 0; i < arr.length(); i++) {
       JSONObject obj = arr.getJSONObject(i);
-      addJSONObject(obj, type);
+      addJSONObject(obj, type, workingDir);
     }
   }
 
   // Adds the contents of a json object to the map of game elements
-  private void addJSONObject(JSONObject obj, String type) {
+  private void addJSONObject(JSONObject obj, String type, String workingDir) {
     if (obj.get("name") != null) {
       GameElement element = provider.fromJSON(type, obj.toString());
-      elements.get(type).put(element.toRecord().name(), element);
+      Collection<Property> resolvedProperties = mapper.resolveResourcePaths(element.toRecord()
+          .properties(), workingDir);
+      addGameElement(type, element.toRecord().name(), resolvedProperties);
     }
   }
 
@@ -328,6 +353,7 @@ public class GameConfiguration implements BuilderModel {
     elements.put(ACTION, new HashMap<>());
     elements.put(CONDITION, new HashMap<>());
     elements.put(METADATA, new HashMap<>());
+    elements.put(WIN_CONDITION, new HashMap<>());
   }
 
 }

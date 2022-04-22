@@ -82,7 +82,7 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
   public T resolve(String name) {
     String type = findPropertyValue(name, "type");
     int[] params = paramsToIntArray(name, type);
-    return getReferenceReflection(type, params);
+    return (T) getObjectReflection(type, params, referenceResources);
   }
 
   // Converts all required parameters (based on type) of a reference to an ordered integer array
@@ -91,6 +91,7 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
     String[] requiredParams = referenceResources.getString(type)
         .split(REFLECTION_DELIMITER)[1].split(PARAMETER_DELIMITER);
 
+    LOG.error("name {}, type {}\n", name, type);
     LOG.info("Type: {}\n", type);
     LOG.info("Required params {}\n", Arrays.toString(requiredParams));
     int[] params = new int[requiredParams.length];
@@ -118,18 +119,5 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
       throw new MissingRequiredPropertyException();
     }
     return reference.get(propertyName);
-  }
-
-  // Makes an object of type T using reflection
-  private T getReferenceReflection(String type, int[] parameters) {
-    try {
-      String className = referenceResources.getString(type).split(REFLECTION_DELIMITER)[0];
-      Class clazz = Class.forName(className);
-      Constructor ctor = clazz.getConstructor(int[].class);
-      return (T) ctor.newInstance(parameters);
-    } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
-        InstantiationException | IllegalAccessException e) {
-      throw new ReferenceNotFoundException(e.getMessage()); // TODO: Handle this properly
-    }
   }
 }
