@@ -47,6 +47,7 @@ public class GameView {
     root.setCenter(myBoard.getRoot());
     root.setLeft(myGameControl.getRoot());
     setPause();
+    setInfo();
     root.setRight(mySettingsControl.getRoot());
     root.setBottom(myPlayerText);
     root.setAlignment(myPlayerText, Pos.CENTER);
@@ -58,6 +59,7 @@ public class GameView {
   public Button getHome() {
     return myGameControl.getHome();
   }
+
 
   private void setUpRoot() {
     root = new BorderPane();
@@ -79,5 +81,18 @@ public class GameView {
     });
   }
 
-  //TODO: add methods that give functionality to back, forward, setting and home functions
+  private void setInfo(){
+    mySettingsControl.getInfoButton().setOnAction(e -> {
+      root.setEffect(new GaussianBlur());
+      MessageView infoView = new MessageView(myResources.getString("InfoMessage"),
+          myResources.getString("Resume"), cssFilePath);
+      Stage popupStage = infoView.getStage();
+      infoView.getButton().setOnAction(event -> {
+        root.setEffect(null);
+        popupStage.hide();
+      });
+      popupStage.show();
+    });
+  }
+
 }

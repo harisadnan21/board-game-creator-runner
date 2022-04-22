@@ -22,7 +22,12 @@ public class SettingsControlPanel extends ControlPanel {
 
   protected void createButtons() {
     info = createButton(INFO_IMAGE);
+    //info.setOnAction(e -> myController.startGame());
     settings = createButton(SETTINGS_IMAGE);
+    //settings.setOnAction(e -> dhfkjrsngk);
     root.getChildren().addAll(info, settings);
+  }
+  public Button getInfoButton(){
+    return info;
   }
 }

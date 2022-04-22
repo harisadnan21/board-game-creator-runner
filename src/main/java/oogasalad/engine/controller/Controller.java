@@ -24,7 +24,11 @@ public class Controller {
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
 
-
+  /**
+   * Constructor for the controller
+   * @param board: the board that the game in the engine uses
+   * @param parser : the parser that is used
+   */
   public Controller(Board board, GameParser parser) {
     try {
       myBoard = board;
@@ -65,25 +69,36 @@ public class Controller {
 
     return myBoard;
   }
+
+  /**
+   * gets and returns the game
+   * @return : returns the game
+   */
   public Game getGame(){
     return myGame;
   }
 
+  /**
+   * Function starts the game
+   */
   public void startGame() {
     myEngine.gameLoop();
   }
 
+  /**
+   * Undoes number of actions by user by the integer provided
+   * @param numberOfUndoes : number of boards in history to go back to
+   * @throws BoardHistoryException
+   */
   public void undoGame(int numberOfUndoes) throws BoardHistoryException {
     myGame.backByAmount(numberOfUndoes);
   }
+
+  /**
+   * Undoes the action previously done
+   * @throws BoardHistoryException
+   */
   public void undoGameOnce() throws BoardHistoryException {
     myGame.back();
   }
-
-
-  public void saveGame(){
-
-  }
-  //TODO: Add functionality to have turns and have the program run.
-
 }
