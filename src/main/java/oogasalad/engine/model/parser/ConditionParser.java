@@ -3,7 +3,8 @@ package oogasalad.engine.model.parser;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.ResourceBundle;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.logicelement.conditions.Condition;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 

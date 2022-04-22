@@ -9,11 +9,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
-import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
 
 /**
@@ -24,14 +23,14 @@ import oogasalad.engine.model.rule.Move;
 public class Oracle implements AIOracle {
 
   private Collection<Move> myMoves;
-  private Collection<WinCondition> myWinConditions;
+  private Collection<EndRule> myEndRules;
   private Collection<Move> myPersistentRules;
 
   private int myNumPlayers;
 
-  public Oracle(Collection<Move> moves, Collection<WinCondition> winConditions, Collection<Move> persistentRules, int numPlayers) {
+  public Oracle(Collection<Move> moves, Collection<EndRule> endRules, Collection<Move> persistentRules, int numPlayers) {
     myMoves = moves;
-    myWinConditions = winConditions;
+    myEndRules = endRules;
     myPersistentRules = persistentRules;
     myNumPlayers = numPlayers;
   }
@@ -40,10 +39,10 @@ public class Oracle implements AIOracle {
    * @param board
    */
   public Board checkForWin(Board board) {
-    for (Iterator<WinCondition> it = myWinConditions.iterator(); it.hasNext(); ) {
-      WinCondition winCondition = it.next();
-      if(winCondition.isValid(board, new Position(0,0))){
-        return board.setWinner(winCondition.getWinner(board));
+    for (Iterator<EndRule> it = myEndRules.iterator(); it.hasNext(); ) {
+      EndRule endRule = it.next();
+      if(endRule.isValid(board, new Position(0,0))){
+        return board.setWinner(endRule.getWinner(board));
       }
     }
     return board;
@@ -95,7 +94,7 @@ public class Oracle implements AIOracle {
   public Board applyRules(Board board) {
     Board finalBoard = board;
     for (Move rule: myPersistentRules) {
-      board = rule.doMovement(board, new Position(0,0));
+      board = rule.doMove(board, new Position(0,0));
     }
     return board;
   }
@@ -125,7 +124,7 @@ public class Oracle implements AIOracle {
   }
 
   @Override
-  public Set<AIChoice> getChoices(Board board, int player) {
+  public Set<Choice> getChoices(Board board, int player) {
     return null;
   }
 
