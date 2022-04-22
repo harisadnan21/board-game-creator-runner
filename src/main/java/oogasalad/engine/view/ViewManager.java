@@ -3,20 +3,24 @@ package oogasalad.engine.view;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javax.swing.text.html.CSS;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 
 
-import oogasalad.engine.view.dashboard.Dashboard;
-import oogasalad.engine.view.dashboard.GameIcon;
-import oogasalad.engine.view.dashboard.GameSelection;
+import oogasalad.engine.view.game.BoardView;
+import oogasalad.engine.view.game.GameView;
+import oogasalad.engine.view.setup.PlayerModeView;
+import oogasalad.engine.view.setup.dashboard.Dashboard;
+import oogasalad.engine.view.setup.dashboard.GameIcon;
 
 import oogasalad.engine.model.parser.GameParser;
+import oogasalad.engine.view.setup.OpeningView;
 
 
 public class ViewManager {
@@ -34,10 +38,12 @@ public class ViewManager {
 
 
   private OpeningView openingView;
-  private GameView gameView;
+  //private GameView gameView;
   private Scene currScene;
   private Stage stage;
   private String cssFilepath;
+  private File currGame;
+  private List<Stage> gameStages = new ArrayList<>();
 
 
   public ViewManager(Stage s) throws IOException {
@@ -51,7 +57,6 @@ public class ViewManager {
     HEIGHT = Double.parseDouble(prop.getProperty("HEIGHT"));
     BOARDX = Double.parseDouble(prop.getProperty("BOARDX"));
     BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
-    //currScene = createGameView(new BoardView(2, 2, 200, 200), new Controller(new Board(3, 3))).makeScene();
     currScene = createOpeningView().makeScene();
 
   }
@@ -62,19 +67,36 @@ public class ViewManager {
 
   public OpeningView createOpeningView() {
     openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath);
-    openingView.getPlayGame().setOnAction(e -> startGame(openingView.getFileChoice()));
+    //openingView.getPlayGame().setOnAction(e -> startGame(openingView.getFileChoice()));
+    currGame = openingView.getFileChoice();
+    openingView.getContSel().setOnAction(e -> selectMode(openingView.getFileChoice()));
     openingView.getDashboard().setOnAction(e -> showGames());
     return openingView;
   }
 
   public GameView createGameView(BoardView board, Controller controller) {
-    gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath);
-    gameView.getHome().setOnAction(e -> goHome());
+    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath);
+    gameView.getHome().setOnAction(e -> goHome(gameView.getScene()));
     return gameView;
   }
-  private void showGames(){
-    currScene = new Scene(new Dashboard(this::startGame), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
+
+//  private void showGames(){
+//    currScene = new Scene(new Dashboard(this::startGame), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
+//    currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
+//    updateStage();
+//  }
+
+  private void showGames() {
+    currScene = new Scene(new Dashboard(this::selectMode), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
     currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
+    updateStage();
+  }
+
+  private void selectMode(File game) {
+    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, game, this::startGame);
+    currScene = pmv.makeScene();
+    currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
+    pmv.getOnePlayer().setOnAction(e -> startGame(game));
     updateStage();
   }
 
@@ -95,15 +117,32 @@ public class ViewManager {
       Controller controller = new Controller(board, parser);
       boardView.addController(controller);
       newStage.setScene(createGameView(boardView, controller).makeScene());
+      gameStages.add(newStage);
       newStage.show();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  private void goHome() {
+  private void goHome(Scene scene) {
     currScene = createOpeningView().makeScene();
+    closeStage(findClosedStage(scene));
     updateStage();
+  }
+
+  private void closeStage(Stage stage) {
+    gameStages.remove(stage);
+    stage.close();
+  }
+
+  private Stage findClosedStage(Scene scene) {
+    for (Stage stage : gameStages) {
+      System.out.println("stage");
+      if (stage.getScene().equals(scene)) {
+        return stage;
+      }
+    }
+    return new Stage();
   }
 
   private void updateStage() {

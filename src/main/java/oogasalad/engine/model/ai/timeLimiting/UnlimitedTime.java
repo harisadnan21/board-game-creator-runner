@@ -1,4 +1,6 @@
-package oogasalad.engine.model.ai;
+package oogasalad.engine.model.ai.timeLimiting;
+
+import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 
 public class UnlimitedTime implements TimeLimit {
 

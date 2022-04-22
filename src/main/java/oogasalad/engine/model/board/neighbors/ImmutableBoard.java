@@ -6,6 +6,7 @@ import javafx.util.Pair;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.view.game.BoardView;
 
 /**
  * Immutable Board
@@ -66,7 +67,7 @@ public interface ImmutableBoard extends Iterable<Pair<Position, Piece>>{
 
   /**
    * Returns the winner of the game
-   * @see oogasalad.engine.view.BoardView
+   * @see BoardView
    * @return winner based on current board
    */
   int getWinner();

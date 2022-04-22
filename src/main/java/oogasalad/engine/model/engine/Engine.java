@@ -1,5 +1,6 @@
 package oogasalad.engine.model.engine;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import oogasalad.engine.model.ai.RandomPlayer;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
@@ -48,11 +50,15 @@ public class Engine {
     myOracle = new Oracle(moves, endRules, new ArrayList<>(), numPlayers);
 
     myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
-    myPlayers.put(1, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
+    myPlayers.put(1, new RandomPlayer(myOracle, myGame, this::playTurn));
 
   }
 
-  public void gameLoop() {
+  public void gameLoop() throws InterruptedException {
+    while(true) {
+      Thread.sleep(2000);
+      myPlayers.get(getGameStateBoard().getPlayer()).chooseMove();
+    }
   }
 
   private void playTurn(Player player, Choice choice) {
@@ -75,6 +81,10 @@ public class Engine {
         LOG.warn("Player's move is not valid");
       }
     }
+  }
+
+  private void wait(double millis) {
+    Instant instant = Instant.now();
   }
 
   public boolean isActivePlayer(Player player) {

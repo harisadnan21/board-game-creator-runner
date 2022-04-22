@@ -2,6 +2,9 @@ package oogasalad.engine.model.ai;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import oogasalad.engine.model.ai.timeLimiting.SecondsTimeLimit;
+import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
+import oogasalad.engine.model.ai.timeLimiting.TimeLimitFactory;
 import org.junit.jupiter.api.Test;
 
 class TimeLimitFactoryTest {

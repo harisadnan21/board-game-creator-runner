@@ -1,9 +1,7 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.game;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

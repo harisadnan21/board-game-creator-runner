@@ -1,5 +1,6 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.game;
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,13 +8,15 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
 
+/**
+ * Class that sets up the game screen, with buttons
+ * @author Cynthia France, Haris Adnan
+ */
 public class GameView {
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
 
@@ -27,6 +30,7 @@ public class GameView {
   private BorderPane root;
   private ResourceBundle myResources;
   private String cssFilePath;
+  private Scene myScene;
 
   public GameView(BoardView board, Controller controller, double w, double h, String css) {
     String language = "English";
@@ -36,23 +40,29 @@ public class GameView {
     height = h;
     myBoard = board;
     myController = controller;
-    myGameControl = new GameControlPanel(controller);
+    myGameControl = new GameControlPanel(controller, board::updateBoard);
     mySettingsControl = new SettingsControlPanel();
     myPlayerText = board.getText();
     setUpRoot();
     board.addController(myController);
   }
 
+  public Scene getScene() {
+    return myScene;
+  }
+
   public Scene makeScene() {
     root.setCenter(myBoard.getRoot());
     root.setLeft(myGameControl.getRoot());
     setPause();
+    setInfo();
+    setSettings();
     root.setRight(mySettingsControl.getRoot());
     root.setBottom(myPlayerText);
     root.setAlignment(myPlayerText, Pos.CENTER);
-    Scene scene = new Scene(root, width, height);
-    scene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
-    return scene;
+    myScene = new Scene(root, width, height);
+    myScene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
+    return myScene;
   }
 
   public Button getHome() {
@@ -79,5 +89,34 @@ public class GameView {
     });
   }
 
-  //TODO: add methods that give functionality to back, forward, setting and home functions
+  private void setInfo(){
+    mySettingsControl.getInfoButton().setOnAction(e -> {
+      root.setEffect(new GaussianBlur());
+      String infoMessage = myBoard.getGameInfo();
+      MessageView infoView = new MessageView(infoMessage,
+          myResources.getString("Resume"), cssFilePath);
+      Stage popupStage = infoView.getStage();
+      infoView.getButton().setOnAction(event -> {
+        root.setEffect(null);
+        popupStage.hide();
+      });
+      popupStage.show();
+    });
+  }
+
+  private void setSettings(){
+    mySettingsControl.getSettingsButton().setOnAction(e -> {
+      root.setEffect(new GaussianBlur());
+      MessageView pauseView = new MessageView(
+          myResources.getString("SettingsDisplay"),
+          myResources.getString("Continue"), cssFilePath);
+      Stage popupStage = pauseView.getStage();
+      pauseView.getButton().setOnAction(event -> {
+        root.setEffect(null);
+        popupStage.hide();
+      });
+      popupStage.show();
+    });
+  }
+
 }

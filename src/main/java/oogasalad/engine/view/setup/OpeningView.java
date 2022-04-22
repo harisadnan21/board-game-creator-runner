@@ -1,4 +1,4 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.setup;
 
 import java.io.File;
 import java.util.ResourceBundle;
@@ -8,11 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import org.json.JSONObject;
 
 public class OpeningView {
@@ -29,7 +26,7 @@ public class OpeningView {
   private Button uploadFile;
   private Button gameBuilder;
   private Button dashboard;
-  private Button playGame;
+  private Button contSel;
   private FileOpener fileOpener;
   private File myFileChoice;
   private ResourceBundle myResources;
@@ -57,8 +54,8 @@ public class OpeningView {
     return scene;
   }
 
-  public Button getPlayGame() {
-    return playGame;
+  public Button getContSel() {
+    return contSel;
   }
 
   public Button getDashboard() {
@@ -81,7 +78,7 @@ public class OpeningView {
     buttonLayout = new VBox();
     buttonLayout.setId("opening-button-layout");
     makeButtons();
-    buttonLayout.getChildren().addAll(makeButtonRow(), playGame);
+    buttonLayout.getChildren().addAll(makeButtonRow(), contSel);
   }
 
   private HBox makeButtonRow() {
@@ -95,8 +92,8 @@ public class OpeningView {
     uploadFile = makeButton(myResources.getString("UploadFile"));
     setupFileUpload();
     gameBuilder = makeButton(myResources.getString("GameBuilder"));
-    playGame = makeButton(myResources.getString("PlayGame"));
-    playGame.setDisable(true);
+    contSel = makeButton(myResources.getString("Continue"));
+    contSel.setDisable(true);
     dashboard = makeButton(myResources.getString("Dashboard"));
   }
 
@@ -107,7 +104,7 @@ public class OpeningView {
         File script = fileOpener.fileChoice(myStage);
         myFileChoice = script;
         handleInput(fileOpener.getRootObject(script));
-        playGame.setDisable(false);
+        contSel.setDisable(false);
       } catch (NullPointerException nullPointerException) {
         System.out.println(nullPointerException.getMessage());
       } catch (Exception err) {

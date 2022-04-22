@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.driver.BoardHistoryException;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
@@ -23,7 +24,11 @@ public class Controller {
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
 
-
+  /**
+   * Constructor for the controller
+   * @param board: the board that the game in the engine uses
+   * @param parser : the parser that is used
+   */
   public Controller(Board board, GameParser parser) {
     try {
       myBoard = board;
@@ -64,18 +69,41 @@ public class Controller {
 
     return myBoard;
   }
+
+  /**
+   * gets and returns the game
+   * @return : returns the game
+   */
   public Game getGame(){
     return myGame;
   }
 
+  /**
+   * Function starts the game
+   */
   public void startGame() {
-    myEngine.gameLoop();
+    try {
+      myEngine.gameLoop();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
-
-  public void saveGame(){
-
+  /**
+   * Undoes number of actions by user by the integer provided
+   * @param numberOfUndoes : number of boards in history to go back to
+   * @throws BoardHistoryException
+   */
+  public void undoGame(int numberOfUndoes) throws BoardHistoryException {
+    myGame.backByAmount(numberOfUndoes);
   }
-  //TODO: Add functionality to have turns and have the program run.
 
+  /**
+   * Undoes the action previously done
+   * @throws BoardHistoryException
+   */
+  public Board undoGameOnce() throws BoardHistoryException {
+    myGame.back();
+    return myGame.getBoard();
+  }
 }

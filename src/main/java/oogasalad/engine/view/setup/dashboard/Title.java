@@ -1,4 +1,4 @@
-package oogasalad.engine.view.dashboard;
+package oogasalad.engine.view.setup.dashboard;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;

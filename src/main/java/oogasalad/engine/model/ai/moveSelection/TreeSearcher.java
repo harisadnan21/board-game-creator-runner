@@ -1,24 +1,25 @@
-package oogasalad.engine.model.ai.searchTypes;
+package oogasalad.engine.model.ai.moveSelection;
 
+import static oogasalad.engine.model.board.Piece.*;
 import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
 
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
-import oogasalad.engine.model.ai.TimeLimit;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
+import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
 import org.jooq.lambda.Seq;
 
-public class MinMaxSearcher implements Selects, DepthLimit  {
+public class TreeSearcher implements Selects {
   private final int maxDepth;
   private final StateEvaluator stateEvaluator;
   private final AIOracle aiOracle;
   private final TimeLimit timeLimit;
 
 
-  public MinMaxSearcher(Difficulty difficulty, StateEvaluator stateEvaluator, AIOracle aiOracle) {
+  public TreeSearcher(Difficulty difficulty, StateEvaluator stateEvaluator, AIOracle aiOracle) {
     this.maxDepth = difficulty.depth();
     this.timeLimit = difficulty.timeLimit();
     this.stateEvaluator = stateEvaluator;
@@ -27,7 +28,7 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
 
   public AIChoice selectChoice(Board board, int forPlayer) {
     return getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(),
-        forPlayer, maxDepth)).get();
+        forPlayer, getDepthLimit())).get();
   }
 
   protected final Seq<AIChoice> getChoices(Board board, int forPlayer) {
@@ -36,7 +37,7 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
   }
 
   protected int runMinimax(Board board, int player, int depth) {
-    if(limitReached(board, depth)) { return getEvaluation(board, player); }
+    if(limitReached(board, depth)) { return getEvaluationForPlayer(board, player); }
 
     var boards = getNextBoards(board, player);
     int nextPlayer = getNextPlayer(player);
@@ -48,18 +49,25 @@ public class MinMaxSearcher implements Selects, DepthLimit  {
   }
 
   protected int getNextPlayer(int player) {
-    return player == PLAYER_ONE ? Piece.PLAYER_TWO : PLAYER_ONE;
+    return player == PLAYER_ONE ? PLAYER_TWO : PLAYER_ONE;
   }
 
-  protected int getEvaluation(Board board, int player) {
-    return this.stateEvaluator.evaluate(board).forPlayer(player);
+  protected int getEvaluationForPlayer(Board board, int player) {
+    return getEvaluation(board).forPlayer(player);
+  }
+
+  protected Evaluation getEvaluation(Board board) {
+    return getStateEvaluator().evaluate(board);
+  }
+
+  protected StateEvaluator getStateEvaluator() {
+    return this.stateEvaluator;
   }
 
   protected boolean limitReached(Board board, int depth) {
     return (depth == 0 || timeLimit.isTimeUp()) || aiOracle.isWinningState(board);
   }
 
-  @Override
   public int getDepthLimit() {
     return maxDepth;
   }

@@ -1,38 +1,37 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.dashboard;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
-import static org.junit.jupiter.api.Assertions.*;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.game.BoardView;
+import oogasalad.engine.view.ViewManager;
+
+import oogasalad.engine.view.setup.dashboard.Dashboard;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-public class BoardViewTest extends DukeApplicationTest {
-
+class DashboardTest extends DukeApplicationTest {
   Node root;
   BoardView board;
   Controller controller;
   Scene scene;
   Stage s;
-
+  Dashboard dashboard;
 
   @Override
   public void start (Stage stage) throws IOException {
     board = new BoardView(new File("data/games/checkers"), 3, 3, 300, 300, "/css/light.css");
-
-    GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
-    Board backEndBoard = new Board(3,3);
-    controller = new Controller(backEndBoard, parser);
-
+    Consumer<File> fakeStart = this::fakeStart;
+    dashboard = new Dashboard(fakeStart);
     board.addController(controller);
-//    root = new Group();
-//    root.getChildren().add(board.getRoot());
     root = board.getRoot();
 
     ViewManager manager = new ViewManager(stage);
@@ -41,22 +40,11 @@ public class BoardViewTest extends DukeApplicationTest {
     s.setScene(scene);
     s.show();
   }
+  public void fakeStart(File file){}
 
-//  @Test
-//  void testAddController() {
-//    clickOn(root, 150, 150);
-//    board
-//    assertEquals(null, board.)
-//  }
 
   @Test
-  void testCellClicked() {
-    assertDoesNotThrow(() -> {
-      System.out.printf("success");
-    });
-    //clickOn(root, 150, 150);
-    //assertEquals(root.getChildren().size(), board.getRoot().getChildren().size());
-        //root.getChildren().get(0).getText().getText(), "action at (1, 1)");
-  }
+  public void testClickOnGameIcon(){
 
+  }
 }

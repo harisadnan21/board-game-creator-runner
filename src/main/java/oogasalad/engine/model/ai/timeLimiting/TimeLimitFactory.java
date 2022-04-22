@@ -1,4 +1,4 @@
-package oogasalad.engine.model.ai;
+package oogasalad.engine.model.ai.timeLimiting;
 
 public class TimeLimitFactory {
   public static TimeLimit makeTimeLimit (int seconds) {

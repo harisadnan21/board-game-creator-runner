@@ -1,7 +1,7 @@
 package oogasalad.engine.model.ai.enums;
 
-import oogasalad.engine.model.ai.TimeLimit;
-import oogasalad.engine.model.ai.TimeLimitFactory;
+import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
+import oogasalad.engine.model.ai.timeLimiting.TimeLimitFactory;
 
 public enum Difficulty {
   RANDOM(1, 3),

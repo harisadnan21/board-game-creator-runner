@@ -2,15 +2,12 @@ package oogasalad.engine.model.board;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.lang.reflect.Array;
 import java.util.Map;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
-import oogasalad.engine.model.utilities.Utilities;
 import org.jooq.lambda.Seq;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,7 +18,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString
-public class Board implements DisplayableBoard {
+public class Board implements Iterable<PositionState>, Cloneable{
 
   public static final int NO_WINNER_YET = -2; //Eh
   public static final String INVALID_POSITION = "Invalid Position";
@@ -79,7 +76,6 @@ public class Board implements DisplayableBoard {
     return positionStates;
   }
 
-  @Override
   public int getPlayer() {
     return activePlayer;
   }
@@ -98,7 +94,11 @@ public class Board implements DisplayableBoard {
     return this.clone();
   }
 
-
+  /**
+   * Method that removes a piece from the board and returns a new board with this property changed
+   * @param position : position where the piece is to be remoced from
+   * @return : new board
+   */
   public Board removePiece(Position position) {
     throwIfInvalid(position);
     Board returnBoard = this.clone();
@@ -112,11 +112,20 @@ public class Board implements DisplayableBoard {
     }
   }
 
+  /**
+   * Places a piece at the specified location and returns the new board with this updated feature
+   * @param positionState : the position state of the position on the board
+   * @return : new board
+   */
   public Board placePiece(PositionState positionState) {
     throwIfInvalid(positionState.position());
     Board returnBoard = this.clone();
     returnBoard.myBoard = returnBoard.myBoard.put(positionState.position(), positionState);
     return returnBoard;
+  }
+
+  public Seq<Position> getPositions() {
+    return Seq.seq(myBoard.values().map(PositionState::position));
   }
 
   public Board movePiece(Position oldPosition, Position newPosition) {
@@ -131,7 +140,6 @@ public class Board implements DisplayableBoard {
     return returnBoard;
   }
 
-  @Override
   public PositionState getPositionStateAt(Position position) {
     return this.getPositionStateAt(position.row(), position.column());
   }
@@ -141,126 +149,86 @@ public class Board implements DisplayableBoard {
     return Arrays.stream(positionStates).mapToInt(Array::getLength).max().orElse(0);
   }
 
-//  public boolean hasPieceAtLocation(int i, int j) {
-//    PositionState positionState = myBoard.get(new Position(i, j)).get();
-//    return positionState.piece() != Piece.EMPTY;
-//  }
 
-
-  @Override
   public boolean isOccupied(int row, int column) {
     PositionState positionState = myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
     return positionState.isPresent();
   }
 
-  @Override
+  /**
+   * checks if the x and y coordinates given are valid or not
+   * @param x :  x coordinate to be checked
+   * @param y : y coordinate to be checked
+   * @return: true or false depending on whether the position is valid
+   */
   public boolean isValidPosition(int x, int y) {
-    return isValidI(x) && isValidJ(y);
+    return isValidRow(x) && isValidColumn(y);
   }
-
+  /**
+   * checks if the position given is valid or not (existent on the board)
+   * @param: position to be checked
+   * @return: true or false depending on whether the position is valid
+   */
   public boolean isValidPosition(Position position) {
-    return isValidI(position.row()) && isValidJ(position.column());
+    return isValidRow(position.row()) && isValidColumn(position.column());
   }
 
-  private boolean isValidJ(int j) {
-    return (j >= FIRST_COL) && (j <= lastCol);
-  }
-
-  private boolean isValidI(int i) {
-    return (i >= FIRST_ROW) && (i <= lastRow);
-  }
-
-
-  @Override
+  /**
+   * method to acquire number of rows of board
+   * @return
+   */
   public int getHeight() {
     return numRows;
   }
 
-  @Override
+  /**
+   * Method to acquire number of columns in board
+   * @return
+   */
   public int getWidth() {
     return numCols;
   }
 
-  private boolean isValidY(int j) {
-    return Utilities.isPositive(j) && (j < numCols);
-  }
-
-  private boolean isValidX(int i) {
-    return Utilities.isPositive(i) && (i < numRows);
-  }
-
-  @Override
+  /**
+   * tells if the row number is valid (contained in the board)
+   * @param row : row number
+   * @return : true or false
+   */
   public boolean isValidRow(int row) {
-    return isValidI(row);
+    return (row >= FIRST_ROW) && (row <= lastRow);
   }
-
-  @Override
+  /**
+   * tells if the column number is valid (contained in the board)
+   * @param column : column number
+   * @return : true or false
+   */
   public boolean isValidColumn(int column) {
-    return isValidJ(column);
+    return (column >= FIRST_COL) && (column <= lastCol);
   }
 
-  @Override
   public Stream<PositionState> getPositionStatesStream() {
     return myBoard.values().toJavaStream();
   }
 
-  @Override
   public Seq<PositionState> getPositionStatesSeq() {
     return Seq.seq(myBoard.values().toJavaStream());
   }
 
-  public Stream<PositionState> getSatisfyingPositionStatesStream(
-      Predicate<PositionState> positionStatePredicate) {
-    return getPositionStatesStream().filter(positionStatePredicate);
-  }
-
-  public Stream<PositionState> getNotSatisfyingPositionStatesStream(
-      Predicate<PositionState> positionStatePredicate) {
-    return myBoard.values().filterNot(positionStatePredicate).toJavaStream();
-  }
-
-  public Seq<PositionState> getNotSatisfyingPositionStatesSeq(
-      Predicate<PositionState> positionStatePredicate) {
-    return Seq.seq(this.getNotSatisfyingPositionStatesStream(positionStatePredicate));
-  }
-
-  public Seq<PositionState> getSatisfyingPositionStatesSeq(
-      Predicate<PositionState> positionStatePredicate) {
-    return Seq.seq(this.getSatisfyingPositionStatesStream(positionStatePredicate));
-  }
-
-  public Map<Integer, List<PositionState>> piecesByPlayer() {
-    return getPositionStatesSeq().groupBy(PositionState::player);
-  }
-
-  public Map<Integer, Integer> numPiecesByPlayer(){
-    Map<Integer, Integer> piecesByPlayer = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
-    piecesByPlayer.putIfAbsent(Piece.PLAYER_ONE, 0);
-    piecesByPlayer.putIfAbsent(Piece.PLAYER_TWO, 0);
-    return piecesByPlayer;
-  }
-
-  @Override
   public PositionState getPositionStateAt(int i, int j) {
     return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException(
         INVALID_POSITION));
   }
 
-  @Override
-  public Map<Integer, List<PositionState>> getRows() {
-    return getPositionStatesSeq().groupBy(PositionState::i);
-  }
-
-  @Override
-  public Map<Integer, List<PositionState>> getCols() {
-    return getPositionStatesSeq().groupBy(PositionState::j);
-  }
-
-  @Override
   public Iterator<PositionState> iterator() {
     return getPositionStatesStream().iterator();
   }
 
+  /**
+   * returns if the position at the coordinates is empty or not
+   * @param i : x coordinate (row number)
+   * @param j : y coordinate (column number)
+   * @return : true or false
+   */
   public boolean isEmpty(int i, int j) {
     return !isOccupied(i,j);
   }
@@ -270,6 +238,11 @@ public class Board implements DisplayableBoard {
     currentValidMoves = moves;
   }
 
+  /**
+   * method sets the winner adn returns a new board with this property changed
+   * @param winner : player that is the winner
+   * @return : new board
+   */
   public Board setWinner(int winner) {
     Board copy = clone();
     copy.myWinner = winner;
@@ -287,16 +260,27 @@ public class Board implements DisplayableBoard {
     return this.placePiece(new PositionState(new Position(i,j), new Piece(type, player)));
   }
 
-  @Override
+  /**
+   * returns which player is the winner
+   * @return : integer that tells which player is the winner
+   */
   public int getWinner() {
     return myWinner;
   }
 
+  /**
+   * @return : returns all the valid moves that can be used
+   */
   @Deprecated
   public Set<Position> getValidMoves() {
     return currentValidMoves;
   }
 
+  /**
+   * makes a new board with the active player changed
+   * @param i: player number
+   * @return : new board with the appropriate player
+   */
   public Board setPlayer(int i) {
     Board copy = clone();
     copy.activePlayer = i;
@@ -325,17 +309,6 @@ public class Board implements DisplayableBoard {
   public Board move(int i1, int j1, int i2, int j2) {
     return this.movePiece(new Position(i1,j1), new Position(i2,j2));
   }
-
-  // TODO: implement this
-  // LEAVE COMMENTED OUT UNTIL IMPLEMENTED
-//  @Override
-//  public boolean equals(Object o) {
-//    if(o.getClass().equals(Board.class)) {
-//      return false;
-//    }
-//    else {
-//
-//    }
 
 
   /**
