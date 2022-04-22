@@ -1,5 +1,6 @@
 package oogasalad.engine.model.logicelement.winner;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.BoardUtilities;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.PositionState;
 import org.jooq.lambda.Seq;
@@ -24,7 +25,8 @@ public class MostPieces extends AbstractWinDecision {
    */
   @Override
   public int decideWinner(Board board) {
-    Seq<PositionState> nonEmptyPositionStates = board.getNotSatisfyingPositionStatesSeq(positionState -> positionState.piece()== Piece.EMPTY);
+    Seq<PositionState> nonEmptyPositionStates = BoardUtilities.getNotSatisfyingPositionStatesSeq(board,
+        positionState -> positionState.piece()== Piece.EMPTY);
     return nonEmptyPositionStates.map(PositionState:: player).mode().get();
   }
 }

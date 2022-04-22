@@ -3,6 +3,7 @@ package oogasalad.engine.model.logicelement.conditions.position_independent_cond
 import java.util.List;
 import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.BoardUtilities;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
 
@@ -27,12 +28,12 @@ public class NInARow extends BoardCondition{
 
 
   private boolean checkForHorizontal(Board board) {
-    var rows = board.getRows().values().stream();
+    var rows = BoardUtilities.getRows(board).values().stream();
     return anyHaveNInARow(rows);
   }
 
   private boolean checkForVertical(Board board) {
-    var cols = board.getCols().values().stream();
+    var cols = BoardUtilities.getCols(board).values().stream();
     return anyHaveNInARow(cols);
 
   }

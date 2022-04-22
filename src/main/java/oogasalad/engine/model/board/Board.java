@@ -2,15 +2,12 @@ package oogasalad.engine.model.board;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.lang.reflect.Array;
 import java.util.Map;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.SortedMap;
-import oogasalad.engine.model.utilities.Utilities;
 import org.jooq.lambda.Seq;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,7 +18,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString
-public class Board implements DisplayableBoard {
+public class Board implements Iterable<PositionState>, Cloneable{
 
   public static final int NO_WINNER_YET = -2; //Eh
   public static final String INVALID_POSITION = "Invalid Position";
@@ -79,7 +76,6 @@ public class Board implements DisplayableBoard {
     return positionStates;
   }
 
-  @Override
   public int getPlayer() {
     return activePlayer;
   }
@@ -135,7 +131,6 @@ public class Board implements DisplayableBoard {
     return returnBoard;
   }
 
-  @Override
   public PositionState getPositionStateAt(Position position) {
     return this.getPositionStateAt(position.i(), position.j());
   }
@@ -146,13 +141,11 @@ public class Board implements DisplayableBoard {
   }
 
 
-  @Override
   public boolean isOccupied(int row, int column) {
     PositionState positionState = myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException("Invalid"));
     return positionState.isPresent();
   }
 
-  @Override
   public boolean isValidPosition(int x, int y) {
     return isValidI(x) && isValidJ(y);
   }
@@ -170,84 +163,35 @@ public class Board implements DisplayableBoard {
   }
 
 
-  @Override
   public int getHeight() {
     return numRows;
   }
 
-  @Override
   public int getWidth() {
     return numCols;
   }
 
-  @Override
   public boolean isValidRow(int row) {
     return isValidI(row);
   }
 
-  @Override
   public boolean isValidColumn(int column) {
     return isValidJ(column);
   }
 
-  @Override
   public Stream<PositionState> getPositionStatesStream() {
     return myBoard.values().toJavaStream();
   }
 
-  @Override
   public Seq<PositionState> getPositionStatesSeq() {
     return Seq.seq(myBoard.values().toJavaStream());
   }
 
-  public Stream<PositionState> getSatisfyingPositionStatesStream(
-      Predicate<PositionState> positionStatePredicate) {
-    return getPositionStatesStream().filter(positionStatePredicate);
-  }
-
-  public Stream<PositionState> getNotSatisfyingPositionStatesStream(
-      Predicate<PositionState> positionStatePredicate) {
-    return myBoard.values().filterNot(positionStatePredicate).toJavaStream();
-  }
-
-  public Seq<PositionState> getNotSatisfyingPositionStatesSeq(
-      Predicate<PositionState> positionStatePredicate) {
-    return Seq.seq(this.getNotSatisfyingPositionStatesStream(positionStatePredicate));
-  }
-
-  public Seq<PositionState> getSatisfyingPositionStatesSeq(
-      Predicate<PositionState> positionStatePredicate) {
-    return Seq.seq(this.getSatisfyingPositionStatesStream(positionStatePredicate));
-  }
-
-  public Map<Integer, List<PositionState>> piecesByPlayer() {
-    return getPositionStatesSeq().groupBy(PositionState::player);
-  }
-
-  public Map<Integer, Integer> numPiecesByPlayer(){
-    Map<Integer, Integer> piecesByPlayer = Seq.seq(piecesByPlayer()).toMap(pair -> pair.v1, pair -> pair.v2.size());
-    piecesByPlayer.putIfAbsent(Piece.PLAYER_ONE, 0);
-    piecesByPlayer.putIfAbsent(Piece.PLAYER_TWO, 0);
-    return piecesByPlayer;
-  }
-
-  @Override
   public PositionState getPositionStateAt(int i, int j) {
     return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException(
         INVALID_POSITION));
   }
 
-  @Override
-  public Map<Integer, List<PositionState>> getRows() {
-    return getPositionStatesSeq().groupBy(PositionState::i);
-  }
-
-  @Override
-  public Map<Integer, List<PositionState>> getCols() {
-    return getPositionStatesSeq().groupBy(PositionState::j);
-  }
-
-  @Override
   public Iterator<PositionState> iterator() {
     return getPositionStatesStream().iterator();
   }
@@ -278,7 +222,6 @@ public class Board implements DisplayableBoard {
     return this.placePiece(new PositionState(new Position(i,j), new Piece(type, player)));
   }
 
-  @Override
   public int getWinner() {
     return myWinner;
   }
