@@ -7,16 +7,18 @@ import java.util.Objects;
 import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javax.swing.text.html.CSS;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 
 
-import oogasalad.engine.view.dashboard.Dashboard;
-import oogasalad.engine.view.dashboard.GameIcon;
-import oogasalad.engine.view.dashboard.GameSelection;
+import oogasalad.engine.view.game.BoardView;
+import oogasalad.engine.view.game.GameView;
+import oogasalad.engine.view.setup.PlayerModeView;
+import oogasalad.engine.view.setup.dashboard.Dashboard;
+import oogasalad.engine.view.setup.dashboard.GameIcon;
 
 import oogasalad.engine.model.parser.GameParser;
+import oogasalad.engine.view.setup.OpeningView;
 
 
 public class ViewManager {
@@ -38,6 +40,7 @@ public class ViewManager {
   private Scene currScene;
   private Stage stage;
   private String cssFilepath;
+  private File currGame;
 
 
   public ViewManager(Stage s) throws IOException {
@@ -62,7 +65,9 @@ public class ViewManager {
 
   public OpeningView createOpeningView() {
     openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath);
-    openingView.getPlayGame().setOnAction(e -> startGame(openingView.getFileChoice()));
+    //openingView.getPlayGame().setOnAction(e -> startGame(openingView.getFileChoice()));
+    currGame = openingView.getFileChoice();
+    openingView.getContSel().setOnAction(e -> selectMode(openingView.getFileChoice()));
     openingView.getDashboard().setOnAction(e -> showGames());
     return openingView;
   }
@@ -72,9 +77,24 @@ public class ViewManager {
     gameView.getHome().setOnAction(e -> goHome());
     return gameView;
   }
+
+//  private void showGames(){
+//    currScene = new Scene(new Dashboard(this::startGame), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
+//    currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
+//    updateStage();
+//  }
+
   private void showGames(){
-    currScene = new Scene(new Dashboard(this::startGame), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
+    currScene = new Scene(new Dashboard(this::selectMode), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
     currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
+    updateStage();
+  }
+
+  private void selectMode(File game) {
+    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, game, this::startGame);
+    currScene = pmv.makeScene();
+    currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
+    pmv.getOnePlayer().setOnAction(e -> startGame(game));
     updateStage();
   }
 
