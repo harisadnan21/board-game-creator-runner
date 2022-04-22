@@ -15,6 +15,7 @@ import oogasalad.engine.model.board.Board;
 
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.game.GameView;
+import oogasalad.engine.view.setup.AISelectView;
 import oogasalad.engine.view.setup.PlayerModeView;
 import oogasalad.engine.view.setup.dashboard.Dashboard;
 import oogasalad.engine.view.setup.dashboard.GameIcon;
@@ -92,8 +93,14 @@ public class ViewManager {
     Scene newScene = pmv.makeScene();
     newStage.setScene(newScene);
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
-    pmv.getOnePlayer().setOnAction(e -> startGame(game, newStage));
+    pmv.getOnePlayer().setOnAction(e -> selectAI(newStage));
+    pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage));
     newStage.show();
+  }
+
+  private void selectAI(Stage newStage) {
+    AISelectView aiView = new AISelectView(WIDTH, HEIGHT, cssFilepath);
+    newStage.setScene(aiView.makeScene());
   }
 
   private void startGame(File game, Stage newStage) {
