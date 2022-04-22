@@ -74,7 +74,6 @@ public class Game {
       backInHistory--;
       myBoard =myBoardHistory.get(myBoardHistory.size()-1-backInHistory);
       myUpdateView.accept(myBoard);
-
     }
 
   }

@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import oogasalad.engine.controller.Controller;
+import oogasalad.engine.model.driver.BoardHistoryException;
 import oogasalad.engine.view.ControlPanel.ControlPanel;
 
 public class GameControlPanel extends ControlPanel {
@@ -35,7 +36,13 @@ public class GameControlPanel extends ControlPanel {
     restart.setOnAction(e -> myController.startGame());
     undo = createButton(BACK_IMAGE);
     //TODO: add functionality for undo button
-    undo.setOnAction(e -> myController.undoGame());
+    undo.setOnAction(e -> {
+      try {
+        myController.undoGameOnce();
+      } catch (BoardHistoryException ex) {
+        ex.printStackTrace();
+      }
+    });
     //setting button
     pause = createButton(PAUSE_IMAGE);
     root.getChildren().addAll(home, restart, undo, pause);

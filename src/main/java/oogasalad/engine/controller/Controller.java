@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.driver.BoardHistoryException;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
@@ -72,8 +73,12 @@ public class Controller {
     myEngine.gameLoop();
   }
 
-  //TODO: IMPLEMENT Undo functionality in the controller
-  public void undoGame(){}
+  public void undoGame(int numberOfUndoes) throws BoardHistoryException {
+    myGame.backByAmount(numberOfUndoes);
+  }
+  public void undoGameOnce() throws BoardHistoryException {
+    myGame.back();
+  }
 
 
   public void saveGame(){
