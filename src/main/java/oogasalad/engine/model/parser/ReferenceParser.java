@@ -99,10 +99,9 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
       //TODO: Implement variables here
       params[i] = Integer.parseInt(findPropertyValue(name, requiredParams[i]));
       //TODO: THIS SUCKS! Standardize how we differentiate (x,y) and (i,j)
-      if (requiredParams[i].equals("y")) {
-        int temp = params[i - 1];
-        params[i - 1] = -params[i];
-        params[i] = temp;
+      if (requiredParams[i].equals("row") || requiredParams[i].equals("destinationRow") ||
+          requiredParams[i].equals("sourceRow")) {
+        params[i] *=-1;
       }
     }
     LOG.info("Int params {}\n", Arrays.toString(params));
