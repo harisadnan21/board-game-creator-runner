@@ -16,6 +16,7 @@ public class PlayerModeView {
   private String cssFilePath;
   Button twoPlayer;
   Button onePlayer;
+  Button hostServer;
   private Text insns;
   private HBox buttonLayout;
   private VBox windowLayout;
@@ -48,6 +49,9 @@ public class PlayerModeView {
   public Button getTwoPlayer() {
     return twoPlayer;
   }
+  public Button getHostServer() {
+    return hostServer;
+  }
 
   private void setup() {
     windowLayout = new VBox();
@@ -67,7 +71,8 @@ public class PlayerModeView {
     buttonLayout.setId("p-mode-button-layout");
     onePlayer = makeButton(myResources.getString("1Player"));
     twoPlayer = makeButton(myResources.getString("2Player"));
-    buttonLayout.getChildren().addAll(onePlayer, twoPlayer);
+    hostServer = makeButton(myResources.getString("HostServer"));
+    buttonLayout.getChildren().addAll(onePlayer, twoPlayer, hostServer);
   }
 
   private Button makeButton(String text) {

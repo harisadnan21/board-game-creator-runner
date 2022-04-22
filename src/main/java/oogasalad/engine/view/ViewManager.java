@@ -13,6 +13,9 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 
 
+import oogasalad.engine.model.player.HumanPlayer;
+import oogasalad.engine.model.player.NetworkedPlayer;
+import oogasalad.engine.model.player.Player;
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.game.GameView;
 import oogasalad.engine.view.setup.AISelectView;
@@ -95,6 +98,7 @@ public class ViewManager {
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
     pmv.getOnePlayer().setOnAction(e -> selectAI(newStage));
     pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage));
+    pmv.getHostServer().setOnAction(e -> startHostedGame(game, newStage));
     newStage.show();
   }
 
@@ -103,7 +107,15 @@ public class ViewManager {
     newStage.setScene(aiView.makeScene());
   }
 
+  private void startHostedGame(File game, Stage newStage) {
+    startGame(game, newStage, new NetworkedPlayer(), new HumanPlayer());
+  }
+
   private void startGame(File game, Stage newStage) {
+    startGame(game, newStage, new HumanPlayer(), new HumanPlayer());
+  }
+
+  private void startGame(File game, Stage newStage, Player player1, Player player2) {
     try {
       GameParser parser;
       try {
