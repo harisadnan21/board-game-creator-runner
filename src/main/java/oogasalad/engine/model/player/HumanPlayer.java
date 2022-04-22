@@ -1,5 +1,7 @@
 package oogasalad.engine.model.player;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -7,6 +9,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import oogasalad.engine.model.engine.Choice;
+import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
@@ -26,9 +29,12 @@ public class HumanPlayer extends Player{
 
   private Consumer<Set<Position>> mySetValidMarks;
 
-  public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
+  private DataOutputStream socketStream;
+
+  public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) throws IOException {
     super(oracle, game, executeMove);
     mySetValidMarks = setValidMarks;
+    socketStream = new DataOutputStream(Engine.socket.getOutputStream());
   }
 
   @Override
@@ -48,12 +54,23 @@ public class HumanPlayer extends Player{
       Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
       if (move.isPresent()) {
         mySelectedMove = move.get();
+        writePosition(mySelectedCell);
+        writePosition(cellClicked);
         myChoice = new Choice(mySelectedCell, mySelectedMove);
         LOG.info("Move {} selected", mySelectedMove.getName());
         resetSelected();
         executeMove(this, myChoice);
       }
       resetSelected();
+    }
+  }
+
+  private void writePosition(Position p) {
+    try {
+      socketStream.writeInt(p.row());
+      socketStream.writeInt(p.column());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
 

@@ -1,5 +1,8 @@
 package oogasalad.engine.model.engine;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,6 +14,7 @@ import java.util.function.Consumer;
 import oogasalad.engine.model.ai.RandomPlayer;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.player.NetworkedPlayer;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.rule.Move;
@@ -35,6 +39,8 @@ public class Engine {
   private Collection<Move> myMoves;
   private Consumer<Set<Position>> setViewValidMarks;
 
+  public static Socket socket;
+
   public Engine(Game game, Collection<Move> moves,
       Collection<EndRule> endRules, Consumer<Board> update, Consumer<Set<Position>> setValidMarks) {
 
@@ -49,9 +55,27 @@ public class Engine {
     }
     myOracle = new Oracle(moves, endRules, new ArrayList<>(), numPlayers);
 
-    myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
-    myPlayers.put(1, new RandomPlayer(myOracle, myGame, this::playTurn));
+    boolean host = false;
 
+    try {
+      if (host) {
+        if(socket == null) {
+          ServerSocket serverSocket = new ServerSocket(5000);
+          socket = serverSocket.accept();
+        }
+        myPlayers.put(1, new NetworkedPlayer(myOracle, myGame, this::playTurn, socket));
+        myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
+
+      } else {
+        if(socket == null) {
+          socket = new Socket("localhost", 5000);
+        }
+        myPlayers.put(0, new NetworkedPlayer(myOracle, myGame, this::playTurn, socket));
+        myPlayers.put(1, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
+      }
+    } catch(IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   public void gameLoop() throws InterruptedException {
