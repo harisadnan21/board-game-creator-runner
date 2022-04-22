@@ -3,6 +3,8 @@ package oogasalad.engine.view;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 import javafx.scene.Scene;
@@ -36,11 +38,12 @@ public class ViewManager {
 
 
   private OpeningView openingView;
-  private GameView gameView;
+  //private GameView gameView;
   private Scene currScene;
   private Stage stage;
   private String cssFilepath;
   private File currGame;
+  private List<Stage> gameStages = new ArrayList<>();
 
 
   public ViewManager(Stage s) throws IOException {
@@ -54,7 +57,6 @@ public class ViewManager {
     HEIGHT = Double.parseDouble(prop.getProperty("HEIGHT"));
     BOARDX = Double.parseDouble(prop.getProperty("BOARDX"));
     BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
-    //currScene = createGameView(new BoardView(2, 2, 200, 200), new Controller(new Board(3, 3))).makeScene();
     currScene = createOpeningView().makeScene();
 
   }
@@ -73,8 +75,8 @@ public class ViewManager {
   }
 
   public GameView createGameView(BoardView board, Controller controller) {
-    gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath);
-    gameView.getHome().setOnAction(e -> goHome());
+    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath);
+    gameView.getHome().setOnAction(e -> goHome(gameView.getScene()));
     return gameView;
   }
 
@@ -115,15 +117,32 @@ public class ViewManager {
       Controller controller = new Controller(board, parser);
       boardView.addController(controller);
       newStage.setScene(createGameView(boardView, controller).makeScene());
+      gameStages.add(newStage);
       newStage.show();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  private void goHome() {
+  private void goHome(Scene scene) {
     currScene = createOpeningView().makeScene();
+    closeStage(findClosedStage(scene));
     updateStage();
+  }
+
+  private void closeStage(Stage stage) {
+    gameStages.remove(stage);
+    stage.close();
+  }
+
+  private Stage findClosedStage(Scene scene) {
+    for (Stage stage : gameStages) {
+      System.out.println("stage");
+      if (stage.getScene().equals(scene)) {
+        return stage;
+      }
+    }
+    return new Stage();
   }
 
   private void updateStage() {

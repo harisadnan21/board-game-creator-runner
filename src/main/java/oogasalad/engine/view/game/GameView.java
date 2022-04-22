@@ -25,6 +25,7 @@ public class GameView {
   private BorderPane root;
   private ResourceBundle myResources;
   private String cssFilePath;
+  private Scene myScene;
 
   public GameView(BoardView board, Controller controller, double w, double h, String css) {
     String language = "English";
@@ -41,6 +42,10 @@ public class GameView {
     board.addController(myController);
   }
 
+  public Scene getScene() {
+    return myScene;
+  }
+
   public Scene makeScene() {
     root.setCenter(myBoard.getRoot());
     root.setLeft(myGameControl.getRoot());
@@ -49,15 +54,14 @@ public class GameView {
     root.setRight(mySettingsControl.getRoot());
     root.setBottom(myPlayerText);
     root.setAlignment(myPlayerText, Pos.CENTER);
-    Scene scene = new Scene(root, width, height);
-    scene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
-    return scene;
+    myScene = new Scene(root, width, height);
+    myScene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
+    return myScene;
   }
 
   public Button getHome() {
     return myGameControl.getHome();
   }
-
 
   private void setUpRoot() {
     root = new BorderPane();
