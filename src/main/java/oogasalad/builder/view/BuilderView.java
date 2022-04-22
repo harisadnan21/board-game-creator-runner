@@ -1,39 +1,22 @@
 package oogasalad.builder.view;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.HashSet;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane.TabClosingPolicy;
-
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import oogasalad.builder.model.exception.InvalidFormException;
-import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.SaveCallback;
-import oogasalad.builder.view.property.PropertySelector;
-import oogasalad.builder.view.tab.ActionsTab;
-import oogasalad.builder.view.tab.BasicTab;
-import oogasalad.builder.view.tab.ConditionsTab;
-import oogasalad.builder.view.tab.GameElementTab;
-import oogasalad.builder.view.tab.HelpTab;
-import oogasalad.builder.view.tab.MetaDataTab;
-import oogasalad.builder.view.tab.PiecesTab;
-import oogasalad.builder.view.tab.RulesTab;
+import oogasalad.builder.view.tab.AllTabs;
 import oogasalad.builder.view.tab.SplashLogin;
-import oogasalad.builder.view.tab.WinConditionsTab;
-import oogasalad.builder.view.tab.boardTab.BoardTab;
 
 
 import java.util.ResourceBundle;
@@ -45,30 +28,25 @@ public class BuilderView {
 
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
-  public static final String TABS_LIST = "TabsList";
-  public static final String TABS_PATH = "oogasalad.builder.view.tab.";
   private static String TAB_PROPERTIES = "tabResources";
   private static final String TAB_FORMAT = "tabFormat.css";
 
 
   private static Stage stage;
-  private Collection<BasicTab> tabs;
   public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
-  public static final  ResourceBundle tabsList = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TABS_LIST);
-
+  private AllTabs allTabs;
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
-    tabs = new HashSet<>();
     stage = mainStage;
-
     SplashLogin newWindow = new SplashLogin(e -> buildView());
   }
 
   // Builds the view, including all tabs and menus
   private void buildView() {
     BorderPane borderPane = new BorderPane();
-    borderPane.setCenter(setupTabs());
+    allTabs = new AllTabs(callbackDispatcher);
+    borderPane.setCenter(allTabs);
     borderPane.setBottom(makeMenu());
 
     Scene tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
@@ -79,33 +57,6 @@ public class BuilderView {
     stage.setScene(tabScene);
     stage.show();
   }
-
-  //Sets up all tabs in the tab pane
-  private TabPane setupTabs() {
-    TabPane tabPane = new TabPane();
-    for (String tabKey : tabsList.keySet()){
-      tabPane.getTabs().add(createTab(tabKey));
-    }
-    tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-    return tabPane;
-  }
-
-  //Create a tab using reflection
-  private Tab createTab(String tabNameKey) {
-    try {
-      Class<?> clss = Class.forName(TABS_PATH + tabsList.getString(tabNameKey));
-      Constructor<?> ctor = clss.getDeclaredConstructor(CallbackDispatcher.class);
-      BasicTab createdTab = (BasicTab) ctor.newInstance(callbackDispatcher);
-      createdTab.setId(tabNameKey + "Tab");
-      tabs.add(createdTab);
-      return new Tab(ViewResourcesSingleton.getInstance().getString(tabNameKey), createdTab);
-    } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
-        InstantiationException | IllegalAccessException e) {
-      e.printStackTrace();
-      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
-    }
-  }
-
 
   // Makes the menu bar, which holds the save and load buttons
   private HBox makeMenu() {
@@ -140,9 +91,7 @@ public class BuilderView {
     //TODO: Remove Magic Value
     directoryChooser.setTitle("Choose Configuration Load Location");
     callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(stage)));
-    for (BasicTab tab : tabs) {
-      tab.loadElements();
-    }
+    allTabs.loadAllTabs();
 
   }
 
