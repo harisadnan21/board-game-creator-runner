@@ -63,7 +63,7 @@ public class Engine {
       if (move.isValid(getGameStateBoard(), referencePoint)) {
         Board board = move.doMovement(getGameStateBoard(), referencePoint);
         board = board.setPlayer(board.getPlayer()+1);
-        LOG.info("{} executed at {},{}", move.getName(), referencePoint.i(), referencePoint.j());
+        LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
 
         board = myOracle.incrementPlayer(board);
         myGame.setBoard(board);

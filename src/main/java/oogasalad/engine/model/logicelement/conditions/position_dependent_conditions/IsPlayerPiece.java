@@ -20,15 +20,13 @@ public class IsPlayerPiece extends Condition {
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    int i = myParameters[0];
-    int j = myParameters[1];
+    Position position = new Position(myParameters[0], myParameters[1]);
     if (myParameters[3] == 0) {
-      i += referencePoint.i();
-      j += referencePoint.j();
+      position = transformToRelative(position, referencePoint);
     }
-    if (!board.isValidPosition(i, j)) {
+    if (!board.isValidPosition(position)) {
       return false;
     }
-    return board.getPositionStateAt(i, j).player() == myParameters[2];
+    return board.getPositionStateAt(position).player() == myParameters[2];
   }
 }

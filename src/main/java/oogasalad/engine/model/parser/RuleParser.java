@@ -57,7 +57,7 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
       Position repPoint = getRepresentativePoint(rule);
       Action[] actions = resolveActions(rule);
       Condition[] conditions = resolveConditions(rule);
-      rules.add(new Move(name, conditions, actions, repPoint.i(), repPoint.j()));
+      rules.add(new Move(name, conditions, actions, repPoint.row(), repPoint.column()));
     }
     return rules;
   }

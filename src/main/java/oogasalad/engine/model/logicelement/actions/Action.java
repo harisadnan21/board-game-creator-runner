@@ -3,6 +3,7 @@ package oogasalad.engine.model.logicelement.actions;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.logicelement.LogicElement;
 
 /**
  * Every action subclass constructor receives all the parameters
@@ -10,11 +11,10 @@ import oogasalad.engine.model.board.Position;
  *
  * @author Jake Heller
  */
-public abstract class Action {
+public abstract class Action extends LogicElement {
 
-  protected int[] myParameters;
   protected Action(int[] parameters) {
-    myParameters = parameters;
+    super(parameters);
   }
 
   /**

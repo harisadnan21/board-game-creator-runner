@@ -16,15 +16,13 @@ public class IsOccupied extends Condition {
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    int i = myParameters[0];
-    int j = myParameters[1];
+    Position position = new Position(myParameters[0], myParameters[1]);
     if (myParameters[2] == 0) {
-      i += referencePoint.i();
-      j += referencePoint.j();
+      position = transformToRelative(position, referencePoint);
     }
-    if (!board.isValidPosition(i,j)) {
+    if (!board.isValidPosition(position)) {
       return false;
     }
-    return !board.isEmpty(i, j);
+    return !board.isEmpty(position.row(), position.column());
   }
 }

@@ -1,6 +1,5 @@
 package oogasalad.engine.model.logicelement.actions;
 
-import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 
@@ -16,9 +15,10 @@ public class Remove extends Action {
 
   @Override
   public Board execute(Board board, Position referencePoint) {
-    int row = myParameters[0] + referencePoint.i();
-    int column = myParameters[1] + referencePoint.j();
-
-    return board.remove(row, column);
+    Position position = new Position(myParameters[0], myParameters[1]);
+    if (myParameters[2] == 0) {
+      position = transformToRelative(position, referencePoint);
+    }
+    return board.remove(position.row(), position.column());
   }
 }

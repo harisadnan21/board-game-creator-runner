@@ -17,12 +17,12 @@ public record PositionState(Position position, Piece piece) {
 
   //Just a convenience function
   public int i(){
-    return position.i();
+    return position.row();
   }
 
   //Just a convenience function
   public int j(){
-    return position.j();
+    return position.column();
   }
 
 

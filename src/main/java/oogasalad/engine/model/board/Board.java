@@ -64,7 +64,7 @@ public class Board implements DisplayableBoard {
                               .crossJoin(Seq.rangeClosed(FIRST_COL, lastCol))
                               .map(Position::new);
     Map<Position, PositionState> map = positions.toMap(pos -> pos,
-                                                       pos -> positionStates[pos.i()][pos.j()]);
+                                                       pos -> positionStates[pos.row()][pos.column()]);
     return TreeMap.ofAll(map);
   }
 
@@ -133,7 +133,7 @@ public class Board implements DisplayableBoard {
 
   @Override
   public PositionState getPositionStateAt(Position position) {
-    return this.getPositionStateAt(position.i(), position.j());
+    return this.getPositionStateAt(position.row(), position.column());
   }
 
 
@@ -159,7 +159,7 @@ public class Board implements DisplayableBoard {
   }
 
   public boolean isValidPosition(Position position) {
-    return isValidI(position.i()) && isValidJ(position.j());
+    return isValidI(position.row()) && isValidJ(position.column());
   }
 
   private boolean isValidJ(int j) {
