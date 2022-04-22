@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
@@ -48,7 +47,7 @@ public class HelpTab extends BasicTab{
   public void displayHelpForElement(String type){
     leftDisplay.clear();
     leftDisplay.setText(ViewResourcesSingleton.getInstance().getString(type) + " Tab");
-    leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance().getString(type + "-" + HELP));
+    leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance().getString(type + "-" + HELP) +"\n");
 
     if (!type.equals(BOARD_TYPE)){
       Collection<Property> elementProperties = getCallbackDispatcher().call(new GetPropertiesCallback(type)).orElseThrow();
@@ -57,7 +56,7 @@ public class HelpTab extends BasicTab{
         if (propertyName.contains("required-")){
           propertyName = propertyName.replace("required", type);
         }
-        leftDisplay.setText(leftDisplay.getText() + "\n \n" + ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
+        leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
       }
     }
 
