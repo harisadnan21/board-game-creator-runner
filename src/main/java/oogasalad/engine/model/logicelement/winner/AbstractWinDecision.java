@@ -1,11 +1,11 @@
 package oogasalad.engine.model.logicelement.winner;
 
-public abstract class AbstractWinDecision implements WinDecision {
+import oogasalad.engine.model.logicelement.LogicElement;
 
-  protected int[] myParameters;
+public abstract class AbstractWinDecision extends LogicElement implements WinDecision {
 
   protected AbstractWinDecision(int[] parameters) {
-    myParameters = parameters;
+    super(parameters);
   }
 
 }

@@ -219,11 +219,11 @@ public class BoardView implements PropertyChangeListener{
     for (PositionState cell: board) {
       Position pos = cell.position();
       if (cell.isPresent()) {
-        myGrid[pos.i()][pos.j()].addPiece(PIECE_TYPES.get(cell.type()));
+        myGrid[pos.row()][pos.column()].addPiece(PIECE_TYPES.get(cell.type()));
       }
       else {
         try {
-          myGrid[pos.i()][pos.j()].removePiece();
+          myGrid[pos.row()][pos.column()].removePiece();
         } catch (Exception e) {
           LOG.warn("Exception thrown", e);
         }
@@ -262,7 +262,7 @@ public class BoardView implements PropertyChangeListener{
   private void setValidMarkers(Set<Position> validMoves) {
     clearValidMarks();
     for(Position pos : validMoves){
-      myGrid[pos.i()][pos.j()].addValidMarker();
+      myGrid[pos.row()][pos.column()].addValidMarker();
     }
 
   }

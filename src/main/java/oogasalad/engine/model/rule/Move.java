@@ -87,7 +87,7 @@ public class Move implements Rule {
    * @return
    */
   public Position getRepresentativeCell(Position referencePoint) {
-    return getRepresentativeCell(referencePoint.i(), referencePoint.j());
+    return getRepresentativeCell(referencePoint.row(), referencePoint.column());
   }
 
   public Board doMovement(Board board, Position referencePoint) {

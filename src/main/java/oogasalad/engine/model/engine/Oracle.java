@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
-import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
@@ -125,7 +124,7 @@ public class Oracle implements AIOracle {
   }
 
   @Override
-  public Set<AIChoice> getChoices(Board board, int player) {
+  public Set<Choice> getChoices(Board board, int player) {
     return null;
   }
 

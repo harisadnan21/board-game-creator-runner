@@ -82,7 +82,11 @@ public class Controller {
    * Function starts the game
    */
   public void startGame() {
-    myEngine.gameLoop();
+    try {
+      myEngine.gameLoop();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   /**

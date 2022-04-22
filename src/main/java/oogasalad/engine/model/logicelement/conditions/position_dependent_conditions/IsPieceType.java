@@ -21,16 +21,14 @@ public class IsPieceType extends Condition {
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    int i = myParameters[0];
-    int j = myParameters[1];
+    Position position = new Position(myParameters[0], myParameters[1]);
     if (myParameters[3] == 0) {
-      i += referencePoint.i();
-      j += referencePoint.j();
+      position = transformToRelative(position, referencePoint);
     }
-    if (!board.isValidPositionCoordinates(i,j)) {
+    if (!board.isValidPosition(position)) {
       return false;
     }
-    PositionState positionState = board.getPositionStateAt(i,j);
+    PositionState positionState = board.getPositionStateAt(position);
     return positionState.type() == myParameters[2];
   }
 }

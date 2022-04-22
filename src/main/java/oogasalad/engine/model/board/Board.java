@@ -61,7 +61,7 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
                               .crossJoin(Seq.rangeClosed(FIRST_COL, lastCol))
                               .map(Position::new);
     Map<Position, PositionState> map = positions.toMap(pos -> pos,
-                                                       pos -> positionStates[pos.i()][pos.j()]);
+                                                       pos -> positionStates[pos.row()][pos.column()]);
     return TreeMap.ofAll(map);
   }
 
@@ -141,7 +141,7 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
   }
 
   public PositionState getPositionStateAt(Position position) {
-    return this.getPositionStateAt(position.i(), position.j());
+    return this.getPositionStateAt(position.row(), position.column());
   }
 
 
@@ -161,7 +161,7 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
    * @param y : y coordinate to be checked
    * @return: true or false depending on whether the position is valid
    */
-  public boolean isValidPositionCoordinates(int x, int y) {
+  public boolean isValidPosition(int x, int y) {
     return isValidRow(x) && isValidColumn(y);
   }
   /**
@@ -170,7 +170,7 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
    * @return: true or false depending on whether the position is valid
    */
   public boolean isValidPosition(Position position) {
-    return isValidRow(position.i()) && isValidColumn(position.j());
+    return isValidRow(position.row()) && isValidColumn(position.column());
   }
 
   /**
