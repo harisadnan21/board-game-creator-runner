@@ -54,10 +54,8 @@ public class GameIcon extends VBox {
   }
 
   private void iconClicked() {
-    GameParser parser = new GameParser(
-        Objects.requireNonNull(myGameFolder.listFiles(getConfigFile))[0]);
-    LOG.info((Objects.requireNonNull(myGameFolder.listFiles(getConfigFile)))[0]);
-
+    GameParser parser = new GameParser(getConfigFile());
+    LOG.info(getConfigFile());
     try{
       LOG.info(parser.readMetadata());
       myUpdateInfo.accept(parser.readMetadata(), myGameFolder);
@@ -65,6 +63,17 @@ public class GameIcon extends VBox {
     catch(FileNotFoundException e){
       e.printStackTrace();
     }
+  }
+
+  private File getConfigFile() {
+    File configFile = null;
+    try {
+      configFile = myGameFolder.listFiles(getConfigFile)[0];
+    }
+    catch(NullPointerException  | ArrayIndexOutOfBoundsException e){
+
+    }
+    return configFile;
   }
 
   public static final FileFilter getConfigFile = file -> file.getName().equals(CONFIG_FILE);

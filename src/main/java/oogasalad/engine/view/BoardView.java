@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.function.Consumer;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.effect.GaussianBlur;
@@ -81,28 +82,6 @@ public class BoardView implements PropertyChangeListener{
 
     makeBoardBacking(width, height, cellSize, rows, columns);
     makeBoard(rows, columns, cellWidth, cellHeight, game);
-//    for (int i = 0; i < rows; i++) {
-//      for (int j = 0; j < columns; j++) {
-//        Cell temp = new Cell(i, j, cellWidth, cellHeight);
-//        gridRoot.add(temp.getMyRoot(), j, i); // documentation says the first input is column and the second is row
-//        myGrid[i][j] = temp;
-//
-//        int finalI = i;
-//        int finalJ = j;
-//
-//        myGrid[i][j].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
-//          try {
-//            cellClicked(e, finalI, finalJ);
-//          } catch (OutOfBoardException ex) {
-//            ex.printStackTrace();
-//          }
-//        });
-//      }
-//    }
-//    root.getChildren().add(gridRoot);
-//    gridRoot.setAlignment(Pos.CENTER);
-//
-//    root.setAlignment(Pos.CENTER);
   }
 
   private void makeBoard(int rows, int columns, double cellWidth, double cellHeight, File game)
@@ -204,9 +183,7 @@ public class BoardView implements PropertyChangeListener{
     outline.setId("board-outline");
     root.getChildren().addAll(foundation, outline);
   }
-//  private void setupPieces(File game){
-//    File
-//  }
+
 
   private Pair<Double, Double> calcCellSize(int rows, int cols, double width, double height) {
     double cellWidth = width / (rows + 1);
@@ -231,26 +208,23 @@ public class BoardView implements PropertyChangeListener{
         }
       }
     }
-    checkForWin(board);
     text.updateText(board.getPlayer());
   }
 
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
-  private void checkForWin(Board board) {
-    if(board.getWinner() != Board.NO_WINNER_YET){
-      text.gameIsWon(board.getWinner());
-      LOG.info("gameOver! Player {} wins%n", board.getWinner());
-      displayGameOver(board);
-      Board newBoard = myController.resetGame();
-      updateBoard(newBoard);
-    }
+  private void endGame(int winner) {
+    text.gameIsWon(winner);
+    LOG.info("gameOver! Player {} wins%n", winner);
+    Board newBoard = myController.resetGame();
+    updateBoard(newBoard);
+    displayGameOver(winner);
   }
 
-  private void displayGameOver(Board board) {
+  private void displayGameOver(int winner) {
     myController.resetGame();
     root.setEffect(new GaussianBlur());
     MessageView pauseView = new MessageView(
-        MessageFormat.format(myResources.getString("GameOver"), board.getWinner()),
+        MessageFormat.format(myResources.getString("GameOver"), winner),
         myResources.getString("NewGame"), cssFilePath);
     Stage popupStage = pauseView.getStage();
     pauseView.getButton().setOnAction(event -> {
