@@ -49,6 +49,9 @@ public class HelpTab extends BasicTab{
     leftDisplay.setText(ViewResourcesSingleton.getInstance().getString(type) + " Tab");
     leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance().getString(type + "-" + HELP) +"\n");
 
+    boolean hasRequiredType = false;
+    StringBuilder textToDisplay = new StringBuilder();
+    textToDisplay.append(leftDisplay.getText());
     if (!type.equals(BOARD_TYPE)){
       Collection<Property> elementProperties = getCallbackDispatcher().call(new GetPropertiesCallback(type)).orElseThrow();
       for (Property property : elementProperties){
@@ -56,13 +59,33 @@ public class HelpTab extends BasicTab{
         if (propertyName.contains("required-")){
           propertyName = propertyName.replace("required", type);
         }
-        leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
+        if (propertyName.contains("-type")){
+          String[] typeOptions = property.valueAsString().split("-");
+          leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
+          for (String propType : typeOptions){
+            leftDisplay.setText(leftDisplay.getText() + "\n");
+            displayCorrespondingPropertiesOfType(propType, type);
+            hasRequiredType = true;
+          }
+        }
+        textToDisplay.append("\n")
+            .append(ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
+      }
+      if (!hasRequiredType){
+        leftDisplay.setText(String.valueOf(textToDisplay));
       }
     }
-
   }
+
+  private void displayCorrespondingPropertiesOfType(String propType, String type){
+    Collection<Property> elementProperties = getCallbackDispatcher().call(new GetPropertiesCallback(type)).orElseThrow();
+    for (Property prop : elementProperties){
+      if (prop.name().contains(propType + "-")){
+        leftDisplay.setText(leftDisplay.getText() + "\n" +  ViewResourcesSingleton.getInstance().getString(prop.name() + "-" + HELP));
+      }
+    }
+  }
+
   @Override
-  public void loadElements() {
-
-  }
+  public void loadElements() {}
 }
