@@ -84,7 +84,7 @@ public class ViewManager {
 //    updateStage();
 //  }
 
-  private void showGames(){
+  private void showGames() {
     currScene = new Scene(new Dashboard(this::selectMode), GAME_SELECTION_WIDTH, GAME_SELECTION_HEIGHT);
     currScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
     updateStage();

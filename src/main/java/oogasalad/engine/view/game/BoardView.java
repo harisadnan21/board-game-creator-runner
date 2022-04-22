@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -56,6 +57,7 @@ public class BoardView implements PropertyChangeListener{
   private StackPane root;
   private GridPane gridRoot;
   private GameUpdateText text;
+  private boolean gameIsUploadedFile;
 
 
   double BOARD_OUTLINE_SIZE;
@@ -68,6 +70,7 @@ public class BoardView implements PropertyChangeListener{
     prop = new Properties();
     prop.load(fis);
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
+    gameIsUploadedFile = game.listFiles(GameIcon.getConfigFile)==null;
 
     setPiecePaths(game);
 
@@ -114,13 +117,11 @@ public class BoardView implements PropertyChangeListener{
 
   private Optional<String[][]> getCellColors(File game) throws FileNotFoundException {
     CellParser cParser = new CellParser();
+    Optional<String[][]> cellColors;
     try {
-      try {
-        return Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
-      }
-      catch(NullPointerException e) {
-        return Optional.of(cParser.parse(game));
-      }
+      cellColors = gameIsUploadedFile ? Optional.of(cParser.parse(game)) :
+          Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
+      return cellColors;
     }
     catch (JSONException e) {
       return Optional.empty();
@@ -129,7 +130,8 @@ public class BoardView implements PropertyChangeListener{
 
   private void setPiecePaths(File game) throws FileNotFoundException {
     PieceParser parser = new PieceParser();
-    String name = new MetadataParser().parse(game).get("name");
+    MetadataParser mdp = new MetadataParser();
+    String name = gameIsUploadedFile ? mdp.parse(game).get("name") : mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]).get("name");
     Map<Integer, String> pieces = getConfigFile(game, parser);
     for(Entry<Integer, String> entry : pieces.entrySet()) {
       PIECE_TYPES.put(entry.getKey(), GAME_PATH + name + entry.getValue());
@@ -139,12 +141,7 @@ public class BoardView implements PropertyChangeListener{
   private Map<Integer, String> getConfigFile(File game, PieceParser parser) {
     Map<Integer, String> pieces = null;
     try {
-      try {
-        pieces = parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
-      }
-      catch(NullPointerException e) {
-        pieces = parser.parse(game);
-      }
+      pieces = gameIsUploadedFile ? parser.parse(game) : parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
     }
     catch(FileNotFoundException e){
       LOG.error("Config File Not Found");
@@ -189,9 +186,6 @@ public class BoardView implements PropertyChangeListener{
     outline.setId("board-outline");
     root.getChildren().addAll(foundation, outline);
   }
-//  private void setupPieces(File game){
-//    File
-//  }
 
   private Pair<Double, Double> calcCellSize(int rows, int cols, double width, double height) {
     double cellWidth = width / (rows + 1);
