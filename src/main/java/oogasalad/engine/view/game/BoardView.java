@@ -49,6 +49,7 @@ public class BoardView implements PropertyChangeListener{
   private String cssFilePath;
 
   private Map<Integer, String> PIECE_TYPES = new HashMap<>();
+  private Map<String, String> metadata = new HashMap<>();
 
   private Controller myController;
 
@@ -71,6 +72,7 @@ public class BoardView implements PropertyChangeListener{
     prop.load(fis);
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
     gameIsUploadedFile = game.listFiles(GameIcon.getConfigFile)==null;
+    getMetadata(game);
 
     setPiecePaths(game);
 
@@ -85,6 +87,10 @@ public class BoardView implements PropertyChangeListener{
 
     makeBoardBacking(width, height, cellSize, rows, columns);
     makeBoard(rows, columns, cellWidth, cellHeight, game);
+  }
+
+  public String getGameInfo() {
+    return metadata.get("description");
   }
 
   private void makeBoard(int rows, int columns, double cellWidth, double cellHeight, File game)
@@ -115,6 +121,17 @@ public class BoardView implements PropertyChangeListener{
     root.setAlignment(Pos.CENTER);
   }
 
+  private void getMetadata(File game) {
+    MetadataParser mdp = new MetadataParser();
+    try {
+      metadata = gameIsUploadedFile ? mdp.parse(game)
+          : mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]);
+    }
+    catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
   private Optional<String[][]> getCellColors(File game) throws FileNotFoundException {
     CellParser cParser = new CellParser();
     Optional<String[][]> cellColors;
@@ -130,8 +147,7 @@ public class BoardView implements PropertyChangeListener{
 
   private void setPiecePaths(File game) throws FileNotFoundException {
     PieceParser parser = new PieceParser();
-    MetadataParser mdp = new MetadataParser();
-    String name = gameIsUploadedFile ? mdp.parse(game).get("name") : mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]).get("name");
+    String name = metadata.get("name");
     Map<Integer, String> pieces = getConfigFile(game, parser);
     for(Entry<Integer, String> entry : pieces.entrySet()) {
       PIECE_TYPES.put(entry.getKey(), GAME_PATH + name + entry.getValue());

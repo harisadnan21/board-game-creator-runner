@@ -82,7 +82,8 @@ public class GameView {
   private void setInfo(){
     mySettingsControl.getInfoButton().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
-      MessageView infoView = new MessageView(myResources.getString("InfoMessage"),
+      String infoMessage = myBoard.getGameInfo();
+      MessageView infoView = new MessageView(infoMessage,
           myResources.getString("Resume"), cssFilePath);
       Stage popupStage = infoView.getStage();
       infoView.getButton().setOnAction(event -> {
