@@ -1,5 +1,7 @@
 package oogasalad.builder.view;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashSet;
 import javafx.event.ActionEvent;
@@ -13,11 +15,14 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import oogasalad.builder.model.exception.InvalidFormException;
+import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.SaveCallback;
+import oogasalad.builder.view.property.PropertySelector;
 import oogasalad.builder.view.tab.ActionsTab;
 import oogasalad.builder.view.tab.BasicTab;
 import oogasalad.builder.view.tab.ConditionsTab;
@@ -40,18 +45,23 @@ public class BuilderView {
 
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
+  public static final String TABS_LIST = "TabsList";
+  public static final String TABS_PATH = "oogasalad.builder.view.tab.";
   private static String TAB_PROPERTIES = "tabResources";
   private static final String TAB_FORMAT = "tabFormat.css";
+
 
   private static Stage stage;
   private Collection<BasicTab> tabs;
   public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
+  public static final  ResourceBundle tabsList = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TABS_LIST);
 
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
     tabs = new HashSet<>();
     stage = mainStage;
+
     SplashLogin newWindow = new SplashLogin(e -> buildView());
   }
 
@@ -72,47 +82,29 @@ public class BuilderView {
 
   //Sets up all tabs in the tab pane
   private TabPane setupTabs() {
-    // TODO: Maybe refactor this into its own class?
     TabPane tabPane = new TabPane();
-    // TODO: Replace this with a method call and reflection
-    BasicTab boardTabPane = new BoardTab(callbackDispatcher);
-    boardTabPane.setId("boardTab");
-    Tab boardTab = new Tab(ViewResourcesSingleton.getInstance().getString("board"), boardTabPane);
-    GameElementTab pieceTabPane = new PiecesTab(callbackDispatcher);
-    pieceTabPane.setId("pieceTab");
-    Tab pieceTab = new Tab(ViewResourcesSingleton.getInstance().getString("piece"), pieceTabPane);
-    GameElementTab actionsTabPane = new ActionsTab(callbackDispatcher);
-    actionsTabPane.setId("actionTab");
-    Tab actionTab = new Tab(ViewResourcesSingleton.getInstance().getString("action"), actionsTabPane);
-    GameElementTab conditionsTabPane = new ConditionsTab(callbackDispatcher);
-    conditionsTabPane.setId("conditionTab");
-    Tab conditionsTab = new Tab(ViewResourcesSingleton.getInstance().getString("condition"), conditionsTabPane);
-    GameElementTab rulesTabPane = new RulesTab(callbackDispatcher);
-    rulesTabPane.setId("ruleTab");
-    Tab rulesTab = new Tab(ViewResourcesSingleton.getInstance().getString("rule"), rulesTabPane);
-    GameElementTab winConditionsTabPane = new WinConditionsTab(callbackDispatcher);
-    winConditionsTabPane.setId("winConditionTab");
-    Tab winConditionsTab = new Tab(ViewResourcesSingleton.getInstance().getString("winCondition"), winConditionsTabPane);
-
-    GameElementTab metadataTabPane = new MetaDataTab(callbackDispatcher);
-    metadataTabPane.setId("metadataTab");
-    Tab metadataTab = new Tab(ViewResourcesSingleton.getInstance().getString("metadata"), metadataTabPane);
-    BasicTab helpTabPane = new HelpTab(callbackDispatcher);
-    Tab helpTab = new Tab(ViewResourcesSingleton.getInstance().getString("help"), helpTabPane);
-    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, winConditionsTab, metadataTab, helpTab);
-    tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
-
-
-    tabs.add(pieceTabPane);
-    tabs.add(actionsTabPane);
-    tabs.add(conditionsTabPane);
-    tabs.add(rulesTabPane);
-    tabs.add(metadataTabPane);
-    tabs.add(boardTabPane);
-
+    for (String tabKey : tabsList.keySet()){
+      tabPane.getTabs().add(createTab(tabKey));
+    }
     return tabPane;
   }
+
+  //Create a tab using reflection
+  private Tab createTab(String tabNameKey) {
+    try {
+      Class<?> clss = Class.forName(TABS_PATH + tabsList.getString(tabNameKey));
+      Constructor<?> ctor = clss.getDeclaredConstructor(CallbackDispatcher.class);
+      BasicTab createdTab = (BasicTab) ctor.newInstance(callbackDispatcher);
+      createdTab.setId(tabNameKey + "Tab");
+      tabs.add(createdTab);
+      return new Tab(ViewResourcesSingleton.getInstance().getString(tabNameKey), createdTab);
+    } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
+        InstantiationException | IllegalAccessException e) {
+      e.printStackTrace();
+      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
+    }
+  }
+
 
   // Makes the menu bar, which holds the save and load buttons
   private HBox makeMenu() {
