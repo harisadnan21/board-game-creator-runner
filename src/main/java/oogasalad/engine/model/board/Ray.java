@@ -73,7 +73,7 @@ public class Ray {
   }
 
   private static boolean isValid(Board board, int i, int j) {
-    return board.isValidPosition(i, j);
+    return board.isValidPositionCoordinates(i, j);
   }
 
 }

@@ -146,37 +146,47 @@ public class Board implements Iterable<PositionState>, Cloneable{
     return positionState.isPresent();
   }
 
-  public boolean isValidPosition(int x, int y) {
-    return isValidI(x) && isValidJ(y);
+  /**
+   * checks if the x and y coordinates given are valid or not
+   * @param x :  x coordinate to be checked
+   * @param y : y coordinate to be checked
+   * @return: true or false depending on whether the position is valid
+   */
+  public boolean isValidPositionCoordinates(int x, int y) {
+    return isValidRow(x) && isValidColumn(y);
   }
-
+  /**
+   * checks if the position given is valid or not (existent on the board)
+   * @param: position to be checked
+   * @return: true or false depending on whether the position is valid
+   */
   public boolean isValidPosition(Position position) {
-    return isValidI(position.i()) && isValidJ(position.j());
+    return isValidRow(position.i()) && isValidColumn(position.j());
   }
 
-  private boolean isValidJ(int j) {
-    return (j >= FIRST_COL) && (j <= lastCol);
-  }
-
-  private boolean isValidI(int i) {
-    return (i >= FIRST_ROW) && (i <= lastRow);
-  }
-
+  /**
+   * method to acquire number of rows of board
+   * @return
+   */
 
   public int getHeight() {
     return numRows;
   }
 
+  /**
+   * Method to acquire number of columns in board
+   * @return
+   */
   public int getWidth() {
     return numCols;
   }
 
   public boolean isValidRow(int row) {
-    return isValidI(row);
+    return (row >= FIRST_ROW) && (row <= lastRow);
   }
 
   public boolean isValidColumn(int column) {
-    return isValidJ(column);
+    return (column >= FIRST_COL) && (column <= lastCol);
   }
 
   public Stream<PositionState> getPositionStatesStream() {

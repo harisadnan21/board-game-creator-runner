@@ -26,7 +26,7 @@ public class IsPlayerPiece extends Condition {
       i += referencePoint.i();
       j += referencePoint.j();
     }
-    if (!board.isValidPosition(i, j)) {
+    if (!board.isValidPositionCoordinates(i, j)) {
       return false;
     }
     return board.getPositionStateAt(i, j).player() == myParameters[2];

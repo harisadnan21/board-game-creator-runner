@@ -47,7 +47,7 @@ class BoardTest {
     for(Position position: invalidPositions) {
       assertFalse(board.isValidRow(position.i()));
       assertFalse(board.isValidColumn(position.j()));
-      assertFalse(board.isValidPosition(position.i(), position.j()));
+      assertFalse(board.isValidPositionCoordinates(position.i(), position.j()));
       assertFalse(board.isValidPosition(position));
     }
   }
@@ -222,7 +222,7 @@ void testBoardIsPersistentAdvanced() {
     board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.i(), positionState.j())));
     board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.i(), positionState.j())));
     board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isValidPosition(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isValidPositionCoordinates(positionState.i(), positionState.j())));
     board.getPositionStatesStream().forEach(positionState -> assertEquals(positionState.piece(), new Piece(1, Piece.PLAYER_ONE)));
   }
 

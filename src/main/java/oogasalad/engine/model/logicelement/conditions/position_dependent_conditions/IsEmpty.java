@@ -33,7 +33,7 @@ public class IsEmpty extends Condition {
       i += referencePoint.i();
       j += referencePoint.j();
     }
-    if (!board.isValidPosition(i, j)) {
+    if (!board.isValidPositionCoordinates(i, j)) {
       return false;
     }
     return board.isEmpty(i, j);

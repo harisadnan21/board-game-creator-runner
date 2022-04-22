@@ -27,7 +27,7 @@ public class IsPieceType extends Condition {
       i += referencePoint.i();
       j += referencePoint.j();
     }
-    if (!board.isValidPosition(i,j)) {
+    if (!board.isValidPositionCoordinates(i,j)) {
       return false;
     }
     PositionState positionState = board.getPositionStateAt(i,j);
