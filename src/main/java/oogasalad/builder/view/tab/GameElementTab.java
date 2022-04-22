@@ -25,6 +25,7 @@ import java.util.Collection;
  * @author Ricky Weerts, Mike Keohane & Shaan Gondalia
  */
 public class GameElementTab extends BasicTab {
+  private static final String VALID_NAME_REGEX = "^[\\w\\d \\t?.\\-/!@#$%^&*()+=\\[\\]{}<>:;_]+$";
 
   private GameElementList elementList;
   private TextField nameField;
@@ -106,7 +107,7 @@ public class GameElementTab extends BasicTab {
   }
 
   protected boolean validateName(String name) {
-    return name.matches("^[\\w\\d \\t?.\\-/!@#$%^&*()+=\\[\\]{}<>:;_]+$");
+    return name.matches(VALID_NAME_REGEX);
   }
 
   /**
