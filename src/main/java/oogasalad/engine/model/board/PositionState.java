@@ -1,7 +1,8 @@
 package oogasalad.engine.model.board;
 
 
-public record PositionState(Position position, Piece piece) {
+
+public record PositionState(Position position, Piece piece) implements Comparable<PositionState> {
 
   public PositionState with(Piece newPiece) {
     return new PositionState(this.position, newPiece);
@@ -42,5 +43,10 @@ public record PositionState(Position position, Piece piece) {
 
   public boolean isEmpty() {
     return piece.equals(Piece.EMPTY);
+  }
+
+  @Override
+  public int compareTo(PositionState positionState) {
+    return this.position().compareTo(positionState.position());
   }
 }

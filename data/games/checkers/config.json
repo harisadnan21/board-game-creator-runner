@@ -124,25 +124,29 @@
             "name": "emptyDownRight",
             "type": "IsEmpty",
             "x": 1,
-            "y": -1
+            "y": -1,
+            "isAbsolute": 0
         },
         {
             "name": "emptyDownLeft",
             "type": "IsEmpty",
             "x": -1,
-            "y": -1
+            "y": -1,
+            "isAbsolute": 0
         },
         {
             "name": "emptyUpRight",
             "type": "IsEmpty",
             "x": 1,
-            "y": 1
+            "y": 1,
+            "isAbsolute": 0
         },
         {
             "name": "emptyUpLeft",
             "type": "IsEmpty",
             "x": -1,
-            "y": 1
+            "y": 1,
+            "isAbsolute": 0
         },
         {
             "name": "whiteTurn",
@@ -159,66 +163,76 @@
             "type": "IsPlayerPiece",
             "x": 0,
             "y": 0,
-            "id": 0
+            "id": 0,
+            "isAbsolute": 0
         },
         {
             "name": "belongsToBlack",
             "type": "IsPlayerPiece",
             "x": 0,
             "y": 0,
-            "id": 1
+            "id": 1,
+            "isAbsolute": 0
         },
         {
             "name": "belongsToBlackDownRight",
             "type": "IsPlayerPiece",
             "x": 1,
             "y": -1,
-            "id": 1
+            "id": 1,
+            "isAbsolute": 0
         },
         {
             "name": "belongsToBlackDownLeft",
             "type": "IsPlayerPiece",
             "x": -1,
             "y": -1,
-            "id": 1
+            "id": 1,
+            "isAbsolute": 0
         },
         {
             "name": "belongsToWhiteUpRight",
             "type": "IsPlayerPiece",
             "x": 1,
             "y": 1,
-            "id": 0
+            "id": 0,
+            "isAbsolute": 0
         },
         {
             "name": "belongsToWhiteUpLeft",
             "type": "IsPlayerPiece",
             "x": -1,
             "y": 1,
-            "id": 0
+            "id": 0,
+            "isAbsolute": 0
         },
         {
             "name": "emptyDoubleDownRight",
             "type": "IsEmpty",
             "x": 2,
-            "y": -2
+            "y": -2,
+            "isAbsolute": 0
         },
         {
             "name": "emptyDoubleDownLeft",
             "type": "IsEmpty",
             "x": -2,
-            "y": -2
+            "y": -2,
+            "isAbsolute": 0
         },
         {
             "name": "emptyDoubleUpRight",
             "type": "IsEmpty",
             "x": 2,
-            "y": 2
+            "y": 2,
+            "isAbsolute": 0
         },
         {
             "name": "emptyDoubleUpLeft",
             "type": "IsEmpty",
             "x": -2,
-            "y": 2
+            "y": 2,
+            "isAbsolute": 0
         }
     ],
     "actions": [
@@ -228,7 +242,8 @@
             "srcx": 0,
             "srcy": 0,
             "x": 1,
-            "y": 1
+            "y": 1,
+            "isAbsolute": 0
         },
         {
             "name": "moveUpLeft",
@@ -236,7 +251,8 @@
             "srcx": 0,
             "srcy": 0,
             "x": -1,
-            "y": 1
+            "y": 1,
+            "isAbsolute": 0
         },
         {
             "name": "moveDownRight",
@@ -244,7 +260,8 @@
             "srcx": 0,
             "srcy": 0,
             "x": 1,
-            "y": -1
+            "y": -1,
+            "isAbsolute": 0
         },
         {
             "name": "moveDownLeft",
@@ -252,7 +269,8 @@
             "srcx": 0,
             "srcy": 0,
             "x": -1,
-            "y": -1
+            "y": -1,
+            "isAbsolute": 0
         },
         {
             "name": "moveDoubleUpRight",
@@ -260,7 +278,8 @@
             "srcx": 0,
             "srcy": 0,
             "x": 2,
-            "y": 2
+            "y": 2,
+            "isAbsolute": 0
         },
         {
             "name": "moveDoubleUpLeft",
@@ -268,7 +287,8 @@
             "srcx": 0,
             "srcy": 0,
             "x": -2,
-            "y": 2
+            "y": 2,
+            "isAbsolute": 0
         },
         {
             "name": "moveDoubleDownRight",
@@ -276,14 +296,16 @@
             "srcx": 0,
             "srcy": 0,
             "x": 2,
-            "y": -2
+            "y": -2,
+            "isAbsolute": 0
         },        {
             "name": "moveDoubleDownLeft",
             "type": "Translate",
             "srcx": 0,
             "srcy": 0,
             "x": -2,
-            "y": -2
+            "y": -2,
+            "isAbsolute": 0
         },
         {
             "name": "moveDoubleUpRight",
@@ -291,31 +313,36 @@
             "srcx": 0,
             "srcy": 0,
             "x": 2,
-            "y": 2
+            "y": 2,
+            "isAbsolute": 0
         },
         {
             "name": "captureUpRight",
             "type": "Remove",
             "x": 1,
-            "y": 1
+            "y": 1,
+            "isAbsolute": 0
         },
         {
             "name": "captureUpLeft",
             "type": "Remove",
             "x": -1,
-            "y": 1
+            "y": 1,
+            "isAbsolute": 0
         },
         {
             "name": "captureDownRight",
             "type": "Remove",
             "x": 1,
-            "y": -1
+            "y": -1,
+            "isAbsolute": 0
         },
         {
             "name": "captureDownLeft",
             "type": "Remove",
             "x": -1,
-            "y": -1
+            "y": -1,
+            "isAbsolute": 0
         }
     ],
     "board": {
@@ -399,6 +426,88 @@
                 2,
                 -1,
                 2
+            ]
+        ],
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
             ]
         ],
         "shape": "rectangle",

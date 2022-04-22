@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.rule.terminal_conditions.WinCondition;
+import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.rule.Move;
 
@@ -34,7 +34,7 @@ public class Engine {
   private Consumer<Set<Position>> setViewValidMarks;
 
   public Engine(Game game, Collection<Move> moves,
-      Collection<WinCondition> winConditions, Consumer<Board> update, Consumer<Set<Position>> setValidMarks) {
+      Collection<EndRule> endRules, Consumer<Board> update, Consumer<Set<Position>> setValidMarks) {
 
     myGame = game;
     myMoves = moves;
@@ -45,7 +45,7 @@ public class Engine {
     if (moves == null) {
       LOG.warn("moves are null");
     }
-    myOracle = new Oracle(moves, winConditions, new ArrayList<>(), numPlayers);
+    myOracle = new Oracle(moves, endRules, new ArrayList<>(), numPlayers);
 
     myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
     myPlayers.put(1, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));

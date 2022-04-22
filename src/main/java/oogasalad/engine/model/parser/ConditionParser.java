@@ -1,7 +1,7 @@
 package oogasalad.engine.model.parser;
 
 import java.util.ResourceBundle;
-import oogasalad.engine.model.conditions.Condition;
+import oogasalad.engine.model.logicelement.conditions.Condition;
 
 /**
  * Parses conditions, storing them in a map so that they can be resolved later

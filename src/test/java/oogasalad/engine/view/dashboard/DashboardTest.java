@@ -11,9 +11,10 @@ import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.parser.GameParser;
-import oogasalad.engine.view.BoardView;
+import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.ViewManager;
-import org.jooq.lambda.function.Consumer0;
+
+import oogasalad.engine.view.setup.dashboard.Dashboard;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 

@@ -47,7 +47,7 @@ class BoardTest {
     for(Position position: invalidPositions) {
       assertFalse(board.isValidRow(position.i()));
       assertFalse(board.isValidColumn(position.j()));
-      assertFalse(board.isValidPosition(position.i(), position.j()));
+      assertFalse(board.isValidPositionCoordinates(position.i(), position.j()));
       assertFalse(board.isValidPosition(position));
     }
   }
@@ -185,9 +185,10 @@ void testBoardIsPersistentAdvanced() {
     Board emptyBoard = Seq.range(0, 3).crossSelfJoin().map(Position::new).foldLeft(board, (currBoard, position) -> currBoard.removePiece(position));
 
     // Validate that emptyBoard is indeed empty
-    assertTrue(emptyBoard.getNotSatisfyingPositionStatesSeq(positionState -> positionState.piece().equals(Piece.EMPTY)).isEmpty());
-    assertEquals(emptyBoard.getSatisfyingPositionStatesSeq(
-        positionState -> positionState.piece().equals(Piece.EMPTY)).count(), (3 * 3));
+    assertTrue(
+        BoardUtilities.getNotSatisfyingPositionStatesSeq(emptyBoard, positionState -> positionState.piece().equals(Piece.EMPTY)).isEmpty());
+    assertEquals(BoardUtilities.getSatisfyingPositionStatesSeq(
+        emptyBoard, positionState -> positionState.piece().equals(Piece.EMPTY)).count(), (3 * 3));
     //TODO: implement Board.equals() so that this will work:
     //Assertions.assertEquals(emptyBoard, new Board(3,3));
 
@@ -221,7 +222,7 @@ void testBoardIsPersistentAdvanced() {
     board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.i(), positionState.j())));
     board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.i(), positionState.j())));
     board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isValidPosition(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isValidPositionCoordinates(positionState.i(), positionState.j())));
     board.getPositionStatesStream().forEach(positionState -> assertEquals(positionState.piece(), new Piece(1, Piece.PLAYER_ONE)));
   }
 
@@ -283,7 +284,7 @@ void testBoardIsPersistentAdvanced() {
   }
 
   private Seq<Map<Integer, Integer>> getMap(Board[] boards) {
-    return Seq.seq(Arrays.stream(boards)).map(Board::numPiecesByPlayer);
+    return Seq.seq(Arrays.stream(boards)).map(BoardUtilities::numPiecesByPlayer);
   }
 
   @Test
