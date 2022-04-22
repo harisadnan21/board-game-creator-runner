@@ -55,9 +55,9 @@ public class FactoryProviderTest {
   private static final String IS_ABSOLUTE = "isAbsolute";
 
 
-  private static final String COORDINATE_NAME_ONE = "x";
+  private static final String COORDINATE_NAME_ONE = "col";
   private static final String COORDINATE_VALUE_ONE = "1";
-  private static final String COORDINATE_NAME_TWO = "y";
+  private static final String COORDINATE_NAME_TWO = "row";
   private static final String COORDINATE_VALUE_TWO = "2";
 
   @BeforeEach
@@ -71,6 +71,8 @@ public class FactoryProviderTest {
     properties.add(PropertyFactory.makeProperty(TYPE, ACTION_TYPE));
     properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
     properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
+    properties.add(PropertyFactory.makeProperty(PLAYER, "0"));
+    properties.add(PropertyFactory.makeProperty(ID, "0"));
     properties.add(PropertyFactory.makeProperty(IS_ABSOLUTE, 0));
     GameElement action = provider.createElement(ACTION, ACTION_NAME, properties);
     ElementRecord record = action.toRecord();
