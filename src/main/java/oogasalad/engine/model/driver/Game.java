@@ -38,7 +38,7 @@ public class Game {
     }
     myBoardHistory.add(myBoard);
     myBoard = board;
-    myUpdateView.accept(board);
+    updateView(myBoard);
     backInHistory = 0;
   }
 
@@ -59,7 +59,7 @@ public class Game {
     backInHistory++;
     myBoard = myBoardHistory.get(myBoardHistory.size()-1-backInHistory);
     myBoardHistory.add(myBoard);
-    myUpdateView.accept(myBoard);
+    updateView(myBoard);
   }
   /**
    * function sets the current board as the previous booard (adds it to the history of boards ) and
@@ -72,8 +72,8 @@ public class Game {
     else{
       myBoardHistory.add(myBoard);
       backInHistory--;
-      myBoard =myBoardHistory.get(myBoardHistory.size()-1-backInHistory);
-      myUpdateView.accept(myBoard);
+      myBoard = myBoardHistory.get(myBoardHistory.size()-1-backInHistory);
+      updateView(myBoard);
     }
 
   }
@@ -85,6 +85,12 @@ public class Game {
   public void backByAmount(int Number) throws BoardHistoryException{
     for(int i = 0; i< Number; i++){
       back();
+    }
+  }
+
+  private void updateView(Board board) {
+    if (myUpdateView != null) {
+      myUpdateView.accept(board);
     }
   }
 

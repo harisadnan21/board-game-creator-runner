@@ -61,7 +61,7 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
                               .crossJoin(Seq.rangeClosed(FIRST_COL, lastCol))
                               .map(tuple -> new Position(tuple.v1, tuple.v2));
     Map<Position, PositionState> map = positions.toMap(pos -> pos,
-                                                       pos -> positionStates[pos.row()][pos.column()]);
+                                                       pos -> positionStates[pos.row()][pos.column()] == null ? new PositionState(pos, Piece.EMPTY) : positionStates[pos.row()][pos.column()]);
     return TreeMap.ofAll(map);
   }
 
