@@ -38,7 +38,7 @@ public class FactoryProviderTest {
   private static final String CONDITION = "condition";
   private static final String CONDITION_NAME = "emptyAtTopRight";
   private static final String CONDITION_TYPE = "IsEmpty";
-  private static final String WIN_CONDITION = "win condition";
+  private static final String WIN_CONDITION = "winCondition";
   private static final String WIN_CONDITION_NAME = "winIfCaptured";
   private static final String RULE = "rule";
   private static final String RULE_NAME = "knightMoveTopRight";

@@ -195,9 +195,7 @@ public class GameConfigurationTest {
 
   @Test
   void testLoad() throws FileNotFoundException {
-    // TODO: Change test when loading is implemented
-    InputStream is = null;
-    is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));
+    InputStream is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));
     JSONTokener tokener = new JSONTokener(is);
     JSONObject object = new JSONObject(tokener);
     game.fromJSON(object.toString(), "");
