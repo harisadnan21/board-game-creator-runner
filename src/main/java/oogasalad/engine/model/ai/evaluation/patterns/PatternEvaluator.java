@@ -1,29 +1,23 @@
 package oogasalad.engine.model.ai.evaluation.patterns;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
-import io.vavr.Tuple;
+import static java.util.function.Function.identity;
+import static oogasalad.engine.model.board.Piece.*;
+import static org.jooq.lambda.Seq.*;
+
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedMap;
 import io.vavr.collection.SortedSet;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.TreeSet;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.PriorityBlockingQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
 
@@ -32,43 +26,93 @@ public class PatternEvaluator implements StateEvaluator {
   protected SortedMap<Position, Set<Pattern>> includes;
   protected Board oldBoard;
   protected ConcurrentHashMap<Pattern, Integer> scores;
-  protected Map<Integer, Set<Pattern>> patternsForPlayer;
+  protected Map<Integer, Set<Pattern>> patternsForPlayers;
 
   public PatternEvaluator(Collection<Pattern> patterns) {
     this.patterns = TreeSet.ofAll(patterns);
     this.includes = createIncludes();
     this.oldBoard = null;
-    this.scores = new ConcurrentHashMap<>(patterns.size());
-    this.scores.putAll(Seq.seq(patterns.stream()).toMap(Function.identity(), pattern -> pattern.size));
-    this.patternsForPlayer = Seq.of(Piece.PLAYER_ONE, Piece.PLAYER_TWO).toMap(Function.identity(), integer -> TreeSet.ofAll(patterns.stream().filter(pattern -> integer==pattern.forPlayer())));
+    this.scores = buildScores(patterns);
+    this.patternsForPlayers = buildPatternsForPlayers();
+  }
+
+  private Map<Integer, Set<Pattern>> buildPatternsForPlayers() {
+    return seq(playersStream()).
+            toMap(identity(),
+                  this::patternsForPlayer);
+  }
+
+  private SortedSet<Pattern> patternsForPlayer(int player) {
+    return patterns.filter(pattern -> player == pattern.forPlayer());
+  }
+
+  private ConcurrentHashMap<Pattern, Integer> buildScores(Collection<Pattern> patterns) {
+    ConcurrentHashMap<Pattern, Integer> ret = new ConcurrentHashMap<>(patterns.size());
+    ret.putAll(seq(patterns.stream()).toMap(identity(), pattern -> pattern.size));
+    return ret;
   }
 
 
   @Override
   public Evaluation evaluate(Board board) {
-    PriorityBlockingQueue<Position> positionsChanged = getPositionsToCheck(board);
-    Seq.seq(positionsChanged).parallel().
-        map(position -> new Tuple2<>(position, patternsAt(position))).
-        forEach(positionSetTuple2 -> this.handle(positionSetTuple2, board));
-    int[] distance = Seq.of(Piece.PLAYER_ONE, Piece.PLAYER_TWO).parallel().map((player) -> patternsForPlayer.get(player).map(pattern -> scores.get(pattern))).mapToInt(set -> set.min().get()).toArray();
-    int diff = distance[0]-distance[1];
-    return new Evaluation(diff, -1*diff);
+    Seq<Position> positionsChanged = getPositionsToCheck(board);
+
+    positionsChanged.parallel().
+        map(withItsPatterns()).
+        forEach(positionWithPatterns -> updateScoresForPosition(positionWithPatterns, board));
+
+    int[] distance = playersStream().map(this::scoresForPlayer).mapToInt(this::getBestScore).toArray();
+
+    int playerOneAdvantage = distance[PLAYER_ONE] - distance[PLAYER_TWO];
+    int playerTwoAdvantage = playerOneAdvantage * -1;
+
+    return new Evaluation(playerOneAdvantage, playerTwoAdvantage);
   }
 
-  public void handle(Tuple2<Position, Set<Pattern>> positionSetTuple2, Board newBoard) {
-    Position position = positionSetTuple2.v1;
-    positionSetTuple2.v2.forEach(pattern -> scores.put(pattern, scores.get(pattern) + newBoard.getPositionStateAt(position).player()==pattern.pieceAt(position).player()? 1: -1));
+  private Integer getBestScore(Set<Integer> set) {
+    return set.min().get();
   }
 
-  public PriorityBlockingQueue<Position> getPositionsToCheck(Board newBoard) {
-    List<Position> changedPositions;
-    if(oldBoard==null) {
-      changedPositions = newBoard.getPositions().toList();
-    }
-    else {
-      changedPositions = newBoard.getPositions().parallel().filter(position -> oldBoard.getPositionStateAt(position).player()!=newBoard.getPositionStateAt(position).player()).toList();
-    }
-    return new PriorityBlockingQueue<>(changedPositions);
+  private Set<Integer> scoresForPlayer(int player) {
+    return patternsForPlayers.get(player).map(pattern -> scores.get(pattern));
+  }
+
+  private Stream<Integer> playersStream() {
+    return Stream.of(PLAYER_ONE, PLAYER_TWO).parallel();
+  }
+
+  private Function<Position, Tuple2<Position, Set<Pattern>>> withItsPatterns() {
+    return position -> new Tuple2<>(position, patternsAt(position));
+  }
+
+  public void updateScoresForPosition(Tuple2<Position, Set<Pattern>> positionWithPatterns, Board newBoard) {
+    Position position = positionWithPatterns.v1;
+    positionWithPatterns.v2.forEach(pattern -> updateScoresForPattern(newBoard, position, pattern));
+  }
+
+  private void updateScoresForPattern(Board newBoard, Position position, Pattern pattern) {
+    int oldScore = scores.get(pattern);
+    boolean isSamePlayer = playerAtPosition(newBoard, position) == playerAtPosition(position, pattern);
+    if(isSamePlayer) scores.put(pattern, oldScore - 1);
+    else scores.put(pattern, oldScore + 1);
+  }
+
+  private int playerAtPosition(Position position, Pattern pattern) {
+    return pattern.pieceAt(
+        position).player();
+  }
+
+  private int playerAtPosition(Board board, Position position) {
+    return board.getPositionStateAt(position).player();
+  }
+
+  public Seq<Position> getPositionsToCheck(Board newBoard) {
+    if(oldBoard==null) return newBoard.getPositions();
+    return newBoard.getPositions().filter(position -> differentPlayerAtPosition(newBoard, oldBoard, position));
+  }
+
+  private boolean differentPlayerAtPosition(Board board1, Board board2, Position position) {
+    return playerAtPosition(board1, position) != playerAtPosition(board2, position);
   }
 
   public SortedSet<Pattern> getPatterns() {
@@ -84,8 +128,8 @@ public class PatternEvaluator implements StateEvaluator {
   }
 
   private SortedMap<Position, Set<Pattern>> createIncludes() {
-    var positions = Seq.seq(patterns).flatMap(pattern -> pattern.getPositions().toJavaStream()).distinct();
-    return TreeMap.ofAll(positions, Function.identity(), position -> TreeSet.ofAll(patternsForPos(position)));
+    var positions = seq(patterns).flatMap(pattern -> pattern.getPositions().toJavaStream()).distinct();
+    return TreeMap.ofAll(positions, identity(), position -> TreeSet.ofAll(patternsForPos(position)));
   }
 
   private Stream<Pattern> patternsForPos(Position pos) {
