@@ -1,4 +1,4 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.game;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -29,11 +29,10 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
-import oogasalad.engine.model.parser.BoardParser;
 import oogasalad.engine.model.parser.CellParser;
 import oogasalad.engine.model.parser.MetadataParser;
 import oogasalad.engine.model.parser.PieceParser;
-import oogasalad.engine.view.dashboard.GameIcon;
+import oogasalad.engine.view.setup.dashboard.GameIcon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;

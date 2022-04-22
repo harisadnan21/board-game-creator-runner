@@ -1,4 +1,4 @@
-package oogasalad.engine.view.dashboard;
+package oogasalad.engine.view.setup.dashboard;
 
 import java.io.File;
 import java.util.function.Consumer;

@@ -1,4 +1,4 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.game;
 
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
@@ -7,9 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;

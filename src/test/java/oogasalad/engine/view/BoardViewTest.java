@@ -9,6 +9,7 @@ import oogasalad.engine.controller.Controller;
 import static org.junit.jupiter.api.Assertions.*;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.parser.GameParser;
+import oogasalad.engine.view.game.BoardView;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
