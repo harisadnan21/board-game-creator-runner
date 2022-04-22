@@ -66,7 +66,6 @@ public class HelpTab extends BasicTab{
           String[] typeOptions = property.valueAsString().split("-");
           leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
           for (String propType : typeOptions){
-            leftDisplay.setText(leftDisplay.getText() + "\n");
             displayCorrespondingPropertiesOfType(propType, type);
             hasRequiredType = true;
           }
@@ -82,6 +81,7 @@ public class HelpTab extends BasicTab{
 
   //Displays the help for the properties of a type
   private void displayCorrespondingPropertiesOfType(String propType, String type){
+    leftDisplay.setText(leftDisplay.getText() + "\n \n" + ViewResourcesSingleton.getInstance().getString(propType + "-" + HELP));
     Collection<Property> elementProperties = getCallbackDispatcher().call(new GetPropertiesCallback(type)).orElseThrow();
     for (Property prop : elementProperties){
       if (prop.name().contains(propType + "-")){
