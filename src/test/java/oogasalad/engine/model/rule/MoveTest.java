@@ -30,8 +30,9 @@ public class MoveTest {
     Action[] actions = new Action[2];
     actions[0] = new Translate(new int[]{0,0,2,2,0});
     actions[1] = new Remove(new int[]{1,1,0});
+    Position repPoint = new Position(2,2);
 
-    myMove = new Move("Jump", conditions, actions, 2,2);
+    myMove = new Move("Jump", conditions, actions, repPoint);
   }
 
   void createJumpMove() {
@@ -42,8 +43,9 @@ public class MoveTest {
     Action[] actions = new Action[2];
     actions[0] = new Translate(new int[]{0,0,2,2,0});
     actions[1] = new Remove(new int[]{1,10});
+    Position repPoint = new Position(2,2);
 
-    myMove = new Move("Jump", conditions, actions, 2,2);
+    myMove = new Move("Jump", conditions, actions, repPoint);
   }
 
   void createSingleMove() {
@@ -53,8 +55,9 @@ public class MoveTest {
 
     Action[] actions = new Action[1];
     actions[0] = new Translate(new int[]{0,0,1,1,0});
+    Position repPoint = new Position(1,1);
 
-    myMove = new Move("Jump", conditions, actions, 1,1);
+    myMove = new Move("Jump", conditions, actions, repPoint);
 
   }
 
@@ -73,7 +76,7 @@ public class MoveTest {
     assertTrue(myBoard.isOccupied(0,0));
     assertTrue(myBoard.isEmpty(1,1));
 
-    myBoard = myMove.doMovement(myBoard, origin);
+    myBoard = myMove.doMove(myBoard, origin);
 
     assertTrue(myBoard.isEmpty(0,0));
     assertTrue(myBoard.isOccupied(1,1));
@@ -99,7 +102,7 @@ public class MoveTest {
 
     assertTrue(myMove.isValid(myBoard, origin));
 
-    myBoard = myMove.doMovement(myBoard, origin);
+    myBoard = myMove.doMove(myBoard, origin);
 
     assertTrue(myBoard.isEmpty(0,0));
     assertTrue(myBoard.isEmpty(1,1));

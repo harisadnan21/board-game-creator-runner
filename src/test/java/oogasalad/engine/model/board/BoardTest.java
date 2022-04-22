@@ -43,7 +43,7 @@ class BoardTest {
 
     var invalidColVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxCol+1, maxCol+3));
     var invalidRowVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxRow+1, maxRow+3));
-    var invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(Position::new).toList();
+    var invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(tuple -> new Position(tuple.v1(), tuple.v2())).toList();
     for(Position position: invalidPositions) {
       assertFalse(board.isValidRow(position.row()));
       assertFalse(board.isValidColumn(position.column()));
@@ -62,7 +62,7 @@ class BoardTest {
     int maxCol = vals.v3 - 1;
     var invalidRowVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxRow+1, maxRow+3));
     var invalidColVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxCol+1, maxCol+3));
-    var invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(Position::new).toList();
+    var invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(tuple -> new Position(tuple.v1(), tuple.v2())).toList();
     for(Position position: invalidPositions) {
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position.row(), position.column()));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position));
@@ -180,9 +180,9 @@ void testBoardIsPersistentAdvanced() {
   @Test
   void removeRobust() {
     PositionState[][] positionStates = new PositionState[3][3];
-    Seq.range(0, 3).crossSelfJoin().map(Position::new).forEach(position -> positionStates[position.row()][position.column()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
+    Seq.range(0, 3).crossSelfJoin().map(tuple -> new Position(tuple.v1(), tuple.v2())).forEach(position -> positionStates[position.row()][position.column()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
     Board board = new Board(positionStates);
-    Board emptyBoard = Seq.range(0, 3).crossSelfJoin().map(Position::new).foldLeft(board, (currBoard, position) -> currBoard.removePiece(position));
+    Board emptyBoard = Seq.range(0, 3).crossSelfJoin().map(tuple -> new Position(tuple.v1(), tuple.v2())).foldLeft(board, (currBoard, position) -> currBoard.removePiece(position));
 
     // Validate that emptyBoard is indeed empty
     assertTrue(
@@ -212,7 +212,7 @@ void testBoardIsPersistentAdvanced() {
   @Test
   void fullBoardInit() {
     PositionState[][] positionStates = new PositionState[3][3];
-    Seq.range(0, 3).crossSelfJoin().map(Position::new).forEach(position -> positionStates[position.row()][position.column()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
+    Seq.range(0, 3).crossSelfJoin().map(tuple -> new Position(tuple.v1(), tuple.v2())).forEach(position -> positionStates[position.row()][position.column()] = new PositionState(position, new Piece(1, Piece.PLAYER_ONE)));
     Board board = new Board(positionStates);
     board.getPositionStatesStream().forEach(positionState -> assertNotEquals(positionState.piece(), Piece.EMPTY));
     board.getPositionStatesStream().forEach(positionState -> assertNotEquals(positionState.player(), Piece.NO_PLAYER));
