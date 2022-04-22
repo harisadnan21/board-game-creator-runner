@@ -10,24 +10,40 @@ import java.util.Objects;
  *
  * @param <T> The type of the property. Concrete classes should not use generic typing.
  * @author Shaan Gondalia
+ * @author Ricky Weerts
  */
 public abstract class AbstractProperty<T> implements Property<T> {
 
   private final String name;
   private final String form;
   private final T value;
+  private final T defaultValue;
 
   /**
    * Creates a new Abstract Property with a name and generic value
+   * Sets the set value to be the default value
    *
    * @param name  the name of the property
    * @param value the value of the property
    * @param form  the form of the property
    */
   public AbstractProperty(String name, T value, String form) {
+    this(name, value, value, form);
+  }
+
+  /**
+   * Creates a new Abstract Property with a name and generic value
+   *
+   * @param name  the name of the property
+   * @param value the value of the property
+   * @param defaultValue the default value of the property
+   * @param form  the form of the property
+   */
+  public AbstractProperty(String name, T value, T defaultValue, String form) {
     this.name = name;
     this.form = form;
     this.value = value;
+    this.defaultValue = defaultValue;
   }
 
   /**
@@ -55,6 +71,15 @@ public abstract class AbstractProperty<T> implements Property<T> {
    */
   public T value() {
     return value;
+  }
+
+  /**
+   * Returns the default value of the property
+   *
+   * @return the default value of the property
+   */
+  public T defaultValue() {
+    return defaultValue;
   }
 
   /**
@@ -103,10 +128,35 @@ public abstract class AbstractProperty<T> implements Property<T> {
   }
 
   /**
+   * Returns a property identical to this one, except with a different value
+   * In contrast to `with()`, the value is provided as an actual type rather than a string
+   *
+   * @param newValue the value to give the new property
+   * @return this new property with a different value
+   */
+  public Property<T> withValue(T newValue) {
+    return with(valueToString(newValue));
+  }
+
+  /**
    * Returns the string representation of the properties value
    *
    * @return the string representation of the properties value
    */
-  public abstract String valueAsString();
+  public String valueAsString() {
+    return valueToString(value());
+  }
+  /**
+   * Returns the string representation of the property's default value
+   *
+   * @return the string representation of the property's default value
+   */
+  public String defaultValueAsString() {
+    return valueToString(defaultValue());
+  }
+
+  protected abstract String valueToString(T value);
+
+  protected abstract T stringToValue(String string);
 
 }
