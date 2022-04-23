@@ -15,6 +15,9 @@ import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
 import oogasalad.builder.view.property.PropertyNameAnalyzer;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Displays help to explain how all the other tabs work
@@ -22,9 +25,9 @@ import oogasalad.builder.view.property.PropertyNameAnalyzer;
  * @author Mike Keohane
  */
 public class HelpTab extends AbstractTab {
-
   public static final String HELP = "help";
   private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
+  public static String NEW_LINE = "\n";
   private TextArea leftDisplay;
 
   /**
@@ -60,6 +63,7 @@ public class HelpTab extends AbstractTab {
   protected Node setupLeftSide() {
     leftDisplay = new TextArea();
     leftDisplay.getStyleClass().add("helpBox");
+    leftDisplay.setId("helpBox");
     leftDisplay.setWrapText(true);
     leftDisplay.setEditable(false);
     return leftDisplay;
@@ -68,9 +72,10 @@ public class HelpTab extends AbstractTab {
   //Displays the help for each Element and checks for specific types to preserve order
   private void displayHelpForElement(String type) {
     leftDisplay.clear();
-    leftDisplay.setText(ViewResourcesSingleton.getInstance().getString(type) + " Tab");
-    leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
-        .getString(type + "-" + HELP) + "\n");
+    leftDisplay.setText(getViewResourceString(type) + " Tab");
+    leftDisplay.setText(
+        leftDisplay.getText() + NEW_LINE + getViewResourceString(type + DELIMINATOR + HELP)
+            + NEW_LINE);
 
     boolean hasRequiredType = false;
     StringBuilder textToDisplay = new StringBuilder();
@@ -81,19 +86,18 @@ public class HelpTab extends AbstractTab {
       for (Property property : elementProperties) {
         String propertyName = property.name();
         if (propertyNameAnalyzer.isRequiredProperty(property)) {
-          propertyName = propertyName.replace("required", type);
+          propertyName = propertyName.replace(PropertyNameAnalyzer.REQUIRED, type);
         }
         if (propertyNameAnalyzer.isTypeProperty(property)) {
-          String[] typeOptions = property.valueAsString().split("-");
-          leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
-              .getString(propertyName + "-" + HELP));
+          String[] typeOptions = property.valueAsString().split(PropertyNameAnalyzer.DELIMITER);
+          leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(propertyName + PropertyNameAnalyzer.DELIMITER + HELP));
           for (String propType : typeOptions) {
             displayCorrespondingPropertiesOfType(propType, type);
             hasRequiredType = true;
           }
         }
-        textToDisplay.append("\n")
-            .append(ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
+        textToDisplay.append(NEW_LINE)
+            .append(getViewResourceString(propertyName + DELIMINATOR + HELP));
       }
       if (!hasRequiredType) {
         leftDisplay.setText(String.valueOf(textToDisplay));
@@ -103,17 +107,27 @@ public class HelpTab extends AbstractTab {
 
   //Displays the help for the properties of a type
   private void displayCorrespondingPropertiesOfType(String propType, String type) {
-    leftDisplay.setText(leftDisplay.getText() + "\n \n" + ViewResourcesSingleton.getInstance()
-        .getString(propType + "-" + HELP));
+    leftDisplay.setText(leftDisplay.getText() + NEW_LINE + NEW_LINE + getViewResourceString(
+        propType + DELIMINATOR + HELP));
     Collection<Property> elementProperties = getCallbackDispatcher().call(
         new GetPropertiesCallback(type)).orElseThrow();
     for (Property prop : elementProperties) {
       if (propertyNameAnalyzer.getPropertyNamespace(prop).equals(propType)) {
-        leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
-            .getString(prop.name() + "-" + HELP));
+        leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(prop.name() + PropertyNameAnalyzer.DELIMITER + HELP));
       }
     }
   }
+
+  private String getViewResourceString(String key) {
+    try {
+      return ViewResourcesSingleton.getInstance().getString(key);
+    } catch (Exception e) {
+      Logger log = LogManager.getLogger();
+      log.log(Level.ERROR, e.getMessage());
+    }
+    return null;
+  }
+
 
   /**
    * implements abstract method for loading elements, but nothing needs to be loaded

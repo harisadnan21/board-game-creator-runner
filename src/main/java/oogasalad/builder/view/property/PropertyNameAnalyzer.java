@@ -9,9 +9,9 @@ import oogasalad.builder.model.property.Property;
  * @author Ricky Weerts
  */
 public class PropertyNameAnalyzer {
-  private static final String TYPE_PROPERTY_NAME = "type";
-  private static final String REQUIRED = "required";
-  private static final String DELIMITER = "-";
+  public static final String TYPE_PROPERTY_NAME = "type";
+  public static final String REQUIRED = "required";
+  public static final String DELIMITER = "-";
 
   /**
    * Returns whether the property is a type property (meaning, if it should decide which other properties are contained within the GameElement)

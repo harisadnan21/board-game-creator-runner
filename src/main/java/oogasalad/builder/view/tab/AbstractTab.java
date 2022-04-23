@@ -55,6 +55,7 @@ public abstract class AbstractTab extends BorderPane implements BasicTab {
   protected Button makeButton(String property, EventHandler<ActionEvent> handler) {
     Button result = new Button();
     result.setText(ViewResourcesSingleton.getInstance().getString(property));
+    result.setId(property + "Button");
     result.setOnAction(handler);
     return result;
   }

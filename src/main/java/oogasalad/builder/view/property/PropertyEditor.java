@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
 import java.lang.reflect.Constructor;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Describes generic behavior for the property editing portion of a Game Element Tab. Allows users
@@ -128,13 +131,22 @@ public class PropertyEditor extends VBox {
           (observable, oldValue, newValue) -> setCorrespondingElementProperties(
               (String) newValue));
     }
-    String[] propertyNameParts = property.name().split("-");
+
     selectorNodes.put(property, propertySelector.display());
     propertyBox.getChildren().addAll(
-        new Label(propertyNameParts[propertyNameParts.length - 1]),
+        new Label(getAndCatchResource(property.shortName())),
         selectorNodes.get(property)
     );
     getChildren().add(propertyBox);
+  }
+
+  private String getAndCatchResource(String key){
+    try{
+      return ViewResourcesSingleton.getInstance().getString(key);
+    } catch (Exception e) {
+      LogManager.getLogger().log(Level.ERROR, e.getMessage());
+    }
+    return key;
   }
 
   // Makes a PropertySelector Using reflection, based on the form of the required property

@@ -119,6 +119,8 @@ public class BoardTab extends AbstractTab {
     Label xDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("xDimLabel"));
     Label yDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("yDimLabel"));
 
+
+
     xDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("minBoardSize")),
             Integer.MAX_VALUE,
             Integer.parseInt(tabProperties.getString("defaultBoardX")),
@@ -129,6 +131,9 @@ public class BoardTab extends AbstractTab {
             1);
     xDimensionPicker.setEditable(true);
     yDimensionPicker.setEditable(true);
+    xDimensionPicker.setId("xDimEntry");
+    yDimensionPicker.setId("yDimEntry");
+
     VBox xDimBox = new VBox(xDimLabel, xDimensionPicker);
     VBox yDimBox = new VBox(yDimLabel, yDimensionPicker);
 

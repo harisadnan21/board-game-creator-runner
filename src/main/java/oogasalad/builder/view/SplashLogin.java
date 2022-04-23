@@ -33,17 +33,17 @@ public class SplashLogin extends Parent {
     private VBox rightPanel;
     private BorderPane buttonHolder;
     private Button proceed;
-    private static Stage stage;
+    private Stage stage;
     private Scene myLoginScene;
     private final EventHandler<ActionEvent> handler;
 
 
-    public SplashLogin(EventHandler<ActionEvent> handler) {
+    public SplashLogin(Stage stage, EventHandler<ActionEvent> handler) {
         this.handler = handler;
         createElements();
         setupHolders(proceed);
         createScreen(proceed);
-        stage = new Stage();
+        this.stage = stage;
         stage.setScene(myLoginScene);
         stage.show();
     }
@@ -81,7 +81,6 @@ public class SplashLogin extends Parent {
     //Exits the splash screen, moving to the builder view
     private void exitSplash(ActionEvent e) {
         handler.handle(e);
-        stage.close();
     }
 
     private void getLanguage(ActionEvent event) {

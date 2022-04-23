@@ -54,9 +54,11 @@ public class AllTabs extends TabPane {
       Class<?> clss = Class.forName(TABS_PATH + tabsList.getString(tabNameKey));
       Constructor<?> ctor = clss.getDeclaredConstructor(CallbackDispatcher.class);
       AbstractTab createdTab = (AbstractTab) ctor.newInstance(callbackDispatcher);
-      createdTab.setId(tabNameKey + "Tab");
+      createdTab.setId(tabNameKey + "TabPane");
       tabs.add(createdTab);
-      return new Tab(ViewResourcesSingleton.getInstance().getString(tabNameKey), createdTab);
+      Tab tab = new Tab(ViewResourcesSingleton.getInstance().getString(tabNameKey), createdTab);
+      tab.setId(tabNameKey + "Tab");
+      return tab;
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
       throw new InvalidFormException(e);

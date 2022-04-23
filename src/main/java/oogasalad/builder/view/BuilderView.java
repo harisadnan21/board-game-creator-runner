@@ -18,6 +18,7 @@ import oogasalad.builder.view.tab.AllTabs;
 
 
 import java.util.ResourceBundle;
+import oogasalad.view.SplashWelcome;
 
 /**
  * Creates the scene and handles the builder GUI and the tabs within it
@@ -25,6 +26,7 @@ import java.util.ResourceBundle;
  * @author Mike Keohane
  */
 public class BuilderView {
+
   public static final String DEFAULT_STYLE_PACKAGE = "/builder/view/css/";
   public static final String DEFAULT_PROPERTY_PACKAGE = "/builder/view/information-properties/";
   private static final String TAB_PROPERTIES = "tabResources";
@@ -41,11 +43,12 @@ public class BuilderView {
 
   /**
    * Constructor to initialise the builderView
+   *
    * @param mainStage - stage to display the view
    */
   public BuilderView(Stage mainStage) {
     stage = mainStage;
-    SplashLogin newWindow = new SplashLogin(e -> buildView());
+    SplashLogin newWindow = new SplashLogin(mainStage, e -> buildView());
   }
 
   // Builds the view, including all tabs and menus
@@ -67,10 +70,13 @@ public class BuilderView {
   private HBox makeMenu() {
     HBox menu = new HBox();
     Button saveButton = makeButton("save", e -> saveConfig());
+    saveButton.setId("saveGameButton");
     Button loadButton = makeButton("load", e -> loadConfig());
+    loadButton.setId("loadGameButton");
     menu.getChildren().add(new FormatDropDown(this));
     menu.getChildren().add(saveButton);
     menu.getChildren().add(loadButton);
+    menu.getChildren().add(makeButton("newWindow", e-> new SplashWelcome()));
     menu.getStyleClass().add("saveMenu");
     return menu;
   }
@@ -93,7 +99,8 @@ public class BuilderView {
   private void loadConfig() {
     Stage loadStage = new Stage();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    directoryChooser.setTitle(ViewResourcesSingleton.getInstance().getString(LOAD_DIR_CHOOSER_TITLE_KEY));
+    directoryChooser.setTitle(
+        ViewResourcesSingleton.getInstance().getString(LOAD_DIR_CHOOSER_TITLE_KEY));
     callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(loadStage)));
     allTabs.loadAllTabs();
   }
@@ -122,12 +129,18 @@ public class BuilderView {
 
   /**
    * Method to set the format of the view
+   *
    * @param formatFile -  css file name to set the format
    */
-  public void setFormat(String formatFile){
+  public void setFormat(String formatFile) {
     tabScene.getStylesheets().clear();
     tabScene.getStylesheets()
         .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + formatFile).toExternalForm());
+  }
+
+  //Gets the tabs FOR TESTING PURPOSES
+  AllTabs getAllTabs() {
+    return allTabs;
   }
 }
 

@@ -56,7 +56,7 @@ public class InfoPanel extends StackPane {
 
   public void update(Map<String, String> data, File gameFolder) {
     LOG.info("new data {}", data);
-    infoTitle.setText(data.get("name"));
+    infoTitle.setText(data.get("gameName"));
     infoAuthor.setText(data.get("author"));
     infoDescription.setText(data.get("description"));
     currentGame = gameFolder;
