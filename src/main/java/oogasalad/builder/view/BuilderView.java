@@ -114,5 +114,10 @@ public class BuilderView {
   public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback, CallbackHandler<R, C> handler) {
     callbackDispatcher.registerCallbackHandler(callback, handler);
   }
+
+  //FOR TESTING PURPOSES
+  AllTabs getAllTabs(){
+    return allTabs;
+  }
 }
 
