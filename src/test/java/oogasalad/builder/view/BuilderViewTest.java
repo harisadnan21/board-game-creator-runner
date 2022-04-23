@@ -125,7 +125,7 @@ class BuilderViewTest extends DukeApplicationTest {
     @Test
     public void newPieceButtonWork(){
         clickOn("#new-piece");
-        assertTrue(lookup("#integerSelector-player").tryQuery().isPresent());
+        assertTrue(lookup("#integerSelector-id").tryQuery().isPresent());
     }
     @Test
     public void newActionButtonWork(){

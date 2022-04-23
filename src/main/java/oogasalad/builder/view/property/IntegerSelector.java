@@ -28,7 +28,7 @@ public class IntegerSelector implements PropertySelector{
     numberPicker = new Spinner<>(-50, 50, Integer.parseInt(property.defaultValueAsString()), 1);
 
     numberPicker.setEditable(true);
-    numberPicker.setId("integerSelector-" + this.property.name().split("-")[1]);
+    numberPicker.setId("integerSelector-" + this.property.shortName());
   }
 
   /**
