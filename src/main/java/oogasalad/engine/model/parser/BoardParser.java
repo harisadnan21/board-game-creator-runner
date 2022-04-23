@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Piece;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -46,12 +47,12 @@ public class BoardParser extends AbstractParser<Board> {
 
   // Creates a mapping of piece ID to player ID, eliminating the need for a player config array
   private void parsePieces(JSONObject root) {
-    JSONArray piecesJSON = root.getJSONArray("pieces");
+    JSONArray piecesJSON = root.getJSONArray(PieceParser.PIECES);
     for (int i = 0; i < piecesJSON.length(); i++) {
       JSONObject piece = piecesJSON.getJSONObject(i);
       //TODO: Remove magic values
       //TODO: Add separate piece parser that parses more data about the pieces, such as image
-      pieceMap.put(piece.getInt("id"), piece.getInt("player"));
+      pieceMap.put(piece.getInt(PieceParser.ID), piece.getInt(PieceParser.PLAYER));
     }
   }
 

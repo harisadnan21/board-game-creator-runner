@@ -31,9 +31,10 @@ public class GameView {
   private ResourceBundle myResources;
   private String cssFilePath;
   private Scene myScene;
+  private String language;
 
-  public GameView(BoardView board, Controller controller, double w, double h, String css) {
-    String language = "English";
+  public GameView(BoardView board, Controller controller, double w, double h, String css, String language) {
+    this.language = language;
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
     width = w;
@@ -78,7 +79,7 @@ public class GameView {
     myGameControl.getPause().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
       MessageView pauseView = new MessageView(myResources.getString("PauseMessage"),
-          myResources.getString("Resume"), cssFilePath);
+          myResources.getString("Resume"), cssFilePath, language);
       Stage popupStage = pauseView.getStage();
       pauseView.getButton().setOnAction(event -> {
         root.setEffect(null);
@@ -94,7 +95,7 @@ public class GameView {
       root.setEffect(new GaussianBlur());
       String infoMessage = myBoard.getGameInfo();
       MessageView infoView = new MessageView(infoMessage,
-          myResources.getString("Resume"), cssFilePath);
+          myResources.getString("Resume"), cssFilePath, language);
       Stage popupStage = infoView.getStage();
       infoView.getButton().setOnAction(event -> {
         root.setEffect(null);
@@ -109,7 +110,7 @@ public class GameView {
       root.setEffect(new GaussianBlur());
       MessageView pauseView = new MessageView(
           myResources.getString("SettingsDisplay"),
-          myResources.getString("Continue"), cssFilePath);
+          myResources.getString("Continue"), cssFilePath, language);
       Stage popupStage = pauseView.getStage();
       pauseView.getButton().setOnAction(event -> {
         root.setEffect(null);

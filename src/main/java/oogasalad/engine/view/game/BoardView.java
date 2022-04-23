@@ -61,15 +61,17 @@ public class BoardView implements PropertyChangeListener{
   private GridPane gridRoot;
   private GameUpdateText text;
   private boolean gameIsUploadedFile;
+  private String language;
 
 
   double BOARD_OUTLINE_SIZE;
   private Properties prop;
   public BoardView(File game, int rows, int columns, double width, double height,
-      String css)
+      String css, String language)
       throws IOException {
+    this.language = language;
     cssFilePath = css;
-    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     prop = new Properties();
     prop.load(fis);
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
@@ -78,7 +80,7 @@ public class BoardView implements PropertyChangeListener{
 
     setPiecePaths(game.listFiles(GameIcon.getConfigFile)[0]);
 
-    text = new GameUpdateText();
+    text = new GameUpdateText(language);
     root = new StackPane();
     gridRoot = new GridPane();
     myGrid = new Cell[rows][columns];
@@ -178,7 +180,7 @@ public class BoardView implements PropertyChangeListener{
 
   public void addController(Controller c) {
     myController = c;
-    ImmutableBoard board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers);
+    ImmutableBoard board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers, this::endGame);
     updateBoard(board);
   }
 
@@ -247,7 +249,7 @@ public class BoardView implements PropertyChangeListener{
     root.setEffect(new GaussianBlur());
     MessageView pauseView = new MessageView(
         MessageFormat.format(myResources.getString("GameOver"), winner),
-        myResources.getString("NewGame"), cssFilePath);
+        myResources.getString("NewGame"), cssFilePath, language);
     Stage popupStage = pauseView.getStage();
     pauseView.getButton().setOnAction(event -> {
       root.setEffect(null);

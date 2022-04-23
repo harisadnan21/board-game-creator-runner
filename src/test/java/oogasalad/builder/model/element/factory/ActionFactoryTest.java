@@ -29,6 +29,7 @@ public class ActionFactoryTest {
   private static final int PROPERTY_VALUE_ONE = 1;
   private static final String PROPERTY_NAME_TWO = "y";
   private static final int PROPERTY_VALUE_TWO = 2;
+  private static final String IS_ABSOLUTE = "isAbsolute";
 
   @BeforeEach
   void setUp(){
@@ -41,6 +42,7 @@ public class ActionFactoryTest {
     properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_TYPE, ACTION_TYPE));
     properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
     properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_TWO, PROPERTY_VALUE_TWO));
+    properties.add(PropertyFactory.makeProperty(IS_ABSOLUTE, 0));
     Action action = actionFactory.createElement(ACTION_NAME, properties);
 
     ElementRecord record = action.toRecord();

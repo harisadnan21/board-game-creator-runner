@@ -91,18 +91,14 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
     String[] requiredParams = referenceResources.getString(type)
         .split(REFLECTION_DELIMITER)[1].split(PARAMETER_DELIMITER);
 
-    LOG.error("name {}, type {}\n", name, type);
-    LOG.info("Type: {}\n", type);
-    LOG.info("Required params {}\n", Arrays.toString(requiredParams));
     int[] params = new int[requiredParams.length];
     for (int i = 0; i < requiredParams.length; i++) {
       //TODO: Implement variables here
       params[i] = Integer.parseInt(findPropertyValue(name, requiredParams[i]));
       //TODO: THIS SUCKS! Standardize how we differentiate (x,y) and (i,j)
-      if (requiredParams[i].equals("y")) {
-        int temp = params[i - 1];
-        params[i - 1] = -params[i];
-        params[i] = temp;
+      if (requiredParams[i].equals("row") || requiredParams[i].equals("destinationRow") ||
+          requiredParams[i].equals("sourceRow")) {
+        params[i] *=-1;
       }
     }
     LOG.info("Int params {}\n", Arrays.toString(params));

@@ -22,6 +22,6 @@ public class NoMovesLeft extends BoardCondition{
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
 
-    return board.getValidMoves() == null;
+    return false;
   }
 }

@@ -67,7 +67,7 @@ public class InfoPanel extends StackPane {
 
   private void displayPlay() {
     displayButton = true;
-    Button play = new Button("Play Game");
+    Button play = new Button("Continue");
     play.setOnAction( game-> startGame.accept(currentGame));
     infoHolder.getChildren().add(play);
   }

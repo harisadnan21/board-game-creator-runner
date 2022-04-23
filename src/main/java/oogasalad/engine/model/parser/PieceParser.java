@@ -9,6 +9,11 @@ import org.json.JSONObject;
 
 public class PieceParser extends AbstractParser<Map<Integer, String>>{
 
+  public static final String PIECES = "pieces";
+  public static final String ID = "id";
+  public static final String PLAYER = "player";
+  public static final String IMAGE = "image";
+
   /**
    * Returns a map of piece ids to their image path, throwing errors if the file is
    * malformed or missing required properties.
@@ -19,7 +24,7 @@ public class PieceParser extends AbstractParser<Map<Integer, String>>{
   @Override
   public Map<Integer, String> parse(File configFile) throws FileNotFoundException {
     JSONObject root = fileToJSON(configFile);
-    JSONArray boardObj = root.getJSONArray("pieces");
+    JSONArray boardObj = root.getJSONArray(PIECES);
     return parseInfo(boardObj);
   }
 
@@ -27,7 +32,7 @@ public class PieceParser extends AbstractParser<Map<Integer, String>>{
     Map<Integer, String> pieces = new HashMap<>();
     for (int i = 0; i < boardObj.length(); i++) {
       JSONObject piece =boardObj.getJSONObject(i);
-      pieces.put(piece.getInt("id"), piece.getString("image"));
+      pieces.put(piece.getInt(ID), piece.getString(IMAGE));
     }
     return pieces;
   }
