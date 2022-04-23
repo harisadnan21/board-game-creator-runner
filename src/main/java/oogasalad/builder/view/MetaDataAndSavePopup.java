@@ -52,7 +52,6 @@ public class MetaDataAndSavePopup {
     Scene metaScene = new Scene(metaBox, 600, 600);
     metaScene.getStylesheets()
         .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + TAB_FORMAT).toExternalForm());
-    metaScene.getRoot().setId("metaScene");
     metaStage.setScene(metaScene);
     Collection<Property> metaProperties = callbackDispatcher.call(new GetPropertiesCallback(METADATA)).orElseThrow();
     propertyEditor.setElementPropertyTypeChoice(metaProperties);

@@ -35,15 +35,10 @@ class BuilderViewTest extends DukeApplicationTest {
   private static final int Y_DIM = 14;
 
   private BuilderView builderView;
-  private Stage stage;
-  private Stack<PlacePieceCallback> piecePlacedCB = new Stack<>();
-  private Stack<ClearCellCallback> pieceErasedCB = new Stack<>();
-  private Stack<MakeBoardCallback> makeBoardCB = new Stack<>();
-
   @Override
   public void start(Stage stage) {
-    this.stage = stage;
     builderView = new BuilderView(stage);
+    builderView.registerCallbackHandler(GetElementNamesCallback.class, cb-> List.of());
     builderView.registerCallbackHandler(
         GetPropertiesCallback.class, cb -> List.of(
              new StringProperty("required-author", "me", "oogasalad.builder.view.property.StringField"),
@@ -63,16 +58,14 @@ class BuilderViewTest extends DukeApplicationTest {
 
   @Test
   public void testLoading(){
-
+    clickOn("#loadGameButton");
   }
 
   @Test
   public void testMetaDataAndSave(){
     clickOn("#saveGameButton");
-    //var metaScene =  lookup("#metaScene").query();
-    //var desriptionText = lookup("#metaScene").lookup("#textArea-description").queryAs(TextArea.class);
-  //  assertTrue(lookup("#metaBox").tryQuery().isPresent());
-   // assertTrue(lookup("#stringField-author").tryQuery().isPresent());
+    assertTrue(lookup("#metaBox").tryQuery().isPresent());
+  //  assertTrue(lookup("#stringField-author").tryQuery().isPresent());
    // interact(lookup("#metaScene"));
   //  assertFalse(metaScene.isFocused());
   }
