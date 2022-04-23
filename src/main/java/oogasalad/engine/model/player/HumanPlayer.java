@@ -68,7 +68,9 @@ public class HumanPlayer extends Player{
   }
 
   private void setMarkers(Set<Position> positions) {
-    mySetValidMarks.accept(positions);
+    if (mySetValidMarks != null) {
+      mySetValidMarks.accept(positions);
+    }
   }
 
   private void clearMarkers() {
