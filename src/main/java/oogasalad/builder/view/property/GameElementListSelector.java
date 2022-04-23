@@ -99,7 +99,7 @@ public class GameElementListSelector implements PropertySelector {
   }
 
   private Collection<String> parseString(String toParse) {
-    return List.of(toParse.split(","));
+    return toParse.isBlank() ? List.of() : List.of(toParse.split(","));
   }
 
   @Override
