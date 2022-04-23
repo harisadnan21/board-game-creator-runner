@@ -13,6 +13,12 @@ public record Choice(Position position, Move move) implements AIChoice {
   }
 
   @Override
+  public Board getResultingBoard(Board board) {
+    move().doMove(board, position());
+    return move().doMove(board, position());
+  }
+
+  @Override
   public Board getResultingBoard() {
     return null;
   }

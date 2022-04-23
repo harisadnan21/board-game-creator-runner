@@ -10,8 +10,8 @@ public interface AIChoice {
   @Override
   int hashCode();
 
+  Board getResultingBoard(Board board);
+
+  @Deprecated
   Board getResultingBoard();
-
-
-
 }
