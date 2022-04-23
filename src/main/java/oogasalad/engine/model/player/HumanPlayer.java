@@ -26,32 +26,34 @@ public class HumanPlayer extends Player{
 
   private Consumer<Set<Position>> mySetValidMarks;
 
-  public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
-    super(oracle, game, executeMove);
+  public HumanPlayer(Oracle oracle, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
+    super(oracle, executeMove);
     mySetValidMarks = setValidMarks;
   }
 
   @Override
-  public void chooseMove() {
+  public void chooseMove(Board board) {
+    super.chooseMove(board);
   }
 
   public void onCellSelect(int i, int j) {
     Position cellClicked = new Position(i, j);
-    if (mySelectedCell == null) {
-      makePieceSelected(i, j);
-    }
-    else {
-      Oracle oracle = getOracle();
-      Board board = getGameBoard();
-      Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
-      if (move.isPresent()) {
-        mySelectedMove = move.get();
-        myChoice = new Choice(mySelectedCell, mySelectedMove);
-        LOG.info("Move {} selected", mySelectedMove.getName());
+    if (getGameBoard() != null) {
+      if (mySelectedCell == null) {
+        makePieceSelected(i, j);
+      } else {
+        Oracle oracle = getOracle();
+        Board board = getGameBoard();
+        Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
+        if (move.isPresent()) {
+          mySelectedMove = move.get();
+          myChoice = new Choice(mySelectedCell, mySelectedMove);
+          LOG.info("Move {} selected", mySelectedMove.getName());
+          resetSelected();
+          executeMove(this, myChoice);
+        }
         resetSelected();
-        executeMove(this, myChoice);
       }
-      resetSelected();
     }
   }
 
@@ -63,9 +65,6 @@ public class HumanPlayer extends Player{
       setMarkers(myValidMoves);
       LOG.info("{} valid moves for this piece\n", myValidMoves.size());
     }
-  }
-  public Position getMySelectedCell(){
-    return mySelectedCell;
   }
 
   private void setMarkers(Set<Position> positions) {

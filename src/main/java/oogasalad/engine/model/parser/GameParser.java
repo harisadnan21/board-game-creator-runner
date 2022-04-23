@@ -26,6 +26,7 @@ public class GameParser {
   private final RuleParser ruleParser;
   private final WinConditionParser winConditionParser;
   private final MetadataParser metadataParser;
+  private final PlayerParser playerParser;
 
 
   /**
@@ -39,6 +40,7 @@ public class GameParser {
     ruleParser = new RuleParser();
     winConditionParser = new WinConditionParser();
     metadataParser = new MetadataParser();
+    playerParser = new PlayerParser();
   }
 
   /**
@@ -75,5 +77,9 @@ public class GameParser {
    */
   public Collection<EndRule> readWinConditions() throws FileNotFoundException {
     return winConditionParser.parse(configFile);
+  }
+
+  public Integer readNumberOfPlayers() throws FileNotFoundException {
+    return playerParser.parse(configFile);
   }
 }

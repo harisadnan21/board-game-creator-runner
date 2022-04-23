@@ -50,8 +50,10 @@ public class Engine {
     }
     myOracle = new Oracle(moves, endRules, numPlayers);
 
-    myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
-    myPlayers.put(1, new RandomPlayer(myOracle, myGame, this::playTurn));
+    myPlayers.put(0, new HumanPlayer(myOracle, this::playTurn, setValidMarks));
+    myPlayers.put(1, new RandomPlayer(myOracle, this::playTurn));
+
+    pingActivePlayer();
 
   }
 
@@ -59,7 +61,6 @@ public class Engine {
 
   public synchronized void gameLoop() {
     if (null != null) {
-      System.out.println("Timer initialized");
       TimerTask task = new TimerTask() {
         @Override
         public void run() {
@@ -74,19 +75,8 @@ public class Engine {
 
   private void pingActivePlayer() {
     LOG.info("Player pinged: {}\n", getGameStateBoard().getPlayer());
-    myPlayers.get(getGameStateBoard().getPlayer()).chooseMove();
+    myPlayers.get(getGameStateBoard().getPlayer()).chooseMove(myGame.getBoard());
   }
-
-//  public void gameLoop() {
-//    while(true) {
-//      try {
-//        Thread.sleep(4000);
-//      } catch (InterruptedException e) {
-//        LOG.error("Interrupted Exception");
-//      }
-//      myPlayers.get(getGameStateBoard().getPlayer()).chooseMove();
-//    }
-//  }
 
   /**
    * This method gets passed as a lambda to the player class, which uses it to
