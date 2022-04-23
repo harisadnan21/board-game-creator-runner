@@ -1,61 +1,52 @@
 package oogasalad.engine.model.player;
 
+import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
-import oogasalad.engine.model.board.Board;
 
 /**
- * Abstract class that defines a player and has methods that executes a player's turn.
- * @Author Haris Adnan, Jake Heller
+ * Player class
  */
-public abstract class Player implements InteractivePlayer {
-
-  private Board myCurrentGameBoard;
-  private BiConsumer<Player, Choice> myExecuteMove;
-
-  private int myScore;
-
-  protected Player(BiConsumer<Player, Choice> executeMove) {
-    myExecuteMove = executeMove;
-    myScore = 0;
-    myCurrentGameBoard = null;
-  }
+public interface Player {
 
   /**
-   * Sends move choice to Engine
-   *
-   * @param player
-   * @param choice
+   * Engine uses this function to ping player and indicate it
+   * should send a move choice
    */
-  protected void executeMove(Player player, Choice choice) {
-    if (myExecuteMove != null) {
-      myExecuteMove.accept(player, choice);
-    }
-  }
+  void chooseMove(Board activeBoard);
 
   /**
-   * Returns the current game board
-   * Players should not be able to set the current game board
+   * Defines what should happen if the user clicks a cell during
+   * this player's turn
+   * @param i
+   * @param j
+   */
+  void onCellSelect(int i, int j);
+
+  /**
+   * Returns current score for this player
+   * score should update after every game
    * @return
    */
-  protected Board getGameBoard() {
-    return myCurrentGameBoard;
-  }
+  int getScore();
 
-  public int getScore() {
-    return myScore;
-  }
+  /**
+   * updates score for this player
+   * @param change
+   */
+  void updateScore(int change);
 
-  public void updateScore(int change) {
-    myScore += change;
-  }
-
-  public void setGameBoard(Board board) {
-    myCurrentGameBoard = board;
-  }
-
-  public void onCellSelect(int i, int j) {
-
-  }
+  /**
+   * Sets dependencies for player
+   * TODO: Don't like this method but do not currently see another way to
+   * @param oracle
+   * @param executeMove
+   * @param setValidMarks
+   */
+  void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
+      Consumer<Set<Position>> setValidMarks);
 }

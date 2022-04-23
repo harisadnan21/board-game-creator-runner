@@ -77,7 +77,6 @@ public class Oracle implements AIOracle {
    * @return
    */
   public Board applyPersistentRules(Board board) {
-    // cannot use streams here because executions must be consecutive and not parallelized
     for (Move rule: myPersistentRules) {
       for (PositionState cell: board) {
         if (rule.isValid(board, cell.position())) {

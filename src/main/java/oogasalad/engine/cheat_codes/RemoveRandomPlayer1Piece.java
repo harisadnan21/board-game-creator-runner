@@ -14,7 +14,6 @@ public class RemoveRandomPlayer1Piece extends CheatCode{
         .filter(e -> e.player() == 1)
         .findFirst().map(PositionState::position));
     if(pos.isPresent()){
-      System.out.println("here");
       return board.removePiece(pos.get());
     }
      return board;

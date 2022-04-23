@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
+import oogasalad.engine.model.player.AbstractPlayer;
 import oogasalad.engine.model.player.Player;
 
 /**
@@ -15,18 +16,16 @@ import oogasalad.engine.model.player.Player;
  *
  * @author Jake Heller
  */
-public class RandomPlayer extends Player {
-
-  private Oracle oracle;
+public class RandomPlayer extends AbstractPlayer {
 
   public RandomPlayer(Oracle oracle,
       BiConsumer<Player, Choice> executeMove) {
-    super(executeMove);
+    super(oracle, executeMove);
   }
 
   @Override
-  public void setGameBoard(Board board) {
-    super.setGameBoard(board);
+  public void chooseMove(Board board) {
+    setGameBoard(board);
     Stream<Choice> choices = getOracle().getValidChoices(getGameBoard());
     List<Choice> choicesList = choices.toList();
     Random rand = new Random();
@@ -37,9 +36,5 @@ public class RandomPlayer extends Player {
   @Override
   public void onCellSelect(int i, int j) {
 
-  }
-
-  protected Oracle getOracle() {
-    return oracle;
   }
 }

@@ -14,28 +14,27 @@ import oogasalad.engine.model.rule.Move;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class HumanPlayer extends Player {
-  private static final Logger LOG = LogManager.getLogger(Player.class);
+public class HumanPlayer extends AbstractPlayer {
+  private static final Logger LOG = LogManager.getLogger(HumanPlayer.class);
 
-  private Position mySelectedCell;
-  private Set<Position> myValidMoves;
+  private Position mySelectedCell = null;
+  private Set<Position> myValidMoves = null;
 
-  private Move mySelectedMove;
+  private Move mySelectedMove = null;
+  private Choice myChoice;
 
   private Consumer<Set<Position>> mySetValidMarks;
-  private final Oracle oracle;
 
   public HumanPlayer(Oracle oracle, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
-    super(executeMove);
+    super(oracle, executeMove);
     mySetValidMarks = setValidMarks;
-    this.oracle = oracle;
-    // Are these redundant? Are declared variables automatically null?
-    mySelectedCell = null;
-    mySelectedMove = null;
-    myValidMoves = null;
   }
 
   @Override
+  public void chooseMove(Board board) {
+    setGameBoard(board);
+  }
+
   public void onCellSelect(int i, int j) {
     Position cellClicked = new Position(i, j);
     if (getGameBoard() != null) {
@@ -47,7 +46,7 @@ public class HumanPlayer extends Player {
         Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
         if (move.isPresent()) {
           mySelectedMove = move.get();
-          Choice myChoice = new Choice(mySelectedCell, mySelectedMove);
+          myChoice = new Choice(mySelectedCell, mySelectedMove);
           LOG.info("Move {} selected", mySelectedMove.getName());
           resetSelected();
           executeMove(this, myChoice);
@@ -68,7 +67,9 @@ public class HumanPlayer extends Player {
   }
 
   private void setMarkers(Set<Position> positions) {
-    mySetValidMarks.accept(positions);
+    if (mySetValidMarks != null) {
+      mySetValidMarks.accept(positions);
+    }
   }
 
   private void clearMarkers() {
@@ -82,7 +83,11 @@ public class HumanPlayer extends Player {
     clearMarkers();
   }
 
-  protected Oracle getOracle() {
-    return oracle;
+  @Override
+  public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
+      Consumer<Set<Position>> setValidMarks){
+    super.addDependencies(oracle, executeMove, setValidMarks);
+    mySetValidMarks = setValidMarks;
   }
+
 }
