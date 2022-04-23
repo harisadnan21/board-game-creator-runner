@@ -190,8 +190,7 @@
             "type": "IsPlayerPiece",
             "x": 1,
             "y": 1,
-            "id": 0,
-            "isAbsolute": 0
+            "id": 0
         },
         {
             "name": "belongsToWhiteUpLeft",
