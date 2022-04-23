@@ -1,17 +1,17 @@
 package oogasalad.engine.controller;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.terminal_conditions.WinCondition;
+import oogasalad.engine.model.driver.BoardHistoryException;
+import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
 
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.rule.Move;
 import oogasalad.engine.model.parser.GameParser;
 
 public class Controller {
@@ -20,23 +20,25 @@ public class Controller {
   private Engine myEngine;
   private Game myGame;
   private Collection<Move> moves;
-  private Collection<WinCondition> winConditions;
+  private Collection<EndRule> endRules;
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
 
-
-  public Controller(Board board) {
+  /**
+   * Constructor for the controller
+   * @param board: the board that the game in the engine uses
+   * @param parser : the parser that is used
+   */
+  public Controller(Board board, GameParser parser) {
     try {
-      // TODO: Replace this with some way to pick the configuration directory
-      GameParser parser = new GameParser(new File("data/checkers/config.json"));
       myBoard = board;
       myGame = new Game(myBoard, null);
 
       moves = parser.readRules();
-      winConditions = parser.readWinConditions();
+      endRules = parser.readWinConditions();
 
       // TODO: figure out better way to pass in view lambdas
-      myEngine = new Engine(myGame, moves, winConditions, null, null);
+      myEngine = new Engine(myGame, moves, endRules, null, null);
 
     } catch (Exception e){
       e.printStackTrace();
@@ -49,7 +51,7 @@ public class Controller {
   public Board resetGame() {
     myGame = new Game(myBoard, updateView);
 
-    myEngine = new Engine(myGame, moves, winConditions, updateView, setViewValidMarks);
+    myEngine = new Engine(myGame, moves, endRules, updateView, setViewValidMarks);
 
     return myBoard;
   }
@@ -63,22 +65,45 @@ public class Controller {
     setViewValidMarks = setValidMarks;
 
     myGame = new Game(myBoard, updateView);
-    myEngine = new Engine(myGame, moves, winConditions, updateView, setViewValidMarks);
+    myEngine = new Engine(myGame, moves, endRules, updateView, setViewValidMarks);
 
     return myBoard;
   }
+
+  /**
+   * gets and returns the game
+   * @return : returns the game
+   */
   public Game getGame(){
     return myGame;
   }
 
+  /**
+   * Function starts the game
+   */
   public void startGame() {
-    myEngine.gameLoop();
+    try {
+      myEngine.gameLoop();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
-
-  public void saveGame(){
-
+  /**
+   * Undoes number of actions by user by the integer provided
+   * @param numberOfUndoes : number of boards in history to go back to
+   * @throws BoardHistoryException
+   */
+  public void undoGame(int numberOfUndoes) throws BoardHistoryException {
+    myGame.backByAmount(numberOfUndoes);
   }
-  //TODO: Add functionality to have turns and have the program run.
 
+  /**
+   * Undoes the action previously done
+   * @throws BoardHistoryException
+   */
+  public Board undoGameOnce() throws BoardHistoryException {
+    myGame.back();
+    return myGame.getBoard();
+  }
 }

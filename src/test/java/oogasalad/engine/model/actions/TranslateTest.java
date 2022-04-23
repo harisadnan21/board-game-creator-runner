@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.conditions.piece_conditions.IsOccupied;
-import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.logicelement.actions.Action;
+import oogasalad.engine.model.logicelement.actions.Translate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +31,7 @@ public class TranslateTest {
     assertFalse(myBoard.isEmpty(0,0));
     assertTrue(myBoard.isEmpty(2,2));
 
-    myBoard = myTranslate.execute(myBoard, 0,0);
+    myBoard = myTranslate.execute(myBoard, new Position(0,0));
 
     assertTrue(myBoard.isEmpty(0,0));
     assertFalse(myBoard.isEmpty(2,2));
@@ -45,7 +45,7 @@ public class TranslateTest {
     assertFalse(myBoard.isEmpty(1,1));
     assertTrue(myBoard.isEmpty(3,3));
 
-    myBoard = myTranslate.execute(myBoard, 1,1);
+    myBoard = myTranslate.execute(myBoard, new Position(1,1));
 
     assertTrue(myBoard.isEmpty(1,1));
     assertFalse(myBoard.isEmpty(3,3));

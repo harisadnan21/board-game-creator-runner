@@ -1,11 +1,87 @@
+.root{
+  -fx-primaryColor: white;
+  -fx-secondaryColor: lightgray;
+  -fx-triColor: black;
+}
+
+.Text{
+  -fx-text-fill: white;
+}
+
+.BorderPane{
+  -fx-padding: 10px;
+}
+
 .cell{
   -fx-alignment: center;
 }
 
-.gameSelection{
+.title{
+  -fx-alignment: center;
+  -fx-font-size: 40;
+  -fx-background-color: -fx-secondaryColor;
+  -fx-border-color: -fx-triColor;
+  -fx-border-radius: 10px;
+}
 
+.gameSelection{
+  -fx-background-color: -fx-primaryColor;
+  -fx-alignment: center;
+  -fx-padding: 10px;
+  -fx-vgap: 10px;
+  -fx-hgap: 10px;
+}
+
+.iconImage{
+  -fx-background-color: -fx-secondaryColor;
+  -fx-max-width: 10px;
+  -fx-max-height: 150px;
+}
+
+.gameIcon{
+  -fx-background-color: -fx-secondaryColor;
+  -fx-padding: 10px;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-border-color: -fx-triColor;
+  -fx-font-size: 30;
+  -fx-font-weight: bold;
+  -fx-alignment: center;
 }
 
 .iconName{
+  -fx-alignment: center;
+}
 
+.infoHolder{
+  -fx-padding: 10px;
+  -fx-pref-width: 350;
+}
+
+.infoPanel{
+  -fx-padding: 20px;
+  -fx-spacing: 20px;
+  -fx-background-radius: 15px;
+  -fx-border-radius: 15px;
+  -fx-border-color: -fx-triColor;
+  -fx-background-color: -fx-secondaryColor;
+  -fx-alignment: center;
+}
+
+.infoTitle{
+  -fx-font-size: 30;
+  -fx-underline: true;
+  -fx-text-fill: -fx-triColor;
+  -fx-font-weight: bold;
+}
+
+.infoAuthor{
+  -fx-font-size: 20;
+  -fx-text-fill: -fx-triColor;
+}
+
+.infoDescription{
+  -fx-text-fill: -fx-triColor;
+  -fx-font-size: 15;
+  -fx-wrap-text: true;
 }

@@ -7,6 +7,7 @@ import java.util.*;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -19,13 +20,13 @@ import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
-import oogasalad.builder.view.tab.BasicTab;
+import oogasalad.builder.view.tab.AbstractTab;
 
 
 /**
  * @author Mike Keohane
  */
-public class BoardTab extends BasicTab {
+public class BoardTab extends AbstractTab {
 
   public static final String BOARD_TYPE = "board";
   public static String BOARD_PROPERTIES = "BoardTypes";
@@ -35,6 +36,8 @@ public class BoardTab extends BasicTab {
   private ColorPicker colorPickerA;
   private ColorPicker colorPickerB;
   private ComboBox<String> boardTypeBox;
+  private ColorPicker gridColorPicker;
+  private CheckBox gridCheck;
   private static final ResourceBundle boardTypes = ResourceBundle.getBundle(
       DEFAULT_RESOURCE_PACKAGE + BOARD_PROPERTIES);
 
@@ -59,7 +62,7 @@ public class BoardTab extends BasicTab {
     VBox rightBox = new VBox();
 
     rightBox.getChildren()
-        .addAll(setupButtonBar(), setupBoardEditChoiceToggle(), setupBoardConfigInput());
+        .addAll(setupButtonBar(), setupBoardEditChoiceToggle(), setupGridToggle(), setupBoardConfigInput());
     rightBox.setId("rightBoardPane");
     rightBox.getStyleClass().add("rightPane");
     return rightBox;
@@ -150,7 +153,6 @@ public class BoardTab extends BasicTab {
     if (boardTypeBox.getValue() == null) {
       throw new IllegalBoardTypeException("");
     }
-
     boardCanvas.setColor(colorPickerA.getValue(), 1);
     boardCanvas.setColor(colorPickerB.getValue(), 2);
     boardCanvas.changeCanvasSize(
@@ -158,6 +160,33 @@ public class BoardTab extends BasicTab {
         getCenter().getBoundsInParent().getHeight());
     boardCanvas.drawBoard(xDimensionPicker.getValue(), yDimensionPicker.getValue(),
         boardTypeBox.getValue());
+    toggleGrid();
+  }
+
+  private Node setupGridToggle(){
+    VBox gridBox = new VBox();
+    HBox gridCheckBox = new HBox();
+    Label gridCheckLabel = new Label(ViewResourcesSingleton.getInstance().getString("showGrid"));
+    gridCheck = new CheckBox();
+    gridColorPicker = new ColorPicker(Color.BLACK);
+    gridColorPicker.setOnAction(e -> toggleGrid());
+    gridCheck.setOnAction(e -> toggleGrid());
+
+    gridCheckBox.getChildren().addAll(gridCheck, gridCheckLabel);
+    gridBox.getChildren().addAll(gridCheckBox, gridColorPicker);
+    gridBox.getStyleClass().add("boardConfigBox");
+    return gridBox;
+  }
+
+  private void toggleGrid(){
+    if (gridCheck.isSelected()){
+      boardCanvas.drawGrid(gridColorPicker.getValue());
+      //TODO: CALLBACK COLOR = gridColorPicker.getValue() and isShown = TRUE
+    }
+    else {
+      boardCanvas.clearGrid();
+      //TODO: CALLBACK COLOR = idk if matters and isShown = FALSE
+    }
   }
 
   private Node setupButtonBar() {

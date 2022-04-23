@@ -58,8 +58,7 @@ public class FileSelector implements PropertySelector {
    */
   @Override
   public Property getProperty() {
-    String[] nameParts = property.name().split("-");
-    return new StringProperty(nameParts[nameParts.length - 1], filePath, property.form());
+    return property.with(property.shortName(), filePath);
   }
 
   // Prompts the user to choose a file, storing the chosen file in an instance variable

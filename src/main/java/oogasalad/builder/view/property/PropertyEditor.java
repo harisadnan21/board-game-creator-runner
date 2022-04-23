@@ -2,8 +2,10 @@ package oogasalad.builder.view.property;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -22,6 +24,11 @@ import java.util.stream.Collectors;
  * @author Ricky Weerts and Shaan Gondalia
  */
 public class PropertyEditor extends VBox {
+
+  private static final String TYPE_PROPERTY_NAME = "type";
+  private static final String REQUIRED = "required";
+  private static final String DELIMITER = "-";
+
   private final CallbackDispatcher callbackDispatcher;
 
   private final Map<Property, PropertySelector> selectors = new HashMap<>();
@@ -52,15 +59,38 @@ public class PropertyEditor extends VBox {
    * @param typeName
    */
   public void setCorrespondingElementProperties(String typeName) {
-    getChildren().clear();
-    selectors.clear();
+    // Remove all non-type and non-required properties
+    List<Property> nonType = new ArrayList<>();
+    selectors.forEach((prop, selector) -> {
+      if(!(isTypeProperty(prop) || isRequiredProperty(prop)) ) {
+        getChildren().remove(selector.display().getParent()); // FIXME Assumes display() result won't change between calls
+        nonType.add(prop);
+      }
+    });
+    nonType.forEach(selectors::remove);
+
     for (Property prop : allProperties) {
-      if (prop.name().contains(typeName) || prop.name().contains("type")) {
+      if (prop.name().contains(typeName)) {
         addProperty(prop);
       }
     }
   }
 
+  // Returns whether the property is a type property
+  private boolean isTypeProperty(Property prop) {
+    return getLastPropertyNameSegment(prop).equals(TYPE_PROPERTY_NAME);
+  }
+
+  // Returns true if the property is in the required namespace
+  private boolean isRequiredProperty(Property prop) {
+    return prop.name().split(DELIMITER)[0].equals(REQUIRED);
+  }
+
+  // Gets the last name of a property, disregarding namespace
+  private String getLastPropertyNameSegment(Property prop) {
+    String[] nameParts = prop.name().split(DELIMITER);
+    return nameParts[nameParts.length - 1];
+  }
 
   /**
    * Given a Collection of all the properties, finds the type-selector and makes the corresponding
@@ -72,17 +102,11 @@ public class PropertyEditor extends VBox {
     getChildren().clear();
     allProperties = properties;
     selectors.clear();
-    boolean hasTypeProperty = false;
     for (Property prop : properties) {
-      if (prop.name().contains("type")) {
+      if (isTypeProperty(prop) || isRequiredProperty(prop)) {
         addProperty(prop);
-        hasTypeProperty = true;
       }
     }
-    if (!hasTypeProperty) {
-      properties.forEach(this::addProperty);
-    }
-
   }
 
   /**
@@ -116,7 +140,7 @@ public class PropertyEditor extends VBox {
     HBox propertyBox = new HBox();
     PropertySelector propertySelector = makePropertySelector(property);
     selectors.put(property, propertySelector);
-    if (property.name().contains("type")) {
+    if (isTypeProperty(property)) {
       propertySelector.addListener(
           (observable, oldValue, newValue) -> setCorrespondingElementProperties(
               (String) newValue));
@@ -139,7 +163,7 @@ public class PropertyEditor extends VBox {
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
       e.printStackTrace();
-      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
+      throw new InvalidFormException(e.getMessage());
     }
   }
 

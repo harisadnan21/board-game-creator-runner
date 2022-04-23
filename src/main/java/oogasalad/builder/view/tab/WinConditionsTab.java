@@ -1,16 +1,19 @@
 package oogasalad.builder.view.tab;
 
-import java.util.*;
+
+import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
- * 
+ * @author Mike Keohane
  */
-public class WinConditionsTab {
+public class WinConditionsTab extends GameElementTab {
 
+    public static final String WIN_CONDITION = "winCondition";
     /**
      * Default constructor
      */
-    public WinConditionsTab() {
+    public WinConditionsTab(CallbackDispatcher callbackDispatcher) {
+        super(callbackDispatcher, WIN_CONDITION);
     }
 
 

@@ -4,11 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.parser.exception.MissingRequiredPropertyException;
 import oogasalad.engine.model.parser.exception.ReferenceNotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,6 +24,8 @@ import org.json.JSONObject;
  * @author Shaan Gondalia
  */
 public abstract class ReferenceParser<T> extends AbstractParser<Void> {
+
+  private static final Logger LOG = LogManager.getLogger(ReferenceParser.class);
 
   private static final String REFLECTION_DELIMITER = "\\|";
   private static final String PARAMETER_DELIMITER = "-";
@@ -76,7 +82,7 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
   public T resolve(String name) {
     String type = findPropertyValue(name, "type");
     int[] params = paramsToIntArray(name, type);
-    return getReferenceReflection(type, params);
+    return (T) getObjectReflection(type, params, referenceResources);
   }
 
   // Converts all required parameters (based on type) of a reference to an ordered integer array
@@ -84,6 +90,10 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
     //TODO: Make this line easier to understand
     String[] requiredParams = referenceResources.getString(type)
         .split(REFLECTION_DELIMITER)[1].split(PARAMETER_DELIMITER);
+
+    LOG.error("name {}, type {}\n", name, type);
+    LOG.info("Type: {}\n", type);
+    LOG.info("Required params {}\n", Arrays.toString(requiredParams));
     int[] params = new int[requiredParams.length];
     for (int i = 0; i < requiredParams.length; i++) {
       //TODO: Implement variables here
@@ -95,6 +105,7 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
         params[i] = temp;
       }
     }
+    LOG.info("Int params {}\n", Arrays.toString(params));
     return params;
   }
 
@@ -108,18 +119,5 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
       throw new MissingRequiredPropertyException();
     }
     return reference.get(propertyName);
-  }
-
-  // Makes an object of type T using reflection
-  private T getReferenceReflection(String type, int[] parameters) {
-    try {
-      String className = referenceResources.getString(type).split(REFLECTION_DELIMITER)[0];
-      Class clazz = Class.forName(className);
-      Constructor ctor = clazz.getConstructor(int[].class);
-      return (T) ctor.newInstance(parameters);
-    } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
-        InstantiationException | IllegalAccessException e) {
-      throw new ReferenceNotFoundException(e.getMessage()); // TODO: Handle this properly
-    }
   }
 }
