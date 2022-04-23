@@ -13,19 +13,21 @@ public class IsInRow extends Condition {
 
   private int relativeRow;
   private int absoluteRow;
+  private boolean invert;
   /**
    *
-   * @param parameters size 2 array [relativeRow, absoluteRow]
+   * @param parameters size 3 array [relativeRow, absoluteRow, invert]
    */
   public IsInRow(int[] parameters) {
     super(parameters);
     relativeRow = getParameter(0);
     absoluteRow = getParameter(1);
+    invert = getParameter(2) != 0;
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
     relativeRow += referencePoint.row();
-    return relativeRow == absoluteRow;
+    return invertIfTrue(relativeRow == absoluteRow, invert);
   }
 }

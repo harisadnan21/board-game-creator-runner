@@ -13,19 +13,21 @@ public class IsInColumn extends Condition {
 
   private int relativeColumn;
   private int absoluteColumn;
+  private boolean invert;
   /**
    *
-   * @param parameters size 2 array [relativeColumn, absoluteColumn]
+   * @param parameters size 3 array [relativeColumn, absoluteColumn, invert]
    */
   public IsInColumn(int[] parameters) {
     super(parameters);
     relativeColumn = getParameter(0);
     absoluteColumn = getParameter(1);
+    invert = getParameter(2) != 0;
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
     relativeColumn += referencePoint.column();
-    return relativeColumn == absoluteColumn;
+    return invertIfTrue(relativeColumn == absoluteColumn, invert);
   }
 }

@@ -16,13 +16,15 @@ import org.jooq.lambda.Seq;
  * @author Alex Bildner, Robert Cranston
  */
 public class PlayerHasNoPieces extends BoardCondition{
+  private boolean invert;
 
   /**
    *
-   * @param parameters size 0 array
+   * @param parameters size 1 array [invert]
    */
   public PlayerHasNoPieces(int[] parameters){
     super(parameters);
+    invert = getParameter(0) != 0;
   }
 
   /**
@@ -33,7 +35,7 @@ public class PlayerHasNoPieces extends BoardCondition{
    */
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return numPiecesByPlayer(board).containsValue(0);
+    return invertIfTrue(numPiecesByPlayer(board).containsValue(0), invert);
   }
 
 }

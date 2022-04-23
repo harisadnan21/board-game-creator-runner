@@ -11,9 +11,14 @@ import oogasalad.engine.model.board.cells.PositionState;
  * @author Alex Bildner, Robert Cranston
  */
 public class BoardFull extends BoardCondition{
+  private boolean invert;
 
+  /**
+   * @param parameters size 1 array [invert]
+   */
   public BoardFull(int[] parameters){
     super(parameters);
+    invert = getParameter(0) != 0;
   }
   /**
    * Checks every board cell and returns true if every cell has a piece
@@ -23,7 +28,7 @@ public class BoardFull extends BoardCondition{
    */
   @Override
   public boolean isTrue(Board board, Position referencePoint){
-    return noEmptyPieces(board.getPositionStatesStream());
+    return invertIfTrue(noEmptyPieces(board.getPositionStatesStream()), invert);
   }
 
   private boolean noEmptyPieces(Stream<PositionState> positionStatesStream) {

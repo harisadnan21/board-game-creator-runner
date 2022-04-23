@@ -4,21 +4,23 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 
 /**
- * This condition always returns true
- * @author Jake Heller
+ * This condition always evaluates to the same result
+ * @author Jake Heller, Ricky Weerts
  */
-public class True extends BoardCondition{
+public class Constant extends BoardCondition {
+  private boolean value;
 
   /**
    *
-   * @param parameters size 0 array
+   * @param parameters size 1 array [value]
    */
-  public True(int[] parameters) {
+  public Constant(int[] parameters) {
     super(parameters);
+    value = getParameter(0) != 0;
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return true;
+    return value;
   }
 }

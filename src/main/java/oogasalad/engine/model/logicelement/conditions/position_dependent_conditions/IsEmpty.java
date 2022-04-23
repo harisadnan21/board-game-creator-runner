@@ -12,9 +12,10 @@ public class IsEmpty extends Condition {
   private int row;
   private int column;
   private boolean isAbsolute;
+  private boolean invert;
   /**
    * isAbsolute is 0 for relative, 1 for absolute
-   * @param parameters size 3 array [row,column,isAbsolute]
+   * @param parameters size 4 array [row, column, isAbsolute, invert]
    *
    */
   public IsEmpty(int[] parameters) {
@@ -22,6 +23,7 @@ public class IsEmpty extends Condition {
     row = getParameter(0);
     column = getParameter(1);
     isAbsolute = getParameter(2) != 0;
+    invert = getParameter(3) != 0;
   }
 
 
@@ -38,9 +40,9 @@ public class IsEmpty extends Condition {
       position = transformToRelative(position, referencePoint);
     }
     if (!board.isValidPosition(position)) {
-      return false;
+      return invertIfTrue(false, invert);
     }
-    return board.isEmpty(position.row(), position.column());
+    return invertIfTrue(board.isEmpty(position.row(), position.column()), invert);
   }
 
 }
