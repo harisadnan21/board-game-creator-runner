@@ -41,6 +41,7 @@ public class HelpTab extends AbstractTab {
   protected Node setupLeftSide() {
     leftDisplay = new TextArea();
     leftDisplay.getStyleClass().add("helpBox");
+    leftDisplay.setId("helpBox");
     leftDisplay.setWrapText(true);
     leftDisplay.setEditable(false);
     return leftDisplay;

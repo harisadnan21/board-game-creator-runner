@@ -39,6 +39,7 @@ public class DropDown implements PropertySelector{
     if(!property.defaultValue().toString().equals(property.valueAsString())) {
       list.getSelectionModel().select(property.valueAsString());
     }
+    list.setId("dropDown-" + property.shortName());
     //list.valueProperty().addListener((observable, oldValue, newValue) -> selection = newValue);
   }
 

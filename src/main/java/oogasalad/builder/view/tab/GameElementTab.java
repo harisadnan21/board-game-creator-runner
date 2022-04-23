@@ -57,7 +57,6 @@ public class GameElementTab extends AbstractTab {
         ViewResourcesSingleton.getInstance().getString("defaultName-" + getType()));
     nameField.setId("nameField-"+getType());
     Button createNewButton = makeButton("new-" + getType(), e -> createElement());
-    createNewButton.setId("new-" + getType());
     Button savePropertyButton = makeButton(
         "save", e -> saveCurrentElement());
     savePropertyButton.setId("save-" + getType());
