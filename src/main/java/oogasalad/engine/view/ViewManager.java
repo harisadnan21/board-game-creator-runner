@@ -72,7 +72,7 @@ public class ViewManager {
   }
 
   public OpeningView createOpeningView() {
-    openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath);
+    openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath, language);
     currGame = openingView.getFileChoice();
     openingView.getLanguageSelect().setOnAction(e -> setLanguage(openingView.getLanguageSelect().getLanguage()));
     openingView.getContSel().setOnAction(e -> selectMode(openingView.getFileChoice()));
@@ -81,7 +81,7 @@ public class ViewManager {
   }
 
   public GameView createGameView(BoardView board, Controller controller) {
-    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath);
+    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath, language);
     gameView.getHome().setOnAction(e -> goHome(gameView.getScene()));
     return gameView;
   }
@@ -89,6 +89,9 @@ public class ViewManager {
   private void setLanguage(String currLanguage) {
     language = currLanguage;
     System.out.println(language);
+    currScene = createOpeningView().makeScene();
+    stage.setScene(currScene);
+    allScenes.add(currScene);
   }
 
   private void showGames() {
@@ -100,7 +103,7 @@ public class ViewManager {
   private void selectMode(File game) {
     Stage newStage = new Stage();
     newStage.setTitle(game.getName());
-    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, game);
+    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, game, language);
     Scene newScene = pmv.makeScene();
     newStage.setScene(newScene);
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
@@ -111,7 +114,7 @@ public class ViewManager {
   }
 
   private void selectAI(Stage newStage) {
-    AISelectView aiView = new AISelectView(WIDTH, HEIGHT, cssFilepath);
+    AISelectView aiView = new AISelectView(WIDTH, HEIGHT, cssFilepath, language);
     newStage.setScene(aiView.makeScene());
   }
 
@@ -126,7 +129,7 @@ public class ViewManager {
         parser = new GameParser(game);
       }
       Board board = parser.parseBoard();
-      BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath);
+      BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath, language);
       Controller controller = new Controller(board, parser);
       boardView.addController(controller);
       newStage.setScene(createGameView(boardView, controller).makeScene());
@@ -150,7 +153,6 @@ public class ViewManager {
 
   private Stage findClosedStage(Scene scene) {
     for (Stage stage : gameStages) {
-      System.out.println("stage");
       if (stage.getScene().equals(scene)) {
         return stage;
       }
