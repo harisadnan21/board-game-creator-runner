@@ -60,6 +60,7 @@ public class GameConfigurationTest {
   private static final String REPRESENTATIVE_Y = "representativeY";
   private static final String BLACK = "0x000000ff";
   private static final String WHITE = "0xffffffff";
+  private static final String IS_PERSISTENT = "isPersistent";
 
   private Collection<Property> properties;
   private BuilderModel game;
@@ -173,6 +174,7 @@ public class GameConfigurationTest {
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
+    properties.add(PropertyFactory.makeProperty(IS_PERSISTENT, 0));
     game.addGameElement(RULE, RULE_NAME, properties);
 
     addPiece();
@@ -195,9 +197,7 @@ public class GameConfigurationTest {
 
   @Test
   void testLoad() throws FileNotFoundException {
-    // TODO: Change test when loading is implemented
-    InputStream is = null;
-    is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));
+    InputStream is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));
     JSONTokener tokener = new JSONTokener(is);
     JSONObject object = new JSONObject(tokener);
     game.fromJSON(object.toString(), "");

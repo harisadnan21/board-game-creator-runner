@@ -1,15 +1,12 @@
 package oogasalad.builder.view;
 
-import java.util.Collection;
-import java.util.HashSet;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane.TabClosingPolicy;
-
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -18,17 +15,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.SaveCallback;
-import oogasalad.builder.view.tab.ActionsTab;
-import oogasalad.builder.view.tab.BasicTab;
-import oogasalad.builder.view.tab.ConditionsTab;
-import oogasalad.builder.view.tab.GameElementTab;
-import oogasalad.builder.view.tab.HelpTab;
-import oogasalad.builder.view.tab.MetaDataTab;
-import oogasalad.builder.view.tab.PiecesTab;
-import oogasalad.builder.view.tab.RulesTab;
-import oogasalad.builder.view.tab.SplashLogin;
-import oogasalad.builder.view.tab.WinConditionsTab;
-import oogasalad.builder.view.tab.boardTab.BoardTab;
+import oogasalad.builder.view.tab.AllTabs;
 
 
 import java.util.ResourceBundle;
@@ -43,14 +30,13 @@ public class BuilderView {
   private static String TAB_PROPERTIES = "tabResources";
   private static final String TAB_FORMAT = "tabFormat.css";
 
-  private static Stage stage;
-  private Collection<BasicTab> tabs;
-  public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
 
+  private static Stage stage;
+  public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
+  private AllTabs allTabs;
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
-    tabs = new HashSet<>();
     stage = mainStage;
     SplashLogin newWindow = new SplashLogin(e -> buildView());
   }
@@ -58,7 +44,8 @@ public class BuilderView {
   // Builds the view, including all tabs and menus
   private void buildView() {
     BorderPane borderPane = new BorderPane();
-    borderPane.setCenter(setupTabs());
+    allTabs = new AllTabs(callbackDispatcher);
+    borderPane.setCenter(allTabs);
     borderPane.setBottom(makeMenu());
 
     Scene tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
@@ -70,54 +57,12 @@ public class BuilderView {
     stage.show();
   }
 
-  //Sets up all tabs in the tab pane
-  private TabPane setupTabs() {
-    // TODO: Maybe refactor this into its own class?
-    TabPane tabPane = new TabPane();
-    // TODO: Replace this with a method call and reflection
-    BasicTab boardTabPane = new BoardTab(callbackDispatcher);
-    boardTabPane.setId("boardTab");
-    Tab boardTab = new Tab(ViewResourcesSingleton.getInstance().getString("board"), boardTabPane);
-    GameElementTab pieceTabPane = new PiecesTab(callbackDispatcher);
-    pieceTabPane.setId("pieceTab");
-    Tab pieceTab = new Tab(ViewResourcesSingleton.getInstance().getString("piece"), pieceTabPane);
-    GameElementTab actionsTabPane = new ActionsTab(callbackDispatcher);
-    actionsTabPane.setId("actionTab");
-    Tab actionTab = new Tab(ViewResourcesSingleton.getInstance().getString("action"), actionsTabPane);
-    GameElementTab conditionsTabPane = new ConditionsTab(callbackDispatcher);
-    conditionsTabPane.setId("conditionTab");
-    Tab conditionsTab = new Tab(ViewResourcesSingleton.getInstance().getString("condition"), conditionsTabPane);
-    GameElementTab rulesTabPane = new RulesTab(callbackDispatcher);
-    rulesTabPane.setId("ruleTab");
-    Tab rulesTab = new Tab(ViewResourcesSingleton.getInstance().getString("rule"), rulesTabPane);
-    GameElementTab winConditionsTabPane = new WinConditionsTab(callbackDispatcher);
-    winConditionsTabPane.setId("winConditionTab");
-    Tab winConditionsTab = new Tab(ViewResourcesSingleton.getInstance().getString("winCondition"), winConditionsTabPane);
-
-    GameElementTab metadataTabPane = new MetaDataTab(callbackDispatcher);
-    metadataTabPane.setId("metadataTab");
-    Tab metadataTab = new Tab(ViewResourcesSingleton.getInstance().getString("metadata"), metadataTabPane);
-    BasicTab helpTabPane = new HelpTab(callbackDispatcher);
-    Tab helpTab = new Tab(ViewResourcesSingleton.getInstance().getString("help"), helpTabPane);
-    tabPane.getTabs().addAll(boardTab, pieceTab, actionTab, conditionsTab, rulesTab, winConditionsTab, metadataTab, helpTab);
-    tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
-    tabs.add(pieceTabPane);
-    tabs.add(actionsTabPane);
-    tabs.add(conditionsTabPane);
-    tabs.add(rulesTabPane);
-    tabs.add(metadataTabPane);
-    tabs.add(boardTabPane);
-    tabs.add(winConditionsTabPane);
-
-    return tabPane;
-  }
-
   // Makes the menu bar, which holds the save and load buttons
   private HBox makeMenu() {
     HBox menu = new HBox();
     menu.getChildren().add(makeButton("save", e -> saveConfig()));
     menu.getChildren().add(makeButton("load", e -> loadConfig()));
+    menu.getStyleClass().add("saveMenu");
     return menu;
   }
 
@@ -146,9 +91,7 @@ public class BuilderView {
     //TODO: Remove Magic Value
     directoryChooser.setTitle("Choose Configuration Load Location");
     callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(stage)));
-    for (BasicTab tab : tabs) {
-      tab.loadElements();
-    }
+    allTabs.loadAllTabs();
 
   }
 

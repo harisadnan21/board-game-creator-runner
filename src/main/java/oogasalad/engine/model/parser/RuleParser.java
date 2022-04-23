@@ -20,8 +20,9 @@ import org.json.JSONObject;
 public class RuleParser extends AbstractParser<Collection<Move>> {
 
   private static final String RULES = "rules";
-  private static final String REPRESENTATIVE_POINT_X = "representativeX"; //?? "representativeX";
-  private static final String REPRESENTATIVE_POINT_Y = "representativeY"; //?? "representativeY";
+  private static final String REPRESENTATIVE_POINT_X = "representativeX";
+  private static final String REPRESENTATIVE_POINT_Y = "representativeY";
+  private static final String IS_PERSISTENT = "isPersistent";
   private static final String NAME = "name";
   private final ActionParser actionParser;
   private final ConditionParser conditionParser;

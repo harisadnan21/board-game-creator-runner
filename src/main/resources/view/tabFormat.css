@@ -123,5 +123,15 @@ ToggleButton:hover {
   -fx-border-color: BLACK;
   -fx-background-color: #F0F8FF;
 }
+.saveMenu{
+  -fx-pref-width: 17;
+  -fx-alignment: center;
+  -fx-padding: 10;
+  -fx-spacing: 20;
+  -fx-border-color: BLACK;
+  -fx-background-color: #F0F8FF;
+  -fx-color: #FFFAEF;
+  -fx-font-size: 11pt;
+}
 
 
