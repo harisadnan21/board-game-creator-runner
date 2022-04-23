@@ -50,8 +50,11 @@ public class GameElementListSelector implements PropertySelector {
     this.type = type;
     this.callbackDispatcher = dispatcher;
     pane = new BorderPane();
+    pane.setId("gameElementListSelector-" + this.property.shortName());
     addElement = new ComboBox<>();
+    addElement.setId("gameElementListSelector-" + this.property.shortName() + "-comboBox");
     elementsList = new ListView<>();
+    elementsList.setId("gameElementListSelector-" + this.property.shortName() + "-listView");
     setup();
   }
 
@@ -72,6 +75,7 @@ public class GameElementListSelector implements PropertySelector {
         pane.setCenter(new Label(elementName));
 
         Button deleteButton = new Button("X");
+        deleteButton.setId("gameElementListSelector-" + property.shortName() + "-listView-" + elementName + "-delete");
         deleteButton.setOnAction(e -> removeElement(this.getIndex()));
         pane.setRight(deleteButton);
 
