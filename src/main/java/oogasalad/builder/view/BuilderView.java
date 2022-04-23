@@ -28,12 +28,12 @@ public class BuilderView {
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
   private static String TAB_PROPERTIES = "tabResources";
-  private static final String TAB_FORMAT = "tabFormat.css";
+  public static final String TAB_FORMAT = "tabFormat.css";
 
-
-  private static Stage stage;
+  private final Stage stage;
   public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
   private AllTabs allTabs;
+  private Button saveButton;
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
@@ -77,20 +77,16 @@ public class BuilderView {
 
   // Saves the configuration of the game using a callback to call the controller
   private void saveConfig() {
-    Stage stage = new Stage();
-    DirectoryChooser directoryChooser = new DirectoryChooser();
-    //TODO: Remove Magic Value
-    directoryChooser.setTitle("Choose Configuration Save Location");
-    callbackDispatcher.call(new SaveCallback(directoryChooser.showDialog(stage)));
+    new MetaDataAndSavePopup(callbackDispatcher);
   }
 
   // Saves the configuration of the game using a callback to call the controller
   private void loadConfig() {
-    Stage stage = new Stage();
+    Stage loadStage = new Stage();
     DirectoryChooser directoryChooser = new DirectoryChooser();
     //TODO: Remove Magic Value
     directoryChooser.setTitle("Choose Configuration Load Location");
-    callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(stage)));
+    callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(loadStage)));
     allTabs.loadAllTabs();
 
   }
