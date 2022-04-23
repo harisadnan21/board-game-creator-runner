@@ -8,7 +8,7 @@ import oogasalad.engine.model.driver.Game;
 
 /**
  * Abstract class that defines a player and has methods that executes a player's turn.
- * @Author Haris Adnan
+ * @Author Haris Adnan, Jake Heller
  */
 
 public abstract class Player implements PlayerInterface {

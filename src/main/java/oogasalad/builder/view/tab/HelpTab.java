@@ -1,6 +1,9 @@
 package oogasalad.builder.view.tab;
 
 
+import static oogasalad.builder.view.tab.AllTabs.DELIMINATOR;
+import static oogasalad.builder.view.tab.AllTabs.ORDERED_TABS;
+import static oogasalad.builder.view.tab.AllTabs.tabsList;
 import static oogasalad.builder.view.tab.boardTab.BoardTab.BOARD_TYPE;
 
 import java.util.Collection;
@@ -17,12 +20,9 @@ import oogasalad.builder.view.callback.GetPropertiesCallback;
  * Displays help to explain how all the other tabs work
  * @author Mike Keohane
  */
-public class HelpTab extends BasicTab{
+public class HelpTab extends AbstractTab {
   public static String HELP = "help";
-  public static String HELP_RESOURCE_PATH = "/elements/help/";
-  public static String ELEMENTS_PACKAGE = "ElementsNameList";
   private TextArea leftDisplay;
-  private static final ResourceBundle elementNames = ResourceBundle.getBundle(HELP_RESOURCE_PATH + ELEMENTS_PACKAGE);
 
   public HelpTab(CallbackDispatcher callbackDispatcher){
     super(HELP, callbackDispatcher);
@@ -30,7 +30,7 @@ public class HelpTab extends BasicTab{
   @Override
   protected Node setupRightSide() {
     VBox rightHelpBox = new VBox();
-    for (String name : elementNames.keySet()){
+    for (String name : tabsList.getString(ORDERED_TABS).split(DELIMINATOR)){
       rightHelpBox.getChildren().add(makeButton(name, e -> displayHelpForElement(name)));
     }
     rightHelpBox.getStyleClass().add("rightPane");
@@ -55,7 +55,7 @@ public class HelpTab extends BasicTab{
     boolean hasRequiredType = false;
     StringBuilder textToDisplay = new StringBuilder();
     textToDisplay.append(leftDisplay.getText());
-    if (!type.equals(BOARD_TYPE)){
+    if (!(type.equals(BOARD_TYPE) || type.equals(HELP))){
       Collection<Property> elementProperties = getCallbackDispatcher().call(new GetPropertiesCallback(type)).orElseThrow();
       for (Property property : elementProperties){
         String propertyName = property.name();

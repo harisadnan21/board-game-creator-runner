@@ -26,6 +26,13 @@ public class StringPropertyTest {
   }
 
   @Test
+  void testWith() {
+    Property property = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
+    Property newProperty = property.with(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
+    assertEquals(property, newProperty);
+  }
+
+  @Test
   void testEquality() {
     Property property1 = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);
     Property property2 = new StringProperty(PROPERTY_NAME, PROPERTY_VALUE, PROPERTY_FORM);

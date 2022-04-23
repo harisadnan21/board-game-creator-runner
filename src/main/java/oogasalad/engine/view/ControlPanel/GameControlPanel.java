@@ -35,7 +35,7 @@ public class GameControlPanel extends ControlPanel {
 
   protected void createButtons() {
     home = createButton(HOME_IMAGE);
-    home.setOnAction(e -> myController.startGame());
+    //home.setOnAction(e -> myController.startGame()); // TODO: not correct implementation but seems to work correctly?
     restart = createButton(RESTART_IMAGE);
     restart.setOnAction(e -> restartGame());
     undo = createButton(BACK_IMAGE);

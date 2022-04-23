@@ -9,6 +9,12 @@ import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.player.Player;
 
+/**
+ * Implements random player which selects a move at
+ * random from all available choices
+ *
+ * @author Jake Heller
+ */
 public class RandomPlayer extends Player {
 
   public RandomPlayer(Oracle oracle,

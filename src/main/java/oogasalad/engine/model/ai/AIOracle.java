@@ -7,6 +7,6 @@ import oogasalad.engine.model.engine.Choice;
 public interface AIOracle {
   Set<Choice> getChoices(Board board, int player);
 
-  Boolean isWinningState(Board board);
+  boolean isWinningState(Board board);
 
 }
