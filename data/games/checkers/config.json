@@ -37,6 +37,7 @@
             "name": "White move down and right",
             "representativeX": 1,
             "representativeY": -1,
+            "isPersistent": 0,
             "conditions": ["emptyDownRight", "belongsToWhite", "whiteTurn"],
             "actions": ["moveDownRight"]
         },
@@ -44,6 +45,7 @@
             "name": "White move down and left",
             "representativeX": -1,
             "representativeY": -1,
+            "isPersistent": 0,
             "conditions": ["emptyDownLeft", "belongsToWhite", "whiteTurn"],
             "actions": ["moveDownLeft"]
         },
@@ -51,6 +53,7 @@
             "name": "Black move up and left",
             "representativeX": -1,
             "representativeY": 1,
+            "isPersistent": 0,
             "conditions": ["emptyUpLeft", "belongsToBlack", "blackTurn"],
             "actions": ["moveUpLeft"]
         },
@@ -58,6 +61,7 @@
             "name": "Black move up and right",
             "representativeX": 1,
             "representativeY": 1,
+            "isPersistent": 0,
             "conditions": ["emptyUpRight", "belongsToBlack", "blackTurn"],
             "actions": ["moveUpRight"]
         },
@@ -65,6 +69,7 @@
             "name": "White capture down right",
             "representativeX": 2,
             "representativeY": -2,
+            "isPersistent": 0,
             "conditions": ["emptyDoubleDownRight","belongsToBlackDownRight", "belongsToWhite", "whiteTurn"],
             "actions": ["moveDoubleDownRight", "captureDownRight"]
         },
@@ -72,6 +77,7 @@
             "name": "White capture down left",
             "representativeX": -2,
             "representativeY": -2,
+            "isPersistent": 0,
             "conditions": ["emptyDoubleDownLeft","belongsToBlackDownLeft", "belongsToWhite", "whiteTurn"],
             "actions": ["moveDoubleDownLeft", "captureDownLeft"]
         },
@@ -79,6 +85,7 @@
             "name": "Black capture up right",
             "representativeX": 2,
             "representativeY": 2,
+            "isPersistent": 0,
             "conditions": ["emptyDoubleUpRight","belongsToWhiteUpRight", "belongsToBlack", "blackTurn"],
             "actions": ["moveDoubleUpRight", "captureUpRight"]
         },
@@ -86,6 +93,7 @@
             "name": "Black capture up left",
             "representativeX": -2,
             "representativeY": 2,
+            "isPersistent": 0,
             "conditions": ["emptyDoubleUpLeft","belongsToWhiteUpLeft", "belongsToBlack", "blackTurn"],
             "actions": ["moveDoubleUpLeft", "captureUpLeft"]
         }
