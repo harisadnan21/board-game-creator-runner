@@ -24,7 +24,7 @@ Finish Date: 4/25/22
 
 Hours Spent:
 
-* Ricky -
+* Ricky - 70 Hours
 * Jake -
 * Robert -
 * Haris -
@@ -36,7 +36,7 @@ Hours Spent:
 
 ### Primary Roles
 
-#### Builder
+#### Engine
 * Cynthia -
 * Robert -
 * Haris -
@@ -44,9 +44,9 @@ Hours Spent:
 * Jake -
 
 
-#### Model
+#### Builder
 
-* Ricky -
+* Ricky - Initially worked on builder model, then moved to doing whatever needed to be done across the builder
 * Thivya -
 * Mike -
 * Shaan - Implemented much of the builder model and game configuration parsing/serialization for the builder and engine.
