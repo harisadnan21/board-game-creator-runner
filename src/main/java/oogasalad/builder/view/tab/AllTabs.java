@@ -20,19 +20,20 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
 public class AllTabs extends TabPane {
   public static final String TABS_LIST = "TabsList";
   public static final String TABS_PATH = "oogasalad.builder.view.tab.";
-  private ResourceBundle tabsList;
+  public static final String ORDERED_TABS = "tabsOrdered";
+  public static final String DELIMINATOR = "-";
+  public static final ResourceBundle tabsList = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TABS_LIST);
   private CallbackDispatcher callbackDispatcher;
-  private Collection<BasicTab> tabs;
+  private Collection<AbstractTab> tabs;
 
   public AllTabs(CallbackDispatcher callbackDispatcher){
     this.callbackDispatcher = callbackDispatcher;
-    tabsList = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TABS_LIST);
     tabs = new HashSet<>();
     createTabs();
   }
 
   private void createTabs() {
-    for (String tabKey : tabsList.keySet()){
+    for (String tabKey : tabsList.getString(ORDERED_TABS).split(DELIMINATOR)){
       this.getTabs().add(createTab(tabKey));
     }
     this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
@@ -43,7 +44,7 @@ public class AllTabs extends TabPane {
     try {
       Class<?> clss = Class.forName(TABS_PATH + tabsList.getString(tabNameKey));
       Constructor<?> ctor = clss.getDeclaredConstructor(CallbackDispatcher.class);
-      BasicTab createdTab = (BasicTab) ctor.newInstance(callbackDispatcher);
+      AbstractTab createdTab = (AbstractTab) ctor.newInstance(callbackDispatcher);
       createdTab.setId(tabNameKey + "Tab");
       tabs.add(createdTab);
       return new Tab(ViewResourcesSingleton.getInstance().getString(tabNameKey), createdTab);
@@ -58,7 +59,7 @@ public class AllTabs extends TabPane {
    * loads the elements for all of the tabs
    */
   public void loadAllTabs(){
-    for (BasicTab tab : tabs){
+    for (AbstractTab tab : tabs){
       tab.loadElements();
     }
   }
