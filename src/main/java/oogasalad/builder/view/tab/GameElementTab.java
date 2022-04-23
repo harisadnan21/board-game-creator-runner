@@ -24,7 +24,7 @@ import java.util.Collection;
  *
  * @author Ricky Weerts, Mike Keohane & Shaan Gondalia
  */
-public class GameElementTab extends BasicTab {
+public class GameElementTab extends AbstractTab {
   private static final String VALID_NAME_REGEX = "^[\\w\\d \\t?.\\-/!@#$%^&*()+=\\[\\]{}<>:;_]+$";
 
   private GameElementList elementList;

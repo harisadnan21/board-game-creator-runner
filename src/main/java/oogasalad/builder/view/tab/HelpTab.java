@@ -17,7 +17,7 @@ import oogasalad.builder.view.callback.GetPropertiesCallback;
  * Displays help to explain how all the other tabs work
  * @author Mike Keohane
  */
-public class HelpTab extends BasicTab{
+public class HelpTab extends AbstractTab {
   public static String HELP = "help";
   public static String HELP_RESOURCE_PATH = "/view/";
   public static String ELEMENTS_PACKAGE = "TabsList";

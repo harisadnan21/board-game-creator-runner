@@ -22,7 +22,7 @@ public class AllTabs extends TabPane {
   public static final String TABS_PATH = "oogasalad.builder.view.tab.";
   private ResourceBundle tabsList;
   private CallbackDispatcher callbackDispatcher;
-  private Collection<BasicTab> tabs;
+  private Collection<AbstractTab> tabs;
 
   public AllTabs(CallbackDispatcher callbackDispatcher){
     this.callbackDispatcher = callbackDispatcher;
@@ -43,7 +43,7 @@ public class AllTabs extends TabPane {
     try {
       Class<?> clss = Class.forName(TABS_PATH + tabsList.getString(tabNameKey));
       Constructor<?> ctor = clss.getDeclaredConstructor(CallbackDispatcher.class);
-      BasicTab createdTab = (BasicTab) ctor.newInstance(callbackDispatcher);
+      AbstractTab createdTab = (AbstractTab) ctor.newInstance(callbackDispatcher);
       createdTab.setId(tabNameKey + "Tab");
       tabs.add(createdTab);
       return new Tab(ViewResourcesSingleton.getInstance().getString(tabNameKey), createdTab);
@@ -58,7 +58,7 @@ public class AllTabs extends TabPane {
    * loads the elements for all of the tabs
    */
   public void loadAllTabs(){
-    for (BasicTab tab : tabs){
+    for (AbstractTab tab : tabs){
       tab.loadElements();
     }
   }
