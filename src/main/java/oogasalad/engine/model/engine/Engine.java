@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 import oogasalad.engine.model.ai.RandomPlayer;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
@@ -36,7 +38,7 @@ public class Engine {
   private Consumer<Set<Position>> setViewValidMarks;
 
   public Engine(Game game, Collection<Move> moves,
-      Collection<EndRule> endRules, Consumer<Board> update, Consumer<Set<Position>> setValidMarks) {
+      Collection<EndRule> endRules, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, IntConsumer endGame) {
 
     myGame = game;
     setViewValidMarks = setValidMarks;

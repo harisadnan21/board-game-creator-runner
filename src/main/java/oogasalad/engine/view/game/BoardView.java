@@ -180,7 +180,7 @@ public class BoardView implements PropertyChangeListener{
 
   public void addController(Controller c) {
     myController = c;
-    ImmutableBoard board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers);
+    ImmutableBoard board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers, this::endGame);
     updateBoard(board);
   }
 
