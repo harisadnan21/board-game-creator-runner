@@ -36,6 +36,8 @@ public class ViewManager {
   public static double BOARDX;
   public static double BOARDY ;
   public static String CSS_RESOURCE = "/css/";
+  public static String DEFAULT_CSS = "duke";
+  public static String CSS_EXTENSION = ".css";
 
 
   private OpeningView openingView;
@@ -44,11 +46,12 @@ public class ViewManager {
   private String cssFilepath;
   private File currGame;
   private List<Stage> gameStages = new ArrayList<>();
+  private List<Scene> allScenes = new ArrayList<>();
 
 
   public ViewManager(Stage s) throws IOException {
     stage = s;
-    cssFilepath = CSS_RESOURCE + "light.css";
+    cssFilepath = CSS_RESOURCE + DEFAULT_CSS + CSS_EXTENSION;
     fis = new FileInputStream("data/Properties/ViewManagerProperties.properties");
     Properties prop = new Properties();
     prop.load(fis);
@@ -58,7 +61,7 @@ public class ViewManager {
     BOARDX = Double.parseDouble(prop.getProperty("BOARDX"));
     BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
     currScene = createOpeningView().makeScene();
-
+    allScenes.add(currScene);
   }
 
   public Scene getCurrScene() {
@@ -67,7 +70,6 @@ public class ViewManager {
 
   public OpeningView createOpeningView() {
     openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath);
-    //openingView.getPlayGame().setOnAction(e -> startGame(openingView.getFileChoice()));
     currGame = openingView.getFileChoice();
     openingView.getContSel().setOnAction(e -> selectMode(openingView.getFileChoice()));
     openingView.getDashboard().setOnAction(e -> showGames());
@@ -93,6 +95,7 @@ public class ViewManager {
     Scene newScene = pmv.makeScene();
     newStage.setScene(newScene);
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
+    allScenes.add(newScene);
     pmv.getOnePlayer().setOnAction(e -> selectAI(newStage));
     pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage));
     newStage.show();
@@ -149,6 +152,14 @@ public class ViewManager {
   private void updateStage() {
     stage.setScene(currScene);
     stage.show();
+  }
+
+  private void updateSceneCSS(String style) {
+    cssFilepath = CSS_RESOURCE + style + CSS_EXTENSION;
+    currScene.getStylesheets().add(cssFilepath);
+    for (Scene s : allScenes) {
+      s.getStylesheets().add(cssFilepath);
+    }
   }
 
 }

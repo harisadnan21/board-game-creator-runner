@@ -1,23 +1,22 @@
 package oogasalad;
 
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import oogasalad.view.OpeningSplashScreen;
+
 /**
  * Feel free to completely change this code or delete it entirely. 
  */
-public class Main {
-    /**
-     * A method to test (and a joke :).
-     */
-    public double getVersion () {
-        return 0.001;
-    }
+public class Main extends Application {
 
-    /**
-     * Start of the program.
-     */
-    public static void main (String[] args) {
-        Main m = new Main();
-        System.out.println(m.getVersion());
-
+    @Override
+    public void start(Stage stage) throws Exception {
+        OpeningSplashScreen opening = new OpeningSplashScreen(stage);
+        Scene scene = opening.makeScene();
+        stage.setTitle("OOGABOOGA");
+        stage.setScene(scene);
+        stage.show();
     }
 }

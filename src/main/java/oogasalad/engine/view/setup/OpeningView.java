@@ -27,7 +27,7 @@ public class OpeningView {
   private Button gameBuilder;
   private Button dashboard;
   private Button contSel;
-  private FileOpener fileOpener;
+  private DirectoryOpener directoryOpener;
   private File myFileChoice;
   private ResourceBundle myResources;
   private String cssFilePath;
@@ -45,7 +45,7 @@ public class OpeningView {
     elements.getChildren().addAll(gameText, buttonLayout);
     elements.setAlignment(Pos.CENTER);
     root.setCenter(elements);
-    fileOpener = new FileOpener();
+    directoryOpener = new DirectoryOpener();
   }
 
   public Scene makeScene() {
@@ -101,9 +101,8 @@ public class OpeningView {
     Stage myStage = new Stage();
     uploadFile.setOnAction(e -> {
       try {
-        File script = fileOpener.fileChoice(myStage);
+        File script = directoryOpener.fileChoice(myStage);
         myFileChoice = script;
-        handleInput(fileOpener.getRootObject(script));
         contSel.setDisable(false);
       } catch (NullPointerException nullPointerException) {
         System.out.println(nullPointerException.getMessage());
@@ -111,10 +110,6 @@ public class OpeningView {
         System.out.println(err.getMessage());
       }
     });
-  }
-
-  private void handleInput(JSONObject object) {
-    fileObject = object;
   }
 
   private Button makeButton(String buttonText) {

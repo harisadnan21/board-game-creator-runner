@@ -4,10 +4,11 @@
   -fx-light-blue: #72E8E1;
   -fx-board-color-A: #BEDDDB;
   -fx-board-color-B: #97CDC9;
+  -fx-duke-blue: #012169;
   -fx-primaryColor: white;
   -fx-secondaryColor: -fx-light-gray;
   -fx-triColor: -fx-dark-gray;
-  -fx-background-color: -fx-light-gray;
+  -fx-background-color: -fx-duke-blue;
 }
 
 /*
@@ -16,7 +17,7 @@ Opening View
 #opening-text {
   -fx-font-size: 48;
   -fx-font-family: "Montserrat";
-  -fx-fill: -fx-dark-gray;
+  -fx-fill: -fx-light-gray;
 }
 
 #game-text {
@@ -31,7 +32,7 @@ Opening View
 #opening-button {
   -fx-font-family: "Montserrat";
   -fx-font-size: 17;
-  -fx-fill: -fx-dark-gray;
+  -fx-fill: -fx-light-gray;
   -fx-alignment: center;
   -fx-max-width: 120;
   -fx-min-width: 120;
@@ -101,7 +102,7 @@ game text
 #player-text {
   -fx-font-size: 20;
   -fx-font-family: "Montserrat";
-  -fx-fill: -fx-dark-gray;
+  -fx-fill: -fx-light-gray;
 }
 
 /*
@@ -132,7 +133,6 @@ control panel
 
 .title{
   -fx-alignment: center;
-  -fx-font-family: "Montserrat";
   -fx-font-size: 40;
   -fx-background-color: -fx-secondaryColor;
   -fx-border-color: -fx-triColor;
@@ -140,7 +140,7 @@ control panel
 }
 
 .gameSelection{
-  -fx-background-color: -fx-primaryColor;
+  -fx-background-color: -fx-duke-blue;
   -fx-alignment: center;
   -fx-padding: 10px;
   -fx-vgap: 10px;
@@ -159,7 +159,6 @@ control panel
   -fx-border-radius: 8px;
   -fx-background-radius: 8px;
   -fx-border-color: -fx-triColor;
-  -fx-font-family: "Montserrat";
   -fx-font-size: 30;
   -fx-font-weight: bold;
   -fx-alignment: center;
@@ -185,7 +184,6 @@ control panel
 }
 
 .infoTitle{
-  -fx-font-family: "Montserrat";
   -fx-font-size: 30;
   -fx-underline: true;
   -fx-text-fill: -fx-triColor;
@@ -193,13 +191,11 @@ control panel
 }
 
 .infoAuthor{
-  -fx-font-family: "Montserrat";
   -fx-font-size: 20;
   -fx-text-fill: -fx-triColor;
 }
 
 .infoDescription{
-  -fx-font-family: "Montserrat";
   -fx-text-fill: -fx-triColor;
   -fx-font-size: 15;
   -fx-wrap-text: true;
@@ -208,13 +204,13 @@ control panel
 #p-mode-insns, #ai-insns {
   -fx-font-family: "Montserrat";
   -fx-font-size: 24;
-  -fx-fill: -fx-dark-gray;
+  -fx-fill: -fx-light-gray;
 }
 
 #p-mode-button {
   -fx-font-family: "Montserrat";
   -fx-font-size: 17;
-  -fx-fill: -fx-dark-gray;
+  -fx-fill: -fx-light-gray;
   -fx-alignment: center;
   -fx-max-width: 120;
   -fx-min-width: 120;
