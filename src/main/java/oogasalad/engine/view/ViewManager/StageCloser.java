@@ -6,12 +6,25 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class StageCloser {
-
   List<Stage> stages;
+
+  /**
+   *
+   * closes the stage that's supposed to be closed
+   *
+   */
   public StageCloser() {
     stages = new ArrayList<>();
   }
 
+  /**
+   *
+   * figures out and closes the correct stage (game view)
+   *
+   * @param gameStages list of all active game stages
+   * @param scene the current scene
+   * @return the updated list of game stages
+   */
   public List<Stage> closeStage(List<Stage> gameStages, Scene scene) {
     copyOf(gameStages);
     Stage stage = findClosedStage(scene);

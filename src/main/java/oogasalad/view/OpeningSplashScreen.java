@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.view.BuilderView;
 import oogasalad.engine.view.ViewManager.ViewManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class OpeningSplashScreen {
 

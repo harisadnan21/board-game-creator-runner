@@ -21,10 +21,14 @@ import oogasalad.engine.view.ApplicationAlert;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
+/**
+ * Individual Icon for each game
+ * @author Robert Cranston
+ */
 public class GameIcon extends VBox {
   public static final int ICON_WIDTH = 150;
   public static final int ICON_HEIGHT = 150;
+
   public static final String CONFIG_FILE = "config.json";
   private ImageView image;
   private String myName;
@@ -35,6 +39,13 @@ public class GameIcon extends VBox {
 
   private static final Logger LOG = LogManager.getLogger(GameIcon.class);
 
+  /**
+   * creates game icon
+   * @param updateInfo callback to update info panel
+   * @param gameFolder folder that holds all game elements
+   * @param imagePath path to image for tile
+   * @param name name of game
+   */
   public GameIcon(
       BiConsumer<Map<String, String>, File> updateInfo,
       File gameFolder, String imagePath, String name) {

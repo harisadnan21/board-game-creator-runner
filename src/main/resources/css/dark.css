@@ -184,6 +184,10 @@ control panel
 .iconName{
   -fx-alignment: center;
 }
+.scroll{
+  -fx-fit-to-width: true;
+  -fx-fit-to-height: true;
+}
 
 .infoPanel{
   -fx-padding: 10px;

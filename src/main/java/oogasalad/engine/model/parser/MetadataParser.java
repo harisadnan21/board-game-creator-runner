@@ -10,7 +10,7 @@ import org.json.JSONObject;
 /**
  * Reads in needed metadata headers, returning a map from header to value
  *
- * @author
+ * @author Robert Cranston
  */
 public class MetadataParser extends AbstractParser<Map<String, String>>{
 
