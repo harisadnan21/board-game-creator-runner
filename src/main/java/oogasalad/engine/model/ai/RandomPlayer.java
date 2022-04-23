@@ -5,9 +5,9 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
+import oogasalad.engine.model.player.AbstractPlayer;
 import oogasalad.engine.model.player.Player;
 
 /**
@@ -16,7 +16,7 @@ import oogasalad.engine.model.player.Player;
  *
  * @author Jake Heller
  */
-public class RandomPlayer extends Player {
+public class RandomPlayer extends AbstractPlayer {
 
   public RandomPlayer(Oracle oracle,
       BiConsumer<Player, Choice> executeMove) {
@@ -25,7 +25,7 @@ public class RandomPlayer extends Player {
 
   @Override
   public void chooseMove(Board board) {
-    super.chooseMove(board);
+    setGameBoard(board);
     Stream<Choice> choices = getOracle().getValidChoices(getGameBoard());
     List<Choice> choicesList = choices.toList();
     Random rand = new Random();

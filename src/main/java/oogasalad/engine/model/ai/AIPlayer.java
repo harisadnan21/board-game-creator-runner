@@ -3,10 +3,10 @@ package oogasalad.engine.model.ai;
 import oogasalad.engine.model.ai.moveSelection.Selects;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.Choice;
-import oogasalad.engine.model.player.Player;
+import oogasalad.engine.model.player.AbstractPlayer;
 
 
-public class AIPlayer extends Player {
+public class AIPlayer extends AbstractPlayer {
 
   private final int playerNumber;
   private final Selects selector;
@@ -25,7 +25,7 @@ public class AIPlayer extends Player {
 
   @Override
   public void chooseMove(Board activeBoard) {
-    super.chooseMove(activeBoard);
+    setGameBoard(activeBoard);
     Board board = getGameBoard();
     AIChoice AIChoice = this.chooseAction(board);
     executeMove(this, (Choice) AIChoice); //Fix unsafe cast

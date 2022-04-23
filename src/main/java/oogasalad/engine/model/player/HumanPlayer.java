@@ -10,13 +10,12 @@ import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.rule.Move;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class HumanPlayer extends Player{
-  private static final Logger LOG = LogManager.getLogger(Player.class);
+public class HumanPlayer extends AbstractPlayer {
+  private static final Logger LOG = LogManager.getLogger(HumanPlayer.class);
 
   private Position mySelectedCell = null;
   private Set<Position> myValidMoves = null;
@@ -33,7 +32,7 @@ public class HumanPlayer extends Player{
 
   @Override
   public void chooseMove(Board board) {
-    super.chooseMove(board);
+    setGameBoard(board);
   }
 
   public void onCellSelect(int i, int j) {
