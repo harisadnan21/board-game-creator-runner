@@ -10,6 +10,7 @@
     "rules": [{
         "representativeX": 1,
         "representativeY": 2,
+        "isPersistent": 0,
         "name": "jump",
         "conditions": "atTopRight",
         "actions": "moveTopRight"

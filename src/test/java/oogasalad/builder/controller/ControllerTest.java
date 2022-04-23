@@ -75,6 +75,7 @@ public class ControllerTest extends DukeApplicationTest {
   private static final String BLACK = "0x000000ff";
   private static final String WHITE = "0xffffffff";
   public static final String BAD_PATH_TO_DIRECTORY = "bad/path/to/directory";
+  private static final String IS_PERSISTENT = "isPersistent";
 
   private BuilderController controller;
   private Collection<Property> properties;
@@ -201,6 +202,7 @@ public class ControllerTest extends DukeApplicationTest {
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
+    properties.add(PropertyFactory.makeProperty(IS_PERSISTENT, 0));
     controller.update(new UpdateGameElementCallback(RULE_TYPE, RULE_NAME, properties));
     File file = new File(TEST_SAVE_DIRECTORY);
     controller.save(new SaveCallback(file));
