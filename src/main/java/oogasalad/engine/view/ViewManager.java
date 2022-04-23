@@ -36,8 +36,9 @@ public class ViewManager {
   public static double BOARDX;
   public static double BOARDY ;
   public static String CSS_RESOURCE = "/css/";
-  public static String DEFAULT_CSS = "duke";
+  public static String DEFAULT_CSS = "light";
   public static String CSS_EXTENSION = ".css";
+  public static String DEFAULT_LANGUAGE = "English";
 
 
   private OpeningView openingView;
@@ -47,9 +48,11 @@ public class ViewManager {
   private File currGame;
   private List<Stage> gameStages = new ArrayList<>();
   private List<Scene> allScenes = new ArrayList<>();
+  private String language;
 
 
   public ViewManager(Stage s) throws IOException {
+    language = DEFAULT_LANGUAGE;
     stage = s;
     cssFilepath = CSS_RESOURCE + DEFAULT_CSS + CSS_EXTENSION;
     fis = new FileInputStream("data/Properties/ViewManagerProperties.properties");
@@ -69,17 +72,26 @@ public class ViewManager {
   }
 
   public OpeningView createOpeningView() {
-    openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath);
+    openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath, language);
     currGame = openingView.getFileChoice();
+    openingView.getLanguageSelect().setOnAction(e -> setLanguage(openingView.getLanguageSelect().getLanguage()));
     openingView.getContSel().setOnAction(e -> selectMode(openingView.getFileChoice()));
     openingView.getDashboard().setOnAction(e -> showGames());
     return openingView;
   }
 
   public GameView createGameView(BoardView board, Controller controller) {
-    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath);
+    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath, language);
     gameView.getHome().setOnAction(e -> goHome(gameView.getScene()));
     return gameView;
+  }
+
+  private void setLanguage(String currLanguage) {
+    language = currLanguage;
+    System.out.println(language);
+    currScene = createOpeningView().makeScene();
+    stage.setScene(currScene);
+    allScenes.add(currScene);
   }
 
   private void showGames() {
@@ -91,7 +103,7 @@ public class ViewManager {
   private void selectMode(File game) {
     Stage newStage = new Stage();
     newStage.setTitle(game.getName());
-    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, game);
+    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, language);
     Scene newScene = pmv.makeScene();
     newStage.setScene(newScene);
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
@@ -102,7 +114,7 @@ public class ViewManager {
   }
 
   private void selectAI(Stage newStage) {
-    AISelectView aiView = new AISelectView(WIDTH, HEIGHT, cssFilepath);
+    AISelectView aiView = new AISelectView(WIDTH, HEIGHT, cssFilepath, language);
     newStage.setScene(aiView.makeScene());
   }
 
@@ -117,7 +129,7 @@ public class ViewManager {
         parser = new GameParser(game);
       }
       Board board = parser.parseBoard();
-      BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath);
+      BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath, language);
       Controller controller = new Controller(board, parser);
       boardView.addController(controller);
       newStage.setScene(createGameView(boardView, controller).makeScene());
@@ -141,7 +153,6 @@ public class ViewManager {
 
   private Stage findClosedStage(Scene scene) {
     for (Stage stage : gameStages) {
-      System.out.println("stage");
       if (stage.getScene().equals(scene)) {
         return stage;
       }
