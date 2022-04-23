@@ -5,10 +5,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import oogasalad.engine.cheat_codes.CheatCode;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 
@@ -35,7 +38,7 @@ public class ViewManager {
   public static double BOARDX;
   public static double BOARDY ;
   public static String CSS_RESOURCE = "/css/";
-
+  Map<KeyCode, ? extends CheatCode> cheatCodes;
 
   private OpeningView openingView;
   private Scene currScene;
@@ -109,8 +112,11 @@ public class ViewManager {
       Board board = parser.parseBoard();
       BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath);
       Controller controller = new Controller(board, parser);
+      setCheatCodes(board);
       boardView.addController(controller);
-      newStage.setScene(createGameView(boardView, controller).makeScene());
+      Scene newScene = createGameView(boardView, controller).makeScene();
+      addKeyPress(newScene);
+      newStage.setScene(newScene);
       gameStages.add(newStage);
     }
     catch (IOException e) {
@@ -118,6 +124,18 @@ public class ViewManager {
     }
   }
 
+  private void setCheatCodes(Board board) {
+
+  }
+
+  //Checks for keys being pressed on game scene
+  private void addKeyPress(Scene scene){
+    scene.setOnKeyPressed(e -> handleKeyPressed(e.getCode()));
+  }
+
+  private void handleKeyPressed(KeyCode code) {
+
+  }
   private void goHome(Scene scene) {
     currScene = createOpeningView().makeScene();
     closeStage(findClosedStage(scene));
