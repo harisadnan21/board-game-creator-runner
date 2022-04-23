@@ -1,9 +1,10 @@
 package oogasalad.engine.cheat_codes;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.ImmutableBoard;
 
-public interface CheatCode {
+public abstract class CheatCode {
 
-  public ImmutableBoard accept(Board board);
+  public Board accept(Board board){
+    return board;
+  };
 }

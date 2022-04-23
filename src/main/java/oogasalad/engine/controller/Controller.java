@@ -3,6 +3,7 @@ package oogasalad.engine.controller;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Consumer;
+import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.driver.BoardHistoryException;
@@ -87,6 +88,10 @@ public class Controller {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  public void setBoard(Board board){
+    myGame.setBoard(board);
   }
 
   /**

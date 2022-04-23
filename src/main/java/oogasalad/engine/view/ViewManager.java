@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import oogasalad.engine.cheat_codes.CheatCode;
+import oogasalad.engine.cheat_codes.RemoveRandomPlayer1Piece;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 
@@ -28,7 +29,7 @@ import oogasalad.engine.view.setup.OpeningView;
 
 
 public class ViewManager {
-
+  public static final Map<KeyCode, Object> cheatCodes = Map.of(KeyCode.O, new RemoveRandomPlayer1Piece());
   public static double WIDTH = 600;
   public static double HEIGHT = 400;
   public static double GAME_SELECTION_WIDTH = 1000;
@@ -39,7 +40,6 @@ public class ViewManager {
   public static double BOARDX;
   public static double BOARDY ;
   public static String CSS_RESOURCE = "/css/";
-  Map<KeyCode, ? extends CheatCode> cheatCodes;
 
   private OpeningView openingView;
   private Scene currScene;
@@ -47,6 +47,7 @@ public class ViewManager {
   private String cssFilepath;
   private File currGame;
   private List<Stage> gameStages = new ArrayList<>();
+  private Controller controller;
 
 
   public ViewManager(Stage s) throws IOException {
@@ -118,8 +119,7 @@ public class ViewManager {
       }
       Board board = parser.parseBoard();
       BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath);
-      Controller controller = new Controller(board, parser);
-      setCheatCodes(board);
+      controller = new Controller(board, parser);
       boardView.addController(controller);
       Scene newScene = createGameView(boardView, controller).makeScene();
       addKeyPress(newScene);
@@ -131,18 +131,21 @@ public class ViewManager {
     }
   }
 
-  private void setCheatCodes(Board board) {
-
-  }
 
   //Checks for keys being pressed on game scene
   private void addKeyPress(Scene scene){
     scene.setOnKeyPressed(e -> handleKeyPressed(e.getCode()));
   }
 
-  private void handleKeyPressed(KeyCode code) {
 
+  private void handleKeyPressed(KeyCode code) {
+    if(cheatCodes.containsKey(code)) {
+      CheatCode cheatCode = (CheatCode) cheatCodes.get(code);
+      Board board = cheatCode.accept(controller.getGame().getBoard());
+      controller.setBoard(board);
+    }
   }
+
   private void goHome(Scene scene) {
     currScene = createOpeningView().makeScene();
     closeStage(findClosedStage(scene));

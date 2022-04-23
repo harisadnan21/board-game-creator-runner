@@ -66,6 +66,9 @@ public class HumanPlayer extends Player{
       LOG.info("{} valid moves for this piece\n", myValidMoves.size());
     }
   }
+  public Position getMySelectedCell(){
+    return mySelectedCell;
+  }
 
   private void setMarkers(Set<Position> positions) {
     mySetValidMarks.accept(positions);
