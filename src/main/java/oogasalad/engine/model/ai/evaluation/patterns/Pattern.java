@@ -81,7 +81,12 @@ public class Pattern implements Comparable<Pattern> {
 
   @Override
   public int compareTo(Pattern pattern) {
-    return this.positionStates.get().compareTo(pattern.getPositionStates().get());
+    if(!this.positionStates.get().equals(pattern.getPositionStates().get())) {
+      return this.positionStates.get().compareTo(pattern.getPositionStates().get());
+    }
+
+    return this.positionStates.size() - pattern.positionStates.size();
+
   }
 
   @Override
