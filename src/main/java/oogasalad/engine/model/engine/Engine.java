@@ -34,15 +34,17 @@ public class Engine {
 
   private Oracle myOracle;
 
-  private Consumer<Set<Position>> setViewValidMarks;
+  private IntConsumer myEndGame;
+
 
   public Engine(Game game, PlayerManager players, Collection<Move> moves,
       Collection<EndRule> endRules, Consumer<Set<Position>> setValidMarks, IntConsumer endGame) {
 
     myGame = game;
-    setViewValidMarks = setValidMarks;
 
     myPlayerManager = players;
+
+    myEndGame = endGame;
 
     if (moves == null) {
       LOG.warn("moves are null");
@@ -87,17 +89,27 @@ public class Engine {
       Move move = choice.move();
       Position referencePoint = choice.position();
       if (move.isValid(getGameBoard(), referencePoint)) {
-        Board board = move.doMove(getGameBoard(), referencePoint);
+        //Board board = move.doMove(getGameBoard(), referencePoint);
+        Board board = myOracle.getNextState(getGameBoard(), choice);
         // LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
 
         board = myOracle.incrementPlayer(board);
         myGame.setBoard(board);
+
+        checkWin();
 
         pingActivePlayer();
 
       } else {
         LOG.warn("Player's move is not valid");
       }
+    }
+  }
+
+  private void checkWin() {
+    if (myOracle.isWinningState(getGameBoard())) {
+      int winner = myOracle.getWinner(getGameBoard());
+      myEndGame.accept(winner);
     }
   }
 
