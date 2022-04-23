@@ -3,6 +3,7 @@ package oogasalad.engine.model.ai;
 import oogasalad.engine.model.ai.moveSelection.Selects;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.Choice;
+import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.player.Player;
 
 
@@ -10,10 +11,11 @@ public class AIPlayer extends Player {
 
   private final int playerNumber;
   private final Selects selector;
+  private Oracle oracle;
 
 
   public AIPlayer(int playerNumberForAI, Selects selects) {
-    super(null, null); // should be engine
+    super(null); // should be engine
     this.playerNumber = playerNumberForAI;
     this.selector = selects;
   }
@@ -24,15 +26,14 @@ public class AIPlayer extends Player {
 
 
   @Override
-  public void chooseMove(Board activeBoard) {
-    super.chooseMove(activeBoard);
+  public void setGameBoard(Board activeBoard) {
+    super.setGameBoard(activeBoard);
     Board board = getGameBoard();
     AIChoice AIChoice = this.chooseAction(board);
     executeMove(this, (Choice) AIChoice); //Fix unsafe cast
   }
 
-  @Override
-  public void onCellSelect(int i, int j) {
-    throw new NoSuchMethodError("no");
+  protected Oracle getOracle() {
+    return oracle;
   }
 }

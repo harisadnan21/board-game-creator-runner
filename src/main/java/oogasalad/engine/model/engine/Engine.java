@@ -1,6 +1,5 @@
 package oogasalad.engine.model.engine;
 
-import java.time.Instant;
 import java.util.Collection;
 
 import java.util.HashMap;
@@ -12,6 +11,7 @@ import java.util.function.Consumer;
 import oogasalad.engine.model.ai.RandomPlayer;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.player.InteractivePlayer;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.rule.Move;
@@ -26,7 +26,7 @@ public class Engine {
 
   private static final Logger LOG = LogManager.getLogger(Engine.class);
 
-  private Map<Integer, Player> myPlayers = new HashMap<>();
+  private final Map<Integer, InteractivePlayer> myPlayers = new HashMap<>();
 
   // from Engine
   private Game myGame;
@@ -73,7 +73,7 @@ public class Engine {
 
   private void pingActivePlayer() {
     LOG.info("Player pinged: {}\n", getGameStateBoard().getPlayer());
-    myPlayers.get(getGameStateBoard().getPlayer()).chooseMove(myGame.getBoard());
+    myPlayers.get(getGameStateBoard().getPlayer()).setGameBoard(myGame.getBoard());
   }
 
   /**
@@ -132,7 +132,7 @@ public class Engine {
    */
   public void onCellSelect(int row, int column) {
     Board board = getGameStateBoard();
-    Player activePlayer = myPlayers.get(board.getPlayer());
+    InteractivePlayer activePlayer = myPlayers.get(board.getPlayer());
     activePlayer.onCellSelect(row, column);
   }
 
