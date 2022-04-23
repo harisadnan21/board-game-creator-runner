@@ -48,6 +48,8 @@ class BuilderViewTest extends DukeApplicationTest {
     void testLogin() {
         // We know the board tab will exist after logging in, so just use that to check
         assertTrue(lookup("#boardTab").tryQuery().isPresent());
+        assertTrue(lookup("#pieceTab").tryQuery().isPresent());
+        assertTrue(lookup("#actionTab").tryQuery().isPresent());
 
     }
 
@@ -111,6 +113,7 @@ class BuilderViewTest extends DukeApplicationTest {
     @Test
     public void addPiece(){
         clickOn("#new-piece");
+
         var playerSelector = lookup("#integerSelector-player").queryAs(Spinner.class);
         playerSelector.getEditor().setText(""+1);
         playerSelector.commitValue();
