@@ -62,6 +62,7 @@ public class BuilderView {
     HBox menu = new HBox();
     menu.getChildren().add(makeButton("save", e -> saveConfig()));
     menu.getChildren().add(makeButton("load", e -> loadConfig()));
+    menu.getStyleClass().add("saveMenu");
     return menu;
   }
 
