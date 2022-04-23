@@ -103,7 +103,7 @@ public class ViewManager {
   private void selectMode(File game) {
     Stage newStage = new Stage();
     newStage.setTitle(game.getName());
-    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, game, language);
+    PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, language);
     Scene newScene = pmv.makeScene();
     newStage.setScene(newScene);
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());

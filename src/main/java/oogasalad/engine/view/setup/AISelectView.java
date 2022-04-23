@@ -7,42 +7,41 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import oogasalad.engine.model.ai.enums.Difficulty;
 
-public class AISelectView {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
-  private ResourceBundle myResources;
-  private String cssFilePath;
-  private Text insns;
-  private FlowPane buttonLayout;
-  private VBox windowLayout;
-  private BorderPane root;
-  private double width;
-  private double height;
+public class AISelectView extends SelectionView {
+//  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+//  private ResourceBundle myResources;
+//  private String cssFilePath;
+//  private Text insns;
+//  private FlowPane buttonLayout;
+//  private VBox windowLayout;
+//  private BorderPane root;
+//  private double width;
+//  private double height;
 
   Map<String, Button> AIButtons = new HashMap<>();
 
   public AISelectView(double w, double h, String css, String language) {
-    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
-    cssFilePath = css;
-    width = w;
-    height = h;
-    setup();
-    root = new BorderPane();
-    root.setCenter(windowLayout);
+    super(w, h, css, language);
+//    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+//    cssFilePath = css;
+//    width = w;
+//    height = h;
+//    setup();
+//    root = new BorderPane();
+//    root.setCenter(windowLayout);
   }
 
-  public Scene makeScene() {
-    Scene scene = new Scene(root, width, height);
-    scene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
-    return scene;
-  }
+//  public Scene makeScene() {
+//    Scene scene = new Scene(root, width, height);
+//    scene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
+//    return scene;
+//  }
 
-  private void setup() {
+  protected void setup() {
     windowLayout = new VBox();
     windowLayout.setId("ai-window-layout");
     makeText();
@@ -50,12 +49,12 @@ public class AISelectView {
     windowLayout.getChildren().addAll(insns, buttonLayout);
   }
 
-  private void makeText() {
+  protected void makeText() {
     insns = new Text(myResources.getString("AIInstructions"));
     insns.setId("ai-insns");
   }
 
-  private void makeButtons() {
+  protected void makeButtons() {
     buttonLayout = new FlowPane();
     buttonLayout.setId("ai-button-layout");
     Difficulty[] aiDifficulties = Difficulty.class.getEnumConstants();
@@ -67,7 +66,7 @@ public class AISelectView {
     buttonLayout.setPrefWrapLength(500);
   }
 
-  private Button makeButton(String text) {
+  protected Button makeButton(String text) {
     Button b = new Button(text);
     b.setId("p-mode-button");
     return b;
