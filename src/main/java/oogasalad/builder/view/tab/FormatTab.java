@@ -18,8 +18,8 @@ import oogasalad.builder.view.callback.GetPropertiesCallback;
 import java.util.ResourceBundle;
 
 
-public class FormatTab extends BasicTab{
-
+public class FormatTab extends AbstractTab{
+    public static String FORMAT = "format";
     public static String HELP_RESOURCE_PATH = "/view/";
     public static String ELEMENTS_PACKAGE = "FormatList";
     private StackPane leftDisplay;
@@ -27,28 +27,29 @@ public class FormatTab extends BasicTab{
     private String[] elementNames = {"tabFormat", "Sunset", "DukevUNC"};
     //private static final ResourceBundle elementNames = ResourceBundle.getBundle(HELP_RESOURCE_PATH + ELEMENTS_PACKAGE);
 
-    public FormatTab(String type, CallbackDispatcher dispatcher) { super(type, dispatcher);}
+    public FormatTab(CallbackDispatcher dispatcher) { super(FORMAT, dispatcher);}
 
     @Override
     protected Node setupRightSide() {
         rightHelpBox = new VBox();
-        for (String name : elementNames){
-            rightHelpBox.getChildren().add(makeButton(name, e -> displayChangeBackground()));
-        }
-        rightHelpBox.getStyleClass().add("rightPane");
+//        for (String name : elementNames){
+//            rightHelpBox.getChildren().add(makeButton(name, e -> displayChangeBackground()));
+//        }
+        //rightHelpBox.getStyleClass().add("rightPane");
         return rightHelpBox;
+        //return null;
     }
 
     @Override
     protected Node setupLeftSide() {
         leftDisplay = new StackPane();
-        leftDisplay.getStyleClass().add("helpBox");
+//        //leftDisplay.getStyleClass().add("helpBox");
         return leftDisplay;
+        //return null;
     }
 
     private void displayChangeBackground(){
-        leftDisplay.getChildren().clear();
-
+        //leftDisplay.getChildren().clear();
 
     }
 
