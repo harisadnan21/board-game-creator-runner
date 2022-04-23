@@ -46,6 +46,7 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
                 }
                 setText(gameElementData.name);
                 var cell = this;
+                this.setId(gameElementData.name() + "Cell");
                 gameElementData.properties().stream()
                         .filter(property -> property.name().equals(IMAGE_PROPERTY_NAME) || property.name().endsWith("-" + IMAGE_PROPERTY_NAME))
                         .findFirst()
