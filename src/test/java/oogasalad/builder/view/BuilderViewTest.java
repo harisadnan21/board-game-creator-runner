@@ -42,6 +42,10 @@ class BuilderViewTest extends DukeApplicationTest {
   public void start(Stage stage) {
     this.stage = stage;
     builderView = new BuilderView(stage);
+    builderView.registerCallbackHandler(
+        GetPropertiesCallback.class, cb -> List.of(
+             new StringProperty("required-author", "me", "oogasalad.builder.view.property.StringField"),
+            new StringProperty("required-description", "descriptionTEST", "oogasalad.builder.view.property.TextAreaField" )));
     clickOn("#loginButton");
   }
 
@@ -62,7 +66,11 @@ class BuilderViewTest extends DukeApplicationTest {
 
   @Test
   public void testMetaDataAndSave(){
-
+    clickOn("#saveButton");
+    //var desriptionText = lookup("#metaScene").lookup("#textArea-description").queryAs(TextArea.class);
+  //  assertTrue(lookup("#metaBox").tryQuery().isPresent());
+   // assertTrue(lookup("#stringField-author").tryQuery().isPresent());
+   // interact(lookup("#metaScene"));
   }
 
 }

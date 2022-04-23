@@ -71,6 +71,7 @@ public class BuilderView {
     Button result = new Button();
     String label = ViewResourcesSingleton.getInstance().getString(property);
     result.setText(label);
+    result.setId(property + "Button");
     result.setOnAction(handler);
     return result;
   }
