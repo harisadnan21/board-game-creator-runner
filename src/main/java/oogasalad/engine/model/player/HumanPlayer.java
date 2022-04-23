@@ -26,37 +26,41 @@ public class HumanPlayer extends Player{
 
   private Consumer<Set<Position>> mySetValidMarks;
 
-  public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
-    super(oracle, game, executeMove);
+  public HumanPlayer(Oracle oracle, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
+    super(oracle, executeMove);
     mySetValidMarks = setValidMarks;
   }
 
   @Override
-  public void chooseMove() {
+  public void chooseMove(Board board) {
+    super.chooseMove(board);
   }
 
   public void onCellSelect(int i, int j) {
+    System.out.println("onCellSelect Called");
     Position cellClicked = new Position(i, j);
-    if (mySelectedCell == null) {
-      makePieceSelected(i, j);
-    }
-    else {
-      Oracle oracle = getOracle();
-      Board board = getGameBoard();
-      Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
-      if (move.isPresent()) {
-        mySelectedMove = move.get();
-        myChoice = new Choice(mySelectedCell, mySelectedMove);
-        LOG.info("Move {} selected", mySelectedMove.getName());
+    if (getGameBoard() != null) {
+      if (mySelectedCell == null) {
+        makePieceSelected(i, j);
+      } else {
+        Oracle oracle = getOracle();
+        Board board = getGameBoard();
+        Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
+        if (move.isPresent()) {
+          mySelectedMove = move.get();
+          myChoice = new Choice(mySelectedCell, mySelectedMove);
+          LOG.info("Move {} selected", mySelectedMove.getName());
+          resetSelected();
+          executeMove(this, myChoice);
+        }
         resetSelected();
-        executeMove(this, myChoice);
       }
-      resetSelected();
     }
   }
 
   private void makePieceSelected(int x, int y) {
     Board board = getGameBoard();
+    System.out.println("Here");
     if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {
       mySelectedCell = new Position(x, y);
       myValidMoves = new HashSet<>(getOracle().getRepresentativePoints(getOracle().getValidMovesForPosition(board, mySelectedCell), mySelectedCell));

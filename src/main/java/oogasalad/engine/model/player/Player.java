@@ -10,17 +10,19 @@ import oogasalad.engine.model.driver.Game;
  * Abstract class that defines a player and has methods that executes a player's turn.
  * @Author Haris Adnan, Jake Heller
  */
-
 public abstract class Player implements PlayerInterface {
 
   private Oracle oracle;
-  private Game myGame;
+  private Board myCurrentGameBoard;
   private BiConsumer<Player, Choice> myExecuteMove;
 
-  protected Player(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove) {
+  private int myScore;
+
+  protected Player(Oracle oracle, BiConsumer<Player, Choice> executeMove) {
     this.oracle = oracle;
-    myGame = game;
     myExecuteMove = executeMove;
+    myScore = 0;
+    myCurrentGameBoard = null;
   }
 
   protected Oracle getOracle() {
@@ -43,6 +45,21 @@ public abstract class Player implements PlayerInterface {
    * @return
    */
   protected Board getGameBoard() {
-    return myGame.getBoard();
+    return myCurrentGameBoard;
+  }
+
+  @Override
+  public int getScore() {
+    return myScore;
+  }
+
+  @Override
+  public void updateScore(int change) {
+    myScore += change;
+  }
+
+  @Override
+  public void chooseMove(Board board) {
+    myCurrentGameBoard = board;
   }
 }

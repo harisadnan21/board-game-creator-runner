@@ -13,7 +13,7 @@ public class AIPlayer extends Player {
 
 
   public AIPlayer(int playerNumberForAI, Selects selects) {
-    super(null, null, null); // should be engine
+    super(null, null); // should be engine
     this.playerNumber = playerNumberForAI;
     this.selector = selects;
   }
@@ -24,10 +24,11 @@ public class AIPlayer extends Player {
 
 
   @Override
-  public void chooseMove() {
-    Board board = super.getGameBoard();
+  public void chooseMove(Board activeBoard) {
+    super.chooseMove(activeBoard);
+    Board board = getGameBoard();
     AIChoice AIChoice = this.chooseAction(board);
-    super.executeMove(this, (Choice) AIChoice); //Fix unsafe cast
+    executeMove(this, (Choice) AIChoice); //Fix unsafe cast
   }
 
   @Override

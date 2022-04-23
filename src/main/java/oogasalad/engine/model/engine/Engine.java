@@ -48,8 +48,10 @@ public class Engine {
     }
     myOracle = new Oracle(moves, endRules, numPlayers);
 
-    myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
-    myPlayers.put(1, new RandomPlayer(myOracle, myGame, this::playTurn));
+    myPlayers.put(0, new HumanPlayer(myOracle, this::playTurn, setValidMarks));
+    myPlayers.put(1, new RandomPlayer(myOracle, this::playTurn));
+
+    pingActivePlayer();
 
   }
 
@@ -72,7 +74,7 @@ public class Engine {
 
   private void pingActivePlayer() {
     LOG.info("Player pinged: {}\n", getGameStateBoard().getPlayer());
-    myPlayers.get(getGameStateBoard().getPlayer()).chooseMove();
+    myPlayers.get(getGameStateBoard().getPlayer()).chooseMove(myGame.getBoard());
   }
 
 //  public void gameLoop() {
