@@ -14,9 +14,11 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
  */
 public abstract class AbstractTab extends BorderPane implements BasicTab {
 
+  private static final double BASIC_TAB_DIVIDER_POSITION = 0.7;
   private String type;
   private SplitPane splitPane;
   private CallbackDispatcher callbackDispatcher;
+
 
 
   public AbstractTab(String type, CallbackDispatcher dispatcher) {
@@ -32,7 +34,7 @@ public abstract class AbstractTab extends BorderPane implements BasicTab {
 
   private void setupSplitPane() {
     splitPane = new SplitPane(setupLeftSide(), setupRightSide());
-    splitPane.setDividerPositions(0.7f);
+    splitPane.setDividerPositions(BASIC_TAB_DIVIDER_POSITION);
     setCenter(splitPane);
   }
   protected Button makeButton(String property, EventHandler<ActionEvent> handler) {
