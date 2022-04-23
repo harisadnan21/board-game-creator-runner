@@ -5,11 +5,14 @@ import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import oogasalad.engine.view.LanguageSelect;
+import oogasalad.engine.view.ViewManager;
 import org.json.JSONObject;
 
 public class OpeningView {
@@ -31,6 +34,7 @@ public class OpeningView {
   private File myFileChoice;
   private ResourceBundle myResources;
   private String cssFilePath;
+  private LanguageSelect ls;
 
   public OpeningView(double w, double h, String css) {
     String language = "English";
@@ -39,10 +43,11 @@ public class OpeningView {
     width = w;
     height = h;
     root = new BorderPane();
+    ls = new LanguageSelect();
     setupText();
     makeButtonLayout();
     elements = new VBox(50);
-    elements.getChildren().addAll(gameText, buttonLayout);
+    elements.getChildren().addAll(gameText, buttonLayout, ls);
     elements.setAlignment(Pos.CENTER);
     root.setCenter(elements);
     directoryOpener = new DirectoryOpener();
@@ -65,6 +70,8 @@ public class OpeningView {
   public File getFileChoice() {
     return myFileChoice;
   }
+
+  public LanguageSelect getLanguageSelect() {return ls;}
 
   private void setupText() {
     title = new Text(myResources.getString("Title"));

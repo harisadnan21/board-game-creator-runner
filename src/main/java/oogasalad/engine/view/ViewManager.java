@@ -36,8 +36,9 @@ public class ViewManager {
   public static double BOARDX;
   public static double BOARDY ;
   public static String CSS_RESOURCE = "/css/";
-  public static String DEFAULT_CSS = "duke";
+  public static String DEFAULT_CSS = "light";
   public static String CSS_EXTENSION = ".css";
+  public static String DEFAULT_LANGUAGE = "English";
 
 
   private OpeningView openingView;
@@ -47,9 +48,11 @@ public class ViewManager {
   private File currGame;
   private List<Stage> gameStages = new ArrayList<>();
   private List<Scene> allScenes = new ArrayList<>();
+  private String language;
 
 
   public ViewManager(Stage s) throws IOException {
+    language = DEFAULT_LANGUAGE;
     stage = s;
     cssFilepath = CSS_RESOURCE + DEFAULT_CSS + CSS_EXTENSION;
     fis = new FileInputStream("data/Properties/ViewManagerProperties.properties");
@@ -71,6 +74,7 @@ public class ViewManager {
   public OpeningView createOpeningView() {
     openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath);
     currGame = openingView.getFileChoice();
+    openingView.getLanguageSelect().setOnAction(e -> setLanguage(openingView.getLanguageSelect().getLanguage()));
     openingView.getContSel().setOnAction(e -> selectMode(openingView.getFileChoice()));
     openingView.getDashboard().setOnAction(e -> showGames());
     return openingView;
@@ -80,6 +84,11 @@ public class ViewManager {
     GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath);
     gameView.getHome().setOnAction(e -> goHome(gameView.getScene()));
     return gameView;
+  }
+
+  private void setLanguage(String currLanguage) {
+    language = currLanguage;
+    System.out.println(language);
   }
 
   private void showGames() {
