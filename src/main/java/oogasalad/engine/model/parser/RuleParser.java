@@ -24,6 +24,7 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
   private static final String REPRESENTATIVE_POINT_Y = "representativeY";
   private static final String IS_PERSISTENT = "isPersistent";
   private static final String NAME = "name";
+  private static final String VARIABLE_RANGE = "variableRange";
   private final ActionParser actionParser;
   private final ConditionParser conditionParser;
 
@@ -51,6 +52,9 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
     JSONArray rulesJSON = root.getJSONArray(RULES);
     for (int i = 0; i < rulesJSON.length(); i++) {
       JSONObject rule = rulesJSON.getJSONObject(i);
+      if (rule.has(VARIABLE_RANGE)) {
+        // TODO: create loop if field exists
+      }
       String name = rule.getString(NAME);
       Position repPoint = getRepresentativePoint(rule);
       Action[] actions = actionParser.resolveActions(rule);
