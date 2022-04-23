@@ -1,16 +1,12 @@
 package oogasalad.engine.model.player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import oogasalad.engine.model.ai.AIPlayer;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
 
@@ -20,7 +16,6 @@ public class PlayerManager {
   private Map<Integer, Player> myPlayers;
 
   private Oracle myActiveOracle;
-  private Game myActiveGame;
   private BiConsumer<Player, Choice> myActiveExecuteMove;
   private Consumer<Set<Position>> setValidMarks;
 
@@ -108,5 +103,25 @@ public class PlayerManager {
       scores.put(playerID, myPlayers.get(playerID).getScore());
     }
     return scores;
+  }
+
+  /**
+   * Returns number of players this manager has
+   * @return
+   */
+  public int getNumberOfPlayers() {
+    return myPlayers.size();
+  }
+
+  /**
+   * Adds required classes to the players for a specific game
+   * @param oracle
+   * @param executeMove
+   * @param setValidMarks
+   */
+  public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
+    for (Player player: myPlayers.values()) {
+      player.addDependencies(oracle, executeMove, setValidMarks);
+    }
   }
 }

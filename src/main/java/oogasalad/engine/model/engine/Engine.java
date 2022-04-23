@@ -1,6 +1,5 @@
 package oogasalad.engine.model.engine;
 
-import java.time.Instant;
 import java.util.Collection;
 
 import java.util.HashMap;
@@ -8,17 +7,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
-import oogasalad.engine.model.ai.RandomPlayer;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.player.PlayerManager;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.rule.Move;
 
-import oogasalad.engine.model.player.HumanPlayer;
 import oogasalad.engine.model.player.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,6 +27,8 @@ public class Engine {
 
   private Map<Integer, Player> myPlayers = new HashMap<>();
 
+  private PlayerManager myPlayerManager;
+
   // from Engine
   private Game myGame;
 
@@ -37,21 +36,20 @@ public class Engine {
 
   private Consumer<Set<Position>> setViewValidMarks;
 
-  public Engine(Game game, Collection<Move> moves,
-      Collection<EndRule> endRules, Consumer<Board> update, Consumer<Set<Position>> setValidMarks, IntConsumer endGame) {
+  public Engine(Game game, PlayerManager players, Collection<Move> moves,
+      Collection<EndRule> endRules, Consumer<Set<Position>> setValidMarks, IntConsumer endGame) {
 
     myGame = game;
     setViewValidMarks = setValidMarks;
 
-    int numPlayers = 2; //TODO: automate player creation
+    myPlayerManager = players;
 
     if (moves == null) {
       LOG.warn("moves are null");
     }
-    myOracle = new Oracle(moves, endRules, numPlayers);
+    myOracle = new Oracle(moves, endRules, myPlayerManager.getNumberOfPlayers());
 
-    myPlayers.put(0, new HumanPlayer(myOracle, this::playTurn, setValidMarks));
-    myPlayers.put(1, new RandomPlayer(myOracle, this::playTurn));
+    players.addDependencies(myOracle, this::playTurn, setValidMarks);
 
     pingActivePlayer();
 
@@ -74,8 +72,8 @@ public class Engine {
   }
 
   private void pingActivePlayer() {
-    LOG.info("Player pinged: {}\n", getGameStateBoard().getPlayer());
-    myPlayers.get(getGameStateBoard().getPlayer()).chooseMove(myGame.getBoard());
+    LOG.info("Player pinged: {}\n", getGameBoard().getPlayer());
+    myPlayerManager.getPlayer(getGameBoard().getPlayer()).chooseMove(getGameBoard());
   }
 
   /**
@@ -88,8 +86,8 @@ public class Engine {
     if (isActivePlayer(player)) {
       Move move = choice.move();
       Position referencePoint = choice.position();
-      if (move.isValid(getGameStateBoard(), referencePoint)) {
-        Board board = move.doMove(getGameStateBoard(), referencePoint);
+      if (move.isValid(getGameBoard(), referencePoint)) {
+        Board board = move.doMove(getGameBoard(), referencePoint);
         // LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
 
         board = myOracle.incrementPlayer(board);
@@ -108,23 +106,8 @@ public class Engine {
    * @param player
    * @return
    */
-  public boolean isActivePlayer(Player player) {
-    int playerID = getPlayerID(player);
-    Board board = getGameStateBoard();
-    return playerID == board.getPlayer();
-  }
-
-  private int getPlayerID(Player player) {
-    int queryingPlayerID = -1;
-    for (int playerID : myPlayers.keySet()) {
-      if (myPlayers.get(playerID) == player) {
-        queryingPlayerID = playerID;
-      }
-    }
-    if (queryingPlayerID == -1) {
-      throw new RuntimeException("Player does not exist in this game");
-    }
-    return queryingPlayerID;
+  private boolean isActivePlayer(Player player) {
+    return myPlayerManager.isActivePlayer(player, myGame.getBoard());
   }
 
   /**
@@ -132,9 +115,10 @@ public class Engine {
    * @param row
    * @param column
    */
+  // TODO: move to controller
   public void onCellSelect(int row, int column) {
-    Board board = getGameStateBoard();
-    Player activePlayer = myPlayers.get(board.getPlayer());
+    Board board = getGameBoard();
+    Player activePlayer = myPlayerManager.getPlayer(board.getPlayer());
     activePlayer.onCellSelect(row, column);
   }
 
@@ -142,7 +126,7 @@ public class Engine {
    *
    * @return the board which is at the head of the game's board stack
    */
-  public Board getGameStateBoard() {
+  public Board getGameBoard() {
     return myGame.getBoard();
   }
 }

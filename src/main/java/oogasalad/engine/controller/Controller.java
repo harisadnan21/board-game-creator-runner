@@ -5,10 +5,12 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
+import oogasalad.engine.model.ai.RandomPlayer;
 import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.driver.BoardHistoryException;
+import oogasalad.engine.model.player.HumanPlayer;
 import oogasalad.engine.model.player.PlayerManager;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
@@ -48,8 +50,12 @@ public class Controller {
 
       myNumPlayers = parser.readNumberOfPlayers();
 
+      myPlayerManager = new PlayerManager();
+      myPlayerManager.addPlayer(0, new HumanPlayer(null, null, null));
+      myPlayerManager.addPlayer(1, new RandomPlayer(null, null));
+
       // TODO: figure out better way to pass in view lambdas
-      myEngine = new Engine(myGame, moves, endRules, null, null, null);
+      myEngine = new Engine(myGame, myPlayerManager, moves, endRules, null, null);
 
     } catch (Exception e){
       e.printStackTrace();
@@ -62,7 +68,7 @@ public class Controller {
   public Board resetGame() {
     myGame = new Game(myBoard, updateView);
 
-    myEngine = new Engine(myGame, moves, endRules, updateView, setViewValidMarks, endGame);
+    myEngine = new Engine(myGame, myPlayerManager, moves, endRules, setViewValidMarks, endGame);
 
     return myBoard;
   }
@@ -76,7 +82,7 @@ public class Controller {
     setViewValidMarks = setValidMarks;
     this.endGame = endGame;
     myGame = new Game(myBoard, updateView);
-    myEngine = new Engine(myGame, moves, endRules, updateView, setViewValidMarks, endGame);
+    myEngine = new Engine(myGame, myPlayerManager, moves, endRules, setViewValidMarks, endGame);
     myEngine.gameLoop();
 
     return myBoard;

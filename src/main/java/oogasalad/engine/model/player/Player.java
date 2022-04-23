@@ -3,7 +3,9 @@ package oogasalad.engine.model.player;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
@@ -65,6 +67,12 @@ public abstract class Player implements PlayerInterface {
   @Override
   public void chooseMove(Board board) {
     myCurrentGameBoard = board;
+  }
+
+  public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
+      Consumer<Set<Position>> setValidMarks) {
+    myOracle = oracle;
+    myExecuteMove = executeMove;
   }
 
   /**

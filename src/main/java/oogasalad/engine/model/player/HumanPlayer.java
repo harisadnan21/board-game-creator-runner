@@ -84,4 +84,11 @@ public class HumanPlayer extends Player{
     clearMarkers();
   }
 
+  @Override
+  public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
+      Consumer<Set<Position>> setValidMarks){
+    super.addDependencies(oracle, executeMove, setValidMarks);
+    mySetValidMarks = setValidMarks;
+  }
+
 }
