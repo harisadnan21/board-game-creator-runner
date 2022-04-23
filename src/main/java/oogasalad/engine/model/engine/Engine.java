@@ -1,12 +1,13 @@
 package oogasalad.engine.model.engine;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 import oogasalad.engine.model.ai.RandomPlayer;
 import oogasalad.engine.model.board.Board;
@@ -32,14 +33,12 @@ public class Engine {
 
   private Oracle myOracle;
 
-  private Collection<Move> myMoves;
   private Consumer<Set<Position>> setViewValidMarks;
 
   public Engine(Game game, Collection<Move> moves,
       Collection<EndRule> endRules, Consumer<Board> update, Consumer<Set<Position>> setValidMarks) {
 
     myGame = game;
-    myMoves = moves;
     setViewValidMarks = setValidMarks;
 
     int numPlayers = 2; //TODO: automate player creation
@@ -47,35 +46,64 @@ public class Engine {
     if (moves == null) {
       LOG.warn("moves are null");
     }
-    myOracle = new Oracle(moves, endRules, new ArrayList<>(), numPlayers);
+    myOracle = new Oracle(moves, endRules, numPlayers);
 
     myPlayers.put(0, new HumanPlayer(myOracle, myGame, this::playTurn, setValidMarks));
     myPlayers.put(1, new RandomPlayer(myOracle, myGame, this::playTurn));
 
   }
 
-  public void gameLoop() throws InterruptedException {
-    while(true) {
-      Thread.sleep(2000);
-      myPlayers.get(getGameStateBoard().getPlayer()).chooseMove();
+  public Timer t;
+
+  public synchronized void gameLoop() {
+    if (null != null) {
+      System.out.println("Timer initialized");
+      TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+          pingActivePlayer();
+        }
+      };
+
+      t = new Timer();
+      t.scheduleAtFixedRate(task, 0, 4000);
     }
   }
 
-  private void playTurn(Player player, Choice choice) {
+  private void pingActivePlayer() {
+    LOG.info("Player pinged: {}\n", getGameStateBoard().getPlayer());
+    myPlayers.get(getGameStateBoard().getPlayer()).chooseMove();
+  }
 
+//  public void gameLoop() {
+//    while(true) {
+//      try {
+//        Thread.sleep(4000);
+//      } catch (InterruptedException e) {
+//        LOG.error("Interrupted Exception");
+//      }
+//      myPlayers.get(getGameStateBoard().getPlayer()).chooseMove();
+//    }
+//  }
+
+  /**
+   * This method gets passed as a lambda to the player class, which uses it to
+   * execute moves
+   * @param player
+   * @param choice
+   */
+  private void playTurn(Player player, Choice choice) {
     if (isActivePlayer(player)) {
       Move move = choice.move();
       Position referencePoint = choice.position();
       if (move.isValid(getGameStateBoard(), referencePoint)) {
         Board board = move.doMove(getGameStateBoard(), referencePoint);
-        board = board.setPlayer(board.getPlayer()+1);
-        LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
+        // LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
 
         board = myOracle.incrementPlayer(board);
         myGame.setBoard(board);
 
-        // ping next player
-        myPlayers.get(board.getPlayer()).chooseMove();
+        pingActivePlayer();
 
       } else {
         LOG.warn("Player's move is not valid");
@@ -83,10 +111,11 @@ public class Engine {
     }
   }
 
-  private void wait(double millis) {
-    Instant instant = Instant.now();
-  }
-
+  /**
+   * Returns true if player object is the active player in the game
+   * @param player
+   * @return
+   */
   public boolean isActivePlayer(Player player) {
     int playerID = getPlayerID(player);
     Board board = getGameStateBoard();
@@ -106,10 +135,15 @@ public class Engine {
     return queryingPlayerID;
   }
 
-  public void onCellSelect(int i, int j) {
+  /**
+   * Handles cell selection from controller
+   * @param row
+   * @param column
+   */
+  public void onCellSelect(int row, int column) {
     Board board = getGameStateBoard();
     Player activePlayer = myPlayers.get(board.getPlayer());
-    activePlayer.onCellSelect(i, j);
+    activePlayer.onCellSelect(row, column);
   }
 
   /**

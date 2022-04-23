@@ -33,8 +33,6 @@ public class HumanPlayer extends Player{
 
   @Override
   public void chooseMove() {
-
-    LOG.info("Player asked to choose move");
   }
 
   public void onCellSelect(int i, int j) {

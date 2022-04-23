@@ -66,6 +66,7 @@ public class Controller {
 
     myGame = new Game(myBoard, updateView);
     myEngine = new Engine(myGame, moves, endRules, updateView, setViewValidMarks);
+    myEngine.gameLoop();
 
     return myBoard;
   }
@@ -82,11 +83,7 @@ public class Controller {
    * Function starts the game
    */
   public void startGame() {
-    try {
-      myEngine.gameLoop();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    myEngine.gameLoop();
   }
 
   /**
