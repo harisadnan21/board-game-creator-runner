@@ -46,63 +46,62 @@ public class TabTests extends DukeApplicationTest {
         });
     builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class,
         cb -> cb.key().equals("image") ? "checkers/pieces/normalWhite.png" : null);
-    //clickOn("#loginButton");
   }
 
-//  @Test
-//  public void testAddPiece() {
-//    clickOn("#pieceTab");
-//    clickOn("#new-pieceButton");
-//
-//    var intSelector = lookup("#integerSelector-id").queryAs(Spinner.class);
-//    intSelector.getEditor().setText("" + 1);
-//    intSelector.commitValue();
-//    var nameField = lookup("#nameField-piece").queryAs(TextField.class);
-//    writeTo(nameField, "testCell");
-//    clickOn("#save-piece");
-//    assertTrue(lookup("#testCellCell").tryQuery().isPresent());
-//  }
+  @Test
+  public void testAddPiece() {
+    clickOn("#pieceTab");
+    clickOn("#new-pieceButton");
 
-//  @Test
-//  public void newPieceButtonWork() {
-//    clickOn("#pieceTab");
-//    clickOn("#new-pieceButton");
-//    assertTrue(lookup("#integerSelector-id").tryQuery().isPresent());
-//  }
-//
-//  @Test
-//  public void newActionButtonWork() {
-//    clickOn("#actionTab");
-//    clickOn("#new-actionButton");
-//    assertTrue(lookup("#dropDown-type").tryQuery().isPresent());
-//  }
-//
-//  @Test
-//  public void testGameElementListSelector() {
-//    clickOn("#conditionTab");
-//    clickOn("#new-conditionButton");
-//    assertFalse(lookup("#gameElementListSelector-actions").tryQuery().isPresent());
-//    assertTrue(lookup("#gameElementListSelector-actions-listView").queryListView().getItems().containsAll(List.of("action1", "action2")));
-//    select(lookup("#gameElementListSelector-actions-comboBox").queryComboBox(), "test");
-//    assertTrue(lookup("#gameElementListSelector-actions-listView").queryListView().getItems().containsAll(List.of("action1", "action2","test")));
-//
-//    assertTrue(lookup("#gameElementListSelector-conditions").tryQuery().isPresent());
-//    assertTrue(lookup("#gameElementListSelector-conditions-listView").queryListView().getItems().isEmpty());
-//    select(lookup("#gameElementListSelector-conditions-comboBox").queryComboBox(), "test");
-//    assertTrue(lookup("#gameElementListSelector-conditions-listView").queryListView().getItems().containsAll(List.of("test")));
-//    clickOn("#gameElementListSelector-conditions-listView-test-delete");
-//    assertTrue(lookup("#gameElementListSelector-conditions-listView").queryListView().getItems().isEmpty());
-//  }
-//
-//  @Test
-//  public void testHelpPage(){
-//    clickOn("#helpTab");
-//    assertEquals("", lookup("#helpBox").queryAs(TextArea.class).getText());
-//    clickOn("#boardButton");
-//    assertNotEquals("", lookup("#helpBox").queryAs(TextArea.class).getText());
-//    clickOn("#pieceButton");
-//    assertNotEquals("", lookup("#helpBox").queryAs(TextArea.class).getText());
-//    clickOn("#actionButton");
-//    assertNotEquals("", lookup("#helpBox").queryAs(TextArea.class).getText());
-//  }
+    var intSelector = lookup("#integerSelector-id").queryAs(Spinner.class);
+    intSelector.getEditor().setText("" + 1);
+    intSelector.commitValue();
+    var nameField = lookup("#nameField-piece").queryAs(TextField.class);
+    writeTo(nameField, "testCell");
+    clickOn("#save-piece");
+    assertTrue(lookup("#testCellCell").tryQuery().isPresent());
+  }
+
+  @Test
+  public void newPieceButtonWork() {
+    clickOn("#pieceTab");
+    clickOn("#new-pieceButton");
+    assertTrue(lookup("#integerSelector-id").tryQuery().isPresent());
+  }
+
+  @Test
+  public void newActionButtonWork() {
+    clickOn("#actionTab");
+    clickOn("#new-actionButton");
+    assertTrue(lookup("#dropDown-type").tryQuery().isPresent());
+  }
+
+  @Test
+  public void testGameElementListSelector() {
+    clickOn("#conditionTab");
+    clickOn("#new-conditionButton");
+    assertTrue(lookup("#gameElementListSelector-actions").tryQuery().isPresent());
+    assertTrue(lookup("#gameElementListSelector-actions-listView").queryListView().getItems().containsAll(List.of("action1", "action2")));
+    select(lookup("#gameElementListSelector-actions-comboBox").queryComboBox(), "test");
+    assertTrue(lookup("#gameElementListSelector-actions-listView").queryListView().getItems().containsAll(List.of("action1", "action2","test")));
+
+    assertTrue(lookup("#gameElementListSelector-conditions").tryQuery().isPresent());
+    assertTrue(lookup("#gameElementListSelector-conditions-listView").queryListView().getItems().isEmpty());
+    select(lookup("#gameElementListSelector-conditions-comboBox").queryComboBox(), "test");
+    assertTrue(lookup("#gameElementListSelector-conditions-listView").queryListView().getItems().containsAll(List.of("test")));
+    clickOn("#gameElementListSelector-conditions-listView-test-delete");
+    assertTrue(lookup("#gameElementListSelector-conditions-listView").queryListView().getItems().isEmpty());
+  }
+
+  @Test
+  public void testHelpPage(){
+    clickOn("#helpTab");
+    assertEquals("", lookup("#helpBox").queryAs(TextArea.class).getText());
+    clickOn("#boardButton");
+    assertNotEquals("", lookup("#helpBox").queryAs(TextArea.class).getText());
+    clickOn("#pieceButton");
+    assertNotEquals("", lookup("#helpBox").queryAs(TextArea.class).getText());
+    clickOn("#actionButton");
+    assertNotEquals("", lookup("#helpBox").queryAs(TextArea.class).getText());
+  }
 }
