@@ -25,16 +25,14 @@ import java.util.stream.Collectors;
  */
 public class PropertyEditor extends VBox {
 
-  private static final String TYPE_PROPERTY_NAME = "type";
-  private static final String REQUIRED = "required";
-  private static final String DELIMITER = "-";
-
   private final CallbackDispatcher callbackDispatcher;
 
   private final Map<Property, PropertySelector> selectors = new HashMap<>();
   private final Map<Property, Node> selectorNodes = new HashMap<>();
 
   private Collection<Property> allProperties;
+
+  private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
 
   /**
    * Creates a new PropertyEditor.
@@ -63,7 +61,7 @@ public class PropertyEditor extends VBox {
     // Remove all non-type and non-required properties
     List<Property> nonType = new ArrayList<>();
     selectors.forEach((prop, selector) -> {
-      if(!(isTypeProperty(prop) || isRequiredProperty(prop)) ) {
+      if(!propertyNameAnalyzer.isTypeProperty(prop) && !propertyNameAnalyzer.isRequiredProperty(prop)) {
         getChildren().remove(selectorNodes.get(prop).getParent());
         selectorNodes.remove(prop);
         nonType.add(prop);
@@ -72,38 +70,10 @@ public class PropertyEditor extends VBox {
     nonType.forEach(selectors::remove);
 
     for (Property prop : allProperties) {
-      if (getPropertyNamespace(prop).equals(typeName)) {
+      if (propertyNameAnalyzer.getPropertyNamespace(prop).equals(typeName)) {
         addProperty(prop);
       }
     }
-  }
-
-  // Returns whether the property is a type property
-  private boolean isTypeProperty(Property prop) {
-    return getLastPropertyNameSegment(prop).equals(TYPE_PROPERTY_NAME);
-  }
-
-  // Returns true if the property is in the required namespace
-  private boolean isRequiredProperty(Property prop) {
-    return prop.name().split(DELIMITER)[0].equals(REQUIRED);
-  }
-
-  // Gets the last name of a property, disregarding namespace
-  private String getLastPropertyNameSegment(Property prop) {
-    String[] nameParts = prop.name().split(DELIMITER);
-    return nameParts[nameParts.length - 1];
-  }
-
-  private String getPropertyNamespace(Property prop) {
-    String[] nameParts = prop.name().split(DELIMITER);
-    StringBuilder namespace = new StringBuilder();
-    // Ignore the required indicator and the actual name of the property
-    for(int i = isRequiredProperty(prop) ? 1 : 0; i < nameParts.length - 1; i++) {
-      namespace.append(nameParts[i]).append(DELIMITER);
-    }
-
-    // Cutoff the last -
-    return namespace.length() == 0 ? "" : namespace.substring(0, namespace.length() - 1);
   }
 
   /**
@@ -117,7 +87,7 @@ public class PropertyEditor extends VBox {
     allProperties = properties;
     selectors.clear();
     for (Property prop : properties) {
-      if (isTypeProperty(prop) || isRequiredProperty(prop)) {
+      if (propertyNameAnalyzer.isTypeProperty(prop) || propertyNameAnalyzer.isRequiredProperty(prop)) {
         addProperty(prop);
       }
     }
@@ -153,7 +123,7 @@ public class PropertyEditor extends VBox {
     HBox propertyBox = new HBox();
     PropertySelector propertySelector = makePropertySelector(property);
     selectors.put(property, propertySelector);
-    if (isTypeProperty(property)) {
+    if (propertyNameAnalyzer.isTypeProperty(property)) {
       propertySelector.addListener(
           (observable, oldValue, newValue) -> setCorrespondingElementProperties(
               (String) newValue));
