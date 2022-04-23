@@ -30,7 +30,6 @@ public class NoMovesForOnePlayer extends AbstractWinDecision {
    */
   @Override
   public int decideWinner(Board board) {
-    // TODO: implement
     return -1;
   }
 }

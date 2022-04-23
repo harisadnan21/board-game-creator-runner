@@ -55,7 +55,12 @@ public class Cell {
     myRoot.getChildren().add(myShape);
   }
 
-
+  /**
+   *
+   * returns root of Cell
+   *
+   * @return root of cell
+   */
   public Node getMyRoot() {
     return myRoot;
   }
