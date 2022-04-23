@@ -36,7 +36,9 @@ public abstract class Player implements PlayerInterface {
    * @param choice
    */
   protected void executeMove(Player player, Choice choice) {
-    myExecuteMove.accept(player, choice);
+    if (myExecuteMove != null) {
+      myExecuteMove.accept(player, choice);
+    }
   }
 
   /**
