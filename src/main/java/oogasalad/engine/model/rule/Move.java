@@ -125,12 +125,9 @@ public class Move implements Rule {
   public Board doMove(Board board, Position referencePoint) {
     if (isValid(board, referencePoint)) {
 
-      LOG.info("{} has {} conditions and {} actions", myName, myConditions.length, myActions.length);
-
       for (Action action: myActions) {
         board = action.execute(board, referencePoint);
       }
-      board = board.setPlayer((board.getPlayer() + 1) % 2); //Make less magical
       return board;
     }
     return board;

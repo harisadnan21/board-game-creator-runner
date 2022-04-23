@@ -1,12 +1,13 @@
 .root {
-  -fx-background-color: #EEEEEE;
+  -fx-light-gray: #EEEEEE;
   -fx-dark-gray: #464646;
   -fx-light-blue: #72E8E1;
   -fx-board-color-A: #BEDDDB;
   -fx-board-color-B: #97CDC9;
   -fx-primaryColor: white;
-  -fx-secondaryColor: lightgray;
-  -fx-triColor: black;
+  -fx-secondaryColor: -fx-light-gray;
+  -fx-triColor: -fx-dark-gray;
+  -fx-background-color: -fx-light-gray;
 }
 
 /*
@@ -131,6 +132,7 @@ control panel
 
 .title{
   -fx-alignment: center;
+  -fx-font-family: "Montserrat";
   -fx-font-size: 40;
   -fx-background-color: -fx-secondaryColor;
   -fx-border-color: -fx-triColor;
@@ -157,6 +159,7 @@ control panel
   -fx-border-radius: 8px;
   -fx-background-radius: 8px;
   -fx-border-color: -fx-triColor;
+  -fx-font-family: "Montserrat";
   -fx-font-size: 30;
   -fx-font-weight: bold;
   -fx-alignment: center;
@@ -182,6 +185,7 @@ control panel
 }
 
 .infoTitle{
+  -fx-font-family: "Montserrat";
   -fx-font-size: 30;
   -fx-underline: true;
   -fx-text-fill: -fx-triColor;
@@ -189,11 +193,13 @@ control panel
 }
 
 .infoAuthor{
+  -fx-font-family: "Montserrat";
   -fx-font-size: 20;
   -fx-text-fill: -fx-triColor;
 }
 
 .infoDescription{
+  -fx-font-family: "Montserrat";
   -fx-text-fill: -fx-triColor;
   -fx-font-size: 15;
   -fx-wrap-text: true;
@@ -216,14 +222,14 @@ control panel
   -fx-min-height: 45;
 }
 
-#p-mode-button-layout, #p-mode-window-layout, #ai-window-layout {
+#p-mode-window-layout, #ai-window-layout {
   -fx-spacing: 20;
   -fx-alignment: center;
   -fx-max-width: 500;
   -fx-min-width: 500;
 }
 
-#ai-button-layout {
+#ai-button-layout, #p-mode-button-layout {
   -fx-alignment: center;
   -fx-padding: 20;
   -fx-vgap: 20;

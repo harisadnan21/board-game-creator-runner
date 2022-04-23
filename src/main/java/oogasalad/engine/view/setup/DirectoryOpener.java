@@ -1,0 +1,34 @@
+package oogasalad.engine.view.setup;
+
+import java.io.File;
+import java.util.ResourceBundle;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
+
+public class DirectoryOpener {
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+
+  private DirectoryChooser myDirectoryChooser;
+  private ResourceBundle myResources;
+
+  public DirectoryOpener(){
+    String language = "English";
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+    myDirectoryChooser = makeFileChooser();
+  }
+
+
+  public File fileChoice(Stage stage) {
+    File dataFile = myDirectoryChooser.showDialog(stage);
+    return dataFile;
+  }
+
+
+  private DirectoryChooser makeFileChooser() {
+    DirectoryChooser directoryChooser = new DirectoryChooser();
+    directoryChooser.setTitle(myResources.getString("ChooseFiles"));
+    directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+    return directoryChooser;
+  }
+}
+

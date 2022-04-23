@@ -20,12 +20,8 @@ import lombok.ToString;
 @ToString
 public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard{
 
-  public static final int NO_WINNER_YET = -2; //Eh
   public static final String INVALID_POSITION = "Invalid Position";
   private int activePlayer;
-  private Set<Position> currentValidMoves; //Why does the Board care?
-  private int myWinner = NO_WINNER_YET; //Why does the Board care?
-
 
   //TODO: update code to use these constants instead of magic numbers
 
@@ -61,7 +57,7 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
                               .crossJoin(Seq.rangeClosed(FIRST_COL, lastCol))
                               .map(tuple -> new Position(tuple.v1, tuple.v2));
     Map<Position, PositionState> map = positions.toMap(pos -> pos,
-                                                       pos -> positionStates[pos.row()][pos.column()]);
+                                                       pos -> positionStates[pos.row()][pos.column()] == null ? new PositionState(pos, Piece.EMPTY) : positionStates[pos.row()][pos.column()]);
     return TreeMap.ofAll(map);
   }
 
@@ -233,22 +229,6 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
     return !isOccupied(i,j);
   }
 
-  @Deprecated
-  public void setValidMoves(Set<Position> moves) {
-    currentValidMoves = moves;
-  }
-
-  /**
-   * method sets the winner adn returns a new board with this property changed
-   * @param winner : player that is the winner
-   * @return : new board
-   */
-  public Board setWinner(int winner) {
-    Board copy = clone();
-    copy.myWinner = winner;
-    return copy;
-  }
-
   /**
    * Places new piece with type and player at location (i,j)
    * @param i
@@ -258,22 +238,6 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
    */
   public Board placeNewPiece(int i, int j, int type, int player) {
     return this.placePiece(new PositionState(new Position(i,j), new Piece(type, player)));
-  }
-
-  /**
-   * returns which player is the winner
-   * @return : integer that tells which player is the winner
-   */
-  public int getWinner() {
-    return myWinner;
-  }
-
-  /**
-   * @return : returns all the valid moves that can be used
-   */
-  @Deprecated
-  public Set<Position> getValidMoves() {
-    return currentValidMoves;
   }
 
   /**

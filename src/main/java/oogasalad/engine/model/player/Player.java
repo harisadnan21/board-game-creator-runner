@@ -1,30 +1,34 @@
 package oogasalad.engine.model.player;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.driver.Game;
 
 /**
  * Abstract class that defines a player and has methods that executes a player's turn.
- * @Author Haris Adnan
+ * @Author Haris Adnan, Jake Heller
  */
-
 public abstract class Player implements PlayerInterface {
 
-  private Oracle oracle;
-  private Game myGame;
+  private Oracle myOracle;
+  private Board myCurrentGameBoard;
   private BiConsumer<Player, Choice> myExecuteMove;
 
-  protected Player(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove) {
-    this.oracle = oracle;
-    myGame = game;
+  private int myScore;
+
+  protected Player(Oracle oracle, BiConsumer<Player, Choice> executeMove) {
+    myOracle = oracle;
     myExecuteMove = executeMove;
+    myScore = 0;
+    myCurrentGameBoard = null;
   }
 
   protected Oracle getOracle() {
-    return oracle;
+    return myOracle;
   }
 
   /**
@@ -34,7 +38,9 @@ public abstract class Player implements PlayerInterface {
    * @param choice
    */
   protected void executeMove(Player player, Choice choice) {
-    myExecuteMove.accept(player, choice);
+    if (myExecuteMove != null) {
+      myExecuteMove.accept(player, choice);
+    }
   }
 
   /**
@@ -43,6 +49,35 @@ public abstract class Player implements PlayerInterface {
    * @return
    */
   protected Board getGameBoard() {
-    return myGame.getBoard();
+    return myCurrentGameBoard;
+  }
+
+  @Override
+  public int getScore() {
+    return myScore;
+  }
+
+  @Override
+  public void updateScore(int change) {
+    myScore += change;
+  }
+
+  @Override
+  public void chooseMove(Board board) {
+    myCurrentGameBoard = board;
+  }
+
+  /**
+   * Returns valid choices as a set
+   * empty set if oracle is null
+   * @return
+   */
+  protected Set<Choice> getMoves() {
+    if (myOracle != null) {
+      return myOracle.getValidChoices(myCurrentGameBoard).collect(Collectors.toSet());
+    }
+    else {
+      return new HashSet<>();
+    }
   }
 }

@@ -13,8 +13,7 @@ public class GameUpdateText {
   private ResourceBundle myResources;
   private static final Logger LOG = LogManager.getLogger(GameUpdateText.class);
 
-  public GameUpdateText() {
-    String language = "English";
+  public GameUpdateText(String language) {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     updateText = myResources.getString("BeginGame");
     text = makeText(updateText);
