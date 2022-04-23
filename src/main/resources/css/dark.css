@@ -5,8 +5,8 @@
   -fx-board-color-A: #BEDDDB;
   -fx-board-color-B: #97CDC9;
   -fx-primaryColor: white;
-  -fx-secondaryColor: lightgray;
-  -fx-triColor: black;
+  -fx-secondaryColor: -fx-light-gray;
+  -fx-triColor: -fx-dark-gray;
   -fx-background-color: -fx-dark-gray;
 }
 
@@ -139,7 +139,7 @@ control panel
 }
 
 .gameSelection{
-  -fx-background-color: -fx-primaryColor;
+  -fx-background-color: -fx-dark-gray;
   -fx-alignment: center;
   -fx-padding: 10px;
   -fx-vgap: 10px;
