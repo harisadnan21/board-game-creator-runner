@@ -27,12 +27,12 @@ public class HasPieceTest {
   @Test
   void basicTest() throws OutOfBoardException {
     myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
-    int[] params = new int[]{0};
+    int[] params = new int[]{0,0};
     Condition condition = new HasPiece(params);
 
     assertTrue(condition.isTrue(myBoard, new Position(0,1)));
 
-    Condition has1 = new HasPiece(new int[]{1});
+    Condition has1 = new HasPiece(new int[]{1,0});
     assertFalse(has1.isTrue(myBoard, null));
   }
 }

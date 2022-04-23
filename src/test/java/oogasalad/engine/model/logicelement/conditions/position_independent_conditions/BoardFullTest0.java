@@ -15,7 +15,7 @@ class BoardFullTest0 {
   @Test
   void isTrue() {
     Board board = getBoard();
-    BoardFull boardFull = new BoardFull(null);
+    BoardFull boardFull = new BoardFull(new int[]{0});
     Assertions.assertTrue(boardFull.isTrue(board, null));
   }
 

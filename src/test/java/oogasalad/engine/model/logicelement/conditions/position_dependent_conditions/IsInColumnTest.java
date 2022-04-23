@@ -18,7 +18,7 @@ class IsInColumnTest {
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{0,1};
+    int[] paramarray = new int[]{0,1,0};
     IsInColumn isInColumn= new IsInColumn(paramarray);
     Position position = new Position(1,1);
     boolean answer = isInColumn.isTrue(TestBoard, position);
