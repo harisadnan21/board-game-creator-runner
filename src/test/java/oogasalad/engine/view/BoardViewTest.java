@@ -32,13 +32,13 @@ public class BoardViewTest extends DukeApplicationTest {
     GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
 
     Board backEndBoard = new Board(3,3);
-    controller = new Controller(new String[]{});
+    controller = new Controller();
 
     board = new BoardView(controller, new File("data/games/checkers"), backEndBoard, 300, 300,
         "/engine-view/css/light.css", "English");
 
     Consumer<Set<Position>> setMarkersLambda = board::setValidMarkers;
-    controller.startEngine(parser, setMarkersLambda, board::endGame);
+    controller.startEngine(new String[]{}, parser, setMarkersLambda, board::endGame);
     root = board.getRoot();
 
     ViewManager manager = new ViewManager(stage);
