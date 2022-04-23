@@ -7,6 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import oogasalad.engine.model.board.Board;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,6 +27,7 @@ public class BoardSaver {
   private static final String PIECE_CONFIGURATION = "pieceConfiguration";
   private static final String ACTIVE_PLAYER = "activePlayer";
   private static final String JSON_FILENAME = "/config.json";
+  private static final String RESOURCES_PATH = "/resources/";
   private static final int INDENT_FACTOR = 4;
   private final File startingDirectory;
 
@@ -53,15 +58,27 @@ public class BoardSaver {
     boardObj.put(PIECE_CONFIGURATION, pieceConfig);
     boardObj.put(ACTIVE_PLAYER, board.getPlayer());
 
+    copyFiles(newDirectory);
+
     File saveFile = new File(newDirectory.toString() + JSON_FILENAME);
     FileWriter writer = new FileWriter(saveFile);
     writer.write(object.toString(INDENT_FACTOR));
     writer.close();
   }
 
+  // Copies resource files to new directory. This line can be commented out if it is not needed
+  private void copyFiles(File newDirectory) throws IOException {
+    File resourceDir = new File(newDirectory, RESOURCES_PATH);
+    File startingResourceDir = new File(startingDirectory, RESOURCES_PATH);
+    resourceDir.mkdir();
+    for (String file : Objects.requireNonNull(startingResourceDir.list())) {
+      Files.copy(Path.of(startingResourceDir.toString(), file), Path.of(resourceDir.toString(), file), StandardCopyOption.REPLACE_EXISTING);
+    }
+  }
+
   // Gets the root JSON object from the configuration file
   private JSONObject getRootJSON() throws FileNotFoundException {
-    File configFile = new File(startingDirectory.toString() + JSON_FILENAME);
+    File configFile = new File(startingDirectory, JSON_FILENAME);
     InputStream is = new DataInputStream(new FileInputStream(configFile));
 
     JSONTokener tokener = new JSONTokener(is);
@@ -81,6 +98,5 @@ public class BoardSaver {
     }
     return pieceConfig;
   }
-
 
 }
