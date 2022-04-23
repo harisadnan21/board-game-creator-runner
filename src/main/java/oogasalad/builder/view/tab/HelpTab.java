@@ -1,6 +1,9 @@
 package oogasalad.builder.view.tab;
 
 
+import static oogasalad.builder.view.tab.AllTabs.DELIMINATOR;
+import static oogasalad.builder.view.tab.AllTabs.ORDERED_TABS;
+import static oogasalad.builder.view.tab.AllTabs.tabsList;
 import static oogasalad.builder.view.tab.boardTab.BoardTab.BOARD_TYPE;
 
 import java.util.Collection;
@@ -19,10 +22,7 @@ import oogasalad.builder.view.callback.GetPropertiesCallback;
  */
 public class HelpTab extends AbstractTab {
   public static String HELP = "help";
-  public static String HELP_RESOURCE_PATH = "/view/";
-  public static String ELEMENTS_PACKAGE = "TabsList";
   private TextArea leftDisplay;
-  private static final ResourceBundle elementNames = ResourceBundle.getBundle(HELP_RESOURCE_PATH + ELEMENTS_PACKAGE);
 
   public HelpTab(CallbackDispatcher callbackDispatcher){
     super(HELP, callbackDispatcher);
@@ -30,7 +30,7 @@ public class HelpTab extends AbstractTab {
   @Override
   protected Node setupRightSide() {
     VBox rightHelpBox = new VBox();
-    for (String name : elementNames.keySet()){
+    for (String name : tabsList.getString(ORDERED_TABS).split(DELIMINATOR)){
       rightHelpBox.getChildren().add(makeButton(name, e -> displayHelpForElement(name)));
     }
     rightHelpBox.getStyleClass().add("rightPane");

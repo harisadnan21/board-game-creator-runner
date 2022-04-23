@@ -20,19 +20,20 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
 public class AllTabs extends TabPane {
   public static final String TABS_LIST = "TabsList";
   public static final String TABS_PATH = "oogasalad.builder.view.tab.";
-  private ResourceBundle tabsList;
+  public static final String ORDERED_TABS = "tabsOrdered";
+  public static final String DELIMINATOR = "-";
+  public static final ResourceBundle tabsList = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TABS_LIST);
   private CallbackDispatcher callbackDispatcher;
   private Collection<AbstractTab> tabs;
 
   public AllTabs(CallbackDispatcher callbackDispatcher){
     this.callbackDispatcher = callbackDispatcher;
-    tabsList = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TABS_LIST);
     tabs = new HashSet<>();
     createTabs();
   }
 
   private void createTabs() {
-    for (String tabKey : tabsList.keySet()){
+    for (String tabKey : tabsList.getString(ORDERED_TABS).split(DELIMINATOR)){
       this.getTabs().add(createTab(tabKey));
     }
     this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
