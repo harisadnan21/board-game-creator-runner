@@ -4,10 +4,31 @@
   -fx-light-blue: #72E8E1;
   -fx-board-color-A: #BEDDDB;
   -fx-board-color-B: #97CDC9;
+  -fx-duke-blue: #012169;
   -fx-primaryColor: white;
   -fx-secondaryColor: -fx-light-gray;
   -fx-triColor: -fx-dark-gray;
-  -fx-background-color: -fx-dark-gray;
+  -fx-background-color: -fx-duke-blue;
+}
+
+.button {
+  -fx-font-family: "Montserrat";
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+  -fx-border-color: -fx-light-gray;
+  -fx-border-width: 1 1 1 1;
+  -fx-text-fill: -fx-light-gray;
+  -fx-background-color: -fx-duke-blue;
+  -fx-alignment: center;
+}
+
+.button:hover {
+  -fx-font-family: "Montserrat";
+  -fx-border-color: -fx-light-blue;
+  -fx-border-width: 1 1 1 1;
+  -fx-text-fill: -fx-duke-blue;
+  -fx-background-color: -fx-light-gray;
+  -fx-alignment: center;
 }
 
 /*
@@ -47,7 +68,7 @@ Game View
   -fx-padding: 10;
 }
 
-#message-screen-text, #settings-header {
+#message-screen-text, #settings-header{
   -fx-font-size: 20;
   -fx-font-family: "Montserrat";
   -fx-fill: -fx-light-blue;
@@ -157,7 +178,7 @@ control panel
 }
 
 .gameSelection{
-  -fx-background-color: -fx-dark-gray;
+  -fx-background-color: -fx-duke-blue;
   -fx-alignment: center;
   -fx-padding: 10px;
   -fx-vgap: 10px;
@@ -183,10 +204,6 @@ control panel
 
 .iconName{
   -fx-alignment: center;
-}
-.scroll{
-  -fx-fit-to-width: true;
-  -fx-fit-to-height: true;
 }
 
 .infoPanel{
@@ -220,6 +237,10 @@ control panel
   -fx-text-fill: -fx-triColor;
   -fx-font-size: 15;
   -fx-wrap-text: true;
+}
+.scroll{
+  -fx-fit-to-width: true;
+  -fx-fit-to-height: true;
 }
 
 #p-mode-insns, #ai-insns {

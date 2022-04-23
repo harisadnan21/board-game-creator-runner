@@ -128,14 +128,14 @@ public class Engine implements PropertyChangeListener {
   public void checkWin() {
     if (myOracle.isWinningState(getGameBoard())) {
       int winner = myOracle.getWinner(getGameBoard());
-      if (myPlayerManager.playerExists(winner)) {
-        myPlayerManager.getPlayer(winner).updateScore(1);
-      }
       endGame(winner);
     }
   }
 
   public void endGame(int winner) {
+    if (myPlayerManager.playerExists(winner)) {
+      myPlayerManager.getPlayer(winner).updateScore(1);
+    }
     if (myEndGame != null) {
       myEndGame.accept(winner);
     }

@@ -35,7 +35,6 @@ public class OpeningView {
   private VBox elements;
   private Text title;
   private Button uploadFile;
-  private Button gameBuilder;
   private Button dashboard;
   private Button contSel;
   private DirectoryOpener directoryOpener;
@@ -98,14 +97,13 @@ public class OpeningView {
   private HBox makeButtonRow() {
     HBox row = new HBox();
     row.setId("opening-button-row");
-    row.getChildren().addAll(uploadFile, dashboard, gameBuilder);
+    row.getChildren().addAll(uploadFile, dashboard);
     return row;
   }
 
   private void makeButtons() {
     uploadFile = makeButton(myResources.getString("UploadFile"));
     setupFileUpload();
-    gameBuilder = makeButton(myResources.getString("GameBuilder"));
     contSel = makeButton(myResources.getString("Continue"));
     contSel.setDisable(true);
     dashboard = makeButton(myResources.getString("Dashboard"));

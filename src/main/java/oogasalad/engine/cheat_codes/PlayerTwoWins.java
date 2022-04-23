@@ -18,6 +18,6 @@ public class PlayerTwoWins implements CheatCode{
   @Override
   public Board accept(Board board, Controller controller) {
     controller.getEngine().endGame(1);
-    return new Board(board.getHeight(), board.getWidth());
+    return controller.getInitialBoard();
   }
 }

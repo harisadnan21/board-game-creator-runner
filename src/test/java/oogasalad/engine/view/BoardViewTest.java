@@ -34,7 +34,8 @@ public class BoardViewTest extends DukeApplicationTest {
     Board backEndBoard = new Board(3,3);
     controller = new Controller(new String[]{});
 
-    board = new BoardView(controller, new File("data/games/checkers"), backEndBoard, 300, 300, "/css/light.css", "English");
+    board = new BoardView(controller, new File("data/games/checkers"), backEndBoard, 300, 300,
+        "/engine-view/css/light.css", "English");
 
     Consumer<Set<Position>> setMarkersLambda = board::setValidMarkers;
     controller.startEngine(parser, setMarkersLambda, board::endGame);

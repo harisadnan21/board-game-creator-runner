@@ -40,7 +40,7 @@ public class GameViewTest extends DukeApplicationTest {
     GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
     Board backEndBoard = parser.parseBoard();
 
-    board = new BoardView(controller, game, backEndBoard, 600, 600, "/css/light.css", "English");
+    board = new BoardView(controller, game, backEndBoard, 600, 600, "/engine-view/css/light.css", "English");
     Consumer<Set<Position>> setMarkersLambda = board::setValidMarkers;
 
     controller.startEngine(parser, setMarkersLambda, board::endGame);
