@@ -80,7 +80,7 @@ class BuilderViewTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testMetaDataAndSave() throws InterruptedException {
+  public void testMetaDataAndSave() {
     clickOn("#saveGameButton");
     assertTrue(lookup("#metaBox").tryQuery().isPresent());
     assertEquals(lookup("#stringField-author").queryTextInputControl().getText(), "me");
