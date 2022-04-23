@@ -7,6 +7,7 @@ import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.driver.BoardHistoryException;
+import oogasalad.engine.model.player.PlayerManager;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
@@ -25,6 +26,9 @@ public class Controller {
   private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
 
+  private PlayerManager myPlayerManager;
+  private int myNumPlayers;
+
   /**
    * Constructor for the controller
    * @param board: the board that the game in the engine uses
@@ -37,6 +41,8 @@ public class Controller {
 
       moves = parser.readRules();
       endRules = parser.readWinConditions();
+
+      myNumPlayers = parser.readNumberOfPlayers();
 
       // TODO: figure out better way to pass in view lambdas
       myEngine = new Engine(myGame, moves, endRules, null, null);
