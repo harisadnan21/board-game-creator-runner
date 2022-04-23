@@ -1,5 +1,6 @@
 package oogasalad.builder.view;
 
+import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testfx.matcher.base.WindowMatchers.isFocused;
 
 
 class BuilderViewTest extends DukeApplicationTest {
@@ -66,11 +68,13 @@ class BuilderViewTest extends DukeApplicationTest {
 
   @Test
   public void testMetaDataAndSave(){
-    clickOn("#saveButton");
+    clickOn("#saveGameButton");
+    //var metaScene =  lookup("#metaScene").query();
     //var desriptionText = lookup("#metaScene").lookup("#textArea-description").queryAs(TextArea.class);
   //  assertTrue(lookup("#metaBox").tryQuery().isPresent());
    // assertTrue(lookup("#stringField-author").tryQuery().isPresent());
    // interact(lookup("#metaScene"));
+  //  assertFalse(metaScene.isFocused());
   }
 
 }

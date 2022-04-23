@@ -60,7 +60,9 @@ public class BuilderView {
   // Makes the menu bar, which holds the save and load buttons
   private HBox makeMenu() {
     HBox menu = new HBox();
-    menu.getChildren().add(makeButton("save", e -> saveConfig()));
+    Button saveButton = makeButton("save", e -> saveConfig());
+    saveButton.setId("saveGameButton");
+    menu.getChildren().add(saveButton);
     menu.getChildren().add(makeButton("load", e -> loadConfig()));
     menu.getStyleClass().add("saveMenu");
     return menu;
@@ -71,7 +73,6 @@ public class BuilderView {
     Button result = new Button();
     String label = ViewResourcesSingleton.getInstance().getString(property);
     result.setText(label);
-    result.setId(property + "Button");
     result.setOnAction(handler);
     return result;
   }
