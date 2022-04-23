@@ -38,7 +38,7 @@ public class BuilderView {
 
   public BuilderView(Stage mainStage) {
     stage = mainStage;
-    SplashLogin newWindow = new SplashLogin(e -> buildView());
+    SplashLogin newWindow = new SplashLogin(mainStage, e -> buildView());
   }
 
   // Builds the view, including all tabs and menus
