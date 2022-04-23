@@ -1,0 +1,233 @@
+.root {
+  -fx-light-gray: #EEEEEE;
+  -fx-dark-gray: #464646;
+  -fx-light-blue: #72E8E1;
+  -fx-board-color-A: #BEDDDB;
+  -fx-board-color-B: #97CDC9;
+  -fx-duke-blue: #012169;
+  -fx-primaryColor: white;
+  -fx-secondaryColor: -fx-light-gray;
+  -fx-triColor: -fx-dark-gray;
+  -fx-background-color: -fx-duke-blue;
+}
+
+/*
+Opening View
+*/
+#opening-text {
+  -fx-font-size: 48;
+  -fx-font-family: "Montserrat";
+  -fx-fill: -fx-light-gray;
+}
+
+#game-text {
+  -fx-alignment: center;
+}
+
+#opening-button-layout, #opening-button-row{
+  -fx-spacing: 20;
+  -fx-alignment: center;
+}
+
+#opening-button {
+  -fx-font-family: "Montserrat";
+  -fx-font-size: 17;
+  -fx-fill: -fx-light-gray;
+  -fx-alignment: center;
+  -fx-max-width: 120;
+  -fx-min-width: 120;
+  -fx-max-height: 45;
+  -fx-min-height: 45;
+}
+
+/*
+Game View
+*/
+
+#game-view-root {
+  -fx-padding: 10;
+}
+
+#message-screen-text {
+  -fx-font-size: 20;
+  -fx-font-family: "Montserrat";
+  -fx-fill: -fx-light-blue;
+}
+
+#message-screen-root {
+  -fx-spacing: 5;
+  -fx-background-color: -fx-dark-gray;
+  -fx-padding: 20;
+  -fx-alignment: center;
+}
+
+#message-screen-button {
+}
+
+/*
+Board View
+*/
+#board-foundation {
+  -fx-fill: -fx-board-color-A;
+}
+
+#board-outline {
+  -fx-fill: -fx-board-color-B;
+}
+
+/*
+Cell
+*/
+#valid-marker {
+  -fx-background-image: url("/images/valid_marker.png");
+}
+
+#cell-highlight {
+  -fx-fill: #ECF036;
+  -fx-stroke: #ECF036;
+  -fx-opacity: 0.6;
+}
+
+#cell-type-A {
+  -fx-fill: -fx-board-color-A;
+}
+
+#cell-type-B {
+  -fx-fill: -fx-board-color-B;
+}
+
+/*
+game text
+*/
+#player-text {
+  -fx-font-size: 20;
+  -fx-font-family: "Montserrat";
+  -fx-fill: -fx-light-gray;
+}
+
+/*
+control panel
+*/
+#cp-root {
+  -fx-spacing: 5;
+}
+
+#cp-button-image {
+}
+
+#cp-button {
+  -fx-background-color: #7C7C7C;
+}
+
+.Text{
+  -fx-text-fill: white;
+}
+
+.BorderPane{
+  -fx-padding: 10px;
+}
+
+.cell{
+  -fx-alignment: center;
+}
+
+.title{
+  -fx-alignment: center;
+  -fx-font-size: 40;
+  -fx-background-color: -fx-secondaryColor;
+  -fx-border-color: -fx-triColor;
+  -fx-border-radius: 10px;
+}
+
+.gameSelection{
+  -fx-background-color: -fx-duke-blue;
+  -fx-alignment: center;
+  -fx-padding: 10px;
+  -fx-vgap: 10px;
+  -fx-hgap: 10px;
+}
+
+.iconImage{
+  -fx-background-color: -fx-secondaryColor;
+  -fx-max-width: 10px;
+  -fx-max-height: 150px;
+}
+
+.gameIcon{
+  -fx-background-color: -fx-secondaryColor;
+  -fx-padding: 10px;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-border-color: -fx-triColor;
+  -fx-font-size: 30;
+  -fx-font-weight: bold;
+  -fx-alignment: center;
+}
+
+.iconName{
+  -fx-alignment: center;
+}
+
+.infoPanel{
+  -fx-padding: 10px;
+  -fx-pref-width: 350;
+}
+
+.infoHolder{
+  -fx-padding: 20px;
+  -fx-spacing: 20px;
+  -fx-background-radius: 15px;
+  -fx-border-radius: 15px;
+  -fx-border-color: -fx-triColor;
+  -fx-background-color: -fx-secondaryColor;
+  -fx-alignment: center;
+}
+
+.infoTitle{
+  -fx-font-size: 30;
+  -fx-underline: true;
+  -fx-text-fill: -fx-triColor;
+  -fx-font-weight: bold;
+}
+
+.infoAuthor{
+  -fx-font-size: 20;
+  -fx-text-fill: -fx-triColor;
+}
+
+.infoDescription{
+  -fx-text-fill: -fx-triColor;
+  -fx-font-size: 15;
+  -fx-wrap-text: true;
+}
+
+#p-mode-insns, #ai-insns {
+  -fx-font-family: "Montserrat";
+  -fx-font-size: 24;
+  -fx-fill: -fx-light-gray;
+}
+
+#p-mode-button {
+  -fx-font-family: "Montserrat";
+  -fx-font-size: 17;
+  -fx-fill: -fx-light-gray;
+  -fx-alignment: center;
+  -fx-max-width: 120;
+  -fx-min-width: 120;
+  -fx-max-height: 45;
+  -fx-min-height: 45;
+}
+
+#p-mode-button-layout, #p-mode-window-layout, #ai-window-layout {
+  -fx-spacing: 20;
+  -fx-alignment: center;
+  -fx-max-width: 500;
+  -fx-min-width: 500;
+}
+
+#ai-button-layout {
+  -fx-alignment: center;
+  -fx-padding: 20;
+  -fx-vgap: 20;
+  -fx-hgap: 20;
+}
