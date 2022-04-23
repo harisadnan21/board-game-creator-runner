@@ -20,10 +20,10 @@ public class IsPlayerPiece extends Condition {
    */
   public IsPlayerPiece(int[] parameters) {
     super(parameters);
-    row = myParameters[0];
-    column = myParameters[1];
-    player = myParameters[2];
-    isAbsolute = myParameters[3] != 0;
+    row = getParameter(0);
+    column = getParameter(1);
+    player = getParameter(2);
+    isAbsolute = getParameter(3) != 0;
   }
 
   @Override

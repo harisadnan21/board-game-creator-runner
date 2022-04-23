@@ -21,10 +21,10 @@ public class IsAtAbsolute extends Condition {
    */
   public IsAtAbsolute(int[] parameters) {
     super(parameters);
-    relativeRow = myParameters[0];
-    relativeColumn = myParameters[1];
-    absoluteRow = myParameters[2];
-    absoluteColumn = myParameters[3];
+    relativeRow = getParameter(0);
+    relativeColumn = getParameter(1);
+    absoluteRow = getParameter(2);
+    absoluteColumn = getParameter(3);
 
   }
 

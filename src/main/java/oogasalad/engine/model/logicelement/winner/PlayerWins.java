@@ -19,6 +19,6 @@ public class PlayerWins extends AbstractWinDecision {
 
   @Override
   public int decideWinner(Board board) {
-    return myParameters[0];
+    return getParameter(0);
   }
 }

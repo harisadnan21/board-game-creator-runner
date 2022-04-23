@@ -19,8 +19,8 @@ public class IsInColumn extends Condition {
    */
   public IsInColumn(int[] parameters) {
     super(parameters);
-    relativeColumn = myParameters[0];
-    absoluteColumn = myParameters[1];
+    relativeColumn = getParameter(0);
+    absoluteColumn = getParameter(1);
   }
 
   @Override

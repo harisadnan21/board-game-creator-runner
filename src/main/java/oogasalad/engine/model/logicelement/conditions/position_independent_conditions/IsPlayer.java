@@ -16,7 +16,7 @@ public class IsPlayer extends BoardCondition {
    */
   public IsPlayer(int[] parameters) {
     super(parameters);
-    player = myParameters[0];
+    player = getParameter(0);
   }
 
   @Override

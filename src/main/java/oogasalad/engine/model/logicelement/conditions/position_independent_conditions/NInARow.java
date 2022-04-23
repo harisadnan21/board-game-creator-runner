@@ -20,7 +20,7 @@ public class NInARow extends BoardCondition{
    */
   public NInARow(int[] parameters){
     super(parameters);
-    n = myParameters[0];
+    n = getParameter(0);
   }
 
   /**

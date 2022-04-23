@@ -22,13 +22,13 @@ public class IsPieceTypeRay extends Condition {
    */
   protected IsPieceTypeRay(int[] parameters) {
     super(parameters);
-    startRow = myParameters[0];
-    startColumn = myParameters[1];
-    rowDirection = myParameters[2];
-    columnDirection = myParameters[3];
-    length = myParameters[4];
-    type = myParameters[5];
-    isAbsolute = myParameters[6] != 0;
+    startRow = getParameter(0);
+    startColumn = getParameter(1);
+    rowDirection = getParameter(2);
+    columnDirection = getParameter(3);
+    length = getParameter(4);
+    type = getParameter(5);
+    isAbsolute = getParameter(6) != 0;
   }
 
   @Override
