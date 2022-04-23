@@ -17,11 +17,11 @@ public class Translate extends Action {
    */
   public Translate(int[] parameters) {
     super(parameters);
-    startRow = myParameters[0];
-    startColumn = myParameters[1];
-    endRow = myParameters[2];
-    endColumn = myParameters[3];
-    isAbsolute = myParameters[4] != 0;
+    startRow = getParameter(0);
+    startColumn = getParameter(1);
+    endRow = getParameter(2);
+    endColumn = getParameter(3);
+    isAbsolute = getParameter(4) != 0;
   }
 
   @Override
