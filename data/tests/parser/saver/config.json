@@ -1,1 +1,539 @@
-{"pieces":[{"image":"/resources/whitePawn.png","name":"White Pawn","id":0,"player":0},{"image":"/resources/whiteKing.png","name":"White King","id":1,"player":0},{"image":"/resources/blackKing.png","name":"Black Pawn","id":2,"player":1},{"image":"/resources/blackKing.png","name":"Black King","id":3,"player":1}],"metadata":{"lastModifiedDate":"1648158780","author":"Shaan Gondalia","name":"Checkers","description":"This game is a clone of checkers without piece transformations and double jumps","creationDate":"1648158653"},"winDecisions":[{"name":"Player with no pieces loses","type":"MostPieces","conditions":["noPiecesLeftEitherPlayer"]}],"rules":[{"representativeX":1,"representativeY":-1,"name":"White move down and right","conditions":["emptyDownRight","belongsToWhite","whiteTurn"],"actions":["moveDownRight"]},{"representativeX":-1,"representativeY":-1,"name":"White move down and left","conditions":["emptyDownLeft","belongsToWhite","whiteTurn"],"actions":["moveDownLeft"]},{"representativeX":-1,"representativeY":1,"name":"Black move up and left","conditions":["emptyUpLeft","belongsToBlack","blackTurn"],"actions":["moveUpLeft"]},{"representativeX":1,"representativeY":1,"name":"Black move up and right","conditions":["emptyUpRight","belongsToBlack","blackTurn"],"actions":["moveUpRight"]},{"representativeX":2,"representativeY":-2,"name":"White capture down right","conditions":["emptyDoubleDownRight","belongsToBlackDownRight","belongsToWhite","whiteTurn"],"actions":["moveDoubleDownRight","captureDownRight"]},{"representativeX":-2,"representativeY":-2,"name":"White capture down left","conditions":["emptyDoubleDownLeft","belongsToBlackDownLeft","belongsToWhite","whiteTurn"],"actions":["moveDoubleDownLeft","captureDownLeft"]},{"representativeX":2,"representativeY":2,"name":"Black capture up right","conditions":["emptyDoubleUpRight","belongsToWhiteUpRight","belongsToBlack","blackTurn"],"actions":["moveDoubleUpRight","captureUpRight"]},{"representativeX":-2,"representativeY":2,"name":"Black capture up left","conditions":["emptyDoubleUpLeft","belongsToWhiteUpLeft","belongsToBlack","blackTurn"],"actions":["moveDoubleUpLeft","captureUpLeft"]}],"conditions":[{"name":"noPiecesLeftEitherPlayer","type":"PlayerHasNoPieces"},{"name":"emptyDownRight","x":1,"y":-1,"isAbsolute":0,"type":"IsEmpty"},{"name":"emptyDownLeft","x":-1,"y":-1,"isAbsolute":0,"type":"IsEmpty"},{"name":"emptyUpRight","x":1,"y":1,"isAbsolute":0,"type":"IsEmpty"},{"name":"emptyUpLeft","x":-1,"y":1,"isAbsolute":0,"type":"IsEmpty"},{"name":"whiteTurn","id":0,"type":"IsPlayer"},{"name":"blackTurn","id":1,"type":"IsPlayer"},{"name":"belongsToWhite","x":0,"y":0,"isAbsolute":0,"id":0,"type":"IsPlayerPiece"},{"name":"belongsToBlack","x":0,"y":0,"isAbsolute":0,"id":1,"type":"IsPlayerPiece"},{"name":"belongsToBlackDownRight","x":1,"y":-1,"isAbsolute":0,"id":1,"type":"IsPlayerPiece"},{"name":"belongsToBlackDownLeft","x":-1,"y":-1,"isAbsolute":0,"id":1,"type":"IsPlayerPiece"},{"name":"belongsToWhiteUpRight","x":1,"y":1,"id":0,"type":"IsPlayerPiece"},{"name":"belongsToWhiteUpLeft","x":-1,"y":1,"isAbsolute":0,"id":0,"type":"IsPlayerPiece"},{"name":"emptyDoubleDownRight","x":2,"y":-2,"isAbsolute":0,"type":"IsEmpty"},{"name":"emptyDoubleDownLeft","x":-2,"y":-2,"isAbsolute":0,"type":"IsEmpty"},{"name":"emptyDoubleUpRight","x":2,"y":2,"isAbsolute":0,"type":"IsEmpty"},{"name":"emptyDoubleUpLeft","x":-2,"y":2,"isAbsolute":0,"type":"IsEmpty"}],"actions":[{"srcy":0,"srcx":0,"name":"moveUpRight","x":1,"y":1,"isAbsolute":0,"type":"Translate"},{"srcy":0,"srcx":0,"name":"moveUpLeft","x":-1,"y":1,"isAbsolute":0,"type":"Translate"},{"srcy":0,"srcx":0,"name":"moveDownRight","x":1,"y":-1,"isAbsolute":0,"type":"Translate"},{"srcy":0,"srcx":0,"name":"moveDownLeft","x":-1,"y":-1,"isAbsolute":0,"type":"Translate"},{"srcy":0,"srcx":0,"name":"moveDoubleUpRight","x":2,"y":2,"isAbsolute":0,"type":"Translate"},{"srcy":0,"srcx":0,"name":"moveDoubleUpLeft","x":-2,"y":2,"isAbsolute":0,"type":"Translate"},{"srcy":0,"srcx":0,"name":"moveDoubleDownRight","x":2,"y":-2,"isAbsolute":0,"type":"Translate"},{"srcy":0,"srcx":0,"name":"moveDoubleDownLeft","x":-2,"y":-2,"isAbsolute":0,"type":"Translate"},{"srcy":0,"srcx":0,"name":"moveDoubleUpRight","x":2,"y":2,"isAbsolute":0,"type":"Translate"},{"name":"captureUpRight","x":1,"y":1,"isAbsolute":0,"type":"Remove"},{"name":"captureUpLeft","x":-1,"y":1,"isAbsolute":0,"type":"Remove"},{"name":"captureDownRight","x":1,"y":-1,"isAbsolute":0,"type":"Remove"},{"name":"captureDownLeft","x":-1,"y":-1,"isAbsolute":0,"type":"Remove"}],"board":{"pieceConfiguration":[[2,-1,-1,-1,-1,-1,-1,-1],[-1,-1,1,-1,-1,-1,-1,-1],[-1,1,-1,-1,0,-1,-1,-1],[-1,-1,-1,0,-1,-1,-1,-1],[-1,0,1,-1,-1,-1,-1,-1],[-1,-1,1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1]],"shape":"rectangle","colorConfiguration":[["0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff"],["0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff"],["0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff"],["0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff"],["0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff"],["0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff"],["0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff","0x000000ff","0xffffffff"]],"width":8,"activePlayer":0,"height":7},"basicInfo":{"players":[{"name":"White","value":0},{"name":"Black","value":1}],"firstMove":"White"}}
+{
+    "pieces": [
+        {
+            "image": "/resources/whitePawn.png",
+            "name": "White Pawn",
+            "id": 0,
+            "player": 0
+        },
+        {
+            "image": "/resources/whiteKing.png",
+            "name": "White King",
+            "id": 1,
+            "player": 0
+        },
+        {
+            "image": "/resources/blackKing.png",
+            "name": "Black Pawn",
+            "id": 2,
+            "player": 1
+        },
+        {
+            "image": "/resources/blackKing.png",
+            "name": "Black King",
+            "id": 3,
+            "player": 1
+        }
+    ],
+    "metadata": {
+        "lastModifiedDate": "1648158780",
+        "author": "Shaan Gondalia",
+        "name": "Checkers",
+        "description": "This game is a clone of checkers without piece transformations and double jumps",
+        "creationDate": "1648158653"
+    },
+    "winDecisions": [{
+        "name": "Player with no pieces loses",
+        "type": "MostPieces",
+        "conditions": ["noPiecesLeftEitherPlayer"]
+    }],
+    "rules": [
+        {
+            "representativeX": 1,
+            "representativeY": -1,
+            "name": "White move down and right",
+            "conditions": [
+                "emptyDownRight",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": ["moveDownRight"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": -1,
+            "name": "White move down and left",
+            "conditions": [
+                "emptyDownLeft",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": ["moveDownLeft"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 1,
+            "name": "Black move up and left",
+            "conditions": [
+                "emptyUpLeft",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": ["moveUpLeft"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 1,
+            "name": "Black move up and right",
+            "conditions": [
+                "emptyUpRight",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": ["moveUpRight"]
+        },
+        {
+            "representativeX": 2,
+            "representativeY": -2,
+            "name": "White capture down right",
+            "conditions": [
+                "emptyDoubleDownRight",
+                "belongsToBlackDownRight",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": [
+                "moveDoubleDownRight",
+                "captureDownRight"
+            ]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": -2,
+            "name": "White capture down left",
+            "conditions": [
+                "emptyDoubleDownLeft",
+                "belongsToBlackDownLeft",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": [
+                "moveDoubleDownLeft",
+                "captureDownLeft"
+            ]
+        },
+        {
+            "representativeX": 2,
+            "representativeY": 2,
+            "name": "Black capture up right",
+            "conditions": [
+                "emptyDoubleUpRight",
+                "belongsToWhiteUpRight",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": [
+                "moveDoubleUpRight",
+                "captureUpRight"
+            ]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": 2,
+            "name": "Black capture up left",
+            "conditions": [
+                "emptyDoubleUpLeft",
+                "belongsToWhiteUpLeft",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": [
+                "moveDoubleUpLeft",
+                "captureUpLeft"
+            ]
+        }
+    ],
+    "conditions": [
+        {
+            "name": "noPiecesLeftEitherPlayer",
+            "type": "PlayerHasNoPieces"
+        },
+        {
+            "name": "emptyDownRight",
+            "x": 1,
+            "y": -1,
+            "isAbsolute": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "name": "emptyDownLeft",
+            "x": -1,
+            "y": -1,
+            "isAbsolute": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "name": "emptyUpRight",
+            "x": 1,
+            "y": 1,
+            "isAbsolute": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "name": "emptyUpLeft",
+            "x": -1,
+            "y": 1,
+            "isAbsolute": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "name": "whiteTurn",
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "name": "blackTurn",
+            "id": 1,
+            "type": "IsPlayer"
+        },
+        {
+            "name": "belongsToWhite",
+            "x": 0,
+            "y": 0,
+            "isAbsolute": 0,
+            "id": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "name": "belongsToBlack",
+            "x": 0,
+            "y": 0,
+            "isAbsolute": 0,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "name": "belongsToBlackDownRight",
+            "x": 1,
+            "y": -1,
+            "isAbsolute": 0,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "name": "belongsToBlackDownLeft",
+            "x": -1,
+            "y": -1,
+            "isAbsolute": 0,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "name": "belongsToWhiteUpRight",
+            "x": 1,
+            "y": 1,
+            "id": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "name": "belongsToWhiteUpLeft",
+            "x": -1,
+            "y": 1,
+            "isAbsolute": 0,
+            "id": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "name": "emptyDoubleDownRight",
+            "x": 2,
+            "y": -2,
+            "isAbsolute": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "name": "emptyDoubleDownLeft",
+            "x": -2,
+            "y": -2,
+            "isAbsolute": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "name": "emptyDoubleUpRight",
+            "x": 2,
+            "y": 2,
+            "isAbsolute": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "name": "emptyDoubleUpLeft",
+            "x": -2,
+            "y": 2,
+            "isAbsolute": 0,
+            "type": "IsEmpty"
+        }
+    ],
+    "actions": [
+        {
+            "srcy": 0,
+            "srcx": 0,
+            "name": "moveUpRight",
+            "x": 1,
+            "y": 1,
+            "isAbsolute": 0,
+            "type": "Translate"
+        },
+        {
+            "srcy": 0,
+            "srcx": 0,
+            "name": "moveUpLeft",
+            "x": -1,
+            "y": 1,
+            "isAbsolute": 0,
+            "type": "Translate"
+        },
+        {
+            "srcy": 0,
+            "srcx": 0,
+            "name": "moveDownRight",
+            "x": 1,
+            "y": -1,
+            "isAbsolute": 0,
+            "type": "Translate"
+        },
+        {
+            "srcy": 0,
+            "srcx": 0,
+            "name": "moveDownLeft",
+            "x": -1,
+            "y": -1,
+            "isAbsolute": 0,
+            "type": "Translate"
+        },
+        {
+            "srcy": 0,
+            "srcx": 0,
+            "name": "moveDoubleUpRight",
+            "x": 2,
+            "y": 2,
+            "isAbsolute": 0,
+            "type": "Translate"
+        },
+        {
+            "srcy": 0,
+            "srcx": 0,
+            "name": "moveDoubleUpLeft",
+            "x": -2,
+            "y": 2,
+            "isAbsolute": 0,
+            "type": "Translate"
+        },
+        {
+            "srcy": 0,
+            "srcx": 0,
+            "name": "moveDoubleDownRight",
+            "x": 2,
+            "y": -2,
+            "isAbsolute": 0,
+            "type": "Translate"
+        },
+        {
+            "srcy": 0,
+            "srcx": 0,
+            "name": "moveDoubleDownLeft",
+            "x": -2,
+            "y": -2,
+            "isAbsolute": 0,
+            "type": "Translate"
+        },
+        {
+            "srcy": 0,
+            "srcx": 0,
+            "name": "moveDoubleUpRight",
+            "x": 2,
+            "y": 2,
+            "isAbsolute": 0,
+            "type": "Translate"
+        },
+        {
+            "name": "captureUpRight",
+            "x": 1,
+            "y": 1,
+            "isAbsolute": 0,
+            "type": "Remove"
+        },
+        {
+            "name": "captureUpLeft",
+            "x": -1,
+            "y": 1,
+            "isAbsolute": 0,
+            "type": "Remove"
+        },
+        {
+            "name": "captureDownRight",
+            "x": 1,
+            "y": -1,
+            "isAbsolute": 0,
+            "type": "Remove"
+        },
+        {
+            "name": "captureDownLeft",
+            "x": -1,
+            "y": -1,
+            "isAbsolute": 0,
+            "type": "Remove"
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                2,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                1,
+                -1,
+                -1,
+                0,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                0,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                0,
+                1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 8,
+        "activePlayer": 0,
+        "height": 7
+    },
+    "basicInfo": {
+        "players": [
+            {
+                "name": "White",
+                "value": 0
+            },
+            {
+                "name": "Black",
+                "value": 1
+            }
+        ],
+        "firstMove": "White"
+    }
+}
