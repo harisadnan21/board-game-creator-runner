@@ -14,6 +14,7 @@ import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.property.PropertyNameAnalyzer;
 
 /**
  * Displays help to explain how all the other tabs work
@@ -22,7 +23,8 @@ import oogasalad.builder.view.callback.GetPropertiesCallback;
  */
 public class HelpTab extends AbstractTab {
 
-  public static String HELP = "help";
+  public static final String HELP = "help";
+  private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
   private TextArea leftDisplay;
 
   /**
@@ -73,15 +75,15 @@ public class HelpTab extends AbstractTab {
     boolean hasRequiredType = false;
     StringBuilder textToDisplay = new StringBuilder();
     textToDisplay.append(leftDisplay.getText());
-    if (!(type.equals(BOARD_TYPE) || type.equals(HELP))) {
+    if (!type.equals(BOARD_TYPE) && !type.equals(HELP)) {
       Collection<Property> elementProperties = getCallbackDispatcher().call(
           new GetPropertiesCallback(type)).orElseThrow();
       for (Property property : elementProperties) {
         String propertyName = property.name();
-        if (propertyName.contains("required-")) {
+        if (propertyNameAnalyzer.isRequiredProperty(property)) {
           propertyName = propertyName.replace("required", type);
         }
-        if (propertyName.contains("-type")) {
+        if (propertyNameAnalyzer.isTypeProperty(property)) {
           String[] typeOptions = property.valueAsString().split("-");
           leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
               .getString(propertyName + "-" + HELP));
@@ -106,7 +108,7 @@ public class HelpTab extends AbstractTab {
     Collection<Property> elementProperties = getCallbackDispatcher().call(
         new GetPropertiesCallback(type)).orElseThrow();
     for (Property prop : elementProperties) {
-      if (prop.name().contains(propType + "-")) {
+      if (propertyNameAnalyzer.getPropertyNamespace(prop).equals(propType)) {
         leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
             .getString(prop.name() + "-" + HELP));
       }
