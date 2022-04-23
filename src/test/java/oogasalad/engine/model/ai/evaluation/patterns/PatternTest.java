@@ -46,6 +46,7 @@ class PatternTest {
 
     PositionState positionState2 = new PositionState(position2, piece2);
 
+    PositionState positionState3 = new PositionState(position3, piece3);
 
     PositionState positionState4 = new PositionState(position4, piece4);
 
@@ -187,8 +188,10 @@ class PatternTest {
   @Test
   void forPlayer() {
     Pattern pattern1 = new Pattern(List.of(new PositionState(new Position(0,0), new Piece(1, Piece.PLAYER_ONE))));
-    Pattern pattern2 = new Pattern(List.of(new PositionState(new Position(0,0), new Piece(1, Piece.PLAYER_TWO))));
+    Pattern pattern2 = new Pattern(List.of(new PositionState(new Position(4,4), new Piece(4, Piece.PLAYER_TWO))));
+
     assertEquals(Piece.PLAYER_ONE, pattern1.forPlayer());
+
     assertEquals(Piece.PLAYER_TWO, pattern2.forPlayer());
   }
 }

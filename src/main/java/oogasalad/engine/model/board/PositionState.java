@@ -45,6 +45,7 @@ public record PositionState(Position position, Piece piece) implements Comparabl
     return piece.equals(Piece.EMPTY);
   }
 
+
   @Override
   public int compareTo(PositionState positionState) {
     return this.position().compareTo(positionState.position());

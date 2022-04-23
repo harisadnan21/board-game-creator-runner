@@ -104,6 +104,6 @@ public class Pattern implements Comparable<Pattern> {
   }
 
   public int forPlayer() {
-    return 0;
+    return forPlayer;
   }
 }
