@@ -222,14 +222,14 @@ control panel
   -fx-min-height: 45;
 }
 
-#p-mode-button-layout, #p-mode-window-layout, #ai-window-layout {
+#p-mode-window-layout, #ai-window-layout {
   -fx-spacing: 20;
   -fx-alignment: center;
   -fx-max-width: 500;
   -fx-min-width: 500;
 }
 
-#ai-button-layout {
+#ai-button-layout, #p-mode-button-layout {
   -fx-alignment: center;
   -fx-padding: 20;
   -fx-vgap: 20;
