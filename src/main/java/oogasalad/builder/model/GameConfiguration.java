@@ -3,8 +3,11 @@ package oogasalad.builder.model;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
+import oogasalad.builder.controller.ResourcesSingleton;
 import oogasalad.builder.model.board.Board;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
@@ -13,6 +16,7 @@ import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.element.factory.FactoryProvider;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
+import oogasalad.builder.model.exception.MalformedConfigurationException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.property.Property;
@@ -29,18 +33,18 @@ import org.json.JSONObject;
  */
 public class GameConfiguration implements BuilderModel {
 
-  public static final String EMPTY = "empty";
-  private static final String PIECE = "piece";
-  private static final String RULE = "rule";
-  private static final String ACTION = "action";
-  private static final String CONDITION = "condition";
+  private static final String EMPTY = "empty";
   private static final String ID = "id";
+  private static final String PIECE = "piece";
   private static final int INDENT_FACTOR = 4;
   public static final String METADATA = "metadata";
+  private static final String NAME = "name";
+  private static final String BOARD = "board";
   private final Map<String, Map<String, GameElement>> elements;
   private final FactoryProvider provider;
   private final FileMapper mapper;
   private Board board;
+  private static final ResourceBundle resources = ResourceBundle.getBundle("config.Elements");
 
   /**
    * Creates an empty GameConfiguration
@@ -111,7 +115,7 @@ public class GameConfiguration implements BuilderModel {
     Collection<Property> reMappedProperties = mapper.reMapProperties(properties);
     GameElement newElement = provider.createElement(type, name, reMappedProperties);
     if (!elements.containsKey(type)) {
-      elements.put(type, new HashMap<>());
+      throw new ElementNotFoundException();
     }
     elements.get(type).put(name, newElement);
   }
@@ -213,6 +217,28 @@ public class GameConfiguration implements BuilderModel {
   }
 
   /**
+   * Returns the width of the board
+   *
+   * @return the width of the board
+   */
+  @Override
+  public int getWidth() {
+    checkBoardCreated();
+    return board.getWidth();
+  }
+
+  /**
+   * Returns the height of the board
+   *
+   * @return the height of the board
+   */
+  @Override
+  public int getHeight(){
+    checkBoardCreated();
+    return board.getHeight();
+  }
+
+  /**
    * Converts a Configuration into a String representing the model's JSON Format
    *
    * @return a String representation of the configuration's JSON Format
@@ -221,13 +247,11 @@ public class GameConfiguration implements BuilderModel {
   public String toJSON() throws NullBoardException, ElementNotFoundException {
     checkBoardCreated();
     JSONObject obj = new JSONObject();
-    // TODO: Remove magic values
     obj.put(METADATA, metaDataToJSON());
-    obj.put("pieces", elementsToJSONArray(PIECE));
-    obj.put("board", new JSONObject(board.toJSON()));
-    obj.put("rules", elementsToJSONArray(RULE));
-    obj.put("conditions", elementsToJSONArray(CONDITION));
-    obj.put("actions", elementsToJSONArray(ACTION));
+    obj.put(BOARD, new JSONObject(board.toJSON()));
+    for (String key : Collections.list(resources.getKeys())) {
+      obj.put(resources.getString(key), elementsToJSONArray(key));
+    }
     return obj.toString(INDENT_FACTOR);
   }
 
@@ -235,25 +259,20 @@ public class GameConfiguration implements BuilderModel {
    * Converts a JSON String into a Builder Model
    *
    * @param json the JSON string
-   * @return a model made from the JSON string
+   * @param workingDirectory the working directory of the configuration file
    */
-  @Override
-  public BuilderModel fromJSON(String json) {
+  public void fromJSON(String json, String workingDirectory) {
     JSONObject obj = new JSONObject(json);
-    // TODO: Remove magic values
     board = new RectangularBoard(0, 0).fromJSON(obj.getJSONObject("board").toString());
     resetElements();
     try{
-      addJSONArray(obj.getJSONArray("pieces"), PIECE);
-      addJSONArray(obj.getJSONArray("rules"), RULE);
-      addJSONArray(obj.getJSONArray("conditions"), CONDITION);
-      addJSONArray(obj.getJSONArray("actions"), ACTION);
-      addJSONObject(obj.getJSONObject(METADATA), METADATA);
-    } catch (JSONException ignored) {
-      // Do nothing if certain parts of the json file are not found
-      // TODO: Maybe throw an exception here?
+      for (String key : Collections.list(resources.getKeys())) {
+        addJSONArray(obj.getJSONArray(resources.getString(key)), key, workingDirectory);
+      }
+      addJSONObject(obj.getJSONObject(METADATA), METADATA, workingDirectory);
+    } catch (JSONException e) {
+      throw new MalformedConfigurationException(e.getMessage());
     }
-    return this;
   }
 
   /**
@@ -286,18 +305,20 @@ public class GameConfiguration implements BuilderModel {
   }
 
   // Adds the contents of a json array to the map of game elements
-  private void addJSONArray(JSONArray arr, String type) {
+  private void addJSONArray(JSONArray arr, String type, String workingDir) {
     for (int i = 0; i < arr.length(); i++) {
       JSONObject obj = arr.getJSONObject(i);
-      addJSONObject(obj, type);
+      addJSONObject(obj, type, workingDir);
     }
   }
 
   // Adds the contents of a json object to the map of game elements
-  private void addJSONObject(JSONObject obj, String type) {
-    if (obj.get("name") != null) {
+  private void addJSONObject(JSONObject obj, String type, String workingDir) {
+    if (obj.get(NAME) != null) {
       GameElement element = provider.fromJSON(type, obj.toString());
-      elements.get(type).put(element.toRecord().name(), element);
+      Collection<Property> resolvedProperties = mapper.resolveResourcePaths(element.toRecord()
+          .properties(), workingDir);
+      addGameElement(type, element.toRecord().name(), resolvedProperties);
     }
   }
 
@@ -323,10 +344,9 @@ public class GameConfiguration implements BuilderModel {
 
   // Resets the map of game elements
   private void resetElements() {
-    elements.put(PIECE, new HashMap<>());
-    elements.put(RULE, new HashMap<>());
-    elements.put(ACTION, new HashMap<>());
-    elements.put(CONDITION, new HashMap<>());
+    for (String key : Collections.list(resources.getKeys())) {
+      elements.put(key, new HashMap<>());
+    }
     elements.put(METADATA, new HashMap<>());
   }
 

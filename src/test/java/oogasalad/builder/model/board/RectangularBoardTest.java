@@ -39,6 +39,12 @@ public class RectangularBoardTest {
   }
 
   @Test
+  void testDimensions() {
+    assertEquals(WIDTH, board.getWidth());
+    assertEquals(HEIGHT, board.getHeight());
+  }
+
+  @Test
   void testPiecePlacement() {
     board.placePiece(X, Y, PIECE_ID);
     assertEquals(PIECE_ID, board.findPieceAt(X, Y));

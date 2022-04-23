@@ -22,7 +22,7 @@ public class PositionTest {
     positions2 = new Position[9];
     int count = 0;
     for(Tuple2<Integer, Integer> tup: zip(Arrays.stream(ROW_VALS), Arrays.stream(COL_VALS))){
-      positions1[count] = new Position(tup);
+      positions1[count] = new Position(tup.v1, tup.v2);
       positions2[count] = new Position(tup.v1, tup.v2);
       count+=1;
     }
@@ -40,6 +40,14 @@ public class PositionTest {
     assertEquals(myPosition, p3);
     assertEquals(myPosition, p4);
     assertNotEquals(myPosition, p5);
+  }
+
+  @Test
+  void testAdd() {
+    Position p1 = new Position(1, 2);
+    Position p2 = new Position(5, 2);
+    Position sum = p1.add(p2);
+    assertEquals(new Position(6, 4), sum);
   }
 
 

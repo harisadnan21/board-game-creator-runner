@@ -15,6 +15,8 @@ import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -84,8 +86,9 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       for (Property property : propertyTypes.keySet()) {
         if (property.name().split(DELIMITER)[1].equals(key)) {
           String classPath = propertyTypes.get(property);
+          String value = convertToString(obj.get(key).toString());
           properties.add(
-              makePropertyReflection(key, classPath, obj.get(key).toString(), property.form()));
+              makePropertyReflection(key, classPath, value, property.form()));
           break;
         }
       }
@@ -94,12 +97,29 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     return properties;
   }
 
+  // Attempts to convert an array to the proper string representation. Consider refactoring
+  private String convertToString(String orig) {
+    try{
+      JSONArray arr = new JSONArray(orig);
+      StringBuilder s = new StringBuilder();
+      for (int i = 0; i < arr.length() - 1 ; i++) {
+        s.append(arr.getString(i));
+        s.append(DELIMITER);
+      }
+      s.append(arr.getString(arr.length() - 1));
+      return s.toString();
+    } catch (JSONException e) {
+      return orig;
+    }
+  }
+
+
   // Gets the name of a game element from a json string
   protected String nameFromJSON(String json) {
     JSONObject obj = new JSONObject(json);
     for (String key : obj.keySet()) {
       if (key.equals(NAME)) {
-        return key;
+        return obj.getString(key);
       }
     }
     return null; // Perhaps throw an exception

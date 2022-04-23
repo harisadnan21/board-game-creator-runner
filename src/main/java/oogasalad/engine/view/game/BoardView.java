@@ -76,7 +76,7 @@ public class BoardView implements PropertyChangeListener{
     gameIsUploadedFile = game.listFiles(GameIcon.getConfigFile)==null;
     getMetadata(game);
 
-    setPiecePaths(game);
+    setPiecePaths(game.listFiles(GameIcon.getConfigFile)[0]);
 
     text = new GameUpdateText();
     root = new StackPane();
@@ -160,7 +160,8 @@ public class BoardView implements PropertyChangeListener{
   private Map<Integer, String> getConfigFile(File game, PieceParser parser) {
     Map<Integer, String> pieces = null;
     try {
-      pieces = gameIsUploadedFile ? parser.parse(game) : parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
+      //pieces = gameIsUploadedFile ? parser.parse(game) : parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
+      pieces = gameIsUploadedFile ? parser.parse(game) : parser.parse(game);
     }
     catch(FileNotFoundException e){
       LOG.error("Config File Not Found");

@@ -4,6 +4,7 @@ import oogasalad.builder.BuilderMain;
 import oogasalad.builder.model.BuilderModel;
 import oogasalad.builder.model.GameConfiguration;
 import oogasalad.builder.model.element.ElementRecord;
+import oogasalad.builder.model.element.FileMapper;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
@@ -14,10 +15,14 @@ import oogasalad.builder.view.callback.ClearCellBackgroundCallback;
 import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.ColorCellBackgroundCallback;
 import oogasalad.builder.view.callback.FindCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindPieceAtCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
+import oogasalad.builder.view.callback.GetHeightCallback;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.callback.GetWidthCallback;
+import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
@@ -60,6 +65,7 @@ public class BuilderController {
         registerHandlers();
     }
 
+    // Registers all callback handling methods so that the view can communicate with the controller
     private void registerHandlers() {
         builderView.registerCallbackHandler(GetPropertiesCallback.class, this::getRequiredProperties);
         builderView.registerCallbackHandler(GetElementPropertiesCallback.class, this::getElementProperties);
@@ -70,8 +76,13 @@ public class BuilderController {
         builderView.registerCallbackHandler(PlacePieceCallback.class, this::placePiece);
         builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class, this::getElementPropertyByKey);
         builderView.registerCallbackHandler(MakeBoardCallback.class, this::makeBoard);
+        builderView.registerCallbackHandler(LoadCallback.class, this::load);
         builderView.registerCallbackHandler(ClearCellBackgroundCallback.class, this::clearCellBackground);
         builderView.registerCallbackHandler(ColorCellBackgroundCallback.class, this::colorCellBackground);
+        builderView.registerCallbackHandler(GetWidthCallback.class, this::getWidth);
+        builderView.registerCallbackHandler(GetHeightCallback.class, this::getHeight);
+        builderView.registerCallbackHandler(FindPieceAtCallback.class, this::findPieceAt);
+        builderView.registerCallbackHandler(FindCellBackgroundCallback.class, this::findCellBackground);
     }
 
     /**
@@ -104,8 +115,8 @@ public class BuilderController {
      * @return the name of the piece
      * @throws NullBoardException if the board has not been initialized
      */
-    public String findPieceAt(int x, int y) throws NullBoardException, ElementNotFoundException {
-        return gameConfig.findBoardPieceAt(x, y);
+    String findPieceAt(FindPieceAtCallback callback) throws NullBoardException, ElementNotFoundException {
+        return gameConfig.findBoardPieceAt(callback.x(), callback.y());
     }
 
     /**
@@ -177,7 +188,23 @@ public class BuilderController {
         throw new ElementNotFoundException();
     }
 
+    /**
+     * Returns the width of the board
+     *
+     * @return the width of the board
+     */
+    Integer getWidth(GetWidthCallback callback) {
+        return gameConfig.getWidth();
+    }
 
+    /**
+     * Returns the height of the board
+     *
+     * @return the height of the board
+     */
+    Integer getHeight(GetHeightCallback callback){
+        return gameConfig.getHeight();
+    }
 
     /**
      * Provides a list of element names that are of the given type
@@ -237,21 +264,21 @@ public class BuilderController {
     /**
      * Loads a Game Configuration from a JSON File
      *
-     * @param directory the directory to load the game configuration from
+     * @param callback a LoadCallback that contains a directory to load a game from
      */
-    public void load(File directory) {
-        LOG.info("Attempting to load configuration from folder {}", directory.getAbsolutePath());
-        File configFile = new File(directory.toString() + JSON_FILENAME);
-        InputStream is = null;
+    Void load(LoadCallback callback) {
+        LOG.info("Attempting to load configuration from folder {}", callback.directory().getAbsolutePath());
+        File configFile = new File(callback.directory().toString() + JSON_FILENAME);
         try {
-            is = new DataInputStream(new FileInputStream(configFile));
+            InputStream is = new DataInputStream(new FileInputStream(configFile));
             JSONTokener tokener = new JSONTokener(is);
             JSONObject object = new JSONObject(tokener);
-            gameConfig.fromJSON(object.toString());
+            gameConfig.fromJSON(object.toString(), callback.directory().toString());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         LOG.info("Successfully loaded {}", gameConfig.getElementNames(GameConfiguration.METADATA).stream().findFirst().orElse("Untitled"));
+        return null;
     }
 
     public void showError(Throwable t) {

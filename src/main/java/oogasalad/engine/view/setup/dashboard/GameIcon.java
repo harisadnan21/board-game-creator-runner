@@ -26,6 +26,9 @@ public class GameIcon extends VBox {
   private String myName;
   private File myGameFolder;
   private BiConsumer<Map<String, String>, File> myUpdateInfo;
+
+  public static final FileFilter getConfigFile = file -> file.getName().equals(CONFIG_FILE);
+
   private static final Logger LOG = LogManager.getLogger(GameIcon.class);
 
   public GameIcon(
@@ -75,9 +78,5 @@ public class GameIcon extends VBox {
     }
     return configFile;
   }
-
-  public static final FileFilter getConfigFile = file -> file.getName().equals(CONFIG_FILE);
-
-
 
 }

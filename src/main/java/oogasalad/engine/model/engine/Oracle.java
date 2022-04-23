@@ -94,7 +94,7 @@ public class Oracle implements AIOracle {
   public Board applyRules(Board board) {
     Board finalBoard = board;
     for (Move rule: myPersistentRules) {
-      board = rule.doMovement(board, new Position(0,0));
+      board = rule.doMove(board, new Position(0,0));
     }
     return board;
   }

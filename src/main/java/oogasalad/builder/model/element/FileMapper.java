@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Map;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
+import org.json.JSONObject;
 
 /**
  * Class that is responsible for mapping files from the user's filesystem to the game subdirectory.
@@ -88,6 +89,32 @@ public class FileMapper {
       }
     }
     return newProperties;
+  }
+
+  /**
+   * Resolves the relative paths to loaded resource files. Resource files are stored as a relative
+   * path from the configuration directory in the JSON configuration. These paths need to be
+   * resolved, or converted to absolute paths in the user's computer. This method appends the
+   * workingDirectory to all properties that use resource paths (in this case, just images).
+   *
+   * @param originalProperties the original properties to resolve
+   * @param workingDir the absolute path to the game configuration directory
+   *
+   * @return a collection of new properties that have had their relative paths resolved
+   */
+  public Collection<Property> resolveResourcePaths(Collection<Property> originalProperties, String workingDir) {
+    Collection<Property> newProperties = new HashSet<>();
+    for (Property property : originalProperties) {
+      if (Arrays.asList(PROPERTIES_TO_REMAP).contains(property.name())) {
+        String newPath = workingDir + property.valueAsString();
+        newProperties.add(PropertyFactory.makeProperty(property.name(), newPath, property.form()));
+      }
+      else {
+        newProperties.add(property);
+      }
+    }
+    return newProperties;
+
   }
 
   // Remaps a filePath to the new resources file path

@@ -24,6 +24,7 @@ public class GameParser {
   private final File configFile;
   private final BoardParser boardParser;
   private final RuleParser ruleParser;
+  private final WinConditionParser winConditionParser;
   private final MetadataParser metadataParser;
 
 
@@ -36,13 +37,12 @@ public class GameParser {
     this.configFile = configFile;
     boardParser = new BoardParser();
     ruleParser = new RuleParser();
+    winConditionParser = new WinConditionParser();
     metadataParser = new MetadataParser();
   }
 
   /**
    * Reads a board from the configuration file attached to the parser
-   * <p>
-   * TODO: Add Piece parsing to this to get images of pieces from config
    *
    * @return a board with the correct starting configuration
    */
@@ -73,8 +73,7 @@ public class GameParser {
    *
    * @return a collection of win conditions
    */
-  public Collection<EndRule> readWinConditions() {
-    return new HashSet<>();
+  public Collection<EndRule> readWinConditions() throws FileNotFoundException {
+    return winConditionParser.parse(configFile);
   }
-
 }

@@ -67,7 +67,7 @@ public class Engine {
       Move move = choice.move();
       Position referencePoint = choice.position();
       if (move.isValid(getGameStateBoard(), referencePoint)) {
-        Board board = move.doMovement(getGameStateBoard(), referencePoint);
+        Board board = move.doMove(getGameStateBoard(), referencePoint);
         board = board.setPlayer(board.getPlayer()+1);
         LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
 

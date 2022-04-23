@@ -18,6 +18,7 @@ import oogasalad.builder.view.callback.GetElementNamesCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class GameElementListSelector implements PropertySelector {
@@ -44,10 +45,7 @@ public class GameElementListSelector implements PropertySelector {
 
   private void setup() {
     elementsList.setEditable(true);
-    String startElements = property.valueAsString();
-    if(startElements.length() > 2) {
-      elementsList.getItems().setAll(Arrays.stream(startElements.substring(1, startElements.length() - 1).split(",")).map(s -> s.substring(1, s.length() - 1)).toList());
-    }
+    elementsList.getItems().setAll(parseString(property.valueAsString()));
     elementsList.setCellFactory(view -> new ListCell<>() {
       @Override
       protected void updateItem(String elementName, boolean b) {
@@ -96,9 +94,12 @@ public class GameElementListSelector implements PropertySelector {
   }
 
   @Override
-  public StringListProperty getProperty() {
-    String[] nameParts = property.name().split("-");
-    return new StringListProperty(nameParts[nameParts.length - 1], new ArrayList<>(elementsList.getItems()), property.form());
+  public Property getProperty() {
+    return property.with(property.shortName(), String.join(",", elementsList.getItems()));
+  }
+
+  private Collection<String> parseString(String toParse) {
+    return List.of(toParse.split(","));
   }
 
   @Override

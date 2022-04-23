@@ -65,12 +65,32 @@ public interface Board extends JSONSerializable, JSONParseable<Board> {
   void colorCellBackground(int x, int y, String color);
 
   /**
+   * Returns the width of the board
+   *
+   * @return the width of the board
+   */
+  int getWidth();
+
+  /**
+   * Returns the height of the board
+   *
+   * @return the height of the board
+   */
+  int getHeight();
+
+  /**
    * Converts a Board into a String representing the board's JSON Format
    *
    * @return a String representation of the board's JSON Format
    */
   String toJSON();
 
+  /**
+   * Creates a Board from a json string
+   *
+   * @param json a json string
+   * @return a Board object created from the json string
+   */
   Board fromJSON(String json);
 
 

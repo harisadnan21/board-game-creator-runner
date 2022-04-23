@@ -1,12 +1,6 @@
 package oogasalad.engine.model.board;
 
-import org.jooq.lambda.tuple.Tuple2;
-
 public record Position (int row, int column) implements Comparable<Position> {
-
-  public Position(Tuple2<Integer,Integer> tuple2) {
-    this(tuple2.v1(), tuple2.v2());
-  }
 
   public Position withNewRow(int newRow) {
     return new Position(newRow, this.column);
@@ -31,5 +25,13 @@ public record Position (int row, int column) implements Comparable<Position> {
     return this.column() - position.column();
   }
 
+  /**
+   * Returns a new position which is a sum of this position and position
+   * @param position
+   * @return
+   */
+  public Position add(Position position) {
+    return new Position(this.row() + position.row(), this.column() + position.column);
+  }
 }
 

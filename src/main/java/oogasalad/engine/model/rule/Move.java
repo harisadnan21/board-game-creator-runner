@@ -22,6 +22,9 @@ public class Move implements Rule {
   private Action[] myActions;
   private int myRepI;
   private int myRepJ;
+  private Position myRepresentativePoint;
+  private boolean myIsPersistent;
+
   /**
    *
    * @param conditions
@@ -37,17 +40,33 @@ public class Move implements Rule {
     myRepJ = repJ;
   }
 
-  private boolean isValid(Board board, int refI, int refJ) {
-    try {
-      for (Condition condition : myConditions) {
-        if (!condition.isTrue(board, new Position(refI, refJ))) {
-          return false;
-        }
-      }
-      return true;
-    } catch (OutOfBoardException e) {
-      return false;
-    }
+  /**
+   *
+   * @param name name of rule
+   * @param conditions conditions which all must be true for rule to be valid
+   * @param actions actions which get executed when rule is chosen
+   * @param representativePoint relative point which might be shown to a user to represent this move
+   */
+  public Move(String name, Condition[] conditions, Action[] actions, Position representativePoint) {
+    this(name, conditions, actions, representativePoint, false);
+  }
+
+  /**
+   *
+   * @param name name of rule
+   * @param conditions conditions which all must be true for rule to be valid
+   * @param actions actions which get executed when rule is chosen
+   * @param representativePoint relative point which might be shown to a user to represent this move
+   * @param isPersistent if the rule is persistent (executed after every move)
+   */
+  public Move(String name, Condition[] conditions, Action[] actions, Position representativePoint, boolean isPersistent) {
+    myName = name;
+    myConditions = conditions;
+    myActions = actions;
+    myRepI = representativePoint.row();
+    myRepJ = representativePoint.column();
+    myRepresentativePoint = representativePoint;
+    myIsPersistent = isPersistent;
   }
 
   /**
@@ -70,6 +89,13 @@ public class Move implements Rule {
   }
 
   /**
+   * Returns true if this move is persistent
+   * @return
+   */
+  public boolean isPersistent() {
+    return myIsPersistent;
+  }
+  /**
    * Returns the name given to this rule
    * @return
    */
@@ -90,7 +116,13 @@ public class Move implements Rule {
     return getRepresentativeCell(referencePoint.row(), referencePoint.column());
   }
 
-  public Board doMovement(Board board, Position referencePoint) {
+  /**
+   *
+   * @param board resultant board
+   * @param referencePoint
+   * @return
+   */
+  public Board doMove(Board board, Position referencePoint) {
     if (isValid(board, referencePoint)) {
 
       LOG.info("{} has {} conditions and {} actions", myName, myConditions.length, myActions.length);

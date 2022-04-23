@@ -54,4 +54,6 @@ public abstract class BasicTab extends BorderPane {
   protected abstract Node setupRightSide();
 
   protected abstract Node setupLeftSide();
+
+  public abstract void loadElements();
 }

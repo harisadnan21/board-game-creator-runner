@@ -16,8 +16,6 @@ import oogasalad.builder.view.ViewResourcesSingleton;
 
 import java.util.ResourceBundle;
 
-import static oogasalad.builder.view.BuilderView.makeButton;
-import static oogasalad.builder.view.BuilderView.displayWelcome;
 public class SplashLogin extends Parent {
 
 
@@ -30,14 +28,9 @@ public class SplashLogin extends Parent {
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
     private static final String SPLASH_PACKAGE = "SplashLogin.css";
-    private static String TAB_LANGUAGE = "English";
-    private static String TAB_PROPERTIES = "tabResources";
-    private static final String TAB_FORMAT = "tabFormat.css";
     private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
     private Label myWelcome;
-    private ResourceBundle splashResources;
-    private ResourceBundle tabProperties;
     private ChoiceBox<String> languageBox;
     private VBox leftPanel;
     private VBox rightPanel;
@@ -46,9 +39,11 @@ public class SplashLogin extends Parent {
     private Button proceed;
     private static Stage stage;
     private Scene myLoginScene;
+    private final EventHandler<ActionEvent> handler;
 
 
-    public SplashLogin() {
+    public SplashLogin(EventHandler<ActionEvent> handler) {
+        this.handler = handler;
         createElements();
         setupHolders(proceed);
         createScreen(proceed);
@@ -67,7 +62,8 @@ public class SplashLogin extends Parent {
     }
 
     private void createElements() {
-        proceed = makeButton("Proceed", event -> {displayWelcome();});
+        proceed = makeButton("Proceed", this::exitSplash);
+        proceed.setId("loginButton");
         myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
         languageBox = new ChoiceBox<>();
         languageBox.getItems().addAll(languageChoice);
@@ -88,11 +84,24 @@ public class SplashLogin extends Parent {
         buttonHolder.setRight(rightPanel);
     }
 
+    //Exits the splash screen, moving to the builder view
+    private void exitSplash(ActionEvent e) {
+        handler.handle(e);
+        stage.close();
+    }
+
     private void getLanguage(ActionEvent event) {
         String myLanguage = languageBox.getValue();
         ViewResourcesSingleton.getInstance().setLanguage(myLanguage);
-        displayWelcome();
+    }
 
+    //returns a button with the title provided linked to the event passed as a parameter
+    private Button makeButton(String property, EventHandler<ActionEvent> handler) {
+        Button result = new Button();
+        String label = ViewResourcesSingleton.getInstance().getString(property);
+        result.setText(label);
+        result.setOnAction(handler);
+        return result;
     }
 
 

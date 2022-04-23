@@ -1,6 +1,5 @@
 package oogasalad.engine.model.logicelement;
 
-import java.util.List;
 import oogasalad.engine.model.board.Position;
 
 public class LogicElement {
@@ -16,6 +15,6 @@ public class LogicElement {
   }
 
   protected Position transformToRelative(Position position, Position relativePoint) {
-    return new Position(position.row() + relativePoint.row(), position.column() + relativePoint.column());
+    return position.add(relativePoint);
   }
 }
