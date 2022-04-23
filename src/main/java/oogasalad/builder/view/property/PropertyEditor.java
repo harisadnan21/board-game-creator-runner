@@ -72,7 +72,7 @@ public class PropertyEditor extends VBox {
     nonType.forEach(selectors::remove);
 
     for (Property prop : allProperties) {
-      if (prop.name().contains(typeName)) {
+      if (getPropertyNamespace(prop).equals(typeName)) {
         addProperty(prop);
       }
     }
@@ -92,6 +92,18 @@ public class PropertyEditor extends VBox {
   private String getLastPropertyNameSegment(Property prop) {
     String[] nameParts = prop.name().split(DELIMITER);
     return nameParts[nameParts.length - 1];
+  }
+
+  private String getPropertyNamespace(Property prop) {
+    String[] nameParts = prop.name().split(DELIMITER);
+    StringBuilder namespace = new StringBuilder();
+    // Ignore the required indicator and the actual name of the property
+    for(int i = isRequiredProperty(prop) ? 1 : 0; i < nameParts.length - 1; i++) {
+      namespace.append(nameParts[i]).append(DELIMITER);
+    }
+
+    // Cutoff the last -
+    return namespace.length() == 0 ? "" : namespace.substring(0, namespace.length() - 1);
   }
 
   /**
