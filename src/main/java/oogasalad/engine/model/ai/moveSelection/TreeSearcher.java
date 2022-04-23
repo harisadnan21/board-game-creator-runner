@@ -2,6 +2,7 @@ package oogasalad.engine.model.ai.moveSelection;
 
 import static oogasalad.engine.model.board.Piece.*;
 import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
+import static org.jooq.lambda.Seq.seq;
 
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
@@ -33,7 +34,7 @@ public class TreeSearcher implements Selects {
 
   protected final Seq<AIChoice> getChoices(Board board, int forPlayer) {
     timeLimit.start();
-    return Seq.seq(aiOracle.getChoices(board, forPlayer));
+    return seq(aiOracle.getChoices(board, forPlayer));
   }
 
   protected int runMinimax(Board board, int player, int depth) {
