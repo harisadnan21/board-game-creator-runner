@@ -1,4 +1,4 @@
-package oogasalad.engine.model.actions;
+package oogasalad.engine.model.logicelement.actions;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,7 +11,7 @@ import oogasalad.engine.model.logicelement.actions.Translate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TranslateTest {
+public class TranslateTest0 {
 
   Board myBoard;
   Action myTranslate;

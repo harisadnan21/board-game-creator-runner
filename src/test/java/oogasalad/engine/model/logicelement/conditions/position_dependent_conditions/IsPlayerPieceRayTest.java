@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
  */
 
 class IsPlayerPieceRayTest {
-  PositionState[][] positionStates = new PositionState[10][10];
-  Board TestBoard = new Board(positionStates);
+  Board TestBoard = new Board(10,10);
   /**
    * test for the IsTrue Function in the IsPlayerPieceRay Class
    */
