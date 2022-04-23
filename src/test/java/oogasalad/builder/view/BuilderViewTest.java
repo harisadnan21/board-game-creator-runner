@@ -54,6 +54,7 @@ class BuilderViewTest extends DukeApplicationTest {
     }
 
     void boardSetup() {
+        clickOn("#boardTab");
         var xSpinner = lookup("#xDimEntry").queryAs(Spinner.class);
         var ySpinner = lookup("#yDimEntry").queryAs(Spinner.class);
         xSpinner.getEditor().setText("" + X_DIM);
@@ -71,7 +72,7 @@ class BuilderViewTest extends DukeApplicationTest {
         boardSetup();
         assertEquals(1, makeBoardCB.size());
         assertEquals(new MakeBoardCallback(X_DIM, Y_DIM), makeBoardCB.get(0));
-        assertEquals(BoardTabAccessor.getColor(lookup("#boardTab").queryAs(BoardTab.class), 1), Color.BLUE);
+        assertEquals(BoardTabAccessor.getColor(lookup("#boardTabPane").queryAs(BoardTab.class), 1), Color.BLUE);
     }
 
     @Test
@@ -112,6 +113,7 @@ class BuilderViewTest extends DukeApplicationTest {
 
     @Test
     public void addPiece(){
+        clickOn("#pieceTab");
         clickOn("#new-piece");
 
         var playerSelector = lookup("#integerSelector-player").queryAs(Spinner.class);
@@ -127,11 +129,13 @@ class BuilderViewTest extends DukeApplicationTest {
     }
     @Test
     public void newPieceButtonWork(){
+        clickOn("#pieceTab");
         clickOn("#new-piece");
         assertTrue(lookup("#integerSelector-id").tryQuery().isPresent());
     }
     @Test
     public void newActionButtonWork(){
+        clickOn("#actionTab");
         clickOn("#new-action");
         assertTrue(lookup("#DropDown").tryQuery().isPresent());
     }
