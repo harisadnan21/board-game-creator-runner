@@ -26,8 +26,7 @@ public class AISelectView {
 
   Map<String, Button> AIButtons = new HashMap<>();
 
-  public AISelectView(double w, double h, String css) {
-    String language = "English";
+  public AISelectView(double w, double h, String css, String language) {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
     width = w;

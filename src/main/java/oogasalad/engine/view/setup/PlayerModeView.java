@@ -24,8 +24,7 @@ public class PlayerModeView {
   private double height;
   private File game;
 
-  public PlayerModeView(double w, double h, String css, File game) {
-    String language = "English";
+  public PlayerModeView(double w, double h, String css, File game, String language) {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
     width = w;

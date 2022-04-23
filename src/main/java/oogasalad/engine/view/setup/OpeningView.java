@@ -36,8 +36,7 @@ public class OpeningView {
   private String cssFilePath;
   private LanguageSelect ls;
 
-  public OpeningView(double w, double h, String css) {
-    String language = "English";
+  public OpeningView(double w, double h, String css, String language) {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
     width = w;
