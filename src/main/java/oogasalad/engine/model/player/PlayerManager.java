@@ -1,6 +1,8 @@
 package oogasalad.engine.model.player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -94,5 +96,17 @@ public class PlayerManager {
    */
   public void addPlayer(int playerID, Player player) {
     myPlayers.put(playerID, player);
+  }
+
+  /**
+   * Returns map from player ID to score for each player in the player manager
+   * @return
+   */
+  public Map<Integer, Integer> getScores() {
+    Map<Integer, Integer> scores = new HashMap<>();
+    for (int playerID : myPlayers.keySet()) {
+      scores.put(playerID, myPlayers.get(playerID).getScore());
+    }
+    return scores;
   }
 }
