@@ -37,7 +37,6 @@ public class HumanPlayer extends Player{
   }
 
   public void onCellSelect(int i, int j) {
-    System.out.println("onCellSelect Called");
     Position cellClicked = new Position(i, j);
     if (getGameBoard() != null) {
       if (mySelectedCell == null) {
@@ -60,16 +59,12 @@ public class HumanPlayer extends Player{
 
   private void makePieceSelected(int x, int y) {
     Board board = getGameBoard();
-    System.out.println("Here");
     if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {
       mySelectedCell = new Position(x, y);
       myValidMoves = new HashSet<>(getOracle().getRepresentativePoints(getOracle().getValidMovesForPosition(board, mySelectedCell), mySelectedCell));
       setMarkers(myValidMoves);
       LOG.info("{} valid moves for this piece\n", myValidMoves.size());
     }
-  }
-  public Position getMySelectedCell(){
-    return mySelectedCell;
   }
 
   private void setMarkers(Set<Position> positions) {

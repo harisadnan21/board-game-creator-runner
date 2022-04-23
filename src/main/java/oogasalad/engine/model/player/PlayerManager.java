@@ -93,12 +93,6 @@ public class PlayerManager {
    * @param player
    */
   public void addPlayer(int playerID, Player player) {
-    System.out.println("Player version called");
     myPlayers.put(playerID, player);
   }
-
-  public void addPlayer(int playerID, AIPlayer player) {
-    System.out.println("AIPlayer version called");
-  }
-
 }
