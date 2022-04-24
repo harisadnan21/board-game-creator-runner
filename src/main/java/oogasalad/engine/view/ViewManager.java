@@ -183,6 +183,9 @@ public class ViewManager {
       CheatCode cheatCode = (CheatCode) cheatCodes.get(code);
       Board board = cheatCode.accept(controller.getGame().getBoard(), controller.getEngine());
       controller.setBoard(board);
+      controller.getEngine().pingActivePlayer();
+      controller.getEngine().checkWin();
+
     }
   }
 
