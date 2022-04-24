@@ -47,8 +47,8 @@ public class SettingsView extends PopupView {
     layout.setId("message-screen-layout");
     makeHeader();
     makeTheme();
-    makeButton();
     makeSound();
+    makeButton();
     root.setCenter(layout);
   }
 
