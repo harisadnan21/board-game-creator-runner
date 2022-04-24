@@ -120,6 +120,8 @@ public class BoardTab extends AbstractTab {
     HBox numberPickerBox = new HBox();
     Label xDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("xDimLabel"));
     Label yDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("yDimLabel"));
+    changeFontsLabel(xDimLabel);
+    changeFontsLabel(yDimLabel);
 
     xDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("minBoardSize")),
             Integer.MAX_VALUE,
@@ -167,6 +169,7 @@ public class BoardTab extends AbstractTab {
     VBox gridBox = new VBox();
     HBox gridCheckBox = new HBox();
     Label gridCheckLabel = new Label(ViewResourcesSingleton.getInstance().getString("showGrid"));
+    changeFontsLabel(gridCheckLabel);
     gridCheck = new CheckBox();
     gridColorPicker = new ColorPicker(Color.BLACK);
     gridColorPicker.setOnAction(e -> toggleGrid());
@@ -277,6 +280,12 @@ public class BoardTab extends AbstractTab {
     if(FormatTab.FANCY == 1) { changeButton.setFont(Font.font("Papyrus")); }
     if(FormatTab.PRESENTATION == 1) { changeButton.setFont(Font.font("Lucida Sans")); }
     if(FormatTab.NORMAL == 1) { changeButton.setFont(Font.font("Comic Sans")); }
+  }
+
+  private void changeFontsLabel(Label changeLabel) {
+    if(FormatTab.FANCY == 1) { changeLabel.setFont(Font.font("Papyrus")); }
+    if(FormatTab.PRESENTATION == 1) { changeLabel.setFont(Font.font("Lucida Sans")); }
+    if(FormatTab.NORMAL == 1) { changeLabel.setFont(Font.font("Comic Sans")); }
   }
 
   // For testing
