@@ -14,7 +14,6 @@ import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
-import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.AllTabs;
 
 
@@ -24,11 +23,11 @@ import java.util.ResourceBundle;
  * @author Mike Keohane
  */
 public class BuilderView {
-
-
   public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
-  private static String TAB_PROPERTIES = "tabResources";
+  private static final String TAB_PROPERTIES = "tabResources";
   public static final String TAB_FORMAT = "tabFormat.css";
+
+  private static final String LOAD_DIR_CHOOSER_TITLE_KEY = "LoadChooserTitle";
 
   private final Stage stage;
   public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
@@ -84,8 +83,7 @@ public class BuilderView {
   private void loadConfig() {
     Stage loadStage = new Stage();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    //TODO: Remove Magic Value
-    directoryChooser.setTitle("Choose Configuration Load Location");
+    directoryChooser.setTitle(ViewResourcesSingleton.getInstance().getString(LOAD_DIR_CHOOSER_TITLE_KEY));
     callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(loadStage)));
     allTabs.loadAllTabs();
 

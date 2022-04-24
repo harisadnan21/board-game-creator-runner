@@ -27,9 +27,10 @@ import oogasalad.builder.view.tab.AbstractTab;
  * @author Mike Keohane
  */
 public class BoardTab extends AbstractTab {
-
+  private static final String PIECE_TYPE = "piece";
   public static final String BOARD_TYPE = "board";
   public static String BOARD_PROPERTIES = "BoardTypes";
+
   private BoardCanvas boardCanvas;
   private Spinner<Integer> xDimensionPicker;
   private Spinner<Integer> yDimensionPicker;
@@ -117,14 +118,14 @@ public class BoardTab extends AbstractTab {
     Label xDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("xDimLabel"));
     Label yDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("yDimLabel"));
 
-    xDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("numPickerMin")),
-        Integer.parseInt(tabProperties.getString("numPickerMax")),
-        Integer.parseInt(tabProperties.getString("defaultBoardX")),
-        Integer.parseInt(tabProperties.getString("numPickerStep")));
-    yDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("numPickerMin")),
-        Integer.parseInt(tabProperties.getString("numPickerMax")),
-        Integer.parseInt(tabProperties.getString("defaultBoardY")),
-        Integer.parseInt(tabProperties.getString("numPickerStep")));
+    xDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("minBoardSize")),
+            Integer.MAX_VALUE,
+            Integer.parseInt(tabProperties.getString("defaultBoardX")),
+            1);
+    yDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("minBoardSize")),
+            Integer.MAX_VALUE,
+            Integer.parseInt(tabProperties.getString("defaultBoardY")),
+            1);
 
     VBox xDimBox = new VBox(xDimLabel, xDimensionPicker);
     VBox yDimBox = new VBox(yDimLabel, yDimensionPicker);
@@ -255,10 +256,9 @@ public class BoardTab extends AbstractTab {
   }
 
   private void updatePieceOptions(ComboBox<String> pieceBox) {
-    //TODO: Remove Magic Value
     String currVal = pieceBox.getValue();
     Collection<String> pieceNames = getCallbackDispatcher().call(
-        new GetElementNamesCallback("piece")).orElse(new ArrayList<>());
+        new GetElementNamesCallback(PIECE_TYPE)).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
   }
