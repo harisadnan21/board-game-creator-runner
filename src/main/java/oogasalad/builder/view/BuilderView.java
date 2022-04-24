@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -64,9 +65,15 @@ public class BuilderView {
   // Makes the menu bar, which holds the save and load buttons
   private HBox makeMenu() {
     HBox menu = new HBox();
-    menu.getChildren().add(makeButton("save", e -> saveConfig()));
-    menu.getChildren().add(makeButton("load", e -> loadConfig()));
+    Button saveButton = makeButton("save", e -> saveConfig());
+    Button loadButton = makeButton("load", e -> loadConfig());
+    menu.getChildren().add(saveButton);
+    menu.getChildren().add(loadButton);
     menu.getStyleClass().add("saveMenu");
+    if(FormatTab.FANCY == 1) {
+      saveButton.setFont(Font.font("Papyrus"));
+      loadButton.setFont(Font.font("Papyrus"));
+    }
     return menu;
   }
 
@@ -75,9 +82,6 @@ public class BuilderView {
     Button result = new Button();
     String label = ViewResourcesSingleton.getInstance().getString(property);
     result.setText(label);
-    if(FormatTab.FANCY == Boolean.TRUE) {
-      result.setFont(Font.font("-fx-font-style: italic"));
-    }
     result.setOnAction(handler);
     return result;
   }

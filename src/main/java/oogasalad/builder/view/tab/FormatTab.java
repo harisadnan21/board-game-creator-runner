@@ -30,8 +30,8 @@ public class FormatTab extends AbstractTab{
     public static String FORMAT = "format";
     public static String HELP_RESOURCE_PATH = "/view/";
     public static String ELEMENTS_PACKAGE = "FormatList";
-    public static Boolean PRESENTATION = Boolean.FALSE;
-    public static Boolean FANCY = Boolean.FALSE;
+    public static int PRESENTATION = 0;
+    public static int FANCY = 0;
     private StackPane leftDisplay;
     private VBox rightHelpBox;
     private static final ResourceBundle elementNames = ResourceBundle.getBundle(HELP_RESOURCE_PATH + ELEMENTS_PACKAGE);
@@ -67,22 +67,17 @@ public class FormatTab extends AbstractTab{
         newBuild.changeFormat(newStyle);
     }
 
-    public static void presentationMode(){
-        if(PRESENTATION == Boolean.TRUE) {
-            PRESENTATION = Boolean.TRUE;
-        }
-        else{
-            PRESENTATION = Boolean.FALSE;
-        }
+    public void presentationMode(){
+        if(PRESENTATION == 0) { PRESENTATION = 1;}
+
+        else{ PRESENTATION = 0;}
+        displayBackground("tabFormat.css");
     }
 
     public void fancyMode(){
-        if(FANCY == Boolean.TRUE) {
-            FANCY = Boolean.TRUE;
-        }
-        else{
-            FANCY = Boolean.FALSE;
-        }
+        if(FANCY == 0) { FANCY = 1;}
+
+        else{ FANCY = 0;}
         displayBackground("tabFormat.css");
     }
 
