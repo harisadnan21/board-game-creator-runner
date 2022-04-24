@@ -1,16 +1,15 @@
 package oogasalad.engine.model.board;
 
+import io.vavr.collection.SortedMap;
+import io.vavr.collection.TreeMap;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Set;
-import java.lang.reflect.Array;
 import java.util.Map;
 import java.util.stream.Stream;
-import io.vavr.collection.TreeMap;
-import io.vavr.collection.SortedMap;
-import org.jooq.lambda.Seq;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.jooq.lambda.Seq;
 
 /**
  * Class That defines the backend board and defines methods that can be applied to it.
