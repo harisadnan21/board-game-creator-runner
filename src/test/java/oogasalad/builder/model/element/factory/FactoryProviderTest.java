@@ -28,8 +28,8 @@ public class FactoryProviderTest {
   private static final String PLAYER = "player";
   private static final String ID = "id";
   private static final String ACTION = "action";
-  private static final String ACTION_NAME = "placeTopRight";
-  private static final String ACTION_TYPE = "Place";
+  private static final String ACTION_NAME = "removeTopRight";
+  private static final String ACTION_TYPE = "Remove";
   private static final String PIECE = "piece";
   private static final String PIECE_NAME = "moveTopRight";
   private static final String PIECE_IMAGE = "normal.png";
@@ -55,9 +55,9 @@ public class FactoryProviderTest {
   private static final String IS_ABSOLUTE = "isAbsolute";
 
 
-  private static final String COORDINATE_NAME_ONE = "x";
+  private static final String COORDINATE_NAME_ONE = "col";
   private static final String COORDINATE_VALUE_ONE = "1";
-  private static final String COORDINATE_NAME_TWO = "y";
+  private static final String COORDINATE_NAME_TWO = "row";
   private static final String COORDINATE_VALUE_TWO = "2";
 
   @BeforeEach

@@ -23,11 +23,11 @@ public class ActionFactoryTest {
   private ActionFactory actionFactory;
   private static final String ACTION_NAME = "placeTopRight";
   private static final String PROPERTY_NAME_TYPE = "type";
-  private static final String ACTION_TYPE = "Place";
+  private static final String ACTION_TYPE = "Remove";
   private static final String INVALID_ACTION_TYPE = "moveTo";
-  private static final String PROPERTY_NAME_ONE = "x";
+  private static final String PROPERTY_NAME_ONE = "col";
   private static final int PROPERTY_VALUE_ONE = 1;
-  private static final String PROPERTY_NAME_TWO = "y";
+  private static final String PROPERTY_NAME_TWO = "row";
   private static final int PROPERTY_VALUE_TWO = 2;
   private static final String IS_ABSOLUTE = "isAbsolute";
 
