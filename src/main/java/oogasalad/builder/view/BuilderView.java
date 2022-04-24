@@ -65,15 +65,10 @@ public class BuilderView {
   // Makes the menu bar, which holds the save and load buttons
   private HBox makeMenu() {
     HBox menu = new HBox();
-    Button saveButton = makeButton("save", e -> saveConfig());
-    Button loadButton = makeButton("load", e -> loadConfig());
-    menu.getChildren().add(saveButton);
-    menu.getChildren().add(loadButton);
+    menu.getChildren().add(makeButton("save", e -> saveConfig()));
+    menu.getChildren().add(makeButton("load", e -> loadConfig()));
     menu.getStyleClass().add("saveMenu");
-    if(FormatTab.FANCY == 1) {
-      saveButton.setFont(Font.font("Papyrus"));
-      loadButton.setFont(Font.font("Papyrus"));
-    }
+
     return menu;
   }
 
@@ -83,6 +78,9 @@ public class BuilderView {
     String label = ViewResourcesSingleton.getInstance().getString(property);
     result.setText(label);
     result.setOnAction(handler);
+    if(FormatTab.FANCY == 1) {
+      result.setFont(Font.font("Papyrus"));
+    }
     return result;
   }
 
