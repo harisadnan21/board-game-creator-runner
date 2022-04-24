@@ -15,6 +15,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.tab.AllTabs;
+import oogasalad.view.SplashWelcome;
 
 
 import java.util.ResourceBundle;
