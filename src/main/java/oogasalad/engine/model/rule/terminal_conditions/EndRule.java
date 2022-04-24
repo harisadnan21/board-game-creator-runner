@@ -32,15 +32,15 @@ public class EndRule implements Rule {
   /**
    * Returns true if all the end game conditions are met and false otherwise
    * @param board current game board
-   * @param representativePoint
+   * @param referencePoint
    * @return true if all end conditions met, false if not
    */
   @Override
-  public boolean isValid(Board board, Position representativePoint) {
+  public boolean isValid(Board board, Position referencePoint) {
     for(Condition endCondition : myEndConditions){
       // in the end conditions, you can use all the piece conditions with absolute parameters
       // if 0,0 is always the reference point
-      if(!endCondition.isTrue(board, representativePoint)){
+      if(!endCondition.isTrue(board, referencePoint)){
         return false;
       }
     }

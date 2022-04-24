@@ -12,6 +12,7 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
 import oogasalad.engine.model.rule.Rule;
+import oogasalad.engine.model.rule.terminal_conditions.DrawRule;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
 import org.apache.logging.log4j.LogManager;
@@ -30,15 +31,19 @@ public class Oracle implements AIOracle {
   private Collection<Move> myMoves;
   private Collection<EndRule> myEndRules;
   private Collection<Move> myPersistentRules;
+  private Optional<DrawRule> myDrawRule;
 
   private int myNumPlayers;
 
   public Oracle(Collection<Rule> rules, int numPlayers) {
 
+    Collection<DrawRule> drawRules = filterByClass(rules, DrawRule.class);
+    myDrawRule = drawRules.stream().findFirst();
+
     Collection<Move> moves = filterByClass(rules, Move.class);
     Collection<EndRule> endRules = filterByClass(rules, EndRule.class);
     for(EndRule rule : endRules){
-      System.out.println(rule.getName());
+      //System.out.println(rule.getName());
     }
 
     myMoves = moves.stream().filter(move -> !move.isPersistent()).toList();
@@ -161,6 +166,15 @@ public class Oracle implements AIOracle {
   public boolean isWinningState(Board board) {
     Optional<EndRule> satisfyingEndRule = getValidEndRules(board).findFirst();
     return satisfyingEndRule.isPresent();
+  }
+
+  public boolean isDraw(Board board) {
+    for (int i = 0; i < myNumPlayers; i++) {
+      if (getChoices(board, i).findAny().isPresent()) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
