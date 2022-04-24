@@ -239,7 +239,7 @@ public class BoardView implements PropertyChangeListener{
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
   private void endGame(int winner) {
     text.gameIsWon(winner);
-    LOG.info("gameOver! Player {} wins%n", (winner));
+    LOG.info("gameOver! Player {} wins%n", (winner+1));
     ImmutableBoard newBoard = myController.resetGame();
     updateBoard(newBoard);
     displayGameOver(winner);
@@ -248,9 +248,11 @@ public class BoardView implements PropertyChangeListener{
   private void displayGameOver(int winner) {
     myController.resetGame();
     root.setEffect(new GaussianBlur());
+
     MessageView pauseView = new MessageView(
-        MessageFormat.format(myResources.getString("GameOver"), (winner)),
+        MessageFormat.format(myResources.getString(winner==-1 ? "Draw" : "GameOver"), (winner+1)),
         myResources.getString("NewGame"), cssFilePath, language);
+
     Stage popupStage = pauseView.getStage();
     pauseView.getReturnToGame().setOnAction(event -> {
       root.setEffect(null);

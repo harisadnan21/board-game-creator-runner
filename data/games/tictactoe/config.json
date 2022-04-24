@@ -67,6 +67,12 @@
             "id": 1,
             "conditions": ["O neg diag"],
             "type": "PlayerWins"
+        },
+        {
+            "name": "draw",
+            "id": -1,
+            "conditions": ["board full"],
+            "type": "Draw"
         }
     ],
     "rules": [
@@ -94,6 +100,10 @@
         }
     ],
     "conditions": [
+        {
+            "name": "board full",
+            "type": "BoardFull"
+        },
         {
             "name": "X row",
             "type": "IsPlayerPieceRay",

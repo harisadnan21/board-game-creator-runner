@@ -1,6 +1,7 @@
 package oogasalad.engine.model.logicelement.winner;
 import static oogasalad.engine.model.board.utilities.BoardUtilities.getNotSatisfyingPositionStatesSeq;
 
+import java.util.Optional;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Piece;
 import oogasalad.engine.model.board.cells.PositionState;
@@ -31,6 +32,7 @@ public class MostPieces extends AbstractWinDecision {
   }
 
   private Integer getMostFrequentPlayer(Seq<PositionState> nonEmptyPositionStates) {
-    return nonEmptyPositionStates.map(PositionState::player).mode().get();
+    Optional<Integer> mode = nonEmptyPositionStates.map(PositionState::player).mode();
+    return mode.orElse(-1);
   }
 }
