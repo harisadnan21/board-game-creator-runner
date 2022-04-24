@@ -19,9 +19,9 @@ public class MouseSound {
   public static ResourceBundle sndBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Sound");
   public static String SOUNDS_FOLDER = "data/sounds/";
   public static String DEFAULT_SOUND = "Click";
+  public static String[] SOUNDS = new String[] {"Click", "Thump"};
 
   private boolean soundOn;
-  private String[] soundTypes = new String[] {"Click", "Thump"};
   private Map<String, Clip> sounds;
   private ResourceBundle myResources;
   private Clip currSound;
@@ -45,7 +45,7 @@ public class MouseSound {
   }
 
   private void getSounds() {
-    for (String s : soundTypes) {
+    for (String s : SOUNDS) {
       Clip clip = getSound(s);
       sounds.put(s, clip);
     }
