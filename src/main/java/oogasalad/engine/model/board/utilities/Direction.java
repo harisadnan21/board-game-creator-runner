@@ -2,6 +2,7 @@ package oogasalad.engine.model.board.utilities;
 
 /**
  * Enum that defines different directions in the board.
+ * @author Alex Bildner
  */
 public enum Direction {
   NORTH(-1, 0),
