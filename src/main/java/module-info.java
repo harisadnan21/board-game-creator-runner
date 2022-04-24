@@ -23,6 +23,7 @@ open module oogasalad_app {
     exports oogasalad.engine.view;
     exports oogasalad.engine.view.setup.dashboard;
     exports oogasalad.engine.view.ControlPanel;
-  exports oogasalad.engine.view.setup;
+    exports oogasalad.engine.view.setup;
     exports oogasalad.engine.view.game;
+
 }

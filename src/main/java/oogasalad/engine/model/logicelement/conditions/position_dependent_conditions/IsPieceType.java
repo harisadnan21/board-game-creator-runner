@@ -37,6 +37,10 @@ public class IsPieceType extends Condition {
     if (!board.isValidPosition(position)) {
       return false;
     }
+    return isProperPieceType(board, position);
+  }
+
+  private boolean isProperPieceType(Board board, Position position) {
     PositionState positionState = board.getPositionStateAt(position);
     return positionState.type() == type;
   }

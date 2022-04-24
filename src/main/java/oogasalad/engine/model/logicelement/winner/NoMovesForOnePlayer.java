@@ -1,4 +1,6 @@
 package oogasalad.engine.model.logicelement.winner;
+import static oogasalad.engine.model.board.utilities.BoardUtilities.*;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,14 +30,7 @@ public class NoMovesForOnePlayer extends AbstractWinDecision {
    */
   @Override
   public int decideWinner(Board board) {
-    Map<Integer, List<PositionState>> map = BoardUtilities.piecesByPlayer(board);
-    Set<Integer> keySet = map.keySet();
-    Iterator<Integer> keyIterator = keySet.iterator();
-    while (keyIterator.hasNext()) {
-      Integer player = keyIterator.next();
-      if (map.get(player) == null) {
-        return player;
-      }
-    }
-    return -1;}
+    // TODO: implement
+    return -1;
+  }
 }

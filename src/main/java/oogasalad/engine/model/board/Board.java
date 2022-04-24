@@ -17,7 +17,7 @@ import org.jooq.lambda.Seq;
 
 /**
  * Class That defines the backend board and defines methods that can be applied to it.
- * @author Jake Heller, Haris Adnan, Robert Cranston, Alex Bildner
+ * @author Jake Heller, Alex Bildner, Haris Adnan, Robert Cranston
  */
 @EqualsAndHashCode
 @ToString
