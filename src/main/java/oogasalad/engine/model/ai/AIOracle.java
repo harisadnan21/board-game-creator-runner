@@ -1,11 +1,11 @@
 package oogasalad.engine.model.ai;
 
+import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.Choice;
-import org.jooq.lambda.Seq;
 
 public interface AIOracle {
-  Seq<Choice> getChoices(Board board, int player);
+  Stream<Choice> getChoices(Board board, int player);
 
   boolean isWinningState(Board board);
 

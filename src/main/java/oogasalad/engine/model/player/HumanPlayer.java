@@ -46,7 +46,7 @@ public class HumanPlayer extends AbstractPlayer {
         Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
         if (move.isPresent()) {
           mySelectedMove = move.get();
-          myChoice = new Choice(mySelectedCell, mySelectedMove);
+          myChoice = new Choice(mySelectedCell, mySelectedMove, board);
           LOG.info("Move {} selected", mySelectedMove.getName());
           resetSelected();
           executeMove(this, myChoice);
