@@ -25,6 +25,9 @@ import org.json.JSONObject;
 public class WinConditionParser extends AbstractParser<Collection<EndRule>> {
 
   private static final String WIN_CONDITIONS = "winDecisions";
+  private static final String TYPE = "type";
+  private static final String NAME = "name";
+
   private final ConditionParser conditionParser;
 
   private static final String DECISION_RESOURCES_PATH = "engine-resources.WinDecisions";
@@ -57,10 +60,11 @@ public class WinConditionParser extends AbstractParser<Collection<EndRule>> {
     for (int i = 0; i < winConditionsJSON.length(); i++) {
       JSONObject winCondition = winConditionsJSON.getJSONObject(i);
       Condition[] conditions = conditionParser.resolveConditions(winCondition);
-      String type = winCondition.getString("type");
+      String name = winCondition.getString(NAME);
+      String type = winCondition.getString(TYPE);
       int[] params = paramsToIntArray(winCondition, type);
       WinDecision decision = (WinDecision) getObjectReflection(type, params, DECISION_RESOURCES);
-      winConditions.add(new EndRule(conditions, decision));
+      winConditions.add(new EndRule(name, conditions, decision));
     }
     return winConditions;
   }
@@ -74,10 +78,9 @@ public class WinConditionParser extends AbstractParser<Collection<EndRule>> {
     for (int i = 0; i < requiredParams.length; i++) {
       params[i] = winCondition.getInt(requiredParams[i]);
       //TODO: THIS SUCKS! Standardize how we differentiate (x,y) and (i,j)
-      if (requiredParams[i].equals("y")) {
-        int temp = params[i - 1];
-        params[i - 1] = -params[i];
-        params[i] = temp;
+      if (requiredParams[i].equals("row") || requiredParams[i].equals("destinationRow") ||
+          requiredParams[i].equals("sourceRow")) {
+        params[i] *=-1;
       }
     }
     return params;

@@ -13,4 +13,9 @@ public interface Rule {
    */
   boolean isValid(Board board, Position referencePoint);
 
+  /**
+   * Returns the name given to this rule
+   * @return
+   */
+  String getName();
 }

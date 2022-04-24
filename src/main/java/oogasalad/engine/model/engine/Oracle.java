@@ -11,6 +11,8 @@ import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jooq.lambda.Seq;
 
 /**
@@ -19,6 +21,8 @@ import org.jooq.lambda.Seq;
  * @author Jake Heller
  */
 public class Oracle implements AIOracle {
+
+  private static final Logger LOG = LogManager.getLogger(Oracle.class);
 
   private Collection<Move> myMoves;
   private Collection<EndRule> myEndRules;

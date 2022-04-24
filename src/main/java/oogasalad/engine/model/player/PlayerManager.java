@@ -57,10 +57,10 @@ public class PlayerManager {
    * @return
    */
   public Player getPlayer(int playerID) {
-    try {
+    if (playerExists(playerID)) {
       return myPlayers.get(playerID);
-    } catch (Exception e) {
-      throw new RuntimeException("Player does not exist in this game");
+    } else {
+      throw new RuntimeException(String.format("Player %d does not exist in this game", playerID));
     }
   }
 

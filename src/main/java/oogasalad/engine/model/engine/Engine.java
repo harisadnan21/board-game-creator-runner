@@ -109,7 +109,9 @@ public class Engine {
   private void checkWin() {
     if (myOracle.isWinningState(getGameBoard())) {
       int winner = myOracle.getWinner(getGameBoard());
-      myPlayerManager.getPlayer(winner).updateScore(1);
+      if (myPlayerManager.playerExists(winner)) {
+        myPlayerManager.getPlayer(winner).updateScore(1);
+      }
       endGame(winner);
     }
   }

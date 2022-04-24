@@ -16,15 +16,17 @@ import oogasalad.engine.model.rule.Rule;
 public class EndRule implements Rule {
   private final  Condition[] myEndConditions;
   private final WinDecision myWinDecision;
+  private String myName;
 
   /**
    * Sets end and winner conditions
    * @param endConditions set of conditions that signal the game is over for this specific win condition
    * @param winDecision Winner decision on how to determine a winner
    */
-  public EndRule(Condition[] endConditions, WinDecision winDecision) {
+  public EndRule(String name, Condition[] endConditions, WinDecision winDecision) {
     myWinDecision = winDecision;
     myEndConditions = endConditions;
+    myName = name;
   }
 
   /**
@@ -43,6 +45,11 @@ public class EndRule implements Rule {
       }
     }
     return true;
+  }
+
+  @Override
+  public String getName() {
+    return myName;
   }
 
 

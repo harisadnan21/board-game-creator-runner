@@ -95,10 +95,8 @@ public class Move implements Rule {
   public boolean isPersistent() {
     return myIsPersistent;
   }
-  /**
-   * Returns the name given to this rule
-   * @return
-   */
+
+  @Override
   public String getName() {
     return myName;
   }

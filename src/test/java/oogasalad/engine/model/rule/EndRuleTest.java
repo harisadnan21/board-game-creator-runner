@@ -23,7 +23,7 @@ public class EndRuleTest {
   void setup() {
     WinDecision playerWins = new PlayerWins(new int[]{1});
     Condition truee = new True(new int[0]);
-    rule = new EndRule(new Condition[]{truee}, playerWins);
+    rule = new EndRule("Player 1 Wins", new Condition[]{truee}, playerWins);
     myOracle = new Oracle(new ArrayList<>(), Arrays.stream((new EndRule[]{rule})).toList(), 2);
   }
 
