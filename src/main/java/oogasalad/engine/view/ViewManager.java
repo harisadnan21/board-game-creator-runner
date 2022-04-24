@@ -11,6 +11,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import oogasalad.engine.cheat_codes.CheatCode;
 import oogasalad.engine.cheat_codes.RemoveRandomPlayer0Piece;
@@ -62,6 +63,7 @@ public class ViewManager {
   private List<Scene> gameScenes = new ArrayList<>();
   private String language;
   private ResourceBundle myResources;
+  private MouseSound sound;
 
   public ViewManager(Stage s) throws IOException {
     language = DEFAULT_LANGUAGE;
@@ -78,7 +80,12 @@ public class ViewManager {
     BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
     currScene = createOpeningView().makeScene();
     gameScenes.add(currScene);
+
+    sound = new MouseSound(language);
+    stage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> sound.playSound());
   }
+
+
 
   public Scene getCurrScene() {
     return currScene;
@@ -114,6 +121,7 @@ public class ViewManager {
 
   private void selectMode(File game) {
     Stage newStage = new Stage();
+    newStage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> sound.playSound());
     newStage.setTitle(game.getName());
     PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, language);
     Scene newScene = pmv.makeScene();
