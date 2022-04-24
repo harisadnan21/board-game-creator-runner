@@ -103,12 +103,6 @@
             "name": "Player with no pieces loses",
             "type": "MostPieces",
             "conditions": ["noPiecesLeftEitherPlayer"]
-        },
-        {
-            "name": "Piece at 0,0",
-            "type": "PlayerWins",
-            "id": 0,
-            "conditions": ["Always True"]
         }
     ],
     "conditions": [
