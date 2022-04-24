@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
-import oogasalad.engine.model.setup.Delta;
 import org.jooq.lambda.Seq;
 
 public class Ray {
