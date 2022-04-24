@@ -2,9 +2,9 @@ package oogasalad.engine.model.logicelement.conditions.position_dependent_condit
 
 import java.util.Collection;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
-import oogasalad.engine.model.board.Ray;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
+import oogasalad.engine.model.board.utilities.Ray;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 
 public class IsPlayerPieceRay extends Condition {
