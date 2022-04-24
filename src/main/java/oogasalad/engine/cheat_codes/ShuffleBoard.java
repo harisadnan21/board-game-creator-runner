@@ -1,16 +1,18 @@
 package oogasalad.engine.cheat_codes;
 
 import java.util.Random;
+import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.PositionState;
-import oogasalad.engine.model.engine.Engine;
 
 public class ShuffleBoard implements CheatCode{
   private Board returnBoard;
+  private Random r;
 
   @Override
-  public Board accept(Board board, Engine engine) {
+  public Board accept(Board board, Controller controller) {
     returnBoard = new Board(board.getHeight(), board.getWidth());
+    r = new Random();
     placePieces(board);
     return(returnBoard);
   }
@@ -31,7 +33,6 @@ public class ShuffleBoard implements CheatCode{
   }
 
   private int generateRandom(int maxPlusOne){
-    Random r = new Random();
     return r.nextInt(maxPlusOne);
   }
 }

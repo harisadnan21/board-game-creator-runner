@@ -61,11 +61,12 @@ public class Controller {
       myOracle = new Oracle(rules, myNumPlayers);
 
       AIPlayerFactory factory = new AIPlayerFactory();
-      Player player = factory.makeAIPlayer(Difficulty.EASY, WinType.TOTAL, 1, myOracle, new ArrayList<>());
+      Player player = factory.makeAIPlayer(Difficulty.HARD, WinType.TOTAL, 1, myOracle, new ArrayList<>());
 
       myPlayerManager = new PlayerManager();
       myPlayerManager.addPlayer(0, new HumanPlayer(null, null, null));
-      myPlayerManager.addPlayer(1, player);
+      myPlayerManager.addPlayer(1, new HumanPlayer(null, null, null));
+      //myPlayerManager.addPlayer(1, player);
 
       //myPlayerManager.addPlayer(1, new RandomPlayer(null, null));
 
