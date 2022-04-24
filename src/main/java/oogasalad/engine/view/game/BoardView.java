@@ -238,7 +238,7 @@ public class BoardView implements PropertyChangeListener{
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
   private void endGame(int winner) {
     text.gameIsWon(winner);
-    LOG.info("gameOver! Player {} wins%n", winner);
+    LOG.info("gameOver! Player {} wins%n", (winner));
     ImmutableBoard newBoard = myController.resetGame();
     updateBoard(newBoard);
     displayGameOver(winner);
@@ -248,7 +248,7 @@ public class BoardView implements PropertyChangeListener{
     myController.resetGame();
     root.setEffect(new GaussianBlur());
     MessageView pauseView = new MessageView(
-        MessageFormat.format(myResources.getString("GameOver"), winner),
+        MessageFormat.format(myResources.getString("GameOver"), (winner)),
         myResources.getString("NewGame"), cssFilePath, language);
     Stage popupStage = pauseView.getStage();
     pauseView.getButton().setOnAction(event -> {
