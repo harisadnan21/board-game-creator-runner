@@ -1,7 +1,7 @@
 package oogasalad.engine.model.ai;
 
-import static oogasalad.engine.model.ai.SelectorFactory.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static oogasalad.engine.model.ai.SelectorFactory.makeSelector;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.enums.WinType;

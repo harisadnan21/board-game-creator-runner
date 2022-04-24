@@ -2,14 +2,9 @@ package oogasalad.engine.model.board;
 
 import static oogasalad.engine.model.board.BoardUtilities.getNeighbor;
 import static org.jooq.lambda.Seq.range;
-import static org.jooq.lambda.Seq.seq;
 import static org.jooq.lambda.Seq.zip;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
-import java.util.stream.Stream.Builder;
-import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

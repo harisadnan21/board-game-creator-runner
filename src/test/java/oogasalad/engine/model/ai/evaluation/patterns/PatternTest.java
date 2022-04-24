@@ -1,10 +1,12 @@
 package oogasalad.engine.model.ai.evaluation.patterns;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.vavr.collection.SortedSet;
 import io.vavr.collection.TreeSet;
-import java.util.Collection;
 import java.util.List;
 import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;

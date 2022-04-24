@@ -1,6 +1,6 @@
 package oogasalad.engine.model.ai.evaluation.random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.board.Board;

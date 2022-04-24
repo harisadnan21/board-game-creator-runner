@@ -1,19 +1,15 @@
 package oogasalad.engine.model.ai.moveSelection;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 import oogasalad.engine.model.ai.AIOracle;
-import oogasalad.engine.model.ai.AIPlayer;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
-import oogasalad.engine.model.ai.evaluation.constant.Constant;
 import oogasalad.engine.model.ai.evaluation.memoize.CaffeineMemoizer;
 import oogasalad.engine.model.ai.evaluation.patterns.PatternEvaluator;
-import oogasalad.engine.model.ai.evaluation.random.RandomRange;
 import oogasalad.engine.model.ai.evaluation.totals.TotalPieces;
 import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.Seq;

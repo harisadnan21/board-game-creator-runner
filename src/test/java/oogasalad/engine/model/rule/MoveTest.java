@@ -3,15 +3,15 @@ package oogasalad.engine.model.rule;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import oogasalad.engine.model.logicelement.actions.Action;
-import oogasalad.engine.model.logicelement.actions.Remove;
-import oogasalad.engine.model.logicelement.actions.Translate;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.logicelement.actions.Action;
+import oogasalad.engine.model.logicelement.actions.Remove;
+import oogasalad.engine.model.logicelement.actions.Translate;
+import oogasalad.engine.model.logicelement.conditions.Condition;
 import oogasalad.engine.model.logicelement.conditions.position_dependent_conditions.IsEmpty;
 import oogasalad.engine.model.logicelement.conditions.position_dependent_conditions.IsOccupied;
-import oogasalad.engine.model.logicelement.conditions.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

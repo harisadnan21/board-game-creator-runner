@@ -1,6 +1,5 @@
 package oogasalad.engine;
 
-import java.io.IOException;
 import javafx.stage.Stage;
 import oogasalad.engine.model.board.OutOfBoardException;
 import util.DukeApplicationTest;

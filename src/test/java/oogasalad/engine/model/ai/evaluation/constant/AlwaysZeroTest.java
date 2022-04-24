@@ -1,6 +1,7 @@
 package oogasalad.engine.model.ai.evaluation.constant;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.evaluation.Evaluation;

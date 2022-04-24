@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.builder.model.element.Condition;
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.element.MetaData;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
