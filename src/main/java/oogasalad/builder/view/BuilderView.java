@@ -56,6 +56,7 @@ public class BuilderView {
     tabScene.getStylesheets()
         .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + TAB_FORMAT).toExternalForm());
     stage.setScene(tabScene);
+    stage.centerOnScreen();
     stage.show();
   }
 
