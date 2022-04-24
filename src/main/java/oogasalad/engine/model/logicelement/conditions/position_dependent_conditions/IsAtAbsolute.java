@@ -11,18 +11,28 @@ import oogasalad.engine.model.logicelement.conditions.Condition;
  */
 public class IsAtAbsolute extends Condition {
 
+  private int relativeRow;
+  private int relativeColumn;
+  private int absoluteRow;
+  private int absoluteColumn;
+
   /**
    *
    * @param parameters size-4 array [relativeRow, relativeColumn, absoluteRow, absoluteColumn]
    */
   public IsAtAbsolute(int[] parameters) {
     super(parameters);
+    relativeRow = myParameters[0];
+    relativeColumn = myParameters[1];
+    absoluteRow = myParameters[2];
+    absoluteColumn = myParameters[3];
+
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    Position relativePoint = new Position(myParameters[0], myParameters[1]);
-    Position absolutePoint = new Position(myParameters[2], myParameters[3]);
+    Position relativePoint = new Position(relativeRow, relativeColumn);
+    Position absolutePoint = new Position(absoluteRow, absoluteColumn);
     relativePoint = transformToRelative(referencePoint, relativePoint);
     return relativePoint.equals(absolutePoint);
   }

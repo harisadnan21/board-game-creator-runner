@@ -20,7 +20,7 @@ public class TranslateTest {
   void setup() {
     myBoard = new Board(5, 5);
 
-    myTranslate = new Translate(new int[]{0,0,2,2});
+    myTranslate = new Translate(new int[]{0,0,2,2,0});
   }
 
   @Test

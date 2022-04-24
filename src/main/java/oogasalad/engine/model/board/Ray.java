@@ -1,5 +1,6 @@
 package oogasalad.engine.model.board;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,27 @@ public class Ray {
   public static Stream<PositionState> getDirectionalRayWhileCondition(Board board, Position position, Direction direction, Predicate<PositionState> positionStatePredicate) {
     var positionStatePredicates = List.of(positionStatePredicate, positionState -> true);
     return getDirectionalRayWhileConditions(board, position, direction, positionStatePredicates);
+  }
+
+  /**
+   * Returns a ray of given length
+   * If reaches invalid board state, ray cuts off early
+   * @param board
+   * @param startPosition
+   * @param direction
+   * @param length
+   * @return
+   */
+  public static Collection<PositionState> getRayOfMaxLength(Board board, Position startPosition, Position direction, int length) {
+    Collection<PositionState> ray = new ArrayList<>();
+
+    Position currentPosition = startPosition;
+    int currentLength = 0;
+    while(board.isValidPosition(currentPosition) && currentLength < length){
+      ray.add(board.getPositionStateAt(currentPosition));
+      currentPosition = currentPosition.add(direction);
+    }
+    return ray;
   }
 
 

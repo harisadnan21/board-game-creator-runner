@@ -10,16 +10,18 @@ import oogasalad.engine.model.logicelement.conditions.Condition;
  */
 public class IsPlayer extends BoardCondition {
 
+  private int player;
   /**
    *
    * @param parameters size 1 array where parameters[0] is the player's number
    */
   public IsPlayer(int[] parameters) {
     super(parameters);
+    player = myParameters[0];
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return board.getPlayer() == myParameters[0];
+    return board.getPlayer() == player;
   }
 }

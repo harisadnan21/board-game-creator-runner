@@ -10,23 +10,31 @@ import oogasalad.engine.model.logicelement.conditions.Condition;
  */
 public class IsPlayerPiece extends Condition {
 
+  private int row;
+  private int column;
+  private int player;
+  private boolean isAbsolute;
   /**
    *
-   * @param parameters size 3 array of [i, j, owner, isAbsolute]
+   * @param parameters size 3 array of [row, column, owner, isAbsolute]
    */
   public IsPlayerPiece(int[] parameters) {
     super(parameters);
+    row = myParameters[0];
+    column = myParameters[1];
+    player = myParameters[2];
+    isAbsolute = myParameters[3] != 0;
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    Position position = new Position(myParameters[0], myParameters[1]);
-    if (myParameters[3] == 0) {
+    Position position = new Position(row, column);
+    if (!isAbsolute) {
       position = transformToRelative(position, referencePoint);
     }
     if (!board.isValidPosition(position)) {
       return false;
     }
-    return board.getPositionStateAt(position).player() == myParameters[2];
+    return board.getPositionStateAt(position).player() == player;
   }
 }
