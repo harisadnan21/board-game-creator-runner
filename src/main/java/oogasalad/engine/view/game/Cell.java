@@ -28,21 +28,21 @@ public class Cell {
 
   private double myWidth;
   private double myHeight;
-  private double myX;
-  private double myY;
+  private double myRow;
+  private double myColumn;
 
   /**
    *
-   * @param x x index in board
-   * @param y y index in board
+   * @param row row index in board
+   * @param column column index in board
    * @param width cell width
    * @param height cell height
    */
-  public Cell(int x, int y, double width, double height, Optional<String> hexColor) {
+  public Cell(int row, int column, double width, double height, Optional<String> hexColor) {
     myWidth = width;
     myHeight = height;
-    myX = x;
-    myY = y;
+    myRow = row;
+    myColumn = column;
     myRoot = new StackPane();
     myRoot.getStyleClass().add("cell");
     myShape = new Rectangle(width, height);
@@ -133,7 +133,7 @@ public class Cell {
   }
 
   private void setDefaultColor() {
-    if ((myX+myY)%2 == 0) {
+    if ((myRow + myColumn)%2 == 0) {
       myShape.setId("cell-type-A");
     }
     else {

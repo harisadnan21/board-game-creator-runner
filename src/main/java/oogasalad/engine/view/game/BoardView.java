@@ -103,19 +103,19 @@ public class BoardView implements PropertyChangeListener{
   private void makeBoard(int rows, int columns, double cellWidth, double cellHeight, File game)
       throws FileNotFoundException {
     Optional<String[][]> colorConfig = getCellColors(game);
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < columns; j++) {
-        Optional<String> color = colorConfig.isPresent() ? Optional.of(colorConfig.get()[i][j]) : Optional.empty();
-        Cell temp = new Cell(i, j, cellWidth, cellHeight, color);
-        gridRoot.add(temp.getMyRoot(), j, i); // documentation says the first input is column and the second is row
-        myGrid[i][j] = temp;
+    for (int row = 0; row < rows; row++) {
+      for (int column = 0; column < columns; column++) {
+        Optional<String> color = colorConfig.isPresent() ? Optional.of(colorConfig.get()[row][column]) : Optional.empty();
+        Cell temp = new Cell(row, column, cellWidth, cellHeight, color);
+        gridRoot.add(temp.getMyRoot(), column, rows - row - 1); // documentation says the first input is column and the second is row
+        myGrid[row][columns] = temp;
 
-        int finalI = i;
-        int finalJ = j;
+        int finalRow = row;
+        int finalColumn = columns;
 
-        myGrid[i][j].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+        myGrid[row][columns].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
           try {
-            cellClicked(e, finalI, finalJ);
+            cellClicked(e, finalRow, finalColumn);
           } catch (OutOfBoardException ex) {
             ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("BoardOutOfBounds"));
           }
@@ -287,11 +287,11 @@ public class BoardView implements PropertyChangeListener{
     }
   }
 
-  private void selectCell(int i, int j) {
+  private void selectCell(int row, int column) {
     clearCellSelection();
-    Cell cell = myGrid[i][j];
+    Cell cell = myGrid[row][column];
     if (cell.containsPiece()) {
-      myGrid[i][j].addSelectedHighlight();
+      myGrid[row][column].addSelectedHighlight();
     }
   }
 
@@ -305,9 +305,9 @@ public class BoardView implements PropertyChangeListener{
 
 
   private Position getIndices(int index) {
-    int i = index / myGrid.length;
-    int j = index % myGrid[0].length;
-    return new Position(i, j);
+    int row = index / myGrid.length;
+    int column = index % myGrid[0].length;
+    return new Position(row, column);
   }
 
   public Node getRoot() {

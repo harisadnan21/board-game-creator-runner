@@ -83,11 +83,6 @@ public class WinConditionParser extends AbstractParser<Collection<EndRule>> {
     int[] params = new int[requiredParams.length];
     for (int i = 0; i < requiredParams.length; i++) {
       params[i] = winCondition.getInt(requiredParams[i]);
-      //TODO: THIS SUCKS! Standardize how we differentiate (x,y) and (i,j)
-      if (requiredParams[i].equals("row") || requiredParams[i].equals("destinationRow") ||
-          requiredParams[i].equals("sourceRow")) {
-        params[i] *=-1;
-      }
     }
     return params;
   }
