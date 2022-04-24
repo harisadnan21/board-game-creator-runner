@@ -56,8 +56,10 @@ public class AIPlayer extends AbstractPlayer {
   public void chooseMove(Board activeBoard) {
     setGameBoard(activeBoard);
     Board board = getGameBoard();
-    AIChoice AIChoice = this.chooseAction(board);
-    executeMove(this, (Choice) AIChoice); //Fix unsafe cast
+    AIChoice aiChoice = this.chooseAction(board);
+    Choice choice = (Choice) aiChoice;
+    //System.out.printf("Chose %s at %s\n", choice.move().getName(), choice.position().toString());
+    executeMove(this, (Choice) aiChoice); //Fix unsafe cast
   }
 
   /**
@@ -68,13 +70,14 @@ public class AIPlayer extends AbstractPlayer {
    */
   @Override
   public void onCellSelect(int i, int j) {
-    throw new NoSuchMethodError("no");
+    //throw new NoSuchMethodError("no");
   }
 
   @Override
   public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
       Consumer<Set<Position>> setValidMarks) {
     //TODO: get rid of this method
+    setExecuteMove(executeMove);
   }
 
 }

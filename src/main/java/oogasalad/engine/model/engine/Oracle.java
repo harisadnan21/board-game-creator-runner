@@ -9,6 +9,7 @@ import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
+import oogasalad.engine.model.rule.Rule;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
 import org.apache.logging.log4j.LogManager;
@@ -29,12 +30,23 @@ public class Oracle implements AIOracle {
 
   private int myNumPlayers;
 
-  public Oracle(Collection<Move> moves, Collection<EndRule> endRules, int numPlayers) {
+  public Oracle(Collection<Rule> rules, int numPlayers) {
+
+    Collection<Move> moves = filterByClass(rules, Move.class);
+    Collection<EndRule> endRules = filterByClass(rules, EndRule.class);
 
     myMoves = moves.stream().filter(move -> !move.isPersistent()).toList();
     myPersistentRules = moves.stream().filter(move -> move.isPersistent()).toList();
     myEndRules = endRules;
     myNumPlayers = numPlayers;
+
+    LOG.info("New: Size of moves, persistent, end rules: {}, {}, {}\n", myMoves.size(), myPersistentRules.size(), myEndRules.size());
+    //moves = filterByClass(rules, Move.class);
+  }
+
+  // generic method to filter collection by class type
+  private <T> Collection<T> filterByClass(Collection<Rule> collection, Class<T> type) {
+    return collection.stream().filter(object -> object.getClass().equals(type)).map(object -> (T) object).toList();
   }
 
   /**

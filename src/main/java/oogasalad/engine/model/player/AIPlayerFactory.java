@@ -1,5 +1,6 @@
 package oogasalad.engine.model.player;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.ai.AIPlayer;
@@ -32,4 +33,8 @@ public class AIPlayerFactory {
     return new AIPlayer(playerNumber, selects);
   }
 
+  public static void makePlayer() {
+    AIPlayerFactory factory = new AIPlayerFactory();
+    Player player = factory.makeAIPlayer(Difficulty.EASY, WinType.TOTAL, 0, null, new ArrayList<>());
+  }
 }
