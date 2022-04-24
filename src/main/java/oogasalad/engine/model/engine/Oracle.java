@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
@@ -132,9 +131,9 @@ public class Oracle implements AIOracle {
    * @return
    */
   @Override
-  public Seq<Choice> getChoices(Board board, int player) {
+  public Stream<Choice> getChoices(Board board, int player) {
     board = board.setPlayer(player);
-    return Seq.seq(getValidChoices(board));
+    return getValidChoices(board);
   }
 
   @Override
