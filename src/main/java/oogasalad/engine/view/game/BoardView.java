@@ -249,7 +249,7 @@ public class BoardView implements PropertyChangeListener{
         MessageFormat.format(myResources.getString("GameOver"), (winner)),
         myResources.getString("NewGame"), cssFilePath, language);
     Stage popupStage = pauseView.getStage();
-    pauseView.getButton().setOnAction(event -> {
+    pauseView.getReturnToGame().setOnAction(event -> {
       root.setEffect(null);
       popupStage.hide();
     });

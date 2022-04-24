@@ -1,6 +1,5 @@
 package oogasalad.engine.view.game;
 
-import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +11,7 @@ import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
+import oogasalad.engine.view.SettingsView;
 
 /**
  * Class that sets up the game screen, with buttons
@@ -81,7 +81,7 @@ public class GameView {
       MessageView pauseView = new MessageView(myResources.getString("PauseMessage"),
           myResources.getString("Resume"), cssFilePath, language);
       Stage popupStage = pauseView.getStage();
-      pauseView.getButton().setOnAction(event -> {
+      pauseView.getReturnToGame().setOnAction(event -> {
         root.setEffect(null);
         popupStage.hide();
       });
@@ -97,7 +97,7 @@ public class GameView {
       MessageView infoView = new MessageView(infoMessage,
           myResources.getString("Resume"), cssFilePath, language);
       Stage popupStage = infoView.getStage();
-      infoView.getButton().setOnAction(event -> {
+      infoView.getReturnToGame().setOnAction(event -> {
         root.setEffect(null);
         popupStage.hide();
       });
@@ -108,11 +108,9 @@ public class GameView {
   private void setSettings(){
     mySettingsControl.getSettingsButton().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
-      MessageView pauseView = new MessageView(
-          myResources.getString("SettingsDisplay"),
-          myResources.getString("Continue"), cssFilePath, language);
-      Stage popupStage = pauseView.getStage();
-      pauseView.getButton().setOnAction(event -> {
+      SettingsView settings = new SettingsView(cssFilePath, language);
+      Stage popupStage = settings.getStage();
+      settings.getReturnToGame().setOnAction(event -> {
         root.setEffect(null);
         popupStage.hide();
       });
