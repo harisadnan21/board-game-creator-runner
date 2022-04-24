@@ -11,8 +11,14 @@ import oogasalad.engine.model.board.PositionState;
 public class NInARow extends BoardCondition{
   private int currentPlayer = -100;
   private int n;
+
+  /**
+   * Returns true if there exists n in a row in any direction
+   * @param parameters [n]
+   */
   public NInARow(int[] parameters){
     super(parameters);
+    n = myParameters[0];
   }
 
   /**

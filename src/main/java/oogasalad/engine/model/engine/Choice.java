@@ -7,7 +7,6 @@ import oogasalad.engine.model.rule.Move;
 
 public record Choice(Position position, Move move) implements AIChoice {
 
-
   public boolean isValidChoice(Board board) {
     return move.isValid(board, position);
   }

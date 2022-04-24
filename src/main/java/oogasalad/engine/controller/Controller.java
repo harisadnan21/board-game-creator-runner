@@ -2,11 +2,9 @@ package oogasalad.engine.controller;
 
 import java.util.Collection;
 import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import oogasalad.engine.model.ai.RandomPlayer;
-import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.driver.BoardHistoryException;
@@ -19,7 +17,6 @@ import oogasalad.engine.model.board.Board;
 
 import oogasalad.engine.model.rule.Move;
 import oogasalad.engine.model.parser.GameParser;
-import org.jooq.lambda.function.Consumer0;
 
 public class Controller {
 
@@ -45,7 +42,7 @@ public class Controller {
       myBoard = board;
       myGame = new Game(myBoard, null);
 
-      moves = parser.readRules();
+      moves = parser.readMoves();
       endRules = parser.readWinConditions();
 
       myNumPlayers = parser.readNumberOfPlayers();
