@@ -9,6 +9,7 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.driver.BoardHistoryException;
+import oogasalad.engine.model.parser.CreateJSONFile;
 
 public class GameControlPanel extends ControlPanel {
   public static String HOME_IMAGE = IMAGES_FOLDER + imBundle.getString("Home");
@@ -50,7 +51,8 @@ public class GameControlPanel extends ControlPanel {
   }
   //TODO: Save Game
   private void saveGame() {
-
+    CreateJSONFile jsonCreator = new CreateJSONFile(myController);
+    jsonCreator.createFile();
   }
 
   private void undoMove() {
@@ -83,4 +85,7 @@ public class GameControlPanel extends ControlPanel {
 
   public Button getRestart(){return restart;}
 
+  public Button getSave(){
+    return save;
+  }
 }

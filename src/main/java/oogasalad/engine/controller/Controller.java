@@ -121,4 +121,7 @@ public class Controller {
     myGame.back();
     return myGame.getBoard();
   }
+  public void saveGame(){
+
+  }
 }
