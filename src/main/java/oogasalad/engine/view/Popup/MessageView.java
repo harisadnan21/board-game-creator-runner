@@ -1,4 +1,4 @@
-package oogasalad.engine.view.game;
+package oogasalad.engine.view.Popup;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;

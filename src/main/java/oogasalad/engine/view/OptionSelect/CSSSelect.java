@@ -1,4 +1,6 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.OptionSelect;
+
+import oogasalad.engine.view.OptionSelect.OptionSelect;
 
 public class CSSSelect extends OptionSelect {
 

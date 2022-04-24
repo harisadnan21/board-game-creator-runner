@@ -1,4 +1,4 @@
-package oogasalad.engine.view.game;
+package oogasalad.engine.view.Popup;
 
 import java.util.ResourceBundle;
 import javafx.scene.Scene;

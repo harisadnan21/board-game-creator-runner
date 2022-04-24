@@ -33,6 +33,7 @@ import oogasalad.engine.model.board.cells.PositionState;
 import oogasalad.engine.model.parser.CellParser;
 import oogasalad.engine.model.parser.MetadataParser;
 import oogasalad.engine.model.parser.PieceParser;
+import oogasalad.engine.view.Popup.MessageView;
 import oogasalad.engine.view.setup.dashboard.GameIcon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

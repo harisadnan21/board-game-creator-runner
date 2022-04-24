@@ -30,7 +30,7 @@ class DashboardTest extends DukeApplicationTest {
     root = board.getRoot();
 
     ViewManager manager = new ViewManager(stage);
-    scene = manager.createGameView(board, controller).makeScene();
+    scene = manager.createGameView(board, controller, new File("data/games/checkers")).makeScene();
     s = stage;
     s.setScene(scene);
     s.show();
