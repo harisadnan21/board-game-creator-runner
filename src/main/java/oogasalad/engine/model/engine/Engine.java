@@ -106,7 +106,7 @@ public class Engine {
         Board board = myOracle.getNextState(getGameBoard(), choice);
         LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
 
-        board = myOracle.incrementPlayer(board);
+        board = incrementPlayer(board);
         myGame.setBoard(board);
 
         checkWin();
@@ -120,6 +120,11 @@ public class Engine {
       LOG.warn("inactive player tried to execute move");
     }
   }
+
+  public Board incrementPlayer(Board board) {
+    return myOracle.incrementPlayer(board);
+  }
+
 
   public void checkWin() {
     if (myOracle.isWinningState(getGameBoard())) {
