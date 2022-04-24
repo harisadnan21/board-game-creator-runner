@@ -14,6 +14,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import oogasalad.engine.cheat_codes.CheatCode;
+import oogasalad.engine.cheat_codes.Player1Turn;
+import oogasalad.engine.cheat_codes.Player2Turn;
 import oogasalad.engine.cheat_codes.PlayerOneWins;
 import oogasalad.engine.cheat_codes.PlayerTwoWins;
 import oogasalad.engine.cheat_codes.RemoveRandomPlayer0Piece;
@@ -42,7 +44,10 @@ public class ViewManager {
       KeyCode.S, new ShuffleBoard(),
       KeyCode.DIGIT1, new PlayerOneWins(),
       KeyCode.DIGIT2, new PlayerTwoWins(),
-      KeyCode.R, new Reset());
+      KeyCode.R, new Reset(),
+      KeyCode.L, new Player1Turn(),
+      KeyCode.K, new Player2Turn());
+
   public static double WIDTH = 600;
   public static double HEIGHT = 400;
   public static double GAME_SELECTION_WIDTH = 1000;
