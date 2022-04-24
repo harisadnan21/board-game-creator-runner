@@ -1,7 +1,6 @@
 package oogasalad.engine.model.logicelement.conditions.position_dependent_conditions;
 
 import java.util.Collection;
-import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
