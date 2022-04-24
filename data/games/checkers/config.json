@@ -103,11 +103,6 @@
             "name": "Player with no pieces loses",
             "type": "MostPieces",
             "conditions": ["noPiecesLeftEitherPlayer"]
-        },
-        {
-            "name": "Draw",
-            "type": "Draw",
-            "conditions": []
         }
     ],
     "conditions": [

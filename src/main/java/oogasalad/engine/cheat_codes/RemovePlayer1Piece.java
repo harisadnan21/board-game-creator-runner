@@ -5,10 +5,9 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
-import oogasalad.engine.model.engine.Engine;
 
 
-public class RemoveRandomPlayer1Piece implements CheatCode{
+public class RemovePlayer1Piece implements CheatCode{
 
   @Override
   public Board accept(Board board, Controller controller) {
