@@ -1,6 +1,6 @@
 package oogasalad.builder.view;
 
-import static oogasalad.builder.view.BuilderView.DEFAULT_RESOURCE_PACKAGE;
+import static oogasalad.builder.view.BuilderView.DEFAULT_STYLE_PACKAGE;
 import static oogasalad.builder.view.BuilderView.TAB_FORMAT;
 
 import java.util.Collection;
@@ -59,7 +59,7 @@ public class MetaDataAndSavePopup {
     metaStage.setTitle(ViewResourcesSingleton.getInstance().getString(METADATA + TITLE));
     Scene metaScene = new Scene(metaBox, 600, 600);
     metaScene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + TAB_FORMAT).toExternalForm());
+        .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + TAB_FORMAT).toExternalForm());
     metaStage.setScene(metaScene);
     Collection<Property> metaProperties = callbackDispatcher.call(
         new GetPropertiesCallback(METADATA)).orElseThrow();

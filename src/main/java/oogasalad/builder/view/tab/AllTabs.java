@@ -1,6 +1,6 @@
 package oogasalad.builder.view.tab;
 
-import static oogasalad.builder.view.BuilderView.DEFAULT_RESOURCE_PACKAGE;
+import static oogasalad.builder.view.BuilderView.DEFAULT_PROPERTY_PACKAGE;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +25,7 @@ public class AllTabs extends TabPane {
   public static final String ORDERED_TABS = "tabsOrdered";
   public static final String DELIMINATOR = "-";
   public static final ResourceBundle tabsList = ResourceBundle.getBundle(
-      DEFAULT_RESOURCE_PACKAGE + TABS_LIST);
+      DEFAULT_PROPERTY_PACKAGE + TABS_LIST);
   private CallbackDispatcher callbackDispatcher;
   private Collection<AbstractTab> tabs;
 

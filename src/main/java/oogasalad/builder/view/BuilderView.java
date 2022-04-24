@@ -25,7 +25,8 @@ import java.util.ResourceBundle;
  * @author Mike Keohane
  */
 public class BuilderView {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
+  public static final String DEFAULT_STYLE_PACKAGE = "/builder/view/css/";
+  public static final String DEFAULT_PROPERTY_PACKAGE = "/builder/view/information-properties/";
   private static final String TAB_PROPERTIES = "tabResources";
   public static final String TAB_FORMAT = "tabFormat.css";
 
@@ -33,7 +34,7 @@ public class BuilderView {
 
   private final Stage stage;
   public static final ResourceBundle tabProperties = ResourceBundle.getBundle(
-      DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
+      DEFAULT_PROPERTY_PACKAGE + TAB_PROPERTIES);
   private AllTabs allTabs;
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
@@ -53,7 +54,7 @@ public class BuilderView {
         Integer.parseInt(tabProperties.getString("sceneSizeY")));
 
     tabScene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + TAB_FORMAT).toExternalForm());
+        .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + TAB_FORMAT).toExternalForm());
     stage.setScene(tabScene);
     stage.show();
   }

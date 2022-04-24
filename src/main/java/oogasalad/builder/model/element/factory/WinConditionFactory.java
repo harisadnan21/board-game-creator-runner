@@ -8,7 +8,7 @@ import oogasalad.builder.model.property.Property;
 public class WinConditionFactory extends GameElementFactory<WinCondition> {
 
   public WinConditionFactory() {
-    super("elements.WinCondition");
+    super("builder.elements.WinCondition");
   }
 
   @Override
