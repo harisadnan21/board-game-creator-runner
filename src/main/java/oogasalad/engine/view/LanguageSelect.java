@@ -1,13 +1,9 @@
 package oogasalad.engine.view;
 
-import javafx.scene.control.ChoiceBox;
-
-public class LanguageSelect extends ChoiceBox<String> {
-  private String[] languages = {"English", "Spanish", "French", "German"};
+public class LanguageSelect extends OptionSelect {
 
   public LanguageSelect() {
     super();
-    this.getItems().addAll(languages);
   }
 
   public String getLanguage() {
@@ -17,6 +13,12 @@ public class LanguageSelect extends ChoiceBox<String> {
     else {
       return this.getValue();
     }
+  }
+
+  @Override
+  protected void setup() {
+    options = new String[]{"English", "Spanish", "French", "German"};
+    super.setup();
   }
 
 }
