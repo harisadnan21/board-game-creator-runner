@@ -16,7 +16,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
@@ -32,6 +31,8 @@ import oogasalad.builder.view.tab.AbstractTab;
 public class BoardTab extends AbstractTab {
 
   public static final String BOARD_TYPE = "board";
+  public static final int A_NUM = 1;
+  public static final int B_NUM = 2;
   private BoardCanvas boardCanvas;
   private Spinner<Integer> xDimensionPicker;
   private Spinner<Integer> yDimensionPicker;
@@ -96,7 +97,7 @@ public class BoardTab extends AbstractTab {
     confirmBoardButton.setId("drawBoard");
 
     boardConfigBox.getChildren()
-        .addAll(setupColorChoiceBox(), setupDimensionChoiceBox(), setupBoardTypeBox(),
+        .addAll(setupColorChoiceBox(), setupDimensionChoiceBox(),
             confirmBoardButton);
     boardConfigBox.setId("boardConfigBox");
     boardConfigBox.getStyleClass().add("boardConfigBox");
@@ -136,60 +137,14 @@ public class BoardTab extends AbstractTab {
     return numberPickerBox;
   }
 
-  //Ability to change the board type. We chose not to add this because we can't specify it well to
-  // the engine.
-//  private Node setupBoardTypeBox() {
-//
-//    boardTypeBox = new ComboBox<>();
-//    boardTypes.keySet().forEach(key -> boardTypeBox.getItems().add(boardTypes.getString(key)));
-//
-//    boardTypeBox.setPromptText(ViewResourcesSingleton.getInstance().getString("boardTypePicker"));
-//    boardTypeBox.setValue(boardTypes.getString("checkers"));
-//    boardTypeBox.setId("boardTypePicker");
-//    return boardTypeBox;
-//  }
-
-  private void createBoard()
-      throws NullBoardException {
-    if (boardTypeBox.getValue() == null) {
-      throw new IllegalBoardTypeException("");
-    }
-    boardCanvas.setColor(colorPickerA.getValue(), 1);
-    boardCanvas.setColor(colorPickerB.getValue(), 2);
+  private void createBoard() {
+    boardCanvas.setColor(colorPickerA.getValue(), A_NUM);
+    boardCanvas.setColor(colorPickerB.getValue(), B_NUM);
     boardCanvas.changeCanvasSize(
         getCenter().getBoundsInParent().getWidth() * getSplitPane().getDividerPositions()[0],
         getCenter().getBoundsInParent().getHeight());
-    boardCanvas.drawBoard(xDimensionPicker.getValue(), yDimensionPicker.getValue(),
-        boardTypeBox.getValue());
-//    toggleGrid();
+    boardCanvas.drawBoard(xDimensionPicker.getValue(), yDimensionPicker.getValue());
   }
-
-  //Used to have the ability to toggle the grid and its color but we are not implementing that elsewhere and therefore is removed
-//  private Node setupGridToggle(){
-//    VBox gridBox = new VBox();
-//    HBox gridCheckBox = new HBox();
-//    Label gridCheckLabel = new Label(ViewResourcesSingleton.getInstance().getString("showGrid"));
-//    gridCheck = new CheckBox();
-//    gridColorPicker = new ColorPicker(Color.BLACK);
-//    gridColorPicker.setOnAction(e -> toggleGrid());
-//    gridCheck.setOnAction(e -> toggleGrid());
-//
-//    gridCheckBox.getChildren().addAll(gridCheck, gridCheckLabel);
-//    gridBox.getChildren().addAll(gridCheckBox, gridColorPicker);
-//    gridBox.getStyleClass().add("boardConfigBox");
-//    return gridBox;
-//  }
-
-//  private void toggleGrid(){
-//    if (gridCheck.isSelected()){
-//      boardCanvas.drawGrid(gridColorPicker.getValue());
-//      //: CALLBACK COLOR = gridColorPicker.getValue() and isShown = TRUE
-//    }
-//    else {
-//      boardCanvas.clearGrid();
-//      //: CALLBACK COLOR = idk if matters and isShown = FALSE
-//    }
-//  }
 
   private Node setupButtonBar() {
     VBox buttonBox = new VBox();
