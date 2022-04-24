@@ -1,13 +1,13 @@
 package oogasalad.builder.view.tab.boardTab;
 
-import static oogasalad.builder.view.BuilderView.DEFAULT_RESOURCE_PACKAGE;
 import static oogasalad.builder.view.BuilderView.tabProperties;
+import static oogasalad.builder.view.tab.PiecesTab.PIECE;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -24,27 +24,24 @@ import oogasalad.builder.view.tab.AbstractTab;
 
 
 /**
+ * The BoardTab handles the ability to create an edit a board as well as configure the starting
+ * positions for pieces in the game.
+ *
  * @author Mike Keohane
  */
 public class BoardTab extends AbstractTab {
 
   public static final String BOARD_TYPE = "board";
-  public static String BOARD_PROPERTIES = "BoardTypes";
   private BoardCanvas boardCanvas;
   private Spinner<Integer> xDimensionPicker;
   private Spinner<Integer> yDimensionPicker;
   private ColorPicker colorPickerA;
   private ColorPicker colorPickerB;
-  private ComboBox<String> boardTypeBox;
-  private ColorPicker gridColorPicker;
-  private CheckBox gridCheck;
-  private static final ResourceBundle boardTypes = ResourceBundle.getBundle(
-      DEFAULT_RESOURCE_PACKAGE + BOARD_PROPERTIES);
 
   /**
-   * Default Constructor to create the BoardTab which extends Basic Tab.
+   * Default Constructor to create the BoardTab which extends BasicTab.
    *
-   * @param dispatcher
+   * @param dispatcher - the callback dispatcher to be able to call model methods
    */
   public BoardTab(CallbackDispatcher dispatcher) {
     super(BOARD_TYPE, dispatcher);
@@ -62,12 +59,15 @@ public class BoardTab extends AbstractTab {
     VBox rightBox = new VBox();
 
     rightBox.getChildren()
-        .addAll(setupButtonBar(), setupBoardEditChoiceToggle(), setupGridToggle(), setupBoardConfigInput());
+        .addAll(setupButtonBar(), setupBoardEditChoiceToggle(), setupBoardConfigInput());
     rightBox.setId("rightBoardPane");
     rightBox.getStyleClass().add("rightPane");
     return rightBox;
   }
 
+  /**
+   * Creates a board and adds pieces based on the configuration loaded from a file in the model.
+   */
   @Override
   public void loadElements() {
     boardCanvas.changeCanvasSize(
@@ -75,8 +75,10 @@ public class BoardTab extends AbstractTab {
         getCenter().getBoundsInParent().getHeight());
     boardCanvas.loadBoard();
   }
+
   /**
    * Sets up the boardCanvas and returns it as the left side
+   *
    * @return
    */
   @Override
@@ -125,7 +127,8 @@ public class BoardTab extends AbstractTab {
         Integer.parseInt(tabProperties.getString("numPickerMax")),
         Integer.parseInt(tabProperties.getString("defaultBoardY")),
         Integer.parseInt(tabProperties.getString("numPickerStep")));
-
+    xDimensionPicker.setEditable(true);
+    yDimensionPicker.setEditable(true);
     VBox xDimBox = new VBox(xDimLabel, xDimensionPicker);
     VBox yDimBox = new VBox(yDimLabel, yDimensionPicker);
 
@@ -133,16 +136,18 @@ public class BoardTab extends AbstractTab {
     return numberPickerBox;
   }
 
-  private Node setupBoardTypeBox() {
-
-    boardTypeBox = new ComboBox<>();
-    boardTypes.keySet().forEach(key -> boardTypeBox.getItems().add(boardTypes.getString(key)));
-
-    boardTypeBox.setPromptText(ViewResourcesSingleton.getInstance().getString("boardTypePicker"));
-    boardTypeBox.setValue(boardTypes.getString("checkers"));
-    boardTypeBox.setId("boardTypePicker");
-    return boardTypeBox;
-  }
+  //Ability to change the board type. We chose not to add this because we can't specify it well to
+  // the engine.
+//  private Node setupBoardTypeBox() {
+//
+//    boardTypeBox = new ComboBox<>();
+//    boardTypes.keySet().forEach(key -> boardTypeBox.getItems().add(boardTypes.getString(key)));
+//
+//    boardTypeBox.setPromptText(ViewResourcesSingleton.getInstance().getString("boardTypePicker"));
+//    boardTypeBox.setValue(boardTypes.getString("checkers"));
+//    boardTypeBox.setId("boardTypePicker");
+//    return boardTypeBox;
+//  }
 
   private void createBoard()
       throws NullBoardException {
@@ -156,38 +161,38 @@ public class BoardTab extends AbstractTab {
         getCenter().getBoundsInParent().getHeight());
     boardCanvas.drawBoard(xDimensionPicker.getValue(), yDimensionPicker.getValue(),
         boardTypeBox.getValue());
-    toggleGrid();
+//    toggleGrid();
   }
 
-  private Node setupGridToggle(){
-    VBox gridBox = new VBox();
-    HBox gridCheckBox = new HBox();
-    Label gridCheckLabel = new Label(ViewResourcesSingleton.getInstance().getString("showGrid"));
-    gridCheck = new CheckBox();
-    gridColorPicker = new ColorPicker(Color.BLACK);
-    gridColorPicker.setOnAction(e -> toggleGrid());
-    gridCheck.setOnAction(e -> toggleGrid());
+  //Used to have the ability to toggle the grid and its color but we are not implementing that elsewhere and therefore is removed
+//  private Node setupGridToggle(){
+//    VBox gridBox = new VBox();
+//    HBox gridCheckBox = new HBox();
+//    Label gridCheckLabel = new Label(ViewResourcesSingleton.getInstance().getString("showGrid"));
+//    gridCheck = new CheckBox();
+//    gridColorPicker = new ColorPicker(Color.BLACK);
+//    gridColorPicker.setOnAction(e -> toggleGrid());
+//    gridCheck.setOnAction(e -> toggleGrid());
+//
+//    gridCheckBox.getChildren().addAll(gridCheck, gridCheckLabel);
+//    gridBox.getChildren().addAll(gridCheckBox, gridColorPicker);
+//    gridBox.getStyleClass().add("boardConfigBox");
+//    return gridBox;
+//  }
 
-    gridCheckBox.getChildren().addAll(gridCheck, gridCheckLabel);
-    gridBox.getChildren().addAll(gridCheckBox, gridColorPicker);
-    gridBox.getStyleClass().add("boardConfigBox");
-    return gridBox;
-  }
-
-  private void toggleGrid(){
-    if (gridCheck.isSelected()){
-      boardCanvas.drawGrid(gridColorPicker.getValue());
-      //TODO: CALLBACK COLOR = gridColorPicker.getValue() and isShown = TRUE
-    }
-    else {
-      boardCanvas.clearGrid();
-      //TODO: CALLBACK COLOR = idk if matters and isShown = FALSE
-    }
-  }
+//  private void toggleGrid(){
+//    if (gridCheck.isSelected()){
+//      boardCanvas.drawGrid(gridColorPicker.getValue());
+//      //: CALLBACK COLOR = gridColorPicker.getValue() and isShown = TRUE
+//    }
+//    else {
+//      boardCanvas.clearGrid();
+//      //: CALLBACK COLOR = idk if matters and isShown = FALSE
+//    }
+//  }
 
   private Node setupButtonBar() {
     VBox buttonBox = new VBox();
-    //Button saveButton = makeButton("saveBoard", e -> saveBoardConfig());
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
     resetPiecesButton.setId("clearPieces");
@@ -255,10 +260,9 @@ public class BoardTab extends AbstractTab {
   }
 
   private void updatePieceOptions(ComboBox<String> pieceBox) {
-    //TODO: Remove Magic Value
     String currVal = pieceBox.getValue();
     Collection<String> pieceNames = getCallbackDispatcher().call(
-        new GetElementNamesCallback("piece")).orElse(new ArrayList<>());
+        new GetElementNamesCallback(PIECE)).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
   }
