@@ -42,7 +42,7 @@ public class FileSelector implements PropertySelector {
           FILE_DELIMITER).length - 1]);
     }
     chooseButton.setOnAction(e -> chooseFile());
-    chooseButton.setId("fileSelector-" + this.property.name().split("-")[1]);
+    chooseButton.setId("fileSelector-" + this.property.shortName());
   }
 
   /**
