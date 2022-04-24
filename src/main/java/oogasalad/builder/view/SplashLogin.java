@@ -2,6 +2,7 @@ package oogasalad.builder.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -74,7 +76,7 @@ public class SplashLogin extends Parent {
         leftPanel = new VBox();
         rightPanel = new VBox();
         leftPanel.getChildren().addAll(myWelcome);
-        rightPanel.getChildren().addAll(proceed, languageBox);
+        rightPanel.getChildren().addAll(languageBox, proceed);
         rightPanel.setAlignment(Pos.CENTER);
         buttonHolder.setLeft(leftPanel);
         buttonHolder.setCenter(rightPanel);

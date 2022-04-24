@@ -19,6 +19,7 @@
 
 .buttonHolder{
     -fx-background: #ffffff;
+    -fx-spacing: 20;
 }
 
 

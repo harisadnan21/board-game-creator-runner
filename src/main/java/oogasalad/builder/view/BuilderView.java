@@ -3,6 +3,8 @@ package oogasalad.builder.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
@@ -43,8 +45,13 @@ public class BuilderView {
 
   public BuilderView(Stage mainStage) {
     stage = mainStage;
-    SplashLogin newWindow = new SplashLogin(e -> buildView(TAB_FORMAT));
+    //SplashLogin newWindow = new SplashLogin(e -> buildView(TAB_FORMAT));
+    SplashLogin newWindow = new SplashLogin(e -> loginTab());
     //SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
+  }
+
+  private void loginTab() {
+    Login newsplash = new Login(e -> buildView(TAB_FORMAT));
   }
 
   // Builds the view, including all tabs and menus
