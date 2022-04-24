@@ -8,12 +8,16 @@ import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
+import oogasalad.builder.view.callback.GetPropertiesCallback;
 import oogasalad.builder.view.callback.LoadCallback;
+import oogasalad.builder.view.callback.SetFormatCallback;
+import oogasalad.builder.view.tab.*;
 import oogasalad.builder.view.tab.AllTabs;
 
 
@@ -28,43 +32,46 @@ public class BuilderView {
   public static final String DEFAULT_STYLE_PACKAGE = "/builder/view/css/";
   public static final String DEFAULT_PROPERTY_PACKAGE = "/builder/view/information-properties/";
   private static final String TAB_PROPERTIES = "tabResources";
-  public static final String TAB_FORMAT = "tabFormat.css";
+  public static final String DEFAULT_TAB_FORMAT = "tabFormat.css";
 
   private static final String LOAD_DIR_CHOOSER_TITLE_KEY = "LoadChooserTitle";
 
   private final Stage stage;
   public static final ResourceBundle tabProperties = ResourceBundle.getBundle(
       DEFAULT_PROPERTY_PACKAGE + TAB_PROPERTIES);
+  private Scene tabScene;
   private AllTabs allTabs;
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
     stage = mainStage;
     SplashLogin newWindow = new SplashLogin(e -> buildView());
+    //SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
   }
 
   // Builds the view, including all tabs and menus
   private void buildView() {
+    setupFormatCallback();
     BorderPane borderPane = new BorderPane();
     allTabs = new AllTabs(callbackDispatcher);
     borderPane.setCenter(allTabs);
     borderPane.setBottom(makeMenu());
-
-    Scene tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
+    tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
         Integer.parseInt(tabProperties.getString("sceneSizeY")));
-
-    tabScene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + TAB_FORMAT).toExternalForm());
+    callbackDispatcher.call(new SetFormatCallback(DEFAULT_TAB_FORMAT));
     stage.setScene(tabScene);
     stage.centerOnScreen();
     stage.show();
   }
 
+
   // Makes the menu bar, which holds the save and load buttons
   private HBox makeMenu() {
     HBox menu = new HBox();
-    menu.getChildren().add(makeButton("save", e -> saveConfig()));
-    menu.getChildren().add(makeButton("load", e -> loadConfig()));
+    Button saveButton = makeButton("save", e -> saveConfig());
+    Button loadButton = makeButton("load", e -> loadConfig());
+    menu.getChildren().add(saveButton);
+    menu.getChildren().add(loadButton);
     menu.getStyleClass().add("saveMenu");
     return menu;
   }
@@ -112,6 +119,23 @@ public class BuilderView {
   public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback,
       CallbackHandler<R, C> handler) {
     callbackDispatcher.registerCallbackHandler(callback, handler);
+  }
+
+  /**
+   * Callback method to set the format of the view
+   * @param format - Callback containing css file name to set the format
+   * @return - null to fit Void type
+   */
+  public Void setFormat(SetFormatCallback format) {
+    tabScene.getStylesheets().clear();
+    tabScene.getStylesheets()
+        .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + format.newStyle()).toExternalForm());
+    return null;
+  }
+
+  // Sets up the callback nessesary to call set format without creating many views
+  private void setupFormatCallback(){
+    registerCallbackHandler(SetFormatCallback.class, this::setFormat);
   }
 }
 

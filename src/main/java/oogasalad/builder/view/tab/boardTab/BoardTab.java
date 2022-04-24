@@ -1,7 +1,6 @@
 package oogasalad.builder.view.tab.boardTab;
 
 import static oogasalad.builder.view.BuilderView.tabProperties;
-import static oogasalad.builder.view.tab.PiecesTab.PIECE;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -151,7 +150,6 @@ public class BoardTab extends AbstractTab {
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
     resetPiecesButton.setId("clearPieces");
-
     buttonBox.getChildren()
         .addAll(setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");

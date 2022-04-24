@@ -1,0 +1,375 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/whiteKing.png",
+            "name": "X",
+            "id": 0,
+            "player": 0
+        },
+        {
+            "image": "/resources/blackKing.png",
+            "name": "O",
+            "id": 1,
+            "player": 1
+        }
+    ],
+    "metadata": {
+        "gameName": "Tic-Tac-Toe",
+        "author": "Shaan Gondalia",
+        "name": "tictactoe",
+        "description": "Tic Tac Toe configuration file created with the builder"
+    },
+    "winDecisions": [
+        {
+            "name": "X row win",
+            "id": 0,
+            "conditions": ["X row 0", "X row 1", "X row 2"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "X col win",
+            "id": 0,
+            "conditions": ["X col 0", "X col 1", "X col 2"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "X pos diag win",
+            "id": 0,
+            "conditions": ["X pos diag 0", "X pos diag 1", "X pos diag 2"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "X neg diag win",
+            "id": 0,
+            "conditions": ["X neg diag 0", "X neg diag 1", "X neg diag 2"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "O row win",
+            "id": 1,
+            "conditions": ["O row 0", "O row 1", "O row 2"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "O col win",
+            "id": 1,
+            "conditions": ["O col 0", "O col 1", "O col 2"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "O pos diag win",
+            "id": 1,
+            "conditions": ["O pos diag 0", "O pos diag 1", "O pos diag 2"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "O neg diag win",
+            "id": 1,
+            "conditions": ["O neg diag 0", "O neg diag 1", "O neg diag 2"],
+            "type": "PlayerWins"
+        }
+    ],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place O piece on Os turn",
+            "conditions": [
+                "Placement Square is Empty",
+                "O turn"
+            ],
+            "actions": ["PlaceOPiece"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place X piece on Xs turn",
+            "conditions": [
+                "X turn",
+                "Placement Square is Empty"
+            ],
+            "actions": ["PlaceXPiece"]
+        }
+    ],
+    "conditions": [
+        {
+            "col": 0,
+            "name": "Placement Square is Empty",
+            "isAbsolute": 0,
+            "row": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "col": 0,
+            "name": "X turn",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "col": 0,
+            "name": "O turn",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "IsPlayer"
+        },
+        {
+            "name": "X row 0",
+            "type": "IsPlayerPiece",
+            "col": 0,
+            "row": 0,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X row 1",
+            "type": "IsPlayerPiece",
+            "col": 1,
+            "row": 0,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X row 2",
+            "type": "IsPlayerPiece",
+            "col": 2,
+            "row": 0,
+            "id": 0,
+            "isAbsolute": 0
+        }
+    ,
+        {
+            "name": "O row 0",
+            "type": "IsPlayerPiece",
+            "col": 0,
+            "row": 0,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O row 1",
+            "type": "IsPlayerPiece",
+            "col": 1,
+            "row": 0,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O row 2",
+            "type": "IsPlayerPiece",
+            "col": 2,
+            "row": 0,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X col 0",
+            "type": "IsPlayerPiece",
+            "row": 0,
+            "col": 0,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X col 1",
+            "type": "IsPlayerPiece",
+            "row": 1,
+            "col": 0,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X col 2",
+            "type": "IsPlayerPiece",
+            "row": 2,
+            "col": 0,
+            "id": 0,
+            "isAbsolute": 0
+        }
+    ,
+        {
+            "name": "O col 0",
+            "type": "IsPlayerPiece",
+            "row": 0,
+            "col": 0,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O col 1",
+            "type": "IsPlayerPiece",
+            "row": 1,
+            "col": 0,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O col 2",
+            "type": "IsPlayerPiece",
+            "row": 2,
+            "col": 0,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X pos diag 0",
+            "type": "IsPlayerPiece",
+            "row": 0,
+            "col": 0,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X pos diag 1",
+            "type": "IsPlayerPiece",
+            "row": 1,
+            "col": 1,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X pos diag 2",
+            "type": "IsPlayerPiece",
+            "row": 2,
+            "col": 2,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X neg diag 0",
+            "type": "IsPlayerPiece",
+            "row": 2,
+            "col": 0,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X neg diag 1",
+            "type": "IsPlayerPiece",
+            "row": 1,
+            "col": 1,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X neg diag 2",
+            "type": "IsPlayerPiece",
+            "row": 0,
+            "col": 2,
+            "id": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O pos diag 0",
+            "type": "IsPlayerPiece",
+            "row": 0,
+            "col": 0,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O pos diag 1",
+            "type": "IsPlayerPiece",
+            "row": 1,
+            "col": 1,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O pos diag 2",
+            "type": "IsPlayerPiece",
+            "row": 2,
+            "col": 2,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O neg diag 0",
+            "type": "IsPlayerPiece",
+            "row": 2,
+            "col": 0,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O neg diag 1",
+            "type": "IsPlayerPiece",
+            "row": 1,
+            "col": 1,
+            "id": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O neg diag 2",
+            "type": "IsPlayerPiece",
+            "row": 0,
+            "col": 2,
+            "id": 1,
+            "isAbsolute": 0
+        }
+    ],
+    "actions": [
+        {
+            "col": 0,
+            "name": "PlaceXPiece",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlaceOPiece",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "Place",
+            "player": 1
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 3,
+        "activePlayer": 0,
+        "height": 3
+    }
+}
