@@ -1,40 +1,23 @@
 package oogasalad.builder.view;
 
-import java.io.File;
-import javafx.scene.Scene;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 import javafx.stage.Stage;
-import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.IntegerProperty;
 import oogasalad.builder.model.property.StringProperty;
-import oogasalad.builder.view.callback.ClearCellCallback;
 import oogasalad.builder.view.callback.FindCellBackgroundCallback;
 import oogasalad.builder.view.callback.FindPieceAtCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
-import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
 import oogasalad.builder.view.callback.GetHeightCallback;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
-import oogasalad.builder.view.callback.GetWidthCallback;
-import oogasalad.builder.view.callback.LoadCallback;
-import oogasalad.builder.view.callback.MakeBoardCallback;
-import oogasalad.builder.view.callback.PlacePieceCallback;
-import oogasalad.builder.view.tab.boardTab.BoardTab;
-import oogasalad.builder.view.tab.boardTab.BoardTabAccessor;
+import oogasalad.builder.view.callback.GetWidthCallback;;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-
-import java.util.List;
-import java.util.Stack;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.testfx.matcher.base.WindowMatchers.isFocused;
-
 
 class BuilderViewTest extends DukeApplicationTest {
 

@@ -25,10 +25,11 @@ public class ConditionFactoryTest {
   private static final String PROPERTY_NAME_TYPE = "type";
   private static final String CONDITION_TYPE = "IsEmpty";
   private static final String INVALID_CONDITION_TYPE = "emptyAt";
-  private static final String PROPERTY_NAME_ONE = "x";
+  private static final String PROPERTY_NAME_ONE = "col";
   private static final String PROPERTY_VALUE_ONE = "1";
-  private static final String PROPERTY_NAME_TWO = "y";
+  private static final String PROPERTY_NAME_TWO = "row";
   private static final String PROPERTY_VALUE_TWO = "1";
+  private static final String IS_ABSOLUTE = "isAbsolute";
 
   @BeforeEach
   void setUp(){
@@ -41,6 +42,7 @@ public class ConditionFactoryTest {
     properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_TYPE, CONDITION_TYPE));
     properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
     properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_TWO, PROPERTY_VALUE_TWO));
+    properties.add(PropertyFactory.makeProperty(IS_ABSOLUTE, 0));
     Condition condition = conditionFactory.createElement(CONDITION_NAME, properties);
 
     ElementRecord record = condition.toRecord();

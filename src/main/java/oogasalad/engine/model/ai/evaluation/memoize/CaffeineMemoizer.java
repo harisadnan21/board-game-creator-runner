@@ -9,6 +9,9 @@ import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 
+/**
+ * @author Alex Bildner
+ */
 public class CaffeineMemoizer implements Memoizer {
   private final LoadingCache<Board, Evaluation> memoizer;
 

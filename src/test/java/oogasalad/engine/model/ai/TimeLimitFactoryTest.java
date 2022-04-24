@@ -1,6 +1,6 @@
 package oogasalad.engine.model.ai;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import oogasalad.engine.model.ai.timeLimiting.SecondsTimeLimit;
 import oogasalad.engine.model.ai.timeLimiting.TimeLimit;

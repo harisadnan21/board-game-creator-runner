@@ -10,6 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import oogasalad.engine.view.ApplicationAlert;
+import oogasalad.engine.view.OptionSelect.LanguageSelect;
 import org.json.JSONObject;
 
 public class OpeningView {
@@ -27,25 +29,26 @@ public class OpeningView {
   private Button gameBuilder;
   private Button dashboard;
   private Button contSel;
-  private FileOpener fileOpener;
+  private DirectoryOpener directoryOpener;
   private File myFileChoice;
   private ResourceBundle myResources;
   private String cssFilePath;
+  private LanguageSelect ls;
 
-  public OpeningView(double w, double h, String css) {
-    String language = "English";
+  public OpeningView(double w, double h, String css, String language) {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
     width = w;
     height = h;
     root = new BorderPane();
+    ls = new LanguageSelect();
     setupText();
     makeButtonLayout();
     elements = new VBox(50);
-    elements.getChildren().addAll(gameText, buttonLayout);
+    elements.getChildren().addAll(gameText, buttonLayout, ls);
     elements.setAlignment(Pos.CENTER);
     root.setCenter(elements);
-    fileOpener = new FileOpener();
+    directoryOpener = new DirectoryOpener();
   }
 
   public Scene makeScene() {
@@ -65,6 +68,8 @@ public class OpeningView {
   public File getFileChoice() {
     return myFileChoice;
   }
+
+  public LanguageSelect getLanguageSelect() {return ls;}
 
   private void setupText() {
     title = new Text(myResources.getString("Title"));
@@ -101,20 +106,13 @@ public class OpeningView {
     Stage myStage = new Stage();
     uploadFile.setOnAction(e -> {
       try {
-        File script = fileOpener.fileChoice(myStage);
+        File script = directoryOpener.fileChoice(myStage);
         myFileChoice = script;
-        handleInput(fileOpener.getRootObject(script));
         contSel.setDisable(false);
-      } catch (NullPointerException nullPointerException) {
-        System.out.println(nullPointerException.getMessage());
       } catch (Exception err) {
-        System.out.println(err.getMessage());
+        ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), err.getMessage());
       }
     });
-  }
-
-  private void handleInput(JSONObject object) {
-    fileObject = object;
   }
 
   private Button makeButton(String buttonText) {

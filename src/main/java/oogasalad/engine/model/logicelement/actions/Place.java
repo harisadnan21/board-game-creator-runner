@@ -1,25 +1,35 @@
 package oogasalad.engine.model.logicelement.actions;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 
 public class Place extends Action {
 
+  private int row;
+  private int column;
+  private int type;
+  private int player;
+  private boolean isAbsolute;
   /**
    *
    * @param parameters size 4 array [row, column, type, player, isAbsolute]
    */
   public Place(int[] parameters) {
     super(parameters);
+    row = myParameters[0];
+    column = myParameters[1];
+    type = myParameters[2];
+    player = myParameters[3];
+    isAbsolute = myParameters[4] != 0;
   }
 
   @Override
   public Board execute(Board board, Position referencePoint) {
-    Position position = new Position(myParameters[0], myParameters[1]);
-    if (myParameters[4] == 0) {
+    Position position = new Position(row, column);
+    if (!isAbsolute) {
       position = transformToRelative(position, referencePoint);
     }
     return board.placeNewPiece(position.row(), position.column(),
-        myParameters[2], myParameters[3]);
+        type, player);
   }
 }

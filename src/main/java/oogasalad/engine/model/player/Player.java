@@ -1,48 +1,52 @@
 package oogasalad.engine.model.player;
 
+import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.driver.Game;
 
 /**
- * Abstract class that defines a player and has methods that executes a player's turn.
- * @Author Haris Adnan
+ * Player class
  */
-
-public abstract class Player implements PlayerInterface {
-
-  private Oracle oracle;
-  private Game myGame;
-  private BiConsumer<Player, Choice> myExecuteMove;
-
-  protected Player(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove) {
-    this.oracle = oracle;
-    myGame = game;
-    myExecuteMove = executeMove;
-  }
-
-  protected Oracle getOracle() {
-    return oracle;
-  }
+public interface Player {
 
   /**
-   * Sends move choice to Engine
-   * 
-   * @param player
-   * @param choice
+   * Engine uses this function to ping player and indicate it
+   * should send a move choice
    */
-  protected void executeMove(Player player, Choice choice) {
-    myExecuteMove.accept(player, choice);
-  }
+  void chooseMove(Board activeBoard);
 
   /**
-   * Returns the current game board
-   * Players should not be able to set the current game board
+   * Defines what should happen if the user clicks a cell during
+   * this player's turn
+   * @param i
+   * @param j
+   */
+  void onCellSelect(int i, int j);
+
+  /**
+   * Returns current score for this player
+   * score should update after every game
    * @return
    */
-  protected Board getGameBoard() {
-    return myGame.getBoard();
-  }
+  int getScore();
+
+  /**
+   * updates score for this player
+   * @param change
+   */
+  void updateScore(int change);
+
+  /**
+   * Sets dependencies for player
+   * TODO: Don't like this method but do not currently see another way to
+   * @param oracle
+   * @param executeMove
+   * @param setValidMarks
+   */
+  void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
+      Consumer<Set<Position>> setValidMarks);
 }

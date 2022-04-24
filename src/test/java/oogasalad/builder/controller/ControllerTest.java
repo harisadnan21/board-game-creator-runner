@@ -1,5 +1,12 @@
 package oogasalad.builder.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.HashSet;
 import javafx.stage.Stage;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -24,17 +31,8 @@ import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.callback.UpdateGameElementCallback;
-import org.jooq.impl.QOM.Ge;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-
-import java.io.File;
-import java.util.Collection;
-import java.util.HashSet;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for BuilderController Class
@@ -75,6 +73,7 @@ public class ControllerTest extends DukeApplicationTest {
   private static final String BLACK = "0x000000ff";
   private static final String WHITE = "0xffffffff";
   public static final String BAD_PATH_TO_DIRECTORY = "bad/path/to/directory";
+  private static final String IS_PERSISTENT = "isPersistent";
 
   private BuilderController controller;
   private Collection<Property> properties;
@@ -201,6 +200,7 @@ public class ControllerTest extends DukeApplicationTest {
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
+    properties.add(PropertyFactory.makeProperty(IS_PERSISTENT, 0));
     controller.update(new UpdateGameElementCallback(RULE_TYPE, RULE_NAME, properties));
     File file = new File(TEST_SAVE_DIRECTORY);
     controller.save(new SaveCallback(file));
@@ -214,7 +214,6 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Test
   void testLoad() {
-    // TODO: Change test when loading is implemented
     File file = new File(TEST_LOAD_DIRECTORY);
     controller.load(new LoadCallback(file));
     file = new File(TEST_SAVE_EXCEPTION_FILENAME);

@@ -1,8 +1,8 @@
 package oogasalad.builder.model;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashSet;
-
 import oogasalad.builder.model.element.ElementRecord;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -60,6 +59,7 @@ public class GameConfigurationTest {
   private static final String REPRESENTATIVE_Y = "representativeY";
   private static final String BLACK = "0x000000ff";
   private static final String WHITE = "0xffffffff";
+  private static final String IS_PERSISTENT = "isPersistent";
 
   private Collection<Property> properties;
   private BuilderModel game;
@@ -173,6 +173,7 @@ public class GameConfigurationTest {
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
+    properties.add(PropertyFactory.makeProperty(IS_PERSISTENT, 0));
     game.addGameElement(RULE, RULE_NAME, properties);
 
     addPiece();

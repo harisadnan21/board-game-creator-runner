@@ -1,8 +1,9 @@
 package oogasalad.engine.model.ai.evaluation.patterns;
 
 import static java.util.function.Function.identity;
-import static oogasalad.engine.model.board.Piece.*;
-import static org.jooq.lambda.Seq.*;
+import static oogasalad.engine.model.board.cells.Piece.PLAYER_ONE;
+import static oogasalad.engine.model.board.cells.Piece.PLAYER_TWO;
+import static org.jooq.lambda.Seq.seq;
 
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedMap;
@@ -17,10 +18,13 @@ import java.util.stream.Stream;
 import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
 
+/**
+ * @author Alex Bildner
+ */
 public class PatternEvaluator implements StateEvaluator {
   protected SortedSet<Pattern> patterns;
   protected SortedMap<Position, Set<Pattern>> includes;
@@ -29,11 +33,18 @@ public class PatternEvaluator implements StateEvaluator {
   protected Map<Integer, Set<Pattern>> patternsForPlayers;
 
   public PatternEvaluator(Collection<Pattern> patterns) {
+    throwIfInvalid(patterns);
     this.patterns = TreeSet.ofAll(patterns);
     this.includes = createIncludes();
     this.oldBoard = null;
     this.scores = buildScores(patterns);
     this.patternsForPlayers = buildPatternsForPlayers();
+  }
+
+  private void throwIfInvalid(Collection<Pattern> patterns) {
+    if(patterns==null || patterns.size()==0) {
+      throw new IllegalArgumentException("bad patterns");
+    }
   }
 
   private Map<Integer, Set<Pattern>> buildPatternsForPlayers() {
@@ -57,16 +68,22 @@ public class PatternEvaluator implements StateEvaluator {
   public Evaluation evaluate(Board board) {
     Seq<Position> positionsChanged = getPositionsToCheck(board);
 
-    positionsChanged.parallel().
-        map(withItsPatterns()).
-        forEach(positionWithPatterns -> updateScoresForPosition(positionWithPatterns, board));
+    updateScores(board, positionsChanged);
 
     int[] distance = playersStream().map(this::scoresForPlayer).mapToInt(this::getBestScore).toArray();
 
-    int playerOneAdvantage = distance[PLAYER_ONE] - distance[PLAYER_TWO];
+    int playerOneAdvantage = distance[PLAYER_TWO] - distance[PLAYER_ONE];
     int playerTwoAdvantage = playerOneAdvantage * -1;
 
+    oldBoard = board;
+
     return new Evaluation(playerOneAdvantage, playerTwoAdvantage);
+  }
+
+  private void updateScores(Board board, Seq<Position> positionsChanged) {
+    positionsChanged.parallel().
+        map(withItsPatterns()).
+        forEach(positionWithPatterns -> updateScoresForPosition(positionWithPatterns, board));
   }
 
   private Integer getBestScore(Set<Integer> set) {
@@ -107,8 +124,18 @@ public class PatternEvaluator implements StateEvaluator {
   }
 
   public Seq<Position> getPositionsToCheck(Board newBoard) {
-    if(oldBoard==null) return newBoard.getPositions();
-    return newBoard.getPositions().filter(position -> differentPlayerAtPosition(newBoard, oldBoard, position));
+    var relevantPositions = relevantPositions(newBoard);
+
+    return oldBoard==null? relevantPositions : changedPositions(newBoard, relevantPositions);
+  }
+
+  private Seq<Position> changedPositions(Board newBoard, Seq<Position> relevantPositions) {
+    return relevantPositions.filter(
+        position -> differentPlayerAtPosition(newBoard, oldBoard, position));
+  }
+
+  private Seq<Position> relevantPositions(Board newBoard) {
+    return newBoard.getPositions().filter(position -> includes.keySet().contains(position));
   }
 
   private boolean differentPlayerAtPosition(Board board1, Board board2, Position position) {

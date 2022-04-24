@@ -1,5 +1,13 @@
 package oogasalad.builder.view.property;
 
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import oogasalad.builder.model.exception.InvalidFormException;
+import oogasalad.builder.model.property.Property;
+import oogasalad.builder.view.callback.CallbackDispatcher;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -7,21 +15,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import oogasalad.builder.model.exception.InvalidFormException;
-import oogasalad.builder.model.property.Property;
-import oogasalad.builder.model.property.PropertyFactory;
-import oogasalad.builder.view.callback.CallbackDispatcher;
-
 import java.util.stream.Collectors;
 
 /**
  * Describes generic behavior for the property editing portion of a Game Element Tab. Allows users
  * to input and edit the properties of new and existing game elements.
  *
- * @author Ricky Weerts and Shaan Gondalia
+ * @author Ricky Weerts and Shaan Gondalia & Mike Keohane
  */
 public class PropertyEditor extends VBox {
 
@@ -32,6 +32,7 @@ public class PropertyEditor extends VBox {
   private final CallbackDispatcher callbackDispatcher;
 
   private final Map<Property, PropertySelector> selectors = new HashMap<>();
+  private final Map<Property, Node> selectorNodes = new HashMap<>();
 
   private Collection<Property> allProperties;
 
@@ -45,7 +46,7 @@ public class PropertyEditor extends VBox {
   /**
    * Sets the properties of an element to display to the user
    *
-   * @param properties The rgequired properties of an element
+   * @param properties The required properties of an element
    */
   public void setElementProperties(Collection<Property> properties) {
     getChildren().clear();
@@ -63,7 +64,8 @@ public class PropertyEditor extends VBox {
     List<Property> nonType = new ArrayList<>();
     selectors.forEach((prop, selector) -> {
       if(!(isTypeProperty(prop) || isRequiredProperty(prop)) ) {
-        getChildren().remove(selector.display().getParent()); // FIXME Assumes display() result won't change between calls
+        getChildren().remove(selectorNodes.get(prop).getParent());
+        selectorNodes.remove(prop);
         nonType.add(prop);
       }
     });
@@ -116,7 +118,6 @@ public class PropertyEditor extends VBox {
    * @return a property with the value field filled out
    */
   private Property getElementProperty(String name) {
-    // TODO Use Property.withValue() if we add that back
     return selectors.entrySet().stream()
         .filter(entry -> entry.getKey().name().equals(name))
         .map(entry -> entry.getValue().getProperty())
@@ -146,9 +147,10 @@ public class PropertyEditor extends VBox {
               (String) newValue));
     }
     String[] propertyNameParts = property.name().split("-");
+    selectorNodes.put(property, propertySelector.display());
     propertyBox.getChildren().addAll(
         new Label(propertyNameParts[propertyNameParts.length - 1]),
-        propertySelector.display()
+        selectorNodes.get(property)
     );
     getChildren().add(propertyBox);
   }

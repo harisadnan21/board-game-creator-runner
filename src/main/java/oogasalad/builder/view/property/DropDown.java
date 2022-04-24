@@ -1,13 +1,11 @@
 package oogasalad.builder.view.property;
 
 import javafx.beans.value.ChangeListener;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.cell.MapValueFactory;
-import javax.security.auth.callback.Callback;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
-import oogasalad.builder.model.property.StringProperty;
+import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
@@ -19,7 +17,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
  */
 public class DropDown implements PropertySelector{
 
-  private static final String LIST_TEXT = "Select Property"; // TODO: Replace Magic Value
+  private static final String LIST_TEXT_KEY =  "PropertyDropdown-Prompt";
   private static final String LIST_DELIMITER = "-";
 
   private final Property property;
@@ -33,14 +31,12 @@ public class DropDown implements PropertySelector{
   public DropDown(Property property, CallbackDispatcher dispatcher){
     this.property = property;
     list = new ComboBox<>();
-    //list.setPromptText(resources.getString(LIST_TEXT));
-    list.setPromptText(LIST_TEXT); // TODO: Replace magic value with resources file (languages)
+    list.setPromptText(ViewResourcesSingleton.getInstance().getString(LIST_TEXT_KEY));
     list.getItems().setAll(this.property.defaultValueAsString().split(LIST_DELIMITER));
     if(!property.defaultValue().toString().equals(property.valueAsString())) {
       list.getSelectionModel().select(property.valueAsString());
     }
     list.setId("dropDown-" + property.shortName());
-    //list.valueProperty().addListener((observable, oldValue, newValue) -> selection = newValue);
   }
 
   /**
@@ -60,6 +56,9 @@ public class DropDown implements PropertySelector{
    */
   @Override
   public Property getProperty() {
+    if (list.getValue() == null){
+      throw new MissingRequiredPropertyException(property.shortName());
+    }
     return property.with(property.shortName(), list.getValue());
   }
 

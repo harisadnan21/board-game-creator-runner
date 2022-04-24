@@ -1,17 +1,17 @@
 package oogasalad.engine.model.ai.evaluation;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.jooq.lambda.Seq.range;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import oogasalad.engine.model.ai.evaluation.totals.TotalPieces;
 import oogasalad.engine.model.ai.exceptions.InvalidBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
-
-import static org.jooq.lambda.Seq.*;
-
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.junit.jupiter.api.Test;
 
 

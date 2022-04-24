@@ -2,14 +2,14 @@ package oogasalad.builder.view.property;
 
 import java.io.File;
 import javafx.beans.value.ChangeListener;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
-import oogasalad.builder.model.property.StringProperty;
+import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
@@ -17,12 +17,13 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
  * instance, if the user wishes to give a piece an image, the FileSelector will prompt them to
  * choose a file from their filesystem, storing the path to that file in the property.
  *
- * @author Shaan Gondalia
+ * @author Shaan Gondalia & Mike Keohane
  */
 public class FileSelector implements PropertySelector {
 
-  private static final String BUTTON_TEXT = "Choose File"; // TODO: Replace Magic Value
-
+  private static final String BUTTON_TEXT_KEY = "PropertyFileSelector-ButtonText";
+  private static final String FILE_DELIMITER = "/";
+  private static final String[] FILE_TYPES = {"*.png", "*.jpg", "*.gif", ".jpeg"};
   private final Property property;
   private String filePath;
   private final Button chooseButton;
@@ -35,8 +36,11 @@ public class FileSelector implements PropertySelector {
   public FileSelector(Property property, CallbackDispatcher dispatcher) {
     this.property = property;
     chooseButton = new Button();
-    //String buttonLabel = resources.getString(labelName);
-    chooseButton.setText(BUTTON_TEXT); // TODO: Replace magic value with resources file (languages)
+    chooseButton.setText(ViewResourcesSingleton.getInstance().getString(BUTTON_TEXT_KEY));
+    if (!property.valueAsString().equals(property.defaultValue().toString())){
+      chooseButton.setText(property.value().toString().split(FILE_DELIMITER)[property.value().toString().split(
+          FILE_DELIMITER).length - 1]);
+    }
     chooseButton.setOnAction(e -> chooseFile());
     chooseButton.setId("fileSelector-" + this.property.name().split("-")[1]);
   }
@@ -58,6 +62,9 @@ public class FileSelector implements PropertySelector {
    */
   @Override
   public Property getProperty() {
+    if (filePath == null){
+      throw new MissingRequiredPropertyException(property.shortName());
+    }
     return property.with(property.shortName(), filePath);
   }
 
@@ -65,12 +72,13 @@ public class FileSelector implements PropertySelector {
   private void chooseFile() {
     Stage stage = new Stage();
     FileChooser fileChooser = new FileChooser();
-  //  fileChooser.setInitialDirectory(new File("/"));
     fileChooser.getExtensionFilters()
-        .add(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        .add(new ExtensionFilter("Image Files", FILE_TYPES));
     File file = fileChooser.showOpenDialog(stage);
     if (file != null) {
       filePath = file.toString();
+      chooseButton.setText(filePath.split(FILE_DELIMITER)[filePath.split(
+          FILE_DELIMITER).length - 1]);
     }
   }
 

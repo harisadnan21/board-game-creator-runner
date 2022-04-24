@@ -1,0 +1,279 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/whiteKing.png",
+            "name": "X",
+            "id": 0,
+            "player": 0
+        },
+        {
+            "image": "/resources/blackKing.png",
+            "name": "O",
+            "id": 1,
+            "player": 1
+        }
+    ],
+    "metadata": {
+        "gameName": "Tic-Tac-Toe",
+        "author": "Shaan Gondalia",
+        "name": "tictactoe",
+        "description": "Tic Tac Toe configuration file created with the builder"
+    },
+    "winDecisions": [
+        {
+            "name": "X row win",
+            "id": 0,
+            "conditions": ["X row"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "X col win",
+            "id": 0,
+            "conditions": ["X col"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "X pos diag win",
+            "id": 0,
+            "conditions": ["X pos diag"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "X neg diag win",
+            "id": 0,
+            "conditions": ["X neg diag"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "O row win",
+            "id": 1,
+            "conditions": ["O row"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "O col win",
+            "id": 1,
+            "conditions": ["O col"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "O pos diag win",
+            "id": 1,
+            "conditions": ["O pos diag"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "O neg diag win",
+            "id": 1,
+            "conditions": ["O neg diag"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "draw",
+            "id": -1,
+            "conditions": ["board full"],
+            "type": "Draw"
+        }
+    ],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place O piece on Os turn",
+            "conditions": [
+                "Placement Square is Empty",
+                "O turn"
+            ],
+            "actions": ["PlaceOPiece"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place X piece on Xs turn",
+            "conditions": [
+                "X turn",
+                "Placement Square is Empty"
+            ],
+            "actions": ["PlaceXPiece"]
+        }
+    ],
+    "conditions": [
+        {
+            "name": "board full",
+            "type": "BoardFull"
+        },
+        {
+            "name": "X row",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 0,
+            "columnDirection": 1,
+            "length": 3,
+            "player": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O row",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 0,
+            "columnDirection": 1,
+            "length": 3,
+            "player": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X col",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": 0,
+            "length": 3,
+            "player": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O col",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": 0,
+            "length": 3,
+            "player": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X pos diag",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": 1,
+            "length": 3,
+            "player": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O pos diag",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": 1,
+            "length": 3,
+            "player": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X neg diag",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": -1,
+            "length": 3,
+            "player": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O neg diag",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": -1,
+            "length": 3,
+            "player": 1,
+            "isAbsolute": 0
+        },
+        {
+            "col": 0,
+            "name": "Placement Square is Empty",
+            "isAbsolute": 0,
+            "row": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "col": 0,
+            "name": "X turn",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "col": 0,
+            "name": "O turn",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "IsPlayer"
+        }
+    ],
+    "actions": [
+        {
+            "col": 0,
+            "name": "PlaceXPiece",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlaceOPiece",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "Place",
+            "player": 1
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 3,
+        "activePlayer": 0,
+        "height": 3
+    }
+}

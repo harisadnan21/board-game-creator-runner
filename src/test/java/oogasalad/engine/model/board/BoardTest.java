@@ -1,6 +1,13 @@
 package oogasalad.engine.model.board;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +16,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Stream;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
+import oogasalad.engine.model.board.exceptions.OutOfBoardException;
+import oogasalad.engine.model.board.utilities.BoardUtilities;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple3;
 import org.junit.jupiter.api.Assertions;
@@ -64,7 +76,8 @@ class BoardTest {
     var invalidColVals = Seq.rangeClosed(-3,-1).append(Seq.rangeClosed(maxCol+1, maxCol+3));
     var invalidPositions = invalidRowVals.crossJoin(invalidColVals).map(tuple -> new Position(tuple.v1(), tuple.v2())).toList();
     for(Position position: invalidPositions) {
-      Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position.row(), position.column()));
+      Assertions.assertThrowsExactly(
+          OutOfBoardException.class, () -> board.getPositionStateAt(position.row(), position.column()));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPositionStateAt(position));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.getPiece(position.row(), position.column()));
       Assertions.assertThrowsExactly(OutOfBoardException.class, () -> board.removePiece(position));

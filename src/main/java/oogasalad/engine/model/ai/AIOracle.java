@@ -1,12 +1,15 @@
 package oogasalad.engine.model.ai;
 
-import java.util.Set;
+import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.engine.Choice;
 
+/**
+ * @author Alex Bildner
+ */
 public interface AIOracle {
-  Set<Choice> getChoices(Board board, int player);
+  Stream<Choice> getChoices(Board board, int player);
 
-  Boolean isWinningState(Board board);
+  boolean isWinningState(Board board);
 
 }

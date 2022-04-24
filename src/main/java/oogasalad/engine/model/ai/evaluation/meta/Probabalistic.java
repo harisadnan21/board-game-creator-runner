@@ -9,7 +9,9 @@ import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
 
-@Deprecated
+/**
+ * @author Alex Bildner
+ */
 public class Probabalistic implements StateEvaluator {
   private SortedMap<Double, StateEvaluator> stateEvaluatorMap;
   private Random random;

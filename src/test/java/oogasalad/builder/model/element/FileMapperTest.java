@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.builder.model.element.factory.FactoryProvider;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
