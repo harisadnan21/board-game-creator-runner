@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
-import oogasalad.engine.model.setup.Constants;
 import oogasalad.engine.model.setup.Delta;
 import org.jooq.lambda.Seq;
 
@@ -39,8 +38,10 @@ public class Ray {
     Builder<PositionState> ray = Stream.builder();
     int i = position.row();
     int j = position.column();
-    Delta delta = Constants.DIRECTIONDELTAS.get(direction);
+
+    Delta delta = getDirectionDelta(direction);
     var positionStatePredicate = reducePredicates(positionStatePredicates); // Combines list of predicates into one predicate which is when they are all true
+
     while(isValid(board, i, j) && passesCondition(board, positionStatePredicate, i, j)){
       ray.accept(board.getPositionStateAt(i,j));
       i += delta.idelta();
@@ -49,6 +50,10 @@ public class Ray {
 
     return ray.build();
 
+  }
+
+  private static Delta getDirectionDelta(Direction direction) {
+    return new Delta(direction.deltaI(), direction.deltaJ());
   }
 
   private static Predicate<PositionState> reducePredicates(
