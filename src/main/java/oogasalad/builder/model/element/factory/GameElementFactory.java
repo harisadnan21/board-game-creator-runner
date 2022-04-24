@@ -15,6 +15,8 @@ import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +40,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   private final ResourceBundle propertiesResources;
   private Collection<Property> properties;
   private final Map<Property, String> propertyTypes;
+  private final Logger LOG;
 
   /**
    * Creates a new GameElementFactory with the given properties file
@@ -47,6 +50,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   public GameElementFactory(String propertiesPath) {
     propertiesResources = ResourceBundle.getBundle(propertiesPath);
     propertyTypes = new HashMap<>();
+    LOG = LogManager.getLogger(GameElementFactory.class);
     loadProperties();
   }
 
@@ -84,18 +88,23 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     Collection<Property> properties = new HashSet<>();
 
     for (String key : obj.keySet()) {
-      for (Property property : propertyTypes.keySet()) {
-        if (property.name().split(DELIMITER)[1].equals(key)) {
-          String classPath = propertyTypes.get(property);
-          String value = convertToString(obj.get(key).toString());
-          properties.add(
-              makePropertyReflection(key, classPath, value, property.form()));
-          break;
-        }
-      }
+      makeProperties(obj, properties, key);
     }
 
     return properties;
+  }
+
+  // Makes properties from a json object, placing them in the collection passed to this method
+  private void makeProperties(JSONObject obj, Collection<Property> properties, String key) {
+    for (Property property : propertyTypes.keySet()) {
+      if (property.name().split(DELIMITER)[1].equals(key)) {
+        String classPath = propertyTypes.get(property);
+        String value = convertToString(obj.get(key).toString());
+        properties.add(
+            makePropertyReflection(key, classPath, value, property.form()));
+        return;
+      }
+    }
   }
 
   // Attempts to convert an array to the proper string representation. Consider refactoring
@@ -110,6 +119,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       s.append(arr.getString(arr.length() - 1));
       return s.toString();
     } catch (JSONException e) {
+      LOG.warn(e);
       return orig;
     }
   }
@@ -150,17 +160,24 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     for (Property property : getRequiredProperties()) {
       String namespace = property.name().split(DELIMITER)[0];
       String target = property.name().split(DELIMITER)[1];
-      if (namespace.equals(REQUIRED)) {
-        String value = findProperty(target, properties);
-        if (target.equals(TYPE)) {
-          type = value;
-        }
-      }
+      type = findType(properties, type, namespace, target);
     }
     if (!validateType(type)) {
       throw new MissingRequiredPropertyException(type);
     }
     validateNamespace(type, properties);
+  }
+
+  // Returns the type value found in a list of properties
+  private String findType(Collection<Property> properties, String type, String namespace,
+      String target) {
+    if (namespace.equals(REQUIRED)) {
+      String value = findProperty(target, properties);
+      if (target.equals(TYPE)) {
+        type = value;
+      }
+    }
+    return type;
   }
 
   // Validates properties in a given namespace
@@ -212,6 +229,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       return (Property) ctor.newInstance(name, value, form);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
+      LOG.error(e);
       throw new InvalidFormException(e);
     }
   }

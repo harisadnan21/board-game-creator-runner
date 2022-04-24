@@ -1,18 +1,10 @@
 package oogasalad.builder.model.element.factory;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import oogasalad.builder.model.element.FileMapper;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
-import oogasalad.builder.model.property.PropertyFactory;
 
 /**
  * Class that provides a specific GameElementFactory based on the type of the desired game element.

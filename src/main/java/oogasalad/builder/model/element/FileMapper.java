@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import org.json.JSONObject;
@@ -66,8 +67,8 @@ public class FileMapper {
   public void copyFiles(File directory) throws IOException {
     File resourceDir = new File(directory.toString() + RESOURCES_PATH);
     resourceDir.mkdir();
-    for (String newPath : fileNameMap.keySet()) {
-      Files.copy(Path.of(fileNameMap.get(newPath)), Path.of(directory + newPath), StandardCopyOption.REPLACE_EXISTING);
+    for (Entry<String, String> entry : fileNameMap.entrySet()) {
+      Files.copy(Path.of(entry.getValue()), Path.of(directory + entry.getKey()), StandardCopyOption.REPLACE_EXISTING);
     }
   }
 
