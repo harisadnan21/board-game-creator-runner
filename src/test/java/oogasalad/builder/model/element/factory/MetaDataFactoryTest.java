@@ -22,8 +22,10 @@ public class MetaDataFactoryTest {
 
   private MetaDataFactory metadataFactory;
   private static final String GAME_NAME = "checkers";
+  private static final String PROPERTY_NAME_TYPE = "gameName";
   private static final String PROPERTY_DESCRIPTION_TYPE = "description";
   private static final String PROPERTY_AUTHOR_TYPE = "author";
+  private static final String NAME = "checkers 2: the wrath of khan";
   private static final String AUTHOR = "ur";
   private static final String DESCRIPTION = "this is a checkers game";
 
@@ -35,6 +37,7 @@ public class MetaDataFactoryTest {
   @Test
   void testConditionCreated() throws MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
+    properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_TYPE, NAME));
     properties.add(PropertyFactory.makeProperty(PROPERTY_DESCRIPTION_TYPE, DESCRIPTION));
     properties.add(PropertyFactory.makeProperty(PROPERTY_AUTHOR_TYPE, AUTHOR));
     MetaData metadata = metadataFactory.createElement(GAME_NAME, properties);
