@@ -108,12 +108,12 @@ public class BoardView implements PropertyChangeListener{
         Optional<String> color = colorConfig.isPresent() ? Optional.of(colorConfig.get()[row][column]) : Optional.empty();
         Cell temp = new Cell(row, column, cellWidth, cellHeight, color);
         gridRoot.add(temp.getMyRoot(), column, rows - row - 1); // documentation says the first input is column and the second is row
-        myGrid[row][columns] = temp;
+        myGrid[row][column] = temp;
 
         int finalRow = row;
-        int finalColumn = columns;
+        int finalColumn = column;
 
-        myGrid[row][columns].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+        myGrid[row][column].getMyRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
           try {
             cellClicked(e, finalRow, finalColumn);
           } catch (OutOfBoardException ex) {
