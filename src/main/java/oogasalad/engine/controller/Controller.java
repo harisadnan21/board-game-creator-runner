@@ -90,7 +90,7 @@ public class Controller {
 
   public void click(int row, int column ) throws OutOfBoardException {
     myEngine.onCellSelect(row, column);
-    
+
   }
 
   public Board setCallbackUpdates(Consumer<Board> update, Consumer<Set<Position>> setValidMarks, IntConsumer endGame){
