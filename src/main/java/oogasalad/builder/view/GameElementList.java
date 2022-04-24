@@ -22,6 +22,7 @@ import java.util.function.BiConsumer;
  * 
  */
 public class GameElementList extends ListView<GameElementList.GameElementData> {
+    private static final int MAX_ROW_HEIGHT = 55;
     protected record GameElementData(String name, Collection<Property> properties) {}
     private static final String IMAGE_PROPERTY_NAME = "image";
     private final BiConsumer<String, String> selectElementCallback;
@@ -52,8 +53,7 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
                         .ifPresent(prop -> {
                             ImageView image = new ImageView(new Image(new File(prop.valueAsString()).toURI().toString()));
                             image.setPreserveRatio(true);
-                            //FIXME! MAGIC NUMBER!
-                            image.setFitHeight(55);
+                            image.setFitHeight(MAX_ROW_HEIGHT);
                             cell.setGraphic(image);
                         });
             }

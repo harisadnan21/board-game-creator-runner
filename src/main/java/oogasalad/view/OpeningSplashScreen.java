@@ -43,16 +43,7 @@ public class OpeningSplashScreen {
   }
 
   private void startBuilder() {
-    final Logger logger = LogManager.getLogger(BuilderMain.class);
-    try {
-      BuilderController controller = new BuilderController(new BuilderView(stage));
-      Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
-        logger.throwing(throwable);
-        controller.showError(throwable);
-      });
-    } catch(Exception e) {
-      logger.error("Exception occurred while initializing builder", e);
-    }
+    new BuilderController(new BuilderView(stage));
   }
 
   private void startEngine() {

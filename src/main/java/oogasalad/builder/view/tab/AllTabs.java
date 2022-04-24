@@ -59,8 +59,7 @@ public class AllTabs extends TabPane {
       return new Tab(ViewResourcesSingleton.getInstance().getString(tabNameKey), createdTab);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
-      e.printStackTrace();
-      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
+      throw new InvalidFormException(e);
     }
   }
 

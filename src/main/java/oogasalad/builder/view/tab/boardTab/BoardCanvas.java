@@ -1,6 +1,9 @@
 package oogasalad.builder.view.tab.boardTab;
 
 
+import static oogasalad.builder.view.tab.boardTab.BoardTab.A_NUM;
+import static oogasalad.builder.view.tab.boardTab.BoardTab.B_NUM;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
@@ -69,8 +72,8 @@ public class BoardCanvas extends Pane {
    */
   public void setColor(Paint color, int colorNum) {
     switch (colorNum) {
-      case 1 -> colorOne = color;
-      case 2 -> colorTwo = color;
+      case A_NUM -> colorOne = color;
+      case B_NUM -> colorTwo = color;
     }
   }
 
