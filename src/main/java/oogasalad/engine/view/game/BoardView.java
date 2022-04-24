@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -82,6 +83,7 @@ public class BoardView implements PropertyChangeListener{
     text = new GameUpdateText(language);
     root = new StackPane();
     gridRoot = new GridPane();
+    gridRoot.setId("grid");
     myGrid = new Cell[rows][columns];
 
     Pair<Double, Double> cellSize = calcCellSize(rows, columns, width, height);
@@ -114,7 +116,7 @@ public class BoardView implements PropertyChangeListener{
           try {
             cellClicked(e, finalI, finalJ);
           } catch (OutOfBoardException ex) {
-            ex.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Out of Board Bounds").showAndWait();
           }
         });
       }
