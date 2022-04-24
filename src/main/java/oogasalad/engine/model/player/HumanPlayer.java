@@ -29,6 +29,7 @@ public class HumanPlayer extends AbstractPlayer {
   public HumanPlayer(Oracle oracle, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
     super(executeMove);
     mySetValidMarks = setValidMarks;
+    myOracle = oracle;
   }
 
   @Override
@@ -87,8 +88,8 @@ public class HumanPlayer extends AbstractPlayer {
   @Override
   public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
       Consumer<Set<Position>> setValidMarks){
-    setMyOracle(oracle);
-    super.setMyExecuteMove(executeMove);
+    setOracle(oracle);
+    super.setExecuteMove(executeMove);
     mySetValidMarks = setValidMarks;
   }
 
@@ -96,7 +97,7 @@ public class HumanPlayer extends AbstractPlayer {
     return myOracle;
   }
 
-  private void setMyOracle(Oracle oracle) {
+  private void setOracle(Oracle oracle) {
     this.myOracle = oracle;
   }
 
