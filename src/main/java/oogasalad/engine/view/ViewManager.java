@@ -19,7 +19,6 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 
 
-import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.game.GameView;
 import oogasalad.engine.view.setup.SelectionView.AISelectView;
@@ -57,7 +56,7 @@ public class ViewManager {
   private File currGame;
   private List<Stage> gameStages = new ArrayList<>();
   private Controller controller;
-  private List<Scene> allScenes = new ArrayList<>();
+  private List<Scene> gameScenes = new ArrayList<>();
   private String language;
 
 
@@ -75,7 +74,7 @@ public class ViewManager {
     BOARDX = Double.parseDouble(prop.getProperty("BOARDX"));
     BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
     currScene = createOpeningView().makeScene();
-    allScenes.add(currScene);
+    gameScenes.add(currScene);
   }
 
   public Scene getCurrScene() {
@@ -102,7 +101,6 @@ public class ViewManager {
     System.out.println(language);
     currScene = createOpeningView().makeScene();
     stage.setScene(currScene);
-    allScenes.add(currScene);
   }
 
   private void showGames() {
@@ -118,7 +116,7 @@ public class ViewManager {
     Scene newScene = pmv.makeScene();
     newStage.setScene(newScene);
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
-    allScenes.add(newScene);
+    gameScenes.add(newScene);
     pmv.getOnePlayer().setOnAction(e -> selectAI(newStage));
     pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage));
     newStage.show();
@@ -149,7 +147,7 @@ public class ViewManager {
       Scene newScene = gameView.makeScene();
       addKeyPress(newScene);
       newStage.setScene(newScene);
-      allScenes.add(newScene);
+      gameScenes.add(newScene);
       gameStages.add(newStage);
     }
     catch (IOException e) {
@@ -198,9 +196,14 @@ public class ViewManager {
   }
 
   private void updateSceneCSS(String style) {
+    System.out.println(cssFilepath);
+    String oldCss = cssFilepath;
     cssFilepath = CSS_RESOURCE + style + CSS_EXTENSION;
+    currScene.getStylesheets().remove(oldCss);
     currScene.getStylesheets().add(cssFilepath);
-    for (Scene s : allScenes) {
+    System.out.println(gameScenes.contains(currScene));
+    for (Scene s : gameScenes) {
+      s.getStylesheets().remove(oldCss);
       s.getStylesheets().add(cssFilepath);
     }
   }
