@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.exceptions.OutOfBoardException;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.actions.Action;
 import oogasalad.engine.model.logicelement.actions.Translate;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ public class TranslateTest {
   void setup() {
     myBoard = new Board(5, 5);
 
-    myTranslate = new Translate(new int[]{0,0,2,2});
+    myTranslate = new Translate(new int[]{0,0,2,2,0});
   }
 
   @Test

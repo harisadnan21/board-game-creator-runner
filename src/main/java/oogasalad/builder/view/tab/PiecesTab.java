@@ -1,17 +1,23 @@
 package oogasalad.builder.view.tab;
 
 
-import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.view.callback.CallbackDispatcher;
-import oogasalad.builder.view.tab.GameElementTab;
 
 /**
- * 
+ * Represents the Pieces Tab
+ *
+ * @author Ricky Weerts
  */
 public class PiecesTab extends GameElementTab {
-    public static String PIECE = "piece";
 
-    public PiecesTab(CallbackDispatcher dispatcher) {
-        super(dispatcher, PIECE);
-    }
+  public static String PIECE = "piece";
+
+  /**
+   * Initializes the PiecesTab by calling the GameElementTab super class
+   *
+   * @param dispatcher - callback dispatcher to communicate with the controller
+   */
+  public PiecesTab(CallbackDispatcher dispatcher) {
+    super(dispatcher, PIECE);
+  }
 }

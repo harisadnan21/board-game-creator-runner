@@ -25,10 +25,12 @@ public class ActionFactoryTest {
   private static final String PROPERTY_NAME_TYPE = "type";
   private static final String ACTION_TYPE = "Place";
   private static final String INVALID_ACTION_TYPE = "moveTo";
-  private static final String PROPERTY_NAME_ONE = "x";
+  private static final String PROPERTY_NAME_ONE = "col";
   private static final int PROPERTY_VALUE_ONE = 1;
-  private static final String PROPERTY_NAME_TWO = "y";
+  private static final String PROPERTY_NAME_TWO = "row";
   private static final int PROPERTY_VALUE_TWO = 2;
+  private static final String ID = "id";
+  private static final String PLAYER = "player";
   private static final String IS_ABSOLUTE = "isAbsolute";
 
   @BeforeEach
@@ -39,9 +41,11 @@ public class ActionFactoryTest {
   @Test
   void testActionCreated() throws MissingRequiredPropertyException {
     Collection<Property> properties = new HashSet<>();
+    properties.add(PropertyFactory.makeProperty(ID, 0));
     properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_TYPE, ACTION_TYPE));
     properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_ONE, PROPERTY_VALUE_ONE));
     properties.add(PropertyFactory.makeProperty(PROPERTY_NAME_TWO, PROPERTY_VALUE_TWO));
+    properties.add(PropertyFactory.makeProperty(PLAYER, 0));
     properties.add(PropertyFactory.makeProperty(IS_ABSOLUTE, 0));
     Action action = actionFactory.createElement(ACTION_NAME, properties);
 

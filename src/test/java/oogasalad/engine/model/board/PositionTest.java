@@ -1,14 +1,17 @@
 package oogasalad.engine.model.board;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
 import static org.jooq.lambda.Seq.zip;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
+import oogasalad.engine.model.board.cells.Position;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class PositionTest {
   public static final Integer[] ROW_VALS = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9};

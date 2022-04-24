@@ -1,7 +1,7 @@
 package oogasalad.engine.model.logicelement.conditions;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.LogicElement;
 
 public abstract class Condition extends LogicElement {

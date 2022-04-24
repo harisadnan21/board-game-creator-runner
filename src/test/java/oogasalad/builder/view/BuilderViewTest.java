@@ -1,5 +1,10 @@
 package oogasalad.builder.view;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+import java.util.Stack;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -14,11 +19,6 @@ import oogasalad.builder.view.tab.boardTab.BoardTab;
 import oogasalad.builder.view.tab.boardTab.BoardTabAccessor;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-
-import java.util.List;
-import java.util.Stack;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class BuilderViewTest extends DukeApplicationTest {

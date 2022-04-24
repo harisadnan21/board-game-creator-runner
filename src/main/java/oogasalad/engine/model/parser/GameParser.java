@@ -2,10 +2,11 @@ package oogasalad.engine.model.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.rule.Rule;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
 
@@ -23,7 +24,7 @@ public class GameParser {
 
   private final File configFile;
   private final BoardParser boardParser;
-  private final RuleParser ruleParser;
+  private final RuleParser moveParser;
   private final WinConditionParser winConditionParser;
   private final MetadataParser metadataParser;
   private final PlayerParser playerParser;
@@ -37,7 +38,7 @@ public class GameParser {
   public GameParser(File configFile) {
     this.configFile = configFile;
     boardParser = new BoardParser();
-    ruleParser = new RuleParser();
+    moveParser = new RuleParser();
     winConditionParser = new WinConditionParser();
     metadataParser = new MetadataParser();
     playerParser = new PlayerParser();
@@ -57,8 +58,15 @@ public class GameParser {
    *
    * @return an array of rules
    */
-  public Collection<Move> readRules() throws FileNotFoundException {
-    return ruleParser.parse(configFile);
+  public Collection<Move> readMoves() throws FileNotFoundException {
+    return moveParser.parse(configFile);
+  }
+
+  public Collection<Rule> readRules() throws FileNotFoundException {
+    Collection<Rule> rules = new ArrayList<>();
+    rules.addAll(readMoves());
+    rules.addAll(readWinConditions());
+    return rules;
   }
 
   /**

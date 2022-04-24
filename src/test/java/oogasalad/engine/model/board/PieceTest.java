@@ -1,8 +1,11 @@
 package oogasalad.engine.model.board;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
+import oogasalad.engine.model.board.cells.Piece;
 import org.junit.jupiter.api.Test;
 
 public class PieceTest {

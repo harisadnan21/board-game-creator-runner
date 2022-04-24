@@ -1,9 +1,9 @@
 package oogasalad.engine.model.engine;
 
 import java.util.Set;
-import oogasalad.engine.model.board.OutOfBoardException;
+import oogasalad.engine.model.board.exceptions.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.rule.Move;
 import oogasalad.engine.model.utilities.Pair;
 

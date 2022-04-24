@@ -1,7 +1,7 @@
 package oogasalad.engine.model.logicelement.conditions.position_dependent_conditions;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 
 /**
@@ -9,13 +9,19 @@ import oogasalad.engine.model.logicelement.conditions.Condition;
  */
 public class IsEmpty extends Condition {
 
+  private int row;
+  private int column;
+  private boolean isAbsolute;
   /**
    * isAbsolute is 0 for relative, 1 for absolute
-   * @param parameters size 3 array [i, j, isAbsolute]
+   * @param parameters size 3 array [row,column,isAbsolute]
    *
    */
   public IsEmpty(int[] parameters) {
     super(parameters);
+    row = myParameters[0];
+    column = myParameters[1];
+    isAbsolute = myParameters[2] != 0;
   }
 
 
@@ -27,8 +33,8 @@ public class IsEmpty extends Condition {
    */
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    Position position = new Position(myParameters[0], myParameters[1]);
-    if (myParameters[2] == 0) {
+    Position position = new Position(row,column);
+    if (!isAbsolute) {
       position = transformToRelative(position, referencePoint);
     }
     if (!board.isValidPosition(position)) {

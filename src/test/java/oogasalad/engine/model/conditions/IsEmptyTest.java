@@ -1,10 +1,11 @@
 package oogasalad.engine.model.conditions;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.exceptions.OutOfBoardException;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 import oogasalad.engine.model.logicelement.conditions.position_dependent_conditions.IsEmpty;
 import org.junit.jupiter.api.BeforeEach;

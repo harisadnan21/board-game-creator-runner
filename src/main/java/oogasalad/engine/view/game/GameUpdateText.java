@@ -20,12 +20,12 @@ public class GameUpdateText {
   }
 
   public void updateText(int player) {
-    updateText = MessageFormat.format(myResources.getString("PlayerTurn"), player);
+    updateText = MessageFormat.format(myResources.getString("PlayerTurn"), player+1);
     text.setText(updateText);
   }
 
   public void gameIsWon(int player) {
-    updateText = MessageFormat.format(myResources.getString("GameOver"), player);
+    updateText = MessageFormat.format(myResources.getString("GameOver"), player+1);
     text.setText(updateText);
   }
 
@@ -36,8 +36,6 @@ public class GameUpdateText {
   private Text makeText(String text) {
     Text myText = new Text(text);
     myText.setId("player-text");
-//    myText.setFont(Font.font("Montserrat", 20));
-//    myText.setFill(Color.web("464646"));
     return myText;
   }
 }

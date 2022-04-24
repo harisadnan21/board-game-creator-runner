@@ -7,8 +7,14 @@ import java.util.List;
 import java.util.Map;
 import org.json.JSONObject;
 
+/**
+ * Reads in needed metadata headers, returning a map from header to value
+ *
+ * @author
+ */
 public class MetadataParser extends AbstractParser<Map<String, String>>{
-  private static final List<String> headers = List.of("name", "author", "description");
+
+  private static final List<String> headers = List.of("gameName", "author", "description");
   /**
    * Returns a Map that is parsed from a configuration file, throwing errors if the file is
    * malformed or missing required properties.
@@ -24,6 +30,7 @@ public class MetadataParser extends AbstractParser<Map<String, String>>{
 
   }
 
+  // Parses the info in the metadata section
   private Map<String, String> parseInfo(JSONObject boardObj) {
     Map<String, String> metadata = new HashMap<>();
     for(String header : headers){

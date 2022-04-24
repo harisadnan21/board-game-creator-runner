@@ -1,10 +1,13 @@
 package oogasalad.engine.model.logicelement.winner;
 
+import static org.jooq.lambda.Seq.range;
+
 import oogasalad.engine.model.board.Board;
+import org.jooq.lambda.Seq;
 
 /**
  * Interface for the different ways to decide how a game has been won
- * @author Robert Cranston
+ * @author Alex Bildner, Robert Cranston
  */
 public interface WinDecision {
 
@@ -22,14 +25,6 @@ public interface WinDecision {
    * @return index of max element in array.
    */
   static int maxValueIndex(int[] array){
-    int maxIndex = 0;
-    int maxValue = 0;
-    for(int i = 0; i < array.length; i++){
-      if(array[i]>maxValue){
-        maxValue = array[i];
-        maxIndex = i;
-      }
-    }
-    return maxIndex;
+    return range(0, array.length).maxBy(index -> array[index]).get();
   }
 }

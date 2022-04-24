@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,9 +14,9 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.function.Consumer;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -29,12 +28,14 @@ import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.ImmutableBoard;
-import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.exceptions.OutOfBoardException;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 import oogasalad.engine.model.parser.CellParser;
 import oogasalad.engine.model.parser.MetadataParser;
 import oogasalad.engine.model.parser.PieceParser;
+import oogasalad.engine.view.ApplicationAlert;
+import oogasalad.engine.view.Popup.MessageView;
 import oogasalad.engine.view.setup.dashboard.GameIcon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -75,14 +76,16 @@ public class BoardView implements PropertyChangeListener{
     prop = new Properties();
     prop.load(fis);
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
-    gameIsUploadedFile = game.listFiles(GameIcon.getConfigFile)==null;
+    //gameIsUploadedFile = game.listFiles(GameIcon.getConfigFile)==null;
+    gameIsUploadedFile = true;
     getMetadata(game);
 
-    setPiecePaths(game.listFiles(GameIcon.getConfigFile)[0]);
+    setPiecePaths(game);
 
     text = new GameUpdateText(language);
     root = new StackPane();
     gridRoot = new GridPane();
+    gridRoot.setId("grid");
     myGrid = new Cell[rows][columns];
 
     Pair<Double, Double> cellSize = calcCellSize(rows, columns, width, height);
@@ -115,7 +118,7 @@ public class BoardView implements PropertyChangeListener{
           try {
             cellClicked(e, finalI, finalJ);
           } catch (OutOfBoardException ex) {
-            ex.printStackTrace();
+            ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("BoardOutOfBounds"));
           }
         });
       }
@@ -129,11 +132,10 @@ public class BoardView implements PropertyChangeListener{
   private void getMetadata(File game) {
     MetadataParser mdp = new MetadataParser();
     try {
-      metadata = gameIsUploadedFile ? mdp.parse(game)
-          : mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]);
+      metadata = mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]);
     }
     catch (FileNotFoundException e) {
-      e.printStackTrace();
+      ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("FileNotFound"));
     }
   }
 
@@ -141,8 +143,7 @@ public class BoardView implements PropertyChangeListener{
     CellParser cParser = new CellParser();
     Optional<String[][]> cellColors;
     try {
-      cellColors = gameIsUploadedFile ? Optional.of(cParser.parse(game)) :
-          Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
+      cellColors = Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
       return cellColors;
     }
     catch (JSONException e) {
@@ -152,22 +153,27 @@ public class BoardView implements PropertyChangeListener{
 
   private void setPiecePaths(File game) throws FileNotFoundException {
     PieceParser parser = new PieceParser();
-    String name = metadata.get("name");
-    Map<Integer, String> pieces = getConfigFile(game, parser);
+    String name = metadata.get("gameName");
+    Map<Integer, String> pieces = getConfigFile(game.listFiles(GameIcon.getConfigFile)[0], parser);
     for(Entry<Integer, String> entry : pieces.entrySet()) {
-      PIECE_TYPES.put(entry.getKey(), GAME_PATH + name + entry.getValue());
+      if (gameIsUploadedFile) {
+        File f = new File(game.getAbsolutePath() + entry.getValue());
+        PIECE_TYPES.put(entry.getKey(), f.toString());
+      }
+      else{
+        PIECE_TYPES.put(entry.getKey(), GAME_PATH + name + entry.getValue());
+      }
     }
   }
 
   private Map<Integer, String> getConfigFile(File game, PieceParser parser) {
     Map<Integer, String> pieces = null;
     try {
-      //pieces = gameIsUploadedFile ? parser.parse(game) : parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
-      pieces = gameIsUploadedFile ? parser.parse(game) : parser.parse(game);
+      pieces = parser.parse(game);
     }
     catch(FileNotFoundException e){
-      LOG.error("Config File Not Found");
-
+      LOG.error(myResources.getString("ConfigFileNotFound"));
+      ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ConfigFileNotFound"));
     }
     return pieces;
   }
@@ -228,7 +234,8 @@ public class BoardView implements PropertyChangeListener{
         try {
           myGrid[pos.row()][pos.column()].removePiece();
         } catch (Exception e) {
-          LOG.warn("Exception thrown", e);
+          LOG.warn(myResources.getString("ExceptionThrown"), e);
+          ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ExceptionThrown"));
         }
       }
     }
@@ -238,7 +245,7 @@ public class BoardView implements PropertyChangeListener{
   //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
   private void endGame(int winner) {
     text.gameIsWon(winner);
-    LOG.info("gameOver! Player {} wins%n", winner);
+    LOG.info("gameOver! Player {} wins%n", (winner+1));
     ImmutableBoard newBoard = myController.resetGame();
     updateBoard(newBoard);
     displayGameOver(winner);
@@ -247,11 +254,13 @@ public class BoardView implements PropertyChangeListener{
   private void displayGameOver(int winner) {
     myController.resetGame();
     root.setEffect(new GaussianBlur());
+
     MessageView pauseView = new MessageView(
-        MessageFormat.format(myResources.getString("GameOver"), winner),
+        MessageFormat.format(myResources.getString(winner==-1 ? "Draw" : "GameOver"), (winner+1)),
         myResources.getString("NewGame"), cssFilePath, language);
+
     Stage popupStage = pauseView.getStage();
-    pauseView.getButton().setOnAction(event -> {
+    pauseView.getReturnToGame().setOnAction(event -> {
       root.setEffect(null);
       popupStage.hide();
     });
