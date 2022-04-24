@@ -78,10 +78,14 @@ public class BuilderView {
     String label = ViewResourcesSingleton.getInstance().getString(property);
     result.setText(label);
     result.setOnAction(handler);
-    if(FormatTab.FANCY == 1) {
-      result.setFont(Font.font("Papyrus"));
-    }
+    changeFontsButton(result);
     return result;
+  }
+
+  private void changeFontsButton(Button changeButton) {
+    if(FormatTab.FANCY == 1) { changeButton.setFont(Font.font("Papyrus")); }
+    if(FormatTab.PRESENTATION == 1) { changeButton.setFont(Font.font("Lucida Sans")); }
+    if(FormatTab.NORMAL == 1) { changeButton.setFont(Font.font("Comic Sans")); }
   }
 
   // Saves the configuration of the game using a callback to call the controller

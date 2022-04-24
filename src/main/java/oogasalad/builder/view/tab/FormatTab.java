@@ -32,6 +32,7 @@ public class FormatTab extends AbstractTab{
     public static String ELEMENTS_PACKAGE = "FormatList";
     public static int PRESENTATION = 0;
     public static int FANCY = 0;
+    public static int NORMAL = 0;
     private StackPane leftDisplay;
     private VBox rightHelpBox;
     private static final ResourceBundle elementNames = ResourceBundle.getBundle(HELP_RESOURCE_PATH + ELEMENTS_PACKAGE);
@@ -45,7 +46,7 @@ public class FormatTab extends AbstractTab{
         rightHelpBox.getChildren().add(makeButton("tabFormat-format", e -> displayBackground("tabFormat.css")));
         rightHelpBox.getChildren().add(makeButton("sunset-format", e -> displayBackground("nightTabFormat.css")));
         rightHelpBox.getChildren().add(makeButton("DukevUNC-format", e -> displayBackground("dukeTabFormat.css")));
-        rightHelpBox.getChildren().add(makeButton("normalmode-format", e -> presentationMode()));
+        rightHelpBox.getChildren().add(makeButton("normalmode-format", e -> normalMode()));
         rightHelpBox.getChildren().add(makeButton("presentationmode-format", e -> presentationMode()));
         rightHelpBox.getChildren().add(makeButton("fancymode-format", e -> fancyMode()));
         rightHelpBox.getStyleClass().add("rightPane");
@@ -78,6 +79,13 @@ public class FormatTab extends AbstractTab{
         if(FANCY == 0) { FANCY = 1;}
 
         else{ FANCY = 0;}
+        displayBackground("tabFormat.css");
+    }
+
+    public void normalMode(){
+        if(NORMAL == 0) { NORMAL = 1;}
+
+        else{ NORMAL = 0;}
         displayBackground("tabFormat.css");
     }
 
