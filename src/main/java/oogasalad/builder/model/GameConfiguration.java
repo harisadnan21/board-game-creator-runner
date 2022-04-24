@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import oogasalad.builder.controller.ResourcesSingleton;
 import oogasalad.builder.model.board.Board;
 import oogasalad.builder.model.board.RectangularBoard;
 import oogasalad.builder.model.element.ElementRecord;
@@ -20,6 +19,8 @@ import oogasalad.builder.model.exception.MalformedConfigurationException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.model.property.Property;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,15 +46,18 @@ public class GameConfiguration implements BuilderModel {
   private final FileMapper mapper;
   private Board board;
   private static final ResourceBundle resources = ResourceBundle.getBundle("config.Elements");
+  private final Logger LOG;
 
   /**
    * Creates an empty GameConfiguration
    */
   public GameConfiguration() {
+    LOG = LogManager.getLogger(GameConfiguration.class);
     board = null; // Board is unknown without initial setup
     elements = new HashMap<>();
     provider = new FactoryProvider();
     mapper = new FileMapper();
+
     resetElements();
   }
 
@@ -149,13 +153,21 @@ public class GameConfiguration implements BuilderModel {
     int id = board.findPieceAt(x, y);
     for (GameElement element : elements.get(PIECE).values()) {
       ElementRecord record = element.toRecord();
-      for (Property property : record.properties()) {
-        if (property.name().equals(ID) && Integer.parseInt(property.valueAsString()) == id) {
-          return record.name();
-        }
+      if (idMatchesElement(id, record)) {
+        return record.name();
       }
     }
     return EMPTY;
+  }
+
+  // Checks to see if an id matches the id inside of an ElementRecord
+  private boolean idMatchesElement(int id, ElementRecord record) {
+    for (Property property : record.properties()) {
+      if (property.name().equals(ID) && Integer.parseInt(property.valueAsString()) == id) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -271,6 +283,7 @@ public class GameConfiguration implements BuilderModel {
       }
       addJSONObject(obj.getJSONObject(METADATA), METADATA, workingDirectory);
     } catch (JSONException e) {
+      LOG.error(e);
       throw new MalformedConfigurationException(e.getMessage());
     }
   }
