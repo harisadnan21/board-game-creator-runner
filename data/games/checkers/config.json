@@ -1,11 +1,12 @@
 {
+    "metadata": {
+        "name": "Checkers",
+        "author": "Shaan Gondalia",
+        "description": "This game is a clone of checkers without piece transformations and double jumps",
+        "creationDate": "1648158653",
+        "lastModifiedDate": "1648158780"
+    },
     "pieces": [
-        {
-            "image": "/resources/blackKing.png",
-            "name": "Black Pawn",
-            "id": 2,
-            "player": 1
-        },
         {
             "image": "/resources/whitePawn.png",
             "name": "White Pawn",
@@ -20,24 +21,20 @@
         },
         {
             "image": "/resources/blackKing.png",
+            "name": "Black Pawn",
+            "id": 2,
+            "player": 1
+        },
+        {
+            "image": "/resources/blackKing.png",
             "name": "Black King",
             "id": 3,
             "player": 1
         }
     ],
-    "metadata": {
-        "gameName": "Checkers",
-        "author": "Shaan Gondalia",
-        "name": "metadata",
-        "description": "This game is a clone of checkers without piece transformations and double jumping."
-    },
-    "winDecisions": [{
-        "name": "Player with no pieces loses",
-        "type": "MostPieces",
-        "conditions": ["noPiecesLeftEitherPlayer"]
-    }],
     "rules": [
         {
+            "name": "White move down and right",
             "representativeX": 1,
             "representativeY": -1,
             "isPersistent": 0,
@@ -45,36 +42,7 @@
             "actions": ["moveDownRight"]
         },
         {
-            "representativeX": 2,
-            "representativeY": -2,
-            "name": "White capture down right",
-            "conditions": [
-                "emptyDoubleDownRight",
-                "belongsToBlackDownRight",
-                "belongsToWhite",
-                "whiteTurn"
-            ],
-            "actions": [
-                "moveDoubleDownRight",
-                "captureDownRight"
-            ]
-        },
-        {
-            "representativeX": 2,
-            "representativeY": 2,
-            "name": "Black capture up right",
-            "conditions": [
-                "emptyDoubleUpRight",
-                "belongsToWhiteUpRight",
-                "belongsToBlack",
-                "blackTurn"
-            ],
-            "actions": [
-                "moveDoubleUpRight",
-                "captureUpRight"
-            ]
-        },
-        {
+            "name": "White move down and left",
             "representativeX": -1,
             "representativeY": -1,
             "isPersistent": 0,
@@ -90,6 +58,7 @@
             "actions": ["moveUpLeft"]
         },
         {
+            "name": "Black move up and right",
             "representativeX": 1,
             "representativeY": 1,
             "isPersistent": 0,
@@ -105,6 +74,7 @@
             "actions": ["moveDoubleDownRight", "captureDownRight"]
         },
         {
+            "name": "White capture down left",
             "representativeX": -2,
             "representativeY": -2,
             "isPersistent": 0,
@@ -133,15 +103,21 @@
             "name": "Player with no pieces loses",
             "type": "MostPieces",
             "conditions": ["noPiecesLeftEitherPlayer"]
+        },
+        {
+            "name": "Draw",
+            "type": "Draw",
+            "conditions": []
         }
     ],
     "conditions": [
         {
-            "x": 1,
-            "name": "belongsToWhiteUpRight",
-            "y": 1,
-            "id": 0,
-            "type": "IsPlayerPiece"
+            "name": "Always True",
+            "type": "True"
+        },
+        {
+            "name": "noPiecesLeftEitherPlayer",
+            "type": "PlayerHasNoPieces"
         },
         {
             "name": "emptyDownRight",
@@ -165,7 +141,6 @@
             "isAbsolute": 0
         },
         {
-            "x": -1,
             "name": "emptyUpLeft",
             "type": "IsEmpty",
             "col": -1,
@@ -173,21 +148,14 @@
             "isAbsolute": 0
         },
         {
-            "x": 2,
-            "name": "emptyDoubleDownRight",
-            "y": -2,
-            "type": "IsEmpty"
-        },
-        {
-            "x": 1,
-            "name": "emptyDownRight",
-            "y": -1,
-            "type": "IsEmpty"
+            "name": "whiteTurn",
+            "type": "IsPlayer",
+            "id": 0
         },
         {
             "name": "blackTurn",
-            "id": 1,
-            "type": "IsPlayer"
+            "type": "IsPlayer",
+            "id": 1
         },
         {
             "name": "belongsToWhite",
@@ -219,7 +187,7 @@
             "col": -1,
             "row": -1,
             "id": 1,
-            "type": "IsPlayerPiece"
+            "isAbsolute": 0
         },
         {
             "name": "belongsToWhiteUpRight",
@@ -459,7 +427,6 @@
                 2
             ]
         ],
-        "shape": "rectangle",
         "colorConfiguration": [
             [
                 "0x000000ff",
@@ -542,6 +509,8 @@
                 "0x000000ff"
             ]
         ],
+        "shape": "rectangle",
+        "background": "checkers",
         "width": 8,
         "activePlayer": 0,
         "height": 8
