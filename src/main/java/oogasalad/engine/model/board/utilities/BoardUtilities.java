@@ -44,8 +44,9 @@ public class BoardUtilities {
     return board.getPositionStatesSeq().groupBy(PositionState::player);
   }
 
-  public static Map<Integer, Integer> numPiecesByPlayer(Board board){
-    Map<Integer, Integer> piecesByPlayer = seq(piecesByPlayer(board)).toMap(pair -> pair.v1, pair -> pair.v2.size());
+  public static Map<Integer, Integer> numPiecesByPlayer(Board board) {
+    Map<Integer, Integer> piecesByPlayer = seq(piecesByPlayer(board)).toMap(pair -> pair.v1,
+        pair -> pair.v2.size());
     piecesByPlayer.putIfAbsent(Piece.PLAYER_ONE, 0);
     piecesByPlayer.putIfAbsent(Piece.PLAYER_TWO, 0);
     return piecesByPlayer;
@@ -64,7 +65,8 @@ public class BoardUtilities {
     return positionState.map(PositionState::position);
   }
 
-  public static Optional<PositionState> getNeighborPositionState(Position pos, Board board, Direction direction) {
+  public static Optional<PositionState> getNeighborPositionState(Position pos, Board board,
+      Direction direction) {
     return getDirectionalRay(board, pos, direction).skip(1).findFirst();
   }
 }

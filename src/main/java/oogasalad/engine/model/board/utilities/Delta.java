@@ -8,11 +8,12 @@ public class Delta extends Tuple2<Integer, Integer> {
     super(v1, v2);
   }
 
-  public Integer idelta(){
+  public Integer idelta() {
     return v1;
 
   }
-  public Integer jdelta(){
+
+  public Integer jdelta() {
     return v2;
   }
 }
