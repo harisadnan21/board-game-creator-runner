@@ -19,6 +19,7 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 
 
+import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.game.GameView;
 import oogasalad.engine.view.setup.SelectionView.AISelectView;
@@ -141,9 +142,11 @@ public class ViewManager {
       Board board = parser.parseBoard();
       controller = new Controller(board, parser);
       BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath, language);
-
       boardView.addController(controller);
-      Scene newScene = createGameView(boardView, controller).makeScene();
+
+      GameView gameView = createGameView(boardView, controller);
+      gameView.getCssDropdown().setOnAction(e -> updateSceneCSS(gameView.getCssDropdown().getCSS()));
+      Scene newScene = gameView.makeScene();
       addKeyPress(newScene);
       newStage.setScene(newScene);
       gameStages.add(newStage);
@@ -200,5 +203,4 @@ public class ViewManager {
       s.getStylesheets().add(cssFilepath);
     }
   }
-
 }

@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
+import oogasalad.engine.view.CSSSelect;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
 import oogasalad.engine.view.SettingsView;
@@ -32,6 +33,7 @@ public class GameView {
   private String cssFilePath;
   private Scene myScene;
   private String language;
+  private SettingsView settings;
 
   public GameView(BoardView board, Controller controller, double w, double h, String css, String language) {
     this.language = language;
@@ -44,6 +46,7 @@ public class GameView {
     myGameControl = new GameControlPanel(controller, board::updateBoard);
     mySettingsControl = new SettingsControlPanel();
     myPlayerText = board.getText();
+    settings = new SettingsView(cssFilePath, language);
     setUpRoot();
     board.addController(myController);
   }
@@ -68,6 +71,10 @@ public class GameView {
 
   public Button getHome() {
     return myGameControl.getHome();
+  }
+
+  public CSSSelect getCssDropdown() {
+    return settings.getCssDropdown();
   }
 
   private void setUpRoot() {
@@ -108,7 +115,6 @@ public class GameView {
   private void setSettings(){
     mySettingsControl.getSettingsButton().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
-      SettingsView settings = new SettingsView(cssFilePath, language);
       Stage popupStage = settings.getStage();
       settings.getReturnToGame().setOnAction(event -> {
         root.setEffect(null);
