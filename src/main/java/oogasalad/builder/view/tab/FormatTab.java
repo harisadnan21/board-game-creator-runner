@@ -30,7 +30,8 @@ public class FormatTab extends AbstractTab{
     public static String FORMAT = "format";
     public static String HELP_RESOURCE_PATH = "/view/";
     public static String ELEMENTS_PACKAGE = "FormatList";
-    public static String NIGHT = "nightTabFormat";
+    public static Boolean PRESENTATION = Boolean.FALSE;
+    public static Boolean FANCY = Boolean.FALSE;
     private StackPane leftDisplay;
     private VBox rightHelpBox;
     private static final ResourceBundle elementNames = ResourceBundle.getBundle(HELP_RESOURCE_PATH + ELEMENTS_PACKAGE);
@@ -41,12 +42,12 @@ public class FormatTab extends AbstractTab{
     protected Node setupRightSide() {
         rightHelpBox = new VBox();
 
-        rightHelpBox.getChildren().add(makeButton("tabFormat-format", e -> displayBackground("nightTabFormat")));
-        rightHelpBox.getChildren().add(makeButton("sunset-format", e -> displayBackground("nightTabFormat")));
-        rightHelpBox.getChildren().add(makeButton("DukevUNC-format", e -> displayBackground("nightTabFormat")));
-//        rightHelpBox.getChildren().add(makeButton("normalmode-format", e -> displaySunset("nightTabFormat")));
-//        rightHelpBox.getChildren().add(makeButton("presentationmode-format", e -> displaySunset("nightTabFormat")));
-//        rightHelpBox.getChildren().add(makeButton("fancymode-format", e -> displaySunset("nightTabFormat")));
+        rightHelpBox.getChildren().add(makeButton("tabFormat-format", e -> displayBackground("tabFormat.css")));
+        rightHelpBox.getChildren().add(makeButton("sunset-format", e -> displayBackground("nightTabFormat.css")));
+        rightHelpBox.getChildren().add(makeButton("DukevUNC-format", e -> displayBackground("dukeTabFormat.css")));
+        rightHelpBox.getChildren().add(makeButton("normalmode-format", e -> presentationMode()));
+        rightHelpBox.getChildren().add(makeButton("presentationmode-format", e -> presentationMode()));
+        rightHelpBox.getChildren().add(makeButton("fancymode-format", e -> fancyMode()));
         rightHelpBox.getStyleClass().add("rightPane");
         return rightHelpBox;
         //return null;
@@ -64,6 +65,24 @@ public class FormatTab extends AbstractTab{
         Stage newStage = new Stage();
         BuilderView newBuild = new BuilderView(newStage);
         newBuild.changeFormat(newStyle);
+    }
+
+    public static void presentationMode(){
+        if(PRESENTATION == Boolean.TRUE) {
+            PRESENTATION = Boolean.TRUE;
+        }
+        else{
+            PRESENTATION = Boolean.FALSE;
+        }
+    }
+
+    public static void fancyMode(){
+        if(FANCY == Boolean.TRUE) {
+            FANCY = Boolean.TRUE;
+        }
+        else{
+            FANCY = Boolean.FALSE;
+        }
     }
 
     @Override
