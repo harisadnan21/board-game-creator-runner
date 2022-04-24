@@ -6,7 +6,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import javafx.stage.Stage;
+import javax.swing.text.html.Option;
 import oogasalad.engine.view.OptionSelect.CSSSelect;
+import oogasalad.engine.view.OptionSelect.MouseSoundSelect;
+import oogasalad.engine.view.OptionSelect.OptionSelect;
 
 public class SettingsView extends PopupView {
 
@@ -17,6 +20,7 @@ public class SettingsView extends PopupView {
   private Text header;
   private Text theme;
   private CSSSelect cssDropdown;
+  private MouseSoundEntry mouseSoundEntry;
 
   public SettingsView(String css, String language) {
     super(css, language);
@@ -35,6 +39,8 @@ public class SettingsView extends PopupView {
     return cssDropdown;
   }
 
+  public MouseSoundSelect getSoundDropdown() {return (MouseSoundSelect) mouseSoundEntry.getDropdown();}
+
   @Override
   protected void setup() {
     layout = new VBox();
@@ -42,7 +48,14 @@ public class SettingsView extends PopupView {
     makeHeader();
     makeTheme();
     makeButton();
+    makeSound();
     root.setCenter(layout);
+  }
+
+  private void makeSound() {
+    MouseSoundSelect soundDropdown = new MouseSoundSelect();
+    mouseSoundEntry = new MouseSoundEntry(myResources.getString("SoundSelect"), soundDropdown);
+    layout.getChildren().add(mouseSoundEntry);
   }
 
   private void makeHeader() {

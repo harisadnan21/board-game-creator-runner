@@ -155,6 +155,7 @@ public class ViewManager {
 
       GameView gameView = createGameView(boardView, controller, game);
       gameView.getCssDropdown().setOnAction(e -> updateSceneCSS(gameView.getCssDropdown().getCSS()));
+      gameView.getSoundDropdown().setOnAction(e -> sound.setSound(gameView.getSoundDropdown().getSound()));
       Scene newScene = gameView.makeScene();
       addKeyPress(newScene);
       newStage.setScene(newScene);

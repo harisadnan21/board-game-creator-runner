@@ -16,6 +16,8 @@ import oogasalad.engine.view.ApplicationAlert;
 import oogasalad.engine.view.OptionSelect.CSSSelect;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
+import oogasalad.engine.view.OptionSelect.MouseSoundSelect;
+import oogasalad.engine.view.OptionSelect.OptionSelect;
 import oogasalad.engine.view.Popup.SettingsView;
 import oogasalad.engine.view.Popup.MessageView;
 import oogasalad.engine.view.setup.DirectoryOpener;
@@ -84,6 +86,10 @@ public class GameView {
 
   public CSSSelect getCssDropdown() {
     return settings.getCssDropdown();
+  }
+
+  public MouseSoundSelect getSoundDropdown() {
+    return settings.getSoundDropdown();
   }
 
   private void setUpRoot() {
