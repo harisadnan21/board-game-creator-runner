@@ -91,7 +91,6 @@ public class BoardCanvas extends Pane {
 
     rectWidth = boardCanvas.getWidth() / xDimension;
     rectHeight = boardCanvas.getHeight() / yDimension;
-
     clearBoard();
     clearGrid();
     drawCheckerBoard();
@@ -127,10 +126,10 @@ public class BoardCanvas extends Pane {
     pieceGraphics = pieceCanvas.getGraphicsContext2D();
 
     gridCanvas = new Canvas(boardCanvas.getWidth(), boardCanvas.getHeight());
-    gridGraphics = pieceCanvas.getGraphicsContext2D();
+    gridGraphics = gridCanvas.getGraphicsContext2D();
     boardCanvas.getStyleClass().add("boardCanvas");
-
-    this.getChildren().addAll(boardCanvas, gridCanvas, pieceCanvas);
+    setClickToPlace();
+    this.getChildren().addAll(boardCanvas, pieceCanvas, gridCanvas);
   }
 
   /**
@@ -203,7 +202,7 @@ public class BoardCanvas extends Pane {
   }
 
   private void clearGrid() {
-    gridGraphics.clearRect(0, 0, pieceCanvas.getWidth(), pieceCanvas.getHeight());
+    gridGraphics.clearRect(0, 0, gridCanvas.getWidth(), gridCanvas.getHeight());
   }
 
   /**
@@ -219,14 +218,14 @@ public class BoardCanvas extends Pane {
    * Sets click action to erase pieces
    */
   public void setClickToErase() {
-    pieceCanvas.setOnMouseClicked(this::erasePiece);
+    gridCanvas.setOnMouseClicked(this::erasePiece);
   }
 
   /**
    * Sets click action to place pieces
    */
   public void setClickToPlace() {
-    pieceCanvas.setOnMouseClicked(this::addPieceOnClick);
+    gridCanvas.setOnMouseClicked(this::addPieceOnClick);
   }
 
   /**
@@ -235,7 +234,7 @@ public class BoardCanvas extends Pane {
    * @param colorPicker - color to set the square ti
    */
   public void setClickToEditBoard(ColorPicker colorPicker) {
-    pieceCanvas.setOnMouseClicked(click -> changeCellColor(click, colorPicker.getValue()));
+    gridCanvas.setOnMouseClicked(click -> changeCellColor(click, colorPicker.getValue()));
   }
 
   //erases piece
