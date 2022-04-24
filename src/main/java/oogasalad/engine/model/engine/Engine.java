@@ -131,7 +131,7 @@ public class Engine {
     }
   }
 
-  private void endGame(int winner) {
+  public void endGame(int winner) {
     if (myEndGame != null) {
       myEndGame.accept(winner);
     }

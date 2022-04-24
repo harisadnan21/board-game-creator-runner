@@ -14,6 +14,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import oogasalad.engine.cheat_codes.CheatCode;
+import oogasalad.engine.cheat_codes.PlayerOneWins;
+import oogasalad.engine.cheat_codes.PlayerTwoWins;
 import oogasalad.engine.cheat_codes.RemoveRandomPlayer0Piece;
 import oogasalad.engine.cheat_codes.RemoveRandomPlayer1Piece;
 import oogasalad.engine.cheat_codes.ShuffleBoard;
@@ -36,7 +38,9 @@ public class ViewManager {
   public static final Map<KeyCode, Object> cheatCodes = Map.of(
       KeyCode.O, new RemoveRandomPlayer1Piece(),
       KeyCode.Z, new RemoveRandomPlayer0Piece(),
-      KeyCode.S, new ShuffleBoard());
+      KeyCode.S, new ShuffleBoard(),
+      KeyCode.DIGIT1, new PlayerOneWins(),
+      KeyCode.DIGIT2, new PlayerTwoWins());
   public static double WIDTH = 600;
   public static double HEIGHT = 400;
   public static double GAME_SELECTION_WIDTH = 1000;
@@ -177,7 +181,7 @@ public class ViewManager {
   private void handleKeyPressed(KeyCode code) {
     if(cheatCodes.containsKey(code)) {
       CheatCode cheatCode = (CheatCode) cheatCodes.get(code);
-      Board board = cheatCode.accept(controller.getGame().getBoard());
+      Board board = cheatCode.accept(controller.getGame().getBoard(), controller.getEngine());
       controller.setBoard(board);
     }
   }
