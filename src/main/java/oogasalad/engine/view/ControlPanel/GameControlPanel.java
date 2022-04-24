@@ -15,12 +15,14 @@ public class GameControlPanel extends ControlPanel {
   public static String RESTART_IMAGE = IMAGES_FOLDER + imBundle.getString("Restart");
   public static String BACK_IMAGE = IMAGES_FOLDER + imBundle.getString("Back");
   public static String PAUSE_IMAGE = IMAGES_FOLDER + imBundle.getString("Pause");
+  public static String SAVE_IMAGE = IMAGES_FOLDER + imBundle.getString("Save");
 
   private Controller myController;
   private Button home;
   private Button restart;
   private Button undo;
   private Button pause;
+  private Button save;
   private Consumer<ImmutableBoard> updateBoard;
 
   public GameControlPanel(Controller controller, Consumer<ImmutableBoard> updateBoard) {
@@ -41,7 +43,14 @@ public class GameControlPanel extends ControlPanel {
     undo = createButton(BACK_IMAGE);
     undo.setOnAction(e -> undoMove());
     pause = createButton(PAUSE_IMAGE);
-    root.getChildren().addAll(home, restart, undo, pause);
+    save = createButton(SAVE_IMAGE);
+    save.setOnAction(e -> saveGame());
+    root.getChildren().addAll(home, restart, undo, pause, save);
+
+  }
+  //TODO: Save Game
+  private void saveGame() {
+
   }
 
   private void undoMove() {
