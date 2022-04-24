@@ -24,6 +24,25 @@ public class InvalidFormException extends RuntimeException {
    * @param message the error message for this exception
    */
   public InvalidFormException(String message) {
-    super(message);
+    this(message, null);
+  }
+
+  /**
+   * Creates new InvalidFormException with the default message and the provided cause
+   *
+   * @param cause the cause for this exception
+   */
+  public InvalidFormException(Throwable cause) {
+    this(ExceptionResourcesSingleton.getInstance().getString(DEFAULT_MESSAGE_KEY), cause);
+  }
+
+  /**
+   * Creates new InvalidFormException with the provided message and cause
+   *
+   * @param message the error message for this exception
+   * @param cause the cause for this exception
+   */
+  public InvalidFormException(String message, Throwable cause) {
+    super(message, cause);
   }
 }
