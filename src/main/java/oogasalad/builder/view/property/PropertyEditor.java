@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * Describes generic behavior for the property editing portion of a Game Element Tab. Allows users
  * to input and edit the properties of new and existing game elements.
  *
- * @author Ricky Weerts and Shaan Gondalia
+ * @author Ricky Weerts and Shaan Gondalia & Mike Keohane
  */
 public class PropertyEditor extends VBox {
 
@@ -45,7 +45,7 @@ public class PropertyEditor extends VBox {
   /**
    * Sets the properties of an element to display to the user
    *
-   * @param properties The rgequired properties of an element
+   * @param properties The required properties of an element
    */
   public void setElementProperties(Collection<Property> properties) {
     getChildren().clear();
@@ -62,8 +62,9 @@ public class PropertyEditor extends VBox {
     // Remove all non-type and non-required properties
     List<Property> nonType = new ArrayList<>();
     selectors.forEach((prop, selector) -> {
-      if(!(isTypeProperty(prop) || isRequiredProperty(prop)) ) {
-        getChildren().remove(selector.display().getParent()); // FIXME Assumes display() result won't change between calls
+      if (!(isTypeProperty(prop) || isRequiredProperty(prop))) {
+        getChildren().remove(selector.display()
+            .getParent()); // FIXME Assumes display() result won't change between calls
         nonType.add(prop);
       }
     });
