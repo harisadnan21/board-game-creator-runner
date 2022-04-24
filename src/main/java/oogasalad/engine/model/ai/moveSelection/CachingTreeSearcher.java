@@ -8,6 +8,9 @@ import oogasalad.engine.model.ai.evaluation.memoize.MemoizeMaker;
 import oogasalad.engine.model.ai.evaluation.memoize.Memoizer;
 import oogasalad.engine.model.board.Board;
 
+/**
+ * @author Alex Bildner
+ */
 public class CachingTreeSearcher extends TreeSearcher {
   private Memoizer memoizer;
 

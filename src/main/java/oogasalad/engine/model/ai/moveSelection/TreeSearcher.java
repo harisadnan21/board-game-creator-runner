@@ -13,6 +13,9 @@ import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.Seq;
 
+/**
+ * @author Alex Bildner
+ */
 public class TreeSearcher implements Selects {
   private final int maxDepth;
   private final StateEvaluator stateEvaluator;

@@ -21,6 +21,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
+/**
+ * The type Engine.
+ */
 public class Engine {
 
   private static final Logger LOG = LogManager.getLogger(Engine.class);
@@ -37,6 +40,16 @@ public class Engine {
   private IntConsumer myEndGame;
 
 
+  /**
+   * Instantiates a new Engine.
+   *
+   * @param game          the game
+   * @param players       the players
+   * @param moves         the moves
+   * @param endRules      the end rules
+   * @param setValidMarks the set valid marks
+   * @param endGame       the end game
+   */
   public Engine(Game game, PlayerManager players, Collection<Move> moves,
       Collection<EndRule> endRules, Consumer<Set<Position>> setValidMarks, IntConsumer endGame) {
 
@@ -57,8 +70,14 @@ public class Engine {
 
   }
 
+  /**
+   * The T.
+   */
   public Timer t;
 
+  /**
+   * Game loop.
+   */
   public synchronized void gameLoop() {
     if (null != null) {
       TimerTask task = new TimerTask() {
@@ -133,10 +152,11 @@ public class Engine {
 
   /**
    * Handles cell selection from controller
-   * @param row
-   * @param column
+   *
+   * @param row    the row
+   * @param column the column
    */
-  // TODO: move to controller
+// TODO: move to controller
   public void onCellSelect(int row, int column) {
     Board board = getGameBoard();
     Player activePlayer = myPlayerManager.getPlayer(board.getPlayer());
@@ -144,6 +164,7 @@ public class Engine {
   }
 
   /**
+   * Gets game board.
    *
    * @return the board which is at the head of the game's board stack
    */

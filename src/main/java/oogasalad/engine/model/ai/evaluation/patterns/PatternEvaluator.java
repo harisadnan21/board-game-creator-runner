@@ -21,6 +21,9 @@ import oogasalad.engine.model.board.Position;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
 
+/**
+ * @author Alex Bildner
+ */
 public class PatternEvaluator implements StateEvaluator {
   protected SortedSet<Pattern> patterns;
   protected SortedMap<Position, Set<Pattern>> includes;

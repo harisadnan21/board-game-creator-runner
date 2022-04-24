@@ -5,6 +5,9 @@ import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Piece;
 
+/**
+ * @author Alex Bildner
+ */
 public class CenterAround implements Regularizes, StateEvaluator {
   private int center;
   private boolean centerPlayerOne;

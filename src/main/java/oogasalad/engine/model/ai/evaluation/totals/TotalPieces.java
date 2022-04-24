@@ -7,6 +7,9 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.BoardUtilities;
 import oogasalad.engine.model.board.Piece;
 
+/**
+ * @author Alex Bildner
+ */
 public class TotalPieces implements StateEvaluator {
 
   @Override

@@ -13,6 +13,9 @@ import oogasalad.engine.model.board.Piece;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
 
+/**
+ * @author Alex Bildner
+ */
 public class Pattern implements Comparable<Pattern> {
   protected final SortedSet<PositionState> positionStates;
   protected final transient SortedSet<Position> positions;

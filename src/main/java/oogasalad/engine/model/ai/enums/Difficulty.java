@@ -3,6 +3,9 @@ package oogasalad.engine.model.ai.enums;
 import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.ai.timeLimiting.TimeLimitFactory;
 
+/**
+ * @author Alex Bildner
+ */
 public enum Difficulty {
   RANDOM(1, 3),
   EASY(1, 3),
