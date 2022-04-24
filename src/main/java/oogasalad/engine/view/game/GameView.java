@@ -1,5 +1,7 @@
 package oogasalad.engine.view.game;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,10 +11,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
-import oogasalad.engine.view.CSSSelect;
+import oogasalad.engine.model.parser.BoardSaver;
+import oogasalad.engine.view.OptionSelect.CSSSelect;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
-import oogasalad.engine.view.SettingsView;
+import oogasalad.engine.view.Popup.SettingsView;
+import oogasalad.engine.view.Popup.MessageView;
+import oogasalad.engine.view.setup.DirectoryOpener;
 
 /**
  * Class that sets up the game screen, with buttons
@@ -34,8 +39,9 @@ public class GameView {
   private Scene myScene;
   private String language;
   private SettingsView settings;
+  private File game;
 
-  public GameView(BoardView board, Controller controller, double w, double h, String css, String language) {
+  public GameView(BoardView board, Controller controller, double w, double h, String css, String language, File game) {
     this.language = language;
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
@@ -47,6 +53,7 @@ public class GameView {
     mySettingsControl = new SettingsControlPanel();
     myPlayerText = board.getText();
     settings = new SettingsView(cssFilePath, language);
+    this.game = game;
     setUpRoot();
     board.addController(myController);
   }
@@ -61,6 +68,7 @@ public class GameView {
     setPause();
     setInfo();
     setSettings();
+    setSave();
     root.setRight(mySettingsControl.getRoot());
     root.setBottom(myPlayerText);
     root.setAlignment(myPlayerText, Pos.CENTER);
@@ -124,4 +132,21 @@ public class GameView {
     });
   }
 
+  private void setSave() {
+    myGameControl.getSave().setOnAction( e -> saveGame());
+  }
+
+  private void saveGame() {
+    Stage myStage = new Stage();
+    DirectoryOpener directoryOpener = new DirectoryOpener();
+    File newDirectory = directoryOpener.fileChoice(myStage);
+
+    try {
+      BoardSaver saver = new BoardSaver(game);
+      saver.saveBoardConfig(myController.getGame().getBoard(), newDirectory);
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

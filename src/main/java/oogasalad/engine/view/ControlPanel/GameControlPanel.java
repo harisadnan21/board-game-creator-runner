@@ -1,7 +1,5 @@
 package oogasalad.engine.view.ControlPanel;
 
-import java.io.File;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -38,7 +36,6 @@ public class GameControlPanel extends ControlPanel {
 
   protected void createButtons() {
     home = createButton(HOME_IMAGE);
-    //home.setOnAction(e -> myController.startGame()); // TODO: not correct implementation but seems to work correctly?
     restart = createButton(RESTART_IMAGE);
     restart.setOnAction(e -> restartGame());
     undo = createButton(BACK_IMAGE);
@@ -80,10 +77,6 @@ public class GameControlPanel extends ControlPanel {
   public Button getHome() {
     return home;
   }
-
-  public Button getUndo(){return undo;}
-
-  public Button getRestart(){return restart;}
 
   public Button getSave(){
     return save;
