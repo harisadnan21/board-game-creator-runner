@@ -2,13 +2,8 @@ package oogasalad.engine.model.engine;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
@@ -16,7 +11,7 @@ import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
-import oogasalad.engine.model.utilities.Pair;
+import org.jooq.lambda.Seq;
 
 /**
  * This class controls game logic, such as generation of available moves, checking rules, etc
@@ -56,7 +51,7 @@ public class Oracle implements AIOracle {
   }
 
   private Stream<Choice> getValidChoicesForPosition(Board board, Position referencePoint) {
-    return getValidMovesForPosition(board, referencePoint).map(move -> new Choice(referencePoint, move));
+    return getValidMovesForPosition(board, referencePoint).map(move -> new Choice(referencePoint, move, board));
   }
 
   /**
@@ -136,9 +131,9 @@ public class Oracle implements AIOracle {
    * @return
    */
   @Override
-  public Set<Choice> getChoices(Board board, int player) {
+  public Stream<Choice> getChoices(Board board, int player) {
     board = board.setPlayer(player);
-    return getValidChoices(board).collect(Collectors.toSet());
+    return getValidChoices(board);
   }
 
   @Override
