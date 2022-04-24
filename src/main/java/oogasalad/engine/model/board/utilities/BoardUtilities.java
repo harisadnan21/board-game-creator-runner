@@ -1,6 +1,6 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.utilities;
 
-import static oogasalad.engine.model.board.Ray.getDirectionalRay;
+import static oogasalad.engine.model.board.utilities.Ray.getDirectionalRay;
 import static org.jooq.lambda.Seq.seq;
 
 import java.util.List;
@@ -8,6 +8,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.jooq.lambda.Seq;
 
 /**

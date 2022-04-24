@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.OutOfBoardException;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.exceptions.OutOfBoardException;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.actions.Action;
 import oogasalad.engine.model.logicelement.actions.Remove;
 import oogasalad.engine.model.logicelement.actions.Translate;

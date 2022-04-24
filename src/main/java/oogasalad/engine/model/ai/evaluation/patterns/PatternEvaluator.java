@@ -1,8 +1,8 @@
 package oogasalad.engine.model.ai.evaluation.patterns;
 
 import static java.util.function.Function.identity;
-import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
-import static oogasalad.engine.model.board.Piece.PLAYER_TWO;
+import static oogasalad.engine.model.board.cells.Piece.PLAYER_ONE;
+import static oogasalad.engine.model.board.cells.Piece.PLAYER_TWO;
 import static org.jooq.lambda.Seq.seq;
 
 import io.vavr.collection.Set;
@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
 

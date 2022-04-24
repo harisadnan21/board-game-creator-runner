@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import io.vavr.collection.SortedSet;
 import io.vavr.collection.TreeSet;
 import java.util.List;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.junit.jupiter.api.Test;
 
 class PatternTest {

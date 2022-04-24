@@ -1,7 +1,7 @@
 package oogasalad.engine.model.rule;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 
 public interface Rule {
 

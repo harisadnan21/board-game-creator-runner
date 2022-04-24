@@ -2,16 +2,11 @@ package oogasalad.engine.model.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.ResourceBundle;
-import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 import oogasalad.engine.model.logicelement.winner.WinDecision;
-import oogasalad.engine.model.parser.exception.ReferenceNotFoundException;
-import oogasalad.engine.model.rule.Move;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import org.json.JSONArray;
 import org.json.JSONObject;

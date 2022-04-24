@@ -1,8 +1,8 @@
 package oogasalad.engine.model.logicelement.winner;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.BoardUtilities;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.utilities.BoardUtilities;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.jooq.lambda.Seq;
 /**
  * Class that decides winner based on which player has more pieces currently on the board.

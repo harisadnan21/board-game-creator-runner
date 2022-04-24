@@ -1,4 +1,4 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.cells;
 
 public record Position (int row, int column) implements Comparable<Position> {
 

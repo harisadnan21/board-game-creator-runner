@@ -1,4 +1,4 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.utilities;
 /**
  * Enum that defines different directions in the board.
  */

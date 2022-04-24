@@ -2,7 +2,7 @@ package oogasalad.engine.model.ai;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.cells.Piece;
 import org.junit.jupiter.api.Test;
 
 class AIPlayerTest {

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.cells.Piece;
 import org.assertj.core.util.Arrays;
 import org.jooq.lambda.Seq;
 import org.junit.jupiter.api.Test;

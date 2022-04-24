@@ -2,7 +2,7 @@ package oogasalad.engine.cheat_codes;
 
 import java.util.Random;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.cells.PositionState;
 
 public class ShuffleBoard extends CheatCode{
   private Board returnBoard;

@@ -1,4 +1,4 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.cells;
 
 public record Piece (int type, int player) implements Comparable<Piece> {
 

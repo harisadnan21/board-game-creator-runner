@@ -1,7 +1,7 @@
 package oogasalad.engine.model.logicelement.conditions.position_independent_conditions;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 
 /**
  * Class that evaluates if the game is at a standstill when no player has any available moves left

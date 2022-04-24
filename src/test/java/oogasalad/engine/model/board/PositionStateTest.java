@@ -3,6 +3,7 @@ package oogasalad.engine.model.board;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import oogasalad.engine.model.board.cells.PositionState;
 import org.junit.jupiter.api.Test;
 
 class PositionStateTest {

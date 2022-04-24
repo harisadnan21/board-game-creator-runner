@@ -1,4 +1,4 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.utilities;
 
 import org.jooq.lambda.tuple.Tuple2;
 

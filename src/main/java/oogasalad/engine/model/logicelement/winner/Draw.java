@@ -1,7 +1,7 @@
 package oogasalad.engine.model.logicelement.winner;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.cells.Piece;
 
 /**
  * Should always return the NO_PLAYER int value to indicate a draw

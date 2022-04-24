@@ -14,9 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.junit.jupiter.api.Test;
 
 class PatternEvaluatorTest {

@@ -1,10 +1,11 @@
 package oogasalad.engine.model.board;
 
-import static oogasalad.engine.model.board.BoardUtilities.getNeighbor;
+import static oogasalad.engine.model.board.utilities.BoardUtilities.getNeighbor;
 import static org.jooq.lambda.Seq.range;
 import static org.jooq.lambda.Seq.zip;
 
 import java.util.stream.Stream;
+import oogasalad.engine.model.board.utilities.Direction;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

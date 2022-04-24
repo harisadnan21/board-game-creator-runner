@@ -1,4 +1,4 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.utilities;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
+import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.jooq.lambda.Seq;
 
 public class Ray {

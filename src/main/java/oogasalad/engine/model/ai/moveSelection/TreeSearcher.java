@@ -1,7 +1,7 @@
 package oogasalad.engine.model.ai.moveSelection;
 
-import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
-import static oogasalad.engine.model.board.Piece.PLAYER_TWO;
+import static oogasalad.engine.model.board.cells.Piece.PLAYER_ONE;
+import static oogasalad.engine.model.board.cells.Piece.PLAYER_TWO;
 import static org.jooq.lambda.Seq.seq;
 
 import oogasalad.engine.model.ai.AIChoice;
