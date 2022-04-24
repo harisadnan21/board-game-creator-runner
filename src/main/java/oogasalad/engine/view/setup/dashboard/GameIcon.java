@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.engine.model.parser.GameParser;
+import oogasalad.engine.view.ApplicationAlert;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,7 +78,7 @@ public class GameIcon extends VBox {
       configFile = myGameFolder.listFiles(getConfigFile)[0];
     }
     catch(NullPointerException  | ArrayIndexOutOfBoundsException e){
-
+      new Alert(Alert.AlertType.ERROR, "Error in config file").showAndWait();
     }
     return configFile;
   }

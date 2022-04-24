@@ -34,6 +34,7 @@ import oogasalad.engine.model.board.cells.PositionState;
 import oogasalad.engine.model.parser.CellParser;
 import oogasalad.engine.model.parser.MetadataParser;
 import oogasalad.engine.model.parser.PieceParser;
+import oogasalad.engine.view.ApplicationAlert;
 import oogasalad.engine.view.Popup.MessageView;
 import oogasalad.engine.view.setup.dashboard.GameIcon;
 import org.apache.logging.log4j.LogManager;
@@ -116,7 +117,7 @@ public class BoardView implements PropertyChangeListener{
           try {
             cellClicked(e, finalI, finalJ);
           } catch (OutOfBoardException ex) {
-            new Alert(Alert.AlertType.ERROR, "Out of Board Bounds").showAndWait();
+            ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("BoardOutOfBounds"));
           }
         });
       }
@@ -134,7 +135,7 @@ public class BoardView implements PropertyChangeListener{
           : mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]);
     }
     catch (FileNotFoundException e) {
-      e.printStackTrace();
+      ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("FileNotFound"));
     }
   }
 
@@ -167,8 +168,8 @@ public class BoardView implements PropertyChangeListener{
       pieces = gameIsUploadedFile ? parser.parse(game) : parser.parse(game);
     }
     catch(FileNotFoundException e){
-      LOG.error("Config File Not Found");
-
+      LOG.error(myResources.getString("ConfigFileNotFound"));
+      ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ConfigFileNotFound"));
     }
     return pieces;
   }
@@ -229,7 +230,8 @@ public class BoardView implements PropertyChangeListener{
         try {
           myGrid[pos.row()][pos.column()].removePiece();
         } catch (Exception e) {
-          LOG.warn("Exception thrown", e);
+          LOG.warn(myResources.getString("ExceptionThrown"), e);
+          ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ExceptionThrown"));
         }
       }
     }

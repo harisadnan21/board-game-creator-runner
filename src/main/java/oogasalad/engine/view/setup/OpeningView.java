@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import oogasalad.engine.view.ApplicationAlert;
 import oogasalad.engine.view.OptionSelect.LanguageSelect;
 import org.json.JSONObject;
 
@@ -108,10 +109,8 @@ public class OpeningView {
         File script = directoryOpener.fileChoice(myStage);
         myFileChoice = script;
         contSel.setDisable(false);
-      } catch (NullPointerException nullPointerException) {
-        System.out.println(nullPointerException.getMessage());
       } catch (Exception err) {
-        System.out.println(err.getMessage());
+        ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), err.getMessage());
       }
     });
   }

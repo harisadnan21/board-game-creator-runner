@@ -17,7 +17,7 @@ open module oogasalad_app {
     requires com.github.benmanes.caffeine;
     requires lombok;
 
-    // allow other classes to access listed packages in your project
+  // allow other classes to access listed packages in your project
 
     exports oogasalad;
     exports oogasalad.engine.view;
