@@ -180,15 +180,11 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     if (type == null) {
       return true;
     }
-    for (Property property : getRequiredProperties()) {
-      String namespace = property.name().split(DELIMITER)[0];
-      String target = property.name().split(DELIMITER)[1];
-      if (namespace.equals(REQUIRED) && target.equals(TYPE)) {
-        String[] validTypes = property.valueAsString().split(DELIMITER);
-        return Arrays.asList(validTypes).contains(type);
-      }
-    }
-    return false; // TODO: Remove unreachable statement by making code smarter
+    return Arrays.asList(getRequiredProperties().stream()
+            .filter(prop -> prop.shortName().equals(TYPE) && prop.name().split(DELIMITER)[0].equals(REQUIRED))
+            .findFirst().orElseThrow()
+            .valueAsString().split(DELIMITER)).contains(type);
+
   }
 
   // Loads the required properties based on the resource file provided in the constructor
@@ -216,7 +212,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       return (Property) ctor.newInstance(name, value, form);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
-      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
+      throw new InvalidFormException(e);
     }
   }
 

@@ -25,8 +25,9 @@ import oogasalad.builder.view.property.PropertyEditor;
  * @author Mike Keohane
  */
 public class MetaDataAndSavePopup {
-  public static String METADATA = "metadata";
-  public static String TITLE = "Title";
+  private static final String SAVE_CHOOSER_TITLE_KEY = "SaveChooserTitle";
+  public static final String METADATA = "metadata";
+  public static final String TITLE = "Title";
   private CallbackDispatcher callbackDispatcher;
   private VBox metaBox;
   private PropertyEditor propertyEditor;
@@ -75,8 +76,7 @@ public class MetaDataAndSavePopup {
   private void goToSave(){
     Stage saveStage = new Stage();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    //TODO: Remove Magic Value
-    directoryChooser.setTitle("Choose Configuration Save Location");
+    directoryChooser.setTitle(ViewResourcesSingleton.getInstance().getString(SAVE_CHOOSER_TITLE_KEY));
     callbackDispatcher.call(new SaveCallback(directoryChooser.showDialog(saveStage)));
   }
 
