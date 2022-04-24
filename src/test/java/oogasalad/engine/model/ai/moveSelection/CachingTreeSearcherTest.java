@@ -9,6 +9,7 @@ import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.ai.evaluation.memoize.CaffeineMemoizer;
+import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
 import oogasalad.engine.model.ai.evaluation.patterns.PatternEvaluator;
 import oogasalad.engine.model.ai.evaluation.totals.TotalPieces;
 import oogasalad.engine.model.board.Board;
@@ -27,7 +28,7 @@ class CachingTreeSearcherTest {
     assertThrows(IllegalArgumentException.class, () -> new CachingTreeSearcher(Difficulty.EASY, new PatternEvaluator(null), null, CaffeineMemoizer::new));
     assertThrows(RuntimeException.class, () -> new CachingTreeSearcher(null, null, null, null));
     assertThrows(RuntimeException.class, () -> new CachingTreeSearcher(Difficulty.RANDOM, null, null, null));
-    assertThrows(RuntimeException.class, () -> new CachingTreeSearcher(Difficulty.EXPERT, new PatternEvaluator(List.of(null)), null, CaffeineMemoizer::new));
+    assertThrows(RuntimeException.class, () -> new CachingTreeSearcher(Difficulty.EXPERT, new PatternEvaluator(List.of(new Pattern[]{})), null, CaffeineMemoizer::new));
 
   }
 

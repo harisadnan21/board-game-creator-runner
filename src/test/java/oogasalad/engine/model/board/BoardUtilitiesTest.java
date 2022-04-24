@@ -5,6 +5,7 @@ import static org.jooq.lambda.Seq.range;
 import static org.jooq.lambda.Seq.zip;
 
 import java.util.stream.Stream;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.utilities.Direction;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.Assertions;

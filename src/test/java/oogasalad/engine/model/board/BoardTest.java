@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Stream;
+import oogasalad.engine.model.board.cells.Piece;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
 import oogasalad.engine.model.board.exceptions.OutOfBoardException;
