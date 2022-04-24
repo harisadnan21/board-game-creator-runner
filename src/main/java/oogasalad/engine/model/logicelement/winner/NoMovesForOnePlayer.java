@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.BoardUtilities;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.utilities.BoardUtilities;
+import oogasalad.engine.model.board.cells.PositionState;
 
 /**
  * Class that decides winner based on which player still has moves left

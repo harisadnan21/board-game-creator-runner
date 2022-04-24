@@ -9,9 +9,9 @@ import io.vavr.collection.TreeSet;
 import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Stream;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 
 /**
  * @author Alex Bildner

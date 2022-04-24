@@ -1,8 +1,7 @@
 package oogasalad.engine.model.logicelement.actions;
 
-import oogasalad.engine.model.board.OutOfBoardException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.LogicElement;
 
 /**

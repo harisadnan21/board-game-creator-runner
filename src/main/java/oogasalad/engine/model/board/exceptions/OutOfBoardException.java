@@ -1,4 +1,4 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.exceptions;
 
 public class OutOfBoardException extends IndexOutOfBoundsException {
   //TODO: make sure this message is informative

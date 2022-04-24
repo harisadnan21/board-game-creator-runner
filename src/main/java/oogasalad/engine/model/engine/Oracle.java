@@ -7,13 +7,12 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jooq.lambda.Seq;
 
 /**
  * This class controls game logic, such as generation of available moves, checking rules, etc

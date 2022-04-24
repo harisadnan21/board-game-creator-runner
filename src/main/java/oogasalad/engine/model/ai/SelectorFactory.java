@@ -11,7 +11,7 @@ import oogasalad.engine.model.ai.evaluation.patterns.PatternEvaluator;
 import oogasalad.engine.model.ai.evaluation.totals.TotalPieces;
 import oogasalad.engine.model.ai.moveSelection.CachingTreeSearcher;
 import oogasalad.engine.model.ai.moveSelection.Selects;
-import oogasalad.engine.model.board.Piece;
+import oogasalad.engine.model.board.cells.Piece;
 
 /**
  * @author Alex Bildner

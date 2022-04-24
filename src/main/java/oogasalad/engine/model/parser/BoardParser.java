@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

@@ -2,8 +2,8 @@ package oogasalad.engine.cheat_codes;
 
 import java.util.Optional;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 
 public class RemoveRandomPlayer0Piece extends CheatCode{
   @Override

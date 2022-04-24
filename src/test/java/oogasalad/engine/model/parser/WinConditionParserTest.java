@@ -1,12 +1,13 @@
 package oogasalad.engine.model.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

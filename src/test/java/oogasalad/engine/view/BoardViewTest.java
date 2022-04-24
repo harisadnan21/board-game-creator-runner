@@ -1,12 +1,13 @@
 package oogasalad.engine.view;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import java.io.File;
 import java.io.IOException;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
-import static org.junit.jupiter.api.Assertions.*;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.game.BoardView;

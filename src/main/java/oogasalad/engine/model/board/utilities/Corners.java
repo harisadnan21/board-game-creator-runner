@@ -1,4 +1,4 @@
-package oogasalad.engine.model.board;
+package oogasalad.engine.model.board.utilities;
 
 public enum Corners {
   TOPLEFT,

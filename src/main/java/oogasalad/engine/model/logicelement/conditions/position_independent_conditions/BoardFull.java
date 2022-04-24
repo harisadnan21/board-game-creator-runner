@@ -1,8 +1,8 @@
 package oogasalad.engine.model.logicelement.conditions.position_independent_conditions;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
 
 /**
  * Condition that evaluates to true when the entire board is full of pieces

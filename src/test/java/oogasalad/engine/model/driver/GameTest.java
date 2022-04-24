@@ -1,10 +1,10 @@
 package oogasalad.engine.model.driver;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.junit.jupiter.api.Test;
 
 /**

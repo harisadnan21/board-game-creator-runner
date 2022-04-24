@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.stream.Stream;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
+import oogasalad.engine.model.board.exceptions.OutOfBoardException;
 import org.jooq.lambda.Seq;
 
 /**

@@ -1,15 +1,21 @@
 package oogasalad.builder.model.element.factory;
 
-import oogasalad.builder.model.element.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import oogasalad.builder.model.element.GameElement;
+import oogasalad.builder.model.element.Piece;
+import oogasalad.builder.model.element.Rule;
+import oogasalad.builder.model.element.WinCondition;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.*;
 
 class GameElementFactoryTest {
     private Map<Class<? extends GameElement>, GameElementFactory> factories;

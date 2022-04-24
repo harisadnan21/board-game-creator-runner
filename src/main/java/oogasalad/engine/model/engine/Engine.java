@@ -10,7 +10,7 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.player.PlayerManager;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
