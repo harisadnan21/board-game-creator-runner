@@ -5,7 +5,7 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.rule.Move;
 
-public record Choice(Position position, Move move) implements AIChoice {
+public record Choice(Position position, Move move, Board oldBoard) implements AIChoice {
 
 
   public boolean isValidChoice(Board board) {
@@ -20,6 +20,6 @@ public record Choice(Position position, Move move) implements AIChoice {
 
   @Override
   public Board getResultingBoard() {
-    return null;
+    return getResultingBoard(oldBoard);
   }
 }
