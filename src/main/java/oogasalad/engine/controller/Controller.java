@@ -103,6 +103,9 @@ public class Controller {
 
     return myBoard;
   }
+  public Engine getEngine(){
+    return myEngine;
+  }
 
   /**
    * gets and returns the game
