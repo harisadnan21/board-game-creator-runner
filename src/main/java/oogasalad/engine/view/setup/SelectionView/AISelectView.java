@@ -1,4 +1,4 @@
-package oogasalad.engine.view.setup;
+package oogasalad.engine.view.setup.SelectionView;
 
 import java.util.HashMap;
 import java.util.Map;
