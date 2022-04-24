@@ -27,6 +27,9 @@ public interface PropertySelector {
    */
   Property getProperty();
 
-
+  /**
+   * Adds a change listener to the PropertySelector
+   * @param updateFields - change listener to add to the propertySelector
+   */
   void addListener(ChangeListener updateFields);
 }

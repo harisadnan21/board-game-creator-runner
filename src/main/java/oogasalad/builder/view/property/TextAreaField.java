@@ -7,6 +7,11 @@ import javafx.scene.control.TextArea;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
+/**
+ * A PropertySelector Field that is of type TextArea
+ *
+ * @author Mike Keohane
+ */
 public class TextAreaField extends Field{
   private TextArea textArea;
   public TextAreaField(Property property, CallbackDispatcher dispatcher){
