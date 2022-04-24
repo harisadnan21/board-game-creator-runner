@@ -76,13 +76,14 @@ public class FormatTab extends AbstractTab{
         }
     }
 
-    public static void fancyMode(){
+    public void fancyMode(){
         if(FANCY == Boolean.TRUE) {
             FANCY = Boolean.TRUE;
         }
         else{
             FANCY = Boolean.FALSE;
         }
+        displayBackground("tabFormat.css");
     }
 
     @Override

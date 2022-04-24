@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import oogasalad.builder.view.callback.Callback;
@@ -51,7 +52,6 @@ public class BuilderView {
     allTabs = new AllTabs(callbackDispatcher);
     borderPane.setCenter(allTabs);
     borderPane.setBottom(makeMenu());
-
     tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
         Integer.parseInt(tabProperties.getString("sceneSizeY")));
 
@@ -75,6 +75,9 @@ public class BuilderView {
     Button result = new Button();
     String label = ViewResourcesSingleton.getInstance().getString(property);
     result.setText(label);
+    if(FormatTab.FANCY == Boolean.TRUE) {
+      result.setFont(Font.font("-fx-font-style: italic"));
+    }
     result.setOnAction(handler);
     return result;
   }
