@@ -27,21 +27,22 @@ public class CreateJSONFile {
   /**
    * Method that creates the JSON file and saves it
    */
-  public void createFile(){
+  public FileWriter createFile(){
     JSONObject obj = new JSONObject();
     obj.put("Key", "Value");
     try(FileWriter file = new FileWriter("newJSON.json")){
     file.write(obj.toString());
     file.flush();
     file.close();
+    return file;
 
   }catch(IOException e){
     e.printStackTrace();
+    return null;
   }
   }
   //returns JSONObjects that are made by reading the game.
   private JSONObject makeJSONObjects(){
     return null;
-
   }
 }
