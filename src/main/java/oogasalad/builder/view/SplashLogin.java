@@ -1,5 +1,7 @@
 package oogasalad.builder.view;
 
+import static oogasalad.builder.view.BuilderView.DEFAULT_STYLE_PACKAGE;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,11 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import oogasalad.builder.view.ViewResourcesSingleton;
-
-import java.util.ResourceBundle;
 
 public class SplashLogin extends Parent {
 
@@ -28,7 +26,6 @@ public class SplashLogin extends Parent {
  * @author Thivya Sivarajah
  */
 
-    public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
     private static final String SPLASH_PACKAGE = "SplashLogin.css";
     private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
@@ -55,7 +52,7 @@ public class SplashLogin extends Parent {
 
     private void createScreen(Button proceed) {
         myLoginScene = new Scene(buttonHolder, 600, 650);
-        myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
+        myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_STYLE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
         myWelcome.getStyleClass().add("myWelcome");
         leftPanel.getStyleClass().add("leftPanel");
         proceed.getStyleClass().add("proceed");

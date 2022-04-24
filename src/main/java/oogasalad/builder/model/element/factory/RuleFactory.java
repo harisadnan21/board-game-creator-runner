@@ -8,7 +8,7 @@ import oogasalad.builder.model.property.Property;
 public class RuleFactory extends GameElementFactory<Rule> {
 
   public RuleFactory() {
-    super("elements.Rule");
+    super("builder.elements.Rule");
   }
 
   @Override

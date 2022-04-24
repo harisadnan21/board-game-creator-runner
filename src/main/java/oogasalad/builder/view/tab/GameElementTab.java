@@ -2,6 +2,7 @@ package oogasalad.builder.view.tab;
 
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -25,18 +26,20 @@ import java.util.Collection;
  * @author Ricky Weerts, Mike Keohane & Shaan Gondalia
  */
 public class GameElementTab extends AbstractTab {
+
   private static final String VALID_NAME_REGEX = "^[\\w\\d \\t?.\\-/!@#$%^&*()+=\\[\\]{}<>:;_]+$";
   private static final double GAME_ELEMENT_DIVIDER_POSITION = 0.5;
   private GameElementList elementList;
   private TextField nameField;
   private PropertyEditor propertyEditor;
   private VBox rightBox;
+  private Button saveElementButton;
 
   /**
    * Creates a game element tab with the given callback dispatcher and type
    *
    * @param dispatcher the callback dispatcher to communicate with the controller
-   * @param type the type of the game element hosted in the tab
+   * @param type       the type of the game element hosted in the tab
    */
   public GameElementTab(CallbackDispatcher dispatcher, String type) {
     super(type, dispatcher);
@@ -54,13 +57,18 @@ public class GameElementTab extends AbstractTab {
     propertyEditor = new PropertyEditor(getCallbackDispatcher());
     nameField = new TextField(
         ViewResourcesSingleton.getInstance().getString("defaultName-" + getType()));
+    saveElementButton = makeButton(
+        "save", e -> saveCurrentElement());
+    saveElementButton.setDisable(true);
     rightBox.getChildren().addAll(
-        makeButton("new-" + getType(), e -> createElement()), nameField, propertyEditor,
-        makeButton(
-            "save", e -> saveCurrentElement()));
+        makeButton("new-" + getType(), e -> {createElement(); activateSaveButton();}), nameField, propertyEditor,
+        saveElementButton);
     rightBox.setId("rightGameElementsPane");
     rightBox.getStyleClass().add("rightPane");
     return rightBox;
+  }
+  private void activateSaveButton(){
+    saveElementButton.setDisable(false);
   }
 
   /**
@@ -69,7 +77,7 @@ public class GameElementTab extends AbstractTab {
    * @return Node corresponding to the elementList
    */
   @Override
-  protected Node setupLeftSide(){
+  protected Node setupLeftSide() {
     elementList = new GameElementList(this::elementSelected);
     return elementList;
   }
@@ -77,7 +85,8 @@ public class GameElementTab extends AbstractTab {
   // Callback method for creating a game element
   private void createElement() {
     try {
-      Collection<Property> properties = getCallbackDispatcher().call(new GetPropertiesCallback(getType()))
+      Collection<Property> properties = getCallbackDispatcher().call(
+              new GetPropertiesCallback(getType()))
           .orElseThrow();
       propertyEditor.setElementPropertyTypeChoice(properties);
     } catch (InvalidTypeException | MissingRequiredPropertyException e) {
@@ -98,15 +107,22 @@ public class GameElementTab extends AbstractTab {
   // Callback method for saving a currently selected game element
   private void saveCurrentElement() {
     String name = nameField.getText();
-    if(validateName(name)) {
+    if (validateName(name)) {
       getCallbackDispatcher().call(new UpdateGameElementCallback(getType(), name,
-              propertyEditor.getElementProperties()));
+          propertyEditor.getElementProperties()));
       elementList.putGameElement(name, propertyEditor.getElementProperties());
     } else {
-      new Alert(Alert.AlertType.ERROR, ViewResourcesSingleton.getInstance().getString("InvalidElementName", getType())).showAndWait();
+      new Alert(Alert.AlertType.ERROR, ViewResourcesSingleton.getInstance()
+          .getString("InvalidElementName", getType())).showAndWait();
     }
   }
 
+  /**
+   * Validates the name to make sure it can only contain approved characters.
+   *
+   * @param name - name to be validated
+   * @return - boolean - true if name doesn't contain a regex character
+   */
   protected boolean validateName(String name) {
     return name.matches(VALID_NAME_REGEX);
   }
@@ -116,9 +132,11 @@ public class GameElementTab extends AbstractTab {
    */
   @Override
   public void loadElements() {
-    Collection<String> names = getCallbackDispatcher().call(new GetElementNamesCallback(getType())).orElseThrow();
+    Collection<String> names = getCallbackDispatcher().call(new GetElementNamesCallback(getType()))
+        .orElseThrow();
     for (String name : names) {
-      Collection<Property> properties = getCallbackDispatcher().call(new GetElementPropertiesCallback(getType(), name)).orElseThrow();
+      Collection<Property> properties = getCallbackDispatcher().call(
+          new GetElementPropertiesCallback(getType(), name)).orElseThrow();
       elementList.putGameElement(name, properties);
     }
   }

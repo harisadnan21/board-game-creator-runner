@@ -39,7 +39,6 @@ public class FormatTab extends AbstractTab{
 
     public FormatTab(CallbackDispatcher dispatcher) { super(FORMAT, dispatcher);}
 
-    @Override
     protected Node setupRightSide() {
         rightHelpBox = new VBox();
 
@@ -54,7 +53,6 @@ public class FormatTab extends AbstractTab{
         //return null;
     }
 
-    @Override
     protected Node setupLeftSide() {
         leftDisplay = new StackPane();
 //        //leftDisplay.getStyleClass().add("helpBox");
@@ -65,7 +63,7 @@ public class FormatTab extends AbstractTab{
     private void displayBackground(String newStyle){
         Stage newStage = new Stage();
         BuilderView newBuild = new BuilderView(newStage);
-        newBuild.changeFormat(newStyle);
+        //newBuild.changeFormat(newStyle);
     }
 
     public void presentationMode(){

@@ -9,7 +9,7 @@ import oogasalad.builder.model.property.Property;
 public class PieceFactory extends GameElementFactory<Piece> {
 
   public PieceFactory() {
-    super("elements.Piece");
+    super("builder.elements.Piece");
   }
 
   @Override
