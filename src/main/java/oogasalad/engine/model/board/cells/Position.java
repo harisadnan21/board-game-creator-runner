@@ -1,10 +1,17 @@
 package oogasalad.engine.model.board.cells;
 
+import oogasalad.engine.model.board.utilities.Delta;
+import org.jooq.lambda.tuple.Tuple2;
+
 /**
  * Position record
  * @author Alex Bildner
  */
 public record Position (int row, int column) implements Comparable<Position> {
+
+  public Position(Tuple2<Integer,Integer> pos) {
+    this(pos.v1, pos.v2);
+  }
 
   /**
    * Returns a position with a new row
@@ -50,6 +57,10 @@ public record Position (int row, int column) implements Comparable<Position> {
    */
   public Position add(Position position) {
     return new Position(this.row() + position.row(), this.column() + position.column);
+  }
+
+  public Position add(Delta delta) {
+    return this.add(new Position(delta.idelta(), delta.jdelta()));
   }
 }
 
