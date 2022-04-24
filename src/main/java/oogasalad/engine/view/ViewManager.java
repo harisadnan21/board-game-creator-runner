@@ -149,6 +149,7 @@ public class ViewManager {
       Scene newScene = gameView.makeScene();
       addKeyPress(newScene);
       newStage.setScene(newScene);
+      allScenes.add(newScene);
       gameStages.add(newStage);
     }
     catch (IOException e) {
