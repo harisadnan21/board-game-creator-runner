@@ -14,7 +14,7 @@ public class DirectoryOpener {
   public DirectoryOpener(){
     String language = "English";
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
-    myDirectoryChooser = makeFileChooser();
+    myDirectoryChooser = makeDirectoryChooser();
   }
 
 
@@ -24,10 +24,11 @@ public class DirectoryOpener {
   }
 
 
-  private DirectoryChooser makeFileChooser() {
+  private DirectoryChooser makeDirectoryChooser() {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     directoryChooser.setTitle(myResources.getString("ChooseFiles"));
-    directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+    directoryChooser.setInitialDirectory(new File("data/games"));
+    //directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
     return directoryChooser;
   }
 }

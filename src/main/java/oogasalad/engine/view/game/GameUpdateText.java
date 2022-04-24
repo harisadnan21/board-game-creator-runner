@@ -36,8 +36,6 @@ public class GameUpdateText {
   private Text makeText(String text) {
     Text myText = new Text(text);
     myText.setId("player-text");
-//    myText.setFont(Font.font("Montserrat", 20));
-//    myText.setFill(Color.web("464646"));
     return myText;
   }
 }

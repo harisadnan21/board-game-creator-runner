@@ -1,8 +1,10 @@
 package oogasalad.engine.model.engine;
+import static org.jooq.lambda.Seq.seq;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.AIOracle;
@@ -14,6 +16,7 @@ import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jooq.lambda.Seq;
 
 /**
  * This class controls game logic, such as generation of available moves, checking rules, etc
@@ -34,6 +37,9 @@ public class Oracle implements AIOracle {
 
     Collection<Move> moves = filterByClass(rules, Move.class);
     Collection<EndRule> endRules = filterByClass(rules, EndRule.class);
+    for(EndRule rule : endRules){
+      System.out.println(rule.getName());
+    }
 
     myMoves = moves.stream().filter(move -> !move.isPersistent()).toList();
     myPersistentRules = moves.stream().filter(move -> move.isPersistent()).toList();
@@ -164,13 +170,11 @@ public class Oracle implements AIOracle {
    * @return
    */
   public int getWinner(Board board) {
-    if (isWinningState(board)) {
-      Optional<EndRule> validEndRule = getValidEndRules(board).findFirst();
-      return validEndRule.get().getWinner(board);
-    }
-    else {
-      return -1;
-    }
+    Optional<EndRule> validEndRule = getValidEndRules(board).filter(name -> !Objects.equals(
+        name.getName(), "draw")).findFirst();
+    if(validEndRule.isPresent())return validEndRule.get().getWinner(board);
+    validEndRule = getValidEndRules(board).findFirst();
+    return validEndRule.get().getWinner(board);
   }
 
   private Stream<EndRule> getValidEndRules(Board board) {

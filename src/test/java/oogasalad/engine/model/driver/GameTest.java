@@ -9,12 +9,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Class that tests the Game class
+ * @author Haris Adnan
  */
 class GameTest {
-//  GameParser parser = new GameParser(new File("data/checkers/config.json"));
-//  Board TestBoard = parser.parseBoard();
-//  BoardView boardView = new BoardView(TestBoard.getHeight(), TestBoard.getWidth(), 350, 350);
-//  Controller controller = new Controller(TestBoard);
 
   PositionState[][] positionStates = new PositionState[4][4];
   private Board TestBoard = new Board(positionStates);
@@ -23,6 +20,9 @@ class GameTest {
   GameTest() throws FileNotFoundException {
   }
 
+  /**
+   * Test for setBoard method
+   */
   @Test
   void setBoard() {
     PositionState[][] positionStates = new PositionState[4][4];
@@ -30,7 +30,9 @@ class GameTest {
     TestGame.setBoard(newTestBoard);
     assertEquals(TestGame.getBoard(), newTestBoard);
   }
-
+  /**
+   * Test for getBoard method
+   */
   @Test
   void getBoard() {
     PositionState[][] positionStates = new PositionState[4][4];
@@ -38,7 +40,9 @@ class GameTest {
     TestGame.setBoard(newTestBoard);
     assertEquals(TestGame.getBoard(), newTestBoard);
   }
-
+  /**
+   * Test for back method
+   */
   @Test
   void back() throws BoardHistoryException {
     Board prevBoard = TestGame.getBoard();
@@ -48,7 +52,9 @@ class GameTest {
     TestGame.back();
     assertEquals(TestGame.getBoard(), prevBoard);
   }
-
+  /**
+   * Test for forward method
+   */
   @Test
   void forward() throws BoardHistoryException {
     PositionState[][] positionStates = new PositionState[4][4];
@@ -58,7 +64,9 @@ class GameTest {
     TestGame.forward();
     assertEquals(TestGame.getBoard(), newTestBoard);
   }
-
+  /**
+   * Test for backByAmount method
+   */
   @Test
   void backByAmount() {
     Board prevBoard = TestGame.getBoard();
@@ -69,7 +77,9 @@ class GameTest {
     TestGame.setBoard(newTestBoard2);
     assertEquals(TestGame.getBoard(), prevBoard);
   }
-
+  /**
+   * Test for forwardByAmount method
+   */
   @Test
   void forwardByAmount() throws BoardHistoryException {
     PositionState[][] positionStates = new PositionState[4][4];

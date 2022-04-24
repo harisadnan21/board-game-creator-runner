@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import oogasalad.engine.cheat_codes.CheatCode;
 import oogasalad.engine.cheat_codes.RemoveRandomPlayer0Piece;
@@ -39,6 +41,7 @@ public class ViewManager {
   public static double HEIGHT = 400;
   public static double GAME_SELECTION_WIDTH = 1000;
   public static double GAME_SELECTION_HEIGHT = 600;
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
 
   private FileInputStream fis;
 
@@ -49,6 +52,7 @@ public class ViewManager {
   public static String CSS_EXTENSION = ".css";
   public static String DEFAULT_LANGUAGE = "English";
 
+
   private OpeningView openingView;
   private Scene currScene;
   private Stage stage;
@@ -56,13 +60,14 @@ public class ViewManager {
   private File currGame;
   private List<Stage> gameStages = new ArrayList<>();
   private Controller controller;
-  private List<Scene> allScenes = new ArrayList<>();
+  private List<Scene> gameScenes = new ArrayList<>();
   private String language;
-
-
+  private ResourceBundle myResources;
+  private MouseSound sound;
 
   public ViewManager(Stage s) throws IOException {
     language = DEFAULT_LANGUAGE;
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     stage = s;
     cssFilepath = CSS_RESOURCE + DEFAULT_CSS + CSS_EXTENSION;
     fis = new FileInputStream("data/Properties/ViewManagerProperties.properties");
@@ -74,8 +79,13 @@ public class ViewManager {
     BOARDX = Double.parseDouble(prop.getProperty("BOARDX"));
     BOARDY = Double.parseDouble(prop.getProperty("BOARDY"));
     currScene = createOpeningView().makeScene();
-    allScenes.add(currScene);
+    gameScenes.add(currScene);
+
+    sound = new MouseSound(language);
+    stage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> sound.playSound());
   }
+
+
 
   public Scene getCurrScene() {
     return currScene;
@@ -90,8 +100,8 @@ public class ViewManager {
     return openingView;
   }
 
-  public GameView createGameView(BoardView board, Controller controller) {
-    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath, language);
+  public GameView createGameView(BoardView board, Controller controller, File game) {
+    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath, language, game);
     gameView.getHome().setOnAction(e -> goHome(gameView.getScene()));
     return gameView;
   }
@@ -101,7 +111,6 @@ public class ViewManager {
     System.out.println(language);
     currScene = createOpeningView().makeScene();
     stage.setScene(currScene);
-    allScenes.add(currScene);
   }
 
   private void showGames() {
@@ -112,12 +121,13 @@ public class ViewManager {
 
   private void selectMode(File game) {
     Stage newStage = new Stage();
+    newStage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> sound.playSound());
     newStage.setTitle(game.getName());
     PlayerModeView pmv = new PlayerModeView(WIDTH, HEIGHT, cssFilepath, language);
     Scene newScene = pmv.makeScene();
     newStage.setScene(newScene);
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
-    allScenes.add(newScene);
+    gameScenes.add(newScene);
     pmv.getOnePlayer().setOnAction(e -> selectAI(newStage));
     pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage));
     newStage.show();
@@ -141,15 +151,19 @@ public class ViewManager {
       Board board = parser.parseBoard();
       controller = new Controller(board, parser);
       BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath, language);
-
       boardView.addController(controller);
-      Scene newScene = createGameView(boardView, controller).makeScene();
+
+      GameView gameView = createGameView(boardView, controller, game);
+      gameView.getCssDropdown().setOnAction(e -> updateSceneCSS(gameView.getCssDropdown().getCSS()));
+      gameView.getSoundDropdown().setOnAction(e -> sound.setSound(gameView.getSoundDropdown().getSound()));
+      Scene newScene = gameView.makeScene();
       addKeyPress(newScene);
       newStage.setScene(newScene);
+      gameScenes.add(newScene);
       gameStages.add(newStage);
     }
     catch (IOException e) {
-      e.printStackTrace();
+      ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ExceptionThrown"));
     }
   }
 
@@ -194,11 +208,15 @@ public class ViewManager {
   }
 
   private void updateSceneCSS(String style) {
+    System.out.println(cssFilepath);
+    String oldCss = cssFilepath;
     cssFilepath = CSS_RESOURCE + style + CSS_EXTENSION;
+    currScene.getStylesheets().remove(oldCss);
     currScene.getStylesheets().add(cssFilepath);
-    for (Scene s : allScenes) {
+    System.out.println(gameScenes.contains(currScene));
+    for (Scene s : gameScenes) {
+      s.getStylesheets().remove(oldCss);
       s.getStylesheets().add(cssFilepath);
     }
   }
-
 }
