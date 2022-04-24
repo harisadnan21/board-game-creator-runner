@@ -1,0 +1,142 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/whiteKing.png",
+            "name": "X",
+            "id": 0,
+            "player": 0
+        },
+        {
+            "image": "/resources/blackKing.png",
+            "name": "O",
+            "id": 1,
+            "player": 1
+        }
+    ],
+    "metadata": {
+        "gameName": "Tic-Tac-Toe",
+        "author": "Shaan Gondalia",
+        "name": "Tic-Tac-Toe",
+        "description": "Tic Tac Toe configuration file created with the builder"
+    },
+    "winDecisions": [{
+        "name": "3 In a row causes player to win",
+        "id": 0,
+        "conditions": ["3 in a row wins"],
+        "type": "PlayerWins"
+    }],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place O piece on Os turn",
+            "conditions": [
+                "Placement Square is Empty",
+                "O turn"
+            ],
+            "actions": ["PlaceOPiece"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place X piece on Xs turn",
+            "conditions": [
+                "X turn",
+                "Placement Square is Empty"
+            ],
+            "actions": ["PlaceXPiece"]
+        }
+    ],
+    "conditions": [
+        {
+            "col": 0,
+            "name": "Placement Square is Empty",
+            "isAbsolute": 0,
+            "row": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "name": "3 in a row wins",
+            "type": "NInARow",
+            "n": 3
+        },
+        {
+            "col": 0,
+            "name": "X turn",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "col": 0,
+            "name": "O turn",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "IsPlayer"
+        }
+    ],
+    "actions": [
+        {
+            "col": 0,
+            "name": "PlaceXPiece",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlaceOPiece",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "Place",
+            "player": 1
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 3,
+        "activePlayer": 0,
+        "height": 3
+    }
+}
