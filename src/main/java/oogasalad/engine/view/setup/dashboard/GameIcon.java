@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.Objects;
 import java.util.function.BiConsumer;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.engine.model.parser.GameParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -63,8 +66,8 @@ public class GameIcon extends VBox {
       LOG.info(parser.readMetadata());
       myUpdateInfo.accept(parser.readMetadata(), myGameFolder);
     }
-    catch(FileNotFoundException e){
-      e.printStackTrace();
+    catch(FileNotFoundException | NullPointerException e ){
+      new Alert(Alert.AlertType.ERROR, "Error in config file").showAndWait();
     }
   }
 

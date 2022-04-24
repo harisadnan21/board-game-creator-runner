@@ -20,12 +20,12 @@ public class GameUpdateText {
   }
 
   public void updateText(int player) {
-    updateText = MessageFormat.format(myResources.getString("PlayerTurn"), player);
+    updateText = MessageFormat.format(myResources.getString("PlayerTurn"), player+1);
     text.setText(updateText);
   }
 
   public void gameIsWon(int player) {
-    updateText = MessageFormat.format(myResources.getString("GameOver"), player);
+    updateText = MessageFormat.format(myResources.getString("GameOver"), player+1);
     text.setText(updateText);
   }
 

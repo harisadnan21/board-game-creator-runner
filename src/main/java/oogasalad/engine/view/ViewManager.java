@@ -12,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import oogasalad.engine.cheat_codes.CheatCode;
+import oogasalad.engine.cheat_codes.RemoveRandomPlayer0Piece;
 import oogasalad.engine.cheat_codes.RemoveRandomPlayer1Piece;
+import oogasalad.engine.cheat_codes.ShuffleBoard;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 
@@ -29,7 +31,10 @@ import oogasalad.engine.view.setup.OpeningView;
 
 
 public class ViewManager {
-  public static final Map<KeyCode, Object> cheatCodes = Map.of(KeyCode.O, new RemoveRandomPlayer1Piece());
+  public static final Map<KeyCode, Object> cheatCodes = Map.of(
+      KeyCode.O, new RemoveRandomPlayer1Piece(),
+      KeyCode.Z, new RemoveRandomPlayer0Piece(),
+      KeyCode.S, new ShuffleBoard());
   public static double WIDTH = 600;
   public static double HEIGHT = 400;
   public static double GAME_SELECTION_WIDTH = 1000;
