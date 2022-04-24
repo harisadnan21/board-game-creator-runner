@@ -11,7 +11,7 @@ import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.driver.Game;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.rule.Move;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,34 +26,34 @@ public class HumanPlayer extends Player{
 
   private Consumer<Set<Position>> mySetValidMarks;
 
-  public HumanPlayer(Oracle oracle, Game game, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
-    super(oracle, game, executeMove);
+  public HumanPlayer(Oracle oracle, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
+    super(oracle, executeMove);
     mySetValidMarks = setValidMarks;
   }
 
   @Override
-  public void chooseMove() {
-
-    LOG.info("Player asked to choose move");
+  public void chooseMove(Board board) {
+    super.chooseMove(board);
   }
 
   public void onCellSelect(int i, int j) {
     Position cellClicked = new Position(i, j);
-    if (mySelectedCell == null) {
-      makePieceSelected(i, j);
-    }
-    else {
-      Oracle oracle = getOracle();
-      Board board = getGameBoard();
-      Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
-      if (move.isPresent()) {
-        mySelectedMove = move.get();
-        myChoice = new Choice(mySelectedCell, mySelectedMove);
-        LOG.info("Move {} selected", mySelectedMove.getName());
+    if (getGameBoard() != null) {
+      if (mySelectedCell == null) {
+        makePieceSelected(i, j);
+      } else {
+        Oracle oracle = getOracle();
+        Board board = getGameBoard();
+        Optional<Move> move = oracle.getMoveSatisfying(board, mySelectedCell, cellClicked);
+        if (move.isPresent()) {
+          mySelectedMove = move.get();
+          myChoice = new Choice(mySelectedCell, mySelectedMove);
+          LOG.info("Move {} selected", mySelectedMove.getName());
+          resetSelected();
+          executeMove(this, myChoice);
+        }
         resetSelected();
-        executeMove(this, myChoice);
       }
-      resetSelected();
     }
   }
 
@@ -68,7 +68,9 @@ public class HumanPlayer extends Player{
   }
 
   private void setMarkers(Set<Position> positions) {
-    mySetValidMarks.accept(positions);
+    if (mySetValidMarks != null) {
+      mySetValidMarks.accept(positions);
+    }
   }
 
   private void clearMarkers() {

@@ -1,13 +1,15 @@
 package oogasalad.engine.view;
 
+import java.io.File;
 import java.io.IOException;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import static org.junit.jupiter.api.Assertions.*;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.parser.GameParser;
+import oogasalad.engine.view.game.BoardView;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -19,12 +21,14 @@ public class BoardViewTest extends DukeApplicationTest {
   Scene scene;
   Stage s;
 
+
   @Override
   public void start (Stage stage) throws IOException {
-    board = new BoardView(3, 3, 300, 300);
+    board = new BoardView(new File("data/games/checkers"), 3, 3, 300, 300, "/css/light.css", "English");
 
+    GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
     Board backEndBoard = new Board(3,3);
-    controller = new Controller(backEndBoard);
+    controller = new Controller(backEndBoard, parser);
 
     board.addController(controller);
 //    root = new Group();

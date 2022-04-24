@@ -15,6 +15,8 @@ import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -29,6 +31,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
 
   private static final int PROPERTY_PARTS = 3;
   private static final String DELIMITER = "-";
+  private static final String LIST_DELIMITER = ",";
   private static final String REQUIRED = "required";
   private static final String NAME = "name";
   private static final String TYPE = "type";
@@ -84,8 +87,9 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       for (Property property : propertyTypes.keySet()) {
         if (property.name().split(DELIMITER)[1].equals(key)) {
           String classPath = propertyTypes.get(property);
+          String value = convertToString(obj.get(key).toString());
           properties.add(
-              makePropertyReflection(key, classPath, obj.get(key).toString(), property.form()));
+              makePropertyReflection(key, classPath, value, property.form()));
           break;
         }
       }
@@ -93,6 +97,23 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
 
     return properties;
   }
+
+  // Attempts to convert an array to the proper string representation. Consider refactoring
+  private String convertToString(String orig) {
+    try{
+      JSONArray arr = new JSONArray(orig);
+      StringBuilder s = new StringBuilder();
+      for (int i = 0; i < arr.length() - 1 ; i++) {
+        s.append(arr.getString(i));
+        s.append(LIST_DELIMITER);
+      }
+      s.append(arr.getString(arr.length() - 1));
+      return s.toString();
+    } catch (JSONException e) {
+      return orig;
+    }
+  }
+
 
   // Gets the name of a game element from a json string
   protected String nameFromJSON(String json) {
@@ -159,15 +180,11 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     if (type == null) {
       return true;
     }
-    for (Property property : getRequiredProperties()) {
-      String namespace = property.name().split(DELIMITER)[0];
-      String target = property.name().split(DELIMITER)[1];
-      if (namespace.equals(REQUIRED) && target.equals(TYPE)) {
-        String[] validTypes = property.valueAsString().split(DELIMITER);
-        return Arrays.asList(validTypes).contains(type);
-      }
-    }
-    return false; // TODO: Remove unreachable statement by making code smarter
+    return Arrays.asList(getRequiredProperties().stream()
+            .filter(prop -> prop.shortName().equals(TYPE) && prop.name().split(DELIMITER)[0].equals(REQUIRED))
+            .findFirst().orElseThrow()
+            .valueAsString().split(DELIMITER)).contains(type);
+
   }
 
   // Loads the required properties based on the resource file provided in the constructor
@@ -195,7 +212,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       return (Property) ctor.newInstance(name, value, form);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
-      throw new InvalidFormException(e.getMessage()); // TODO: Handle this properly
+      throw new InvalidFormException(e);
     }
   }
 

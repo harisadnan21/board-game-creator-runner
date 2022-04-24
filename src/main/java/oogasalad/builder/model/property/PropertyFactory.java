@@ -9,8 +9,7 @@ import java.util.Collection;
  */
 public class PropertyFactory {
 
-  // TODO: Replace this with actual default form classpath
-  private static final String DEFAULT_FORM = "oogasalad.builder.view.property.Field";
+  private static final String DEFAULT_FORM = "oogasalad.builder.view.property.StringField";
 
   // Private constructor for Util Class
   private PropertyFactory() {

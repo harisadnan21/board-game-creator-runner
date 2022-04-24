@@ -10,6 +10,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.StringProperty;
+import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
@@ -21,7 +22,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
  */
 public class FileSelector implements PropertySelector {
 
-  private static final String BUTTON_TEXT = "Choose File"; // TODO: Replace Magic Value
+  private static final String BUTTON_TEXT_KEY = "PropertyFileSelector-ButtonText";
 
   private final Property property;
   private String filePath;
@@ -35,8 +36,7 @@ public class FileSelector implements PropertySelector {
   public FileSelector(Property property, CallbackDispatcher dispatcher) {
     this.property = property;
     chooseButton = new Button();
-    //String buttonLabel = resources.getString(labelName);
-    chooseButton.setText(BUTTON_TEXT); // TODO: Replace magic value with resources file (languages)
+    chooseButton.setText(ViewResourcesSingleton.getInstance().getString(BUTTON_TEXT_KEY));
     chooseButton.setOnAction(e -> chooseFile());
   }
 
@@ -57,8 +57,7 @@ public class FileSelector implements PropertySelector {
    */
   @Override
   public Property getProperty() {
-    String[] nameParts = property.name().split("-");
-    return new StringProperty(nameParts[nameParts.length - 1], filePath, property.form());
+    return property.with(property.shortName(), filePath);
   }
 
   // Prompts the user to choose a file, storing the chosen file in an instance variable

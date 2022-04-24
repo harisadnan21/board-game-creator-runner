@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashSet;
-import oogasalad.engine.model.actions.Action;
+import oogasalad.engine.model.logicelement.actions.Action;
 import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.conditions.piece_conditions.PieceCondition;
-import oogasalad.engine.model.move.Move;
+import oogasalad.engine.model.logicelement.conditions.Condition;
+import oogasalad.engine.model.rule.Move;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -19,12 +19,12 @@ import org.json.JSONObject;
  */
 public class RuleParser extends AbstractParser<Collection<Move>> {
 
-  public static final String ACTIONS = "actions";
-  public static final String CONDITIONS = "conditions";
   private static final String RULES = "rules";
   private static final String REPRESENTATIVE_POINT_X = "representativeX";
   private static final String REPRESENTATIVE_POINT_Y = "representativeY";
+  private static final String IS_PERSISTENT = "isPersistent";
   private static final String NAME = "name";
+  private static final String VARIABLE_RANGE = "variableRange";
   private final ActionParser actionParser;
   private final ConditionParser conditionParser;
 
@@ -52,34 +52,24 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
     JSONArray rulesJSON = root.getJSONArray(RULES);
     for (int i = 0; i < rulesJSON.length(); i++) {
       JSONObject rule = rulesJSON.getJSONObject(i);
+      if (rule.has(VARIABLE_RANGE)) {
+        // TODO: create loop if field exists
+      }
       String name = rule.getString(NAME);
       Position repPoint = getRepresentativePoint(rule);
-      Action[] actions = resolveActions(rule);
-      PieceCondition[] conditions = resolveConditions(rule);
-      rules.add(new Move(name, conditions, actions, repPoint.i(), repPoint.j()));
+      Action[] actions = actionParser.resolveActions(rule);
+      Condition[] conditions = conditionParser.resolveConditions(rule);
+      boolean isPersistent = getIsPersistent(rule);
+      rules.add(new Move(name, conditions, actions, repPoint, isPersistent));
     }
     return rules;
   }
 
-  // Resolves all actions in a rule
-  private Action[] resolveActions(JSONObject ruleObj) {
-    Collection<Action> actions = new HashSet<>();
-    JSONArray actionsJSON = ruleObj.getJSONArray(ACTIONS);
-    for (int i = 0; i < actionsJSON.length(); i++) {
-      actions.add(actionParser.resolve(actionsJSON.getString(i)));
-    }
-    return actions.toArray(new Action[0]);
+  private boolean getIsPersistent(JSONObject rule) {
+    int isPersistentInt = rule.getInt(IS_PERSISTENT);
+    return isPersistentInt == 0 ? false : true;
   }
 
-  // Resolves all conditions in a rule
-  private PieceCondition[] resolveConditions(JSONObject ruleObj) {
-    Collection<PieceCondition> conditions = new HashSet<>();
-    JSONArray conditionsJSON = ruleObj.getJSONArray(CONDITIONS);
-    for (int i = 0; i < conditionsJSON.length(); i++) {
-      conditions.add(conditionParser.resolve(conditionsJSON.getString(i)));
-    }
-    return conditions.toArray(new PieceCondition[0]);
-  }
 
   // Initial parsing for conditions and actions without resolving them
   private void parseConditionsAndActions(File configFile) throws FileNotFoundException {

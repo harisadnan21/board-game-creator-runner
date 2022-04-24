@@ -1,5 +1,6 @@
 package oogasalad.builder.model;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -59,6 +60,7 @@ public class GameConfigurationTest {
   private static final String REPRESENTATIVE_Y = "representativeY";
   private static final String BLACK = "0x000000ff";
   private static final String WHITE = "0xffffffff";
+  private static final String IS_PERSISTENT = "isPersistent";
 
   private Collection<Property> properties;
   private BuilderModel game;
@@ -88,6 +90,31 @@ public class GameConfigurationTest {
     assertThrows(NullBoardException.class, () -> game.placeBoardPiece(HEIGHT+1, WIDTH + 1, PIECE_NAME));
     assertThrows(NullBoardException.class, () -> game.clearBoardCell(HEIGHT+1, WIDTH + 1));
     assertThrows(NullBoardException.class, () -> game.findBoardPieceAt(HEIGHT+1, WIDTH + 1));
+  }
+
+  @Test
+  void testDimensions() {
+    assertThrows(NullBoardException.class, () -> game.getWidth());
+    assertThrows(NullBoardException.class, () -> game.getHeight());
+    game.makeBoard(WIDTH, HEIGHT);
+    assertEquals(WIDTH, game.getWidth());
+    assertEquals(HEIGHT, game.getHeight());
+  }
+
+  @Test
+  void testRequiredProperties() {
+    game.getRequiredProperties(PIECE);
+  }
+
+  @Test
+  void testGetElementNames() {
+    Collection<String> names = game.getElementNames(PIECE);
+    assertTrue(names.isEmpty());
+    addPiece();
+    names = game.getElementNames(PIECE);
+    for (String name : names) {
+      assertEquals(PIECE_NAME, name);
+    }
   }
 
   @Test
@@ -147,6 +174,7 @@ public class GameConfigurationTest {
     properties.add(PropertyFactory.makeProperty(CONDITIONS, CONDITION_NAME));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
+    properties.add(PropertyFactory.makeProperty(IS_PERSISTENT, 0));
     game.addGameElement(RULE, RULE_NAME, properties);
 
     addPiece();
@@ -169,12 +197,10 @@ public class GameConfigurationTest {
 
   @Test
   void testLoad() throws FileNotFoundException {
-    // TODO: Change test when loading is implemented
-    InputStream is = null;
-    is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));
+    InputStream is = new DataInputStream(new FileInputStream(TEST_LOAD_FILENAME));
     JSONTokener tokener = new JSONTokener(is);
     JSONObject object = new JSONObject(tokener);
-    game.fromJSON(object.toString());
+    game.fromJSON(object.toString(), "");
   }
 
   private int countMatches(String str, String target) {

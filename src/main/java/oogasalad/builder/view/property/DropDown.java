@@ -8,6 +8,7 @@ import javafx.scene.control.cell.MapValueFactory;
 import javax.security.auth.callback.Callback;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.StringProperty;
+import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
@@ -19,7 +20,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
  */
 public class DropDown implements PropertySelector{
 
-  private static final String LIST_TEXT = "Select Property"; // TODO: Replace Magic Value
+  private static final String LIST_TEXT_KEY =  "PropertyDropdown-Prompt";
   private static final String LIST_DELIMITER = "-";
 
   private final Property property;
@@ -33,10 +34,11 @@ public class DropDown implements PropertySelector{
   public DropDown(Property property, CallbackDispatcher dispatcher){
     this.property = property;
     list = new ComboBox<>();
-    //list.setPromptText(resources.getString(LIST_TEXT));
-    list.setPromptText(LIST_TEXT); // TODO: Replace magic value with resources file (languages)
-    list.getItems().setAll(this.property.valueAsString().split(LIST_DELIMITER));
-    //list.valueProperty().addListener((observable, oldValue, newValue) -> selection = newValue);
+    list.setPromptText(ViewResourcesSingleton.getInstance().getString(LIST_TEXT_KEY));
+    list.getItems().setAll(this.property.defaultValueAsString().split(LIST_DELIMITER));
+    if(!property.defaultValue().toString().equals(property.valueAsString())) {
+      list.getSelectionModel().select(property.valueAsString());
+    }
   }
 
   /**
@@ -56,8 +58,7 @@ public class DropDown implements PropertySelector{
    */
   @Override
   public Property getProperty() {
-    String[] nameParts = property.name().split("-");
-    return new StringProperty(nameParts[nameParts.length - 1], list.getValue(), property.form());
+    return property.with(property.shortName(), list.getValue());
   }
 
   @Override
