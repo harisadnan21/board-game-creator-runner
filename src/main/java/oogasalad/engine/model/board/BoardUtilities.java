@@ -1,9 +1,13 @@
 package oogasalad.engine.model.board;
 
+import static oogasalad.engine.model.board.Ray.getDirectionalRay;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import org.jetbrains.annotations.NotNull;
 import org.jooq.lambda.Seq;
 
 public class BoardUtilities {
@@ -46,5 +50,14 @@ public class BoardUtilities {
 
   public static Map<Integer, List<PositionState>> getCols(Board board) {
     return board.getPositionStatesSeq().groupBy(PositionState::j);
+  }
+
+  public static Optional<Position> getNeighbor(Position pos, Board board, Direction direction) {
+    Optional<PositionState> positionState = getNeighborPositionState(pos, board, direction);
+    return positionState.map(PositionState::position);
+  }
+
+  public static Optional<PositionState> getNeighborPositionState(Position pos, Board board, Direction direction) {
+    return getDirectionalRay(board, pos, direction).skip(1).findFirst();
   }
 }

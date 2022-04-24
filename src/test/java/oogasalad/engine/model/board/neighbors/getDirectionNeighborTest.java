@@ -3,6 +3,7 @@ package oogasalad.engine.model.board.neighbors;
 import java.util.ArrayList;
 import java.util.List;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.BoardUtilities;
 import oogasalad.engine.model.board.Position;
 import org.jooq.lambda.Seq;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +20,7 @@ class getDirectionNeighborTest {
   void differentNeighbors() {
     Board board = new Board(9,9);
     Position center = new Position(5,5);
-    GetDirectionNeighbor[] directionNeighbors = {
+    Neighbor[] directionNeighbors = {
         new GetEastNeighbor(),
         new GetNorthEastNeighbor(),
         new GetNorthNeighbor(),
@@ -30,8 +31,8 @@ class getDirectionNeighborTest {
         new GetWestNeighbor()
     };
     List<Position> positions = new ArrayList<>();
-    for(GetDirectionNeighbor directionNeighbor: directionNeighbors) {
-      Position neighbor = directionNeighbor.getNeighbor(center, board).get();
+    for(Neighbor directionNeighbor: directionNeighbors) {
+      Position neighbor = BoardUtilities.getNeighbor(center, board, ).get();
       positions.add(neighbor);
     }
     System.out.println(positions);
