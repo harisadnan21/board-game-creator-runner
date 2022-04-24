@@ -22,10 +22,12 @@ public class CellParser extends AbstractParser<String[][]> {
 
     JSONArray cellColorsJSON = boardObj.getJSONArray("colorConfiguration");
 
+    int height = colorConfig.length;
+
     for (int i = 0; i < colorConfig.length; i++) {
       JSONArray row = cellColorsJSON.getJSONArray(i);
       for (int j = 0; j < colorConfig[i].length; j++) {
-        colorConfig[i][j] = row.getString(j);
+        colorConfig[height - i - 1][j] = row.getString(j);
       }
     }
     System.out.println("color");

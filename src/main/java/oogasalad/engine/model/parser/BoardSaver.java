@@ -89,7 +89,7 @@ public class BoardSaver {
   // Converts the piece configuration to a JSON array
   private JSONArray pieceConfigToJSON(Board board) {
     JSONArray pieceConfig = new JSONArray();
-    for (int i = 0; i < board.getHeight(); i++) {
+    for (int i = board.getHeight() - 1; i >= 0; i--) {
       JSONArray pieceRow = new JSONArray();
       for (int j = 0; j < board.getWidth(); j++) {
         pieceRow.put(board.getPiece(i, j).type());
