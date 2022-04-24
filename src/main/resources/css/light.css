@@ -23,7 +23,7 @@ Opening View
   -fx-alignment: center;
 }
 
-#opening-button-layout, #opening-button-row{
+#opening-button-layout, #opening-button-row, #theme-menu{
   -fx-spacing: 20;
   -fx-alignment: center;
 }
@@ -47,20 +47,39 @@ Game View
   -fx-padding: 10;
 }
 
-#message-screen-text {
+#message-screen-text, #settings-header{
   -fx-font-size: 20;
   -fx-font-family: "Montserrat";
   -fx-fill: -fx-light-blue;
-}
-
-#message-screen-root {
-  -fx-spacing: 5;
-  -fx-background-color: -fx-dark-gray;
-  -fx-padding: 20;
   -fx-alignment: center;
 }
 
+#message-screen-layout, theme-menu{
+  -fx-spacing: 20;
+  -fx-padding: 40;
+  -fx-background-color: -fx-dark-gray;
+  -fx-alignment: center;
+}
+
+#popup-root {
+  -fx-border-insets: 20 20 20 20 20 20 20 20;
+  -fx-padding: 40;
+  -fx-background-color: -fx-dark-gray;
+  -fx-alignment: top-center;
+}
+
 #message-screen-button {
+}
+
+#theme-text {
+  -fx-font-size: 16;
+  -fx-font-family: "Montserrat";
+  -fx-fill: -fx-light-gray;
+  -fx-alignment: center;
+}
+
+#header-layout {
+  -fx-alignment: center;
 }
 
 /*
