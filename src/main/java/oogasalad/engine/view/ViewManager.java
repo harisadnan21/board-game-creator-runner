@@ -21,8 +21,8 @@ import oogasalad.engine.model.board.Board;
 
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.game.GameView;
-import oogasalad.engine.view.setup.AISelectView;
-import oogasalad.engine.view.setup.PlayerModeView;
+import oogasalad.engine.view.setup.SelectionView.AISelectView;
+import oogasalad.engine.view.setup.SelectionView.PlayerModeView;
 import oogasalad.engine.view.setup.dashboard.Dashboard;
 import oogasalad.engine.view.setup.dashboard.GameIcon;
 

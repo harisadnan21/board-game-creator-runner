@@ -1,4 +1,4 @@
-package oogasalad.engine.view.setup;
+package oogasalad.engine.view.setup.SelectionView;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
