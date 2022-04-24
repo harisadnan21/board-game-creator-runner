@@ -8,7 +8,6 @@ import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
 import oogasalad.engine.model.ai.moveSelection.Selects;
-import oogasalad.engine.model.player.AbstractPlayer;
 
 /**
  * An AI Player Factory which can be used to create AI players to play against humans. This factory

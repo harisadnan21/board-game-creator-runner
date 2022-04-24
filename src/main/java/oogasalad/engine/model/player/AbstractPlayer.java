@@ -5,10 +5,10 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
 import oogasalad.engine.model.engine.Choice;
 import oogasalad.engine.model.engine.Oracle;
-import oogasalad.engine.model.board.Board;
 
 /**
  * Abstract class that defines a player and has methods that executes a player's turn.

@@ -2,14 +2,13 @@ package oogasalad.engine.model.player;
 
 import java.util.HashSet;
 import java.util.Optional;
-
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import oogasalad.engine.model.engine.Choice;
-import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.engine.Choice;
+import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.rule.Move;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
