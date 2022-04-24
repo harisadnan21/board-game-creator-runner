@@ -54,7 +54,7 @@ Game View
   -fx-alignment: center;
 }
 
-#message-screen-layout, theme-menu{
+#message-screen-layout{
   -fx-spacing: 20;
   -fx-padding: 40;
   -fx-background-color: -fx-dark-gray;
