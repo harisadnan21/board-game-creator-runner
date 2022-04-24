@@ -12,7 +12,7 @@ import oogasalad.engine.model.player.AbstractPlayer;
 
 public class AIPlayerFactory {
 
-  public static AbstractPlayer makeAIPlayer(Difficulty difficulty, WinType winType, int playerNumber, AIOracle aiOracle, Collection<Pattern> patterns) {
+  public AbstractPlayer makeAIPlayer(Difficulty difficulty, WinType winType, int playerNumber, AIOracle aiOracle, Collection<Pattern> patterns) {
     Selects selects = SelectorFactory.makeSelector(difficulty, winType, playerNumber, aiOracle, patterns);
     return new AIPlayer(playerNumber, selects);
   }
