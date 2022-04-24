@@ -11,6 +11,7 @@ import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
+import oogasalad.engine.model.logicelement.winner.Draw;
 import oogasalad.engine.model.rule.Rule;
 import oogasalad.engine.model.rule.terminal_conditions.DrawRule;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
@@ -28,21 +29,23 @@ public class Oracle implements AIOracle {
 
   private static final Logger LOG = LogManager.getLogger(Oracle.class);
 
+  private static final EndRule DEFAULT_DRAW_RULE = new DrawRule("No winner", new Draw(new int[]{}));
+
   private Collection<Move> myMoves;
   private Collection<EndRule> myEndRules;
   private Collection<Move> myPersistentRules;
-  private Optional<DrawRule> myDrawRule;
+  private EndRule myDrawRule;
 
   private int myNumPlayers;
 
   public Oracle(Collection<Rule> rules, int numPlayers) {
 
     Collection<DrawRule> drawRules = filterByClass(rules, DrawRule.class);
-    myDrawRule = drawRules.stream().findFirst();
+    myDrawRule = getDrawRule(drawRules.stream().findFirst());
 
     Collection<Move> moves = filterByClass(rules, Move.class);
     Collection<EndRule> endRules = filterByClass(rules, EndRule.class);
-    for(EndRule rule : endRules){
+    for (EndRule rule : endRules) {
       //System.out.println(rule.getName());
     }
 
@@ -51,13 +54,25 @@ public class Oracle implements AIOracle {
     myEndRules = endRules;
     myNumPlayers = numPlayers;
 
-    LOG.info("New: Size of moves, persistent, end rules: {}, {}, {}\n", myMoves.size(), myPersistentRules.size(), myEndRules.size());
+    LOG.info("New: Size of moves, persistent, end rules: {}, {}, {}\n", myMoves.size(),
+        myPersistentRules.size(), myEndRules.size());
     //moves = filterByClass(rules, Move.class);
   }
 
   // generic method to filter collection by class type
   private <T> Collection<T> filterByClass(Collection<Rule> collection, Class<T> type) {
     return collection.stream().filter(object -> object.getClass().equals(type)).map(object -> (T) object).toList();
+  }
+
+  private EndRule getDrawRule(Optional<DrawRule> optionalDrawRule) {
+    if (optionalDrawRule.isPresent()) {
+      LOG.info("Given draw rule");
+      return optionalDrawRule.get();
+    }
+    else {
+      LOG.info("Using default draw rule");
+      return DEFAULT_DRAW_RULE;
+    }
   }
 
   /**
@@ -146,6 +161,9 @@ public class Oracle implements AIOracle {
 
   public Board incrementPlayer(Board board) {
     int nextPlayer = (board.getPlayer() + 1) % myNumPlayers;
+    if (!getChoices(board, nextPlayer).findAny().isPresent()) {
+      nextPlayer = (board.getPlayer() + 1) % myNumPlayers;
+    }
     return board.setPlayer(nextPlayer);
   }
 
@@ -184,14 +202,23 @@ public class Oracle implements AIOracle {
    * @return
    */
   public int getWinner(Board board) {
-    Optional<EndRule> validEndRule = getValidEndRules(board).filter(name -> !Objects.equals(
-        name.getName(), "draw")).findFirst();
-    if(validEndRule.isPresent())return validEndRule.get().getWinner(board);
-    validEndRule = getValidEndRules(board).findFirst();
+    Optional<EndRule> validEndRule = getValidEndRules(board).findFirst();
     return validEndRule.get().getWinner(board);
   }
 
   private Stream<EndRule> getValidEndRules(Board board) {
+    // if there are no valid end rules but game is at a draw
+    if (getValidEndRulesWithoutDraw(board).findAny().isEmpty() && isDraw(board)) {
+      return Stream.of(myDrawRule);
+    }
+    else {
+      return getValidEndRulesWithoutDraw(board);
+    }
+  }
+
+  // returns all valid end rules not including the draw end rule
+  // if not at winning state, returns empty stream
+  private Stream<EndRule> getValidEndRulesWithoutDraw(Board board) {
     return board.getPositionStatesStream().flatMap(positionState ->
         myEndRules.stream().filter(endRule ->
             endRule.isValid(board, positionState.position())));

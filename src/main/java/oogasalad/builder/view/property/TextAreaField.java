@@ -7,9 +7,22 @@ import javafx.scene.control.TextArea;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
-public class TextAreaField extends Field{
+/**
+ * A PropertySelector Field that is of type TextArea
+ *
+ * @author Mike Keohane
+ */
+public class TextAreaField extends Field {
+
   private TextArea textArea;
-  public TextAreaField(Property property, CallbackDispatcher dispatcher){
+
+  /**
+   * Constructs a TextAreaField by calling the Field and initializing the textArea
+   *
+   * @param property   - property to be edited using the TextArea
+   * @param dispatcher - callback dispatcher to communicate with the controller.
+   */
+  public TextAreaField(Property property, CallbackDispatcher dispatcher) {
     super(property, dispatcher);
     textArea = new TextArea(property.valueAsString());
     textArea.setWrapText(true);

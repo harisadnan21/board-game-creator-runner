@@ -19,7 +19,7 @@ public class MetaDataFactory extends GameElementFactory<MetaData> {
    * an Action.
    */
   public MetaDataFactory() {
-    super("elements.MetaData");
+    super("builder.elements.MetaData");
   }
 
   /**

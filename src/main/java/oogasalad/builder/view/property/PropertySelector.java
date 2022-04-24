@@ -9,7 +9,7 @@ import oogasalad.builder.model.property.Property;
 /**
  * API that defines a view element that chooses a property.
  *
- * @author Shaan Gondalia
+ * @author Shaan Gondalia & Mike Keohane
  */
 public interface PropertySelector {
 
@@ -27,6 +27,9 @@ public interface PropertySelector {
    */
   Property getProperty();
 
-
+  /**
+   * Adds a change listener to the PropertySelector
+   * @param updateFields - change listener to add to the propertySelector
+   */
   void addListener(ChangeListener updateFields);
 }
