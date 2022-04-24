@@ -1,6 +1,7 @@
 package oogasalad.engine.model.ai.enums;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import oogasalad.engine.model.ai.timeLimiting.TimeLimit;

@@ -1,12 +1,14 @@
 package oogasalad.engine.model.logicelement.winner;
+import static oogasalad.engine.model.board.utilities.BoardUtilities.getNotSatisfyingPositionStatesSeq;
+
+import java.util.Optional;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.BoardUtilities;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.PositionState;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.jooq.lambda.Seq;
 /**
  * Class that decides winner based on which player has more pieces currently on the board.
- * @author Robert Cranston
+ * @author Alex Bildner, Robert Cranston
  */
 public class MostPieces extends AbstractWinDecision {
 
@@ -25,8 +27,12 @@ public class MostPieces extends AbstractWinDecision {
    */
   @Override
   public int decideWinner(Board board) {
-    Seq<PositionState> nonEmptyPositionStates = BoardUtilities.getNotSatisfyingPositionStatesSeq(board,
-        positionState -> positionState.piece()== Piece.EMPTY);
-    return nonEmptyPositionStates.map(PositionState:: player).mode().get();
+    var nonEmptyPositionStates = getNotSatisfyingPositionStatesSeq(board, positionState -> positionState.piece()== Piece.EMPTY);
+    return getMostFrequentPlayer(nonEmptyPositionStates);
+  }
+
+  private Integer getMostFrequentPlayer(Seq<PositionState> nonEmptyPositionStates) {
+    Optional<Integer> mode = nonEmptyPositionStates.map(PositionState::player).mode();
+    return mode.orElse(-1);
   }
 }

@@ -1,16 +1,12 @@
 package oogasalad.engine.model.engine;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.parser.GameParser;
-import oogasalad.engine.model.rule.Move;
-import org.jooq.impl.QOM.Or;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +20,7 @@ public class OracleTest {
 
   @BeforeEach
   void setup() throws FileNotFoundException {
-    myOracle = new Oracle(parser.readRules(), parser.readWinConditions(), 2);
+    myOracle = new Oracle(parser.readRules(), 2);
     myBoard = parser.parseBoard();
   }
 

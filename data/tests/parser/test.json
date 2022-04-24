@@ -103,9 +103,19 @@
             "name": "Player with no pieces loses",
             "type": "MostPieces",
             "conditions": ["noPiecesLeftEitherPlayer"]
+        },
+        {
+            "name": "Player 1 wins",
+            "type": "PlayerWins",
+            "id": 1,
+            "conditions": ["Always True"]
         }
     ],
     "conditions": [
+        {
+            "name": "Always True",
+            "type": "True"
+        },
         {
             "name": "noPiecesLeftEitherPlayer",
             "type": "PlayerHasNoPieces"

@@ -1,6 +1,8 @@
 package oogasalad.engine.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.ai.timeLimiting.UnlimitedTime;

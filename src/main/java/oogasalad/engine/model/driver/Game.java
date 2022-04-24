@@ -54,12 +54,15 @@ public class Game {
       throw new BoardHistoryException("You have gone too far back in the history, no board to show");
     }
     else{
+      backInHistory++;
+      // changing this - removing the -1 from the get parameter makes the tests work. However, in the
+      // checkers game for 2 players currently, the board undoes the AI's move and then doesnt allow us to move
+      myBoard = myBoardHistory.get(myBoardHistory.size()-backInHistory);
+      myBoardHistory.add(myBoard);
+      updateView(myBoard);
 
     }
-    backInHistory++;
-    myBoard = myBoardHistory.get(myBoardHistory.size()-1-backInHistory);
-    myBoardHistory.add(myBoard);
-    updateView(myBoard);
+
   }
   /**
    * function sets the current board as the previous booard (adds it to the history of boards ) and

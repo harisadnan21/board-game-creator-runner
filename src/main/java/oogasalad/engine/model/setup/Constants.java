@@ -1,15 +1,8 @@
 package oogasalad.engine.model.setup;
 
-import java.util.Map;
 import java.util.ResourceBundle;
-import oogasalad.engine.model.board.Direction;
-import oogasalad.engine.model.setup.parsing.DeltaLoader;
 
 public class Constants {
-  public static final String DIRECTIONDELTAPATH = "engine-resources.direction_deltas";
-  public static final ResourceBundle DIRECTIONDELTAS_RESOURCES = ResourceBundle.getBundle(DIRECTIONDELTAPATH);
-
-  public static final Map<Direction, Delta> DIRECTIONDELTAS = DeltaLoader.loadDirectionDeltas();
 
 
   public static final String HEIGHT = "height";

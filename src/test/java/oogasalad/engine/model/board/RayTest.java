@@ -1,13 +1,16 @@
 package oogasalad.engine.model.board;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
+import oogasalad.engine.model.board.utilities.Direction;
+import oogasalad.engine.model.board.utilities.Ray;
 import org.junit.jupiter.api.Test;
 
 class RayTest {
