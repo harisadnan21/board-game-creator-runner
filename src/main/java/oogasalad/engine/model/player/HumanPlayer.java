@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.engine.Choice;
@@ -23,9 +24,10 @@ public class HumanPlayer extends AbstractPlayer {
   private Choice myChoice;
 
   private Consumer<Set<Position>> mySetValidMarks;
+  private Oracle myOracle;
 
   public HumanPlayer(Oracle oracle, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
-    super(oracle, executeMove);
+    super(executeMove);
     mySetValidMarks = setValidMarks;
   }
 
@@ -85,8 +87,30 @@ public class HumanPlayer extends AbstractPlayer {
   @Override
   public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
       Consumer<Set<Position>> setValidMarks){
-    super.addDependencies(oracle, executeMove, setValidMarks);
+    setMyOracle(oracle);
+    super.setMyExecuteMove(executeMove);
     mySetValidMarks = setValidMarks;
   }
 
+  protected Oracle getOracle() {
+    return myOracle;
+  }
+
+  private void setMyOracle(Oracle oracle) {
+    this.myOracle = oracle;
+  }
+
+  /**
+   * Returns valid choices as a set
+   * empty set if oracle is null
+   * @return
+   */
+  protected Set<Choice> getMoves() {
+    if (myOracle != null) {
+      return myOracle.getValidChoices(getGameBoard()).collect(Collectors.toSet());
+    }
+    else {
+      return new HashSet<>();
+    }
+  }
 }

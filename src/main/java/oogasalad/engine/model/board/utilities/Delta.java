@@ -2,6 +2,9 @@ package oogasalad.engine.model.board.utilities;
 
 import org.jooq.lambda.tuple.Tuple2;
 
+/**
+ * @author Alex Bildner
+ */
 public class Delta extends Tuple2<Integer, Integer> {
 
   public Delta(int v1, int v2) {

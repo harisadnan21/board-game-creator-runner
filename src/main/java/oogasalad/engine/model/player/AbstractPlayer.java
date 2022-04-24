@@ -1,14 +1,8 @@
 package oogasalad.engine.model.player;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.engine.Choice;
-import oogasalad.engine.model.engine.Oracle;
 
 /**
  * Abstract class that defines a player and has methods that executes a player's turn.
@@ -16,21 +10,15 @@ import oogasalad.engine.model.engine.Oracle;
  */
 public abstract class AbstractPlayer implements Player {
 
-  private Oracle myOracle;
   private Board myCurrentGameBoard;
   private BiConsumer<Player, Choice> myExecuteMove;
 
   private int myScore;
 
-  protected AbstractPlayer(Oracle oracle, BiConsumer<Player, Choice> executeMove) {
-    myOracle = oracle;
+  protected AbstractPlayer(BiConsumer<Player, Choice> executeMove) {
     myExecuteMove = executeMove;
     myScore = 0;
     myCurrentGameBoard = null;
-  }
-
-  protected Oracle getOracle() {
-    return myOracle;
   }
 
   /**
@@ -76,24 +64,8 @@ public abstract class AbstractPlayer implements Player {
     myCurrentGameBoard = board;
   }
 
-  @Override
-  public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
-      Consumer<Set<Position>> setValidMarks) {
-    myOracle = oracle;
-    myExecuteMove = executeMove;
-  }
 
-  /**
-   * Returns valid choices as a set
-   * empty set if oracle is null
-   * @return
-   */
-  protected Set<Choice> getMoves() {
-    if (myOracle != null) {
-      return myOracle.getValidChoices(myCurrentGameBoard).collect(Collectors.toSet());
-    }
-    else {
-      return new HashSet<>();
-    }
+  protected void setMyExecuteMove(BiConsumer<Player, Choice> executeMove) {
+    this.myExecuteMove = executeMove;
   }
 }

@@ -1,9 +1,17 @@
 package oogasalad.engine.model.ai;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import oogasalad.engine.model.ai.moveSelection.Selects;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.engine.Choice;
+import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.player.AbstractPlayer;
+import oogasalad.engine.model.player.Player;
 
 
 /**
@@ -14,6 +22,7 @@ public class AIPlayer extends AbstractPlayer {
 
   private final int playerNumber;
   private final Selects selector;
+  private Oracle myOracle;
 
   /**
    * Instantiates an AI player.
@@ -22,7 +31,7 @@ public class AIPlayer extends AbstractPlayer {
    * @param selects           the selector
    */
   public AIPlayer(int playerNumberForAI, Selects selects) {
-    super(null, null); // should be engine
+    super(null); // should be engine
     this.playerNumber = playerNumberForAI;
     this.selector = selects;
   }
@@ -61,4 +70,11 @@ public class AIPlayer extends AbstractPlayer {
   public void onCellSelect(int i, int j) {
     throw new NoSuchMethodError("no");
   }
+
+  @Override
+  public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
+      Consumer<Set<Position>> setValidMarks) {
+    //TODO: get rid of this method
+  }
+
 }
