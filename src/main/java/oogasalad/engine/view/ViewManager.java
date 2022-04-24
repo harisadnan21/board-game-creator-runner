@@ -90,8 +90,8 @@ public class ViewManager {
     return openingView;
   }
 
-  public GameView createGameView(BoardView board, Controller controller) {
-    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath, language);
+  public GameView createGameView(BoardView board, Controller controller, File game) {
+    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath, language, game);
     gameView.getHome().setOnAction(e -> goHome(gameView.getScene()));
     return gameView;
   }
@@ -142,7 +142,7 @@ public class ViewManager {
       BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath, language);
       boardView.addController(controller);
 
-      GameView gameView = createGameView(boardView, controller);
+      GameView gameView = createGameView(boardView, controller, game);
       gameView.getCssDropdown().setOnAction(e -> updateSceneCSS(gameView.getCssDropdown().getCSS()));
       Scene newScene = gameView.makeScene();
       addKeyPress(newScene);

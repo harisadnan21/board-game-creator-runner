@@ -1,4 +1,4 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.OptionSelect;
 
 import javafx.scene.control.ChoiceBox;
 

@@ -1,16 +1,12 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.Popup;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import javafx.stage.Stage;
-import oogasalad.engine.view.game.PopupView;
+import oogasalad.engine.view.OptionSelect.CSSSelect;
 
 public class SettingsView extends PopupView {
 

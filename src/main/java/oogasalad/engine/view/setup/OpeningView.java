@@ -5,14 +5,12 @@ import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import oogasalad.engine.view.LanguageSelect;
-import oogasalad.engine.view.ViewManager;
+import oogasalad.engine.view.OptionSelect.LanguageSelect;
 import org.json.JSONObject;
 
 public class OpeningView {
