@@ -8,16 +8,12 @@ import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
-import oogasalad.builder.view.callback.GetPropertiesCallback;
 import oogasalad.builder.view.callback.LoadCallback;
-import oogasalad.builder.view.callback.SetFormatCallback;
-import oogasalad.builder.view.tab.*;
 import oogasalad.builder.view.tab.AllTabs;
 
 
@@ -51,14 +47,13 @@ public class BuilderView {
 
   // Builds the view, including all tabs and menus
   private void buildView() {
-    setupFormatCallback();
     BorderPane borderPane = new BorderPane();
     allTabs = new AllTabs(callbackDispatcher);
     borderPane.setCenter(allTabs);
     borderPane.setBottom(makeMenu());
     tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
         Integer.parseInt(tabProperties.getString("sceneSizeY")));
-    callbackDispatcher.call(new SetFormatCallback(DEFAULT_TAB_FORMAT));
+    setFormat(DEFAULT_TAB_FORMAT);
     stage.setScene(tabScene);
     stage.centerOnScreen();
     stage.show();
@@ -70,6 +65,7 @@ public class BuilderView {
     HBox menu = new HBox();
     Button saveButton = makeButton("save", e -> saveConfig());
     Button loadButton = makeButton("load", e -> loadConfig());
+    menu.getChildren().add(new FormatDropDown(this));
     menu.getChildren().add(saveButton);
     menu.getChildren().add(loadButton);
     menu.getStyleClass().add("saveMenu");
@@ -122,20 +118,13 @@ public class BuilderView {
   }
 
   /**
-   * Callback method to set the format of the view
-   * @param format - Callback containing css file name to set the format
-   * @return - null to fit Void type
+   * Method to set the format of the view
+   * @param formatFile -  css file name to set the format
    */
-  public Void setFormat(SetFormatCallback format) {
+  public void setFormat(String formatFile){
     tabScene.getStylesheets().clear();
     tabScene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + format.newStyle()).toExternalForm());
-    return null;
-  }
-
-  // Sets up the callback nessesary to call set format without creating many views
-  private void setupFormatCallback(){
-    registerCallbackHandler(SetFormatCallback.class, this::setFormat);
+        .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + formatFile).toExternalForm());
   }
 }
 
