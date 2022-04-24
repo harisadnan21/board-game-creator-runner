@@ -7,7 +7,6 @@ import static oogasalad.builder.view.tab.AllTabs.tabsList;
 import static oogasalad.builder.view.tab.boardTab.BoardTab.BOARD_TYPE;
 
 import java.util.Collection;
-import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;

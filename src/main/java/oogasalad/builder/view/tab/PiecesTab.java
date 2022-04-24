@@ -1,9 +1,7 @@
 package oogasalad.builder.view.tab;
 
 
-import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.view.callback.CallbackDispatcher;
-import oogasalad.builder.view.tab.GameElementTab;
 
 /**
  * 
