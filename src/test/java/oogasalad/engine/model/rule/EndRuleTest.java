@@ -25,7 +25,7 @@ public class EndRuleTest {
     WinDecision playerWins = new PlayerWins(new int[]{1});
     Condition truee = new True(new int[0]);
     rule = new EndRule("Player 1 Wins", new Condition[]{truee}, playerWins);
-    myOracle = new Oracle(new ArrayList<>(), Arrays.stream((new EndRule[]{rule})).toList(), 2);
+    myOracle = new Oracle(Arrays.stream((new Rule[]{rule})).toList(), 2);
   }
 
   @Test

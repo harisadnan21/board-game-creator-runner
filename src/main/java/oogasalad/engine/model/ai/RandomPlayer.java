@@ -28,6 +28,7 @@ public class RandomPlayer extends AbstractPlayer {
   public RandomPlayer(Oracle oracle,
       BiConsumer<Player, Choice> executeMove) {
     super(executeMove);
+    setOracle(oracle);
   }
 
   @Override
@@ -52,9 +53,11 @@ public class RandomPlayer extends AbstractPlayer {
   @Override
   public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
       Consumer<Set<Position>> setValidMarks) {
+    setExecuteMove(executeMove);
+    setOracle(oracle);
   }
 
-  private void setMyOracle(Oracle oracle) {
+  private void setOracle(Oracle oracle) {
     this.myOracle = oracle;
   }
 

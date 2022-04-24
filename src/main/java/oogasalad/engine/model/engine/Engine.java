@@ -39,19 +39,16 @@ public class Engine {
 
   private IntConsumer myEndGame;
 
-
   /**
    * Instantiates a new Engine.
    *
-   * @param game          the game
-   * @param players       the players
-   * @param moves         the moves
-   * @param endRules      the end rules
-   * @param setValidMarks the set valid marks
-   * @param endGame       the end game
+   * @param game
+   * @param players
+   * @param oracle
+   * @param setValidMarks
+   * @param endGame
    */
-  public Engine(Game game, PlayerManager players, Collection<Move> moves,
-      Collection<EndRule> endRules, Consumer<Set<Position>> setValidMarks, IntConsumer endGame) {
+  public Engine(Game game, PlayerManager players, Oracle oracle, Consumer<Set<Position>> setValidMarks, IntConsumer endGame) {
 
     myGame = game;
 
@@ -59,10 +56,7 @@ public class Engine {
 
     myEndGame = endGame;
 
-    if (moves == null) {
-      LOG.warn("moves are null");
-    }
-    myOracle = new Oracle(moves, endRules, myPlayerManager.getNumberOfPlayers());
+    myOracle = oracle;
 
     players.addDependencies(myOracle, this::playTurn, setValidMarks);
 
@@ -110,7 +104,7 @@ public class Engine {
       if (move.isValid(getGameBoard(), referencePoint)) {
         //Board board = move.doMove(getGameBoard(), referencePoint);
         Board board = myOracle.getNextState(getGameBoard(), choice);
-        // LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
+        LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
 
         board = myOracle.incrementPlayer(board);
         myGame.setBoard(board);
@@ -122,6 +116,8 @@ public class Engine {
       } else {
         LOG.warn("Player's move is not valid");
       }
+    } else {
+      LOG.warn("inactive player tried to execute move");
     }
   }
 

@@ -26,4 +26,6 @@ open module oogasalad_app {
     exports oogasalad.engine.view.setup;
     exports oogasalad.engine.view.game;
 
+    exports oogasalad.engine.view.setup.SelectionView;
+
 }

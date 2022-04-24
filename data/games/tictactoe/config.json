@@ -23,49 +23,49 @@
         {
             "name": "X row win",
             "id": 0,
-            "conditions": ["X row 0", "X row 1", "X row 2"],
+            "conditions": ["X row"],
             "type": "PlayerWins"
         },
         {
             "name": "X col win",
             "id": 0,
-            "conditions": ["X col 0", "X col 1", "X col 2"],
+            "conditions": ["X col"],
             "type": "PlayerWins"
         },
         {
             "name": "X pos diag win",
             "id": 0,
-            "conditions": ["X pos diag 0", "X pos diag 1", "X pos diag 2"],
+            "conditions": ["X pos diag"],
             "type": "PlayerWins"
         },
         {
             "name": "X neg diag win",
             "id": 0,
-            "conditions": ["X neg diag 0", "X neg diag 1", "X neg diag 2"],
+            "conditions": ["X neg diag"],
             "type": "PlayerWins"
         },
         {
             "name": "O row win",
             "id": 1,
-            "conditions": ["O row 0", "O row 1", "O row 2"],
+            "conditions": ["O row"],
             "type": "PlayerWins"
         },
         {
             "name": "O col win",
             "id": 1,
-            "conditions": ["O col 0", "O col 1", "O col 2"],
+            "conditions": ["O col"],
             "type": "PlayerWins"
         },
         {
             "name": "O pos diag win",
             "id": 1,
-            "conditions": ["O pos diag 0", "O pos diag 1", "O pos diag 2"],
+            "conditions": ["O pos diag"],
             "type": "PlayerWins"
         },
         {
             "name": "O neg diag win",
             "id": 1,
-            "conditions": ["O neg diag 0", "O neg diag 1", "O neg diag 2"],
+            "conditions": ["O neg diag"],
             "type": "PlayerWins"
         }
     ],
@@ -95,6 +95,94 @@
     ],
     "conditions": [
         {
+            "name": "X row",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 0,
+            "columnDirection": 1,
+            "length": 3,
+            "player": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O row",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 0,
+            "columnDirection": 1,
+            "length": 3,
+            "player": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X col",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": 0,
+            "length": 3,
+            "player": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O col",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": 0,
+            "length": 3,
+            "player": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X pos diag",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": 1,
+            "length": 3,
+            "player": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O pos diag",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": 1,
+            "length": 3,
+            "player": 1,
+            "isAbsolute": 0
+        },
+        {
+            "name": "X neg diag",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": -1,
+            "length": 3,
+            "player": 0,
+            "isAbsolute": 0
+        },
+        {
+            "name": "O neg diag",
+            "type": "IsPlayerPieceRay",
+            "startRow": 0,
+            "startColumn": 0,
+            "rowDirection": 1,
+            "columnDirection": -1,
+            "length": 3,
+            "player": 1,
+            "isAbsolute": 0
+        },
+        {
             "col": 0,
             "name": "Placement Square is Empty",
             "isAbsolute": 0,
@@ -116,200 +204,6 @@
             "row": 0,
             "id": 1,
             "type": "IsPlayer"
-        },
-        {
-            "name": "X row 0",
-            "type": "IsPlayerPiece",
-            "col": 0,
-            "row": 0,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X row 1",
-            "type": "IsPlayerPiece",
-            "col": 1,
-            "row": 0,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X row 2",
-            "type": "IsPlayerPiece",
-            "col": 2,
-            "row": 0,
-            "id": 0,
-            "isAbsolute": 0
-        }
-    ,
-        {
-            "name": "O row 0",
-            "type": "IsPlayerPiece",
-            "col": 0,
-            "row": 0,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O row 1",
-            "type": "IsPlayerPiece",
-            "col": 1,
-            "row": 0,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O row 2",
-            "type": "IsPlayerPiece",
-            "col": 2,
-            "row": 0,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X col 0",
-            "type": "IsPlayerPiece",
-            "row": 0,
-            "col": 0,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X col 1",
-            "type": "IsPlayerPiece",
-            "row": 1,
-            "col": 0,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X col 2",
-            "type": "IsPlayerPiece",
-            "row": 2,
-            "col": 0,
-            "id": 0,
-            "isAbsolute": 0
-        }
-    ,
-        {
-            "name": "O col 0",
-            "type": "IsPlayerPiece",
-            "row": 0,
-            "col": 0,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O col 1",
-            "type": "IsPlayerPiece",
-            "row": 1,
-            "col": 0,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O col 2",
-            "type": "IsPlayerPiece",
-            "row": 2,
-            "col": 0,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X pos diag 0",
-            "type": "IsPlayerPiece",
-            "row": 0,
-            "col": 0,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X pos diag 1",
-            "type": "IsPlayerPiece",
-            "row": 1,
-            "col": 1,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X pos diag 2",
-            "type": "IsPlayerPiece",
-            "row": 2,
-            "col": 2,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X neg diag 0",
-            "type": "IsPlayerPiece",
-            "row": 2,
-            "col": 0,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X neg diag 1",
-            "type": "IsPlayerPiece",
-            "row": 1,
-            "col": 1,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "X neg diag 2",
-            "type": "IsPlayerPiece",
-            "row": 0,
-            "col": 2,
-            "id": 0,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O pos diag 0",
-            "type": "IsPlayerPiece",
-            "row": 0,
-            "col": 0,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O pos diag 1",
-            "type": "IsPlayerPiece",
-            "row": 1,
-            "col": 1,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O pos diag 2",
-            "type": "IsPlayerPiece",
-            "row": 2,
-            "col": 2,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O neg diag 0",
-            "type": "IsPlayerPiece",
-            "row": 2,
-            "col": 0,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O neg diag 1",
-            "type": "IsPlayerPiece",
-            "row": 1,
-            "col": 1,
-            "id": 1,
-            "isAbsolute": 0
-        },
-        {
-            "name": "O neg diag 2",
-            "type": "IsPlayerPiece",
-            "row": 0,
-            "col": 2,
-            "id": 1,
-            "isAbsolute": 0
         }
     ],
     "actions": [

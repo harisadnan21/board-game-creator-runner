@@ -20,7 +20,7 @@ public class OracleTest {
 
   @BeforeEach
   void setup() throws FileNotFoundException {
-    myOracle = new Oracle(parser.readMoves(), parser.readWinConditions(), 2);
+    myOracle = new Oracle(parser.readRules(), 2);
     myBoard = parser.parseBoard();
   }
 

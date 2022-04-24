@@ -65,7 +65,7 @@ public abstract class AbstractPlayer implements Player {
   }
 
 
-  protected void setMyExecuteMove(BiConsumer<Player, Choice> executeMove) {
+  protected void setExecuteMove(BiConsumer<Player, Choice> executeMove) {
     this.myExecuteMove = executeMove;
   }
 }

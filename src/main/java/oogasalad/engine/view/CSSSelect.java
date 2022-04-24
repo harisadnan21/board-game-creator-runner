@@ -1,14 +1,14 @@
 package oogasalad.engine.view;
 
-public class LanguageSelect extends OptionSelect {
+public class CSSSelect extends OptionSelect {
 
-  public LanguageSelect() {
+  public CSSSelect() {
     super();
   }
 
-  public String getLanguage() {
+  public String getCSS() {
     if (this.getValue() == null) {
-      return "English";
+      return "light";
     }
     else {
       return this.getValue();
@@ -17,8 +17,7 @@ public class LanguageSelect extends OptionSelect {
 
   @Override
   protected void setup() {
-    options = new String[]{"English", "Spanish", "French", "German"};
+    options = new String[]{"light", "dark", "duke"};
     super.setup();
   }
-
 }
