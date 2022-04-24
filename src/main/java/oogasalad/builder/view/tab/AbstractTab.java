@@ -42,8 +42,16 @@ public abstract class AbstractTab extends BorderPane implements BasicTab {
     Button result = new Button();
     result.setText(ViewResourcesSingleton.getInstance().getString(property));
     result.setOnAction(handler);
+    changeFontsButton(result);
     return result;
   }
+
+  private void changeFontsButton(Button changeButton) {
+    if(FormatTab.FANCY == 1) { changeButton.setFont(Font.font("Papyrus")); }
+    if(FormatTab.PRESENTATION == 1) { changeButton.setFont(Font.font("Lucida Sans")); }
+    if(FormatTab.NORMAL == 1) { changeButton.setFont(Font.font("Comic Sans")); }
+  }
+
   protected SplitPane getSplitPane(){
     return splitPane;
   }

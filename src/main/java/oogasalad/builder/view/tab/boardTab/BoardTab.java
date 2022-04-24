@@ -95,6 +95,7 @@ public class BoardTab extends AbstractTab {
     Button confirmBoardButton = makeButton("drawBoard", e ->
         createBoard());
     confirmBoardButton.setId("drawBoard");
+    changeFontsButton(confirmBoardButton);
 
     boardConfigBox.getChildren()
         .addAll(setupColorChoiceBox(), setupDimensionChoiceBox(), setupBoardTypeBox(),
@@ -194,6 +195,7 @@ public class BoardTab extends AbstractTab {
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
     resetPiecesButton.setId("clearPieces");
+    changeFontsButton(resetPiecesButton);
     buttonBox.getChildren()
         .addAll(setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");
@@ -206,6 +208,7 @@ public class BoardTab extends AbstractTab {
         ViewResourcesSingleton.getInstance().getString("eraser"));
     eraseButton.setOnAction(e -> toggleErase(eraseButton));
     eraseButton.setId("eraserButton");
+    changeFontsToggleButton(eraseButton);
     return eraseButton;
   }
 
@@ -240,7 +243,7 @@ public class BoardTab extends AbstractTab {
     ToggleButton editBoardButton = new ToggleButton(
         ViewResourcesSingleton.getInstance().getString("editSquare"));
     editBoardButton.setOnAction(e -> toggleEditBoard(editBoardButton, boardEditColorPicker));
-
+    changeFontsToggleButton(editBoardButton);
     editBoardBox.getChildren().addAll(editBoardButton, boardEditColorPicker);
     editBoardBox.getStyleClass().add("boardConfigBox");
     return editBoardBox;
@@ -262,6 +265,18 @@ public class BoardTab extends AbstractTab {
         new GetElementNamesCallback(PIECE_TYPE)).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
+  }
+
+  private void changeFontsButton(Button changeButton) {
+    if(FormatTab.FANCY == 1) { changeButton.setFont(Font.font("Papyrus")); }
+    if(FormatTab.PRESENTATION == 1) { changeButton.setFont(Font.font("Lucida Sans")); }
+    if(FormatTab.NORMAL == 1) { changeButton.setFont(Font.font("Comic Sans")); }
+  }
+
+  private void changeFontsToggleButton(ToggleButton changeButton) {
+    if(FormatTab.FANCY == 1) { changeButton.setFont(Font.font("Papyrus")); }
+    if(FormatTab.PRESENTATION == 1) { changeButton.setFont(Font.font("Lucida Sans")); }
+    if(FormatTab.NORMAL == 1) { changeButton.setFont(Font.font("Comic Sans")); }
   }
 
   // For testing
