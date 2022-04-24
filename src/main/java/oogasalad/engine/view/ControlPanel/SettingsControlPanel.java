@@ -10,8 +10,8 @@ public class SettingsControlPanel extends ControlPanel {
   Button info;
   Button settings;
 
-  public SettingsControlPanel() {
-    super();
+  public SettingsControlPanel(String language) {
+    super(language);
   }
 
   public Node getRoot() {

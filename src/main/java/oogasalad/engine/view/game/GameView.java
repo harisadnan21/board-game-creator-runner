@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.parser.BoardSaver;
+import oogasalad.engine.view.ApplicationAlert;
 import oogasalad.engine.view.OptionSelect.CSSSelect;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
@@ -49,8 +50,8 @@ public class GameView {
     height = h;
     myBoard = board;
     myController = controller;
-    myGameControl = new GameControlPanel(controller, board::updateBoard);
-    mySettingsControl = new SettingsControlPanel();
+    myGameControl = new GameControlPanel(controller, board::updateBoard, language);
+    mySettingsControl = new SettingsControlPanel(language);
     myPlayerText = board.getText();
     settings = new SettingsView(cssFilePath, language);
     this.game = game;
@@ -144,9 +145,10 @@ public class GameView {
     try {
       BoardSaver saver = new BoardSaver(game);
       saver.saveBoardConfig(myController.getGame().getBoard(), newDirectory);
+      ApplicationAlert alert = new ApplicationAlert(myResources.getString("Notif"), myResources.getString("GameSaved"));
     }
     catch (IOException e) {
-      e.printStackTrace();
+      ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("SaveError"));
     }
   }
 }

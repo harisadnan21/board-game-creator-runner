@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -39,6 +40,7 @@ public class ViewManager {
   public static double HEIGHT = 400;
   public static double GAME_SELECTION_WIDTH = 1000;
   public static double GAME_SELECTION_HEIGHT = 600;
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
 
   private FileInputStream fis;
 
@@ -49,6 +51,7 @@ public class ViewManager {
   public static String CSS_EXTENSION = ".css";
   public static String DEFAULT_LANGUAGE = "English";
 
+
   private OpeningView openingView;
   private Scene currScene;
   private Stage stage;
@@ -58,11 +61,11 @@ public class ViewManager {
   private Controller controller;
   private List<Scene> gameScenes = new ArrayList<>();
   private String language;
-
-
+  private ResourceBundle myResources;
 
   public ViewManager(Stage s) throws IOException {
     language = DEFAULT_LANGUAGE;
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     stage = s;
     cssFilepath = CSS_RESOURCE + DEFAULT_CSS + CSS_EXTENSION;
     fis = new FileInputStream("data/Properties/ViewManagerProperties.properties");
@@ -151,7 +154,7 @@ public class ViewManager {
       gameStages.add(newStage);
     }
     catch (IOException e) {
-      e.printStackTrace();
+      ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ExceptionThrown"));
     }
   }
 

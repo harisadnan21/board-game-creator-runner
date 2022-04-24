@@ -8,6 +8,7 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.driver.BoardHistoryException;
 import oogasalad.engine.model.parser.CreateJSONFile;
+import oogasalad.engine.view.ApplicationAlert;
 
 public class GameControlPanel extends ControlPanel {
   public static String HOME_IMAGE = IMAGES_FOLDER + imBundle.getString("Home");
@@ -24,8 +25,8 @@ public class GameControlPanel extends ControlPanel {
   private Button save;
   private Consumer<ImmutableBoard> updateBoard;
 
-  public GameControlPanel(Controller controller, Consumer<ImmutableBoard> updateBoard) {
-    super();
+  public GameControlPanel(Controller controller, Consumer<ImmutableBoard> updateBoard, String language) {
+    super(language);
     myController = controller;
     this.updateBoard = updateBoard;
   }
@@ -57,7 +58,7 @@ public class GameControlPanel extends ControlPanel {
       Board currBoard = myController.undoGameOnce();
       updateBoard(currBoard);
     } catch (BoardHistoryException ex) {
-      ex.printStackTrace();
+      ApplicationAlert alert = new ApplicationAlert(myResources.getString("Notif"), ex.getMessage());
     }
   }
 
