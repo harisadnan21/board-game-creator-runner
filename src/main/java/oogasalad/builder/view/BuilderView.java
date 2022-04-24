@@ -40,6 +40,10 @@ public class BuilderView {
   private AllTabs allTabs;
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
+  /**
+   * Constructor to initialise the builderView
+   * @param mainStage - stage to display the view
+   */
   public BuilderView(Stage mainStage) {
     stage = mainStage;
     SplashLogin newWindow = new SplashLogin(mainStage, e -> buildView());
