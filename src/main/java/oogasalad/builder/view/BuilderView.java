@@ -14,13 +14,14 @@ import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
-import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.AllTabs;
 
 
 import java.util.ResourceBundle;
 
-/** Creates the scene and handles the builder GUI and the tabs within it
+/**
+ * Creates the scene and handles the builder GUI and the tabs within it
+ *
  * @author Mike Keohane
  */
 public class BuilderView {
@@ -31,9 +32,9 @@ public class BuilderView {
   public static final String TAB_FORMAT = "tabFormat.css";
 
   private final Stage stage;
-  public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
+  public static final ResourceBundle tabProperties = ResourceBundle.getBundle(
+      DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
   private AllTabs allTabs;
-  private Button saveButton;
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
@@ -88,7 +89,6 @@ public class BuilderView {
     directoryChooser.setTitle("Choose Configuration Load Location");
     callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(loadStage)));
     allTabs.loadAllTabs();
-
   }
 
   /**
@@ -102,12 +102,14 @@ public class BuilderView {
 
   /**
    * Register a handler to be used when a given type of callback is needed
+   *
    * @param callback the callback to handle
-   * @param handler the handler that can handle that type of callback
-   * @param <R> the type that the handler must return
-   * @param <C> the type of the callback
+   * @param handler  the handler that can handle that type of callback
+   * @param <R>      the type that the handler must return
+   * @param <C>      the type of the callback
    */
-  public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback, CallbackHandler<R, C> handler) {
+  public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback,
+      CallbackHandler<R, C> handler) {
     callbackDispatcher.registerCallbackHandler(callback, handler);
   }
 }
