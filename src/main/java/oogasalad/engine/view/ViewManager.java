@@ -18,6 +18,7 @@ import oogasalad.engine.cheat_codes.PlayerOneWins;
 import oogasalad.engine.cheat_codes.PlayerTwoWins;
 import oogasalad.engine.cheat_codes.RemoveRandomPlayer0Piece;
 import oogasalad.engine.cheat_codes.RemoveRandomPlayer1Piece;
+import oogasalad.engine.cheat_codes.Reset;
 import oogasalad.engine.cheat_codes.ShuffleBoard;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
@@ -40,7 +41,8 @@ public class ViewManager {
       KeyCode.Z, new RemoveRandomPlayer0Piece(),
       KeyCode.S, new ShuffleBoard(),
       KeyCode.DIGIT1, new PlayerOneWins(),
-      KeyCode.DIGIT2, new PlayerTwoWins());
+      KeyCode.DIGIT2, new PlayerTwoWins(),
+      KeyCode.R, new Reset());
   public static double WIDTH = 600;
   public static double HEIGHT = 400;
   public static double GAME_SELECTION_WIDTH = 1000;
@@ -181,7 +183,7 @@ public class ViewManager {
   private void handleKeyPressed(KeyCode code) {
     if(cheatCodes.containsKey(code)) {
       CheatCode cheatCode = (CheatCode) cheatCodes.get(code);
-      Board board = cheatCode.accept(controller.getGame().getBoard(), controller.getEngine());
+      Board board = cheatCode.accept(controller.getGame().getBoard(), controller);
       controller.setBoard(board);
       controller.getEngine().pingActivePlayer();
       controller.getEngine().checkWin();

@@ -1,6 +1,7 @@
 package oogasalad.engine.cheat_codes;
 
 import java.util.Optional;
+import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
@@ -10,7 +11,7 @@ import oogasalad.engine.model.engine.Engine;
 public class RemoveRandomPlayer1Piece implements CheatCode{
 
   @Override
-  public Board accept(Board board, Engine engine) {
+  public Board accept(Board board, Controller controller) {
     Optional<Position> pos = (board.getPositionStatesStream()
         .filter(e -> e.player() == 1)
         .findAny()
