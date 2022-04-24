@@ -33,6 +33,7 @@ public class BuilderView {
   public static final String TAB_FORMAT = "tabFormat.css";
 
   private final Stage stage;
+  private static Scene tabScene;
   public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
   private AllTabs allTabs;
   private Button saveButton;
@@ -40,22 +41,22 @@ public class BuilderView {
 
   public BuilderView(Stage mainStage) {
     stage = mainStage;
-    SplashLogin newWindow = new SplashLogin(e -> buildView());
+    SplashLogin newWindow = new SplashLogin(e -> buildView(TAB_FORMAT));
     //SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
   }
 
   // Builds the view, including all tabs and menus
-  private void buildView() {
+  private void buildView(String newStyle) {
     BorderPane borderPane = new BorderPane();
     allTabs = new AllTabs(callbackDispatcher);
     borderPane.setCenter(allTabs);
     borderPane.setBottom(makeMenu());
 
-    Scene tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
+    tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
         Integer.parseInt(tabProperties.getString("sceneSizeY")));
 
     tabScene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + TAB_FORMAT).toExternalForm());
+        .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + newStyle).toExternalForm());
     stage.setScene(tabScene);
     stage.show();
   }
@@ -112,6 +113,10 @@ public class BuilderView {
    */
   public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback, CallbackHandler<R, C> handler) {
     callbackDispatcher.registerCallbackHandler(callback, handler);
+  }
+
+  public void changeFormat(String newStyle) {
+    buildView(newStyle);
   }
 }
 
