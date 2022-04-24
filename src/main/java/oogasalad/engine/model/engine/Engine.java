@@ -86,7 +86,7 @@ public class Engine {
     }
   }
 
-  private void pingActivePlayer() {
+  public void pingActivePlayer() {
     LOG.info("Player pinged: {}\n", getGameBoard().getPlayer());
     myPlayerManager.getPlayer(getGameBoard().getPlayer()).chooseMove(getGameBoard());
   }
@@ -121,7 +121,7 @@ public class Engine {
     }
   }
 
-  private void checkWin() {
+  public void checkWin() {
     if (myOracle.isWinningState(getGameBoard())) {
       int winner = myOracle.getWinner(getGameBoard());
       if (myPlayerManager.playerExists(winner)) {
