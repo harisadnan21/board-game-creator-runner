@@ -198,6 +198,7 @@ public class BoardCanvas extends Pane {
       gridGraphics.strokeLine(0, y * rectHeight, boardCanvas.getWidth(), y * rectHeight);
     }
   }
+
   private void clearGrid() {
     gridGraphics.clearRect(0, 0, pieceCanvas.getWidth(), pieceCanvas.getHeight());
   }
