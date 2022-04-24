@@ -9,7 +9,7 @@ import oogasalad.builder.model.property.Property;
 /**
  * API that defines a view element that chooses a property.
  *
- * @author Shaan Gondalia
+ * @author Shaan Gondalia & Mike Keohane
  */
 public interface PropertySelector {
 
