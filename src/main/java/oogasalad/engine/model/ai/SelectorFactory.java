@@ -6,11 +6,10 @@ import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.ai.evaluation.memoize.CaffeineMemoizer;
 import oogasalad.engine.model.ai.evaluation.meta.SeekEquality;
-import oogasalad.engine.model.ai.evaluation.patterns.PatternEvaluator;
 import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
+import oogasalad.engine.model.ai.evaluation.patterns.PatternEvaluator;
 import oogasalad.engine.model.ai.evaluation.totals.TotalPieces;
 import oogasalad.engine.model.ai.moveSelection.CachingTreeSearcher;
-import oogasalad.engine.model.ai.moveSelection.TreeSearcher;
 import oogasalad.engine.model.ai.moveSelection.Selects;
 import oogasalad.engine.model.board.Piece;
 

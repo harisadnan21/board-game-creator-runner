@@ -1,15 +1,15 @@
 package oogasalad.engine.model.ai.moveSelection;
 
-import static oogasalad.engine.model.board.Piece.*;
 import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
+import static oogasalad.engine.model.board.Piece.PLAYER_TWO;
 import static org.jooq.lambda.Seq.seq;
 
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
-import oogasalad.engine.model.ai.evaluation.Evaluation;
-import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.ai.enums.Difficulty;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
+import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.Seq;
 

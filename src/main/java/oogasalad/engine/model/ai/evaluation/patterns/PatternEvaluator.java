@@ -1,8 +1,9 @@
 package oogasalad.engine.model.ai.evaluation.patterns;
 
 import static java.util.function.Function.identity;
-import static oogasalad.engine.model.board.Piece.*;
-import static org.jooq.lambda.Seq.*;
+import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
+import static oogasalad.engine.model.board.Piece.PLAYER_TWO;
+import static org.jooq.lambda.Seq.seq;
 
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedMap;
