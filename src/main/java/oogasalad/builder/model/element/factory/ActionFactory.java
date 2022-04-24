@@ -18,7 +18,7 @@ public class ActionFactory extends GameElementFactory<Action> {
    * an Action.
    */
   public ActionFactory() {
-    super("elements.Action");
+    super("builder.elements.Action");
   }
 
   /**
