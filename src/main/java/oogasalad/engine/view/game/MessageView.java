@@ -1,60 +1,51 @@
 package oogasalad.engine.view.game;
 
-import java.util.ResourceBundle;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import org.apache.logging.log4j.message.Message;
 
-public class MessageView {
+public class MessageView extends PopupView {
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
 
-  private ResourceBundle myResources;
-  private String cssFilePath;
-  private Stage popupStage;
-  private VBox pauseRoot;
-  private Button button;
+  private VBox layout;
+  private Button returnToGame;
+  private String message;
+  private String buttonText;
 
   public MessageView(String message, String buttonText, String css, String language) {
-    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
-    cssFilePath = css;
-
-    makeMessage(message);
-    makeButton(buttonText);
-    makeStage();
+    super(css, language);
+    this.message = message;
+    this.buttonText = buttonText;
+    setup();
   }
 
   public Stage getStage() {
     return popupStage;
   }
 
-  public Button getButton() {
-    return button;
+  public Button getReturnToGame() {
+    return returnToGame;
   }
 
-  private void makeStage() {
-    popupStage = new Stage(StageStyle.TRANSPARENT);
-    popupStage.initModality(Modality.APPLICATION_MODAL);
-    Scene pauseScene = new Scene(pauseRoot);
-    pauseScene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
-    popupStage.setScene(pauseScene);
+  @Override
+  protected void setup() {
+    layout = new VBox();
+    layout.setId("message-screen-layout");
+    root.setCenter(layout);
+    makeMessage(message);
+    makeButton(buttonText);
   }
 
   private void makeMessage(String message) {
-    pauseRoot = new VBox();
-    pauseRoot.setId("message-screen-root");
     Text text = new Text(message);
     text.setId("message-screen-text");
-    pauseRoot.getChildren().add(text);
+    layout.getChildren().add(text);
   }
 
   private void makeButton(String buttonText) {
-    button = new Button(buttonText);
-    button.setId("message-screen-button");
-    pauseRoot.getChildren().add(button);
+    returnToGame = new Button(buttonText);
+    returnToGame.setId("message-screen-button");
+    layout.getChildren().add(returnToGame);
   }
 }
