@@ -8,12 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.PositionState;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.rule.Move;
+import oogasalad.engine.model.utilities.Pair;
 
 /**
  * This class controls game logic, such as generation of available moves, checking rules, etc
@@ -28,24 +31,12 @@ public class Oracle implements AIOracle {
 
   private int myNumPlayers;
 
-  public Oracle(Collection<Move> moves, Collection<EndRule> endRules, Collection<Move> persistentRules, int numPlayers) {
-    myMoves = moves;
+  public Oracle(Collection<Move> moves, Collection<EndRule> endRules, int numPlayers) {
+
+    myMoves = moves.stream().filter(move -> !move.isPersistent()).toList();
+    myPersistentRules = moves.stream().filter(move -> move.isPersistent()).toList();
     myEndRules = endRules;
-    myPersistentRules = persistentRules;
     myNumPlayers = numPlayers;
-  }
-  /**
-   *
-   * @param board
-   */
-  public Board checkForWin(Board board) {
-    for (Iterator<EndRule> it = myEndRules.iterator(); it.hasNext(); ) {
-      EndRule endRule = it.next();
-      if(endRule.isValid(board, new Position(0,0))){
-        return board.setWinner(endRule.getWinner(board));
-      }
-    }
-    return board;
   }
 
   /**
@@ -68,21 +59,15 @@ public class Oracle implements AIOracle {
     return getValidMovesForPosition(board, referencePoint).map(move -> new Choice(referencePoint, move));
   }
 
+  /**
+   * Returns all valid moves for this board state as a stream
+   * @param board
+   * @return
+   */
   public Stream<Choice> getValidChoices(Board board) {
     return board.getPositionStatesStream().flatMap(positionState -> getValidChoicesForPosition(board, positionState.position()));
   }
-  /**
-   * Outer map
-   * @param board
-   * @return two dimensional map, where outer map key is the 'reference point' for the move, while the
-   * inner map key is the 'representative point' of the move, or the
-   */
-  public Map<Position, Stream<Move>> getAllValidMoves(Board board) {
-    Map<Position, Stream<Move>> allMoves = new HashMap<>();
-    board.getPositionStatesStream().forEach(posState ->
-        allMoves.put(posState.position(), getValidMovesForPosition(board, posState.position())));
-    return allMoves;
-  }
+
   /**
    * Applies persistent rules to a board
    * Should be called after a player move gets executed and before
@@ -91,10 +76,30 @@ public class Oracle implements AIOracle {
    * @param board
    * @return
    */
-  public Board applyRules(Board board) {
-    Board finalBoard = board;
+  public Board applyPersistentRules(Board board) {
     for (Move rule: myPersistentRules) {
-      board = rule.doMove(board, new Position(0,0));
+      for (PositionState cell: board) {
+        if (rule.isValid(board, cell.position())) {
+          board = rule.doMove(board, cell.position());
+        }
+      }
+    }
+    return board;
+  }
+
+  /**
+   * Returns next state for this board, including incrementing player
+   * @param board
+   * @param choice
+   * @return
+   */
+  public Board getNextState(Board board, Choice choice) {
+    if (!choice.isValidChoice(board)) {
+      throw new RuntimeException("Invalid Choice");
+    }
+    else {
+      board = choice.move().doMove(board, choice.position());
+      board = applyPersistentRules(board);
     }
     return board;
   }
@@ -123,13 +128,44 @@ public class Oracle implements AIOracle {
     return board.setPlayer(nextPlayer);
   }
 
+  /**
+   * Gets choices for a specific player
+   * Switches player to specified player if not active player
+   * @param board
+   * @param player
+   * @return
+   */
   @Override
   public Set<Choice> getChoices(Board board, int player) {
-    return null;
+    board = board.setPlayer(player);
+    return getValidChoices(board).collect(Collectors.toSet());
   }
 
   @Override
-  public Boolean isWinningState(Board board) {
-    return null;
+  public boolean isWinningState(Board board) {
+    Optional<EndRule> satisfyingEndRule = getValidEndRules(board).findFirst();
+    return satisfyingEndRule.isPresent();
+  }
+
+  /**
+   * Returns player id if that player is a winner given board state
+   * if no winner for board state, returns -1
+   * @param board
+   * @return
+   */
+  public int getWinner(Board board) {
+    if (isWinningState(board)) {
+      Optional<EndRule> validEndRule = getValidEndRules(board).findFirst();
+      return validEndRule.get().getWinner(board);
+    }
+    else {
+      return -1;
+    }
+  }
+
+  private Stream<EndRule> getValidEndRules(Board board) {
+    return board.getPositionStatesStream().flatMap(positionState ->
+        myEndRules.stream().filter(endRule ->
+            endRule.isValid(board, positionState.position())));
   }
 }

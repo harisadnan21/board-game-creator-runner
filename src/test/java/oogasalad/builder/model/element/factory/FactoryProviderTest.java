@@ -51,6 +51,8 @@ public class FactoryProviderTest {
   private static final String CONDITIONS = "conditions";
   private static final String REPRESENTATIVE_X = "representativeX";
   private static final String REPRESENTATIVE_Y = "representativeY";
+  private static final String IS_PERSISTENT = "isPersistent";
+  private static final String IS_ABSOLUTE = "isAbsolute";
 
 
   private static final String COORDINATE_NAME_ONE = "x";
@@ -69,6 +71,7 @@ public class FactoryProviderTest {
     properties.add(PropertyFactory.makeProperty(TYPE, ACTION_TYPE));
     properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
     properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
+    properties.add(PropertyFactory.makeProperty(IS_ABSOLUTE, 0));
     GameElement action = provider.createElement(ACTION, ACTION_NAME, properties);
     ElementRecord record = action.toRecord();
     assertEquals(properties, record.properties());
@@ -93,6 +96,7 @@ public class FactoryProviderTest {
     properties.add(PropertyFactory.makeProperty(TYPE, CONDITION_TYPE));
     properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_ONE, COORDINATE_VALUE_ONE));
     properties.add(PropertyFactory.makeProperty(COORDINATE_NAME_TWO, COORDINATE_VALUE_TWO));
+    properties.add(PropertyFactory.makeProperty(IS_ABSOLUTE, 0));
     GameElement condition = provider.createElement(CONDITION, CONDITION_NAME, properties);
     ElementRecord record = condition.toRecord();
     assertEquals(properties, record.properties());
@@ -127,6 +131,7 @@ public class FactoryProviderTest {
     properties.add(PropertyFactory.makeProperty(CONDITIONS, conditions));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_X, RULE_REP_X));
     properties.add(PropertyFactory.makeProperty(REPRESENTATIVE_Y, RULE_REP_Y));
+    properties.add(PropertyFactory.makeProperty(IS_PERSISTENT, 0));
     GameElement rule = provider.createElement(RULE, RULE_NAME, properties);
     ElementRecord record = rule.toRecord();
     assertEquals(properties, record.properties());

@@ -19,8 +19,8 @@ public class MessageView {
   private VBox pauseRoot;
   private Button button;
 
-  public MessageView(String message, String buttonText, String css) {
-    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
+  public MessageView(String message, String buttonText, String css, String language) {
+    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
 
     makeMessage(message);

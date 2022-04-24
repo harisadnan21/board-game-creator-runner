@@ -1,6 +1,6 @@
 package oogasalad.engine.model.board;
 
-public record Piece (int type, int player) {
+public record Piece (int type, int player) implements Comparable<Piece> {
 
   public static int PLAYER_ONE = 0;
   public static int PLAYER_TWO = 1;
@@ -22,4 +22,9 @@ public record Piece (int type, int player) {
     return new Piece(BLANK_TYPE, NO_PLAYER);
   }
 
+  public int compareTo(Piece piece) {
+    if(this.player()!=piece.player()) return this.player() - piece.player();
+
+    return this.type() - piece.type();
+  }
 }

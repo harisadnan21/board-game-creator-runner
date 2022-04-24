@@ -70,7 +70,7 @@ public class Cell {
    * @return - ImageView created from image path
    */
   private ImageView createImageView(String imagePath, double width, double height) {
-    LOG.debug(imagePath);
+    //LOG.debug(imagePath);
     ImageView myImageView = new ImageView(new Image(imagePath));
     //ImageView myImageView = new ImageView();
     myImageView.setId("valid-marker");
