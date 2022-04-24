@@ -2,6 +2,7 @@ package oogasalad.builder.view.tab;
 
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -32,6 +33,7 @@ public class GameElementTab extends AbstractTab {
   private TextField nameField;
   private PropertyEditor propertyEditor;
   private VBox rightBox;
+  private Button saveElementButton;
 
   /**
    * Creates a game element tab with the given callback dispatcher and type
@@ -55,13 +57,18 @@ public class GameElementTab extends AbstractTab {
     propertyEditor = new PropertyEditor(getCallbackDispatcher());
     nameField = new TextField(
         ViewResourcesSingleton.getInstance().getString("defaultName-" + getType()));
+    saveElementButton = makeButton(
+        "save", e -> saveCurrentElement());
+    saveElementButton.setDisable(true);
     rightBox.getChildren().addAll(
-        makeButton("new-" + getType(), e -> createElement()), nameField, propertyEditor,
-        makeButton(
-            "save", e -> saveCurrentElement()));
+        makeButton("new-" + getType(), e -> {createElement(); activateSaveButton();}), nameField, propertyEditor,
+        saveElementButton);
     rightBox.setId("rightGameElementsPane");
     rightBox.getStyleClass().add("rightPane");
     return rightBox;
+  }
+  private void activateSaveButton(){
+    saveElementButton.setDisable(false);
   }
 
   /**
