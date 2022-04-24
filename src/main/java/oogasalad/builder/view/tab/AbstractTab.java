@@ -35,7 +35,7 @@ public abstract class AbstractTab extends BorderPane implements BasicTab {
   }
 
   private void setupTitle() {
-    setTop(new TitlePane(type + "Title").toNode());
+    setTop(new TitlePane(type + "Title"));
   }
 
   private void setupSplitPane() {
