@@ -1,8 +1,5 @@
 package oogasalad.builder.model.element.factory;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.Collection;
 import java.util.HashSet;
 import oogasalad.builder.model.element.ElementRecord;
@@ -11,8 +8,11 @@ import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
 import oogasalad.builder.model.property.PropertyFactory;
+import oogasalad.builder.model.property.StringListProperty;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for FactoryProvider class
@@ -143,7 +143,15 @@ public class FactoryProviderTest {
   @Test
   void testGetRequiredProperties() throws InvalidTypeException {
     Collection<Property> required = provider.getRequiredProperties(RULE);
-    //TODO: Add more rigorous tests
+    assertTrue(required.contains(new StringListProperty("required-conditions", "", "")));
+    // Clear it to make sure it returns a copy and not the real thing
+    try {
+      required.clear();
+    } catch(UnsupportedOperationException e) {
+      // Depending on the implementation, this might be unsupported, but we don't want to care either way, just test that nothing changes
+    }
+    required = provider.getRequiredProperties(RULE);
+    assertTrue(required.contains(new StringListProperty("required-conditions", "", "")));
   }
   
   @Test

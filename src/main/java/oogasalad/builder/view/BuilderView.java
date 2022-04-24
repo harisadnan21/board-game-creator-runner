@@ -14,31 +14,35 @@ import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
-import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.tab.AllTabs;
 
 
 import java.util.ResourceBundle;
 
-/** Creates the scene and handles the builder GUI and the tabs within it
+/**
+ * Creates the scene and handles the builder GUI and the tabs within it
+ *
  * @author Mike Keohane
  */
 public class BuilderView {
+  public static final String DEFAULT_STYLE_PACKAGE = "/builder/view/css/";
+  public static final String DEFAULT_PROPERTY_PACKAGE = "/builder/view/information-properties/";
+  private static final String TAB_PROPERTIES = "tabResources";
+  public static final String DEFAULT_TAB_FORMAT = "tabFormat.css";
 
+  private static final String LOAD_DIR_CHOOSER_TITLE_KEY = "LoadChooserTitle";
 
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
-  private static String TAB_PROPERTIES = "tabResources";
-  private static final String TAB_FORMAT = "tabFormat.css";
-
-
-  private static Stage stage;
-  public static final  ResourceBundle tabProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + TAB_PROPERTIES);
+  private final Stage stage;
+  public static final ResourceBundle tabProperties = ResourceBundle.getBundle(
+      DEFAULT_PROPERTY_PACKAGE + TAB_PROPERTIES);
+  private Scene tabScene;
   private AllTabs allTabs;
   private final CallbackDispatcher callbackDispatcher = new CallbackDispatcher();
 
   public BuilderView(Stage mainStage) {
     stage = mainStage;
     SplashLogin newWindow = new SplashLogin(e -> buildView());
+    //SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
   }
 
   // Builds the view, including all tabs and menus
@@ -47,21 +51,23 @@ public class BuilderView {
     allTabs = new AllTabs(callbackDispatcher);
     borderPane.setCenter(allTabs);
     borderPane.setBottom(makeMenu());
-
-    Scene tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
+    tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
         Integer.parseInt(tabProperties.getString("sceneSizeY")));
-
-    tabScene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + TAB_FORMAT).toExternalForm());
+    setFormat(DEFAULT_TAB_FORMAT);
     stage.setScene(tabScene);
+    stage.centerOnScreen();
     stage.show();
   }
+
 
   // Makes the menu bar, which holds the save and load buttons
   private HBox makeMenu() {
     HBox menu = new HBox();
-    menu.getChildren().add(makeButton("save", e -> saveConfig()));
-    menu.getChildren().add(makeButton("load", e -> loadConfig()));
+    Button saveButton = makeButton("save", e -> saveConfig());
+    Button loadButton = makeButton("load", e -> loadConfig());
+    menu.getChildren().add(new FormatDropDown(this));
+    menu.getChildren().add(saveButton);
+    menu.getChildren().add(loadButton);
     menu.getStyleClass().add("saveMenu");
     return menu;
   }
@@ -77,22 +83,16 @@ public class BuilderView {
 
   // Saves the configuration of the game using a callback to call the controller
   private void saveConfig() {
-    Stage stage = new Stage();
-    DirectoryChooser directoryChooser = new DirectoryChooser();
-    //TODO: Remove Magic Value
-    directoryChooser.setTitle("Choose Configuration Save Location");
-    callbackDispatcher.call(new SaveCallback(directoryChooser.showDialog(stage)));
+    new MetaDataAndSavePopup(callbackDispatcher);
   }
 
   // Saves the configuration of the game using a callback to call the controller
   private void loadConfig() {
-    Stage stage = new Stage();
+    Stage loadStage = new Stage();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    //TODO: Remove Magic Value
-    directoryChooser.setTitle("Choose Configuration Load Location");
-    callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(stage)));
+    directoryChooser.setTitle(ViewResourcesSingleton.getInstance().getString(LOAD_DIR_CHOOSER_TITLE_KEY));
+    callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(loadStage)));
     allTabs.loadAllTabs();
-
   }
 
   /**
@@ -106,13 +106,25 @@ public class BuilderView {
 
   /**
    * Register a handler to be used when a given type of callback is needed
+   *
    * @param callback the callback to handle
-   * @param handler the handler that can handle that type of callback
-   * @param <R> the type that the handler must return
-   * @param <C> the type of the callback
+   * @param handler  the handler that can handle that type of callback
+   * @param <R>      the type that the handler must return
+   * @param <C>      the type of the callback
    */
-  public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback, CallbackHandler<R, C> handler) {
+  public <R, C extends Callback<R>> void registerCallbackHandler(Class<C> callback,
+      CallbackHandler<R, C> handler) {
     callbackDispatcher.registerCallbackHandler(callback, handler);
+  }
+
+  /**
+   * Method to set the format of the view
+   * @param formatFile -  css file name to set the format
+   */
+  public void setFormat(String formatFile){
+    tabScene.getStylesheets().clear();
+    tabScene.getStylesheets()
+        .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + formatFile).toExternalForm());
   }
 }
 

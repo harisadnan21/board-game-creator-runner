@@ -1,10 +1,6 @@
 package oogasalad.engine.model.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import oogasalad.engine.model.board.Board;
 import org.junit.jupiter.api.BeforeEach;

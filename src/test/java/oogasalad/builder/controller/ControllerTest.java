@@ -1,5 +1,12 @@
 package oogasalad.builder.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.HashSet;
 import javafx.stage.Stage;
 import oogasalad.builder.model.exception.ElementNotFoundException;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -24,17 +31,8 @@ import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.callback.SaveCallback;
 import oogasalad.builder.view.callback.UpdateGameElementCallback;
-import org.jooq.impl.QOM.Ge;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-
-import java.io.File;
-import java.util.Collection;
-import java.util.HashSet;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for BuilderController Class
@@ -216,7 +214,6 @@ public class ControllerTest extends DukeApplicationTest {
 
   @Test
   void testLoad() {
-    // TODO: Change test when loading is implemented
     File file = new File(TEST_LOAD_DIRECTORY);
     controller.load(new LoadCallback(file));
     file = new File(TEST_SAVE_EXCEPTION_FILENAME);

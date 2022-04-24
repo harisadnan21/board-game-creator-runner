@@ -1,13 +1,12 @@
 package oogasalad.builder.view.tab.boardTab;
 
-import static oogasalad.builder.view.BuilderView.DEFAULT_RESOURCE_PACKAGE;
 import static oogasalad.builder.view.BuilderView.tabProperties;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -16,7 +15,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import oogasalad.builder.model.exception.NullBoardException;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
@@ -24,27 +22,26 @@ import oogasalad.builder.view.tab.AbstractTab;
 
 
 /**
+ * The BoardTab handles the ability to create an edit a board as well as configure the starting
+ * positions for pieces in the game.
+ *
  * @author Mike Keohane
  */
 public class BoardTab extends AbstractTab {
-
+  private static final String PIECE_TYPE = "piece";
   public static final String BOARD_TYPE = "board";
-  public static String BOARD_PROPERTIES = "BoardTypes";
+  public static final int A_NUM = 1;
+  public static final int B_NUM = 2;
   private BoardCanvas boardCanvas;
   private Spinner<Integer> xDimensionPicker;
   private Spinner<Integer> yDimensionPicker;
   private ColorPicker colorPickerA;
   private ColorPicker colorPickerB;
-  private ComboBox<String> boardTypeBox;
-  private ColorPicker gridColorPicker;
-  private CheckBox gridCheck;
-  private static final ResourceBundle boardTypes = ResourceBundle.getBundle(
-      DEFAULT_RESOURCE_PACKAGE + BOARD_PROPERTIES);
 
   /**
-   * Default Constructor to create the BoardTab which extends Basic Tab.
+   * Default Constructor to create the BoardTab which extends BasicTab.
    *
-   * @param dispatcher
+   * @param dispatcher - the callback dispatcher to be able to call model methods
    */
   public BoardTab(CallbackDispatcher dispatcher) {
     super(BOARD_TYPE, dispatcher);
@@ -62,12 +59,15 @@ public class BoardTab extends AbstractTab {
     VBox rightBox = new VBox();
 
     rightBox.getChildren()
-        .addAll(setupButtonBar(), setupBoardEditChoiceToggle(), setupGridToggle(), setupBoardConfigInput());
+        .addAll(setupButtonBar(), setupBoardEditChoiceToggle(), setupBoardConfigInput());
     rightBox.setId("rightBoardPane");
     rightBox.getStyleClass().add("rightPane");
     return rightBox;
   }
 
+  /**
+   * Creates a board and adds pieces based on the configuration loaded from a file in the model.
+   */
   @Override
   public void loadElements() {
     boardCanvas.changeCanvasSize(
@@ -75,8 +75,10 @@ public class BoardTab extends AbstractTab {
         getCenter().getBoundsInParent().getHeight());
     boardCanvas.loadBoard();
   }
+
   /**
    * Sets up the boardCanvas and returns it as the left side
+   *
    * @return
    */
   @Override
@@ -94,7 +96,7 @@ public class BoardTab extends AbstractTab {
     confirmBoardButton.setId("drawBoard");
 
     boardConfigBox.getChildren()
-        .addAll(setupColorChoiceBox(), setupDimensionChoiceBox(), setupBoardTypeBox(),
+        .addAll(setupColorChoiceBox(), setupDimensionChoiceBox(),
             confirmBoardButton);
     boardConfigBox.setId("boardConfigBox");
     boardConfigBox.getStyleClass().add("boardConfigBox");
@@ -117,15 +119,16 @@ public class BoardTab extends AbstractTab {
     Label xDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("xDimLabel"));
     Label yDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("yDimLabel"));
 
-    xDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("numPickerMin")),
-        Integer.parseInt(tabProperties.getString("numPickerMax")),
-        Integer.parseInt(tabProperties.getString("defaultBoardX")),
-        Integer.parseInt(tabProperties.getString("numPickerStep")));
-    yDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("numPickerMin")),
-        Integer.parseInt(tabProperties.getString("numPickerMax")),
-        Integer.parseInt(tabProperties.getString("defaultBoardY")),
-        Integer.parseInt(tabProperties.getString("numPickerStep")));
-
+    xDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("minBoardSize")),
+            Integer.MAX_VALUE,
+            Integer.parseInt(tabProperties.getString("defaultBoardX")),
+            1);
+    yDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("minBoardSize")),
+            Integer.MAX_VALUE,
+            Integer.parseInt(tabProperties.getString("defaultBoardY")),
+            1);
+    xDimensionPicker.setEditable(true);
+    yDimensionPicker.setEditable(true);
     VBox xDimBox = new VBox(xDimLabel, xDimensionPicker);
     VBox yDimBox = new VBox(yDimLabel, yDimensionPicker);
 
@@ -133,65 +136,20 @@ public class BoardTab extends AbstractTab {
     return numberPickerBox;
   }
 
-  private Node setupBoardTypeBox() {
-
-    boardTypeBox = new ComboBox<>();
-    boardTypes.keySet().forEach(key -> boardTypeBox.getItems().add(boardTypes.getString(key)));
-
-    boardTypeBox.setPromptText(ViewResourcesSingleton.getInstance().getString("boardTypePicker"));
-    boardTypeBox.setValue(boardTypes.getString("checkers"));
-    boardTypeBox.setId("boardTypePicker");
-    return boardTypeBox;
-  }
-
-  private void createBoard()
-      throws NullBoardException {
-    if (boardTypeBox.getValue() == null) {
-      throw new IllegalBoardTypeException("");
-    }
-    boardCanvas.setColor(colorPickerA.getValue(), 1);
-    boardCanvas.setColor(colorPickerB.getValue(), 2);
+  private void createBoard() {
+    boardCanvas.setColor(colorPickerA.getValue(), A_NUM);
+    boardCanvas.setColor(colorPickerB.getValue(), B_NUM);
     boardCanvas.changeCanvasSize(
         getCenter().getBoundsInParent().getWidth() * getSplitPane().getDividerPositions()[0],
         getCenter().getBoundsInParent().getHeight());
-    boardCanvas.drawBoard(xDimensionPicker.getValue(), yDimensionPicker.getValue(),
-        boardTypeBox.getValue());
-    toggleGrid();
-  }
-
-  private Node setupGridToggle(){
-    VBox gridBox = new VBox();
-    HBox gridCheckBox = new HBox();
-    Label gridCheckLabel = new Label(ViewResourcesSingleton.getInstance().getString("showGrid"));
-    gridCheck = new CheckBox();
-    gridColorPicker = new ColorPicker(Color.BLACK);
-    gridColorPicker.setOnAction(e -> toggleGrid());
-    gridCheck.setOnAction(e -> toggleGrid());
-
-    gridCheckBox.getChildren().addAll(gridCheck, gridCheckLabel);
-    gridBox.getChildren().addAll(gridCheckBox, gridColorPicker);
-    gridBox.getStyleClass().add("boardConfigBox");
-    return gridBox;
-  }
-
-  private void toggleGrid(){
-    if (gridCheck.isSelected()){
-      boardCanvas.drawGrid(gridColorPicker.getValue());
-      //TODO: CALLBACK COLOR = gridColorPicker.getValue() and isShown = TRUE
-    }
-    else {
-      boardCanvas.clearGrid();
-      //TODO: CALLBACK COLOR = idk if matters and isShown = FALSE
-    }
+    boardCanvas.drawBoard(xDimensionPicker.getValue(), yDimensionPicker.getValue());
   }
 
   private Node setupButtonBar() {
     VBox buttonBox = new VBox();
-    //Button saveButton = makeButton("saveBoard", e -> saveBoardConfig());
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
     resetPiecesButton.setId("clearPieces");
-
     buttonBox.getChildren()
         .addAll(setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");
@@ -255,10 +213,9 @@ public class BoardTab extends AbstractTab {
   }
 
   private void updatePieceOptions(ComboBox<String> pieceBox) {
-    //TODO: Remove Magic Value
     String currVal = pieceBox.getValue();
     Collection<String> pieceNames = getCallbackDispatcher().call(
-        new GetElementNamesCallback("piece")).orElse(new ArrayList<>());
+        new GetElementNamesCallback(PIECE_TYPE)).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
   }

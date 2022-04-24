@@ -1,16 +1,23 @@
 package oogasalad.builder.view.tab;
 
 
-import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
 /**
  * Class that represents the Rules Tab
+ *
+ * @author Ricky Weerts
  */
 public class RulesTab extends GameElementTab {
-    public static String RULE = "rule";
 
-    public RulesTab(CallbackDispatcher dispatcher) {
-        super(dispatcher, RULE);
-    }
+  public static String RULE = "rule";
+
+  /**
+   * initializes the RulesTab by calling the GameElementTab super class
+   *
+   * @param dispatcher - callbackDispatcher to communicate with the controller
+   */
+  public RulesTab(CallbackDispatcher dispatcher) {
+    super(dispatcher, RULE);
+  }
 }

@@ -91,9 +91,6 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
     String[] requiredParams = referenceResources.getString(type)
         .split(REFLECTION_DELIMITER)[1].split(PARAMETER_DELIMITER);
 
-    LOG.error("name {}, type {}\n", name, type);
-    LOG.info("Type: {}\n", type);
-    LOG.info("Required params {}\n", Arrays.toString(requiredParams));
     int[] params = new int[requiredParams.length];
     for (int i = 0; i < requiredParams.length; i++) {
       //TODO: Implement variables here

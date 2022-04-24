@@ -1,17 +1,22 @@
 package oogasalad.engine.model.ai.moveSelection;
 
-import static oogasalad.engine.model.board.Piece.*;
-import static oogasalad.engine.model.board.Piece.PLAYER_ONE;
+import static oogasalad.engine.model.board.cells.Piece.PLAYER_ONE;
+import static oogasalad.engine.model.board.cells.Piece.PLAYER_TWO;
+import static org.jooq.lambda.Seq.seq;
 
+import java.util.Optional;
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
-import oogasalad.engine.model.ai.evaluation.Evaluation;
-import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.ai.enums.Difficulty;
+import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
+import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.board.Board;
 import org.jooq.lambda.Seq;
 
+/**
+ * @author Alex Bildner
+ */
 public class TreeSearcher implements Selects {
   private final int maxDepth;
   private final StateEvaluator stateEvaluator;
@@ -27,13 +32,14 @@ public class TreeSearcher implements Selects {
   }
 
   public AIChoice selectChoice(Board board, int forPlayer) {
-    return getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(),
-        forPlayer, getDepthLimit())).get();
+    Optional<AIChoice> aIChoice = getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(),
+        forPlayer, getDepthLimit()));
+    return aIChoice.orElse(null);
   }
 
   protected final Seq<AIChoice> getChoices(Board board, int forPlayer) {
     timeLimit.start();
-    return Seq.seq(aiOracle.getChoices(board, forPlayer));
+    return seq(aiOracle.getChoices(board, forPlayer));
   }
 
   protected int runMinimax(Board board, int player, int depth) {

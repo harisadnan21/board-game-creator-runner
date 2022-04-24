@@ -1,7 +1,6 @@
 package oogasalad.builder.model.property;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
