@@ -4,6 +4,7 @@ import static oogasalad.engine.model.board.cells.Piece.PLAYER_ONE;
 import static oogasalad.engine.model.board.cells.Piece.PLAYER_TWO;
 import static org.jooq.lambda.Seq.seq;
 
+import java.util.Optional;
 import oogasalad.engine.model.ai.AIChoice;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.ai.enums.Difficulty;
@@ -31,8 +32,9 @@ public class TreeSearcher implements Selects {
   }
 
   public AIChoice selectChoice(Board board, int forPlayer) {
-    return getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(),
-        forPlayer, getDepthLimit())).get();
+    Optional<AIChoice> aIChoice = getChoices(board, forPlayer).maxBy(choice -> runMinimax(choice.getResultingBoard(),
+        forPlayer, getDepthLimit()));
+    return aIChoice.orElse(null);
   }
 
   protected final Seq<AIChoice> getChoices(Board board, int forPlayer) {

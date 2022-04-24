@@ -170,16 +170,11 @@ public class Oracle implements AIOracle {
    * @return
    */
   public int getWinner(Board board) {
-    if (isWinningState(board)) {
-      Optional<EndRule> validEndRule = getValidEndRules(board).filter(name -> !Objects.equals(
-          name.getName(), "draw")).findFirst();
-      if(validEndRule.isPresent())return validEndRule.get().getWinner(board);
-      validEndRule = getValidEndRules(board).findFirst();
-      return validEndRule.get().getWinner(board);
-    }
-    else {
-      return -1;
-    }
+    Optional<EndRule> validEndRule = getValidEndRules(board).filter(name -> !Objects.equals(
+        name.getName(), "draw")).findFirst();
+    if(validEndRule.isPresent())return validEndRule.get().getWinner(board);
+    validEndRule = getValidEndRules(board).findFirst();
+    return validEndRule.get().getWinner(board);
   }
 
   private Stream<EndRule> getValidEndRules(Board board) {
