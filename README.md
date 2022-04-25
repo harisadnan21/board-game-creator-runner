@@ -40,6 +40,16 @@ Known Bugs:
 
 Extensions completed:
 
-
+###CheatCodes
+O -> RemovePlayer1Piece(),
+Z -> new RemovePlayer0Piece(),
+S -> ShuffleBoard(),
+1 -> PlayerOneWins(),
+2 -> PlayerTwoWins(),
+R -> Reset(),
+L -> Player1Turn(),
+K -> Player2Turn(),
+I -> IncrementPlayer(),
+P -> CopyRandomPiece());
 ### Impressions
 
