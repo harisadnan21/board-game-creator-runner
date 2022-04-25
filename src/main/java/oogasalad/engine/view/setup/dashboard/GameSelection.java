@@ -19,7 +19,7 @@ public class GameSelection extends FlowPane {
   private static final Logger LOG = LogManager.getLogger(GameSelection.class);
   public static final double GRID_WIDTH = 3;
   private double grid_length;
-  //private ResourceBundle resources = ResourceBundle.getBundle("engine-view/resource-names/Image");
+  private ResourceBundle resources = ResourceBundle.getBundle("engine-view/resource-names/Image");
   public static final String DEFAULT_PATH = "default1.jpeg";
 
   private Map<String, String> availableGames;
@@ -59,7 +59,7 @@ public class GameSelection extends FlowPane {
         .filter(fileName -> stringContainsAny(fileName, imageTypes))
         .findFirst();
     return file.map(s -> GAME_PATH + RESOURCES_PATH + folder.getName() + RESOURCES_PATH + s)
-        .orElse("default1.jpeg");
+        .orElse(resources.getString("Default"));
 
   }
 
