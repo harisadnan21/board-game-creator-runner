@@ -8,12 +8,21 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import oogasalad.builder.view.BuilderView;
 
+/**
+ * API for the Settings tab. Allows us to have a small pop up within the actual builder, instead of using tabs
+ *
+ * @author Thivya Sivarajah
+ */
 public interface SettingsView {
 
-
+    /**
+     * displays the elements
+     */
     default void makeStage() {}
 
-
+    /**
+     * loads the elements in a scene and
+     */
     void setup();
 
 }

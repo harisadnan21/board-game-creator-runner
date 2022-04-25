@@ -32,6 +32,7 @@ public class BuilderView {
   public static final String DEFAULT_PROPERTY_PACKAGE = "/builder/view/information-properties/";
   private static final String TAB_PROPERTIES = "tabResources";
   public static final String DEFAULT_TAB_FORMAT = "tabFormat.css";
+  public static final String DEFAULT_FONT_FORMAT = "Default.css";
 
   private static final String LOAD_DIR_CHOOSER_TITLE_KEY = "LoadChooserTitle";
 
@@ -50,7 +51,6 @@ public class BuilderView {
   public BuilderView(Stage mainStage) {
     stage = mainStage;
     buildView();
-//    SplashLogin newWindow = new SplashLogin(mainStage, e -> buildView());
 
   }
 
@@ -62,7 +62,7 @@ public class BuilderView {
     borderPane.setBottom(makeMenu());
     tabScene = new Scene(borderPane, Integer.parseInt(tabProperties.getString("sceneSizeX")),
         Integer.parseInt(tabProperties.getString("sceneSizeY")));
-    setFormat(DEFAULT_TAB_FORMAT);
+    setFormat(DEFAULT_TAB_FORMAT, DEFAULT_FONT_FORMAT);
     stage.setScene(tabScene);
     stage.centerOnScreen();
     stage.show();
@@ -76,10 +76,8 @@ public class BuilderView {
     saveButton.setId("saveGameButton");
     Button loadButton = makeButton("load", e -> loadConfig());
     Button configureButton = makeButton("configure", e -> settingsConfig());
-//    menu.getChildren().add(new FormatDropDown(this));
     menu.getChildren().add(configureButton);
     loadButton.setId("loadGameButton");
-    //menu.getChildren().add(new FormatDropDown(this, stage));
     menu.getChildren().add(saveButton);
     menu.getChildren().add(loadButton);
     menu.getStyleClass().add("saveMenu");
@@ -138,13 +136,15 @@ public class BuilderView {
   /**
    * Method to set the format of the view
    *
-   * @param formatFile -  css file name to set the format
+   * @param fontFile -  css file name to set the format
    */
-  public void setFormat(String formatFile) {
+  public void setFormat(String themeFile, String fontFile) {
     tabScene.getStylesheets().clear();
     tabScene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + formatFile).toExternalForm());
+        .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + themeFile).toExternalForm());
+    tabScene.getStylesheets().add(getClass().getResource(DEFAULT_STYLE_PACKAGE + fontFile).toExternalForm());
   }
+
 
   //Gets the tabs FOR TESTING PURPOSES
   AllTabs getAllTabs() {

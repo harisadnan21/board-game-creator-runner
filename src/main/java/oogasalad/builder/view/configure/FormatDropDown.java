@@ -17,19 +17,18 @@ public class FormatDropDown extends ComboBox<String> {
 
   ResourceBundle styleOptions;
   private String styleChoice;
+  private String keyToButton;
 
   /**
    * Constructs the drop-down and sets the ChangeListener to call view.setFormat()
    *
    * @param view - BuilderView instance
    */
-  public FormatDropDown(BuilderView view, String styleChange) {
+  public FormatDropDown(BuilderView view, String styleChange, String buttonLabel) {
     styleChoice = styleChange;
+    keyToButton = buttonLabel;
     fillDropDown();
-    this.setPromptText(ViewResourcesSingleton.getInstance().getString("formatPrompt"));
-    this.valueProperty().addListener((observable, oldValue, newValue) -> view.setFormat(
-        styleOptions.getString(
-            ViewResourcesSingleton.getInstance().getString(newValue.replace(" ", "_")))));
+    this.setPromptText(ViewResourcesSingleton.getInstance().getString(keyToButton));
   }
 
   //fills DropDown from a file
@@ -41,5 +40,11 @@ public class FormatDropDown extends ComboBox<String> {
       this.getItems()
           .add(ViewResourcesSingleton.getInstance().getString((String) keys.nextElement()));
     }
+  }
+
+  // allows us to add a format on top of the styling/theme
+  public String getFormat() {
+    return styleOptions.getString(ViewResourcesSingleton.getInstance().getString(
+            this.getValue().replace(" ", "_")));
   }
 }

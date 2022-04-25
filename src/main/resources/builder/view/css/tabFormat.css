@@ -1,5 +1,5 @@
 .label{
-  -fx-font-family: "Lucida Sans";
+
   -fx-font-size: 10pt;
 }
 
@@ -24,7 +24,7 @@
   -fx-background-color: #F0F8FF;
   -fx-color: #FFFAEF;
   -fx-font-size: 14pt;
-  -fx-font-family: "Lucida Sans";
+
 }
 .gameElementList{
   -fx-border-color: BLACK;
@@ -53,7 +53,7 @@
   -fx-spacing: 20;
   -fx-border-color: BLACK;
   -fx-fill-color: whitesmoke;
-  -fx-font-family: "Lucida Sans";
+
 }
 HBox {
   -fx-alignment: center;
@@ -114,7 +114,7 @@ ToggleButton:hover {
   -fx-font-size: 10pt;
   -fx-alignment: center;
   -fx-padding: 5;
-  -fx-font-family: "Lucida Sans";
+
 }
 
 .helpBox{
@@ -125,7 +125,6 @@ ToggleButton:hover {
   -fx-spacing: 20;
   -fx-border-color: BLACK;
   -fx-background-color: #F0F8FF;
-  -fx-font-family: "Lucida Sans";
 }
 .saveMenu{
   -fx-pref-width: 17;
@@ -136,12 +135,10 @@ ToggleButton:hover {
   -fx-background-color: #F0F8FF;
   -fx-color: #FFFAEF;
   -fx-font-size: 11pt;
-  -fx-font-family: "Lucida Sans";
 }
 
 #message-screen-text, #settings-header{
   -fx-font-size: 20;
-  -fx-font-family: "Montserrat";
   -fx-fill: black;
 }
 
