@@ -14,10 +14,8 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
-import javafx.beans.InvalidationListener;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -274,7 +272,6 @@ public class BoardView implements PropertyChangeListener {
     for(Position pos : validMoves){
       myGrid[pos.row()][pos.column()].addValidMarker();
     }
-
   }
 
   /**
@@ -314,5 +311,8 @@ public class BoardView implements PropertyChangeListener {
 
   public Node getRoot() {
     return root;
+  }
+
+  public void setValidMarkers(Object o) {
   }
 }

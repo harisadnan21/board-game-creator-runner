@@ -21,6 +21,7 @@ public class SettingsControlPanel extends ControlPanel {
   protected void createButtons() {
     info = createButton(INFO_IMAGE);
     settings = createButton(SETTINGS_IMAGE);
+    settings.setId("settings-button");
     root.getChildren().addAll(info, settings);
   }
   public Button getInfoButton(){

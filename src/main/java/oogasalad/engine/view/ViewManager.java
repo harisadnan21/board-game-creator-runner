@@ -52,8 +52,8 @@ public class ViewManager {
       KeyCode.I, new IncrementPlayer(),
       KeyCode.P, new PlaceRandomPiece());
 
-  public static double WIDTH = 600;
-  public static double HEIGHT = 400;
+  public static double WIDTH;
+  public static double HEIGHT;
   public static double GAME_SELECTION_WIDTH = 1000;
   public static double GAME_SELECTION_HEIGHT = 600;
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
@@ -143,17 +143,17 @@ public class ViewManager {
     newStage.setScene(newScene);
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
     gameScenes.add(newScene);
-    pmv.getOnePlayer().setOnAction(e -> selectAI(newStage));
-    pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage));
+    pmv.getOnePlayer().setOnAction(e -> selectAI(game, newStage));
+    pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage, new String[]{"human", "human"}));
     newStage.show();
   }
 
-  private void selectAI(Stage newStage) {
-    AISelectView aiView = new AISelectView(WIDTH, HEIGHT, cssFilepath, language);
+  private void selectAI(File game, Stage newStage) {
+    AISelectView aiView = new AISelectView(WIDTH, HEIGHT, cssFilepath, language, game, newStage, this::startGame);
     newStage.setScene(aiView.makeScene());
   }
 
-  private void startGame(File game, Stage newStage) {
+  private void startGame(File game, Stage newStage, String[]players) {
     try {
       GameParser parser;
       try {
@@ -164,7 +164,7 @@ public class ViewManager {
         parser = new GameParser(game);
       }
       Board board = parser.parseBoard();
-      controller = new Controller();
+      controller = new Controller(players);
       BoardView boardView = new BoardView(controller, game, board, BOARDX, BOARDY, cssFilepath, language);
       controller.startEngine(parser, boardView::setValidMarkers, boardView::endGame);
       controller.getGame().addListener(boardView);
