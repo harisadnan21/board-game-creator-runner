@@ -1,5 +1,7 @@
 package oogasalad.engine.view.game;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Optional;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -70,14 +72,17 @@ public class Cell {
    * @return - ImageView created from image path
    */
   private ImageView createImageView(String imagePath, double width, double height) {
-    //LOG.debug(imagePath);
-    ImageView myImageView = new ImageView(new Image(imagePath));
-    //ImageView myImageView = new ImageView();
-    myImageView.setId("valid-marker");
-    myImageView.setFitWidth(width);
-    myImageView.setFitHeight(height);
-    return myImageView;
-
+    LOG.debug(imagePath);
+    File f = new File(imagePath);
+    try{
+      ImageView myImageView = new ImageView(new Image(f.toURI().toURL().toExternalForm()));
+      myImageView.setId("valid-marker");
+      myImageView.setFitWidth(width);
+      myImageView.setFitHeight(height);
+      return myImageView;
+    } catch ( MalformedURLException e) {
+      throw new IllegalArgumentException(e);
+    }
   }
 
   public void removePiece() {

@@ -1,6 +1,7 @@
 package oogasalad.builder.view.tab;
 
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -57,8 +58,10 @@ public class GameElementTab extends AbstractTab {
     propertyEditor = new PropertyEditor(getCallbackDispatcher());
     nameField = new TextField(
         ViewResourcesSingleton.getInstance().getString("defaultName-" + getType()));
+    nameField.setId("nameField-"+getType());
     saveElementButton = makeButton(
         "save", e -> saveCurrentElement());
+    saveElementButton.setId("save-"+getType());
     saveElementButton.setDisable(true);
     rightBox.getChildren().addAll(
         makeButton("new-" + getType(), e -> {createElement(); activateSaveButton();}), nameField, propertyEditor,
@@ -79,6 +82,7 @@ public class GameElementTab extends AbstractTab {
   @Override
   protected Node setupLeftSide() {
     elementList = new GameElementList(this::elementSelected);
+    elementList.setId("elementList-" + getType());
     return elementList;
   }
 

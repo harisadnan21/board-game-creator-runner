@@ -38,10 +38,11 @@ public class FileSelector implements PropertySelector {
     chooseButton = new Button();
     chooseButton.setText(ViewResourcesSingleton.getInstance().getString(BUTTON_TEXT_KEY));
     if (!property.valueAsString().equals(property.defaultValue().toString())){
-      chooseButton.setText(property.valueAsString().split(FILE_DELIMITER)[property.valueAsString().split(
-          FILE_DELIMITER).length - 1]);
+      String[] fileNameSplit = property.valueAsString().split(FILE_DELIMITER);
+      chooseButton.setText(fileNameSplit[fileNameSplit.length-1]);
     }
     chooseButton.setOnAction(e -> chooseFile());
+    chooseButton.setId("fileSelector-" + this.property.shortName());
   }
 
   /**
@@ -76,8 +77,8 @@ public class FileSelector implements PropertySelector {
     File file = fileChooser.showOpenDialog(stage);
     if (file != null) {
       filePath = file.toString();
-      chooseButton.setText(filePath.split(FILE_DELIMITER)[filePath.split(
-          FILE_DELIMITER).length - 1]);
+      String[] fileNameSplit = filePath.split(FILE_DELIMITER);
+      chooseButton.setText(fileNameSplit[fileNameSplit.length-1]);
     }
   }
 
