@@ -54,7 +54,6 @@ public class GameSelection extends FlowPane {
         .map(File::getName)
         .filter(fileName -> stringContainsAny(fileName, imageTypes))
         .findFirst();
-    LOG.info("Image file: {}", file.get());
     return file.map(s -> GAME_PATH + RESOURCES_PATH + folder.getName() + RESOURCES_PATH + s)
         .orElse(DEFAULT_PATH);
 
