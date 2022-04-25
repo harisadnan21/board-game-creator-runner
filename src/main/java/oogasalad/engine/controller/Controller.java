@@ -97,15 +97,12 @@ public class Controller {
   /**
    * resets the board model to the initial game state
    */
-  public Board resetGame() {
-
+  public void resetGame() {
     myGame.reset(myInitialBoard);
-    return myInitialBoard;
   }
 
   public void click(int row, int column) throws OutOfBoardException {
     myEngine.onCellSelect(row, column);
-
   }
 
   public Engine getEngine(){
