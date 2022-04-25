@@ -6,19 +6,45 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
+ *
+ * Selection window for the users to choose between modes of playing
+ * inherits from SelectionView
+ *
  * @author Cynthia France
  */
 public class PlayerModeView extends SelectionView {
   Button twoPlayer;
   Button onePlayer;
 
+  /**
+   *
+   * creates the window for users to select playing mode
+   *
+   * @param w width of window
+   * @param h height of window
+   * @param css the filepath for styling
+   * @param language user-specified language in which the UI is displayed in
+   */
   public PlayerModeView(double w, double h, String css, String language) {
     super(w, h, css, language);
   }
 
+  /**
+   *
+   * returns the button for one player game play
+   *
+   * @return button for one player game play
+   */
   public Button getOnePlayer() {
     return onePlayer;
   }
+
+  /**
+   *
+   * returns the button for two player game play
+   *
+   * @return button for two player game play
+   */
   public Button getTwoPlayer() {
     return twoPlayer;
   }
