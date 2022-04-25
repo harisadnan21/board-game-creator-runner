@@ -15,6 +15,9 @@ import oogasalad.builder.model.exception.IllegalPropertyDefinitionException;
 import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
+import oogasalad.view.OpeningSplashScreen;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
   private static final String REQUIRED = "required";
   private static final String NAME = "name";
   private static final String TYPE = "type";
+  private static final Logger LOG = LogManager.getLogger(GameElementFactory.class);
   private final ResourceBundle propertiesResources;
   private Collection<Property> properties;
   private final Map<Property, String> propertyTypes;
@@ -110,6 +114,7 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
       s.append(arr.getString(arr.length() - 1));
       return s.toString();
     } catch (JSONException e) {
+      LOG.info(e);
       return orig;
     }
   }

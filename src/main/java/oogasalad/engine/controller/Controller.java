@@ -25,10 +25,12 @@ import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
 
 import oogasalad.engine.model.parser.GameParser;
-import oogasalad.engine.view.game.BoardView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Controller {
 
+  private static final Logger LOG = LogManager.getLogger(Controller.class);
   private GameParser myParser;
 
   private Board myInitialBoard;
@@ -63,7 +65,7 @@ public class Controller {
       myEngine = new Engine(myGame, myPlayerManager, myOracle, null);
 
     } catch (Exception e){
-      e.printStackTrace();
+      LOG.fatal(e);
     }
   }
 

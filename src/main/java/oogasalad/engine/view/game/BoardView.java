@@ -124,6 +124,7 @@ public class BoardView implements PropertyChangeListener {
           try {
             cellClicked(e, finalRow, finalColumn);
           } catch (OutOfBoardException ex) {
+            LOG.warn(ex);
             ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("BoardOutOfBounds"));
           }
         });
@@ -141,6 +142,7 @@ public class BoardView implements PropertyChangeListener {
       metadata = mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]);
     }
     catch (FileNotFoundException e) {
+      LOG.error(e);
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("FileNotFound"));
     }
   }
@@ -153,6 +155,7 @@ public class BoardView implements PropertyChangeListener {
       return cellColors;
     }
     catch (JSONException e) {
+      LOG.error(e);
       return Optional.empty();
     }
   }
@@ -206,7 +209,7 @@ public class BoardView implements PropertyChangeListener {
     Rectangle foundation = new Rectangle(width, height);
     foundation.setId("board-foundation");
 
-    System.out.println(cellSize.toString());
+    LOG.debug(cellSize.toString());
     double cellW = cellSize.getKey();
     double cellH = cellSize.getValue();
 

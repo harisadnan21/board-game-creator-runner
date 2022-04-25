@@ -30,7 +30,6 @@ public class CellParser extends AbstractParser<String[][]> {
         colorConfig[height - i - 1][j] = row.getString(j);
       }
     }
-    System.out.println("color");
     return colorConfig;
   }
 }

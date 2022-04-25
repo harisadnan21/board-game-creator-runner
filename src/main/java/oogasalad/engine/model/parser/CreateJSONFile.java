@@ -1,8 +1,11 @@
 package oogasalad.engine.model.parser;
 import java.io.FileWriter;
 import java.io.IOException;
+import oogasalad.builder.view.property.PropertyEditor;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.driver.Game;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,6 +15,9 @@ import org.json.JSONObject;
  * @author Haris Adnan
  */
 public class CreateJSONFile {
+
+  private static final Logger LOG = LogManager.getLogger(CreateJSONFile.class);
+
   private Controller myController;
   private Game myGame;
 
@@ -37,7 +43,7 @@ public class CreateJSONFile {
     return file;
 
   }catch(IOException e){
-    e.printStackTrace();
+    LOG.error(e);
     return null;
   }
   }

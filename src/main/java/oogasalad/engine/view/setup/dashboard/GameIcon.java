@@ -68,6 +68,7 @@ public class GameIcon extends VBox {
       myUpdateInfo.accept(parser.readMetadata(), myGameFolder);
     }
     catch(FileNotFoundException | NullPointerException e ){
+      LOG.error(e);
       new Alert(Alert.AlertType.ERROR, "Error in config file").showAndWait();
     }
   }
@@ -78,6 +79,7 @@ public class GameIcon extends VBox {
       configFile = myGameFolder.listFiles(getConfigFile)[0];
     }
     catch(NullPointerException  | ArrayIndexOutOfBoundsException e){
+      LOG.error(e);
       new Alert(Alert.AlertType.ERROR, "Error in config file").showAndWait();
     }
     return configFile;
