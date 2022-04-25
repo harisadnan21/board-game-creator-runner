@@ -1,6 +1,7 @@
 package oogasalad.builder.view;
 
 
+import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
@@ -20,6 +21,7 @@ import oogasalad.builder.view.tab.AllTabs;
 
 
 import java.util.ResourceBundle;
+import oogasalad.view.SplashWelcome;
 
 /**
  * Creates the scene and handles the builder GUI and the tabs within it
@@ -80,6 +82,7 @@ public class BuilderView {
     loadButton.setId("loadGameButton");
     menu.getChildren().add(saveButton);
     menu.getChildren().add(loadButton);
+    menu.getChildren().add(makeButton("newWindow", e-> new SplashWelcome()));
     menu.getStyleClass().add("saveMenu");
     return menu;
   }
@@ -106,8 +109,12 @@ public class BuilderView {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     directoryChooser.setTitle(
         ViewResourcesSingleton.getInstance().getString(LOAD_DIR_CHOOSER_TITLE_KEY));
-    callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(loadStage)));
-    allTabs.loadAllTabs();
+    File file = directoryChooser.showDialog(loadStage);
+    if (file != null){
+      callbackDispatcher.call(new LoadCallback(file));
+      allTabs.loadAllTabs();
+    }
+
   }
 
 

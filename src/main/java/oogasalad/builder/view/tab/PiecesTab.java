@@ -10,7 +10,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
  */
 public class PiecesTab extends GameElementTab {
 
-  public static String PIECE = "piece";
+  public static final String PIECE = "piece";
 
   /**
    * Initializes the PiecesTab by calling the GameElementTab super class
