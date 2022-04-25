@@ -1,8 +1,10 @@
 package oogasalad.engine.view;
 
-import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 
+/**
+ * @author Cynthia France
+ */
 public class ApplicationAlert {
 
   public ApplicationAlert(String alertType, String str) {

@@ -5,8 +5,11 @@ import java.util.ResourceBundle;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+/**
+ * @author Cynthia France
+ */
 public class DirectoryOpener {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
 
   private DirectoryChooser myDirectoryChooser;
   private ResourceBundle myResources;

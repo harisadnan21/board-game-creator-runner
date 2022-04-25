@@ -160,13 +160,6 @@ public class Oracle implements AIOracle {
     return choice;
   }
 
-  public List<Position> getRepresentativePoints(Stream<Move> moves, Position referencePoint) {
-    List<Position> positions = new ArrayList<>();
-    moves.forEach((move) -> positions.add(move.getRepresentativeCell(referencePoint)));
-
-    return positions;
-  }
-
   /**
    * Increments player
    * If game is at a draw, the function should go back to original player
@@ -202,6 +195,11 @@ public class Oracle implements AIOracle {
     return satisfyingEndRule.isPresent();
   }
 
+  /**
+   * Returns true if there is a draw
+   * @param board
+   * @return
+   */
   public boolean isDraw(Board board) {
     for (int i = 0; i < myNumPlayers; i++) {
       if (getChoices(board, i).findAny().isPresent()) {

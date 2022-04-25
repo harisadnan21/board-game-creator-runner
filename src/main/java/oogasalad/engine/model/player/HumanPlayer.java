@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.engine.Choice;
@@ -53,19 +54,18 @@ public class HumanPlayer extends AbstractPlayer {
           resetSelected();
           executeMove(this, myChoice);
         }
-        resetSelected();
+        makePieceSelected(i, j);
       }
     }
   }
 
   private void makePieceSelected(int x, int y) {
     Board board = getGameBoard();
-    if (!board.isEmpty(x, y) && board.getPositionStateAt(x, y).player() == board.getPlayer() || board.isEmpty(x, y)) {
-      mySelectedCell = new Position(x, y);
-      myValidMoves = new HashSet<>(getOracle().getRepresentativePoints(getOracle().getValidMovesForPosition(board, mySelectedCell), mySelectedCell));
-      setMarkers(myValidMoves);
-      LOG.info("{} valid moves for this piece\n", myValidMoves.size());
-    }
+    mySelectedCell = new Position(x, y);
+    Stream<Position> validPositions = getOracle().getValidMovesForPosition(board, mySelectedCell).map(move -> move.getRepresentativeCell(mySelectedCell));
+    myValidMoves = validPositions.collect(Collectors.toSet());
+    setMarkers(myValidMoves);
+    LOG.info("{} valid moves for this piece\n", myValidMoves.size());
   }
 
   private void setMarkers(Set<Position> positions) {

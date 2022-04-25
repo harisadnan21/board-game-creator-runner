@@ -41,7 +41,7 @@ import org.json.JSONException;
 
 public class BoardView implements PropertyChangeListener {
   //TODO: add file path and strings
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
   public static final String GAME_PATH = "games/";
   private FileInputStream fis = new FileInputStream("data/Properties/BoardViewProperties.properties");
   private static final Logger LOG = LogManager.getLogger(BoardView.class);
@@ -74,11 +74,15 @@ public class BoardView implements PropertyChangeListener {
     prop = new Properties();
     prop.load(fis);
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
-    gameIsUploadedFile = game.listFiles(GameIcon.getConfigFile)==null;
+
     myController = controller;
+
+    //gameIsUploadedFile = game.listFiles(GameIcon.getConfigFile)==null;
+    gameIsUploadedFile = true;
+
     getMetadata(game);
 
-    setPiecePaths(game.listFiles(GameIcon.getConfigFile)[0]);
+    setPiecePaths(game);
 
     text = new GameUpdateText(language);
     root = new StackPane();
@@ -134,8 +138,7 @@ public class BoardView implements PropertyChangeListener {
   private void getMetadata(File game) {
     MetadataParser mdp = new MetadataParser();
     try {
-      metadata = gameIsUploadedFile ? mdp.parse(game)
-          : mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]);
+      metadata = mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]);
     }
     catch (FileNotFoundException e) {
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("FileNotFound"));
@@ -146,8 +149,7 @@ public class BoardView implements PropertyChangeListener {
     CellParser cParser = new CellParser();
     Optional<String[][]> cellColors;
     try {
-      cellColors = gameIsUploadedFile ? Optional.of(cParser.parse(game)) :
-          Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
+      cellColors = Optional.of(cParser.parse(game.listFiles(GameIcon.getConfigFile)[0]));
       return cellColors;
     }
     catch (JSONException e) {
@@ -157,18 +159,23 @@ public class BoardView implements PropertyChangeListener {
 
   private void setPiecePaths(File game) throws FileNotFoundException {
     PieceParser parser = new PieceParser();
-    String name = metadata.get("name");
-    Map<Integer, String> pieces = getConfigFile(game, parser);
+    String name = metadata.get("gameName");
+    Map<Integer, String> pieces = getConfigFile(game.listFiles(GameIcon.getConfigFile)[0], parser);
     for(Entry<Integer, String> entry : pieces.entrySet()) {
-      PIECE_TYPES.put(entry.getKey(), GAME_PATH + name + entry.getValue());
+      if (gameIsUploadedFile) {
+        File f = new File(game.getAbsolutePath() + entry.getValue());
+        PIECE_TYPES.put(entry.getKey(), f.toString());
+      }
+      else{
+        PIECE_TYPES.put(entry.getKey(), GAME_PATH + name + entry.getValue());
+      }
     }
   }
 
   private Map<Integer, String> getConfigFile(File game, PieceParser parser) {
     Map<Integer, String> pieces = null;
     try {
-      //pieces = gameIsUploadedFile ? parser.parse(game) : parser.parse(game.listFiles(GameIcon.getConfigFile)[0]);
-      pieces = gameIsUploadedFile ? parser.parse(game) : parser.parse(game);
+      pieces = parser.parse(game);
     }
     catch(FileNotFoundException e){
       LOG.error(myResources.getString("ConfigFileNotFound"));
@@ -311,8 +318,5 @@ public class BoardView implements PropertyChangeListener {
 
   public Node getRoot() {
     return root;
-  }
-
-  public void setValidMarkers(Object o) {
   }
 }

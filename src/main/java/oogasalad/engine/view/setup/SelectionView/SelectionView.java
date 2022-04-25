@@ -8,8 +8,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * @author Cynthia France
+ */
 public abstract class SelectionView {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
   protected ResourceBundle myResources;
   protected String cssFilePath;
   protected Text insns;

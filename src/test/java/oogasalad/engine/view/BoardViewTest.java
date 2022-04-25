@@ -1,17 +1,23 @@
 package oogasalad.engine.view;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Set;
+import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.game.BoardView;
 import org.junit.jupiter.api.Test;
+import org.testfx.service.query.PointQuery;
 import util.DukeApplicationTest;
 
 public class BoardViewTest extends DukeApplicationTest {
@@ -25,11 +31,14 @@ public class BoardViewTest extends DukeApplicationTest {
   @Override
   public void start (Stage stage) throws IOException {
     GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
+
     Board backEndBoard = new Board(3,3);
-    controller = new Controller(backEndBoard, parser);
+    controller = new Controller(new String[]{});
 
     board = new BoardView(controller, new File("data/games/checkers"), backEndBoard, 300, 300, "/css/light.css", "English");
 
+    Consumer<Set<Position>> setMarkersLambda = board::setValidMarkers;
+    controller.startEngine(parser, setMarkersLambda, board::endGame);
     root = board.getRoot();
 
     ViewManager manager = new ViewManager(stage);
@@ -39,21 +48,11 @@ public class BoardViewTest extends DukeApplicationTest {
     s.show();
   }
 
-//  @Test
-//  void testAddController() {
-//    clickOn(root, 150, 150);
-//    board
-//    assertEquals(null, board.)
-//  }
-
   @Test
   void testCellClicked() {
     assertDoesNotThrow(() -> {
       System.out.printf("success");
     });
-    //clickOn(root, 150, 150);
-    //assertEquals(root.getChildren().size(), board.getRoot().getChildren().size());
-        //root.getChildren().get(0).getText().getText(), "action at (1, 1)");
   }
 
 }

@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 public class InfoPanel extends StackPane {
   public static final String DEFAULT = "/";
-  public static final String RESOURCES = DEFAULT + "languages/";
+  public static final String RESOURCES = DEFAULT + "engine-view/languages/";
   private static final Logger LOG = LogManager.getLogger(InfoPanel.class);
   private VBox infoHolder;
   private Label infoTitle;
@@ -56,7 +56,7 @@ public class InfoPanel extends StackPane {
 
   public void update(Map<String, String> data, File gameFolder) {
     LOG.info("new data {}", data);
-    infoTitle.setText(data.get("name"));
+    infoTitle.setText(data.get("gameName"));
     infoAuthor.setText(data.get("author"));
     infoDescription.setText(data.get("description"));
     currentGame = gameFolder;

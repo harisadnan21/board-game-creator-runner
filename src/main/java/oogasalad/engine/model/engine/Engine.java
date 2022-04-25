@@ -58,10 +58,8 @@ public class Engine implements PropertyChangeListener {
 
     players.addExecuteMove(this::playTurn);
 
-    pingActivePlayer();
-
     game.addListener(this);
-
+    pingActivePlayer();
   }
 
   /**
@@ -86,6 +84,9 @@ public class Engine implements PropertyChangeListener {
     }
   }
 
+  /**
+   * Tells the active player to choose a move
+   */
   public void pingActivePlayer() {
     LOG.info("Player pinged: {}\n", getGameBoard().getPlayer());
     myPlayerManager.getPlayer(getGameBoard().getPlayer()).chooseMove(getGameBoard());

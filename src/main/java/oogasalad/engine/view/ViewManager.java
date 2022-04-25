@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.function.Consumer;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +30,7 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 
 
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.game.GameView;
 import oogasalad.engine.view.setup.SelectionView.AISelectView;
@@ -38,7 +41,9 @@ import oogasalad.engine.view.setup.dashboard.GameIcon;
 import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.setup.OpeningView;
 
-
+/**
+ * @author Cynthia France
+ */
 public class ViewManager {
   public static final Map<KeyCode, Object> cheatCodes = Map.of(
       KeyCode.O, new RemovePlayer1Piece(),
@@ -52,11 +57,11 @@ public class ViewManager {
       KeyCode.I, new IncrementPlayer(),
       KeyCode.P, new PlaceRandomPiece());
 
-  public static double WIDTH = 600;
-  public static double HEIGHT = 400;
+  public static double WIDTH;
+  public static double HEIGHT;
   public static double GAME_SELECTION_WIDTH = 1000;
   public static double GAME_SELECTION_HEIGHT = 600;
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
 
   private FileInputStream fis;
 
@@ -109,7 +114,7 @@ public class ViewManager {
   public OpeningView createOpeningView() {
     openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath, language);
     currGame = openingView.getFileChoice();
-    openingView.getLanguageSelect().setOnAction(e -> setLanguage(openingView.getLanguageSelect().getLanguage()));
+    openingView.getLanguageSelect().setOnAction(e -> setLanguage(openingView.getLanguageSelect().getElement()));
     openingView.getContSel().setOnAction(e -> selectMode(openingView.getFileChoice()));
     openingView.getDashboard().setOnAction(e -> showGames());
     return openingView;
@@ -166,12 +171,14 @@ public class ViewManager {
       Board board = parser.parseBoard();
       controller = new Controller(players);
       BoardView boardView = new BoardView(controller, game, board, BOARDX, BOARDY, cssFilepath, language);
-      controller.startEngine(parser, boardView::setValidMarkers, boardView::endGame);
+
+      Consumer<Set<Position>> setMarkersLambda = boardView::setValidMarkers;
+      controller.startEngine(parser, setMarkersLambda, boardView::endGame);
       controller.getGame().addListener(boardView);
 
       GameView gameView = createGameView(boardView, controller, game);
-      gameView.getCssDropdown().setOnAction(e -> updateSceneCSS(gameView.getCssDropdown().getCSS()));
-      gameView.getSoundDropdown().setOnAction(e -> sound.setSound(gameView.getSoundDropdown().getSound()));
+      gameView.getCssDropdown().setOnAction(e -> updateSceneCSS(gameView.getCssDropdown().getElement()));
+      gameView.getSoundDropdown().setOnAction(e -> sound.setSound(gameView.getSoundDropdown().getElement()));
       Scene newScene = gameView.makeScene();
       addKeyPress(newScene);
       newStage.setScene(newScene);
