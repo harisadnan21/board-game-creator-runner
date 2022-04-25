@@ -28,7 +28,6 @@ import org.apache.logging.log4j.Logger;
  */
 public class PropertyEditor extends VBox {
 
-  private static final Logger LOG = LogManager.getLogger(PropertyEditor.class);
   private static final String TYPE_PROPERTY_NAME = "type";
   private static final String REQUIRED = "required";
   private static final String DELIMITER = "-";
@@ -168,8 +167,7 @@ public class PropertyEditor extends VBox {
       return (PropertySelector) ctor.newInstance(property, callbackDispatcher);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
-      LOG.error(e);
-      throw new InvalidFormException(e.getMessage());
+      throw new InvalidFormException(e);
     }
   }
 
