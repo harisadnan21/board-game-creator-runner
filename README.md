@@ -30,14 +30,14 @@ Hours Spent:
 * Haris -
 * Alexander -
 * Thivya -
-* Cynthia - 
+* Cynthia - 60 Hours
 * Mike - 65 Hours
 * Shaan - 80 Hours
 
 ### Primary Roles
 
 #### Engine
-* Cynthia -
+* Cynthia - Worked entirely on the engine view, including all View classes with the exception of Dashboard
 * Robert -
 * Haris -
 * Alexander -
@@ -85,6 +85,9 @@ Features implemented:
 * Localization support for multiple languages
 * Help page that describes all possible Actions, Conditions, Win Conditions, and other parameters of games during creation
 * Support for multiple themes
+* Support for multiple langauges
+* user-interactive sounds
+  * Support for multiple/no sounds
 
 
 ### Notes/Assumptions
