@@ -31,7 +31,7 @@ Hours Spent:
 * Alexander -
 * Thivya -
 * Cynthia - 
-* Mike - 
+* Mike - 65 Hours
 * Shaan - 80 Hours
 
 ### Primary Roles
@@ -48,7 +48,7 @@ Hours Spent:
 
 * Ricky - Initially worked on builder model, then moved to doing whatever needed to be done across the builder
 * Thivya -
-* Mike -
+* Mike - Implemented the Tabs and worked everywhere in the builer view
 * Shaan - Implemented much of the builder model and game configuration parsing/serialization for the builder and engine.
 
 
@@ -92,7 +92,7 @@ Features implemented:
 Assumptions or Simplifications:
 
 * Game configurations must be composed of a JSON file named `config.json` and a `resources` folder with piece images.
-* 
+* Used common naming conventions throughout the builder in order to write to the JSON correctly.
 
 Interesting data files:
 
@@ -102,6 +102,7 @@ Known Bugs:
 
 Extensions completed:
 * AI Players
+* Fully customizable game layout
 
 
 ### Impressions
