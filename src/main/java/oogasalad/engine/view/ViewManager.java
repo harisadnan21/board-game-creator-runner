@@ -154,6 +154,7 @@ public class ViewManager {
             Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
       }
       catch (NullPointerException e) {
+        LOG.info(e);
         parser = new GameParser(game);
       }
       Board board = parser.parseBoard();
@@ -171,6 +172,7 @@ public class ViewManager {
       gameStages.add(newStage);
     }
     catch (IOException e) {
+      LOG.error(e);
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ExceptionThrown"));
     }
   }
