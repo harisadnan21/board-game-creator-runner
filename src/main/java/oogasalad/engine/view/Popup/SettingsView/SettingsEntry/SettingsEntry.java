@@ -1,4 +1,4 @@
-package oogasalad.engine.view.Popup.SettingsEntry;
+package oogasalad.engine.view.Popup.SettingsView.SettingsEntry;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -24,8 +24,7 @@ public abstract class SettingsEntry extends HBox {
   }
 
   private void createText(String txt) {
-    text = new Text(txt);
-    text.setId("theme-text");
+    text = new EntryText(txt).getText();
   }
 
   private void createDropdown(OptionSelect select) {

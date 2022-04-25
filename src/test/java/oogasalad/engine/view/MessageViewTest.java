@@ -1,13 +1,7 @@
 package oogasalad.engine.view;
 
-import java.io.File;
 import java.io.IOException;
-import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import oogasalad.engine.controller.Controller;
-import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.Popup.MessageView;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

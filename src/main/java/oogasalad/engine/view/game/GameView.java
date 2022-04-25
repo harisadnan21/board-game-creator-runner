@@ -17,7 +17,7 @@ import oogasalad.engine.view.OptionSelect.CSSSelect;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
 import oogasalad.engine.view.OptionSelect.MouseSoundSelect;
-import oogasalad.engine.view.Popup.SettingsView;
+import oogasalad.engine.view.Popup.SettingsView.SettingsView;
 import oogasalad.engine.view.Popup.MessageView;
 import oogasalad.engine.view.setup.DirectoryOpener;
 

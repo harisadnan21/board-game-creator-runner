@@ -1,4 +1,4 @@
-package oogasalad.engine.view.Popup;
+package oogasalad.engine.view.Popup.SettingsView;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -6,8 +6,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oogasalad.engine.view.OptionSelect.CSSSelect;
 import oogasalad.engine.view.OptionSelect.MouseSoundSelect;
-import oogasalad.engine.view.Popup.SettingsEntry.MouseSoundEntry;
-import oogasalad.engine.view.Popup.SettingsEntry.ThemeSoundEntry;
+import oogasalad.engine.view.Popup.PopupView;
+import oogasalad.engine.view.Popup.SettingsView.SettingsEntry.MouseSoundEntry;
+import oogasalad.engine.view.Popup.SettingsView.SettingsEntry.ThemeSoundEntry;
 
 /**
  * @author Cynthia France
@@ -42,9 +43,13 @@ public class SettingsView extends PopupView {
 
   @Override
   protected void setup() {
+    makeHeader();
+    makeMenu();
+  }
+
+  private void makeMenu() {
     layout = new VBox();
     layout.setId("message-screen-layout");
-    makeHeader();
     makeTheme();
     makeSound();
     makeButton();
@@ -58,11 +63,7 @@ public class SettingsView extends PopupView {
   }
 
   private void makeHeader() {
-    topLayout = new VBox();
-    topLayout.setId("header-layout");
-    header = new Text(myResources.getString("Settings"));
-    header.setId("settings-header");
-    topLayout.getChildren().add(header);
+    topLayout = new SettingsHeader(myResources.getString("Settings")).getHeaderLayout();
     root.setTop(topLayout);
   }
 

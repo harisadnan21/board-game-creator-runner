@@ -1,4 +1,4 @@
-package oogasalad.engine.view.Popup.SettingsEntry;
+package oogasalad.engine.view.Popup.SettingsView.SettingsEntry;
 
 import oogasalad.engine.view.OptionSelect.OptionSelect;
 
