@@ -47,7 +47,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * @author Cynthia France
+ *
+ * Manages all the views of the engine
+ *
+ * @author Cynthia France, Robert Cranston, Haris Adnan
  */
 public class ViewManager {
   public static final Map<KeyCode, Object> cheatCodes = Map.of(
@@ -92,6 +95,13 @@ public class ViewManager {
   private ResourceBundle myResources;
   private MouseSound sound;
 
+  /**
+   *
+   * creates the opening view and starts mouse sounds
+   *
+   * @param s the stage
+   * @throws IOException
+   */
   public ViewManager(Stage s) throws IOException {
     language = DEFAULT_LANGUAGE;
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
@@ -112,12 +122,22 @@ public class ViewManager {
     stage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> sound.playSound());
   }
 
-
-
+  /**
+   *
+   * returns the current scene
+   *
+   * @return the current scene
+   */
   public Scene getCurrScene() {
     return currScene;
   }
 
+  /**
+   *
+   * creates the opening view
+   *
+   * @return the opening view
+   */
   public OpeningView createOpeningView() {
     openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath, language);
     currGame = openingView.getFileChoice();
@@ -127,6 +147,13 @@ public class ViewManager {
     return openingView;
   }
 
+
+  /**
+   *
+   * creates the game view
+   *
+   * @return the game view
+   */
   public GameView createGameView(BoardView board, Controller controller, File game) {
     GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath, language, game);
     gameView.getHome().setOnAction(e -> goHome(gameView.getScene()));
