@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Describes generic behavior for the property editing portion of a Game Element Tab. Allows users
@@ -150,10 +152,19 @@ public class PropertyEditor extends VBox {
 
     selectorNodes.put(property, propertySelector.display());
     propertyBox.getChildren().addAll(
-        new Label(ViewResourcesSingleton.getInstance().getString(getLastPropertyNameSegment(property))),
+        new Label(getAndCatchResource(getLastPropertyNameSegment(property))),
         selectorNodes.get(property)
     );
     getChildren().add(propertyBox);
+  }
+
+  private String getAndCatchResource(String key){
+    try{
+      return ViewResourcesSingleton.getInstance().getString(key);
+    } catch (Exception e) {
+      LogManager.getLogger().log(Level.ERROR, e.getMessage());
+    }
+    return key;
   }
 
   // Makes a PropertySelector Using reflection, based on the form of the required property
