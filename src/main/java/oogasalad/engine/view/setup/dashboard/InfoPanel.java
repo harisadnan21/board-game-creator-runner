@@ -11,6 +11,10 @@ import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Displays info for each individual game after it is selected
+ * @author Robert Cranston
+ */
 public class InfoPanel extends StackPane {
   public static final String DEFAULT = "/";
   public static final String RESOURCES = DEFAULT + "engine-view/languages/";

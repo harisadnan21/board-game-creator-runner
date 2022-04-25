@@ -218,6 +218,10 @@ control panel
   -fx-font-size: 15;
   -fx-wrap-text: true;
 }
+.scroll{
+  -fx-fit-to-width: true;
+  -fx-fit-to-height: true;
+}
 
 #p-mode-insns, #ai-insns {
   -fx-font-family: "Montserrat";
