@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
 import javafx.stage.Stage;
 import oogasalad.builder.controller.BuilderController;
+import oogasalad.builder.controller.ExceptionResourcesSingleton;
 import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.engine.view.ViewManager;
@@ -115,6 +116,7 @@ public class SplashWelcome {
     private void getLanguage(ActionEvent event) {
         String myLanguage = languageBox.getValue();
         ViewResourcesSingleton.getInstance().setLanguage(myLanguage);
+        ExceptionResourcesSingleton.getInstance().setLanguage(myLanguage);
     }
 
 

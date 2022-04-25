@@ -28,8 +28,7 @@ public class SettingsWindow implements SettingsView {
      * @author Thivya Sivarajah
      */
 
-    public static final String THEME_OPTIONS_PATH = "FormatOptions";
-    public static final String FONT_OPTIONS_PATH = "FontList";
+
     public static final String DEFAULT_STYLE_PACKAGE = "/builder/view/css/";
     public static final String DEFAULT_TAB_FORMAT = "tabFormat.css";
     public static final String THEME = "theme";
@@ -63,6 +62,14 @@ public class SettingsWindow implements SettingsView {
         scene.getStylesheets().add(getClass().getResource(DEFAULT_STYLE_PACKAGE + DEFAULT_TAB_FORMAT).toExternalForm());
         newStage.setScene(scene);
         newStage.show();
+    }
+
+    public FormatDropDown getTheme() {
+        return themeSelector;
+    }
+
+    public FormatDropDown getFont() {
+        return fontSelector;
     }
 
     // make header for our mini pop up
