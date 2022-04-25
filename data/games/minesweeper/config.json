@@ -1,0 +1,711 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/minesweeper_7.png",
+            "name": "7 (Revealed)",
+            "id": 8,
+            "player": 0
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "7 (Hidden)",
+            "id": 18,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_2.png",
+            "name": "2 (Revealed)",
+            "id": 3,
+            "player": 0
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "4 (Hidden)",
+            "id": 15,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_empty.png",
+            "name": "Empty (Revealed)",
+            "id": 1,
+            "player": 0
+        },
+        {
+            "image": "/resources/minesweeper_4.png",
+            "name": "4 (Revealed)",
+            "id": 5,
+            "player": 0
+        },
+        {
+            "image": "/resources/minesweeper_mine.png",
+            "name": "Mine (Revealed)",
+            "id": 0,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "5 (Hidden)",
+            "id": 16,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_8.png",
+            "name": "8 (Revealed)",
+            "id": 9,
+            "player": 0
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "1 (Hidden)",
+            "id": 12,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_1.png",
+            "name": "1 (Revealed)",
+            "id": 2,
+            "player": 0
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "Empty (Hidden)",
+            "id": 11,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_6.png",
+            "name": "6 (Revealed)",
+            "id": 7,
+            "player": 0
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "8 (Hidden)",
+            "id": 19,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "2 (Hidden)",
+            "id": 13,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "3 (Hidden)",
+            "id": 14,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "6 (Hidden)",
+            "id": 17,
+            "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_3.png",
+            "name": "3 (Revealed)",
+            "id": 4,
+            "player": 0
+        },
+        {
+            "image": "/resources/minesweeper_blank.png",
+            "name": "Mine (Hidden)",
+            "id": 10,
+            "player": 0
+        },
+        {
+            "image": "/resources/minesweeper_5.png",
+            "name": "5 (Revealed)",
+            "id": 6,
+            "player": 0
+        }
+    ],
+    "metadata": {
+        "gameName": "Minesweeper",
+        "author": "Ricky Weerts",
+        "name": "metadata",
+        "description": "An approximate recreation of Minesweeper"
+    },
+    "winDecisions": [
+        {
+            "name": "Failed",
+            "id": 1,
+            "type": "PlayerWins",
+            "conditions": ["Mine Revealed"]
+        },
+        {
+            "name": "Success",
+            "conditions": [
+                "Out of pieces",
+                "Mine hidden at 8 2",
+                "Mine hidden at 2 8",
+                "Mine hidden at 3 7",
+                "Mine hidden at 6 5",
+                "Mine hidden at 3 8",
+                "Mine hidden at 6 3",
+                "Mine hidden at 5 4",
+                "Mine hidden at 2 7",
+                "Mine hidden at 1 2",
+                "Mine hidden at 3 0"
+            ],
+            "type": "MostPieces"
+        }
+    ],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "ClickEmpty",
+            "conditions": ["ClickEmpty"],
+            "actions": ["RevealEmpty"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "ClickMine",
+            "conditions": ["ClickMine"],
+            "actions": ["RevealMine"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Click8",
+            "conditions": ["Click8"],
+            "actions": ["Reveal8"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Click7",
+            "conditions": ["Click7"],
+            "actions": ["Reveal7"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Click6",
+            "conditions": ["Click6"],
+            "actions": ["Reveal6"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Click5",
+            "conditions": ["Click5"],
+            "actions": ["Reveal5"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Click4",
+            "conditions": ["Click4"],
+            "actions": ["Reveal4"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Click3",
+            "conditions": ["Click3"],
+            "actions": ["Reveal3"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Click2",
+            "conditions": ["Click2"],
+            "actions": ["Reveal2"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Click1",
+            "conditions": ["Click1"],
+            "actions": ["Reveal1"]
+        }
+    ],
+    "conditions": [
+        {
+            "col": 2,
+            "name": "Mine hidden at 8 2",
+            "isAbsolute": 1,
+            "id": 10,
+            "row": 8,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 8,
+            "name": "Mine hidden at 2 8",
+            "isAbsolute": 1,
+            "row": 2,
+            "id": 10,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 7,
+            "name": "Mine hidden at 3 7",
+            "isAbsolute": 1,
+            "row": 3,
+            "id": 10,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 5,
+            "name": "Mine hidden at 6 5",
+            "isAbsolute": 1,
+            "id": 10,
+            "row": 6,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 8,
+            "name": "Mine hidden at 3 8",
+            "isAbsolute": 1,
+            "row": 3,
+            "id": 10,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 3,
+            "name": "Mine hidden at 6 3",
+            "isAbsolute": 1,
+            "id": 10,
+            "row": 6,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 4,
+            "name": "Mine hidden at 5 4",
+            "isAbsolute": 1,
+            "row": 5,
+            "id": 10,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 7,
+            "name": "Mine hidden at 2 7",
+            "isAbsolute": 1,
+            "row": 2,
+            "id": 10,
+            "type": "IsPieceType"
+        },
+        {
+            "name": "Out of pieces",
+            "type": "PlayerHasNoPieces"
+        },
+        {
+            "col": 0,
+            "name": "ClickEmpty",
+            "isAbsolute": 0,
+            "id": 11,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "ClickMine",
+            "isAbsolute": 0,
+            "id": 10,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Click8",
+            "isAbsolute": 0,
+            "id": 19,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Click7",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 18,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Click6",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 17,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Mine Revealed",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Click5",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 16,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Click4",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 15,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Click3",
+            "isAbsolute": 0,
+            "id": 14,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Click2",
+            "isAbsolute": 0,
+            "id": 13,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 2,
+            "name": "Mine hidden at 1 2",
+            "isAbsolute": 1,
+            "row": 1,
+            "id": 10,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Mine hidden at 3 0",
+            "isAbsolute": 1,
+            "row": 3,
+            "id": 10,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "name": "Click1",
+            "isAbsolute": 0,
+            "id": 12,
+            "row": 0,
+            "type": "IsPieceType"
+        }
+    ],
+    "actions": [
+        {
+            "col": 0,
+            "name": "Reveal3",
+            "isAbsolute": 0,
+            "id": 4,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Reveal4",
+            "isAbsolute": 0,
+            "id": 5,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Reveal1",
+            "isAbsolute": 0,
+            "id": 2,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "RevealMine",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Reveal2",
+            "isAbsolute": 0,
+            "id": 3,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "RevealEmpty",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Reveal7",
+            "isAbsolute": 0,
+            "id": 8,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Reveal8",
+            "isAbsolute": 0,
+            "id": 9,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Reveal5",
+            "isAbsolute": 0,
+            "id": 6,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Reveal6",
+            "isAbsolute": 0,
+            "id": 7,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                11,
+                12,
+                12,
+                12,
+                11,
+                11,
+                11,
+                11,
+                11
+            ],
+            [
+                11,
+                12,
+                10,
+                12,
+                11,
+                11,
+                12,
+                13,
+                13
+            ],
+            [
+                12,
+                13,
+                12,
+                12,
+                11,
+                11,
+                13,
+                10,
+                10
+            ],
+            [
+                10,
+                12,
+                11,
+                11,
+                11,
+                11,
+                13,
+                10,
+                10
+            ],
+            [
+                12,
+                12,
+                11,
+                12,
+                12,
+                12,
+                12,
+                13,
+                13
+            ],
+            [
+                11,
+                11,
+                12,
+                13,
+                10,
+                13,
+                12,
+                11,
+                11
+            ],
+            [
+                11,
+                11,
+                12,
+                10,
+                14,
+                10,
+                12,
+                11,
+                11
+            ],
+            [
+                11,
+                12,
+                13,
+                13,
+                13,
+                12,
+                12,
+                11,
+                11
+            ],
+            [
+                11,
+                12,
+                10,
+                12,
+                11,
+                11,
+                11,
+                11,
+                11
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 9,
+        "activePlayer": 0,
+        "height": 9
+    }
+}
