@@ -17,6 +17,7 @@ import oogasalad.builder.view.callback.GetPropertiesCallback;
 import oogasalad.builder.view.property.PropertyNameAnalyzer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Displays help to explain how all the other tabs work
@@ -30,6 +31,7 @@ public class HelpTab extends AbstractTab {
   private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
   public static String NEW_LINE = "\n";
   private TextArea leftDisplay;
+  private final Logger logger = LogManager.getLogger(HelpTab.class);
   private boolean hasRequiredType;
 
   /**
@@ -139,7 +141,7 @@ public class HelpTab extends AbstractTab {
     try {
       return ViewResourcesSingleton.getInstance().getString(key);
     } catch (Exception e) {
-      LogManager.getLogger().log(Level.ERROR, e.getMessage());
+      logger.log(Level.ERROR, e.getMessage());
     }
     return key + CANT_HELP_MESSAGE;
   }

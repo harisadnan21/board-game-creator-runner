@@ -37,7 +37,7 @@ public class FileSelector implements PropertySelector {
     this.property = property;
     chooseButton = new Button();
     chooseButton.setText(ViewResourcesSingleton.getInstance().getString(BUTTON_TEXT_KEY));
-    if (!property.valueAsString().equals(property.defaultValue().toString())){
+    if (!property.valueAsString().equals(property.defaultValueAsString())){
       String[] fileNameSplit = property.valueAsString().split(FILE_DELIMITER);
       chooseButton.setText(fileNameSplit[fileNameSplit.length-1]);
     }

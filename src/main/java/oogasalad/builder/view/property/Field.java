@@ -7,6 +7,7 @@ import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The most basic form of a PropertySelector, essentially just a wrapper for a JavaFX text box.
@@ -17,6 +18,7 @@ public abstract class Field implements PropertySelector{
 
   private final Property property;
   private final TextField valueField;
+  private final Logger logger = LogManager.getLogger(Field.class);
 
   /**
    * Creates a new Field, which is the most simple property selector (Just a textfield)
@@ -26,6 +28,9 @@ public abstract class Field implements PropertySelector{
   public Field(Property property, CallbackDispatcher dispatcher){
     this.property = property;
     valueField = new TextField(tryGetResourceString(property.valueAsString()));
+    if (!property.valueAsString().equals(property.defaultValueAsString())){
+      valueField.setText(property.valueAsString());
+    }
     valueField.setId("stringField-" + property.shortName());
   }
 
@@ -36,7 +41,7 @@ public abstract class Field implements PropertySelector{
   protected String tryGetResourceString(String key){
     try{ return ViewResourcesSingleton.getInstance().getString(key);
     }catch(Exception e){
-      LogManager.getLogger().log(Level.ERROR, e.getMessage());
+      logger.log(Level.ERROR, e.getMessage());
     }
     return key;
   }
