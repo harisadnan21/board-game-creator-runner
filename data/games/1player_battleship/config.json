@@ -1,0 +1,2255 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/ship_top.png",
+            "name": "Ship Top",
+            "id": 3,
+            "player": 1
+        },
+        {
+            "image": "/resources/miss.png",
+            "name": "Miss (Bottom)",
+            "id": 102,
+            "player": 0
+        },
+        {
+            "image": "/resources/water.png",
+            "name": "Enemy Ship",
+            "id": 70,
+            "player": 0
+        },
+        {
+            "image": "/resources/ship_bottom.png",
+            "name": "Ship Bottom",
+            "id": 4,
+            "player": 1
+        },
+        {
+            "image": "/resources/hit.png",
+            "name": "Hit (Bottom)",
+            "id": 100,
+            "player": 0
+        },
+        {
+            "image": "/resources/4.png",
+            "name": "Four",
+            "id": 54,
+            "player": 0
+        },
+        {
+            "image": "/resources/ship_center.png",
+            "name": "Ship Center",
+            "id": 0,
+            "player": 1
+        },
+        {
+            "image": "/resources/miss.png",
+            "name": "Miss (Top)",
+            "id": 103,
+            "player": 0
+        },
+        {
+            "image": "/resources/hit.png",
+            "name": "Hit (Top)",
+            "id": 101,
+            "player": 0
+        },
+        {
+            "image": "/resources/2.png",
+            "name": "Two",
+            "id": 51,
+            "player": 0
+        },
+        {
+            "image": "/resources/water.png",
+            "name": "No Enemy Ship",
+            "id": 71,
+            "player": 0
+        },
+        {
+            "image": "/resources/3.png",
+            "name": "Three",
+            "id": 52,
+            "player": 0
+        },
+        {
+            "image": "/resources/water.png",
+            "name": "Ship Space",
+            "id": 50,
+            "player": 0
+        },
+        {
+            "image": "/resources/3.png",
+            "name": "Three 2: The Wrath of Khan",
+            "id": 53,
+            "player": 0
+        },
+        {
+            "image": "/resources/5.png",
+            "name": "Five",
+            "id": 55,
+            "player": 0
+        },
+        {
+            "image": "/resources/nothing.png",
+            "name": "Game Started Indicator",
+            "id": 1000,
+            "player": 0
+        },
+        {
+            "image": "/resources/ship_left.png",
+            "name": "Ship Left",
+            "id": 1,
+            "player": 1
+        },
+        {
+            "image": "/resources/ship_right.png",
+            "name": "Ship Right",
+            "id": 2,
+            "player": 1
+        }
+    ],
+    "metadata": {
+        "gameName": "Battleship",
+        "author": "Ricky Weerts",
+        "name": "metadata",
+        "description": "Battleship (also known as Battleships or Sea Battle[1]) is a strategy type guessing game for two players. It is played on ruled grids (paper or board) on which each player's fleet of warships are marked. The locations of the fleets are concealed from the other player. Players alternate turns calling \"shots\" at the other player's ships, and the objective of the game is to destroy the opposing player's fleet."
+    },
+    "winDecisions": [
+        {
+            "name": "You Lose",
+            "id": 1,
+            "conditions": [
+                "All Ship Rights Destroyed",
+                "All Ship Lefts Destroyed",
+                "All Ship Tops Destroyed",
+                "All Ship Bottoms Destroyed",
+                "All Ship Centers Destroyed"
+            ],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "You Win",
+            "id": 0,
+            "conditions": ["All Enemy Ships Destroyed"],
+            "type": "PlayerWins"
+        }
+    ],
+    "rules": [
+        {
+            "representativeX": 3,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place 4-Ship Right",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Right 1",
+                "Can place ship Right 2",
+                "Can place ship Right 3",
+                "4 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Right 0",
+                "Place Ship Right 1",
+                "Place Ship Right 2",
+                "Place Ship Right End 3",
+                "Clear 4 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Miss (Bottom)",
+            "conditions": [
+                "Game Has Started",
+                "Can place ship",
+                "Is Player 2"
+            ],
+            "actions": ["Place Miss (Bottom)"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "Place 2-Ship Up",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Up 1",
+                "2 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Up 0",
+                "Place Ship Up End 1",
+                "Clear 2 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Hit (Bottom)",
+            "conditions": [
+                "Game Has Started",
+                "Is Player 2",
+                "Is My Ship Piece"
+            ],
+            "actions": ["Place Hit (Bottom)"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place 2-Ship Left",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Left 1",
+                "2 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Left 0",
+                "Place Ship Left End 1",
+                "Clear 2 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Miss (Top)",
+            "conditions": [
+                "Is Not Enemy Ship Space",
+                "Game Has Started",
+                "Is Player 1"
+            ],
+            "actions": ["Place Miss (Top)"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": -3,
+            "isPersistent": 0,
+            "name": "Place 4-Ship Down",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Down 1",
+                "Can place ship Down 2",
+                "Can place ship Down 3",
+                "4 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Down 0",
+                "Place Ship Down 1",
+                "Place Ship Down 2",
+                "Place Ship Down End 3",
+                "Clear 4 Indicator"
+            ]
+        },
+        {
+            "representativeX": 4,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place 5-Ship Right",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Right 1",
+                "Can place ship Right 2",
+                "Can place ship Right 3",
+                "Can place ship Right 4",
+                "5 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Right 0",
+                "Place Ship Right 1",
+                "Place Ship Right 2",
+                "Place Ship Right 3",
+                "Place Ship Right End 4",
+                "Clear 5 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 2,
+            "isPersistent": 0,
+            "name": "Place Other 3-Ship Up",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Up 1",
+                "Can place ship Up 2",
+                "3 Indicator Exists - 2",
+                "3 Indicator Does Not Exist",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Up 0",
+                "Place Ship Up 1",
+                "Place Ship Up End 2",
+                "Clear 3 Indicator - 2"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 4,
+            "isPersistent": 0,
+            "name": "Place 5-Ship Up",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Up 1",
+                "Can place ship Up 2",
+                "Can place ship Up 3",
+                "Can place ship Up 4",
+                "5 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Up 0",
+                "Place Ship Up 1",
+                "Place Ship Up 2",
+                "Place Ship Up 3",
+                "Place Ship Up End 4",
+                "Clear 5 Indicator"
+            ]
+        },
+        {
+            "representativeX": -4,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place 5-Ship Left",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Left 1",
+                "Can place ship Left 2",
+                "Can place ship Left 3",
+                "Can place ship Left 4",
+                "5 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Left 0",
+                "Place Ship Left 1",
+                "Place Ship Left 2",
+                "Place Ship Left 3",
+                "Place Ship Left End 4",
+                "Clear 5 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 3,
+            "isPersistent": 0,
+            "name": "Place 4-Ship Up",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Up 1",
+                "Can place ship Up 2",
+                "Can place ship Up 3",
+                "4 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Up 0",
+                "Place Ship Up 1",
+                "Place Ship Up 2",
+                "Place Ship Up End 3",
+                "Clear 4 Indicator"
+            ]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place 3-Ship Left",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Left 1",
+                "Can place ship Left 2",
+                "Can place ship Right 3",
+                "3 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Left 0",
+                "Place Ship Left 1",
+                "Place Ship Left End 2",
+                "Clear 3 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 2,
+            "isPersistent": 0,
+            "name": "Place 3-Ship Up",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Up 1",
+                "Can place ship Up 2",
+                "3 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Up 0",
+                "Place Ship Up 1",
+                "Place Ship Up End 2",
+                "Clear 3 Indicator"
+            ]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place Other 3-Ship Left",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Left 1",
+                "Can place ship Left 2",
+                "Can place ship Right 3",
+                "Can place ship Right 4",
+                "3 Indicator Exists - 2",
+                "3 Indicator Does Not Exist",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Left 0",
+                "Place Ship Left 1",
+                "Place Ship Left End 2",
+                "Clear 3 Indicator - 2"
+            ]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place 2-Ship Right",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Right 1",
+                "2 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Right 0",
+                "Place Ship Right End 1",
+                "Clear 2 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Player 2 Idle",
+            "conditions": [
+                "Game Not Started",
+                "Is Player 2"
+            ],
+            "actions": ["Idle"]
+        },
+        {
+            "representativeX": 2,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place Other 3-Ship Right",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Right 1",
+                "Can place ship Right 2",
+                "3 Indicator Does Not Exist",
+                "3 Indicator Exists - 2",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Right 0",
+                "Place Ship Right 1",
+                "Place Ship Right End 2",
+                "Clear 3 Indicator - 2"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Hit (Top)",
+            "conditions": [
+                "Is Enemy Ship",
+                "Game Has Started",
+                "Is Player 1"
+            ],
+            "actions": ["Place Hit (Top)"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Place 2-Ship Down",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Down 1",
+                "2 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Down 0",
+                "Place Ship Down End 1",
+                "Clear 2 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": -2,
+            "isPersistent": 0,
+            "name": "Place Other 3-Ship Down",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Down 1",
+                "Can place ship Down 2",
+                "3 Indicator Exists - 2",
+                "3 Indicator Does Not Exist",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Down 0",
+                "Place Ship Down 1",
+                "Place Ship Down End 2",
+                "Clear 3 Indicator - 2"
+            ]
+        },
+        {
+            "representativeX": 2,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place 3-Ship Right",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Right 1",
+                "Can place ship Right 2",
+                "3 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Right 0",
+                "Place Ship Right 1",
+                "Place Ship Right End 2",
+                "Clear 3 Indicator"
+            ]
+        },
+        {
+            "representativeX": -3,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place 4-Ship Left",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Left 1",
+                "Can place ship Left 2",
+                "Can place ship Left 3",
+                "4 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Left 0",
+                "Place Ship Left 1",
+                "Place Ship Left 2",
+                "Place Ship Left End 3",
+                "Clear 4 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "Start Game",
+            "conditions": [
+                "2 Indicator Does Not Exist",
+                "3 Indicator Does Not Exist",
+                "3 Indicator Does Not Exist - 2",
+                "4 Indicator Does Not Exist",
+                "5 Indicator Does Not Exist"
+            ],
+            "actions": ["Place Game Started Indicator"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": -2,
+            "isPersistent": 0,
+            "name": "Place 3-Ship Down",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Down 1",
+                "Can place ship Down 2",
+                "3 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Down 0",
+                "Place Ship Down 1",
+                "Place Ship Down End 2",
+                "Clear 3 Indicator"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": -4,
+            "isPersistent": 0,
+            "name": "Place 5-Ship Down",
+            "conditions": [
+                "Can place ship",
+                "Can place ship Down 1",
+                "Can place ship Down 2",
+                "Can place ship Down 3",
+                "Can place ship Down 4",
+                "5 Indicator Exists",
+                "Is Player 1"
+            ],
+            "actions": [
+                "Place Ship Down 0",
+                "Place Ship Down 1",
+                "Place Ship Down 2",
+                "Place Ship Down 3",
+                "Place Ship Down End 4",
+                "Clear 5 Indicator"
+            ]
+        }
+    ],
+    "conditions": [
+        {
+            "col": -2,
+            "invert": 0,
+            "name": "Can place ship Left 2",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 2,
+            "invert": 0,
+            "name": "3 Indicator Does Not Exist",
+            "isAbsolute": 1,
+            "row": 6,
+            "type": "IsEmpty"
+        },
+        {
+            "col": -3,
+            "invert": 0,
+            "name": "Can place ship Left 3",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": -4,
+            "invert": 0,
+            "name": "Can place ship Left 4",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": -1,
+            "invert": 0,
+            "name": "Can place ship Left 1",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 0,
+            "name": "Is Player 1",
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "invert": 0,
+            "name": "Is Player 2",
+            "id": 1,
+            "type": "IsPlayer"
+        },
+        {
+            "col": 1,
+            "invert": 1,
+            "name": "2 Indicator Does Not Exist",
+            "isAbsolute": 1,
+            "row": 7,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 1,
+            "invert": 1,
+            "name": "5 Indicator Does Not Exist",
+            "isAbsolute": 1,
+            "row": 3,
+            "type": "IsOccupied"
+        },
+        {
+            "invert": 1,
+            "name": "All Ship Lefts Destroyed",
+            "id": 1,
+            "type": "HasPiece"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "5 Indicator Exists",
+            "isAbsolute": 1,
+            "row": 3,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "Game Not Started",
+            "isAbsolute": 1,
+            "row": 0,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "2 Indicator Exists",
+            "isAbsolute": 1,
+            "row": 7,
+            "type": "IsOccupied"
+        },
+        {
+            "invert": 1,
+            "name": "All Ship Tops Destroyed",
+            "id": 3,
+            "type": "HasPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Is Enemy Ship",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 70,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 1,
+            "name": "All Ship Centers Destroyed",
+            "id": 0,
+            "type": "HasPiece"
+        },
+        {
+            "invert": 1,
+            "name": "All Ship Bottoms Destroyed",
+            "id": 4,
+            "type": "HasPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Is Not Enemy Ship Space",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 71,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 3,
+            "invert": 0,
+            "name": "Can place ship Right 3",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 2,
+            "invert": 0,
+            "name": "3 Indicator Exists",
+            "isAbsolute": 1,
+            "row": 6,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 4,
+            "invert": 0,
+            "name": "Can place ship Right 4",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "3 Indicator Exists - 2",
+            "isAbsolute": 1,
+            "row": 5,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Can place ship Down 1",
+            "isAbsolute": 0,
+            "row": -1,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Can place ship Down 2",
+            "isAbsolute": 0,
+            "row": -2,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "Can place ship Right 1",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Can place ship",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 2,
+            "invert": 0,
+            "name": "Can place ship Right 2",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Can place ship Up 2",
+            "isAbsolute": 0,
+            "row": 2,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Can place ship Up 3",
+            "isAbsolute": 0,
+            "row": 3,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 1,
+            "invert": 1,
+            "name": "3 Indicator Does Not Exist - 2",
+            "isAbsolute": 1,
+            "row": 5,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Can place ship Up 4",
+            "isAbsolute": 0,
+            "row": 4,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Can place ship Down 3",
+            "isAbsolute": 0,
+            "row": -3,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 1,
+            "name": "All Enemy Ships Destroyed",
+            "id": 70,
+            "type": "HasPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Can place ship Down 4",
+            "isAbsolute": 0,
+            "row": -4,
+            "id": 50,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Is My Ship Piece",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Game Has Started",
+            "isAbsolute": 1,
+            "row": 0,
+            "type": "IsOccupied"
+        },
+        {
+            "invert": 1,
+            "name": "All Ship Rights Destroyed",
+            "id": 2,
+            "type": "HasPiece"
+        },
+        {
+            "col": 2,
+            "invert": 1,
+            "name": "4 Indicator Does Not Exist",
+            "isAbsolute": 1,
+            "row": 4,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 2,
+            "invert": 0,
+            "name": "4 Indicator Exists",
+            "isAbsolute": 1,
+            "row": 4,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Can place ship Up 1",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 50,
+            "type": "IsPieceType"
+        }
+    ],
+    "actions": [
+        {
+            "col": 0,
+            "name": "Place Ship Down End 1",
+            "isAbsolute": 0,
+            "row": -1,
+            "id": 4,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Down End 3",
+            "isAbsolute": 0,
+            "row": -3,
+            "id": 4,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Down 3",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -3,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Down End 2",
+            "isAbsolute": 0,
+            "row": -2,
+            "id": 4,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Down End 4",
+            "isAbsolute": 0,
+            "row": -4,
+            "id": 4,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 1,
+            "name": "Clear 3 Indicator - 2",
+            "isAbsolute": 1,
+            "row": 5,
+            "type": "Remove"
+        },
+        {
+            "col": 1,
+            "name": "Clear 2 Indicator",
+            "isAbsolute": 1,
+            "row": 7,
+            "type": "Remove"
+        },
+        {
+            "col": 4,
+            "name": "Place Ship Right End 4",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 2,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Hit (Top)",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 101,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Up 1",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Up 0",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 4,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Miss (Bottom)",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 102,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": -2,
+            "name": "Place Ship Left End 2",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Idle",
+            "isAbsolute": 1,
+            "row": 10,
+            "id": 1000,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": -1,
+            "name": "Place Ship Left End 1",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 2,
+            "name": "Clear 4 Indicator",
+            "isAbsolute": 1,
+            "row": 4,
+            "type": "Remove"
+        },
+        {
+            "col": 3,
+            "name": "Place Ship Right 3",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Hit (Bottom)",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 100,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 2,
+            "name": "Place Ship Right 2",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Up 3",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 3,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 1,
+            "name": "Place Ship Right 1",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Up 2",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 2,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Right 0",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Up End 4",
+            "isAbsolute": 0,
+            "row": 4,
+            "id": 3,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Up End 3",
+            "isAbsolute": 0,
+            "row": 3,
+            "id": 3,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Up End 2",
+            "isAbsolute": 0,
+            "row": 2,
+            "id": 3,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Up End 1",
+            "isAbsolute": 0,
+            "id": 3,
+            "row": 1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": -4,
+            "name": "Place Ship Left End 4",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": -3,
+            "name": "Place Ship Left End 3",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 2,
+            "name": "Clear 3 Indicator",
+            "isAbsolute": 1,
+            "row": 6,
+            "type": "Remove"
+        },
+        {
+            "col": 0,
+            "name": "Place Game Started Indicator",
+            "isAbsolute": 1,
+            "row": 0,
+            "id": 1000,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Place Miss (Top)",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 103,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 1,
+            "name": "Place Ship Right End 1",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 2,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 2,
+            "name": "Place Ship Right End 2",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 2,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 3,
+            "name": "Place Ship Right End 3",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 2,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": -3,
+            "name": "Place Ship Left 3",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": -2,
+            "name": "Place Ship Left 2",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": -1,
+            "name": "Place Ship Left 1",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Left 0",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 2,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Down 2",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -2,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Down 1",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place Ship Down 0",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 3,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 1,
+            "name": "Clear 5 Indicator",
+            "isAbsolute": 1,
+            "row": 3,
+            "type": "Remove"
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                71,
+                71,
+                71,
+                70,
+                70,
+                70,
+                71,
+                71,
+                71,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                70,
+                71,
+                71,
+                70,
+                70,
+                70,
+                71,
+                71,
+                71,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                70,
+                71,
+                71,
+                70,
+                71,
+                71,
+                71,
+                71,
+                71,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                70,
+                71,
+                71,
+                70,
+                71,
+                71,
+                71,
+                71,
+                70,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                70,
+                71,
+                71,
+                70,
+                71,
+                71,
+                71,
+                71,
+                70,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                71,
+                71,
+                71,
+                70,
+                71,
+                71,
+                71,
+                71,
+                70,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                71,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                51,
+                -1,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                52,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                53,
+                -1,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                54,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                55,
+                -1,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                50,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ],
+            [
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x000000ff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff",
+                "0x00ffffff"
+            ]
+        ],
+        "width": 20,
+        "activePlayer": 0,
+        "height": 21
+    }
+}
