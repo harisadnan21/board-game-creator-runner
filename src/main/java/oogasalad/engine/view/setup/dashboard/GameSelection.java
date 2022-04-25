@@ -18,7 +18,7 @@ public class GameSelection extends FlowPane {
   private static final Logger LOG = LogManager.getLogger(GameSelection.class);
   public static final double GRID_WIDTH = 3;
   private double grid_length;
-  public static final String DEFAULT_PATH = "default.png";
+  public static final String DEFAULT_PATH = "default1.jpeg";
 
   private Map<String, String> availableGames;
   private File[] allGames;
