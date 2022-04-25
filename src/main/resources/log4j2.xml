@@ -6,6 +6,8 @@
       <PatternLayout>
         <Pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</Pattern>
       </PatternLayout>
+      <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+      <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
     </Console>
     <File name="appLog" fileName="log/app.log" immediateFlush="true" append="true">
       <!-- consider using a rolling file instead to avoid super long log files -->
