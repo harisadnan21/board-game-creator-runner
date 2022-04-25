@@ -18,12 +18,6 @@ public class ApplicationAlertTest extends DukeApplicationTest {
   @Override
   public void start(Stage stage) throws IOException {
     alert = new ApplicationAlert("notification", "test");
-//    openingView = new OpeningView(800, 800, "/css/light.css", "English");
-//    Scene scene = openingView.makeScene();
-//
-//    stage.setTitle("OOGABOOGA Engine");
-//    stage.setScene(scene);
-//    stage.show();
   }
 
   @Test
