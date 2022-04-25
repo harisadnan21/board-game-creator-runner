@@ -12,6 +12,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ *
+ * Holds all game-related controls, including restart, undo, pause, save, home
+ * Inherits from ControlPanel
+ *
  * @author Cynthia France
  */
 public class GameControlPanel extends ControlPanel {
@@ -31,16 +35,51 @@ public class GameControlPanel extends ControlPanel {
   private Button save;
   private Consumer<Board> updateBoard;
 
+  /**
+   *
+   * creates a control panel that handles game-related requests
+   *
+   * @param controller the game controller
+   * @param updateBoard consumer, updates the backend board
+   * @param language user-specified language in which the UI is displayed in
+   */
   public GameControlPanel(Controller controller, Consumer<Board> updateBoard, String language) {
     super(language);
     myController = controller;
     this.updateBoard = updateBoard;
   }
 
-  public Node getRoot() {
-    return root;
+  /**
+   *
+   * returns the pause button for GameView to use
+   *
+   * @return the pause button in this panel
+   */
+  public Button getPause() {
+    return pause;
   }
 
+  /**
+   *
+   * returns the home button for ViewManager to use
+   *
+   * @return the home button in this panel
+   */
+  public Button getHome() {
+    return home;
+  }
+
+  /**
+   *
+   * returns the save button for GameView to use
+   *
+   * @return the save button in this panel
+   */
+  public Button getSave(){
+    return save;
+  }
+
+  //creates all the buttons in the given panel and adds to the root
   protected void createButtons() {
     home = createButton(HOME_IMAGE);
     restart = createButton(RESTART_IMAGE);
@@ -53,6 +92,7 @@ public class GameControlPanel extends ControlPanel {
     root.getChildren().addAll(home, restart, undo, pause, save);
 
   }
+
   private void saveGame() {
     CreateJSONFile jsonCreator = new CreateJSONFile(myController);
     jsonCreator.createFile();
@@ -69,17 +109,5 @@ public class GameControlPanel extends ControlPanel {
 
   private void restartGame() {
     myController.resetGame();
-  }
-
-  public Button getPause() {
-    return pause;
-  }
-
-  public Button getHome() {
-    return home;
-  }
-
-  public Button getSave(){
-    return save;
   }
 }
