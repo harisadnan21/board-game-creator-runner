@@ -49,7 +49,7 @@ public class ViewManager {
   public static double GAME_SELECTION_WIDTH = 1000;
   public static double GAME_SELECTION_HEIGHT = 600;
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
-  private static final Logger LOG = LogManager.getLogger(Cell.class);
+  private static final Logger LOG = LogManager.getLogger(ViewManager.class);
 
   private FileInputStream fis;
 
