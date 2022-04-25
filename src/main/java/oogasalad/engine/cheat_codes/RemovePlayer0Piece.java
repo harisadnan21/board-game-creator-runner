@@ -6,7 +6,7 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
 
-public class RemoveRandomPlayer0Piece implements CheatCode{
+public class RemovePlayer0Piece implements CheatCode{
   @Override
   public Board accept(Board board, Controller controller) {
     Optional<Position> pos = (board.getPositionStatesStream()

@@ -15,12 +15,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import oogasalad.engine.cheat_codes.CheatCode;
 import oogasalad.engine.cheat_codes.IncrementPlayer;
+import oogasalad.engine.cheat_codes.PlaceRandomPiece;
 import oogasalad.engine.cheat_codes.Player1Turn;
 import oogasalad.engine.cheat_codes.Player2Turn;
 import oogasalad.engine.cheat_codes.PlayerOneWins;
 import oogasalad.engine.cheat_codes.PlayerTwoWins;
-import oogasalad.engine.cheat_codes.RemoveRandomPlayer0Piece;
-import oogasalad.engine.cheat_codes.RemoveRandomPlayer1Piece;
+import oogasalad.engine.cheat_codes.RemovePlayer0Piece;
+import oogasalad.engine.cheat_codes.RemovePlayer1Piece;
 import oogasalad.engine.cheat_codes.Reset;
 import oogasalad.engine.cheat_codes.ShuffleBoard;
 import oogasalad.engine.controller.Controller;
@@ -40,15 +41,16 @@ import oogasalad.engine.view.setup.OpeningView;
 
 public class ViewManager {
   public static final Map<KeyCode, Object> cheatCodes = Map.of(
-      KeyCode.O, new RemoveRandomPlayer1Piece(),
-      KeyCode.Z, new RemoveRandomPlayer0Piece(),
+      KeyCode.O, new RemovePlayer1Piece(),
+      KeyCode.Z, new RemovePlayer0Piece(),
       KeyCode.S, new ShuffleBoard(),
       KeyCode.DIGIT1, new PlayerOneWins(),
       KeyCode.DIGIT2, new PlayerTwoWins(),
       KeyCode.R, new Reset(),
       KeyCode.L, new Player1Turn(),
       KeyCode.K, new Player2Turn(),
-      KeyCode.I, new IncrementPlayer());
+      KeyCode.I, new IncrementPlayer(),
+      KeyCode.P, new PlaceRandomPiece());
 
   public static double WIDTH = 600;
   public static double HEIGHT = 400;
