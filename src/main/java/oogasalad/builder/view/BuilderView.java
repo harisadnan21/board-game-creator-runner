@@ -15,7 +15,6 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
 import oogasalad.builder.view.tab.AllTabs;
-import oogasalad.view.OpeningSplashScreen;
 import oogasalad.view.SplashLogin;
 
 
@@ -43,8 +42,7 @@ public class BuilderView {
 
   public BuilderView(Stage mainStage) {
     stage = mainStage;
-    SplashLogin newWindow = new SplashLogin(e -> buildView());
-    //SplashWelcome newWelcome = new SplashWelcome(e -> buildView());
+    buildView();
   }
 
   // Builds the view, including all tabs and menus

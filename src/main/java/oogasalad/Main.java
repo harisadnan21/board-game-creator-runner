@@ -2,12 +2,8 @@ package oogasalad;
 
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import oogasalad.builder.BuilderMain;
-import oogasalad.view.OpeningSplashScreen;
-import oogasalad.view.SplashLogin;
 import oogasalad.view.SplashWelcome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +15,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //SplashLogin newWindow = new SplashLogin(e -> new SplashWelcome());
         SplashWelcome newWelcome = new SplashWelcome();
     }
 

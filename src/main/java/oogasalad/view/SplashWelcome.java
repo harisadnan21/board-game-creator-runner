@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class SplashWelcome {
     public static final String DEFAULT_RESOURCE_PACKAGE = "/builder/view/css/";
-    //public static final String WELCOME_IMAGE = DEFAULT_RESOURCE_PACKAGE + "welcome.jpg";
+    public static final String WELCOME_IMAGE = DEFAULT_RESOURCE_PACKAGE + "welcome.jpg";
     private static final String SPLASH_PACKAGE = "SplashWelcome.css";
     
     private Label myWelcome;
@@ -50,15 +50,15 @@ public class SplashWelcome {
         myWelcomeScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
         elementHolder.getStyleClass().add("elementHolder");
         myWelcome.getStyleClass().add("myWelcome");
-        //myImageView.getStyleClass().add("image");
+        myImageView.getStyleClass().add("image");
         builder.getStyleClass().add("proceed");
         engine.getStyleClass().add("proceed");
 
     }
 
     private void createElements() {
-        //Image welcomeImage = new Image(getClass().getResourceAsStream(WELCOME_IMAGE));
-        //myImageView = new ImageView(welcomeImage);
+        Image welcomeImage = new Image(getClass().getResourceAsStream(WELCOME_IMAGE));
+        myImageView = new ImageView(welcomeImage);
         builder = makeButton("Builder", e -> startBuilder());
         engine = makeButton("Engine", e-> startEngine());
         myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
@@ -71,7 +71,7 @@ public class SplashWelcome {
         buttonHolder.setAlignment(Pos.BOTTOM_CENTER);
         elementHolder.setBottom(buttonHolder);
         elementHolder.setAlignment(buttonHolder, Pos.CENTER);
-        //elementHolder.setCenter(myImageView);
+        elementHolder.setCenter(myImageView);
         elementHolder.setTop(myWelcome);
     }
 
