@@ -7,6 +7,7 @@ public class Reset implements CheatCode{
 
   @Override
   public Board accept(Board board, Controller controller) {
-    return controller.resetGame();
+    controller.resetGame();
+    return controller.getGame().getBoard();
   }
 }

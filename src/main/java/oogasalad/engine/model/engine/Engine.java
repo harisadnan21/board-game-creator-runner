@@ -60,6 +60,8 @@ public class Engine implements PropertyChangeListener {
 
     pingActivePlayer();
 
+    game.addListener(this);
+
   }
 
   /**
@@ -95,7 +97,7 @@ public class Engine implements PropertyChangeListener {
    * @param player
    * @param choice
    */
-  private void playTurn(Player player, Choice choice) {
+  public void playTurn(Player player, Choice choice) {
     if (isActivePlayer(player) || choice.oldBoard() != getGameBoard()) {
       Move move = choice.move();
       Position referencePoint = choice.position();
@@ -104,12 +106,9 @@ public class Engine implements PropertyChangeListener {
         Board board = myOracle.getNextState(getGameBoard(), choice);
         LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
 
-        board = incrementPlayer(board);
         myGame.setBoard(board);
 
         checkWin();
-
-        pingActivePlayer();
 
       } else {
         LOG.warn("Player's move is not valid");
@@ -117,6 +116,7 @@ public class Engine implements PropertyChangeListener {
     } else {
       LOG.warn("inactive player tried to execute move");
     }
+    pingActivePlayer();
   }
 
   public Board incrementPlayer(Board board) {
@@ -173,7 +173,7 @@ public class Engine implements PropertyChangeListener {
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
+    LOG.info("Property Change");
     myPlayerManager.givePlayersCurrentBoard(getGameBoard());
-    pingActivePlayer();
   }
 }

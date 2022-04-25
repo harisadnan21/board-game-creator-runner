@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.driver.BoardHistoryException;
 import oogasalad.engine.model.parser.CreateJSONFile;
 import oogasalad.engine.view.ApplicationAlert;
@@ -23,9 +22,9 @@ public class GameControlPanel extends ControlPanel {
   private Button undo;
   private Button pause;
   private Button save;
-  private Consumer<ImmutableBoard> updateBoard;
+  private Consumer<Board> updateBoard;
 
-  public GameControlPanel(Controller controller, Consumer<ImmutableBoard> updateBoard, String language) {
+  public GameControlPanel(Controller controller, Consumer<Board> updateBoard, String language) {
     super(language);
     myController = controller;
     this.updateBoard = updateBoard;
@@ -55,16 +54,14 @@ public class GameControlPanel extends ControlPanel {
 
   private void undoMove() {
     try {
-      Board currBoard = myController.undoGameOnce();
-      updateBoard(currBoard);
+      myController.undoGameOnce();
     } catch (BoardHistoryException ex) {
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Notif"), ex.getMessage());
     }
   }
 
   private void restartGame() {
-    Board currBoard = myController.resetGame();
-    updateBoard(currBoard);
+    myController.resetGame();
   }
 
   private void updateBoard(Board b) {

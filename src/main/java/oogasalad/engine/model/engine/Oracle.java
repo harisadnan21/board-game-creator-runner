@@ -61,6 +61,9 @@ public class Oracle implements AIOracle {
 
   // generic method to filter collection by class type
   private <T> Collection<T> filterByClass(Collection<Rule> collection, Class<T> type) {
+    if (collection == null) {
+      return new ArrayList<>();
+    }
     return collection.stream().filter(object -> object.getClass().equals(type)).map(object -> (T) object).toList();
   }
 
@@ -89,6 +92,10 @@ public class Oracle implements AIOracle {
    */
   public Stream<Move> getValidMovesForPosition(Board board, Position referencePoint) {
     return myMoves.stream().filter((move) -> move.isValid(board, referencePoint));
+  }
+
+  public Optional<Move> getMoveByName(String name) {
+    return myMoves.stream().filter(rule -> rule.getName().equals(name)).findFirst();
   }
 
   private Stream<Choice> getValidChoicesForPosition(Board board, Position referencePoint) {
@@ -136,6 +143,7 @@ public class Oracle implements AIOracle {
     else {
       board = choice.move().doMove(board, choice.position());
       board = applyPersistentRules(board);
+      board = incrementPlayer(board);
     }
     return board;
   }
@@ -159,10 +167,18 @@ public class Oracle implements AIOracle {
     return positions;
   }
 
+  /**
+   * Increments player
+   * If game is at a draw, the function should go back to original player
+   * @param board
+   * @return
+   */
   public Board incrementPlayer(Board board) {
     int nextPlayer = (board.getPlayer() + 1) % myNumPlayers;
-    if (!getChoices(board, nextPlayer).findAny().isPresent()) {
+    int counter = 0;
+    while (!getChoices(board, nextPlayer).findAny().isPresent() && counter < myNumPlayers) {
       nextPlayer = (board.getPlayer() + 1) % myNumPlayers;
+      counter++;
     }
     return board.setPlayer(nextPlayer);
   }

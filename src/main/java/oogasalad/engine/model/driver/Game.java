@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.ImmutableBoard;
 
 /**
  * Game class that sets up the current board and contains history of all the previous boards.
  * @author: Jake Heller, Haris Adnan
  */
-public class Game extends Observable<ImmutableBoard> {
+public class Game extends Observable<Board> {
 
   private Board myBoard;
   private List<Board> myBoardHistory;
