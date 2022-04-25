@@ -9,6 +9,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
+ *
+ * abstract class for generic window that allows users to select between options
+ *
  * @author Cynthia France
  */
 public abstract class SelectionView {
@@ -22,6 +25,15 @@ public abstract class SelectionView {
   protected double width;
   protected double height;
 
+  /**
+   *
+   * creates the window for users to select options
+   *
+   * @param w width of window
+   * @param h height of window
+   * @param css the filepath for styling
+   * @param language user-specified language in which the UI is displayed in
+   */
   public SelectionView(double w, double h, String css, String language) {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
@@ -32,6 +44,12 @@ public abstract class SelectionView {
     root.setCenter(windowLayout);
   }
 
+  /**
+   *
+   * returns the scene
+   *
+   * @return the scene
+   */
   public Scene makeScene() {
     javafx.scene.Scene scene = new Scene(root, width, height);
     scene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());

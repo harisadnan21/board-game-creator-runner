@@ -12,7 +12,11 @@ import oogasalad.engine.model.ai.enums.Difficulty;
 import org.apache.logging.log4j.util.TriConsumer;
 
 /**
- * @author Cynthia France
+ *
+ * Selection window for the users to choose between AI levels of difficulty
+ * inherits from SelectionView
+ *
+ * @author Cynthia France, Robert Cranston
  */
 public class AISelectView extends SelectionView {
 
@@ -20,6 +24,18 @@ public class AISelectView extends SelectionView {
   private File game;
   private Stage newStage;
 
+  /**
+   *
+   * creates the window for users to select ai difficulty
+   *
+   * @param w width of window
+   * @param h height of window
+   * @param css the filepath for styling
+   * @param language user-specified language in which the UI is displayed in
+   * @param game game folder
+   * @param newStage new stage to open the game
+   * @param startGame tri-consumer to start game play
+   */
   public AISelectView(double w, double h, String css, String language, File game, Stage newStage, TriConsumer<File, Stage, String[]> startGame) {
     super(w, h, css, language);
     start = startGame;
