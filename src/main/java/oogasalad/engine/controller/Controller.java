@@ -22,6 +22,7 @@ import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
 
 import oogasalad.engine.model.parser.GameParser;
+import oogasalad.engine.view.game.BoardView;
 
 public class Controller {
 
@@ -65,6 +66,16 @@ public class Controller {
   public Controller() {
   }
 
+  /**
+   * Starts a game
+   * Requires two functions from the active BoardView class
+   *
+   * Additionally, the board view needs to be added as a listener to the game
+   * @param parser
+   * @param setValidMarks
+   * @param endGame
+   * @throws FileNotFoundException
+   */
   public void startEngine(GameParser parser, Consumer<Set<Position>> setValidMarks, IntConsumer endGame)
       throws FileNotFoundException {
     Board board = parser.parseBoard();
@@ -90,7 +101,7 @@ public class Controller {
     PlayerManager manager = new PlayerManager();
 
     manager.addPlayer(0, new HumanPlayer(oracle, null, setValidMarks));
-    manager.addPlayer(1, player);
+    manager.addPlayer(1, new HumanPlayer(oracle, null, setValidMarks));
     return manager;
   }
 
@@ -110,13 +121,25 @@ public class Controller {
   }
 
   /**
-   * gets and returns the game
+   * Gets and returns the game
    * @return : returns the game
    */
   public Game getGame(){
     return myGame;
   }
 
+  /**
+   * Gets player manager
+   * @return
+   */
+  public PlayerManager getPlayerManager() {
+    return myPlayerManager;
+  }
+
+  /**
+   * Sets the board of the game
+   * @param board
+   */
   public void setBoard(Board board){
     myGame.setBoard(board);
   }

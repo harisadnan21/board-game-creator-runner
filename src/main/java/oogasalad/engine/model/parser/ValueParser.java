@@ -13,7 +13,7 @@ public class ValueParser {
   public static final String VARIABLE = "i";
   public static final String MINUS = "-";
 
-  public static int getValue(String expression, int variable) {
+  public int getValue(String expression, int variable) {
     try {
       int value;
       if (!expression.contains(VARIABLE)) {

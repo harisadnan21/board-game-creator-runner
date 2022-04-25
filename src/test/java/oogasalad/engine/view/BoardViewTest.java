@@ -26,10 +26,10 @@ public class BoardViewTest extends DukeApplicationTest {
   public void start (Stage stage) throws IOException {
     GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
     Board backEndBoard = new Board(3,3);
-    controller = new Controller(backEndBoard, parser);
+    controller = new Controller();
 
     board = new BoardView(controller, new File("data/games/checkers"), backEndBoard, 300, 300, "/css/light.css", "English");
-
+    controller.startEngine(parser, board::setValidMarkers, board::endGame);
     root = board.getRoot();
 
     ViewManager manager = new ViewManager(stage);

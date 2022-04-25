@@ -96,7 +96,6 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
       //TODO: Implement variables here
       params[i] = Integer.parseInt(findPropertyValue(name, requiredParams[i]));
     }
-    LOG.info("Int params {}\n", Arrays.toString(params));
     return params;
   }
 

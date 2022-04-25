@@ -48,6 +48,6 @@ public class OracleTest {
       }
     }
     assertTrue(myOracle.isDraw(myBoard));
-    assertEquals(-1, myOracle.getWinner(myBoard));
+    assertEquals(0, myOracle.getWinner(myBoard));
   }
 }
