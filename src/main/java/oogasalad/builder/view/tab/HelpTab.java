@@ -24,11 +24,13 @@ import org.apache.logging.log4j.LogManager;
  * @author Mike Keohane
  */
 public class HelpTab extends AbstractTab {
+
   public static final String HELP = "help";
   private static final String CANT_HELP_MESSAGE = ": Couldn't Find Help";
   private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
   public static String NEW_LINE = "\n";
   private TextArea leftDisplay;
+  private boolean hasRequiredType;
 
   /**
    * Initializes the HelpTab by calling the Abstract Tab superclass
@@ -76,31 +78,45 @@ public class HelpTab extends AbstractTab {
     leftDisplay.setText(
         leftDisplay.getText() + NEW_LINE + getViewResourceString(type + DELIMINATOR + HELP)
             + NEW_LINE);
+    getPropertiesHelp(type);
 
-    boolean hasRequiredType = false;
+  }
+
+  private void getPropertiesHelp(String type) {
+    hasRequiredType = false;
     StringBuilder textToDisplay = new StringBuilder();
     textToDisplay.append(leftDisplay.getText());
     if (!type.equals(BOARD_TYPE) && !type.equals(HELP)) {
       Collection<Property> elementProperties = getCallbackDispatcher().call(
           new GetPropertiesCallback(type)).orElseThrow();
       for (Property property : elementProperties) {
-        String propertyName = property.name();
-        if (propertyNameAnalyzer.isRequiredProperty(property)) {
-          propertyName = propertyName.replace(PropertyNameAnalyzer.REQUIRED, type);
-        }
-        if (propertyNameAnalyzer.isTypeProperty(property)) {
-          String[] typeOptions = property.valueAsString().split(PropertyNameAnalyzer.DELIMITER);
-          leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(propertyName + PropertyNameAnalyzer.DELIMITER + HELP));
-          for (String propType : typeOptions) {
-            displayCorrespondingPropertiesOfType(propType, type);
-            hasRequiredType = true;
-          }
-        }
-        textToDisplay.append(NEW_LINE)
-            .append(getViewResourceString(propertyName + DELIMINATOR + HELP));
+        addHelpForNonTypeProperties(property, type, textToDisplay);
+
+        checkAndGetTypeProperties(property, type);
       }
       if (!hasRequiredType) {
         leftDisplay.setText(String.valueOf(textToDisplay));
+      }
+    }
+  }
+
+  private void addHelpForNonTypeProperties(Property property, String type, StringBuilder textToDisplay){
+    String propertyName = property.name();
+    if (propertyNameAnalyzer.isRequiredProperty(property)) {
+      propertyName = propertyName.replace(PropertyNameAnalyzer.REQUIRED, type);
+    }
+    textToDisplay.append(NEW_LINE)
+        .append(getViewResourceString(propertyName + DELIMINATOR + HELP));
+  }
+
+  private void checkAndGetTypeProperties(Property property, String type) {
+    if (propertyNameAnalyzer.isTypeProperty(property)) {
+      String[] typeOptions = property.valueAsString().split(PropertyNameAnalyzer.DELIMITER);
+      leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(
+          property.name() + PropertyNameAnalyzer.DELIMITER + HELP));
+      for (String propType : typeOptions) {
+        displayCorrespondingPropertiesOfType(propType, type);
+        hasRequiredType = true;
       }
     }
   }
@@ -113,7 +129,8 @@ public class HelpTab extends AbstractTab {
         new GetPropertiesCallback(type)).orElseThrow();
     for (Property prop : elementProperties) {
       if (propertyNameAnalyzer.getPropertyNamespace(prop).equals(propType)) {
-        leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(prop.name() + PropertyNameAnalyzer.DELIMITER + HELP));
+        leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(
+            prop.name() + PropertyNameAnalyzer.DELIMITER + HELP));
       }
     }
   }
