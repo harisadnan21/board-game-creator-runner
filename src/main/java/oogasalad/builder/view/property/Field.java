@@ -34,8 +34,7 @@ public abstract class Field implements PropertySelector{
    * @return String mapped value or key if not
    */
   protected String tryGetResourceString(String key){
-    try{ ViewResourcesSingleton.getInstance().getString(key);
-
+    try{ return ViewResourcesSingleton.getInstance().getString(key);
     }catch(Exception e){
       LogManager.getLogger().log(Level.ERROR, e.getMessage());
     }
