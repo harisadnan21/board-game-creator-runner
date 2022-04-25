@@ -11,10 +11,12 @@ import oogasalad.builder.view.ViewResourcesSingleton;
 /**
  * Class that extends ComboBox and contains the options to change the view format
  *
- * @author Mike Keohane
+ * @author Mike Keohane & Thivya Sivarajah
  */
 public class FormatDropDown extends ComboBox<String> {
 
+  public static final String FORMAT_RESOURCE_PATH = "FormatOptions";
+  public static final String STYLE_KEY = "-choices";
   ResourceBundle styleOptions;
   private String styleChoice;
   private String keyToButton;
@@ -22,24 +24,24 @@ public class FormatDropDown extends ComboBox<String> {
   /**
    * Constructs the drop-down and sets the ChangeListener to call view.setFormat()
    *
-   * @param view - BuilderView instance
+   * @param styleChange - type of style to be changed 
    */
-  public FormatDropDown(BuilderView view, String styleChange, String buttonLabel) {
+  public FormatDropDown(String styleChange) {
     styleChoice = styleChange;
-    keyToButton = buttonLabel;
     fillDropDown();
-    this.setPromptText(ViewResourcesSingleton.getInstance().getString(keyToButton));
   }
 
   //fills DropDown from a file
   private void fillDropDown() {
     styleOptions = ResourceBundle.getBundle(
-        DEFAULT_PROPERTY_PACKAGE + styleChoice);
-    Enumeration keys = styleOptions.getKeys();
-    while (keys.asIterator().hasNext()) {
+        DEFAULT_PROPERTY_PACKAGE + DEFAULT_PROPERTY_PACKAGE);
+    styleOption 
+    String[] formatKeys = ViewResourcesSingleton.getInstance().getString(styleChoice+STYLE_KEY).split[DELINIMATOR];
+    for(String key : formatKeys)) {
       this.getItems()
-          .add(ViewResourcesSingleton.getInstance().getString((String) keys.nextElement()));
+          .add(ViewResourcesSingleton.getInstance().getString(key));
     }
+    this.setValue(formatKeys[0]);
   }
 
   // allows us to add a format on top of the styling/theme
