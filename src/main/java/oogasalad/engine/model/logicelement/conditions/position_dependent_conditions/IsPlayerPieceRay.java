@@ -18,8 +18,8 @@ public class IsPlayerPieceRay extends Condition {
   private int player;
   private boolean isAbsolute;
   /**
-   *
    * @param parameters size 6 array [startRow, startColumn, rowDirection, columnDirection, length, player, isAbsolute]
+   * @author Alex Bildner, Jake Heller
    */
   public IsPlayerPieceRay(int[] parameters) {
     super(parameters);
