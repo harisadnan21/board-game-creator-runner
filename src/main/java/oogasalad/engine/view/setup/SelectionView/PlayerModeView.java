@@ -5,6 +5,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * @author Cynthia France
+ */
 public class PlayerModeView extends SelectionView {
   Button twoPlayer;
   Button onePlayer;

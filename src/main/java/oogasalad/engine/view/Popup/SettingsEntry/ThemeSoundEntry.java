@@ -1,8 +1,10 @@
 package oogasalad.engine.view.Popup.SettingsEntry;
 
 import oogasalad.engine.view.OptionSelect.OptionSelect;
-import oogasalad.engine.view.Popup.SettingsEntry.SettingsEntry;
 
+/**
+ * @author Cynthia France
+ */
 public class ThemeSoundEntry extends SettingsEntry {
 
   public ThemeSoundEntry(String txt, OptionSelect select) {

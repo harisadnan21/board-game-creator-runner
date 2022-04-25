@@ -6,8 +6,11 @@ import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * @author Cynthia France
+ */
 public class GameUpdateText {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
   private String updateText;
   private Text text;
   private ResourceBundle myResources;

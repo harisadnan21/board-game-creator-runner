@@ -11,6 +11,9 @@ import oogasalad.engine.view.ApplicationAlert;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * @author Cynthia France
+ */
 public class GameControlPanel extends ControlPanel {
   public static String HOME_IMAGE = IMAGES_FOLDER + imBundle.getString("Home");
   public static String RESTART_IMAGE = IMAGES_FOLDER + imBundle.getString("Restart");
@@ -68,10 +71,6 @@ public class GameControlPanel extends ControlPanel {
   private void restartGame() {
     myController.resetGame();
   }
-
-//  private void updateBoard(Board b) {
-//    updateBoard.accept(b);
-//  }
 
   public Button getPause() {
     return pause;

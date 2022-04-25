@@ -6,11 +6,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+/**
+ * @author Cynthia France
+ */
 public abstract class ControlPanel {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/resource-names/";
-  public static final String DEFAULT_LANGUAGE_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/resource-names/";
+  public static final String DEFAULT_LANGUAGE_RESOURCE_PACKAGE = "/engine-view/languages/";
   public static ResourceBundle imBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Image");
-  public static String IMAGES_FOLDER = "images/";
+  public static String IMAGES_FOLDER = "/engine-view/images/";
   public static int ICON_SIZE = 25;
 
   protected VBox root;
