@@ -91,7 +91,7 @@ public class Controller {
     PlayerManager manager = new PlayerManager();
 
     manager.addPlayer(0, new HumanPlayer(oracle, null, setValidMarks));
-    manager.addPlayer(1, new HumanPlayer(oracle, null, setValidMarks));
+    manager.addPlayer(1, player);
     return manager;
   }
 

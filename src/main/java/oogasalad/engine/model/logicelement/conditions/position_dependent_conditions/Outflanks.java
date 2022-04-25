@@ -19,9 +19,24 @@ import oogasalad.engine.model.logicelement.conditions.Condition;
  */
 public class Outflanks extends Condition {
 
+
+  private int startRow;
+  private int startColumn;
+  private int rowDirection;
+  private int columnDirection;
+  private boolean isAbsolute;
+
   /**
+   * Returns true if there exists a line starting from the start position moving in the specified direction
+   * where the start position is of a certain player, everything in the middle of the line is of a different player,
+   * and the end point is of the same type as the starting player
    *
-   * @param parameters
+   * For the purposes of this function direction does not specifically have to move to adjacent cells
+   * it can be [2,2] and look at every other cell
+   *
+   * isAbsolute specifies whether the starting position should add in the reference point or ignore it
+   *
+   * @param parameters array of size 5 [startRow, startColumn, directionRow, directionColumn, isAbsolute]
    */
   public Outflanks(int[] parameters) {
     super(parameters);
