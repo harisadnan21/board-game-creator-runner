@@ -15,7 +15,7 @@ public class MessageViewTest extends DukeApplicationTest {
 
   @Override
   public void start (Stage stage) throws IOException {
-    messageView = new MessageView("message", "clickMe", "/css/light.css", "English");
+    messageView = new MessageView("message", "clickMe", "/engine-view/css/light.css", "English");
     popupStage = messageView.getStage();
     messageView.getReturnToGame().setOnAction(event -> {
       popupStage.hide();

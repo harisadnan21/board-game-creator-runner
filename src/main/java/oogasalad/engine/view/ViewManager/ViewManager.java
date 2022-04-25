@@ -34,7 +34,6 @@ import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.view.ApplicationAlert;
 import oogasalad.engine.view.MouseSound;
 import oogasalad.engine.view.game.BoardView;
-import oogasalad.engine.view.game.Cell;
 import oogasalad.engine.view.game.GameView;
 import oogasalad.engine.view.setup.SelectionView.AISelectView;
 import oogasalad.engine.view.setup.SelectionView.PlayerModeView;
@@ -77,7 +76,7 @@ public class ViewManager {
 
   public static double BOARDX;
   public static double BOARDY ;
-  public static String CSS_RESOURCE = "/css/";
+  public static String CSS_RESOURCE = "/engine-view/css/";
   public static String DEFAULT_CSS = "light";
   public static String CSS_EXTENSION = ".css";
   public static String DEFAULT_LANGUAGE = "English";
