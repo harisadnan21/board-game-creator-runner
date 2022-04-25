@@ -25,7 +25,7 @@ class IsEmptyTest {
   @Test
   void basicTest() throws OutOfBoardException {
     myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
-    int[] params = new int[]{0, 0, 0};
+    int[] params = new int[]{0, 0, 0, 0};
     Condition condition = new IsEmpty(params);
 
     assertFalse(condition.isTrue(myBoard, new Position(1,1)));
@@ -38,7 +38,7 @@ class IsEmptyTest {
 
     Board copyBoard = myBoard.copy();
 
-    int[] params = new int[]{0, 0, 0};
+    int[] params = new int[]{0, 0, 0, 0};
     Condition condition = new IsEmpty(params);
 
     assertFalse(condition.isTrue(copyBoard, new Position(1,1)));

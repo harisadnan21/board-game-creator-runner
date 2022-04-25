@@ -21,10 +21,11 @@ public class IsPieceTypeRay extends Condition {
   private int length;
   private int type;
   private boolean isAbsolute;
+  private boolean invert;
 
   /**
    *
-   * @param parameters size 6 array [startRow, startColumn, rowDirection, columnDirection, length, type, isAbsolute]
+   * @param parameters size 8 array [startRow, startColumn, rowDirection, columnDirection, length, type, isAbsolute, invert]
    */
   protected IsPieceTypeRay(int[] parameters) {
     super(parameters);
@@ -35,6 +36,7 @@ public class IsPieceTypeRay extends Condition {
     length = getParameter(4);
     type = getParameter(5);
     isAbsolute = getParameter(6) != 0;
+    invert = getParameter(7) != 0;
   }
 
   @Override
@@ -46,13 +48,13 @@ public class IsPieceTypeRay extends Condition {
     }
     Collection<PositionState> ray = Ray.getRayOfMaxLength(board, startPosition, direction, length);
     if (ray.size() < length) {
-      return false;
+      return invertIfTrue(false, invert);
     }
     for (PositionState cell : ray) {
       if (cell.piece().type() != type) {
-        return false;
+        return invertIfTrue(false, invert);
       }
     }
-    return true;
+    return invertIfTrue(true, invert);
   }
 }

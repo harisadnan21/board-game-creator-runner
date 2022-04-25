@@ -21,12 +21,12 @@ public class DoesNotHavePieceTest {
   @Test
   void basicTest() throws OutOfBoardException {
     myBoard = myBoard.placeNewPiece(1, 1, 0, 0);
-    int[] params = new int[]{0};
+    int[] params = new int[]{0, 0};
     Condition condition = new DoesNotHavePiece(params);
 
     assertFalse(condition.isTrue(myBoard, new Position(0,1)));
 
-    Condition notHas1 = new DoesNotHavePiece(new int[]{1});
+    Condition notHas1 = new DoesNotHavePiece(new int[]{1, 0});
     assertTrue(notHas1.isTrue(myBoard, null));
   }
 }

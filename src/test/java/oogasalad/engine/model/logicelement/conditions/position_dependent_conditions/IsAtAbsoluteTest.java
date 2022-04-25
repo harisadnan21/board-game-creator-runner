@@ -21,7 +21,7 @@ class IsAtAbsoluteTest {
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{1,1,3,3};
+    int[] paramarray = new int[]{1,1,3,3,0};
     IsAtAbsolute isAtAbsolute= new IsAtAbsolute(paramarray);
     Position position = new Position(2,2);
     boolean answer = isAtAbsolute.isTrue(TestBoard, position);

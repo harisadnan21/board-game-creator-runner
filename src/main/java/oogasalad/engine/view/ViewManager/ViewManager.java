@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import oogasalad.engine.cheat_codes.CheatCode;
 import oogasalad.engine.cheat_codes.IncrementPlayer;
-import oogasalad.engine.cheat_codes.PlaceRandomPiece;
+import oogasalad.engine.cheat_codes.CopyRandomPiece;
 import oogasalad.engine.cheat_codes.Player1Turn;
 import oogasalad.engine.cheat_codes.Player2Turn;
 import oogasalad.engine.cheat_codes.PlayerOneWins;
@@ -62,7 +62,7 @@ public class ViewManager {
       KeyCode.L, new Player1Turn(),
       KeyCode.K, new Player2Turn(),
       KeyCode.I, new IncrementPlayer(),
-      KeyCode.P, new PlaceRandomPiece());
+      KeyCode.P, new CopyRandomPiece());
 
   public static double WIDTH;
   public static double HEIGHT;

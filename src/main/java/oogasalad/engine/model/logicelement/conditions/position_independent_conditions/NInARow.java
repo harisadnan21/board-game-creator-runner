@@ -13,14 +13,16 @@ public class NInARow extends BoardCondition{
   private int currentPlayer = -100;
 
   private int n;
+  private boolean invert;
 
   /**
    * Returns true if there exists n in a row in any direction
-   * @param parameters [n]
+   * @param parameters [n, invert]
    */
   public NInARow(int[] parameters){
     super(parameters);
     n = getParameter(0);
+    invert = getParameter(1) != 0;
   }
 
   /**
@@ -30,7 +32,7 @@ public class NInARow extends BoardCondition{
    */
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return checkForHorizontal(board) || checkForVertical(board) || checkForDiagonal(board);
+    return invertIfTrue(checkForHorizontal(board) || checkForVertical(board) || checkForDiagonal(board), invert);
   }
 
 

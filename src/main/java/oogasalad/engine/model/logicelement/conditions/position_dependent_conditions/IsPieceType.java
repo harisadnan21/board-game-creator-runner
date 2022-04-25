@@ -15,10 +15,11 @@ public class IsPieceType extends Condition {
   private int column;
   private int type;
   private boolean isAbsolute;
+  private boolean invert;
 
   /**
    *
-   * @param parameters size 3 array [row, column, type, isAbsolute]
+   * @param parameters size 4 array [row, column, type, isAbsolute]
    */
   public IsPieceType(int[] parameters) {
     super(parameters);
@@ -26,6 +27,7 @@ public class IsPieceType extends Condition {
     column = getParameter(1);
     type = getParameter(2);
     isAbsolute = getParameter(3) != 0;
+    invert = getParameter(4) != 0;
   }
 
   @Override
@@ -35,9 +37,9 @@ public class IsPieceType extends Condition {
       position = transformToRelative(position, referencePoint);
     }
     if (!board.isValidPosition(position)) {
-      return false;
+      return invertIfTrue(false, invert);
     }
-    return isProperPieceType(board, position);
+    return invertIfTrue(isProperPieceType(board, position), invert);
   }
 
   private boolean isProperPieceType(Board board, Position position) {

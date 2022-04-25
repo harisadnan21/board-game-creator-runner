@@ -18,7 +18,7 @@ class IsPlayerPieceRayTest {
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{1,1,1,1,5,1,1};
+    int[] paramarray = new int[]{1,1,1,1,5,1,1,0};
     IsPlayerPieceRay isPlayerPieceRay= new IsPlayerPieceRay(paramarray);
     Position position = new Position(1,1);
     boolean answer = isPlayerPieceRay.isTrue(TestBoard, position);

@@ -20,7 +20,7 @@ class IsOccupiedTest {
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{1,1,1};
+    int[] paramarray = new int[]{1,1,1,0};
     IsOccupied isOccupied= new IsOccupied(paramarray);
     Position position = new Position(2,2);
     boolean answer = isOccupied.isTrue(TestBoard, position);

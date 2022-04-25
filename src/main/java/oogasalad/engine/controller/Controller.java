@@ -176,4 +176,8 @@ public class Controller {
   public void saveGame(){
 
   }
+
+  public Board getInitialBoard(){
+    return myInitialBoard;
+  }
 }

@@ -9,19 +9,21 @@ import oogasalad.engine.model.board.cells.Position;
  * @author Jake Heller
  */
 public class HasPiece extends BoardCondition {
-
   private int id;
+  private boolean invert;
+
   /**
    *
-   * @param parameters size 1 array [id]
+   * @param parameters size 2 array [id, invert]
    */
   public HasPiece(int[] parameters) {
     super(parameters);
-    id = parameters[0];
+    id = getParameter(0);
+    invert = getParameter(1) != 0;
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return board.getPositionStatesStream().filter(positionState -> positionState.type() == id).count() > 0;
+    return invertIfTrue(board.getPositionStatesStream().anyMatch(positionState -> positionState.type() == id), invert);
   }
 }

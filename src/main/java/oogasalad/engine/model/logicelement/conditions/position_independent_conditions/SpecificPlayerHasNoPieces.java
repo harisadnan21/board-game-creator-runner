@@ -9,15 +9,17 @@ import oogasalad.engine.model.board.cells.Position;
  * Returns true if specified player has no pieces on the board
  */
 public class SpecificPlayerHasNoPieces extends BoardCondition{
-
   private int player;
+  private boolean invert;
+
   /**
    *
-   * @param parameters size 1 array [player]
+   * @param parameters size 2 array [player, invert]
    */
   public SpecificPlayerHasNoPieces(int[] parameters){
     super(parameters);
-    player = parameters[0];
+    player = getParameter(0);
+    invert = getParameter(1) != 0;
   }
 
   /**
@@ -28,7 +30,7 @@ public class SpecificPlayerHasNoPieces extends BoardCondition{
    */
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return board.getPositionStatesStream().filter(positionState -> positionState.player() == player).count() == 0;
+    return invertIfTrue(board.getPositionStatesStream().noneMatch(positionState -> positionState.player() == player), invert);
   }
 }
 

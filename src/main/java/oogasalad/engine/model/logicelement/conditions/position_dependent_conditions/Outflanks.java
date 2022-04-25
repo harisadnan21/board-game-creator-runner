@@ -27,6 +27,7 @@ public class Outflanks extends Condition implements Flanking {
   private int rowDirection;
   private int columnDirection;
   private boolean isAbsolute;
+  private boolean invert;
 
   /**
    * Returns true if there exists a line starting from the start position moving in the specified direction
@@ -38,15 +39,16 @@ public class Outflanks extends Condition implements Flanking {
    *
    * isAbsolute specifies whether the starting position should add in the reference point or ignore it
    *
-   * @param parameters array of size 5 [startRow, startColumn, directionRow, directionColumn, isAbsolute]
+   * @param parameters array of size 6 [startRow, startColumn, directionRow, directionColumn, isAbsolute, invert]
    */
   public Outflanks(int[] parameters) {
     super(parameters);
-    startRow = parameters[0];
-    startColumn = parameters[1];
-    rowDirection = parameters[2];
-    columnDirection = parameters[3];
-    isAbsolute = parameters[4] != 0;
+    startRow = getParameter(0);
+    startColumn = getParameter(1);
+    rowDirection = getParameter(2);
+    columnDirection = getParameter(3);
+    isAbsolute = getParameter(4) != 0;
+    invert = getParameter(5) != 0;
   }
 
   @Override
@@ -55,7 +57,7 @@ public class Outflanks extends Condition implements Flanking {
     if (!isAbsolute) {
       start = transformToRelative(start, referencePoint);
     }
-    return getFlankLength(board, start, new Delta(rowDirection, columnDirection)) > 0;
+    return invertIfTrue(getFlankLength(board, start, new Delta(rowDirection, columnDirection)) > 0, invert);
   }
 
 }

@@ -9,19 +9,21 @@ import oogasalad.engine.model.board.cells.Position;
  * @author Jake Heller
  */
 public class IsPlayer extends BoardCondition {
-
   private int player;
+  private boolean invert;
+
   /**
    *
-   * @param parameters size 1 array where parameters[0] is the player's number
+   * @param parameters size 2 array [player, invert]
    */
   public IsPlayer(int[] parameters) {
     super(parameters);
     player = getParameter(0);
+    invert = getParameter(1) != 0;
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return board.getPlayer() == player;
+    return invertIfTrue(board.getPlayer() == player, invert);
   }
 }
