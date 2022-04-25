@@ -25,7 +25,7 @@ Finish Date: 4/25/22
 Hours Spent:
 
 * Ricky - 70 Hours
-* Jake -
+* Jake - 100
 * Robert -
 * Haris -
 * Alexander -
@@ -38,10 +38,10 @@ Hours Spent:
 
 #### Engine
 * Cynthia - Worked entirely on the engine view, including all View classes with the exception of Dashboard
-* Robert -
-* Haris -
-* Alexander -
-* Jake -
+* Robert - view/, controller, win conditions
+* Haris - Engine model
+* Alexander - AI
+* Jake - Engine model
 
 
 #### Builder
