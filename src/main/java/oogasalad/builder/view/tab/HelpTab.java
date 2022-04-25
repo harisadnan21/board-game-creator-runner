@@ -27,7 +27,7 @@ import org.apache.logging.log4j.Logger;
 public class HelpTab extends AbstractTab {
 
   public static final String HELP = "help";
-  private static final String CANT_HELP_MESSAGE = ": Couldn't Find Help";
+  private static final String CANT_HELP_MESSAGE_KEY = "cantFindHelp";
   private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
   public static String NEW_LINE = "\n";
   private TextArea leftDisplay;
@@ -143,7 +143,7 @@ public class HelpTab extends AbstractTab {
     } catch (Exception e) {
       logger.log(Level.ERROR, e.getMessage());
     }
-    return key + CANT_HELP_MESSAGE;
+    return ViewResourcesSingleton.getInstance().getString(CANT_HELP_MESSAGE_KEY, key);
   }
 
 

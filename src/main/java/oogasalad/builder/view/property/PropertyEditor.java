@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Describes generic behavior for the property editing portion of a Game Element Tab. Allows users
@@ -32,6 +33,7 @@ public class PropertyEditor extends VBox {
 
   private final Map<Property, PropertySelector> selectors = new HashMap<>();
   private final Map<Property, Node> selectorNodes = new HashMap<>();
+  private final Logger logger = LogManager.getLogger(PropertyEditor.class);
 
   private Collection<Property> allProperties;
 
@@ -144,7 +146,7 @@ public class PropertyEditor extends VBox {
     try{
       return ViewResourcesSingleton.getInstance().getString(key);
     } catch (Exception e) {
-      LogManager.getLogger().log(Level.ERROR, e.getMessage());
+      logger.log(Level.ERROR, e.getMessage());
     }
     return key;
   }
