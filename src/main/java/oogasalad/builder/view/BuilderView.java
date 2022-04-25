@@ -65,7 +65,9 @@ public class BuilderView {
     HBox menu = new HBox();
     Button saveButton = makeButton("save", e -> saveConfig());
     Button loadButton = makeButton("load", e -> loadConfig());
-    menu.getChildren().add(new FormatDropDown(this));
+    Button configureButton = makeButton("Configure", e -> new SettingsWindow());
+//    menu.getChildren().add(new FormatDropDown(this));
+    menu.getChildren().add(configureButton);
     menu.getChildren().add(saveButton);
     menu.getChildren().add(loadButton);
     menu.getStyleClass().add("saveMenu");
@@ -94,6 +96,7 @@ public class BuilderView {
     callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(loadStage)));
     allTabs.loadAllTabs();
   }
+
 
   /**
    * Shows a throwable error
