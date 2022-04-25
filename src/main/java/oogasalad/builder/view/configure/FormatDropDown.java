@@ -17,6 +17,7 @@ public class FormatDropDown extends ComboBox<String> {
 
   public static final String FORMAT_RESOURCE_PATH = "FormatOptions";
   public static final String STYLE_KEY = "-choices";
+  public static final String DELINIMATOR = "-";
   ResourceBundle styleOptions;
   private String styleChoice;
   private String keyToButton;
@@ -35,9 +36,8 @@ public class FormatDropDown extends ComboBox<String> {
   private void fillDropDown() {
     styleOptions = ResourceBundle.getBundle(
         DEFAULT_PROPERTY_PACKAGE + DEFAULT_PROPERTY_PACKAGE);
-    styleOption 
-    String[] formatKeys = ViewResourcesSingleton.getInstance().getString(styleChoice+STYLE_KEY).split[DELINIMATOR];
-    for(String key : formatKeys)) {
+    String[] formatKeys = ViewResourcesSingleton.getInstance().getString(styleChoice+STYLE_KEY).split(DELINIMATOR);
+    for(String key : formatKeys) {
       this.getItems()
           .add(ViewResourcesSingleton.getInstance().getString(key));
     }
