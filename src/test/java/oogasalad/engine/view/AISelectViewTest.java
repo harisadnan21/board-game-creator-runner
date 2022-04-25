@@ -2,17 +2,12 @@ package oogasalad.engine.view;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.parser.GameParser;
-import oogasalad.engine.view.game.BoardView;
-import oogasalad.engine.view.game.GameView;
-import oogasalad.engine.view.setup.OpeningView;
 import oogasalad.engine.view.setup.SelectionView.AISelectView;
-import oogasalad.engine.view.setup.dashboard.GameIcon;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -29,7 +24,7 @@ public class AISelectViewTest extends DukeApplicationTest {
     Board backEndBoard = parser.parseBoard();
     controller = new Controller(backEndBoard, parser);
 
-    aiSelectView = new AISelectView(800, 800, "/css/light.css", "English", game,
+    aiSelectView = new AISelectView(800, 800, "/engine-view/css/light.css", "English", game,
         new Stage(), this::startGame);
     Scene scene = aiSelectView.makeScene();
 

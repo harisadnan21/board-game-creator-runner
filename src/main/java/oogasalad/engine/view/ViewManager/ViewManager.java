@@ -76,7 +76,7 @@ public class ViewManager {
 
   public static double BOARDX;
   public static double BOARDY ;
-  public static String CSS_RESOURCE = "/css/";
+  public static String CSS_RESOURCE = "/engine-view/css/";
   public static String DEFAULT_CSS = "light";
   public static String CSS_EXTENSION = ".css";
   public static String DEFAULT_LANGUAGE = "English";
