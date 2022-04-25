@@ -32,6 +32,7 @@ import oogasalad.engine.model.board.Board;
 
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.view.game.BoardView;
+import oogasalad.engine.view.game.Cell;
 import oogasalad.engine.view.game.GameView;
 import oogasalad.engine.view.setup.SelectionView.AISelectView;
 import oogasalad.engine.view.setup.SelectionView.PlayerModeView;
@@ -40,6 +41,8 @@ import oogasalad.engine.view.setup.dashboard.GameIcon;
 
 import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.setup.OpeningView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Cynthia France
@@ -61,6 +64,8 @@ public class ViewManager {
   public static double HEIGHT;
   public static double GAME_SELECTION_WIDTH = 1000;
   public static double GAME_SELECTION_HEIGHT = 600;
+
+  private static final Logger LOG = LogManager.getLogger(ViewManager.class);
   public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
 
   private FileInputStream fis;
@@ -128,7 +133,7 @@ public class ViewManager {
 
   private void setLanguage(String currLanguage) {
     language = currLanguage;
-    System.out.println(language);
+    LOG.debug(language);
     currScene = createOpeningView().makeScene();
     stage.setScene(currScene);
   }
@@ -166,6 +171,7 @@ public class ViewManager {
             Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
       }
       catch (NullPointerException e) {
+        LOG.info(e);
         parser = new GameParser(game);
       }
       Board board = parser.parseBoard();
@@ -186,6 +192,7 @@ public class ViewManager {
       gameStages.add(newStage);
     }
     catch (IOException e) {
+      LOG.error(e);
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ExceptionThrown"));
     }
   }
@@ -234,12 +241,12 @@ public class ViewManager {
   }
 
   private void updateSceneCSS(String style) {
-    System.out.println(cssFilepath);
+    LOG.debug(cssFilepath);
     String oldCss = cssFilepath;
     cssFilepath = CSS_RESOURCE + style + CSS_EXTENSION;
     currScene.getStylesheets().remove(oldCss);
     currScene.getStylesheets().add(cssFilepath);
-    System.out.println(gameScenes.contains(currScene));
+    LOG.debug(gameScenes.contains(currScene));
     for (Scene s : gameScenes) {
       s.getStylesheets().remove(oldCss);
       s.getStylesheets().add(cssFilepath);

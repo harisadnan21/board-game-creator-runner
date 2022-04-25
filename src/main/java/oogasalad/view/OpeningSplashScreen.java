@@ -17,6 +17,8 @@ import org.apache.logging.log4j.Logger;
 
 public class OpeningSplashScreen {
 
+  private static final Logger LOG = LogManager.getLogger(OpeningSplashScreen.class);
+
   private Text welcome;
   private Button gameBuilder;
   private Button gameEngine;
@@ -55,7 +57,7 @@ public class OpeningSplashScreen {
       stage.show();
     }
     catch (IOException e) {
-      e.printStackTrace();
+      LOG.fatal(e);
     }
   }
 

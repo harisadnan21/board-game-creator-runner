@@ -41,11 +41,12 @@ import org.json.JSONException;
 
 public class BoardView implements PropertyChangeListener {
   //TODO: add file path and strings
+  public static final String ENGINE_VIEW_RESOURCES = "/engine-view/";
   public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
   public static final String GAME_PATH = "games/";
   private FileInputStream fis = new FileInputStream("data/Properties/BoardViewProperties.properties");
   private static final Logger LOG = LogManager.getLogger(BoardView.class);
-  public static String IMAGES_FOLDER = "images/";
+  public static String IMAGES_FOLDER = ENGINE_VIEW_RESOURCES + "images/";
   private ResourceBundle myResources;
   private String cssFilePath;
 
@@ -124,6 +125,7 @@ public class BoardView implements PropertyChangeListener {
           try {
             cellClicked(e, finalRow, finalColumn);
           } catch (OutOfBoardException ex) {
+            LOG.warn(ex);
             ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("BoardOutOfBounds"));
           }
         });
@@ -141,6 +143,7 @@ public class BoardView implements PropertyChangeListener {
       metadata = mdp.parse(game.listFiles(GameIcon.getConfigFile)[0]);
     }
     catch (FileNotFoundException e) {
+      LOG.error(e);
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("FileNotFound"));
     }
   }
@@ -153,6 +156,7 @@ public class BoardView implements PropertyChangeListener {
       return cellColors;
     }
     catch (JSONException e) {
+      LOG.error(e);
       return Optional.empty();
     }
   }
@@ -206,7 +210,7 @@ public class BoardView implements PropertyChangeListener {
     Rectangle foundation = new Rectangle(width, height);
     foundation.setId("board-foundation");
 
-    System.out.println(cellSize.toString());
+    LOG.debug(cellSize.toString());
     double cellW = cellSize.getKey();
     double cellH = cellSize.getValue();
 

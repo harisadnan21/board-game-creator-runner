@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import oogasalad.view.SplashWelcome;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Describes generic behavior for the property editing portion of a Game Element Tab. Allows users
@@ -164,8 +167,7 @@ public class PropertyEditor extends VBox {
       return (PropertySelector) ctor.newInstance(property, callbackDispatcher);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
-      e.printStackTrace();
-      throw new InvalidFormException(e.getMessage());
+      throw new InvalidFormException(e);
     }
   }
 

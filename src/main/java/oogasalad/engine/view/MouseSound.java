@@ -10,6 +10,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Cynthia France
@@ -21,6 +23,7 @@ public class MouseSound {
   public static String SOUNDS_FOLDER = "src/main/resources/engine-view/sounds/";
   public static String DEFAULT_SOUND = "Click";
   public static String[] SOUNDS = new String[] {"Click", "Thump"};
+  private static final Logger LOG = LogManager.getLogger(MouseSound.class);
 
   private boolean soundOn;
   private Map<String, Clip> sounds;
@@ -63,6 +66,7 @@ public class MouseSound {
       clip.open(audioIn);
       return clip;
     } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+      LOG.error(e);
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("SoundNotFound"));
       return null;
     }
