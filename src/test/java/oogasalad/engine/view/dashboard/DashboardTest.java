@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.view.ViewManager;
+import oogasalad.engine.view.ViewManager.ViewManager;
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.setup.dashboard.Dashboard;
 import org.junit.jupiter.api.Test;
