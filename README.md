@@ -26,7 +26,7 @@ Hours Spent:
 
 * Ricky - 70 Hours
 * Jake -
-* Robert -
+* Robert - 55 Hours
 * Haris -
 * Alexander -
 * Thivya -
@@ -38,7 +38,7 @@ Hours Spent:
 
 #### Engine
 * Cynthia -
-* Robert -
+* Robert - Worked a lot on linking the front end and backend as well as designing elements in each
 * Haris -
 * Alexander -
 * Jake -
