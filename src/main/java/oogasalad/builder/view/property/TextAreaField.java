@@ -24,7 +24,10 @@ public class TextAreaField extends Field {
    */
   public TextAreaField(Property property, CallbackDispatcher dispatcher) {
     super(property, dispatcher);
-    textArea = new TextArea(property.valueAsString());
+    textArea = new TextArea(tryGetResourceString(property.valueAsString()));
+    if (!property.valueAsString().equals(property.defaultValueAsString())){
+      textArea.setText(property.valueAsString());
+    }
     textArea.setWrapText(true);
     textArea.setId("textArea-"+property.shortName());
   }

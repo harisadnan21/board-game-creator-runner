@@ -3,6 +3,7 @@ package oogasalad.builder.view;
 import static oogasalad.builder.view.BuilderView.DEFAULT_STYLE_PACKAGE;
 import static oogasalad.builder.view.BuilderView.DEFAULT_TAB_FORMAT;
 
+import java.io.File;
 import java.util.Collection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -92,7 +93,11 @@ public class MetaDataAndSavePopup {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     directoryChooser.setTitle(
         ViewResourcesSingleton.getInstance().getString(SAVE_CHOOSER_TITLE_KEY));
-    callbackDispatcher.call(new SaveCallback(directoryChooser.showDialog(saveStage)));
+    File file = directoryChooser.showDialog(saveStage);
+    if (file != null){
+      callbackDispatcher.call(new SaveCallback(file));
+    }
+
   }
 
   private Button makeButton(String property, EventHandler<ActionEvent> handler) {
