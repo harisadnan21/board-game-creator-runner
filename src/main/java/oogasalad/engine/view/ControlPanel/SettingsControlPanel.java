@@ -3,6 +3,9 @@ package oogasalad.engine.view.ControlPanel;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
+/**
+ * @author Cynthia France
+ */
 public class SettingsControlPanel extends ControlPanel {
   public static String INFO_IMAGE = IMAGES_FOLDER + imBundle.getString("Info");
   public static String SETTINGS_IMAGE = IMAGES_FOLDER + imBundle.getString("Gear");

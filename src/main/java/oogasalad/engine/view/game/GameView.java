@@ -17,7 +17,6 @@ import oogasalad.engine.view.OptionSelect.CSSSelect;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
 import oogasalad.engine.view.OptionSelect.MouseSoundSelect;
-import oogasalad.engine.view.OptionSelect.OptionSelect;
 import oogasalad.engine.view.Popup.SettingsView;
 import oogasalad.engine.view.Popup.MessageView;
 import oogasalad.engine.view.setup.DirectoryOpener;
@@ -27,7 +26,7 @@ import oogasalad.engine.view.setup.DirectoryOpener;
  * @author Cynthia France, Haris Adnan
  */
 public class GameView {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
 
   private Double width;
   private Double height;

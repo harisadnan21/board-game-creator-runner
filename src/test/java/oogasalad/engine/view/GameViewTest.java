@@ -64,13 +64,13 @@ public class GameViewTest extends DukeApplicationTest {
     clickOn(gameView.getCssDropdown());
     type(KeyEvent.VK_DOWN);
     type(KeyEvent.VK_ENTER);
-    assertEquals("dark", gameView.getCssDropdown().getCSS());
+    assertEquals("dark", gameView.getCssDropdown().getElement());
   }
 
   @Test
   void testLanguage() {
     clickOn(gameView.getSoundDropdown());
-    assertEquals("Click", gameView.getSoundDropdown().getSound());
+    assertEquals("Click", gameView.getSoundDropdown().getElement());
   }
 
 }

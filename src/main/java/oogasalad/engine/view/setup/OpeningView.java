@@ -12,10 +12,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oogasalad.engine.view.ApplicationAlert;
 import oogasalad.engine.view.OptionSelect.LanguageSelect;
-import org.json.JSONObject;
 
+/**
+ * @author Cynthia France
+ */
 public class OpeningView {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
 
   private Double width;
   private Double height;
@@ -24,7 +26,6 @@ public class OpeningView {
   private VBox gameText;
   private VBox elements;
   private Text title;
-  private JSONObject fileObject;
   private Button uploadFile;
   private Button gameBuilder;
   private Button dashboard;

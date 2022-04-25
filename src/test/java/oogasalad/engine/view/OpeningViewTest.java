@@ -36,7 +36,7 @@ public class OpeningViewTest extends DukeApplicationTest {
   void testLanguage() throws AWTException {
     clickOn("#language-select");
     type(KeyEvent.VK_ENTER);
-    assertEquals("English", openingView.getLanguageSelect().getLanguage());
+    assertEquals("English", openingView.getLanguageSelect().getElement());
   }
 
 }

@@ -41,7 +41,9 @@ import oogasalad.engine.view.setup.dashboard.GameIcon;
 import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.setup.OpeningView;
 
-
+/**
+ * @author Cynthia France
+ */
 public class ViewManager {
   public static final Map<KeyCode, Object> cheatCodes = Map.of(
       KeyCode.O, new RemovePlayer1Piece(),
@@ -59,7 +61,7 @@ public class ViewManager {
   public static double HEIGHT;
   public static double GAME_SELECTION_WIDTH = 1000;
   public static double GAME_SELECTION_HEIGHT = 600;
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
 
   private FileInputStream fis;
 
@@ -112,7 +114,7 @@ public class ViewManager {
   public OpeningView createOpeningView() {
     openingView = new OpeningView(WIDTH, HEIGHT, cssFilepath, language);
     currGame = openingView.getFileChoice();
-    openingView.getLanguageSelect().setOnAction(e -> setLanguage(openingView.getLanguageSelect().getLanguage()));
+    openingView.getLanguageSelect().setOnAction(e -> setLanguage(openingView.getLanguageSelect().getElement()));
     openingView.getContSel().setOnAction(e -> selectMode(openingView.getFileChoice()));
     openingView.getDashboard().setOnAction(e -> showGames());
     return openingView;
@@ -175,8 +177,8 @@ public class ViewManager {
       controller.getGame().addListener(boardView);
 
       GameView gameView = createGameView(boardView, controller, game);
-      gameView.getCssDropdown().setOnAction(e -> updateSceneCSS(gameView.getCssDropdown().getCSS()));
-      gameView.getSoundDropdown().setOnAction(e -> sound.setSound(gameView.getSoundDropdown().getSound()));
+      gameView.getCssDropdown().setOnAction(e -> updateSceneCSS(gameView.getCssDropdown().getElement()));
+      gameView.getSoundDropdown().setOnAction(e -> sound.setSound(gameView.getSoundDropdown().getElement()));
       Scene newScene = gameView.makeScene();
       addKeyPress(newScene);
       newStage.setScene(newScene);

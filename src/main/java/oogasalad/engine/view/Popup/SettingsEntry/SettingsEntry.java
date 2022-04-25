@@ -4,6 +4,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import oogasalad.engine.view.OptionSelect.OptionSelect;
 
+/**
+ * @author Cynthia France
+ */
 public abstract class SettingsEntry extends HBox {
 
   private Text text;
