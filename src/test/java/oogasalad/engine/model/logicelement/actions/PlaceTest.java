@@ -21,8 +21,6 @@ class PlaceTest {
    */
   @Test
   void execute() {
-    assertEquals(TestBoard.getPiece(2,2).player(), -1);
-    assertEquals(TestBoard.getPiece(2,2).type(), -1);
     int[] paramarray = new int[]{1,1,1,1,1};
     Place PlaceAction= new Place(paramarray);
     Position position = new Position(2,2);
