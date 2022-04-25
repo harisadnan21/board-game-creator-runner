@@ -10,6 +10,25 @@
   -fx-background-color: -fx-light-gray;
 }
 
+.button {
+  -fx-font-family: "Montserrat";
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+  -fx-border-color: -fx-dark-gray;
+  -fx-border-width: 1 1 1 1;
+  -fx-text-fill: -fx-dark-gray;
+  -fx-alignment: center;
+}
+
+.button:hover {
+  -fx-font-family: "Montserrat";
+  -fx-border-color: -fx-light-blue;
+  -fx-border-width: 1 1 1 1;
+  -fx-text-fill: -fx-light-blue;
+  -fx-background-color: -fx-dark-gray;
+  -fx-alignment: center;
+}
+
 /*
 Opening View
 */
