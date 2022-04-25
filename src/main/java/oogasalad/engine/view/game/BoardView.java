@@ -140,7 +140,7 @@ public class BoardView implements PropertyChangeListener {
   public void updateBoard(Board newBoard) {
     LOG.info("updateBoard called");
     Board board = newBoard;
-    text.updateText(board.getPlayer()+1);
+    text.updateText(board.getPlayer());
     for (PositionState cell: board) {
       Position pos = cell.position();
       if (cell.isPresent()) {
@@ -155,7 +155,7 @@ public class BoardView implements PropertyChangeListener {
         }
       }
     }
-    text.updateText(board.getPlayer()+1);
+    text.updateText(board.getPlayer());
   }
 
   /**
