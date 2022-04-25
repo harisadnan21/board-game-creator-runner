@@ -137,7 +137,7 @@ public class Cell {
    * @return - ImageView created from image path
    */
   private ImageView createPiece(String imagePath, double width, double height) {
-    LOG.debug(imagePath);
+    LOG.debug("Piece image path: " + imagePath);
     File f = new File(imagePath);
     try {
       ImageView myImageView = new ImageView(new Image(f.toURI().toURL().toExternalForm()));
@@ -159,7 +159,7 @@ public class Cell {
    * @return - ImageView created from image path
    */
   private ImageView createValidMarker(String imagePath, double width, double height) {
-    LOG.debug(imagePath);
+    LOG.debug("Marker image path: " + imagePath);
     ImageView myImageView = new ImageView(new Image(imagePath));
     myImageView.setId("valid-marker");
     myImageView.setFitWidth(width);
