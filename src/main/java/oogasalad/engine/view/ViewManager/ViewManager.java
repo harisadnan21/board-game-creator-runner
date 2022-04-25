@@ -2,6 +2,7 @@ package oogasalad.engine.view.ViewManager;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -183,7 +184,23 @@ public class ViewManager {
     gameScenes.add(newScene);
     pmv.getOnePlayer().setOnAction(e -> selectAI(game, newStage));
     pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage, new String[]{"multiPlayer", null}));
+    try {
+      int numPlayers = getParser(game).readNumberOfPlayers();
+      pmv.getOnePlayer().setDisable(numPlayers > 2);
+      if (numPlayers == 1) {
+        pmv.getTwoPlayer().setDisable(true);
+        pmv.getOnePlayer().setOnAction(e -> startGame(game, newStage, new String[]{"singlePlayer", null}));
+      }
+    } catch (FileNotFoundException e) {
+      // don't do anything if parser throws error here (it will throw an error later)
+    }
+
     newStage.show();
+  }
+
+  private GameParser getParser(File game) {
+    return new GameParser(
+        Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
   }
 
   private void selectAI(File game, Stage newStage) {
@@ -195,8 +212,7 @@ public class ViewManager {
     try {
       GameParser parser;
       try {
-        parser = new GameParser(
-            Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
+        parser = getParser(game);
       }
       catch (NullPointerException e) {
         LOG.info(e);

@@ -110,6 +110,8 @@
             "isPersistent": 0,
             "name": "Place 3",
             "conditions": [
+                "Placement Square is Empty",
+                "3 turn"
             ],
             "actions": ["Place 3 Action"]
         }
@@ -225,21 +227,21 @@
             "invert": 0
         },
         {
-            "col": 0,
             "name": "X turn",
-            "isAbsolute": 0,
-            "row": 0,
             "id": 0,
             "type": "IsPlayer",
             "invert": 0
         },
         {
-            "col": 0,
             "name": "O turn",
-            "isAbsolute": 0,
-            "row": 0,
             "id": 1,
             "type": "IsPlayer",
+            "invert": 0
+        },
+        {
+            "name": "3 turn",
+            "type": "IsPlayer",
+            "id": 2,
             "invert": 0
         }
     ],
