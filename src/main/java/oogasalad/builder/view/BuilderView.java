@@ -18,6 +18,7 @@ import oogasalad.builder.view.tab.AllTabs;
 
 
 import java.util.ResourceBundle;
+import oogasalad.view.SplashWelcome;
 
 /**
  * Creates the scene and handles the builder GUI and the tabs within it
@@ -71,6 +72,7 @@ public class BuilderView {
     menu.getChildren().add(new FormatDropDown(this));
     menu.getChildren().add(saveButton);
     menu.getChildren().add(loadButton);
+    menu.getChildren().add(makeButton("newWindow", e-> new SplashWelcome()));
     menu.getStyleClass().add("saveMenu");
     return menu;
   }

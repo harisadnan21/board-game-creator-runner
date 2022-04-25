@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
 import java.lang.reflect.Constructor;
@@ -146,10 +147,10 @@ public class PropertyEditor extends VBox {
           (observable, oldValue, newValue) -> setCorrespondingElementProperties(
               (String) newValue));
     }
-    String[] propertyNameParts = property.name().split("-");
+
     selectorNodes.put(property, propertySelector.display());
     propertyBox.getChildren().addAll(
-        new Label(propertyNameParts[propertyNameParts.length - 1]),
+        new Label(ViewResourcesSingleton.getInstance().getString(getLastPropertyNameSegment(property))),
         selectorNodes.get(property)
     );
     getChildren().add(propertyBox);
