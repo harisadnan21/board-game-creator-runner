@@ -1,10 +1,12 @@
-package oogasalad.builder.view;
+package oogasalad.builder.view.configure;
 
 import static oogasalad.builder.view.BuilderView.DEFAULT_PROPERTY_PACKAGE;
 
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 import javafx.scene.control.ComboBox;
+import oogasalad.builder.view.BuilderView;
+import oogasalad.builder.view.ViewResourcesSingleton;
 
 /**
  * Class that extends ComboBox and contains the options to change the view format

@@ -65,7 +65,7 @@ public class BuilderView {
     HBox menu = new HBox();
     Button saveButton = makeButton("save", e -> saveConfig());
     Button loadButton = makeButton("load", e -> loadConfig());
-    Button configureButton = makeButton("configure", e -> new SettingsWindow());
+    Button configureButton = makeButton("configure", e -> settingsConfig());
 //    menu.getChildren().add(new FormatDropDown(this));
     menu.getChildren().add(configureButton);
     menu.getChildren().add(saveButton);
@@ -87,6 +87,8 @@ public class BuilderView {
   private void saveConfig() {
     new MetaDataAndSavePopup(callbackDispatcher);
   }
+
+  private void settingsConfig() { new SettingsWindow(this, stage);}
 
   // Saves the configuration of the game using a callback to call the controller
   private void loadConfig() {

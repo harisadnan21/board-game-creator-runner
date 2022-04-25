@@ -139,4 +139,9 @@ ToggleButton:hover {
   -fx-font-family: "Lucida Sans";
 }
 
+#message-screen-text, #settings-header{
+  -fx-font-size: 20;
+  -fx-font-family: "Montserrat";
+  -fx-fill: black;
+}
 
