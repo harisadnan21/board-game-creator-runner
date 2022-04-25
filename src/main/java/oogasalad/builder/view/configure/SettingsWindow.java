@@ -26,18 +26,16 @@ public class SettingsWindow implements SettingsView {
      * @author Thivya Sivarajah
      */
 
-    private static final String SPLASH_PACKAGE = "SplashLogin.css";
-    private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
+    public static final String THEME_OPTIONS_PATH = "FormatOptions";
+    public static final String FONT_OPTIONS_PATH = "FontList";
 
 
     private VBox topLayout;
+    private VBox middleLayout;
     private VBox layout;
+    private VBox bottomLayout;
     private Button returnToGame;
-    private HBox themeMenu;
     private Text header;
-    private Text theme;
-    private CSSSelect cssDropdown;
-    private MouseSoundEntry mouseSoundEntry;
     private Stage newStage;
     private BuilderView ourBuild;
 
@@ -49,6 +47,7 @@ public class SettingsWindow implements SettingsView {
         ourBuild = build;
         makeHeader();
         makeTheme();
+        makeFont();
         makeButton();
         makeStage();
 
@@ -68,10 +67,6 @@ public class SettingsWindow implements SettingsView {
         return returnToGame;
     }
 
-    public CSSSelect getCssDropdown() {
-        return cssDropdown;
-    }
-
     private void makeHeader() {
         topLayout = new VBox();
         topLayout.setId("titleBox");
@@ -79,16 +74,26 @@ public class SettingsWindow implements SettingsView {
         header.setId("titleText");
         topLayout.getChildren().add(header);
 //        root.setTop(topLayout);
+        topLayout.setAlignment(Pos.TOP_CENTER);
         layout.getChildren().add(topLayout);
-        layout.setAlignment(Pos.TOP_CENTER);
+        layout.setAlignment(Pos.CENTER);
     }
 
     private void makeTheme() {
-        FormatDropDown themeSelector = new FormatDropDown(ourBuild);
+        middleLayout = new VBox();
+        FormatDropDown themeSelector = new FormatDropDown(ourBuild, THEME_OPTIONS_PATH);
+        middleLayout.getChildren().addAll(themeSelector);
+        middleLayout.setAlignment(Pos.CENTER);
+        layout.getChildren().addAll(middleLayout);
+
     }
 
     private void makeFont() {
-        FormatDropDown themeSelector = new FormatDropDown(ourBuild);
+        bottomLayout = new VBox();
+        FormatDropDown fontSelector = new FormatDropDown(ourBuild, FONT_OPTIONS_PATH);
+        bottomLayout.getChildren().addAll(fontSelector);
+        middleLayout.setAlignment(Pos.BOTTOM_CENTER);
+        layout.getChildren().addAll(bottomLayout);
     }
 
     private void makeButton() {
