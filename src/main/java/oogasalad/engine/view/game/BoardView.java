@@ -40,7 +40,6 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 
 public class BoardView implements PropertyChangeListener {
-  //TODO: add file path and strings
   public static final String ENGINE_VIEW_RESOURCES = "/engine-view/";
   public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
   public static final String GAME_PATH = "games/";
@@ -62,10 +61,24 @@ public class BoardView implements PropertyChangeListener {
   private GameUpdateText text;
   private boolean gameIsUploadedFile;
   private String language;
-
-
   double BOARD_OUTLINE_SIZE;
   private Properties prop;
+
+  /**
+   *
+   *
+   *
+   * @param controller
+   * @param game
+   * @param initialBoard
+   * @param width
+   * @param height
+   * @param css
+   * @param language
+   * @throws IOException
+   *
+   * @author Cynthia France, Robert Crantson, Jake Heller, Haris Adnan
+   */
   public BoardView(Controller controller, File game, Board initialBoard, double width, double height,
       String css, String language)
       throws IOException {
@@ -78,7 +91,6 @@ public class BoardView implements PropertyChangeListener {
 
     myController = controller;
 
-    //gameIsUploadedFile = game.listFiles(GameIcon.getConfigFile)==null;
     gameIsUploadedFile = true;
 
     getMetadata(game);
@@ -106,6 +118,69 @@ public class BoardView implements PropertyChangeListener {
 
   public String getGameInfo() {
     return metadata.get("description");
+  }
+
+  public void cellClicked(MouseEvent e, int i, int j)
+      throws OutOfBoardException {
+    myController.click(i, j);
+    selectCell(i, j);
+  }
+
+  public Text getText() {
+    return text.getUpdateText();
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    LOG.info("Board changed");
+    Board board = (Board) evt.getNewValue();
+    updateBoard(board);
+  }
+
+  public void updateBoard(Board newBoard) {
+    LOG.info("updateBoard called");
+    Board board = newBoard;
+    text.updateText(board.getPlayer());
+    for (PositionState cell: board) {
+      Position pos = cell.position();
+      if (cell.isPresent()) {
+        myGrid[pos.row()][pos.column()].addPiece(PIECE_TYPES.get(cell.type()));
+      }
+      else {
+        try {
+          myGrid[pos.row()][pos.column()].removePiece();
+        } catch (Exception e) {
+          LOG.warn(myResources.getString("ExceptionThrown"), e);
+          ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ExceptionThrown"));
+        }
+      }
+    }
+    text.updateText(board.getPlayer());
+  }
+
+  /**
+   * Ends game
+   * @param winner
+   */
+  public void endGame(int winner) {
+    text.gameIsWon(winner);
+    LOG.info("gameOver! Player {} wins%n", (winner+1));
+    displayGameOver(winner);
+  }
+
+  /**
+   * Adds a marker to all the cells that are valid moves for the currently selected piece
+   * @param validMoves - current Game Board
+   */
+  public void setValidMarkers(Set<Position> validMoves) {
+    clearValidMarks();
+    for(Position pos : validMoves){
+      myGrid[pos.row()][pos.column()].addValidMarker();
+    }
+  }
+
+  public Node getRoot() {
+    return root;
   }
 
   private void makeBoard(int rows, int columns, double cellWidth, double cellHeight, File game)
@@ -188,23 +263,6 @@ public class BoardView implements PropertyChangeListener {
     return pieces;
   }
 
-  public void cellClicked(MouseEvent e, int i, int j)
-      throws OutOfBoardException {
-    myController.click(i, j);
-    selectCell(i, j);
-  }
-
-  public Text getText() {
-    return text.getUpdateText();
-  }
-
-  @Override
-  public void propertyChange(PropertyChangeEvent evt) {
-    LOG.info("Board changed");
-    Board board = (Board) evt.getNewValue();
-    updateBoard(board);
-  }
-
   private void makeBoardBacking(double width, double height, Pair<Double, Double> cellSize, int rows, int cols) {
 
     Rectangle foundation = new Rectangle(width, height);
@@ -227,37 +285,6 @@ public class BoardView implements PropertyChangeListener {
     return new Pair<>(cellWidth, cellHeight);
   }
 
-  public void updateBoard(Board newBoard) {
-    LOG.info("updateBoard called");
-    Board board = newBoard;
-    text.updateText(board.getPlayer());
-    for (PositionState cell: board) {
-      Position pos = cell.position();
-      if (cell.isPresent()) {
-        myGrid[pos.row()][pos.column()].addPiece(PIECE_TYPES.get(cell.type()));
-      }
-      else {
-        try {
-          myGrid[pos.row()][pos.column()].removePiece();
-        } catch (Exception e) {
-          LOG.warn(myResources.getString("ExceptionThrown"), e);
-          ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("ExceptionThrown"));
-        }
-      }
-    }
-    text.updateText(board.getPlayer());
-  }
-
-  /**
-   * Ends game
-   * @param winner
-   */
-  public void endGame(int winner) {
-    text.gameIsWon(winner);
-    LOG.info("gameOver! Player {} wins%n", (winner+1));
-    displayGameOver(winner);
-  }
-
   private void displayGameOver(int winner) {
     myController.resetGame();
     root.setEffect(new GaussianBlur());
@@ -272,17 +299,6 @@ public class BoardView implements PropertyChangeListener {
       popupStage.hide();
     });
     popupStage.show();
-  }
-
-  /**
-   * Adds a marker to all the cells that are valid moves for the currently selected piece
-   * @param validMoves - current Game Board
-   */
-  public void setValidMarkers(Set<Position> validMoves) {
-    clearValidMarks();
-    for(Position pos : validMoves){
-      myGrid[pos.row()][pos.column()].addValidMarker();
-    }
   }
 
   /**
@@ -320,7 +336,5 @@ public class BoardView implements PropertyChangeListener {
     return new Position(row, column);
   }
 
-  public Node getRoot() {
-    return root;
-  }
+
 }
