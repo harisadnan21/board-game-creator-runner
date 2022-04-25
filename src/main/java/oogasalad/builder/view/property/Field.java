@@ -24,6 +24,7 @@ public abstract class Field implements PropertySelector{
   public Field(Property property, CallbackDispatcher dispatcher){
     this.property = property;
     valueField = new TextField(property.valueAsString());
+    valueField.setId("stringField-" + property.shortName());
   }
 
   /**

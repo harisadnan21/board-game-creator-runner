@@ -37,7 +37,7 @@ public class SplashLoginTest {
 
     @BeforeEach
     public void start (Stage stage) {
-        SplashLogin testSplashLogin = new SplashLogin(e -> {});
+        SplashLogin testSplashLogin = new SplashLogin(stage, e -> {});
     }
 
     @Test

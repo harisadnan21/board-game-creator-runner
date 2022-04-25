@@ -19,6 +19,7 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
 
   private static final int MAX_ROW_HEIGHT = 55;
 
+
   protected record GameElementData(String name, Collection<Property> properties) {
 
   }
@@ -48,6 +49,7 @@ public class GameElementList extends ListView<GameElementList.GameElementData> {
         }
         setText(gameElementData.name);
         var cell = this;
+        this.setId(gameElementData.name() + "Cell");
         gameElementData.properties().stream()
             .filter(property -> property.name().equals(IMAGE_PROPERTY_NAME) || property.name()
                 .endsWith("-" + IMAGE_PROPERTY_NAME))
