@@ -43,7 +43,7 @@ public class GameViewTest extends DukeApplicationTest {
     board = new BoardView(controller, game, backEndBoard, 600, 600, "/engine-view/css/light.css", "English");
     Consumer<Set<Position>> setMarkersLambda = board::setValidMarkers;
 
-    controller.startEngine(parser, setMarkersLambda, board::endGame);
+    controller.startEngine(new String[] {}, parser, setMarkersLambda, board::endGame);
     controller.getGame().addListener(board);
     root = board.getRoot();
 

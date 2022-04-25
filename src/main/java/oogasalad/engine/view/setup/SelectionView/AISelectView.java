@@ -62,7 +62,7 @@ public class AISelectView extends SelectionView {
     Difficulty[] aiDifficulties = Difficulty.class.getEnumConstants();
     for (Difficulty d : aiDifficulties) {
       Button b = makeButton(d.toString());
-      b.setOnAction(e -> start.accept(game, newStage, new String[]{"human", d.toString()}));
+      b.setOnAction(e -> start.accept(game, newStage, new String[]{"singlePlayer", d.toString()}));
       buttonLayout.getChildren().add(b);
     }
     buttonLayout.setPrefWrapLength(500);

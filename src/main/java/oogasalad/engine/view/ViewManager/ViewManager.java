@@ -182,7 +182,7 @@ public class ViewManager {
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
     gameScenes.add(newScene);
     pmv.getOnePlayer().setOnAction(e -> selectAI(game, newStage));
-    pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage, new String[]{"human", "human"}));
+    pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage, new String[]{"multiPlayer", null}));
     newStage.show();
   }
 
@@ -203,11 +203,11 @@ public class ViewManager {
         parser = new GameParser(game);
       }
       Board board = parser.parseBoard();
-      controller = new Controller(players);
+      controller = new Controller();
       BoardView boardView = new BoardView(controller, game, board, BOARDX, BOARDY, cssFilepath, language);
 
       Consumer<Set<Position>> setMarkersLambda = boardView::setValidMarkers;
-      controller.startEngine(parser, setMarkersLambda, boardView::endGame);
+      controller.startEngine(players, parser, setMarkersLambda, boardView::endGame);
       controller.getGame().addListener(boardView);
 
       GameView gameView = createGameView(boardView, controller, game);

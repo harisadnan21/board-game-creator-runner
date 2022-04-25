@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
-import java.util.function.Consumer;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
@@ -16,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 class IncrementPlayerTest {
   Board myBoard = new Board(3,3);
-  Controller controller = new Controller(new String[]{"human", "human"});
+  Controller controller = new Controller();
   BoardView board;
   Board backEndBoard;
 
@@ -25,9 +24,9 @@ class IncrementPlayerTest {
     GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
 
     backEndBoard =  parser.parseBoard();
-    controller = new Controller(new String[]{"human", "human"});
+    controller = new Controller();
 
-    controller.startEngine(parser, this::fakeConsumer, this::fakeConsumer1);
+    controller.startEngine(new String[]{}, parser, this::fakeConsumer, this::fakeConsumer1);
     myBoard.placeNewPiece(1, 1, 0, 0);
     myBoard.placeNewPiece(2, 2, 0, 1);
   }
