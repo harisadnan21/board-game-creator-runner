@@ -28,7 +28,7 @@ public class PositionTest {
   @Test
   void add() {
     Position position = new Position(1,1);
-    Assertions.assertInstanceOf(Position.class, position.add(new Delta(1,1));
+    Assertions.assertInstanceOf(Position.class, position.add(new Delta(1,1)));
   }
 
   @BeforeAll
