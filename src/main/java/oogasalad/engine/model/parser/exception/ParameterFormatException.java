@@ -24,4 +24,13 @@ public class ParameterFormatException extends RuntimeException {
   public ParameterFormatException(String message) {
     super(message);
   }
+
+  /**
+   * Creates new ParameterFormatException with the default message from a throwable cause
+   *
+   * @param cause the cause of this exception
+   */
+  public ParameterFormatException(Throwable cause) {
+    super(DEFAULT_MESSAGE, cause);
+  }
 }

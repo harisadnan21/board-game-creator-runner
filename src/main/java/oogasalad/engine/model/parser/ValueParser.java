@@ -40,8 +40,7 @@ public class ValueParser {
       }
       return value;
     } catch (Exception e) {
-      LOG.error(e);
-      throw new ParameterFormatException();
+      throw new ParameterFormatException(e);
     }
   }
 
