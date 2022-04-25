@@ -7,7 +7,6 @@ import java.awt.AWTException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import oogasalad.engine.view.setup.OpeningView;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ public class OpeningViewTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) throws IOException {
-    openingView = new OpeningView(800, 800, "/css/light.css", "English");
+    openingView = new OpeningView(800, 800, "/engine-view/css/light.css", "English");
     Scene scene = openingView.makeScene();
 
     stage.setTitle("OOGABOOGA Engine");

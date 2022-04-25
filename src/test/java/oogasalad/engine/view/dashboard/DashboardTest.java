@@ -26,7 +26,8 @@ class DashboardTest extends DukeApplicationTest {
   public void start (Stage stage) throws IOException {
     Board modelBoard = new Board(3,3);
 
-    board = new BoardView(controller, new File("data/games/checkers"), modelBoard, 300, 300, "/css/light.css", "English");
+    board = new BoardView(controller, new File("data/games/checkers"), modelBoard, 300, 300,
+        "/engine-view/css/light.css", "English");
     Consumer<File> fakeStart = this::fakeStart;
     dashboard = new Dashboard(fakeStart);
     root = board.getRoot();
