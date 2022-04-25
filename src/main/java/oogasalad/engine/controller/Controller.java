@@ -87,7 +87,7 @@ public class Controller {
 
   public PlayerManager makePlayerManager(Oracle oracle, Consumer<Set<Position>> setValidMarks) {
     AIPlayerFactory factory = new AIPlayerFactory();
-    Player player = factory.makeAIPlayer(Difficulty.HARD, WinType.TOTAL, 1, oracle, new ArrayList<>());
+    Player player = factory.makeAIPlayer(Difficulty.EASY, WinType.TOTAL, 1, oracle, new ArrayList<>());
     PlayerManager manager = new PlayerManager();
 
     manager.addPlayer(0, new HumanPlayer(oracle, null, setValidMarks));
