@@ -30,8 +30,9 @@ import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
 
 import oogasalad.engine.model.parser.GameParser;
+import oogasalad.engine.view.game.BoardView;
 
-public class Controller<aiDificulties> {
+public class Controller {
 
   private GameParser myParser;
 
@@ -70,10 +71,20 @@ public class Controller<aiDificulties> {
     }
   }
 
-  public Controller(String[]players) {
+  public Controller(String[] players) {
     myPlayers = players;
   }
 
+  /**
+   * Starts a game
+   * Requires two functions from the active BoardView class
+   *
+   * Additionally, the board view needs to be added as a listener to the game
+   * @param parser
+   * @param setValidMarks
+   * @param endGame
+   * @throws FileNotFoundException
+   */
   public void startEngine(GameParser parser, Consumer<Set<Position>> setValidMarks, IntConsumer endGame)
       throws FileNotFoundException {
     Board board = parser.parseBoard();
@@ -96,9 +107,11 @@ public class Controller<aiDificulties> {
   public PlayerManager makePlayerManager(Oracle oracle, Consumer<Set<Position>> setValidMarks) {
     PlayerFactory factory = new PlayerFactory(oracle, setValidMarks);
     PlayerManager manager = new PlayerManager();
+
     for(int i = 0; i< myPlayers.length; i++) {
       manager.addPlayer(i, factory.create(myPlayers[i]));
     }
+
     return manager;
   }
 
@@ -118,13 +131,25 @@ public class Controller<aiDificulties> {
   }
 
   /**
-   * gets and returns the game
+   * Gets and returns the game
    * @return : returns the game
    */
   public Game getGame(){
     return myGame;
   }
 
+  /**
+   * Gets player manager
+   * @return
+   */
+  public PlayerManager getPlayerManager() {
+    return myPlayerManager;
+  }
+
+  /**
+   * Sets the board of the game
+   * @param board
+   */
   public void setBoard(Board board){
     myGame.setBoard(board);
   }
