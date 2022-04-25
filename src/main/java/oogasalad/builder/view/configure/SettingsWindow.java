@@ -49,16 +49,9 @@ public class SettingsWindow implements SettingsView {
 
     // set up our mini pop-up screen
     public SettingsWindow(BuilderView build, Stage stage) {
-        layout = new VBox();
-        layout.setId("rightPane");
         newStage = stage;
         ourBuild = build;
-        makeHeader();
-        makeTheme();
-        makeFont();
-        makeButton();
-        makeStage();
-
+        setup();
     }
 
     // display our elements on the stage
@@ -118,6 +111,12 @@ public class SettingsWindow implements SettingsView {
 
     @Override
     public void setup() {
-
+        layout = new VBox();
+        layout.setId("rightPane");
+        makeHeader();
+        makeTheme();
+        makeFont();
+        makeButton();
+        makeStage();
     }
 }
