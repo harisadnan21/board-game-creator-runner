@@ -18,7 +18,7 @@ import org.jooq.lambda.Seq;
  * Outflanks returns true if there exists a line of pieces between two points, where the endpoints
  * are owned by one player, and the inner pieces are owned by a different player
  *
- * @author Alex Bildner, Jake Heller
+ * @author Alex Bildner, Jake Heller, Ricky Weerts
  */
 public class Outflanks extends Condition {
 
@@ -43,45 +43,38 @@ public class Outflanks extends Condition {
    */
   public Outflanks(int[] parameters) {
     super(parameters);
+    startRow = parameters[0];
+    startColumn = parameters[1];
+    rowDirection = parameters[2];
+    columnDirection = parameters[3];
+    isAbsolute = parameters[4] != 0;
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    Position firstPosition = new Position(0,0);
-    //TODO: fix above
-//    int startPlayer = board.getPositionStateAt(firstPosition).player();
-    int playerNeeded = otherPlayer(board, firstPosition);
-
-    Delta delta = new Delta(this.rowDirection, this.columnDirection);
-
-    Position positionToCheck = firstPosition.add(delta);
-    if(isInvalidPosition(board, positionToCheck) || isNotPlayer(board, playerNeeded, positionToCheck)) return false;
-
-    while(board.isValidPosition(positionToCheck)) {
-      if(samePlayerAtPositions(board, firstPosition, positionToCheck)) {
-        return true;
-      }
-      positionToCheck = positionToCheck.add(delta);
+    Position firstPosition = new Position(startRow, startColumn);
+    if (!isAbsolute) {
+      firstPosition = transformToRelative(firstPosition, referencePoint);
     }
-    return false;
 
-  }
+    Delta delta = new Delta(rowDirection, columnDirection);
 
-  private boolean isNotPlayer(Board board, int playerNeeded, Position positionToCheck) {
-    return board.getPositionStateAt(positionToCheck).player() != playerNeeded;
-  }
+    Position positionToCheck = firstPosition;
+    int flankSize = -1;
+    do {
+      if(board.isEmpty(positionToCheck.row(), positionToCheck.column())) {
+        return false;
+      }
+      flankSize++;
+      positionToCheck = positionToCheck.add(delta);
+    } while(board.isValidPosition(positionToCheck) && !samePlayerAtPositions(board, firstPosition, positionToCheck));
 
-  private boolean isInvalidPosition(Board board, Position positionToCheck) {
-    return !board.isValidPosition(positionToCheck);
-  }
+    return flankSize > 0;
 
-  private int otherPlayer(Board board, Position firstPosition) {
-    return PLAYER_ONE == board.getPositionStateAt(firstPosition).player()? Piece.PLAYER_TWO : PLAYER_ONE;
   }
 
   private boolean samePlayerAtPositions(Board board, Position firstPosition, Position secondPosition) {
-    return board.getPositionStateAt(firstPosition).player() == board.getPositionStateAt(
-        secondPosition).player();
+    return board.getPositionStateAt(firstPosition).player() == board.getPositionStateAt(secondPosition).player();
   }
 
 }
