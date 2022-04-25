@@ -60,7 +60,7 @@ public class SplashWelcome {
         //Image welcomeImage = new Image(getClass().getResourceAsStream(WELCOME_IMAGE));
         //myImageView = new ImageView(welcomeImage);
         builder = makeButton("Builder", e -> startBuilder());
-        engine = makeButton("Builder", e-> startEngine());
+        engine = makeButton("Engine", e-> startEngine());
         myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
     }
 

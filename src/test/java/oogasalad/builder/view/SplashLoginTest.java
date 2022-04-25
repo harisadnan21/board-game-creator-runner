@@ -6,6 +6,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import oogasalad.view.OpeningSplashScreen;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,10 +36,10 @@ public class SplashLoginTest {
     Scene myLoginScene;
 
 
-    @BeforeEach
-    public void start (Stage stage) {
-        SplashLogin testSplashLogin = new SplashLogin(e -> {});
-    }
+//    @BeforeEach
+//    public void start (Stage stage) {
+//        OpeningSplashScreen.SplashLogin testSplashLogin = new OpeningSplashScreen.SplashLogin(e -> {});
+//    }
 
     @Test
     void testCellClicked() {

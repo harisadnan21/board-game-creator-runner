@@ -1,6 +1,4 @@
-package oogasalad.builder.view;
-
-import static oogasalad.builder.view.BuilderView.DEFAULT_STYLE_PACKAGE;
+package oogasalad.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,18 +9,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import oogasalad.builder.view.ViewResourcesSingleton;
+
+import static oogasalad.builder.view.BuilderView.DEFAULT_STYLE_PACKAGE;
 
 public class SplashLogin extends Parent {
 
 
-/**
- * Creates a splash screen that allows the user to select a language before displaying the full
- * application
- *
- * @author Thivya Sivarajah
- */
+    /**
+     * Creates a splash screen that allows the user to select a language before displaying the full
+     * application
+     *
+     * @author Thivya Sivarajah
+     */
 
     private static final String SPLASH_PACKAGE = "SplashLogin.css";
     private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
@@ -105,3 +107,4 @@ public class SplashLogin extends Parent {
     }
 
 }
+
