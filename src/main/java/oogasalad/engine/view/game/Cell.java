@@ -108,7 +108,7 @@ public class Cell {
     highlight.setId("cell-highlight");
 
     myRoot.getChildren().add(highlight);
-    System.out.println("selected");
+    LOG.info("selected");
   }
 
   /**
