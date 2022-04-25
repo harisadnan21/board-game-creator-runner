@@ -5,26 +5,25 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
 import javafx.stage.Stage;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.ViewResourcesSingleton;
-import oogasalad.engine.view.ViewManager;
+import oogasalad.engine.view.ViewManager.ViewManager;
 
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class SplashWelcome {
     public static final String DEFAULT_RESOURCE_PACKAGE = "/builder/view/css/";
     //public static final String WELCOME_IMAGE = DEFAULT_RESOURCE_PACKAGE + "welcome.jpg";
     private static final String SPLASH_PACKAGE = "SplashWelcome.css";
+    private static final Logger LOG = LogManager.getLogger(SplashWelcome.class);
     
     private Label myWelcome;
     private BorderPane elementHolder;
@@ -97,7 +96,7 @@ public class SplashWelcome {
             stage.show();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            LOG.fatal(e);
         }
     }
 

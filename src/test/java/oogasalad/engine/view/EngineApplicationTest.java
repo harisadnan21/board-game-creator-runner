@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import oogasalad.engine.view.setup.OpeningView;
+import oogasalad.engine.view.ViewManager.ViewManager;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 

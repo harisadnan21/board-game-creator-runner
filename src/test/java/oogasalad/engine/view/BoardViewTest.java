@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -15,9 +14,9 @@ import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.parser.GameParser;
+import oogasalad.engine.view.ViewManager.ViewManager;
 import oogasalad.engine.view.game.BoardView;
 import org.junit.jupiter.api.Test;
-import org.testfx.service.query.PointQuery;
 import util.DukeApplicationTest;
 
 public class BoardViewTest extends DukeApplicationTest {

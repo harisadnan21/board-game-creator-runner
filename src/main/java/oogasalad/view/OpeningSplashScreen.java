@@ -8,14 +8,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import oogasalad.builder.BuilderMain;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.view.BuilderView;
-import oogasalad.engine.view.ViewManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import oogasalad.engine.view.ViewManager.ViewManager;
 
 public class OpeningSplashScreen {
+
+  private static final Logger LOG = LogManager.getLogger(OpeningSplashScreen.class);
 
   private Text welcome;
   private Button gameBuilder;
@@ -55,7 +54,7 @@ public class OpeningSplashScreen {
       stage.show();
     }
     catch (IOException e) {
-      e.printStackTrace();
+      LOG.fatal(e);
     }
   }
 

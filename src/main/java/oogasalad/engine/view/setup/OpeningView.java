@@ -12,11 +12,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oogasalad.engine.view.ApplicationAlert;
 import oogasalad.engine.view.OptionSelect.LanguageSelect;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
 
 /**
  * @author Cynthia France
  */
 public class OpeningView {
+
+  private static final Logger LOG = LogManager.getLogger(OpeningView.class);
   public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
 
   private Double width;
@@ -111,6 +116,7 @@ public class OpeningView {
         myFileChoice = script;
         contSel.setDisable(false);
       } catch (Exception err) {
+        LOG.error(err);
         ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), err.getMessage());
       }
     });

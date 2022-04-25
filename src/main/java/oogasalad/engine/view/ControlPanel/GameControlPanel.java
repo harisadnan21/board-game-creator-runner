@@ -8,6 +8,8 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.driver.BoardHistoryException;
 import oogasalad.engine.model.parser.CreateJSONFile;
 import oogasalad.engine.view.ApplicationAlert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Cynthia France
@@ -18,6 +20,8 @@ public class GameControlPanel extends ControlPanel {
   public static String BACK_IMAGE = IMAGES_FOLDER + imBundle.getString("Back");
   public static String PAUSE_IMAGE = IMAGES_FOLDER + imBundle.getString("Pause");
   public static String SAVE_IMAGE = IMAGES_FOLDER + imBundle.getString("Save");
+
+  private static final Logger LOG = LogManager.getLogger(GameControlPanel.class);
 
   private Controller myController;
   private Button home;
@@ -49,7 +53,6 @@ public class GameControlPanel extends ControlPanel {
     root.getChildren().addAll(home, restart, undo, pause, save);
 
   }
-  //TODO: Save Game
   private void saveGame() {
     CreateJSONFile jsonCreator = new CreateJSONFile(myController);
     jsonCreator.createFile();
@@ -59,6 +62,7 @@ public class GameControlPanel extends ControlPanel {
     try {
       myController.undoGameOnce();
     } catch (BoardHistoryException ex) {
+      LOG.error(ex);
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Notif"), ex.getMessage());
     }
   }
