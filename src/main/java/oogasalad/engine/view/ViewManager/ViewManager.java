@@ -1,4 +1,4 @@
-package oogasalad.engine.view;
+package oogasalad.engine.view.ViewManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +31,8 @@ import oogasalad.engine.model.board.Board;
 
 
 import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.view.ApplicationAlert;
+import oogasalad.engine.view.MouseSound;
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.game.Cell;
 import oogasalad.engine.view.game.GameView;
@@ -217,22 +219,13 @@ public class ViewManager {
 
   private void goHome(Scene scene) {
     currScene = createOpeningView().makeScene();
-    closeStage(findClosedStage(scene));
+    gameStages = closeStage(scene);
     updateStage();
   }
 
-  private void closeStage(Stage stage) {
-    gameStages.remove(stage);
-    stage.close();
-  }
-
-  private Stage findClosedStage(Scene scene) {
-    for (Stage stage : gameStages) {
-      if (stage.getScene().equals(scene)) {
-        return stage;
-      }
-    }
-    return new Stage();
+  private List<Stage> closeStage(Scene scene) {
+    StageCloser stageCloser = new StageCloser();
+    return stageCloser.closeStage(List.copyOf(gameStages), scene);
   }
 
   private void updateStage() {
