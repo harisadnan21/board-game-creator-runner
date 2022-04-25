@@ -6,6 +6,7 @@ public class LanguageSelect extends OptionSelect {
 
   public LanguageSelect() {
     super();
+    this.setId("language-select");
   }
 
   public String getLanguage() {

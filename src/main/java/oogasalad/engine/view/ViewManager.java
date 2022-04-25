@@ -52,8 +52,8 @@ public class ViewManager {
       KeyCode.I, new IncrementPlayer(),
       KeyCode.P, new PlaceRandomPiece());
 
-  public static double WIDTH = 600;
-  public static double HEIGHT = 400;
+  public static double WIDTH;
+  public static double HEIGHT;
   public static double GAME_SELECTION_WIDTH = 1000;
   public static double GAME_SELECTION_HEIGHT = 600;
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";

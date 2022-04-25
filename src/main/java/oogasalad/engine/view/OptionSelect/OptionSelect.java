@@ -12,5 +12,6 @@ public class OptionSelect extends ChoiceBox<String> {
 
   protected void setup() {
     this.getItems().addAll(options);
+    this.setId("option-select");
   }
 }
