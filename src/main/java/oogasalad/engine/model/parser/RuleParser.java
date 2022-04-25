@@ -52,9 +52,7 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
     JSONArray rulesJSON = root.getJSONArray(RULES);
     for (int i = 0; i < rulesJSON.length(); i++) {
       JSONObject rule = rulesJSON.getJSONObject(i);
-      if (rule.has(VARIABLE_RANGE)) {
-        // TODO: create loop if field exists
-      }
+
       String name = rule.getString(NAME);
       Position repPoint = getRepresentativePoint(rule);
       Action[] actions = actionParser.resolveActions(rule);
@@ -79,9 +77,9 @@ public class RuleParser extends AbstractParser<Collection<Move>> {
 
   // Gets a representative point from a JSONObject representing a rule
   private Position getRepresentativePoint(JSONObject rule) {
-    int i = -rule.getInt(REPRESENTATIVE_POINT_Y);
-    int j = rule.getInt(REPRESENTATIVE_POINT_X);
-    return new Position(i, j);
+    int row = rule.getInt(REPRESENTATIVE_POINT_Y);
+    int column = rule.getInt(REPRESENTATIVE_POINT_X);
+    return new Position(row, column);
   }
 
 }

@@ -3,7 +3,6 @@ package oogasalad.engine.model.rule.terminal_conditions;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.conditions.Condition;
-import oogasalad.engine.model.logicelement.conditions.position_independent_conditions.False;
 import oogasalad.engine.model.logicelement.winner.WinDecision;
 
 /**

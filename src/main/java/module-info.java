@@ -29,5 +29,10 @@ open module oogasalad_app {
     exports oogasalad.engine.view.setup.SelectionView;
   exports oogasalad.engine.view.Popup;
     exports oogasalad.engine.view.OptionSelect;
+  //exports oogasalad.engine.view.Popup.SettingsEntry;
+  exports oogasalad.engine.view.ViewManager;
+  //exports oogasalad.engine.view.Popup.PopupView;
+  exports oogasalad.engine.view.Popup.SettingsView;
+  exports oogasalad.engine.view.Popup.SettingsView.SettingsEntry;
 
 }

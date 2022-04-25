@@ -20,6 +20,9 @@ public class BoardParser extends AbstractParser<Board> {
 
   /**
    * Creates a board parser
+   *
+   * Board configuration should be read as if the top left
+   * piece is also the top left on the board
    */
   public BoardParser() {
     pieceMap = new HashMap<>();
@@ -58,11 +61,12 @@ public class BoardParser extends AbstractParser<Board> {
   // Creates a new board with the configurations specified in the arguments
   private Board placePieces(int width, int height, int[][] pieceConfig) {
     Board board = new Board(height, width);
+    int boardHeight = board.getHeight();
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        //TODO: Remove magic value of -1
         if (pieceConfig[i][j] != -1) {
-          board = board.placeNewPiece(i, j, pieceConfig[i][j], pieceMap.get(pieceConfig[i][j]));
+          // if a piece is at the row i in the array, it should be placed in row height - i -1
+          board = board.placeNewPiece(boardHeight - i -1, j, pieceConfig[i][j], pieceMap.get(pieceConfig[i][j]));
         }
       }
     }

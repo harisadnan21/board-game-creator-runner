@@ -95,13 +95,7 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
     for (int i = 0; i < requiredParams.length; i++) {
       //TODO: Implement variables here
       params[i] = Integer.parseInt(findPropertyValue(name, requiredParams[i]));
-      //TODO: THIS SUCKS! Standardize how we differentiate (x,y) and (i,j)
-      if (requiredParams[i].equals("row") || requiredParams[i].equals("destinationRow") ||
-          requiredParams[i].equals("sourceRow")) {
-        params[i] *=-1;
-      }
     }
-    LOG.info("Int params {}\n", Arrays.toString(params));
     return params;
   }
 
@@ -109,10 +103,10 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
   private String findPropertyValue(String name, String propertyName) {
     Map<String, String> reference = referenceMap.get(name);
     if (reference == null) {
-      throw new ReferenceNotFoundException();
+      throw new ReferenceNotFoundException(String.format("%s of %s not found\n", propertyName, name));
     }
     if (!reference.containsKey(propertyName)) {
-      throw new MissingRequiredPropertyException();
+      throw new MissingRequiredPropertyException(String.format("%s of %s missing\n", propertyName, name));
     }
     return reference.get(propertyName);
   }

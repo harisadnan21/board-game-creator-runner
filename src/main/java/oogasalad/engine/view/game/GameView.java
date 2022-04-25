@@ -17,8 +17,7 @@ import oogasalad.engine.view.OptionSelect.CSSSelect;
 import oogasalad.engine.view.ControlPanel.GameControlPanel;
 import oogasalad.engine.view.ControlPanel.SettingsControlPanel;
 import oogasalad.engine.view.OptionSelect.MouseSoundSelect;
-import oogasalad.engine.view.OptionSelect.OptionSelect;
-import oogasalad.engine.view.Popup.SettingsView;
+import oogasalad.engine.view.Popup.SettingsView.SettingsView;
 import oogasalad.engine.view.Popup.MessageView;
 import oogasalad.engine.view.setup.DirectoryOpener;
 
@@ -27,7 +26,7 @@ import oogasalad.engine.view.setup.DirectoryOpener;
  * @author Cynthia France, Haris Adnan
  */
 public class GameView {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
 
   private Double width;
   private Double height;
@@ -44,6 +43,18 @@ public class GameView {
   private SettingsView settings;
   private File game;
 
+  /**
+   *
+   * creates the view that displays the entire game
+   *
+   * @param board The front end board
+   * @param controller game controller
+   * @param w width of window
+   * @param h height of window
+   * @param css css filepath
+   * @param language user-specified language in which the UI is displayed in
+   * @param game game folder
+   */
   public GameView(BoardView board, Controller controller, double w, double h, String css, String language, File game) {
     this.language = language;
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
@@ -58,13 +69,24 @@ public class GameView {
     settings = new SettingsView(cssFilePath, language);
     this.game = game;
     setUpRoot();
-    board.addController(myController);
   }
 
+  /**
+   *
+   * returns the scene
+   *
+   * @return gameView scene
+   */
   public Scene getScene() {
     return myScene;
   }
 
+  /**
+   *
+   * makes the Scene for this GameView
+   *
+   * @return the Scene for this gameView
+   */
   public Scene makeScene() {
     root.setCenter(myBoard.getRoot());
     root.setLeft(myGameControl.getRoot());
@@ -80,14 +102,32 @@ public class GameView {
     return myScene;
   }
 
+  /**
+   *
+   * the home button for ViewManager use
+   *
+   * @return home button
+   */
   public Button getHome() {
     return myGameControl.getHome();
   }
 
+  /**
+   *
+   * CSS dropdown menu, for ViewManager use
+   *
+   * @return CSS dropdown menu
+   */
   public CSSSelect getCssDropdown() {
     return settings.getCssDropdown();
   }
 
+  /**
+   *
+   * Mouse sounds menu, for ViewManager use
+   *
+   * @return Mouse sounds menu
+   */
   public MouseSoundSelect getSoundDropdown() {
     return settings.getSoundDropdown();
   }

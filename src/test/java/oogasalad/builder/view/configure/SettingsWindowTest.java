@@ -24,9 +24,4 @@ class SettingsWindowTest extends DukeApplicationTest {
 
     }
 
-
-    @Test
-    void testThemes() {
-//       Assertions.assertTrue(setWindow.getTheme().getItems().contains("Default"));
-    }
 }

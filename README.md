@@ -107,7 +107,17 @@ Extensions completed:
 * AI Players
 * Fully customizable game layout
 
-
+###CheatCodes
+O -> RemovePlayer1Piece(),
+Z -> new RemovePlayer0Piece(),
+S -> ShuffleBoard(),
+1 -> PlayerOneWins(),
+2 -> PlayerTwoWins(),
+R -> Reset(),
+L -> Player1Turn(),
+K -> Player2Turn(),
+I -> IncrementPlayer(),
+P -> CopyRandomPiece());
 ### Impressions
 
 This project was difficult, and it took a lot of teamwork and communication to make sure we were able to 

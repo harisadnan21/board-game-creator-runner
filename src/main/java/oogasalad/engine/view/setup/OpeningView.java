@@ -16,9 +16,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
+/**
+ *
+ * the opening window of the engine, where the player can choose many methods of playing a game
+ *
+ * @author Cynthia France
+ */
 public class OpeningView {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+
   private static final Logger LOG = LogManager.getLogger(OpeningView.class);
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
 
   private Double width;
   private Double height;
@@ -27,9 +34,7 @@ public class OpeningView {
   private VBox gameText;
   private VBox elements;
   private Text title;
-  private JSONObject fileObject;
   private Button uploadFile;
-  private Button gameBuilder;
   private Button dashboard;
   private Button contSel;
   private DirectoryOpener directoryOpener;
@@ -92,14 +97,13 @@ public class OpeningView {
   private HBox makeButtonRow() {
     HBox row = new HBox();
     row.setId("opening-button-row");
-    row.getChildren().addAll(uploadFile, dashboard, gameBuilder);
+    row.getChildren().addAll(uploadFile, dashboard);
     return row;
   }
 
   private void makeButtons() {
     uploadFile = makeButton(myResources.getString("UploadFile"));
     setupFileUpload();
-    gameBuilder = makeButton(myResources.getString("GameBuilder"));
     contSel = makeButton(myResources.getString("Continue"));
     contSel.setDisable(true);
     dashboard = makeButton(myResources.getString("Dashboard"));

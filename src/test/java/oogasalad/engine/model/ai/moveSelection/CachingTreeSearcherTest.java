@@ -3,7 +3,9 @@ package oogasalad.engine.model.ai.moveSelection;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import oogasalad.engine.model.ai.AIOracle;
 import oogasalad.engine.model.ai.enums.Difficulty;
@@ -13,6 +15,9 @@ import oogasalad.engine.model.ai.evaluation.patterns.Pattern;
 import oogasalad.engine.model.ai.evaluation.patterns.PatternEvaluator;
 import oogasalad.engine.model.ai.evaluation.totals.TotalPieces;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,22 +28,18 @@ class CachingTreeSearcherTest {
   private static List<TreeSearcher> treeSearchers;
   private static Seq<Tuple2<CachingTreeSearcher, TreeSearcher>> zipped;
 
-  @Test
-  void unhappyInput() {
-    assertThrows(IllegalArgumentException.class, () -> new CachingTreeSearcher(Difficulty.EASY, new PatternEvaluator(null), null, CaffeineMemoizer::new));
-    assertThrows(RuntimeException.class, () -> new CachingTreeSearcher(null, null, null, null));
-    assertThrows(RuntimeException.class, () -> new CachingTreeSearcher(Difficulty.RANDOM, null, null, null));
-    assertThrows(RuntimeException.class, () -> new CachingTreeSearcher(Difficulty.EXPERT, new PatternEvaluator(List.of(new Pattern[]{})), null, CaffeineMemoizer::new));
-
-  }
-
   @BeforeEach
   void setUp() {
-
+    PositionState posState = new PositionState(new Position(0,0), Piece.EMPTY);
+    Collection<PositionState> positionStates = new ArrayList<>();
+    positionStates.add(posState);
+    Pattern p = new Pattern(positionStates);
+    Collection<Pattern> patterns  = new ArrayList<>();
+    patterns.add(p);
     var difficulties = Difficulty.values();
     var stateEvaluators = new StateEvaluator[] {
         new TotalPieces(),
-        new PatternEvaluator(null),
+        new PatternEvaluator(patterns),
     };
 
     AIOracle aiOracle = null;

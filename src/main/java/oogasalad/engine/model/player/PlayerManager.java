@@ -34,6 +34,18 @@ public class PlayerManager {
   }
 
   /**
+   * Gives all players the current board
+   *
+   * @param board
+   */
+  public void givePlayersCurrentBoard(Board board) {
+    // maybe PlayerManager should be a listener?
+    for (Player player: myPlayers.values()) {
+      player.setGameBoard(board);
+    }
+  }
+
+  /**
    * Gets ID of player
    * @param player player object
    * @return
@@ -113,15 +125,9 @@ public class PlayerManager {
     return myPlayers.size();
   }
 
-  /**
-   * Adds required classes to the players for a specific game
-   * @param oracle
-   * @param executeMove
-   * @param setValidMarks
-   */
-  public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove, Consumer<Set<Position>> setValidMarks) {
+  public void addExecuteMove(BiConsumer<Player, Choice> executeMove) {
     for (Player player: myPlayers.values()) {
-      player.addDependencies(oracle, executeMove, setValidMarks);
+      player.setExecuteFunction(executeMove);
     }
   }
 }

@@ -7,7 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
-import oogasalad.engine.view.ViewManager;
+import oogasalad.engine.model.board.Board;
+import oogasalad.engine.view.ViewManager.ViewManager;
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.setup.dashboard.Dashboard;
 import org.junit.jupiter.api.Test;
@@ -23,10 +24,12 @@ class DashboardTest extends DukeApplicationTest {
 
   @Override
   public void start (Stage stage) throws IOException {
-    board = new BoardView(new File("data/games/checkers"), 3, 3, 300, 300, "/css/light.css", "English");
+    Board modelBoard = new Board(3,3);
+
+    board = new BoardView(controller, new File("data/games/checkers"), modelBoard, 300, 300,
+        "/engine-view/css/light.css", "English");
     Consumer<File> fakeStart = this::fakeStart;
     dashboard = new Dashboard(fakeStart);
-    board.addController(controller);
     root = board.getRoot();
 
     ViewManager manager = new ViewManager(stage);

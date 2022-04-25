@@ -22,7 +22,7 @@ import org.jooq.lambda.Seq;
  */
 @EqualsAndHashCode
 @ToString
-public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard {
+public class Board implements Cloneable, ImmutableBoard {
 
   public static final String INVALID_POSITION = "Invalid Position";
   private static final int FIRST_ROW = 0;
@@ -190,20 +190,12 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
     return isValidRow(position.row()) && isValidColumn(position.column());
   }
 
-  /**
-   * method to acquire number of rows of board
-   *
-   * @return
-   */
+  @Override
   public int getHeight() {
     return numRows;
   }
 
-  /**
-   * Method to acquire number of columns in board
-   *
-   * @return
-   */
+  @Override
   public int getWidth() {
     return numCols;
   }
@@ -248,59 +240,59 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
   /**
    * returns if the position at the coordinates is empty or not
    *
-   * @param i : x coordinate (row number)
-   * @param j : y coordinate (column number)
+   * @param row : x coordinate (row number)
+   * @param column : y coordinate (column number)
    * @return : true or false
    */
-  public boolean isEmpty(int i, int j) {
-    return !isOccupied(i, j);
+  public boolean isEmpty(int row, int column) {
+    return !isOccupied(row, column);
   }
 
   /**
-   * Places new piece with type and player at location (i,j)
+   * Places new piece with type and player at location (row,column)
    *
-   * @param i
-   * @param j
+   * @param row
+   * @param column
    * @param type
    * @param player
    */
-  public Board placeNewPiece(int i, int j, int type, int player) {
-    return this.placePiece(new PositionState(new Position(i, j), new Piece(type, player)));
+  public Board placeNewPiece(int row, int column, int type, int player) {
+    return this.placePiece(new PositionState(new Position(row, column), new Piece(type, player)));
   }
 
   /**
-   * Removes piece at (i,j) Throws exception if either position not in board
+   * Removes piece at (row,column) Throws exception if either position not in board
    *
-   * @param i
-   * @param j
+   * @param row
+   * @param column
    */
-  public Board remove(int i, int j) {
-    return this.removePiece(new Position(i, j));
+  public Board remove(int row, int column) {
+    return this.removePiece(new Position(row, column));
   }
 
   /**
-   * Moves piece at (i1,j1) to (i2,j2) Throws exception if either position not in board
+   * Moves piece at (row1,column1) to (row2,column2) Throws exception if either position not in board
    *
-   * @param i1
-   * @param j1
-   * @param i2
-   * @param j2
+   * @param row1
+   * @param column1
+   * @param row2
+   * @param column2
    * @throws OutOfBoardException
    */
-  public Board move(int i1, int j1, int i2, int j2) {
-    return this.movePiece(new Position(i1, j1), new Position(i2, j2));
+  public Board move(int row1, int column1, int row2, int column2) {
+    return this.movePiece(new Position(row1, column1), new Position(row2, column2));
   }
 
 
   /**
-   * Returns Piece object at i, j Throws exception if location not in board
+   * Returns Piece object at row, column Throws exception if location not in board
    *
-   * @param i
-   * @param j
+   * @param row
+   * @param column
    * @return
    */
-  public Piece getPiece(int i, int j) {
-    return myBoard.get(new Position(i, j)).getOrElseThrow(() -> new OutOfBoardException(
+  public Piece getPiece(int row, int column) {
+    return myBoard.get(new Position(row, column)).getOrElseThrow(() -> new OutOfBoardException(
         INVALID_POSITION)).piece();
   }
 }

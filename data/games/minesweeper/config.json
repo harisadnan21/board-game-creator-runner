@@ -137,17 +137,7 @@
         {
             "name": "Success",
             "conditions": [
-                "Out of pieces",
-                "Mine hidden at 8 2",
-                "Mine hidden at 2 8",
-                "Mine hidden at 3 7",
-                "Mine hidden at 6 5",
-                "Mine hidden at 3 8",
-                "Mine hidden at 6 3",
-                "Mine hidden at 5 4",
-                "Mine hidden at 2 7",
-                "Mine hidden at 1 2",
-                "Mine hidden at 3 0"
+                "Out of pieces"
             ],
             "type": "MostPieces"
         }
@@ -236,72 +226,9 @@
     ],
     "conditions": [
         {
-            "col": 2,
-            "name": "Mine hidden at 8 2",
-            "isAbsolute": 1,
-            "id": 10,
-            "row": 8,
-            "type": "IsPieceType"
-        },
-        {
-            "col": 8,
-            "name": "Mine hidden at 2 8",
-            "isAbsolute": 1,
-            "row": 2,
-            "id": 10,
-            "type": "IsPieceType"
-        },
-        {
-            "col": 7,
-            "name": "Mine hidden at 3 7",
-            "isAbsolute": 1,
-            "row": 3,
-            "id": 10,
-            "type": "IsPieceType"
-        },
-        {
-            "col": 5,
-            "name": "Mine hidden at 6 5",
-            "isAbsolute": 1,
-            "id": 10,
-            "row": 6,
-            "type": "IsPieceType"
-        },
-        {
-            "col": 8,
-            "name": "Mine hidden at 3 8",
-            "isAbsolute": 1,
-            "row": 3,
-            "id": 10,
-            "type": "IsPieceType"
-        },
-        {
-            "col": 3,
-            "name": "Mine hidden at 6 3",
-            "isAbsolute": 1,
-            "id": 10,
-            "row": 6,
-            "type": "IsPieceType"
-        },
-        {
-            "col": 4,
-            "name": "Mine hidden at 5 4",
-            "isAbsolute": 1,
-            "row": 5,
-            "id": 10,
-            "type": "IsPieceType"
-        },
-        {
-            "col": 7,
-            "name": "Mine hidden at 2 7",
-            "isAbsolute": 1,
-            "row": 2,
-            "id": 10,
-            "type": "IsPieceType"
-        },
-        {
             "name": "Out of pieces",
-            "type": "PlayerHasNoPieces"
+            "type": "PlayerHasNoPieces",
+            "invert": 0
         },
         {
             "col": 0,
@@ -309,7 +236,8 @@
             "isAbsolute": 0,
             "id": 11,
             "row": 0,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -317,7 +245,8 @@
             "isAbsolute": 0,
             "id": 10,
             "row": 0,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -325,7 +254,8 @@
             "isAbsolute": 0,
             "id": 19,
             "row": 0,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -333,7 +263,8 @@
             "isAbsolute": 0,
             "row": 0,
             "id": 18,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -341,7 +272,8 @@
             "isAbsolute": 0,
             "row": 0,
             "id": 17,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -349,7 +281,8 @@
             "isAbsolute": 0,
             "id": 0,
             "row": 0,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -357,7 +290,8 @@
             "isAbsolute": 0,
             "row": 0,
             "id": 16,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -365,7 +299,8 @@
             "isAbsolute": 0,
             "row": 0,
             "id": 15,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -373,7 +308,8 @@
             "isAbsolute": 0,
             "id": 14,
             "row": 0,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -381,23 +317,8 @@
             "isAbsolute": 0,
             "id": 13,
             "row": 0,
-            "type": "IsPieceType"
-        },
-        {
-            "col": 2,
-            "name": "Mine hidden at 1 2",
-            "isAbsolute": 1,
-            "row": 1,
-            "id": 10,
-            "type": "IsPieceType"
-        },
-        {
-            "col": 0,
-            "name": "Mine hidden at 3 0",
-            "isAbsolute": 1,
-            "row": 3,
-            "id": 10,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         },
         {
             "col": 0,
@@ -405,7 +326,8 @@
             "isAbsolute": 0,
             "id": 12,
             "row": 0,
-            "type": "IsPieceType"
+            "type": "IsPieceType",
+            "invert": 0
         }
     ],
     "actions": [

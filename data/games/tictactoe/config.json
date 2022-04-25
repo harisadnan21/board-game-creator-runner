@@ -69,11 +69,11 @@
             "type": "PlayerWins"
         },
         {
-            "name": "draw",
-            "id": -1,
-            "conditions": ["board full"],
+            "name": "Draw",
+            "conditions": [],
             "type": "Draw"
         }
+
     ],
     "rules": [
         {
@@ -113,7 +113,8 @@
             "columnDirection": 1,
             "length": 3,
             "player": 0,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "O row",
@@ -124,7 +125,8 @@
             "columnDirection": 1,
             "length": 3,
             "player": 1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "X col",
@@ -135,7 +137,8 @@
             "columnDirection": 0,
             "length": 3,
             "player": 0,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "O col",
@@ -146,7 +149,8 @@
             "columnDirection": 0,
             "length": 3,
             "player": 1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "X pos diag",
@@ -157,7 +161,8 @@
             "columnDirection": 1,
             "length": 3,
             "player": 0,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "O pos diag",
@@ -168,7 +173,8 @@
             "columnDirection": 1,
             "length": 3,
             "player": 1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "X neg diag",
@@ -179,7 +185,8 @@
             "columnDirection": -1,
             "length": 3,
             "player": 0,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "O neg diag",
@@ -190,14 +197,16 @@
             "columnDirection": -1,
             "length": 3,
             "player": 1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "col": 0,
             "name": "Placement Square is Empty",
             "isAbsolute": 0,
             "row": 0,
-            "type": "IsEmpty"
+            "type": "IsEmpty",
+            "invert": 0
         },
         {
             "col": 0,
@@ -205,7 +214,8 @@
             "isAbsolute": 0,
             "row": 0,
             "id": 0,
-            "type": "IsPlayer"
+            "type": "IsPlayer",
+            "invert": 0
         },
         {
             "col": 0,
@@ -213,7 +223,8 @@
             "isAbsolute": 0,
             "row": 0,
             "id": 1,
-            "type": "IsPlayer"
+            "type": "IsPlayer",
+            "invert": 0
         }
     ],
     "actions": [

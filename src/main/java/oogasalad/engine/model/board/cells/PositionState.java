@@ -37,20 +37,20 @@ public record PositionState(Position position, Piece piece) implements Comparabl
   }
 
   /**
-   *
-   * @return the int
+   * row
+   * @return row
    */
 //Just a convenience function
-  public int i(){
+  public int row(){
     return position.row();
   }
 
   /**
-   *
-   * @return the int
+   * column
+   * @return column
    */
 //Just a convenience function
-  public int j(){
+  public int column(){
     return position.column();
   }
 

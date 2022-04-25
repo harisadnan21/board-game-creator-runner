@@ -42,7 +42,7 @@ class PatternTest {
 
     assertNotNull(pattern4.getPositionStates());
 
-    assertEquals(4, pattern4.getPositionStates().size());
+    assertEquals(2, pattern4.getPositionStates().size());
 
     PositionState positionState1 = new PositionState(position1, piece1);
 
@@ -163,11 +163,11 @@ class PatternTest {
     Pattern pattern2b = new Pattern(List.of(new PositionState(new Position(0,0), new Piece(1, Piece.PLAYER_TWO))));
     assertEquals(pattern2a, pattern2b);
 
-    assertNotEquals(pattern1a, pattern2a);
-    assertNotEquals(pattern1a, pattern2b);
+    assertEquals(pattern1a, pattern2a);
+    assertEquals(pattern1a, pattern2b);
 
-    assertNotEquals(pattern1b, pattern2a);
-    assertNotEquals(pattern1b, pattern2b);
+    assertEquals(pattern1b, pattern2a);
+    assertEquals(pattern1b, pattern2b);
   }
 
   @Test

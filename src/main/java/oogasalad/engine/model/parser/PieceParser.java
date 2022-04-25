@@ -7,6 +7,10 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Parses the data about the pieces from the given config file
+ * @author Robert Cranston
+ */
 public class PieceParser extends AbstractParser<Map<Integer, String>>{
 
   public static final String PIECES = "pieces";

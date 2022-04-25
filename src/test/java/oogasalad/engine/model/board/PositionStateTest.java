@@ -23,26 +23,26 @@ class PositionStateTest {
 
   @Test
   void i() {
-    assertNotNull(POSITION_STATE_1.i());
-    assertNotNull(POSITION_STATE_2.i());
-    assertNotNull(POSITION_STATE_3.i());
-    assertNotNull(POSITION_STATE_4.i());
-    assertInstanceOf(Integer.class, POSITION_STATE_1.i());
-    assertInstanceOf(Integer.class, POSITION_STATE_2.i());
-    assertInstanceOf(Integer.class, POSITION_STATE_3.i());
-    assertInstanceOf(Integer.class, POSITION_STATE_4.i());
+    assertNotNull(POSITION_STATE_1.row());
+    assertNotNull(POSITION_STATE_2.row());
+    assertNotNull(POSITION_STATE_3.row());
+    assertNotNull(POSITION_STATE_4.row());
+    assertInstanceOf(Integer.class, POSITION_STATE_1.row());
+    assertInstanceOf(Integer.class, POSITION_STATE_2.row());
+    assertInstanceOf(Integer.class, POSITION_STATE_3.row());
+    assertInstanceOf(Integer.class, POSITION_STATE_4.row());
   }
 
   @Test
   void j() {
-    assertNotNull(POSITION_STATE_1.j());
-    assertNotNull(POSITION_STATE_2.j());
-    assertNotNull(POSITION_STATE_3.j());
-    assertNotNull(POSITION_STATE_4.j());
-    assertInstanceOf(Integer.class, POSITION_STATE_1.j());
-    assertInstanceOf(Integer.class, POSITION_STATE_2.j());
-    assertInstanceOf(Integer.class, POSITION_STATE_3.j());
-    assertInstanceOf(Integer.class, POSITION_STATE_4.j());
+    assertNotNull(POSITION_STATE_1.column());
+    assertNotNull(POSITION_STATE_2.column());
+    assertNotNull(POSITION_STATE_3.column());
+    assertNotNull(POSITION_STATE_4.column());
+    assertInstanceOf(Integer.class, POSITION_STATE_1.column());
+    assertInstanceOf(Integer.class, POSITION_STATE_2.column());
+    assertInstanceOf(Integer.class, POSITION_STATE_3.column());
+    assertInstanceOf(Integer.class, POSITION_STATE_4.column());
   }
   @Test
   void position() {

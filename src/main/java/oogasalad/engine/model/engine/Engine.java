@@ -1,18 +1,17 @@
 package oogasalad.engine.model.engine;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.player.PlayerManager;
-import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.rule.Move;
 
@@ -24,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * The type Engine.
  */
-public class Engine {
+public class Engine implements PropertyChangeListener {
 
   private static final Logger LOG = LogManager.getLogger(Engine.class);
 
@@ -45,10 +44,9 @@ public class Engine {
    * @param game
    * @param players
    * @param oracle
-   * @param setValidMarks
    * @param endGame
    */
-  public Engine(Game game, PlayerManager players, Oracle oracle, Consumer<Set<Position>> setValidMarks, IntConsumer endGame) {
+  public Engine(Game game, PlayerManager players, Oracle oracle, IntConsumer endGame) {
 
     myGame = game;
 
@@ -58,10 +56,10 @@ public class Engine {
 
     myOracle = oracle;
 
-    players.addDependencies(myOracle, this::playTurn, setValidMarks);
+    players.addExecuteMove(this::playTurn);
 
+    game.addListener(this);
     pingActivePlayer();
-
   }
 
   /**
@@ -86,6 +84,9 @@ public class Engine {
     }
   }
 
+  /**
+   * Tells the active player to choose a move
+   */
   public void pingActivePlayer() {
     LOG.info("Player pinged: {}\n", getGameBoard().getPlayer());
     myPlayerManager.getPlayer(getGameBoard().getPlayer()).chooseMove(getGameBoard());
@@ -97,8 +98,8 @@ public class Engine {
    * @param player
    * @param choice
    */
-  private void playTurn(Player player, Choice choice) {
-    if (isActivePlayer(player)) {
+  public void playTurn(Player player, Choice choice) {
+    if (isActivePlayer(player) || choice.oldBoard() != getGameBoard()) {
       Move move = choice.move();
       Position referencePoint = choice.position();
       if (move.isValid(getGameBoard(), referencePoint)) {
@@ -106,12 +107,9 @@ public class Engine {
         Board board = myOracle.getNextState(getGameBoard(), choice);
         LOG.info("{} executed at {},{}", move.getName(), referencePoint.row(), referencePoint.column());
 
-        board = myOracle.incrementPlayer(board);
         myGame.setBoard(board);
 
         checkWin();
-
-        pingActivePlayer();
 
       } else {
         LOG.warn("Player's move is not valid");
@@ -119,19 +117,25 @@ public class Engine {
     } else {
       LOG.warn("inactive player tried to execute move");
     }
+    pingActivePlayer();
   }
+
+  public Board incrementPlayer(Board board) {
+    return myOracle.incrementPlayer(board);
+  }
+
 
   public void checkWin() {
     if (myOracle.isWinningState(getGameBoard())) {
       int winner = myOracle.getWinner(getGameBoard());
-      if (myPlayerManager.playerExists(winner)) {
-        myPlayerManager.getPlayer(winner).updateScore(1);
-      }
       endGame(winner);
     }
   }
 
   public void endGame(int winner) {
+    if (myPlayerManager.playerExists(winner)) {
+      myPlayerManager.getPlayer(winner).updateScore(1);
+    }
     if (myEndGame != null) {
       myEndGame.accept(winner);
     }
@@ -166,5 +170,11 @@ public class Engine {
    */
   public Board getGameBoard() {
     return myGame.getBoard();
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    LOG.info("Property Change");
+    myPlayerManager.givePlayersCurrentBoard(getGameBoard());
   }
 }

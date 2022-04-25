@@ -15,7 +15,7 @@ class GameTest {
 
   PositionState[][] positionStates = new PositionState[4][4];
   private Board TestBoard = new Board(positionStates);
-  private Game TestGame= new Game(TestBoard, null);
+  private Game TestGame= new Game(TestBoard);
 
   GameTest() throws FileNotFoundException {
   }

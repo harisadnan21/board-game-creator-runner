@@ -13,11 +13,17 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ *
+ * the sound that is played when a user clicks
+ *
+ * @author Cynthia France
+ */
 public class MouseSound {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/resource-names/";
-  public static final String DEFAULT_LANGUAGE_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/resource-names/";
+  public static final String DEFAULT_LANGUAGE_RESOURCE_PACKAGE = "/engine-view/languages/";
   public static ResourceBundle sndBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Sound");
-  public static String SOUNDS_FOLDER = "data/sounds/";
+  public static String SOUNDS_FOLDER = "src/main/resources/engine-view/sounds/";
   public static String DEFAULT_SOUND = "Click";
   public static String[] SOUNDS = new String[] {"Click", "Thump"};
   private static final Logger LOG = LogManager.getLogger(MouseSound.class);
@@ -27,6 +33,12 @@ public class MouseSound {
   private ResourceBundle myResources;
   private Clip currSound;
 
+  /**
+   *
+   * creates the library of mouse sounds
+   *
+   * @param language user-specified language in which the UI is displayed in
+   */
   public MouseSound(String language) {
     sounds = new HashMap<>();
     myResources = ResourceBundle.getBundle(DEFAULT_LANGUAGE_RESOURCE_PACKAGE + language);
@@ -35,6 +47,12 @@ public class MouseSound {
     setSound(DEFAULT_SOUND);
   }
 
+  /**
+   *
+   * sets the mouse sound
+   *
+   * @param sound name of sound
+   */
   public void setSound(String sound) {
     if (sounds.containsKey(sound)) {
       soundOn = true;
@@ -43,6 +61,16 @@ public class MouseSound {
     else {
       currSound = null;
       soundOn = false;
+    }
+  }
+
+  /**
+   * plays the sound
+   */
+  public void playSound() {
+    if (soundOn) {
+      currSound.setMicrosecondPosition(0);
+      currSound.start();
     }
   }
 
@@ -56,6 +84,7 @@ public class MouseSound {
   private Clip getSound(String name) {
     AudioInputStream audioIn;
     try {
+      System.out.println(SOUNDS_FOLDER + sndBundle.getString(name));
       File f = new File(SOUNDS_FOLDER + sndBundle.getString(name));
       audioIn = AudioSystem.getAudioInputStream(f);
       Clip clip = AudioSystem.getClip();
@@ -65,13 +94,6 @@ public class MouseSound {
       LOG.error(e);
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("SoundNotFound"));
       return null;
-    }
-  }
-
-  public void playSound() {
-    if (soundOn) {
-      currSound.setMicrosecondPosition(0);
-      currSound.start();
     }
   }
 }

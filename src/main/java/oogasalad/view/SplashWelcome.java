@@ -10,14 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
 import javafx.stage.Stage;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.controller.ExceptionResourcesSingleton;
 import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.ViewResourcesSingleton;
-import oogasalad.engine.view.ViewManager;
+import oogasalad.engine.view.ViewManager.ViewManager;
 
 import java.io.IOException;
 import org.apache.logging.log4j.LogManager;

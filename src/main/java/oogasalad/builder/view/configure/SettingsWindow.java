@@ -14,7 +14,6 @@ import javafx.stage.StageStyle;
 import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.engine.view.OptionSelect.CSSSelect;
-import oogasalad.engine.view.Popup.MouseSoundEntry;
 
 import java.util.ResourceBundle;
 

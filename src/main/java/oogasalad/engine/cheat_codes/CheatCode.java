@@ -1,9 +1,19 @@
 package oogasalad.engine.cheat_codes;
 
+import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.engine.Engine;
 
+/**
+ * Interface for Cheat codes
+ * @author Robert Cranston
+ */
 public interface CheatCode {
 
-  public Board accept(Board board, Engine engine);
+  /**
+   * executes the cheat code based on the given board. Updates the board through the controller.
+   * @param board current game board
+   * @param controller controller for the
+   * @return  board with the update after the cheat code
+   */
+  Board accept(Board board, Controller controller);
 }

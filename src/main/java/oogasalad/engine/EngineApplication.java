@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import oogasalad.engine.view.ViewManager;
+import oogasalad.engine.view.ViewManager.ViewManager;
 
 /**
  * Class that runs the engine and starts it off

@@ -42,13 +42,11 @@ public abstract class AbstractPlayer implements Player {
     return myCurrentGameBoard;
   }
 
-  /**
-   * Sets the current game board for this player
-   * @param board
-   */
-  protected void setGameBoard(Board board) {
+  @Override
+  public void setGameBoard(Board board) {
     myCurrentGameBoard = board;
   }
+
   @Override
   public int getScore() {
     return myScore;
@@ -64,8 +62,8 @@ public abstract class AbstractPlayer implements Player {
     myCurrentGameBoard = board;
   }
 
-
-  protected void setExecuteMove(BiConsumer<Player, Choice> executeMove) {
+  @Override
+  public void setExecuteFunction(BiConsumer<Player, Choice> executeMove) {
     this.myExecuteMove = executeMove;
   }
 }

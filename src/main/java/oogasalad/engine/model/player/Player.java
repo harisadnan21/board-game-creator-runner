@@ -20,6 +20,12 @@ public interface Player {
   void chooseMove(Board activeBoard);
 
   /**
+   * Sets the current game board for this player
+   * @param board
+   */
+  void setGameBoard(Board board);
+
+  /**
    * Defines what should happen if the user clicks a cell during
    * this player's turn
    * @param i
@@ -41,12 +47,11 @@ public interface Player {
   void updateScore(int change);
 
   /**
-   * Sets dependencies for player
-   * TODO: Don't like this method but do not currently see another way to
-   * @param oracle
+   * Adds the execute function from the active engine
+   *
+   * This exists so that the same player can be used for multiple games
+   *
    * @param executeMove
-   * @param setValidMarks
    */
-  void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
-      Consumer<Set<Position>> setValidMarks);
+  void setExecuteFunction(BiConsumer<Player, Choice> executeMove);
 }

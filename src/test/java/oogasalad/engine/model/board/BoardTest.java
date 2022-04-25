@@ -207,11 +207,11 @@ void testBoardIsPersistentAdvanced() {
 
     // Validate that board is still full
     board.getPositionStatesStream().forEach(positionState -> assertNotEquals(positionState.piece(), Piece.EMPTY));
-    board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.row(), positionState.column())));
+    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.row(), positionState.column())));
     board.getPositionStatesStream().forEach(positionState -> assertNotEquals(positionState.piece(), (Piece.EMPTY)));
-    board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.row(), positionState.column())));
+    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.row(), positionState.column())));
 
   }
 
@@ -231,11 +231,11 @@ void testBoardIsPersistentAdvanced() {
     board.getPositionStatesStream().forEach(positionState -> assertNotEquals(positionState.player(), Piece.NO_PLAYER));
     board.getPositionStatesStream().forEach(positionState -> assertNotEquals(positionState.type(), Piece.BLANK_TYPE));
     board.getPositionStatesStream().forEach(positionState -> assertEquals(positionState.player(), Piece.PLAYER_ONE));
-    board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.i(), positionState.j())));
-    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isValidPosition(positionState.i(), positionState.j())));
+    board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.row(), positionState.column())));
+    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.row(), positionState.column())));
+    board.getPositionStatesStream().forEach(positionState -> assertFalse(board.isEmpty(positionState.row(), positionState.column())));
+    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isOccupied(positionState.row(), positionState.column())));
+    board.getPositionStatesStream().forEach(positionState -> assertTrue(board.isValidPosition(positionState.row(), positionState.column())));
     board.getPositionStatesStream().forEach(positionState -> assertEquals(positionState.piece(), new Piece(1, Piece.PLAYER_ONE)));
   }
 

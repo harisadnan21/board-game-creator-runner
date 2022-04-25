@@ -1,22 +1,26 @@
 package oogasalad.engine.view.OptionSelect;
 
-import oogasalad.engine.view.OptionSelect.OptionSelect;
 
+/**
+ *
+ * Dropdown menu for language selection
+ * Inherits from OptionSelect
+ *
+ * @author Cynthia France
+ */
 public class LanguageSelect extends OptionSelect {
 
+  /**
+   * creates a selection menu for different language selection
+   */
   public LanguageSelect() {
     super();
+    this.setId("language-select");
   }
 
-  public String getLanguage() {
-    if (this.getValue() == null) {
-      return "English";
-    }
-    else {
-      return this.getValue();
-    }
-  }
-
+  /**
+   * updates options with the correct values
+   */
   @Override
   protected void setup() {
     options = new String[]{"English", "Spanish", "French", "German"};

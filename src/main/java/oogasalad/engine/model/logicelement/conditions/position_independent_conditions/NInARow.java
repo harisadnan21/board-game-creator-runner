@@ -9,29 +9,32 @@ import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
 
 
-public class NInARow extends BoardCondition{
+public class NInARow extends BoardCondition {
   private int currentPlayer = -100;
 
   private int n;
+  private int player;
+  private boolean invert;
 
   /**
-   * Returns true if there exists n in a row in any direction
-   * @param parameters [n]
+   * Returns true if there exists n in a row in any direction of one player's pieces
+   * @param parameters [n, player, invert]
    */
   public NInARow(int[] parameters){
     super(parameters);
-    n = myParameters[0];
+    n = getParameter(0);
+    player = getParameter(1);
+    invert = getParameter(2) != 0;
   }
 
   /**
    * evaluates if the condition is true
-   *
    * @param board current board state
    * @param referencePoint
    */
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return checkForHorizontal(board) || checkForVertical(board) || checkForDiagonal(board);
+    return invertIfTrue(checkForHorizontal(board) || checkForVertical(board) || checkForDiagonal(board), invert);
   }
 
 
@@ -62,8 +65,7 @@ public class NInARow extends BoardCondition{
 
     int count = 0;
     for(PositionState positionState : positionStates) {
-      count = positionState.player()== currentPlayer ? count+1 : (positionState.isEmpty() ? 0 : 1);
-      currentPlayer = positionState.isEmpty() ? -100 : positionState.player();
+      count = positionState.player() == player ? count + 1 : 0;
       if (count == n) { return true; }
     }
     return false;
@@ -81,51 +83,6 @@ public class NInARow extends BoardCondition{
     }
     return line;
   }
-
-
-//  private boolean checkForHorizontal(Board board) {
-//    n = 0;
-//    for(int row = 0; row < board.getHeight(); row++){
-//      for(int col = 0; col < board.getWidth(); col++){
-//        if (checkCurrentCell(board, row, col)) {
-//          return true;
-//        }
-//      }
-//      n = 0;
-//    }
-//    return false;
-//  }
-//
-//  //check for n pieces of the same type in a vertical row
-//  private boolean checkForVertical(Board board) {
-//    n = 0;
-//    for(int col = 0; col < board.getWidth(); col++){
-//      for(int row = 0; row < board.getHeight(); row++){
-//        if (checkCurrentCell(board, row, col)) {
-//          return true;
-//        }
-//      }
-//      n = 0;
-//    }
-//    return false;
-//  }
-//
-//  private boolean checkCurrentCell(Board board, int row, int col) {
-//    if(board.getPositionStateAt(row, col).piece() != Piece.EMPTY) {
-//      if (board.getPositionStateAt(row, col).player() == currentPlayer) {
-//        n++;
-//      } else {
-//        currentPlayer = board.getPositionStateAt(row, col).player();
-//        n = 1;
-//      }
-//    }
-//    else{
-//      n = 0;
-//    }
-//    return n == myParameters[0];
-//  }
-//
-//}
 
 
 }
