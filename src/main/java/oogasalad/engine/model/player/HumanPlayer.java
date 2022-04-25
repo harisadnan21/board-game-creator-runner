@@ -54,7 +54,7 @@ public class HumanPlayer extends AbstractPlayer {
           resetSelected();
           executeMove(this, myChoice);
         }
-        resetSelected();
+        makePieceSelected(i, j);
       }
     }
   }

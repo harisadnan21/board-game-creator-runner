@@ -6,12 +6,15 @@ import java.awt.AWTException;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
+import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.game.GameView;
@@ -38,7 +41,9 @@ public class GameViewTest extends DukeApplicationTest {
     Board backEndBoard = parser.parseBoard();
 
     board = new BoardView(controller, game, backEndBoard, 600, 600, "/css/light.css", "English");
-    controller.startEngine(parser, board::setValidMarkers, board::endGame);
+    Consumer<Set<Position>> setMarkersLambda = board::setValidMarkers;
+
+    controller.startEngine(parser, setMarkersLambda, board::endGame);
     controller.getGame().addListener(board);
     root = board.getRoot();
 

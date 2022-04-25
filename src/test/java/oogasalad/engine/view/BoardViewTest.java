@@ -6,11 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Set;
+import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.game.BoardView;
 import org.junit.jupiter.api.Test;
@@ -33,7 +36,9 @@ public class BoardViewTest extends DukeApplicationTest {
     controller = new Controller(new String[]{});
 
     board = new BoardView(controller, new File("data/games/checkers"), backEndBoard, 300, 300, "/css/light.css", "English");
-    controller.startEngine(parser, board::setValidMarkers, board::endGame);
+
+    Consumer<Set<Position>> setMarkersLambda = board::setValidMarkers;
+    controller.startEngine(parser, setMarkersLambda, board::endGame);
     root = board.getRoot();
 
     ViewManager manager = new ViewManager(stage);

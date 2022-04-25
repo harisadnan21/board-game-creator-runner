@@ -16,7 +16,7 @@
     "metadata": {
         "gameName": "Tic-Tac-Toe",
         "author": "Shaan Gondalia",
-        "name": "tictactoe",
+        "name": "metadata",
         "description": "Tic Tac Toe configuration file created with the builder"
     },
     "winDecisions": [

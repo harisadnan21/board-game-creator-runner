@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import oogasalad.builder.BuilderMain;
 import oogasalad.view.OpeningSplashScreen;
+import oogasalad.view.SplashWelcome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,12 +18,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        setupErrorHandling();
-        OpeningSplashScreen opening = new OpeningSplashScreen(stage);
-        Scene scene = opening.makeScene();
-        stage.setTitle("OOGABOOGA");
-        stage.setScene(scene);
-        stage.show();
+
+        SplashWelcome newWelcome = new SplashWelcome();
     }
 
     private void setupErrorHandling() {
