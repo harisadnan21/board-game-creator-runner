@@ -16,11 +16,11 @@ public class Place extends Action {
    */
   public Place(int[] parameters) {
     super(parameters);
-    row = myParameters[0];
-    column = myParameters[1];
-    type = myParameters[2];
-    player = myParameters[3];
-    isAbsolute = myParameters[4] != 0;
+    row = getParameter(0);
+    column = getParameter(1);
+    type = getParameter(2);
+    player = getParameter(3);
+    isAbsolute = getParameter(4) != 0;
   }
 
   @Override

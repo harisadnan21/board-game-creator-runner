@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
  * @author Haris Adnan
  */
 class IsInColumnTest {
-  PositionState[][] positionStates = new PositionState[4][4];
-  Board TestBoard = new Board(positionStates);
+  Board TestBoard = new Board(4,4);
 
   /**
    * test for the IsTrue Function in the IsInColumn Class

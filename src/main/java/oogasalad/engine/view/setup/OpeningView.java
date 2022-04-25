@@ -17,6 +17,9 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 /**
+ *
+ * the opening window of the engine, where the player can choose many methods of playing a game
+ *
  * @author Cynthia France
  */
 public class OpeningView {

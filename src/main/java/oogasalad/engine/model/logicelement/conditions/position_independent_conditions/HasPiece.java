@@ -4,23 +4,24 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 
 /**
+ * returns true if there is a piece of given type on the board
  *
  * @author Jake Heller
  */
-public class IsPlayer extends BoardCondition {
+public class HasPiece extends BoardCondition {
 
-  private int player;
+  private int id;
   /**
    *
-   * @param parameters size 1 array where parameters[0] is the player's number
+   * @param parameters size 1 array [id]
    */
-  public IsPlayer(int[] parameters) {
+  public HasPiece(int[] parameters) {
     super(parameters);
-    player = getParameter(0);
+    id = parameters[0];
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return board.getPlayer() == player;
+    return board.getPositionStatesStream().filter(positionState -> positionState.type() == id).count() > 0;
   }
 }
