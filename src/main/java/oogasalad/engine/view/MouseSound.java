@@ -18,7 +18,7 @@ public class MouseSound {
   public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/resource-names/";
   public static final String DEFAULT_LANGUAGE_RESOURCE_PACKAGE = "/engine-view/languages/";
   public static ResourceBundle sndBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Sound");
-  public static String SOUNDS_FOLDER = "data/sounds/";
+  public static String SOUNDS_FOLDER = "src/main/resources/engine-view/sounds/";
   public static String DEFAULT_SOUND = "Click";
   public static String[] SOUNDS = new String[] {"Click", "Thump"};
 
@@ -56,6 +56,7 @@ public class MouseSound {
   private Clip getSound(String name) {
     AudioInputStream audioIn;
     try {
+      System.out.println(SOUNDS_FOLDER + sndBundle.getString(name));
       File f = new File(SOUNDS_FOLDER + sndBundle.getString(name));
       audioIn = AudioSystem.getAudioInputStream(f);
       Clip clip = AudioSystem.getClip();
