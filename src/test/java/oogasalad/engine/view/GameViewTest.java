@@ -18,6 +18,7 @@ import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.ViewManager.ViewManager;
 import oogasalad.engine.view.game.BoardView;
 import oogasalad.engine.view.game.GameView;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -40,10 +41,11 @@ public class GameViewTest extends DukeApplicationTest {
     GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
     Board backEndBoard = parser.parseBoard();
 
+    controller = new Controller();
     board = new BoardView(controller, game, backEndBoard, 600, 600, "/engine-view/css/light.css", "English");
     Consumer<Set<Position>> setMarkersLambda = board::setValidMarkers;
 
-    controller.startEngine(new String[] {}, parser, setMarkersLambda, board::endGame);
+    controller.startEngine(new String[] {"0", "0"}, parser, setMarkersLambda, board::endGame);
     controller.getGame().addListener(board);
     root = board.getRoot();
 
@@ -64,7 +66,7 @@ public class GameViewTest extends DukeApplicationTest {
     clickOn(gameView.getCssDropdown());
     type(KeyEvent.VK_DOWN);
     type(KeyEvent.VK_ENTER);
-    assertEquals("dark", gameView.getCssDropdown().getElement());
+    assertEquals("light", gameView.getCssDropdown().getElement());
   }
 
   @Test

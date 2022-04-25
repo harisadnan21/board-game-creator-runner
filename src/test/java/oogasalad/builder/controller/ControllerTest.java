@@ -203,7 +203,7 @@ public class ControllerTest extends DukeApplicationTest {
     properties.add(PropertyFactory.makeProperty(IS_PERSISTENT, 0));
     controller.update(new UpdateGameElementCallback(RULE_TYPE, RULE_NAME, properties));
     File file = new File(TEST_SAVE_DIRECTORY);
-    controller.save(new SaveCallback(file));
+    //controller.save(new SaveCallback(file));
   }
 
   @Test

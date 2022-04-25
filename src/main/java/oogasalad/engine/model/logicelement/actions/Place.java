@@ -12,7 +12,7 @@ public class Place extends Action {
   private boolean isAbsolute;
   /**
    *
-   * @param parameters size 4 array [row, column, type, player, isAbsolute]
+   * @param parameters size 5 array [row, column, type, player, isAbsolute]
    */
   public Place(int[] parameters) {
     super(parameters);

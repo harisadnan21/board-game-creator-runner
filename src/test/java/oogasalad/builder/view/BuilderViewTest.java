@@ -40,7 +40,7 @@ class BuilderViewTest extends DukeApplicationTest {
             new IntegerProperty("required-id", 0, "oogasalad.builder.view.property.IntegerSelector")) : List.of(
              new StringProperty("required-author", "me", "oogasalad.builder.view.property.StringField"),
             new StringProperty("required-description", "descriptionTEST", "oogasalad.builder.view.property.TextAreaField" )));
-    clickOn("#loginButton");
+    //clickOn("#loginButton");
   }
 
   @Test
@@ -60,15 +60,6 @@ class BuilderViewTest extends DukeApplicationTest {
     clickOn("#pieceTab");
     assertTrue(lookup("#testCell").tryQuery().isPresent());
    // assertEquals(Color.valueOf("0xffffffff"),BoardTabAccessor.getColor(lookup("#boardTabPane").queryAs(BoardTab.class), 1));
-  }
-
-  @Test
-  public void testMetaDataAndSave() {
-    clickOn("#saveGameButton");
-    assertTrue(lookup("#metaBox").tryQuery().isPresent());
-    assertEquals(lookup("#stringField-author").queryTextInputControl().getText(), "me");
-    assertEquals(lookup("#textArea-description").queryTextInputControl().getText(), "descriptionTEST");
-    assertDoesNotThrow(() -> clickOn("#metaSaveButton"));
   }
 
 }

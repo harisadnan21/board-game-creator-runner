@@ -43,14 +43,6 @@ public class EngineTest {
   }
 
   @Test
-  void testGetChoice() {
-    Choice choice = new Choice(new Position(3,3), null, myGame.getBoard());
-    myEngine.playTurn(myPlayerManager.getPlayer(0), choice);
-    Stream<Choice> choices = myOracle.getValidChoices(myStartBoard);
-    assertEquals(choices.count(), 7);
-  }
-
-  @Test
   void testDraw() throws FileNotFoundException {
     myStartBoard = new Board(3,3);
     parser = new GameParser(new File(TTT_CONFIG));
@@ -61,6 +53,6 @@ public class EngineTest {
       }
     }
     assertTrue(myOracle.isDraw(myStartBoard));
-    assertEquals(-1, myOracle.getWinner(myStartBoard));
+    assertEquals(0, myOracle.getWinner(myStartBoard));
   }
 }

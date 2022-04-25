@@ -128,16 +128,16 @@ class RayTest {
 
   @Test
   void getDirectionalRayUntilCondition() {
-    long c = Ray.getDirectionalRayUntilCondition(new Board(2,2), new Position(0,0), Direction.SOUTH, PositionState::isPresent).count();
+    long c = Ray.getDirectionalRayUntilCondition(new Board(2,2), new Position(0,0), Direction.NORTH, PositionState::isPresent).count();
     assertEquals(2,c);
   }
 
   @Test
   void getDirectionalRayUntilAnyOfConditions() {
-    long a = Ray.getDirectionalRayUntilAnyOfConditions(new Board(5,5), new Position(0,0), Direction.SOUTH, List.of(PositionState::isPresent, (positionState) -> false)).count();
+    long a = Ray.getDirectionalRayUntilAnyOfConditions(new Board(5,5), new Position(0,0), Direction.NORTH, List.of(PositionState::isPresent, (positionState) -> false)).count();
     assertEquals(5,a);
 
-    long d = Ray.getDirectionalRayUntilAnyOfConditions(new Board(5,5), new Position(0,0), Direction.SOUTH, List.of(PositionState::isPresent, (positionState) -> true)).count();
+    long d = Ray.getDirectionalRayUntilAnyOfConditions(new Board(5,5), new Position(0,0), Direction.NORTH, List.of(PositionState::isPresent, (positionState) -> true)).count();
     assertTrue(d < a);
   }
 }

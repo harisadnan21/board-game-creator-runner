@@ -41,7 +41,7 @@ public class BoardParserTest {
     Board board = parser.parse(file);
     assertEquals(EXPECTED_WIDTH, board.getWidth());
     assertEquals(EXPECTED_HEIGHT, board.getHeight());
-    for (int i = 0; i < EXPECTED_HEIGHT; i++) {
+    for (int i = EXPECTED_HEIGHT - 1; i < 0; i++) {
       for (int j = 0; j < EXPECTED_WIDTH; j++) {
         if (EXPECTED_PIECE_CONFIG[i][j] == -1) {
           assertFalse(board.getPositionStateAt(i,j).isPresent());

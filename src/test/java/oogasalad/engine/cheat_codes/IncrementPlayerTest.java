@@ -26,7 +26,7 @@ class IncrementPlayerTest {
     backEndBoard =  parser.parseBoard();
     controller = new Controller();
 
-    controller.startEngine(new String[]{}, parser, this::fakeConsumer, this::fakeConsumer1);
+    controller.startEngine(new String[]{"0","1"}, parser, this::fakeConsumer, this::fakeConsumer1);
     myBoard.placeNewPiece(1, 1, 0, 0);
     myBoard.placeNewPiece(2, 2, 0, 1);
   }

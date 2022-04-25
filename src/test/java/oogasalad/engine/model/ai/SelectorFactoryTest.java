@@ -2,7 +2,9 @@ package oogasalad.engine.model.ai;
 
 import static oogasalad.engine.model.ai.SelectorFactory.makeSelector;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.board.cells.Piece;
@@ -15,8 +17,7 @@ class SelectorFactoryTest {
   void makeSelectors() {
     for(Difficulty difficulty: Difficulty.values()) {
       for(int player: new int[]{Piece.PLAYER_ONE, Piece.PLAYER_ONE}) {
-        assertDoesNotThrow(() -> makeSelector(difficulty, WinType.TOTAL, player, null, null));
-        assertDoesNotThrow(() -> makeSelector(difficulty, WinType.PATTERN, player, null, null));
+        assertDoesNotThrow(() -> makeSelector(difficulty, WinType.TOTAL, player, null, new ArrayList<>()));
       }
     }
 
@@ -54,10 +55,11 @@ class SelectorFactoryTest {
   void makeSelectorRandom() {
     assertDoesNotThrow(() -> makeSelector(Difficulty.RANDOM, WinType.TOTAL, Piece.PLAYER_ONE, new Oracle(null, 2), null) );
     assertDoesNotThrow(() -> makeSelector(Difficulty.RANDOM, WinType.TOTAL, Piece.PLAYER_ONE, new Oracle(null, 1), null) );
-    assertDoesNotThrow(() -> makeSelector(Difficulty.RANDOM, WinType.PATTERN, Piece.PLAYER_ONE, new Oracle(null, 2), null) );
-    assertDoesNotThrow(() -> makeSelector(Difficulty.RANDOM, WinType.PATTERN, Piece.PLAYER_TWO, new Oracle(null, 2), null) );
+    assertThrows(IllegalArgumentException.class, () -> makeSelector(Difficulty.RANDOM, WinType.PATTERN, Piece.PLAYER_ONE, new Oracle(null, 2), null) );
+    assertThrows(IllegalArgumentException.class, () -> makeSelector(Difficulty.RANDOM, WinType.PATTERN, Piece.PLAYER_TWO, new Oracle(null, 2), null) );
+    assertThrows(IllegalArgumentException.class, () -> makeSelector(Difficulty.RANDOM, WinType.PATTERN, Piece.PLAYER_TWO, new Oracle(null, 2), null) );
+
     assertDoesNotThrow(() -> makeSelector(Difficulty.RANDOM, WinType.TOTAL, Piece.PLAYER_ONE, new Oracle(null, 1), null) );
-    assertDoesNotThrow(() -> makeSelector(Difficulty.RANDOM, WinType.PATTERN, Piece.PLAYER_TWO, new Oracle(null, 2), null) );
   }
 
 }

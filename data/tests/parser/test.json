@@ -115,7 +115,7 @@
         {
             "name": "Always True",
             "type": "Constant",
-            "value": 1
+            "returnsTrue": 1
         },
         {
             "name": "noPiecesLeftEitherPlayer",

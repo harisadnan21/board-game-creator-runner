@@ -12,7 +12,7 @@ public class Translate extends Action {
   private boolean isAbsolute;
   /**
    *
-   * @param parameters should be size 4 array where
+   * @param parameters should be size 5 array where
    * [startRow, startColumn, endRow, endColumn, isAbsolute]
    */
   public Translate(int[] parameters) {

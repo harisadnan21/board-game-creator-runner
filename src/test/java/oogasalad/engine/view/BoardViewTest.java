@@ -38,7 +38,7 @@ public class BoardViewTest extends DukeApplicationTest {
         "/engine-view/css/light.css", "English");
 
     Consumer<Set<Position>> setMarkersLambda = board::setValidMarkers;
-    controller.startEngine(new String[]{}, parser, setMarkersLambda, board::endGame);
+    controller.startEngine(new String[]{"0", "1"}, parser, setMarkersLambda, board::endGame);
     root = board.getRoot();
 
     ViewManager manager = new ViewManager(stage);

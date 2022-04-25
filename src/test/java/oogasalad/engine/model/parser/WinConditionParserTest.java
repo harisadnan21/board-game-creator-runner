@@ -39,7 +39,6 @@ public class WinConditionParserTest {
       if (rule.getName().equals("Player 1 wins")) {
         player1Wins = rule;
       }
-      System.out.printf("Rule name: %s\n", rule.getName());
     }
     assertTrue(player1Wins.isValid(board, new Position(0,0)));
     assertEquals(1, player1Wins.getWinner(board));
