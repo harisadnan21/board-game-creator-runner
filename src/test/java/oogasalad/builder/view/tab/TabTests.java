@@ -28,7 +28,7 @@ public class TabTests extends DukeApplicationTest {
         GetPropertiesCallback.class, cb -> cb.type().equals("piece") ? List.of(
             new IntegerProperty("required-id", 0, "oogasalad.builder.view.property.IntegerSelector")) :
             List.of(new StringProperty("required-type", "Place",
-                "oogasalad.builder.view.property.DropDown"), new IntegerProperty("Place-x", 0, "oogasalad.builder.view.property.IntegerSelector")));
+                "oogasalad.builder.view.property.DropDown"), new IntegerProperty("Place-col", 0, "oogasalad.builder.view.property.IntegerSelector")));
     builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class,
         cb -> cb.key().equals("image") ? "checkers/pieces/normalWhite.png" : null);
     clickOn("#loginButton");

@@ -61,6 +61,7 @@ public class GameElementTab extends AbstractTab {
     nameField.setId("nameField-"+getType());
     saveElementButton = makeButton(
         "save", e -> saveCurrentElement());
+    saveElementButton.setId("save-"+getType());
     saveElementButton.setDisable(true);
     rightBox.getChildren().addAll(
         makeButton("new-" + getType(), e -> {createElement(); activateSaveButton();}), nameField, propertyEditor,
