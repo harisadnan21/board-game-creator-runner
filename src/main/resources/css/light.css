@@ -168,6 +168,10 @@ control panel
   -fx-vgap: 10px;
   -fx-hgap: 10px;
 }
+.scroll{
+  -fx-fit-to-width: true;
+  -fx-fit-to-height: true;
+}
 
 .iconImage{
   -fx-background-color: -fx-secondaryColor;
