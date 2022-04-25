@@ -14,8 +14,8 @@ import oogasalad.builder.view.callback.Callback;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.CallbackHandler;
 import oogasalad.builder.view.callback.LoadCallback;
+import oogasalad.builder.view.configure.SettingsWindow;
 import oogasalad.builder.view.tab.AllTabs;
-import oogasalad.view.SplashLogin;
 
 
 import java.util.ResourceBundle;
@@ -65,7 +65,7 @@ public class BuilderView {
     HBox menu = new HBox();
     Button saveButton = makeButton("save", e -> saveConfig());
     Button loadButton = makeButton("load", e -> loadConfig());
-    Button configureButton = makeButton("Configure", e -> new SettingsWindow());
+    Button configureButton = makeButton("configure", e -> new SettingsWindow());
 //    menu.getChildren().add(new FormatDropDown(this));
     menu.getChildren().add(configureButton);
     menu.getChildren().add(saveButton);
@@ -129,5 +129,6 @@ public class BuilderView {
     tabScene.getStylesheets()
         .add(getClass().getResource(DEFAULT_STYLE_PACKAGE + formatFile).toExternalForm());
   }
+
 }
 

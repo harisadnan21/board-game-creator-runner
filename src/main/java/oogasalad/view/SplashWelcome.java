@@ -25,7 +25,9 @@ public class SplashWelcome {
     public static final String DEFAULT_RESOURCE_PACKAGE = "/builder/view/css/";
     public static final String WELCOME_IMAGE = DEFAULT_RESOURCE_PACKAGE + "welcome.jpg";
     private static final String SPLASH_PACKAGE = "SplashWelcome.css";
-    
+    private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
+
+
     private Label myWelcome;
     private BorderPane elementHolder;
     private HBox buttonHolder;
@@ -34,6 +36,7 @@ public class SplashWelcome {
     private static Stage stage;
     private Scene myWelcomeScene;
     private ImageView myImageView;
+    private ChoiceBox<String> languageBox;
 
     public SplashWelcome() {
         createElements();
@@ -61,13 +64,16 @@ public class SplashWelcome {
         myImageView = new ImageView(welcomeImage);
         builder = makeButton("Builder", e -> startBuilder());
         engine = makeButton("Engine", e-> startEngine());
+        languageBox = new ChoiceBox<>();
+        languageBox.getItems().addAll(languageChoice);
+        languageBox.setOnAction(this::getLanguage);
         myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
     }
 
     private void setupHolders() {
         elementHolder = new BorderPane();
         buttonHolder = new HBox();
-        buttonHolder.getChildren().addAll(builder, engine);
+        buttonHolder.getChildren().addAll(builder, engine, languageBox);
         buttonHolder.setAlignment(Pos.BOTTOM_CENTER);
         elementHolder.setBottom(buttonHolder);
         elementHolder.setAlignment(buttonHolder, Pos.CENTER);
@@ -99,6 +105,11 @@ public class SplashWelcome {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void getLanguage(ActionEvent event) {
+        String myLanguage = languageBox.getValue();
+        ViewResourcesSingleton.getInstance().setLanguage(myLanguage);
     }
 
 
