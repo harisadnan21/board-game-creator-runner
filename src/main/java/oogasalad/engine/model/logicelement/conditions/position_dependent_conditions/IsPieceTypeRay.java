@@ -7,6 +7,11 @@ import oogasalad.engine.model.board.cells.PositionState;
 import oogasalad.engine.model.board.utilities.Ray;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 
+/**
+ * Returns true if every piece in a ray is of given type
+ *
+ * @author Jake Heller
+ */
 public class IsPieceTypeRay extends Condition {
 
   private int startRow;
@@ -16,6 +21,7 @@ public class IsPieceTypeRay extends Condition {
   private int length;
   private int type;
   private boolean isAbsolute;
+
   /**
    *
    * @param parameters size 6 array [startRow, startColumn, rowDirection, columnDirection, length, type, isAbsolute]
