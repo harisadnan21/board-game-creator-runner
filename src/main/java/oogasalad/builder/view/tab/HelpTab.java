@@ -14,6 +14,7 @@ import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.property.PropertyNameAnalyzer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,11 +25,9 @@ import org.apache.logging.log4j.Logger;
  * @author Mike Keohane
  */
 public class HelpTab extends AbstractTab {
-
-  public static final String NEW_LINE = "\n";
   public static final String HELP = "help";
-  public static final String TYPE = "type";
-  public static final String REQUIRED = "required";
+  private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
+  public static String NEW_LINE = "\n";
   private TextArea leftDisplay;
 
   /**
@@ -81,18 +80,17 @@ public class HelpTab extends AbstractTab {
     boolean hasRequiredType = false;
     StringBuilder textToDisplay = new StringBuilder();
     textToDisplay.append(leftDisplay.getText());
-    if (!(type.equals(BOARD_TYPE) || type.equals(HELP))) {
+    if (!type.equals(BOARD_TYPE) && !type.equals(HELP)) {
       Collection<Property> elementProperties = getCallbackDispatcher().call(
           new GetPropertiesCallback(type)).orElseThrow();
       for (Property property : elementProperties) {
         String propertyName = property.name();
-        if (propertyName.contains(REQUIRED + DELIMINATOR)) {
-          propertyName = propertyName.replace(REQUIRED, type);
+        if (propertyNameAnalyzer.isRequiredProperty(property)) {
+          propertyName = propertyName.replace(PropertyNameAnalyzer.REQUIRED, type);
         }
-        if (propertyName.contains(DELIMINATOR + TYPE)) {
-          String[] typeOptions = property.valueAsString().split(DELIMINATOR);
-          leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(
-              propertyName + DELIMINATOR + HELP));
+        if (propertyNameAnalyzer.isTypeProperty(property)) {
+          String[] typeOptions = property.valueAsString().split(PropertyNameAnalyzer.DELIMITER);
+          leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(propertyName + PropertyNameAnalyzer.DELIMITER + HELP));
           for (String propType : typeOptions) {
             displayCorrespondingPropertiesOfType(propType, type);
             hasRequiredType = true;
@@ -114,9 +112,8 @@ public class HelpTab extends AbstractTab {
     Collection<Property> elementProperties = getCallbackDispatcher().call(
         new GetPropertiesCallback(type)).orElseThrow();
     for (Property prop : elementProperties) {
-      if (prop.name().contains(propType + DELIMINATOR)) {
-        leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(
-            prop.name() + DELIMINATOR + HELP));
+      if (propertyNameAnalyzer.getPropertyNamespace(prop).equals(propType)) {
+        leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(prop.name() + PropertyNameAnalyzer.DELIMITER + HELP));
       }
     }
   }
