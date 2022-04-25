@@ -4,7 +4,7 @@ import oogasalad.engine.view.MouseSound;
 
 /**
  *
- * Dropdown menu for CSS/theme selection
+ * Dropdown menu for mouse sound selection
  * Inherits from OptionSelect
  *
  * @author Cynthia France

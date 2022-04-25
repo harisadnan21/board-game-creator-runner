@@ -3,7 +3,7 @@ package oogasalad.engine.view.OptionSelect;
 
 /**
  *
- * Dropdown menu for CSS/theme selection
+ * Dropdown menu for language selection
  * Inherits from OptionSelect
  *
  * @author Cynthia France
