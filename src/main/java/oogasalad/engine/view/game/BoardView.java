@@ -41,7 +41,7 @@ import org.json.JSONException;
 
 public class BoardView implements PropertyChangeListener {
   //TODO: add file path and strings
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
   public static final String GAME_PATH = "games/";
   private FileInputStream fis = new FileInputStream("data/Properties/BoardViewProperties.properties");
   private static final Logger LOG = LogManager.getLogger(BoardView.class);

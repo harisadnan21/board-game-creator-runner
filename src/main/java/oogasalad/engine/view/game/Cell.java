@@ -22,7 +22,6 @@ public class Cell {
 
   public static int BUFFER = 2;
   public static String VALID_MARKER_PATH = BoardView.IMAGES_FOLDER + "valid_marker.png";
-  public static double OPACITY = 0.6;
   private static final Logger LOG = LogManager.getLogger(Cell.class);
   private final Shape myShape;
   private final StackPane myRoot;

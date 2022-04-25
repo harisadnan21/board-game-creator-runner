@@ -3,13 +3,15 @@ package oogasalad.engine.view.Popup;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * @author Cynthia France
+ */
 public abstract class PopupView {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/languages/";
   protected ResourceBundle myResources;
   protected String cssFilePath;
   protected Stage popupStage;

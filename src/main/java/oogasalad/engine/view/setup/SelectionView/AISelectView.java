@@ -11,9 +11,11 @@ import javafx.stage.Stage;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import org.apache.logging.log4j.util.TriConsumer;
 
+/**
+ * @author Cynthia France
+ */
 public class AISelectView extends SelectionView {
 
-  Map<String, Button> AIButtons = new HashMap<>();
   private TriConsumer<File, Stage, String[]> start;
   private File game;
   private Stage newStage;

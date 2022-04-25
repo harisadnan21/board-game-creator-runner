@@ -1,24 +1,23 @@
 package oogasalad.engine.view.Popup;
 
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
 import javafx.stage.Stage;
 import oogasalad.engine.view.OptionSelect.CSSSelect;
 import oogasalad.engine.view.OptionSelect.MouseSoundSelect;
 import oogasalad.engine.view.Popup.SettingsEntry.MouseSoundEntry;
 import oogasalad.engine.view.Popup.SettingsEntry.ThemeSoundEntry;
 
+/**
+ * @author Cynthia France
+ */
 public class SettingsView extends PopupView {
 
   private VBox topLayout;
   private VBox layout;
   private Button returnToGame;
-  private HBox themeMenu;
   private Text header;
-  private Text theme;
   private CSSSelect cssDropdown;
   private MouseSoundEntry mouseSoundEntry;
 

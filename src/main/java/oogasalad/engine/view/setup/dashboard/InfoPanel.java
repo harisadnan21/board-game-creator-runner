@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 public class InfoPanel extends StackPane {
   public static final String DEFAULT = "/";
-  public static final String RESOURCES = DEFAULT + "languages/";
+  public static final String RESOURCES = DEFAULT + "engine-view/languages/";
   private static final Logger LOG = LogManager.getLogger(InfoPanel.class);
   private VBox infoHolder;
   private Label infoTitle;

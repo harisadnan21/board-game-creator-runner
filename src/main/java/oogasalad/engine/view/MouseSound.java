@@ -11,9 +11,12 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * @author Cynthia France
+ */
 public class MouseSound {
-  public static final String DEFAULT_RESOURCE_PACKAGE = "/resource-names/";
-  public static final String DEFAULT_LANGUAGE_RESOURCE_PACKAGE = "/languages/";
+  public static final String DEFAULT_RESOURCE_PACKAGE = "/engine-view/resource-names/";
+  public static final String DEFAULT_LANGUAGE_RESOURCE_PACKAGE = "/engine-view/languages/";
   public static ResourceBundle sndBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Sound");
   public static String SOUNDS_FOLDER = "data/sounds/";
   public static String DEFAULT_SOUND = "Click";
