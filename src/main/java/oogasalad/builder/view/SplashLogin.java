@@ -1,5 +1,7 @@
 package oogasalad.builder.view;
 
+import static oogasalad.builder.view.BuilderView.DEFAULT_STYLE_PACKAGE;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -10,11 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import oogasalad.builder.view.ViewResourcesSingleton;
-
-import java.util.ResourceBundle;
 
 public class SplashLogin extends Parent {
 
@@ -26,7 +24,6 @@ public class SplashLogin extends Parent {
  * @author Thivya Sivarajah
  */
 
-    public static final String DEFAULT_RESOURCE_PACKAGE = "/view/";
     private static final String SPLASH_PACKAGE = "SplashLogin.css";
     private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
@@ -34,27 +31,26 @@ public class SplashLogin extends Parent {
     private ChoiceBox<String> languageBox;
     private VBox leftPanel;
     private VBox rightPanel;
-    private VBox rightPanelElements;
     private BorderPane buttonHolder;
     private Button proceed;
-    private static Stage stage;
+    private Stage stage;
     private Scene myLoginScene;
     private final EventHandler<ActionEvent> handler;
 
 
-    public SplashLogin(EventHandler<ActionEvent> handler) {
+    public SplashLogin(Stage stage, EventHandler<ActionEvent> handler) {
         this.handler = handler;
         createElements();
         setupHolders(proceed);
         createScreen(proceed);
-        stage = new Stage();
+        this.stage = stage;
         stage.setScene(myLoginScene);
         stage.show();
     }
 
     private void createScreen(Button proceed) {
         myLoginScene = new Scene(buttonHolder, 600, 650);
-        myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
+        myLoginScene.getStylesheets().add(getClass().getResource(DEFAULT_STYLE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
         myWelcome.getStyleClass().add("myWelcome");
         leftPanel.getStyleClass().add("leftPanel");
         proceed.getStyleClass().add("proceed");
@@ -74,20 +70,17 @@ public class SplashLogin extends Parent {
         buttonHolder = new BorderPane();
         leftPanel = new VBox();
         rightPanel = new VBox();
-        rightPanelElements = new VBox();
         leftPanel.getChildren().addAll(myWelcome);
-        rightPanelElements.getChildren().addAll(proceed, languageBox);
-        rightPanel.getChildren().addAll(rightPanelElements);
-        rightPanelElements.setAlignment(Pos.CENTER);
+        rightPanel.getChildren().addAll(proceed, languageBox);
         rightPanel.setAlignment(Pos.CENTER);
         buttonHolder.setLeft(leftPanel);
-        buttonHolder.setRight(rightPanel);
+        buttonHolder.setCenter(rightPanel);
+        buttonHolder.setAlignment(rightPanel, Pos.CENTER);
     }
 
     //Exits the splash screen, moving to the builder view
     private void exitSplash(ActionEvent e) {
         handler.handle(e);
-        stage.close();
     }
 
     private void getLanguage(ActionEvent event) {

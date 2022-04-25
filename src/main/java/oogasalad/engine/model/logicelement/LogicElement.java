@@ -1,6 +1,6 @@
 package oogasalad.engine.model.logicelement;
 
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 
 public class LogicElement {
 

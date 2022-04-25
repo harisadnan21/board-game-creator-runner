@@ -1,0 +1,24 @@
+
+.myWelcome{
+    -fx-text-fill: black;
+    -fx-font-size: 24;
+    -fx-font-family: "Inter";
+    -fx-alignment: center;
+}
+
+.leftPanel{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4cca2b, #2bc1ca);
+    -fx-alignment: baseline-left;
+}
+
+.proceed{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4cca2b, #2bc1ca);
+    -fx-background-radius: 30 30 30 30;
+    -fx-text-fill: #ffffff;
+}
+
+.buttonHolder{
+    -fx-background: #ffffff;
+}
+
+

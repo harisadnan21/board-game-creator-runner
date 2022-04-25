@@ -1,6 +1,11 @@
 package oogasalad.engine.model.ai.evaluation.patterns;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,10 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Piece;
-import oogasalad.engine.model.board.Position;
-import oogasalad.engine.model.board.PositionState;
-import org.jooq.lambda.Seq;
+import oogasalad.engine.model.board.cells.Piece;
+import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.cells.PositionState;
 import org.junit.jupiter.api.Test;
 
 class PatternEvaluatorTest {

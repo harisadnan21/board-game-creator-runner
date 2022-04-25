@@ -11,14 +11,15 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
 /**
  * Field that takes in integer input, returning an integer property.
  *
- * @author Shaan Gondalia
+ * @author Shaan Gondalia, Mike Keohane
  */
-public class IntegerSelector implements PropertySelector{
+public class IntegerSelector implements PropertySelector {
 
   private Property property;
   private Spinner<Integer> numberPicker;
+
   /**
-   * Creates a new Field that takes in integer input, returning an integer property.
+   * Creates a new Selector that takes in integer input, returning an integer property.
    *
    * @param property the property that will be "filled in" by the Field
    */
@@ -26,6 +27,7 @@ public class IntegerSelector implements PropertySelector{
     this.property = property;
     numberPicker = new Spinner<>(Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.parseInt(property.defaultValueAsString()), 1);
     numberPicker.setEditable(true);
+    numberPicker.setId("integerSelector-" + this.property.shortName());
   }
 
   /**
@@ -39,10 +41,10 @@ public class IntegerSelector implements PropertySelector{
   }
 
   @Override
-  public Node display(){
+  public Node display() {
     return numberPicker;
   }
 
-  public void addListener(ChangeListener updateFields){
+  public void addListener(ChangeListener updateFields) {
   }
 }

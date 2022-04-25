@@ -1,9 +1,9 @@
 package oogasalad.engine.model.rule;
 
-import oogasalad.engine.model.board.OutOfBoardException;
+import oogasalad.engine.model.board.exceptions.OutOfBoardException;
 import oogasalad.engine.model.logicelement.actions.Action;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -95,10 +95,8 @@ public class Move implements Rule {
   public boolean isPersistent() {
     return myIsPersistent;
   }
-  /**
-   * Returns the name given to this rule
-   * @return
-   */
+
+  @Override
   public String getName() {
     return myName;
   }

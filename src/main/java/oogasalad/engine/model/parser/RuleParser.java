@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashSet;
 import oogasalad.engine.model.logicelement.actions.Action;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 import oogasalad.engine.model.rule.Move;
 import org.json.JSONArray;

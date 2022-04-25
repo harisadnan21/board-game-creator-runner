@@ -18,7 +18,7 @@ public class ConditionFactory extends GameElementFactory<Condition> {
    * properties of a Condition.
    */
   public ConditionFactory() {
-    super("elements.Condition");
+    super("builder.elements.Condition");
   }
 
   /**

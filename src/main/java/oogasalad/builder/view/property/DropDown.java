@@ -1,13 +1,10 @@
 package oogasalad.builder.view.property;
 
 import javafx.beans.value.ChangeListener;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.cell.MapValueFactory;
-import javax.security.auth.callback.Callback;
+import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
-import oogasalad.builder.model.property.StringProperty;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
@@ -39,6 +36,7 @@ public class DropDown implements PropertySelector{
     if(!property.defaultValue().toString().equals(property.valueAsString())) {
       list.getSelectionModel().select(property.valueAsString());
     }
+    list.setId("dropDown-" + property.shortName());
   }
 
   /**
@@ -58,6 +56,9 @@ public class DropDown implements PropertySelector{
    */
   @Override
   public Property getProperty() {
+    if (list.getValue() == null){
+      throw new MissingRequiredPropertyException(property.shortName());
+    }
     return property.with(property.shortName(), list.getValue());
   }
 

@@ -16,6 +16,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
  */
 public class BooleanSelector implements PropertySelector {
 
+  public static String TRUE = "1";
   private Property property;
   private CheckBox checkBox;
 
@@ -28,6 +29,7 @@ public class BooleanSelector implements PropertySelector {
   public BooleanSelector(Property property, CallbackDispatcher dispatcher) {
     this.property = property;
     checkBox = new CheckBox();
+    checkBox.setSelected(property.valueAsString().equals(TRUE));
     checkBox.setAllowIndeterminate(false);
   }
 

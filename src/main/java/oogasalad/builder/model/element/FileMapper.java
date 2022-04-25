@@ -49,7 +49,7 @@ public class FileMapper {
       if (Arrays.asList(PROPERTIES_TO_REMAP).contains(property.name())) {
         String newPath = reMap(property.valueAsString());
         fileNameMap.put(newPath, property.valueAsString());
-        newProperties.add(PropertyFactory.makeProperty(property.name(), newPath, property.form()));
+        newProperties.add(property.with(newPath));
       }
       else {
         newProperties.add(property);
@@ -83,7 +83,7 @@ public class FileMapper {
     Collection<Property> newProperties = new HashSet<>();
     for (Property property : originalProperties) {
       if (Arrays.asList(PROPERTIES_TO_REMAP).contains(property.name()) && fileNameMap.containsKey(property.valueAsString())) {
-        newProperties.add(PropertyFactory.makeProperty(property.name(), fileNameMap.get(property.valueAsString()), property.form()));
+        newProperties.add(property.with(fileNameMap.get(property.valueAsString())));
       }
       else {
         newProperties.add(property);
@@ -108,7 +108,7 @@ public class FileMapper {
     for (Property property : originalProperties) {
       if (Arrays.asList(PROPERTIES_TO_REMAP).contains(property.name())) {
         String newPath = workingDir + property.valueAsString();
-        newProperties.add(PropertyFactory.makeProperty(property.name(), newPath, property.form()));
+        newProperties.add(property.with(newPath));
       }
       else {
         newProperties.add(property);

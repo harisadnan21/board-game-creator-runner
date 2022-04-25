@@ -1,7 +1,7 @@
 package oogasalad.engine.model.logicelement.conditions.position_dependent_conditions;
 
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.Position;
+import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 
 /**
@@ -11,18 +11,21 @@ import oogasalad.engine.model.logicelement.conditions.Condition;
  */
 public class IsInColumn extends Condition {
 
+  private int relativeColumn;
+  private int absoluteColumn;
   /**
    *
    * @param parameters size 2 array [relativeColumn, absoluteColumn]
    */
   public IsInColumn(int[] parameters) {
     super(parameters);
+    relativeColumn = myParameters[0];
+    absoluteColumn = myParameters[1];
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    int relativeColumn = myParameters[0] + referencePoint.column();
-    int absoluteColumn = myParameters[1];
+    relativeColumn += referencePoint.column();
     return relativeColumn == absoluteColumn;
   }
 }

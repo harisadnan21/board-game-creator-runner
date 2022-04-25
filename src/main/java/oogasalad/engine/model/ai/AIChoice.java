@@ -2,6 +2,10 @@ package oogasalad.engine.model.ai;
 
 import oogasalad.engine.model.board.Board;
 
+
+/**
+ * @author Alex Bildner
+ */
 public interface AIChoice {
 
   @Override
@@ -10,8 +14,8 @@ public interface AIChoice {
   @Override
   int hashCode();
 
+  Board getResultingBoard(Board board);
+
+  @Deprecated
   Board getResultingBoard();
-
-
-
 }

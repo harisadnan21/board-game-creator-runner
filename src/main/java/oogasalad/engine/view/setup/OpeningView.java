@@ -5,14 +5,13 @@ import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import oogasalad.engine.view.LanguageSelect;
-import oogasalad.engine.view.ViewManager;
+import oogasalad.engine.view.ApplicationAlert;
+import oogasalad.engine.view.OptionSelect.LanguageSelect;
 import org.json.JSONObject;
 
 public class OpeningView {
@@ -110,10 +109,8 @@ public class OpeningView {
         File script = directoryOpener.fileChoice(myStage);
         myFileChoice = script;
         contSel.setDisable(false);
-      } catch (NullPointerException nullPointerException) {
-        System.out.println(nullPointerException.getMessage());
       } catch (Exception err) {
-        System.out.println(err.getMessage());
+        ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), err.getMessage());
       }
     });
   }
