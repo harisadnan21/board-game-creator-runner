@@ -2,9 +2,13 @@ package oogasalad.engine.model.board;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import oogasalad.engine.model.board.cells.Position;
@@ -12,11 +16,25 @@ import oogasalad.engine.model.board.cells.PositionState;
 import oogasalad.engine.model.board.utilities.Direction;
 import oogasalad.engine.model.board.utilities.Ray;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 class RayTest {
 
   @Test
+  void unhappy() {
+    Executable express = () ->
+    {var c = Ray.class.getDeclaredConstructor(); c.setAccessible(true); c.newInstance();};
+    assertThrows(Exception.class, express );
+  }
+
+  @Test
   void getDirectionalRay() {
+    Board board = new Board(4,4);
+    var ret = Ray.getDirectionalRays(board, new Position(0,0), List.of(Direction.EAST, Direction.SOUTH));
+    assertTrue(ret.containsKey(Direction.EAST));
+    assertTrue(ret.containsKey(Direction.SOUTH));
+    assertFalse(ret.containsKey(Direction.NORTH));
+    assertFalse(ret.containsKey(Direction.SOUTHEAST));
   }
 
   @Test
@@ -77,6 +95,11 @@ class RayTest {
 
   @Test
   void getDirectionalRayWhileCondition() {
+    Board board = new Board(4,4);
+    var s = Ray.getDirectionalRayWhileCondition(board, new Position(2,2), Direction.EAST,
+        positionState -> true).toList();
+    var s1 =Ray.getDirectionalRay(board, new Position(2,2), Direction.EAST).toList();
+    assertEquals(s, s1);
   }
 
   @Test
@@ -105,9 +128,16 @@ class RayTest {
 
   @Test
   void getDirectionalRayUntilCondition() {
+    long c = Ray.getDirectionalRayUntilCondition(new Board(2,2), new Position(0,0), Direction.SOUTH, PositionState::isPresent).count();
+    assertEquals(2,c);
   }
 
   @Test
   void getDirectionalRayUntilAnyOfConditions() {
+    long a = Ray.getDirectionalRayUntilAnyOfConditions(new Board(5,5), new Position(0,0), Direction.SOUTH, List.of(PositionState::isPresent, (positionState) -> false)).count();
+    assertEquals(5,a);
+
+    long d = Ray.getDirectionalRayUntilAnyOfConditions(new Board(5,5), new Position(0,0), Direction.SOUTH, List.of(PositionState::isPresent, (positionState) -> true)).count();
+    assertTrue(d < a);
   }
 }
