@@ -186,13 +186,6 @@ public class BoardView implements PropertyChangeListener {
     selectCell(i, j);
   }
 
-  public void addController(Controller c) {
-    myController = c;
-    ImmutableBoard board = myController.setCallbackUpdates(this::setValidMarkers, this::endGame);
-    myController.getGame().addListener(this);
-    updateBoard(board);
-  }
-
   public Text getText() {
     return text.getUpdateText();
   }

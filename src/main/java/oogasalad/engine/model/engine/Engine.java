@@ -96,7 +96,7 @@ public class Engine implements PropertyChangeListener {
    * @param choice
    */
   private void playTurn(Player player, Choice choice) {
-    if (isActivePlayer(player)) {
+    if (isActivePlayer(player) || choice.oldBoard() != getGameBoard()) {
       Move move = choice.move();
       Position referencePoint = choice.position();
       if (move.isValid(getGameBoard(), referencePoint)) {
@@ -173,6 +173,7 @@ public class Engine implements PropertyChangeListener {
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-
+    myPlayerManager.givePlayersCurrentBoard(getGameBoard());
+    pingActivePlayer();
   }
 }

@@ -58,7 +58,6 @@ public class GameView {
     settings = new SettingsView(cssFilePath, language);
     this.game = game;
     setUpRoot();
-    board.addController(myController);
   }
 
   public Scene getScene() {

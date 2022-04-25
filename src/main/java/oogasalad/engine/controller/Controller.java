@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
-import oogasalad.engine.model.ai.RandomPlayer;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.board.exceptions.OutOfBoardException;
@@ -18,19 +17,17 @@ import oogasalad.engine.model.player.HumanPlayer;
 import oogasalad.engine.model.player.Player;
 import oogasalad.engine.model.player.PlayerManager;
 import oogasalad.engine.model.rule.Rule;
-import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
 
-import oogasalad.engine.model.rule.Move;
 import oogasalad.engine.model.parser.GameParser;
 
 public class Controller {
 
   private GameParser myParser;
 
-  private Board myBoard;
+  private Board myInitialBoard;
   private Engine myEngine;
   private Game myGame;
   private Oracle myOracle;
@@ -47,8 +44,8 @@ public class Controller {
    */
   public Controller(Board board, GameParser parser) {
     try {
-      myBoard = board;
-      myGame = new Game(myBoard);
+      myInitialBoard = board;
+      myGame = new Game(myInitialBoard);
 
       Collection<Rule> rules = parser.readRules();
 
@@ -71,8 +68,10 @@ public class Controller {
   public void startEngine(GameParser parser, Consumer<Set<Position>> setValidMarks, IntConsumer endGame)
       throws FileNotFoundException {
     Board board = parser.parseBoard();
-    myBoard = board;
-    myGame = new Game(myBoard);
+
+    myParser = parser;
+    myInitialBoard = board;
+    myGame = new Game(myInitialBoard);
 
     Collection<Rule> rules = parser.readRules();
 
@@ -99,29 +98,16 @@ public class Controller {
    * resets the board model to the initial game state
    */
   public Board resetGame() {
-    myGame = new Game(myBoard);
 
-    // change to just add board
-
-    myEngine = new Engine(myGame, myPlayerManager, myOracle, endGame);
-
-    return myBoard;
+    myGame.reset(myInitialBoard);
+    return myInitialBoard;
   }
 
-  public void click(int row, int column ) throws OutOfBoardException {
+  public void click(int row, int column) throws OutOfBoardException {
     myEngine.onCellSelect(row, column);
 
   }
 
-  public Board setCallbackUpdates(Consumer<Set<Position>> setValidMarks, IntConsumer endGame){
-    setViewValidMarks = setValidMarks;
-    this.endGame = endGame;
-    myGame = new Game(myBoard);
-    myEngine = new Engine(myGame, myPlayerManager, myOracle, endGame);
-    myEngine.gameLoop();
-
-    return myBoard;
-  }
   public Engine getEngine(){
     return myEngine;
   }
@@ -132,13 +118,6 @@ public class Controller {
    */
   public Game getGame(){
     return myGame;
-  }
-
-  /**
-   * Function starts the game
-   */
-  public void startGame() {
-    myEngine.gameLoop();
   }
 
   public void setBoard(Board board){

@@ -27,6 +27,14 @@ public class Game extends Observable<ImmutableBoard> {
     backInHistory = 0;
   }
 
+  public void reset(Board initialBoard) {
+    Board oldBoard = myBoard;
+    myBoard = initialBoard;
+    myBoardHistory.clear();
+    backInHistory = 0;
+    update(oldBoard, myBoard);
+  }
+
   /**
    * removes all boards after the current board from history and sets the param Board as the current board
    * @param board
