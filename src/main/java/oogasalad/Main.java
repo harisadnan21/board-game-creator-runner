@@ -15,6 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        setupErrorHandling();
         SplashWelcome newWelcome = new SplashWelcome();
     }
 
@@ -22,6 +23,7 @@ public class Main extends Application {
         final Logger backupLogger = LogManager.getLogger(Main.class);
         Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
             Logger logger = throwable.getStackTrace().length > 0 ? LogManager.getLogger(throwable.getStackTrace()[0].getClassName()) : backupLogger;
+            logger.error(throwable);
             logger.throwing(throwable);
             new Alert(Alert.AlertType.ERROR, throwable.getMessage()).showAndWait();
         });

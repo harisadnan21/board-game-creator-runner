@@ -34,10 +34,17 @@ public class SplashLoginTest {
     Scene myLoginScene;
 
 
+<<<<<<< HEAD
 //    @BeforeEach
 //    public void start (Stage stage) {
 //        OpeningSplashScreen.SplashLogin testSplashLogin = new OpeningSplashScreen.SplashLogin(e -> {});
 //    }
+=======
+    @BeforeEach
+    public void start (Stage stage) {
+        SplashLogin testSplashLogin = new SplashLogin(stage, e -> {});
+    }
+>>>>>>> master
 
     @Test
     void testCellClicked() {

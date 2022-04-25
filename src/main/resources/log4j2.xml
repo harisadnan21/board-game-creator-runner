@@ -6,8 +6,24 @@
       <PatternLayout>
         <Pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</Pattern>
       </PatternLayout>
+      <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+      <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
     </Console>
-    <File name="file" fileName="log/app.log" immediateFlush="true" append="true">
+    <File name="appLog" fileName="log/app.log" immediateFlush="true" append="true">
+      <!-- consider using a rolling file instead to avoid super long log files -->
+      <!-- https://logging.apache.org/log4j/2.x/manual/appenders.html#RollingFileAppender -->
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+    </File>
+    <File name="errorLog" fileName="log/error.log" immediateFlush="true" append="true">
+      <!-- consider using a rolling file instead to avoid super long log files -->
+      <!-- https://logging.apache.org/log4j/2.x/manual/appenders.html#RollingFileAppender -->
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+    </File>
+    <File name="fatalLog" fileName="log/fatal.log" immediateFlush="true" append="true">
       <!-- consider using a rolling file instead to avoid super long log files -->
       <!-- https://logging.apache.org/log4j/2.x/manual/appenders.html#RollingFileAppender -->
       <PatternLayout>
@@ -16,9 +32,11 @@
     </File>
   </Appenders>
   <Loggers>
-    <Root level="all">
+    <Root level="all" additive="false">
       <AppenderRef ref="console" level="all" />
-      <!--            <AppenderRef ref="file" level="all" /> -->
+      <AppenderRef ref="appLog" level="all" />
+      <AppenderRef ref="errorLog" level="error"/>
+      <AppenderRef ref="fatalLog" level="fatal"/>
     </Root>
   </Loggers>
 </Configuration>

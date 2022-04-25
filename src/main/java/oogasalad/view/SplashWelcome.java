@@ -19,6 +19,8 @@ import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.engine.view.ViewManager;
 
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class SplashWelcome {
@@ -27,6 +29,9 @@ public class SplashWelcome {
     private static final String SPLASH_PACKAGE = "SplashWelcome.css";
     private String[] languageChoice = {"English", "Spanish", "Italian", "PigLatin"};
 
+
+
+    private static final Logger LOG = LogManager.getLogger(SplashWelcome.class);
 
     private Label myWelcome;
     private BorderPane elementHolder;
@@ -103,7 +108,7 @@ public class SplashWelcome {
             stage.show();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            LOG.fatal(e);
         }
     }
 

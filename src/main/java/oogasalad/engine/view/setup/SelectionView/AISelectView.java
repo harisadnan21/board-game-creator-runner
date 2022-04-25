@@ -37,7 +37,6 @@ public class AISelectView extends SelectionView {
       Button b = makeButton(d.toString());
       buttonLayout.getChildren().add(b);
     }
-    System.out.println(buttonLayout.getWidth());
     buttonLayout.setPrefWrapLength(500);
   }
 

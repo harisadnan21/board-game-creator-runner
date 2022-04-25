@@ -271,7 +271,7 @@ public class GameConfiguration implements BuilderModel {
       }
       addJSONObject(obj.getJSONObject(METADATA), METADATA, workingDirectory);
     } catch (JSONException e) {
-      throw new MalformedConfigurationException(e.getMessage());
+      throw new MalformedConfigurationException(e);
     }
   }
 

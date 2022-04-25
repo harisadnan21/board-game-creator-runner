@@ -24,8 +24,13 @@ import oogasalad.engine.model.board.Board;
 
 import oogasalad.engine.model.rule.Move;
 import oogasalad.engine.model.parser.GameParser;
+import oogasalad.engine.view.ViewManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Controller {
+
+  private static final Logger LOG = LogManager.getLogger(Controller.class);
 
   private Board myBoard;
   private Engine myEngine;
@@ -73,7 +78,7 @@ public class Controller {
       myEngine = new Engine(myGame, myPlayerManager, myOracle, null, null);
 
     } catch (Exception e){
-      e.printStackTrace();
+      LOG.fatal(e);
     }
   }
 
