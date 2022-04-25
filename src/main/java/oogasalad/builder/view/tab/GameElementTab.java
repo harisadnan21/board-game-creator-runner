@@ -3,7 +3,6 @@ package oogasalad.builder.view.tab;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidTypeException;
@@ -33,7 +32,6 @@ public class GameElementTab extends AbstractTab {
   private GameElementList elementList;
   private TextField nameField;
   private PropertyEditor propertyEditor;
-  private VBox rightBox;
   private Button saveElementButton;
 
   /**
@@ -54,7 +52,7 @@ public class GameElementTab extends AbstractTab {
    */
   @Override
   protected Node setupRightSide() {
-    rightBox = new VBox();
+    VBox rightBox = new VBox();
     propertyEditor = new PropertyEditor(getCallbackDispatcher());
     nameField = new TextField(
         ViewResourcesSingleton.getInstance().getString("defaultName-" + getType()));
