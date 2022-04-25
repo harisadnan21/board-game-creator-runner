@@ -22,7 +22,7 @@ import org.jooq.lambda.Seq;
  */
 @EqualsAndHashCode
 @ToString
-public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard {
+public class Board implements Cloneable, ImmutableBoard {
 
   public static final String INVALID_POSITION = "Invalid Position";
   private static final int FIRST_ROW = 0;
@@ -190,20 +190,12 @@ public class Board implements Iterable<PositionState>, Cloneable, ImmutableBoard
     return isValidRow(position.row()) && isValidColumn(position.column());
   }
 
-  /**
-   * method to acquire number of rows of board
-   *
-   * @return
-   */
+  @Override
   public int getHeight() {
     return numRows;
   }
 
-  /**
-   * Method to acquire number of columns in board
-   *
-   * @return
-   */
+  @Override
   public int getWidth() {
     return numCols;
   }

@@ -1,27 +1,29 @@
 package oogasalad.engine.model.driver;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.ImmutableBoard;
 
 /**
  * Game class that sets up the current board and contains history of all the previous boards.
  * @author: Jake Heller, Haris Adnan
  */
-public class Game {
+public class Game extends Observable<ImmutableBoard> {
 
   private Board myBoard;
-  private Consumer<Board> myUpdateView;
   private List<Board> myBoardHistory;
   private int backInHistory;
 
 
-  public Game(Board startingBoard, Consumer<Board> updateView) {
+  public Game(Board startingBoard) {
+    this();
     myBoard = startingBoard;
+  }
+
+  public Game() {
     myBoardHistory = new ArrayList<Board>();
-    myUpdateView = updateView;
     backInHistory = 0;
   }
 
@@ -37,8 +39,9 @@ public class Game {
       }
     }
     myBoardHistory.add(myBoard);
+    Board oldBoard = myBoard;
     myBoard = board;
-    updateView(myBoard);
+    update(oldBoard, myBoard);
     backInHistory = 0;
   }
 
@@ -57,9 +60,10 @@ public class Game {
       backInHistory++;
       // changing this - removing the -1 from the get parameter makes the tests work. However, in the
       // checkers game for 2 players currently, the board undoes the AI's move and then doesnt allow us to move
+      Board oldBoard = myBoard;
       myBoard = myBoardHistory.get(myBoardHistory.size()-backInHistory);
       myBoardHistory.add(myBoard);
-      updateView(myBoard);
+      update(oldBoard, myBoard);
 
     }
 
@@ -75,8 +79,9 @@ public class Game {
     else{
       myBoardHistory.add(myBoard);
       backInHistory--;
+      Board oldBoard = myBoard;
       myBoard = myBoardHistory.get(myBoardHistory.size()-1-backInHistory);
-      updateView(myBoard);
+      update(oldBoard, myBoard);
     }
 
   }
@@ -91,10 +96,8 @@ public class Game {
     }
   }
 
-  private void updateView(Board board) {
-    if (myUpdateView != null) {
-      myUpdateView.accept(board);
-    }
+  private void update(Board oldBoard, Board newBoard) {
+    notifyListeners("Board changed", oldBoard, newBoard);
   }
 
   /**

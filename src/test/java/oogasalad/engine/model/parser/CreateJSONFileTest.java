@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 class CreateJSONFileTest {
   PositionState[][] positionStates = new PositionState[4][4];
   private Board TestBoard = new Board(positionStates);
-  private Game TestGame= new Game(TestBoard, null);
+  private Game TestGame= new Game(TestBoard);
   private GameParser TestGameParser= new GameParser(null);
   private Controller TestController = new Controller(TestBoard, TestGameParser);
   private CreateJSONFile TestJsonCreator= new CreateJSONFile(TestController);

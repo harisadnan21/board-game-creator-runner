@@ -24,13 +24,12 @@ public class BoardViewTest extends DukeApplicationTest {
 
   @Override
   public void start (Stage stage) throws IOException {
-    board = new BoardView(new File("data/games/checkers"), 3, 3, 300, 300, "/css/light.css", "English");
-
     GameParser parser = new GameParser(new File("data/games/checkers/config.json"));
     Board backEndBoard = new Board(3,3);
     controller = new Controller(backEndBoard, parser);
 
-    board.addController(controller);
+    board = new BoardView(controller, new File("data/games/checkers"), backEndBoard, 300, 300, "/css/light.css", "English");
+
     root = board.getRoot();
 
     ViewManager manager = new ViewManager(stage);

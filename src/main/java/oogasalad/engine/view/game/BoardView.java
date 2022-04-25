@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.beans.InvalidationListener;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -41,7 +42,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 
-public class BoardView implements PropertyChangeListener{
+public class BoardView implements PropertyChangeListener {
   //TODO: add file path and strings
   public static final String DEFAULT_RESOURCE_PACKAGE = "/languages/";
   public static final String GAME_PATH = "games/";
@@ -67,7 +68,7 @@ public class BoardView implements PropertyChangeListener{
 
   double BOARD_OUTLINE_SIZE;
   private Properties prop;
-  public BoardView(File game, int rows, int columns, double width, double height,
+  public BoardView(Controller controller, File game, ImmutableBoard initialBoard, double width, double height,
       String css, String language)
       throws IOException {
     this.language = language;
@@ -77,6 +78,7 @@ public class BoardView implements PropertyChangeListener{
     prop.load(fis);
     BOARD_OUTLINE_SIZE = Double.parseDouble(prop.getProperty("BOARDOUTLINESIZE"));
     gameIsUploadedFile = game.listFiles(GameIcon.getConfigFile)==null;
+    myController = controller;
     getMetadata(game);
 
     setPiecePaths(game.listFiles(GameIcon.getConfigFile)[0]);
@@ -85,6 +87,9 @@ public class BoardView implements PropertyChangeListener{
     root = new StackPane();
     gridRoot = new GridPane();
     gridRoot.setId("grid");
+
+    int rows = initialBoard.getHeight();
+    int columns = initialBoard.getWidth();
     myGrid = new Cell[rows][columns];
 
     Pair<Double, Double> cellSize = calcCellSize(rows, columns, width, height);
@@ -94,6 +99,7 @@ public class BoardView implements PropertyChangeListener{
     makeBoardBacking(width, height, cellSize, rows, columns);
     makeBoard(rows, columns, cellWidth, cellHeight, game);
 
+    updateBoard(initialBoard);
   }
 
   public String getGameInfo() {
@@ -182,7 +188,8 @@ public class BoardView implements PropertyChangeListener{
 
   public void addController(Controller c) {
     myController = c;
-    ImmutableBoard board = myController.setCallbackUpdates(this::updateBoard, this::setValidMarkers, this::endGame);
+    ImmutableBoard board = myController.setCallbackUpdates(this::setValidMarkers, this::endGame);
+    myController.getGame().addListener(this);
     updateBoard(board);
   }
 
@@ -192,7 +199,7 @@ public class BoardView implements PropertyChangeListener{
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    ImmutableBoard board = (ImmutableBoard) evt.getSource();
+    ImmutableBoard board = (ImmutableBoard) evt.getNewValue();
     updateBoard(board);
   }
 
@@ -218,7 +225,7 @@ public class BoardView implements PropertyChangeListener{
     return new Pair<>(cellWidth, cellHeight);
   }
 
-  void updateBoard(ImmutableBoard newBoard) {
+  public void updateBoard(ImmutableBoard newBoard) {
     Board board = (Board)newBoard;
     text.updateText(board.getPlayer());
     for (PositionState cell: board) {
@@ -238,8 +245,11 @@ public class BoardView implements PropertyChangeListener{
     text.updateText(board.getPlayer());
   }
 
-  //checks to see if the winner variable in the returned new board has a valid winner value to end the game.
-  private void endGame(int winner) {
+  /**
+   * Ends game
+   * @param winner
+   */
+  public void endGame(int winner) {
     text.gameIsWon(winner);
     LOG.info("gameOver! Player {} wins%n", (winner+1));
     ImmutableBoard newBoard = myController.resetGame();
@@ -267,7 +277,7 @@ public class BoardView implements PropertyChangeListener{
    * Adds a marker to all the cells that are valid moves for the currently selected piece
    * @param validMoves - current Game Board
    */
-  private void setValidMarkers(Set<Position> validMoves) {
+  public void setValidMarkers(Set<Position> validMoves) {
     clearValidMarks();
     for(Position pos : validMoves){
       myGrid[pos.row()][pos.column()].addValidMarker();

@@ -73,11 +73,4 @@ public class AIPlayer extends AbstractPlayer {
     //throw new NoSuchMethodError("no");
   }
 
-  @Override
-  public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
-      Consumer<Set<Position>> setValidMarks) {
-    //TODO: get rid of this method
-    setExecuteMove(executeMove);
-  }
-
 }

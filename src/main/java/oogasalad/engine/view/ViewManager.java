@@ -162,9 +162,10 @@ public class ViewManager {
         parser = new GameParser(game);
       }
       Board board = parser.parseBoard();
-      controller = new Controller(board, parser);
-      BoardView boardView = new BoardView(game, board.getHeight(), board.getWidth(), BOARDX, BOARDY, cssFilepath, language);
-      boardView.addController(controller);
+      controller = new Controller();
+      BoardView boardView = new BoardView(controller, game, board, BOARDX, BOARDY, cssFilepath, language);
+      controller.startEngine(parser, boardView::setValidMarkers, boardView::endGame);
+      controller.getGame().addListener(boardView);
 
       GameView gameView = createGameView(boardView, controller, game);
       gameView.getCssDropdown().setOnAction(e -> updateSceneCSS(gameView.getCssDropdown().getCSS()));

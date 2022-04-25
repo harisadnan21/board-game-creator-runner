@@ -1,5 +1,6 @@
 package oogasalad.engine.controller;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
@@ -27,14 +28,12 @@ import oogasalad.engine.model.parser.GameParser;
 
 public class Controller {
 
+  private GameParser myParser;
+
   private Board myBoard;
   private Engine myEngine;
   private Game myGame;
-  private Collection<Move> moves;
-  private Collection<EndRule> endRules;
-  private Collection<Rule> myRules;
   private Oracle myOracle;
-  private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
   private IntConsumer endGame;
 
@@ -49,10 +48,7 @@ public class Controller {
   public Controller(Board board, GameParser parser) {
     try {
       myBoard = board;
-      myGame = new Game(myBoard, null);
-
-      moves = parser.readMoves();
-      endRules = parser.readWinConditions();
+      myGame = new Game(myBoard);
 
       Collection<Rule> rules = parser.readRules();
 
@@ -60,31 +56,54 @@ public class Controller {
 
       myOracle = new Oracle(rules, myNumPlayers);
 
-      AIPlayerFactory factory = new AIPlayerFactory();
-      Player player = factory.makeAIPlayer(Difficulty.HARD, WinType.TOTAL, 1, myOracle, new ArrayList<>());
-
-      myPlayerManager = new PlayerManager();
-      myPlayerManager.addPlayer(0, new HumanPlayer(null, null, null));
-      myPlayerManager.addPlayer(1, new HumanPlayer(null, null, null));
-      //myPlayerManager.addPlayer(1, player);
-
-      //myPlayerManager.addPlayer(1, new RandomPlayer(null, null));
 
       // TODO: figure out better way to pass in view lambdas
-      myEngine = new Engine(myGame, myPlayerManager, myOracle, null, null);
+      myEngine = new Engine(myGame, myPlayerManager, myOracle, null);
 
     } catch (Exception e){
       e.printStackTrace();
     }
   }
 
+  public Controller() {
+  }
+
+  public void startEngine(GameParser parser, Consumer<Set<Position>> setValidMarks, IntConsumer endGame)
+      throws FileNotFoundException {
+    Board board = parser.parseBoard();
+    myBoard = board;
+    myGame = new Game(myBoard);
+
+    Collection<Rule> rules = parser.readRules();
+
+    myNumPlayers = parser.readNumberOfPlayers();
+
+    myOracle = new Oracle(rules, myNumPlayers);
+
+    myPlayerManager = makePlayerManager(myOracle, setValidMarks);
+
+    myEngine = new Engine(myGame, myPlayerManager, myOracle, endGame);
+  }
+
+  public PlayerManager makePlayerManager(Oracle oracle, Consumer<Set<Position>> setValidMarks) {
+    AIPlayerFactory factory = new AIPlayerFactory();
+    Player player = factory.makeAIPlayer(Difficulty.HARD, WinType.TOTAL, 1, oracle, new ArrayList<>());
+    PlayerManager manager = new PlayerManager();
+
+    manager.addPlayer(0, new HumanPlayer(oracle, null, setValidMarks));
+    manager.addPlayer(1, new HumanPlayer(oracle, null, setValidMarks));
+    return manager;
+  }
+
   /**
    * resets the board model to the initial game state
    */
   public Board resetGame() {
-    myGame = new Game(myBoard, updateView);
+    myGame = new Game(myBoard);
 
-    myEngine = new Engine(myGame, myPlayerManager, myOracle, setViewValidMarks, endGame);
+    // change to just add board
+
+    myEngine = new Engine(myGame, myPlayerManager, myOracle, endGame);
 
     return myBoard;
   }
@@ -94,12 +113,11 @@ public class Controller {
 
   }
 
-  public Board setCallbackUpdates(Consumer<Board> update, Consumer<Set<Position>> setValidMarks, IntConsumer endGame){
-    updateView = update;
+  public Board setCallbackUpdates(Consumer<Set<Position>> setValidMarks, IntConsumer endGame){
     setViewValidMarks = setValidMarks;
     this.endGame = endGame;
-    myGame = new Game(myBoard, updateView);
-    myEngine = new Engine(myGame, myPlayerManager, myOracle, setViewValidMarks, endGame);
+    myGame = new Game(myBoard);
+    myEngine = new Engine(myGame, myPlayerManager, myOracle, endGame);
     myEngine.gameLoop();
 
     return myBoard;

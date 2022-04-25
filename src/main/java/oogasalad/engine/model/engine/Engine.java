@@ -1,18 +1,17 @@
 package oogasalad.engine.model.engine;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.player.PlayerManager;
-import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.rule.Move;
 
@@ -24,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * The type Engine.
  */
-public class Engine {
+public class Engine implements PropertyChangeListener {
 
   private static final Logger LOG = LogManager.getLogger(Engine.class);
 
@@ -45,10 +44,9 @@ public class Engine {
    * @param game
    * @param players
    * @param oracle
-   * @param setValidMarks
    * @param endGame
    */
-  public Engine(Game game, PlayerManager players, Oracle oracle, Consumer<Set<Position>> setValidMarks, IntConsumer endGame) {
+  public Engine(Game game, PlayerManager players, Oracle oracle, IntConsumer endGame) {
 
     myGame = game;
 
@@ -58,7 +56,7 @@ public class Engine {
 
     myOracle = oracle;
 
-    players.addDependencies(myOracle, this::playTurn, setValidMarks);
+    players.addExecuteMove(this::playTurn);
 
     pingActivePlayer();
 
@@ -171,5 +169,10 @@ public class Engine {
    */
   public Board getGameBoard() {
     return myGame.getBoard();
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+
   }
 }
