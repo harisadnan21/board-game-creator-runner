@@ -25,10 +25,10 @@ import org.apache.logging.log4j.Logger;
  */
 public class HelpTab extends AbstractTab {
 
-  public static String NEW_LINE = "\n";
-  public static String HELP = "help";
-  public static String TYPE = "type";
-  public static String REQUIRED = "required";
+  public static final String NEW_LINE = "\n";
+  public static final String HELP = "help";
+  public static final String TYPE = "type";
+  public static final String REQUIRED = "required";
   private TextArea leftDisplay;
 
   /**
