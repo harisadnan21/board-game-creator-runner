@@ -191,7 +191,7 @@ public class ViewManager {
     newStage.setScene(aiView.makeScene());
   }
 
-  private void startGame(File game, Stage newStage, String[]players) {
+  private void startGame(File game, Stage newStage, String[] players) {
     try {
       GameParser parser;
       try {

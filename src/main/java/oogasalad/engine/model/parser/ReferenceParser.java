@@ -103,10 +103,10 @@ public abstract class ReferenceParser<T> extends AbstractParser<Void> {
   private String findPropertyValue(String name, String propertyName) {
     Map<String, String> reference = referenceMap.get(name);
     if (reference == null) {
-      throw new ReferenceNotFoundException();
+      throw new ReferenceNotFoundException(String.format("%s of %s not found\n", propertyName, name));
     }
     if (!reference.containsKey(propertyName)) {
-      throw new MissingRequiredPropertyException();
+      throw new MissingRequiredPropertyException(String.format("%s of %s missing\n", propertyName, name));
     }
     return reference.get(propertyName);
   }

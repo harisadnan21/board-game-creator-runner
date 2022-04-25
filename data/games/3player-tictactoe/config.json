@@ -11,6 +11,12 @@
             "name": "O",
             "id": 1,
             "player": 1
+        },
+        {
+            "image": "/resources/minesweeper_3.png",
+            "name": "3",
+            "id": 2,
+            "player": 2
         }
     ],
     "metadata": {
@@ -97,6 +103,15 @@
                 "Placement Square is Empty"
             ],
             "actions": ["PlaceXPiece"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Place 3",
+            "conditions": [
+            ],
+            "actions": ["Place 3 Action"]
         }
     ],
     "conditions": [
@@ -234,6 +249,15 @@
             "id": 1,
             "type": "Place",
             "player": 1
+        },
+        {
+            "name": "Place 3 Action",
+            "type": "Place",
+            "row": 0,
+            "col": 0,
+            "id": 2,
+            "player": 2,
+            "isAbsolute": 0
         }
     ],
     "board": {

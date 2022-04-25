@@ -4,6 +4,7 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 
 /**
+ * Returns true if active player is equal to the given player
  *
  * @author Jake Heller
  */
