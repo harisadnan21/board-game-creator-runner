@@ -11,7 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- *
+ *Holds all game icons located in games data folder
+ * @author Robert Cranston
  */
 public class GameSelection extends FlowPane {
   private static final Logger LOG = LogManager.getLogger(GameSelection.class);
