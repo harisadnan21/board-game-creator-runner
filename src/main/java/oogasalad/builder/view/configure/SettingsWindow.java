@@ -87,15 +87,9 @@ public class SettingsWindow implements SettingsView {
         FormatDropDown themeSelector = new FormatDropDown(ourBuild);
     }
 
-//    private void makeFont() {
-//        themeMenu = new HBox();
-//        themeMenu.setId("theme-menu");
-//        theme = new Text(myResources.getString("ThemeSelect"));
-//        theme.setId("theme-text");
-//        cssDropdown = new CSSSelect();
-//        themeMenu.getChildren().addAll(theme, cssDropdown);
-//        layout.getChildren().add(themeMenu);
-//    }
+    private void makeFont() {
+        FormatDropDown themeSelector = new FormatDropDown(ourBuild);
+    }
 
     private void makeButton() {
         returnToGame = new Button(ResourceBundle.getBundle("/builder/view/languages/" + "English").getString("Return"));
