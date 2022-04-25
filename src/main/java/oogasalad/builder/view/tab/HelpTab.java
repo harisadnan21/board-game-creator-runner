@@ -25,7 +25,7 @@ import org.apache.logging.log4j.LogManager;
  */
 public class HelpTab extends AbstractTab {
   public static final String HELP = "help";
-  private static final String CANT_HELP_MESSAGE = "- Couldn't Find Help";
+  private static final String CANT_HELP_MESSAGE = ": Couldn't Find Help";
   private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
   public static String NEW_LINE = "\n";
   private TextArea leftDisplay;
