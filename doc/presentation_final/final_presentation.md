@@ -254,7 +254,12 @@ public String toJSON() {
 
 ### Designs
 
-#### Stable
+#### Stable - Property
+* Properties have a name, value, default value, and "form" (which indicates how the property is displayed)
+* Different subclasses of Property have different types for the value using generics
+* Properties are immutable
+  * Convenience methods to create copies of a property but with a different value or different value and name, etc
+* The value and default value of the property are stored as actual objects internally, but they can be converted to and from strings
 
 #### Significantly Changed - Immutable Boards 
 
