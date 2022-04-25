@@ -1,6 +1,7 @@
 package oogasalad.builder.view;
 
 
+import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
@@ -101,8 +102,12 @@ public class BuilderView {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     directoryChooser.setTitle(
         ViewResourcesSingleton.getInstance().getString(LOAD_DIR_CHOOSER_TITLE_KEY));
-    callbackDispatcher.call(new LoadCallback(directoryChooser.showDialog(loadStage)));
-    allTabs.loadAllTabs();
+    File file = directoryChooser.showDialog(loadStage);
+    if (file != null){
+      callbackDispatcher.call(new LoadCallback(file));
+      allTabs.loadAllTabs();
+    }
+
   }
 
   /**
