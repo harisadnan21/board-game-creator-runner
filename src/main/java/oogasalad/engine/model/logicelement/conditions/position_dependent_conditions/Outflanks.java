@@ -10,6 +10,7 @@ import oogasalad.engine.model.board.cells.Piece;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.utilities.Delta;
 import oogasalad.engine.model.logicelement.conditions.Condition;
+import oogasalad.engine.model.utilities.Flanking;
 import org.jooq.lambda.Seq;
 
 /**
@@ -20,9 +21,7 @@ import org.jooq.lambda.Seq;
  *
  * @author Alex Bildner, Jake Heller, Ricky Weerts
  */
-public class Outflanks extends Condition {
-
-
+public class Outflanks extends Condition implements Flanking {
   private int startRow;
   private int startColumn;
   private int rowDirection;
@@ -52,29 +51,11 @@ public class Outflanks extends Condition {
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    Position firstPosition = new Position(startRow, startColumn);
+    Position start = new Position(startRow, startColumn);
     if (!isAbsolute) {
-      firstPosition = transformToRelative(firstPosition, referencePoint);
+      start = transformToRelative(start, referencePoint);
     }
-
-    Delta delta = new Delta(rowDirection, columnDirection);
-
-    Position positionToCheck = firstPosition;
-    int flankSize = -1;
-    do {
-      if(board.isEmpty(positionToCheck.row(), positionToCheck.column())) {
-        return false;
-      }
-      flankSize++;
-      positionToCheck = positionToCheck.add(delta);
-    } while(board.isValidPosition(positionToCheck) && !samePlayerAtPositions(board, firstPosition, positionToCheck));
-
-    return flankSize > 0;
-
-  }
-
-  private boolean samePlayerAtPositions(Board board, Position firstPosition, Position secondPosition) {
-    return board.getPositionStateAt(firstPosition).player() == board.getPositionStateAt(secondPosition).player();
+    return getFlankLength(board, start, new Delta(rowDirection, columnDirection)) > 0;
   }
 
 }

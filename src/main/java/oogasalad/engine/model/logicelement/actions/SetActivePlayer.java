@@ -17,7 +17,7 @@ public class SetActivePlayer extends Action {
    */
   public SetActivePlayer(int[] parameters) {
     super(parameters);
-    player = myParameters[0];
+    player = getParameter(0);
   }
 
   @Override

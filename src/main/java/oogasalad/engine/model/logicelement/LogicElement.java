@@ -4,7 +4,7 @@ import oogasalad.engine.model.board.cells.Position;
 
 public class LogicElement {
 
-  protected int[] myParameters;
+  private int[] myParameters;
 
   protected LogicElement(int[] parameters) {
     myParameters = parameters;

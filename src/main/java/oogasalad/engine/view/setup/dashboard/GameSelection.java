@@ -18,7 +18,7 @@ public class GameSelection extends FlowPane {
   private static final Logger LOG = LogManager.getLogger(GameSelection.class);
   public static final double GRID_WIDTH = 3;
   private double grid_length;
-  public static final String DEFAULT_PATH = "default.png";
+  public static final String DEFAULT_PATH = "default1.jpeg";
 
   private Map<String, String> availableGames;
   private File[] allGames;
@@ -54,7 +54,6 @@ public class GameSelection extends FlowPane {
         .map(File::getName)
         .filter(fileName -> stringContainsAny(fileName, imageTypes))
         .findFirst();
-    LOG.info("Image file: {}", file.get());
     return file.map(s -> GAME_PATH + RESOURCES_PATH + folder.getName() + RESOURCES_PATH + s)
         .orElse(DEFAULT_PATH);
 

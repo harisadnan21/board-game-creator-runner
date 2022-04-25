@@ -1,13 +1,22 @@
 package oogasalad.engine.model.logicelement.actions;
 
 import oogasalad.engine.model.board.Board;
+import oogasalad.engine.model.board.cells.Piece;
 import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.utilities.Delta;
+import oogasalad.engine.model.utilities.Flanking;
 
 /**
- * @author Alex Bildner
+ * Flips any pieces being outflanked to be the same as the source
+ *
+ * @author Alex Bildner, Ricky Weerts
  */
-public class Outflank extends Action {
-
+public class Outflank extends Action implements Flanking {
+  private int startRow;
+  private int startColumn;
+  private int rowDirection;
+  private int columnDirection;
+  private boolean isAbsolute;
 
   /**
    *
@@ -23,10 +32,28 @@ public class Outflank extends Action {
    */
   protected Outflank(int[] parameters) {
     super(parameters);
+    startRow = parameters[0];
+    startColumn = parameters[1];
+    rowDirection = parameters[2];
+    columnDirection = parameters[3];
+    isAbsolute = parameters[4] != 0;
   }
 
   @Override
   public Board execute(Board board, Position referencePoint) {
-    return null;
+    Position start = new Position(startRow, startColumn);
+    Delta delta = new Delta(rowDirection, columnDirection);
+    if (!isAbsolute) {
+      start = transformToRelative(start, referencePoint);
+    }
+    int flankSize = getFlankLength(board, start, delta);
+
+    Position flankedPosition = start.add(delta);
+    Piece replacement = board.getPositionStateAt(start).piece();
+    for(int i = 0; i < flankSize; i++, flankedPosition = flankedPosition.add(delta)) {
+      board = board.placeNewPiece(flankedPosition.row(), flankedPosition.column(), replacement.type(), replacement.player());
+    }
+
+    return board;
   }
 }

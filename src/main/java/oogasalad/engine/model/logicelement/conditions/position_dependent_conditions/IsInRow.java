@@ -19,8 +19,8 @@ public class IsInRow extends Condition {
    */
   public IsInRow(int[] parameters) {
     super(parameters);
-    relativeRow = myParameters[0];
-    absoluteRow = myParameters[1];
+    relativeRow = getParameter(0);
+    absoluteRow = getParameter(1);
   }
 
   @Override

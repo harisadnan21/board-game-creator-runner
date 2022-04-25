@@ -22,10 +22,10 @@ public class IsPieceType extends Condition {
    */
   public IsPieceType(int[] parameters) {
     super(parameters);
-    row = myParameters[0];
-    column = myParameters[1];
-    type = myParameters[2];
-    isAbsolute = myParameters[3] != 0;
+    row = getParameter(0);
+    column = getParameter(1);
+    type = getParameter(2);
+    isAbsolute = getParameter(3) != 0;
   }
 
   @Override
