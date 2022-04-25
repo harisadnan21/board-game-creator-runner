@@ -1,7 +1,10 @@
 package oogasalad.engine.model.parser;
 
 import java.util.IllegalFormatConversionException;
+import oogasalad.builder.view.property.PropertyEditor;
 import oogasalad.engine.model.parser.exception.ParameterFormatException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Basic class for parsing expressions with variables into integers
@@ -9,6 +12,7 @@ import oogasalad.engine.model.parser.exception.ParameterFormatException;
  */
 public class ValueParser {
 
+  private static final Logger LOG = LogManager.getLogger(ValueParser.class);
   public static final String ADDITION = "+";
   public static final String VARIABLE = "i";
   public static final String MINUS = "-";
@@ -36,8 +40,7 @@ public class ValueParser {
       }
       return value;
     } catch (Exception e) {
-      e.printStackTrace();
-      throw new ParameterFormatException();
+      throw new ParameterFormatException(e);
     }
   }
 

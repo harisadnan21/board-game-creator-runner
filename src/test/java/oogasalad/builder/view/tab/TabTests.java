@@ -4,12 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Collection;
 import java.util.List;
+
+import javafx.collections.ObservableList;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import oogasalad.builder.model.property.IntegerProperty;
+import oogasalad.builder.model.property.StringListProperty;
 import oogasalad.builder.model.property.StringProperty;
 import oogasalad.builder.view.BuilderView;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
@@ -25,10 +29,13 @@ public class TabTests extends DukeApplicationTest {
     builderView = new BuilderView(stage);
     builderView.registerCallbackHandler(GetElementNamesCallback.class, cb -> List.of("test"));
     builderView.registerCallbackHandler(
-        GetPropertiesCallback.class, cb -> cb.type().equals("piece") ? List.of(
-            new IntegerProperty("required-id", 0, "oogasalad.builder.view.property.IntegerSelector")) :
-            List.of(new StringProperty("required-type", "Place",
-                "oogasalad.builder.view.property.DropDown"), new IntegerProperty("Place-col", 0, "oogasalad.builder.view.property.IntegerSelector")));
+        GetPropertiesCallback.class, cb -> switch(cb.type()) {
+              case "piece" -> List.of(new IntegerProperty("required-id", 0, "oogasalad.builder.view.property.IntegerSelector"));
+              case "condition" -> List.of(new StringListProperty("required-actions", "action1,action2", "oogasalad.builder.view.property.ActionListSelector"),
+                      new StringListProperty("required-conditions", "", "oogasalad.builder.view.property.ConditionListSelector"));
+              default -> List.of(new StringProperty("required-type", "Place", "oogasalad.builder.view.property.DropDown"),
+                      new IntegerProperty("Place-col", 0, "oogasalad.builder.view.property.IntegerSelector"));
+            });
     builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class,
         cb -> cb.key().equals("image") ? "checkers/pieces/normalWhite.png" : null);
     clickOn("#loginButton");
@@ -60,6 +67,23 @@ public class TabTests extends DukeApplicationTest {
     clickOn("#actionTab");
     clickOn("#new-actionButton");
     assertTrue(lookup("#dropDown-type").tryQuery().isPresent());
+  }
+
+  @Test
+  public void testGameElementListSelector() {
+    clickOn("#conditionTab");
+    clickOn("#new-conditionButton");
+    assertTrue(lookup("#gameElementListSelector-actions").tryQuery().isPresent());
+    assertTrue(lookup("#gameElementListSelector-actions-listView").queryListView().getItems().containsAll(List.of("action1", "action2")));
+    select(lookup("#gameElementListSelector-actions-comboBox").queryComboBox(), "test");
+    assertTrue(lookup("#gameElementListSelector-actions-listView").queryListView().getItems().containsAll(List.of("action1", "action2","test")));
+
+    assertTrue(lookup("#gameElementListSelector-conditions").tryQuery().isPresent());
+    assertTrue(lookup("#gameElementListSelector-conditions-listView").queryListView().getItems().isEmpty());
+    select(lookup("#gameElementListSelector-conditions-comboBox").queryComboBox(), "test");
+    assertTrue(lookup("#gameElementListSelector-conditions-listView").queryListView().getItems().containsAll(List.of("test")));
+    clickOn("#gameElementListSelector-conditions-listView-test-delete");
+    assertTrue(lookup("#gameElementListSelector-conditions-listView").queryListView().getItems().isEmpty());
   }
 
   @Test

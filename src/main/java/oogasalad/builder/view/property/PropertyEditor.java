@@ -158,8 +158,7 @@ public class PropertyEditor extends VBox {
       return (PropertySelector) ctor.newInstance(property, callbackDispatcher);
     } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException |
         InstantiationException | IllegalAccessException e) {
-      e.printStackTrace();
-      throw new InvalidFormException(e.getMessage());
+      throw new InvalidFormException(e);
     }
   }
 

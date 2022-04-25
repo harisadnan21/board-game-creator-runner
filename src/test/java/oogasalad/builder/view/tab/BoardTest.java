@@ -29,6 +29,9 @@ public class BoardTest extends DukeApplicationTest {
   private static final int X_DIM = 10;
   private static final int Y_DIM = 14;
 
+  private static final int X_CLICKED = 4;
+  private static final int Y_CLICKED = 7;
+
   private BuilderView builderView;
   private Stack<PlacePieceCallback> piecePlacedCB = new Stack<>();
   private Stack<ClearCellCallback> pieceErasedCB = new Stack<>();
@@ -86,7 +89,7 @@ public class BoardTest extends DukeApplicationTest {
     clickOn("#builderBoard");
     assertEquals(1, piecePlacedCB.size());
     assertEquals(0, pieceErasedCB.size());
-    assertEquals(new PlacePieceCallback(4, 6, "test"), piecePlacedCB.get(0));
+    assertEquals(new PlacePieceCallback(X_CLICKED, Y_CLICKED, "test"), piecePlacedCB.get(0));
   }
 
   @Test
@@ -98,7 +101,7 @@ public class BoardTest extends DukeApplicationTest {
     clickOn("#builderBoard");
     assertEquals(0, piecePlacedCB.size());
     assertEquals(1, pieceErasedCB.size());
-    assertEquals(new ClearCellCallback(4, 6), pieceErasedCB.get(0));
+    assertEquals(new ClearCellCallback(X_CLICKED, Y_CLICKED), pieceErasedCB.get(0));
   }
 
   @Test
@@ -110,6 +113,6 @@ public class BoardTest extends DukeApplicationTest {
     assertEquals(0, piecePlacedCB.size());
     // We don't care if it clears all the cells or just the minimum it has to
     assertTrue(pieceErasedCB.size() > 1);
-    assertTrue(pieceErasedCB.contains(new ClearCellCallback(4, 6)));
+    assertTrue(pieceErasedCB.contains(new ClearCellCallback(X_CLICKED, Y_CLICKED)));
   }
 }
