@@ -3,6 +3,11 @@ package oogasalad.engine.model.logicelement.actions;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 
+/**
+ * Sets new active player
+ *
+ * @author Jake Heller
+ */
 public class SetActivePlayer extends Action {
 
   private int player;

@@ -1,4 +1,4 @@
-package oogasalad.engine.model.conditions.position_independent_conditions;
+package oogasalad.engine.model.logicelement.conditions.position_independent_conditions;
 
 import java.util.PrimitiveIterator.OfInt;
 import java.util.stream.IntStream;
@@ -10,7 +10,7 @@ import oogasalad.engine.model.logicelement.conditions.position_independent_condi
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class BoardFullTest {
+class BoardFullTest0 {
 
   @Test
   void isTrue() {

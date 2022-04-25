@@ -85,7 +85,7 @@ public class Ray {
   }
 
   private static Delta getDirectionDelta(Direction direction) {
-    return new Delta(direction.deltaI(), direction.deltaJ());
+    return new Delta(direction.deltaRow(), direction.deltaColumn());
   }
 
   private static Predicate<PositionState> reducePredicates(

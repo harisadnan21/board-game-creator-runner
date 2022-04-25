@@ -169,7 +169,7 @@ public class Oracle implements AIOracle {
   public Board incrementPlayer(Board board) {
     int nextPlayer = (board.getPlayer() + 1) % myNumPlayers;
     int counter = 0;
-    while (!getChoices(board, nextPlayer).findAny().isPresent() && counter < myNumPlayers) {
+    while (!getChoices(board, nextPlayer).findAny().isPresent() && counter < myNumPlayers + 1) {
       nextPlayer = (board.getPlayer() + 1) % myNumPlayers;
       counter++;
     }
