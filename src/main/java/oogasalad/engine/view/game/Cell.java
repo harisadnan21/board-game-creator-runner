@@ -22,7 +22,6 @@ public class Cell {
 
   public static int BUFFER = 2;
   public static String VALID_MARKER_PATH = BoardView.IMAGES_FOLDER + "valid_marker.png";
-  public static double OPACITY = 0.6;
   private static final Logger LOG = LogManager.getLogger(Cell.class);
   private final Shape myShape;
   private final StackPane myRoot;
@@ -30,23 +29,24 @@ public class Cell {
   private ImageView myValidMarker;
   private Rectangle highlight;
 
-  private final double myWidth;
-  private final double myHeight;
-  private final double myX;
-  private final double myY;
+  private double myWidth;
+  private double myHeight;
+  private double myRow;
+  private double myColumn;
+
 
   /**
    *
-   * @param x x index in board
-   * @param y y index in board
+   * @param row row index in board
+   * @param column column index in board
    * @param width cell width
    * @param height cell height
    */
-  public Cell(int x, int y, double width, double height, Optional<String> hexColor) {
+  public Cell(int row, int column, double width, double height, Optional<String> hexColor) {
     myWidth = width;
     myHeight = height;
-    myX = x;
-    myY = y;
+    myRow = row;
+    myColumn = column;
     myRoot = new StackPane();
     myRoot.getStyleClass().add("cell");
     myShape = new Rectangle(width, height);
@@ -55,7 +55,12 @@ public class Cell {
     myRoot.getChildren().add(myShape);
   }
 
-
+  /**
+   *
+   * returns root of Cell
+   *
+   * @return root of cell
+   */
   public Node getMyRoot() {
     return myRoot;
   }
@@ -179,7 +184,7 @@ public class Cell {
 
   // Sets the default color of the cell background
   private void setDefaultColor() {
-    if ((myX+myY)%2 == 0) {
+    if ((myRow + myColumn)%2 == 0) {
       myShape.setId("cell-type-A");
     }
     else {

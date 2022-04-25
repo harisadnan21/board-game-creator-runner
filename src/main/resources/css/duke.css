@@ -97,7 +97,7 @@ Board View
 Cell
 */
 #valid-marker {
-  -fx-background-image: url("/images/valid_marker.png");
+  -fx-background-image: url("/engine-view/images/valid_marker.png");
 }
 
 #cell-highlight {
@@ -217,6 +217,10 @@ control panel
   -fx-text-fill: -fx-triColor;
   -fx-font-size: 15;
   -fx-wrap-text: true;
+}
+.scroll{
+  -fx-fit-to-width: true;
+  -fx-fit-to-height: true;
 }
 
 #p-mode-insns, #ai-insns {

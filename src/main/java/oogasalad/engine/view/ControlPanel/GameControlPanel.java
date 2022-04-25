@@ -5,13 +5,19 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.driver.BoardHistoryException;
 import oogasalad.engine.model.parser.CreateJSONFile;
 import oogasalad.engine.view.ApplicationAlert;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ *
+ * Holds all game-related controls, including restart, undo, pause, save, home
+ * Inherits from ControlPanel
+ *
+ * @author Cynthia France
+ */
 public class GameControlPanel extends ControlPanel {
   public static String HOME_IMAGE = IMAGES_FOLDER + imBundle.getString("Home");
   public static String RESTART_IMAGE = IMAGES_FOLDER + imBundle.getString("Restart");
@@ -27,18 +33,53 @@ public class GameControlPanel extends ControlPanel {
   private Button undo;
   private Button pause;
   private Button save;
-  private Consumer<ImmutableBoard> updateBoard;
+  private Consumer<Board> updateBoard;
 
-  public GameControlPanel(Controller controller, Consumer<ImmutableBoard> updateBoard, String language) {
+  /**
+   *
+   * creates a control panel that handles game-related requests
+   *
+   * @param controller the game controller
+   * @param updateBoard consumer, updates the backend board
+   * @param language user-specified language in which the UI is displayed in
+   */
+  public GameControlPanel(Controller controller, Consumer<Board> updateBoard, String language) {
     super(language);
     myController = controller;
     this.updateBoard = updateBoard;
   }
 
-  public Node getRoot() {
-    return root;
+  /**
+   *
+   * returns the pause button for GameView to use
+   *
+   * @return the pause button in this panel
+   */
+  public Button getPause() {
+    return pause;
   }
 
+  /**
+   *
+   * returns the home button for ViewManager to use
+   *
+   * @return the home button in this panel
+   */
+  public Button getHome() {
+    return home;
+  }
+
+  /**
+   *
+   * returns the save button for GameView to use
+   *
+   * @return the save button in this panel
+   */
+  public Button getSave(){
+    return save;
+  }
+
+  //creates all the buttons in the given panel and adds to the root
   protected void createButtons() {
     home = createButton(HOME_IMAGE);
     restart = createButton(RESTART_IMAGE);
@@ -51,7 +92,7 @@ public class GameControlPanel extends ControlPanel {
     root.getChildren().addAll(home, restart, undo, pause, save);
 
   }
-  //TODO: Save Game
+
   private void saveGame() {
     CreateJSONFile jsonCreator = new CreateJSONFile(myController);
     jsonCreator.createFile();
@@ -59,8 +100,7 @@ public class GameControlPanel extends ControlPanel {
 
   private void undoMove() {
     try {
-      Board currBoard = myController.undoGameOnce();
-      updateBoard(currBoard);
+      myController.undoGameOnce();
     } catch (BoardHistoryException ex) {
       LOG.error(ex);
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Notif"), ex.getMessage());
@@ -68,23 +108,6 @@ public class GameControlPanel extends ControlPanel {
   }
 
   private void restartGame() {
-    Board currBoard = myController.resetGame();
-    updateBoard(currBoard);
-  }
-
-  private void updateBoard(Board b) {
-    updateBoard.accept(b);
-  }
-
-  public Button getPause() {
-    return pause;
-  }
-
-  public Button getHome() {
-    return home;
-  }
-
-  public Button getSave(){
-    return save;
+    myController.resetGame();
   }
 }

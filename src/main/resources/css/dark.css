@@ -96,7 +96,7 @@ Board View
 Cell
 */
 #valid-marker {
-  -fx-background-image: url("/images/valid_marker.png");
+  -fx-background-image: url("/engine-view/images/valid_marker.png");
 }
 
 #cell-highlight {
@@ -183,6 +183,10 @@ control panel
 
 .iconName{
   -fx-alignment: center;
+}
+.scroll{
+  -fx-fit-to-width: true;
+  -fx-fit-to-height: true;
 }
 
 .infoPanel{

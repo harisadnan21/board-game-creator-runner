@@ -1,11 +1,18 @@
 package oogasalad.engine.controller;
 
+
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
-import oogasalad.engine.model.ai.RandomPlayer;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import oogasalad.engine.model.ai.enums.Difficulty;
 import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.board.exceptions.OutOfBoardException;
@@ -15,36 +22,31 @@ import oogasalad.engine.model.engine.Oracle;
 import oogasalad.engine.model.player.AIPlayerFactory;
 import oogasalad.engine.model.player.HumanPlayer;
 import oogasalad.engine.model.player.Player;
+import oogasalad.engine.model.player.PlayerFactory;
 import oogasalad.engine.model.player.PlayerManager;
 import oogasalad.engine.model.rule.Rule;
-import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import oogasalad.engine.model.driver.Game;
 import oogasalad.engine.model.engine.Engine;
 import oogasalad.engine.model.board.Board;
 
-import oogasalad.engine.model.rule.Move;
 import oogasalad.engine.model.parser.GameParser;
-import oogasalad.engine.view.ViewManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Controller {
 
   private static final Logger LOG = LogManager.getLogger(Controller.class);
+  private GameParser myParser;
 
-  private Board myBoard;
+  private Board myInitialBoard;
   private Engine myEngine;
   private Game myGame;
-  private Collection<Move> moves;
-  private Collection<EndRule> endRules;
-  private Collection<Rule> myRules;
   private Oracle myOracle;
-  private Consumer<Board> updateView;
   private Consumer<Set<Position>> setViewValidMarks;
   private IntConsumer endGame;
-
   private PlayerManager myPlayerManager;
   private int myNumPlayers;
+  private String[] myPlayers;
 
   /**
    * Constructor for the controller
@@ -53,11 +55,8 @@ public class Controller {
    */
   public Controller(Board board, GameParser parser) {
     try {
-      myBoard = board;
-      myGame = new Game(myBoard, null);
-
-      moves = parser.readMoves();
-      endRules = parser.readWinConditions();
+      myInitialBoard = board;
+      myGame = new Game(myInitialBoard);
 
       Collection<Rule> rules = parser.readRules();
 
@@ -65,55 +64,76 @@ public class Controller {
 
       myOracle = new Oracle(rules, myNumPlayers);
 
-      AIPlayerFactory factory = new AIPlayerFactory();
-      Player player = factory.makeAIPlayer(Difficulty.EASY, WinType.TOTAL, 1, myOracle, new ArrayList<>());
-
-      myPlayerManager = new PlayerManager();
-      myPlayerManager.addPlayer(0, new HumanPlayer(null, null, null));
-      myPlayerManager.addPlayer(1, player);
-
-      //myPlayerManager.addPlayer(1, new RandomPlayer(null, null));
 
       // TODO: figure out better way to pass in view lambdas
-      myEngine = new Engine(myGame, myPlayerManager, myOracle, null, null);
+      myEngine = new Engine(myGame, myPlayerManager, myOracle, null);
 
     } catch (Exception e){
       LOG.fatal(e);
     }
   }
 
+  public Controller(String[] players) {
+    myPlayers = players;
+  }
+
+  /**
+   * Starts a game
+   * Requires two functions from the active BoardView class
+   *
+   * Additionally, the board view needs to be added as a listener to the game
+   * @param parser
+   * @param setValidMarks
+   * @param endGame
+   * @throws FileNotFoundException
+   */
+  public void startEngine(GameParser parser, Consumer<Set<Position>> setValidMarks, IntConsumer endGame)
+      throws FileNotFoundException {
+    Board board = parser.parseBoard();
+
+    myParser = parser;
+    myInitialBoard = board;
+    myGame = new Game(myInitialBoard);
+
+    Collection<Rule> rules = parser.readRules();
+
+    myNumPlayers = parser.readNumberOfPlayers();
+
+    myOracle = new Oracle(rules, myNumPlayers);
+
+    myPlayerManager = makePlayerManager(myOracle, setValidMarks);
+
+    myEngine = new Engine(myGame, myPlayerManager, myOracle, endGame);
+  }
+
+  public PlayerManager makePlayerManager(Oracle oracle, Consumer<Set<Position>> setValidMarks) {
+    PlayerFactory factory = new PlayerFactory(oracle, setValidMarks);
+    PlayerManager manager = new PlayerManager();
+
+    for(int i = 0; i< myPlayers.length; i++) {
+      manager.addPlayer(i, factory.create(myPlayers[i]));
+    }
+
+    return manager;
+  }
+
   /**
    * resets the board model to the initial game state
    */
-  public Board resetGame() {
-    myGame = new Game(myBoard, updateView);
-
-    myEngine = new Engine(myGame, myPlayerManager, myOracle, setViewValidMarks, endGame);
-
-    return myBoard;
+  public void resetGame() {
+    myGame.reset(myInitialBoard);
   }
 
-  public void click(int row, int column ) throws OutOfBoardException {
+  public void click(int row, int column) throws OutOfBoardException {
     myEngine.onCellSelect(row, column);
-
   }
 
-  public Board setCallbackUpdates(Consumer<Board> update, Consumer<Set<Position>> setValidMarks, IntConsumer endGame){
-    updateView = update;
-    setViewValidMarks = setValidMarks;
-    this.endGame = endGame;
-    myGame = new Game(myBoard, updateView);
-    myEngine = new Engine(myGame, myPlayerManager, myOracle, setViewValidMarks, endGame);
-    myEngine.gameLoop();
-
-    return myBoard;
-  }
   public Engine getEngine(){
     return myEngine;
   }
 
   /**
-   * gets and returns the game
+   * Gets and returns the game
    * @return : returns the game
    */
   public Game getGame(){
@@ -121,12 +141,17 @@ public class Controller {
   }
 
   /**
-   * Function starts the game
+   * Gets player manager
+   * @return
    */
-  public void startGame() {
-    myEngine.gameLoop();
+  public PlayerManager getPlayerManager() {
+    return myPlayerManager;
   }
 
+  /**
+   * Sets the board of the game
+   * @param board
+   */
   public void setBoard(Board board){
     myGame.setBoard(board);
   }

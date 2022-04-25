@@ -50,12 +50,6 @@ public class RandomPlayer extends AbstractPlayer {
     return myOracle;
   }
 
-  @Override
-  public void addDependencies(Oracle oracle, BiConsumer<Player, Choice> executeMove,
-      Consumer<Set<Position>> setValidMarks) {
-    setExecuteMove(executeMove);
-    setOracle(oracle);
-  }
 
   private void setOracle(Oracle oracle) {
     this.myOracle = oracle;

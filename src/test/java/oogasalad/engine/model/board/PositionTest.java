@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import oogasalad.engine.model.board.cells.Position;
+import oogasalad.engine.model.board.utilities.Delta;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,6 +19,17 @@ public class PositionTest {
   public static final Integer[] COL_VALS = new Integer[]{11, 22, 33, 44, 55, 66, 77, 88, 99};
   private static Position[] positions1;
   private static Position[] positions2;
+
+  @Test
+  void constructor() {
+    Assertions.assertInstanceOf(Position.class, new Position(new Tuple2<>(1,1)));
+  }
+
+  @Test
+  void add() {
+    Position position = new Position(1,1);
+    Assertions.assertInstanceOf(Position.class, position.add(new Delta(1,1)));
+  }
 
   @BeforeAll
   static void beforeAll() {

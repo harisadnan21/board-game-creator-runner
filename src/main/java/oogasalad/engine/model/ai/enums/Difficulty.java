@@ -9,10 +9,10 @@ import oogasalad.engine.model.ai.timeLimiting.TimeLimitFactory;
 public enum Difficulty {
   RANDOM(1, 3),
   EASY(1, 3),
-  MEDIUM(3, 5),
-  HARD(5, 8),
-  EXPERT(10, 10),
-  ADAPTIVE(5, 8);
+  MEDIUM(2, 5),
+  HARD(3, 8),
+  EXPERT(3, 10),
+  ADAPTIVE(3, 8);
 
 
   private final int depth;

@@ -69,11 +69,11 @@
             "type": "PlayerWins"
         },
         {
-            "name": "draw",
-            "id": -1,
-            "conditions": ["board full"],
+            "name": "Draw",
+            "conditions": [],
             "type": "Draw"
         }
+
     ],
     "rules": [
         {

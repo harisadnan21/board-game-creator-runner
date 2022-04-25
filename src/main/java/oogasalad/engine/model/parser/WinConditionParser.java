@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 import oogasalad.engine.model.logicelement.winner.WinDecision;
+import oogasalad.engine.model.rule.terminal_conditions.DrawRule;
 import oogasalad.engine.model.rule.terminal_conditions.EndRule;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +23,7 @@ public class WinConditionParser extends AbstractParser<Collection<EndRule>> {
   private static final String WIN_CONDITIONS = "winDecisions";
   private static final String TYPE = "type";
   private static final String NAME = "name";
+  private static final String DRAW_NAME = "Draw";
 
   private final ConditionParser conditionParser;
 
@@ -59,9 +61,18 @@ public class WinConditionParser extends AbstractParser<Collection<EndRule>> {
       String type = winCondition.getString(TYPE);
       int[] params = paramsToIntArray(winCondition, type);
       WinDecision decision = (WinDecision) getObjectReflection(type, params, DECISION_RESOURCES);
-      winConditions.add(new EndRule(name, conditions, decision));
+      if (name.equals(DRAW_NAME)) {
+        winConditions.add(new DrawRule(name, decision));
+      }
+      else {
+        winConditions.add(new EndRule(name, conditions, decision));
+      }
     }
     return winConditions;
+  }
+
+  private EndRule createDrawRule(String name, WinDecision decision) {
+    return new DrawRule(name, decision);
   }
 
   // Converts all required parameters (based on type) of a reference to an ordered integer array
@@ -72,11 +83,6 @@ public class WinConditionParser extends AbstractParser<Collection<EndRule>> {
     int[] params = new int[requiredParams.length];
     for (int i = 0; i < requiredParams.length; i++) {
       params[i] = winCondition.getInt(requiredParams[i]);
-      //TODO: THIS SUCKS! Standardize how we differentiate (x,y) and (i,j)
-      if (requiredParams[i].equals("row") || requiredParams[i].equals("destinationRow") ||
-          requiredParams[i].equals("sourceRow")) {
-        params[i] *=-1;
-      }
     }
     return params;
   }

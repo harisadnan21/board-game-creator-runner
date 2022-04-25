@@ -1,22 +1,25 @@
 package oogasalad.engine.view.OptionSelect;
 
-import oogasalad.engine.view.OptionSelect.OptionSelect;
 
+/**
+ *
+ * Dropdown menu for CSS/theme selection
+ * Inherits from OptionSelect
+ *
+ * @author Cynthia France
+ */
 public class CSSSelect extends OptionSelect {
 
+  /**
+   * creates a selection menu for different theme selection
+   */
   public CSSSelect() {
     super();
   }
 
-  public String getCSS() {
-    if (this.getValue() == null) {
-      return "light";
-    }
-    else {
-      return this.getValue();
-    }
-  }
-
+  /**
+   * updates options with the correct values
+   */
   @Override
   protected void setup() {
     options = new String[]{"light", "dark", "duke"};

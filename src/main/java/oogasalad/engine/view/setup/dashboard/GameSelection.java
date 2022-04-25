@@ -10,11 +10,15 @@ import javafx.scene.layout.FlowPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
+/**
+ *Holds all game icons located in games data folder
+ * @author Robert Cranston
+ */
 public class GameSelection extends FlowPane {
   private static final Logger LOG = LogManager.getLogger(GameSelection.class);
   public static final double GRID_WIDTH = 3;
   private double grid_length;
+  public static final String DEFAULT_PATH = "default.png";
 
   private Map<String, String> availableGames;
   private File[] allGames;
@@ -30,7 +34,10 @@ public class GameSelection extends FlowPane {
     this.getStyleClass().add("gameSelection");
     for(File game : allGames) {
       LOG.info("Game: {}", game.getName());
-      displayGameIcon(updateInfo, game, getImagePath(new File(IMG_FOLDER_PATH + File.separator + game.getName()), game.getName()), game.getName());
+        displayGameIcon(updateInfo, game,
+            getImagePath(new File(IMG_FOLDER_PATH + File.separator + game.getName()),
+                game.getName()), game.getName());
+
     }
   }
 
@@ -48,7 +55,9 @@ public class GameSelection extends FlowPane {
         .filter(fileName -> stringContainsAny(fileName, imageTypes))
         .findFirst();
     LOG.info("Image file: {}", file.get());
-    return GAME_PATH + RESOURCES_PATH + folder.getName() + RESOURCES_PATH + file.get();
+    return file.map(s -> GAME_PATH + RESOURCES_PATH + folder.getName() + RESOURCES_PATH + s)
+        .orElse(DEFAULT_PATH);
+
   }
 
   private boolean stringContainsAny(String input, String[] list){
