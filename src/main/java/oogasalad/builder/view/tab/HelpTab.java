@@ -22,7 +22,10 @@ import oogasalad.builder.view.callback.GetPropertiesCallback;
  */
 public class HelpTab extends AbstractTab {
 
+  public static String NEW_LINE = "\n";
   public static String HELP = "help";
+  public static String TYPE = "type";
+  public static String REQUIRED = "required";
   private TextArea leftDisplay;
 
   /**
@@ -68,8 +71,8 @@ public class HelpTab extends AbstractTab {
   private void displayHelpForElement(String type) {
     leftDisplay.clear();
     leftDisplay.setText(ViewResourcesSingleton.getInstance().getString(type) + " Tab");
-    leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
-        .getString(type + "-" + HELP) + "\n");
+    leftDisplay.setText(leftDisplay.getText() + NEW_LINE + ViewResourcesSingleton.getInstance()
+        .getString(type + DELIMINATOR + HELP) + NEW_LINE);
 
     boolean hasRequiredType = false;
     StringBuilder textToDisplay = new StringBuilder();
@@ -79,20 +82,20 @@ public class HelpTab extends AbstractTab {
           new GetPropertiesCallback(type)).orElseThrow();
       for (Property property : elementProperties) {
         String propertyName = property.name();
-        if (propertyName.contains("required-")) {
-          propertyName = propertyName.replace("required", type);
+        if (propertyName.contains(REQUIRED + DELIMINATOR)) {
+          propertyName = propertyName.replace(REQUIRED, type);
         }
-        if (propertyName.contains("-type")) {
-          String[] typeOptions = property.valueAsString().split("-");
-          leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
-              .getString(propertyName + "-" + HELP));
+        if (propertyName.contains(DELIMINATOR + TYPE)) {
+          String[] typeOptions = property.valueAsString().split(DELIMINATOR);
+          leftDisplay.setText(leftDisplay.getText() + NEW_LINE + ViewResourcesSingleton.getInstance()
+              .getString(propertyName + DELIMINATOR + HELP));
           for (String propType : typeOptions) {
             displayCorrespondingPropertiesOfType(propType, type);
             hasRequiredType = true;
           }
         }
-        textToDisplay.append("\n")
-            .append(ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
+      textToDisplay.append(NEW_LINE)
+            .append(ViewResourcesSingleton.getInstance().getString(propertyName + DELIMINATOR + HELP));
       }
       if (!hasRequiredType) {
         leftDisplay.setText(String.valueOf(textToDisplay));
@@ -102,14 +105,14 @@ public class HelpTab extends AbstractTab {
 
   //Displays the help for the properties of a type
   private void displayCorrespondingPropertiesOfType(String propType, String type) {
-    leftDisplay.setText(leftDisplay.getText() + "\n \n" + ViewResourcesSingleton.getInstance()
-        .getString(propType + "-" + HELP));
+    leftDisplay.setText(leftDisplay.getText() + NEW_LINE + NEW_LINE + ViewResourcesSingleton.getInstance()
+        .getString(propType + DELIMINATOR + HELP));
     Collection<Property> elementProperties = getCallbackDispatcher().call(
         new GetPropertiesCallback(type)).orElseThrow();
     for (Property prop : elementProperties) {
-      if (prop.name().contains(propType + "-")) {
-        leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
-            .getString(prop.name() + "-" + HELP));
+      if (prop.name().contains(propType + DELIMINATOR)) {
+        leftDisplay.setText(leftDisplay.getText() + NEW_LINE + ViewResourcesSingleton.getInstance()
+            .getString(prop.name() + DELIMINATOR + HELP));
       }
     }
   }
