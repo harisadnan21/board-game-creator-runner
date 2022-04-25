@@ -58,10 +58,8 @@ public class Engine implements PropertyChangeListener {
 
     players.addExecuteMove(this::playTurn);
 
-    pingActivePlayer();
-
     game.addListener(this);
-
+    pingActivePlayer();
   }
 
   /**

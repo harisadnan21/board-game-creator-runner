@@ -27,7 +27,7 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.parser.GameParser;
 import oogasalad.engine.view.game.BoardView;
 
-public class Controller<aiDificulties> {
+public class Controller {
 
   private GameParser myParser;
 
