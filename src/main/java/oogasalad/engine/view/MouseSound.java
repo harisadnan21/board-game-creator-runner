@@ -14,6 +14,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ *
+ * the sound that is played when a user clicks
+ *
  * @author Cynthia France
  */
 public class MouseSound {
@@ -30,6 +33,12 @@ public class MouseSound {
   private ResourceBundle myResources;
   private Clip currSound;
 
+  /**
+   *
+   * creates the library of mouse sounds
+   *
+   * @param language user-specified language in which the UI is displayed in
+   */
   public MouseSound(String language) {
     sounds = new HashMap<>();
     myResources = ResourceBundle.getBundle(DEFAULT_LANGUAGE_RESOURCE_PACKAGE + language);
@@ -38,6 +47,12 @@ public class MouseSound {
     setSound(DEFAULT_SOUND);
   }
 
+  /**
+   *
+   * sets the mouse sound
+   *
+   * @param sound name of sound
+   */
   public void setSound(String sound) {
     if (sounds.containsKey(sound)) {
       soundOn = true;
@@ -46,6 +61,16 @@ public class MouseSound {
     else {
       currSound = null;
       soundOn = false;
+    }
+  }
+
+  /**
+   * plays the sound
+   */
+  public void playSound() {
+    if (soundOn) {
+      currSound.setMicrosecondPosition(0);
+      currSound.start();
     }
   }
 
@@ -69,13 +94,6 @@ public class MouseSound {
       LOG.error(e);
       ApplicationAlert alert = new ApplicationAlert(myResources.getString("Error"), myResources.getString("SoundNotFound"));
       return null;
-    }
-  }
-
-  public void playSound() {
-    if (soundOn) {
-      currSound.setMicrosecondPosition(0);
-      currSound.start();
     }
   }
 }
