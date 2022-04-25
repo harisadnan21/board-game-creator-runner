@@ -53,7 +53,6 @@ public class GameControlPanel extends ControlPanel {
     root.getChildren().addAll(home, restart, undo, pause, save);
 
   }
-  //TODO: Save Game
   private void saveGame() {
     CreateJSONFile jsonCreator = new CreateJSONFile(myController);
     jsonCreator.createFile();
