@@ -7,10 +7,10 @@ import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.PositionState;
 
 /**
- * Places a random piece to the board
+ * Places a random piece to the board from pieces already on the board
  * @author Robert Cranston
  */
-public class PlaceRandomPiece implements CheatCode{
+public class CopyRandomPiece implements CheatCode{
   private final Random r = new Random();
 
   /**
