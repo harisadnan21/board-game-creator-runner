@@ -14,10 +14,8 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
-import javafx.beans.InvalidationListener;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -28,7 +26,6 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 import oogasalad.engine.controller.Controller;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.board.ImmutableBoard;
 import oogasalad.engine.model.board.exceptions.OutOfBoardException;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
@@ -68,7 +65,7 @@ public class BoardView implements PropertyChangeListener {
 
   double BOARD_OUTLINE_SIZE;
   private Properties prop;
-  public BoardView(Controller controller, File game, ImmutableBoard initialBoard, double width, double height,
+  public BoardView(Controller controller, File game, Board initialBoard, double width, double height,
       String css, String language)
       throws IOException {
     this.language = language;
@@ -192,7 +189,8 @@ public class BoardView implements PropertyChangeListener {
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    ImmutableBoard board = (ImmutableBoard) evt.getNewValue();
+    LOG.info("Board changed");
+    Board board = (Board) evt.getNewValue();
     updateBoard(board);
   }
 
@@ -218,8 +216,9 @@ public class BoardView implements PropertyChangeListener {
     return new Pair<>(cellWidth, cellHeight);
   }
 
-  public void updateBoard(ImmutableBoard newBoard) {
-    Board board = (Board)newBoard;
+  public void updateBoard(Board newBoard) {
+    LOG.info("updateBoard called");
+    Board board = newBoard;
     text.updateText(board.getPlayer());
     for (PositionState cell: board) {
       Position pos = cell.position();
@@ -245,8 +244,6 @@ public class BoardView implements PropertyChangeListener {
   public void endGame(int winner) {
     text.gameIsWon(winner);
     LOG.info("gameOver! Player {} wins%n", (winner+1));
-    ImmutableBoard newBoard = myController.resetGame();
-    updateBoard(newBoard);
     displayGameOver(winner);
   }
 
@@ -275,7 +272,6 @@ public class BoardView implements PropertyChangeListener {
     for(Position pos : validMoves){
       myGrid[pos.row()][pos.column()].addValidMarker();
     }
-
   }
 
   /**
@@ -315,5 +311,8 @@ public class BoardView implements PropertyChangeListener {
 
   public Node getRoot() {
     return root;
+  }
+
+  public void setValidMarkers(Object o) {
   }
 }

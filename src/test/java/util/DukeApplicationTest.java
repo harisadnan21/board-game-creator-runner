@@ -1,5 +1,7 @@
 package util;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
@@ -14,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
@@ -115,6 +118,12 @@ public class DukeApplicationTest extends ApplicationTest {
     protected void select (ListView<String> lv, String value) {
         // FIXME: duplicated code - but no common ancestor defines getSelectionModel()
         simulateAction(lv, () -> lv.getSelectionModel().select(value));
+    }
+
+    protected void type(int event) throws AWTException {
+        Robot r = new Robot();
+        r.keyPress(event);
+        r.keyRelease(event);
     }
 
 

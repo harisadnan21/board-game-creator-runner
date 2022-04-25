@@ -42,7 +42,7 @@ public class MoveTest {
 
     Action[] actions = new Action[2];
     actions[0] = new Translate(new int[]{0,0,2,2,0});
-    actions[1] = new Remove(new int[]{1,10});
+    actions[1] = new Remove(new int[]{1,10,0});
     Position repPoint = new Position(2,2);
 
     myMove = new Move("Jump", conditions, actions, repPoint);

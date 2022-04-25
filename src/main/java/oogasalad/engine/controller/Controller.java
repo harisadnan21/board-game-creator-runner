@@ -3,6 +3,9 @@ package oogasalad.engine.controller;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
@@ -23,7 +26,7 @@ import oogasalad.engine.model.board.Board;
 
 import oogasalad.engine.model.parser.GameParser;
 
-public class Controller {
+public class Controller<aiDificulties> {
 
   private GameParser myParser;
 
@@ -33,9 +36,10 @@ public class Controller {
   private Oracle myOracle;
   private Consumer<Set<Position>> setViewValidMarks;
   private IntConsumer endGame;
-
   private PlayerManager myPlayerManager;
   private int myNumPlayers;
+  private String[] myPlayers;
+  private Map<String, Player> playerMap;
 
   /**
    * Constructor for the controller
@@ -62,7 +66,8 @@ public class Controller {
     }
   }
 
-  public Controller() {
+  public Controller(String[]players) {
+    myPlayers = players;
   }
 
   public void startEngine(GameParser parser, Consumer<Set<Position>> setValidMarks, IntConsumer endGame)
@@ -86,26 +91,33 @@ public class Controller {
 
   public PlayerManager makePlayerManager(Oracle oracle, Consumer<Set<Position>> setValidMarks) {
     AIPlayerFactory factory = new AIPlayerFactory();
-    Player player = factory.makeAIPlayer(Difficulty.EASY, WinType.TOTAL, 1, oracle, new ArrayList<>());
     PlayerManager manager = new PlayerManager();
-
-    manager.addPlayer(0, new HumanPlayer(oracle, null, setValidMarks));
-    manager.addPlayer(1, player);
+    for(int i = 0; i< myPlayers.length; i++) {
+      createPlayerMap(oracle, setValidMarks, factory);
+      manager.addPlayer(i, playerMap.get(myPlayers[i]));
+    }
     return manager;
   }
+
+  private void createPlayerMap(Oracle oracle, Consumer<Set<Position>> setValidMarks,
+      AIPlayerFactory factory) {
+    playerMap = new HashMap<>();
+    playerMap.put("human", new HumanPlayer(oracle, null, setValidMarks));
+    for(Difficulty level : Difficulty.values()){
+      playerMap.put(level.name(), factory.makeAIPlayer(level, WinType.TOTAL, 1, oracle, new ArrayList<>()));
+    }
+  }
+
 
   /**
    * resets the board model to the initial game state
    */
-  public Board resetGame() {
-
+  public void resetGame() {
     myGame.reset(myInitialBoard);
-    return myInitialBoard;
   }
 
   public void click(int row, int column) throws OutOfBoardException {
     myEngine.onCellSelect(row, column);
-
   }
 
   public Engine getEngine(){
