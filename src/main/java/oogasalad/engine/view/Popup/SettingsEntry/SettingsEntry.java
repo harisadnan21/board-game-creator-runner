@@ -1,4 +1,4 @@
-package oogasalad.engine.view.Popup;
+package oogasalad.engine.view.Popup.SettingsEntry;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;

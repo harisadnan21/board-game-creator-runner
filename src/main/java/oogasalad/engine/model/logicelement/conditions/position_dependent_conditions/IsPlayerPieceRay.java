@@ -1,10 +1,11 @@
 package oogasalad.engine.model.logicelement.conditions.position_dependent_conditions;
 
+import static oogasalad.engine.model.board.utilities.Ray.getRayOfMaxLength;
+
 import java.util.Collection;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
-import oogasalad.engine.model.board.utilities.Ray;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 
 public class IsPlayerPieceRay extends Condition {
@@ -17,8 +18,8 @@ public class IsPlayerPieceRay extends Condition {
   private int player;
   private boolean isAbsolute;
   /**
-   *
    * @param parameters size 6 array [startRow, startColumn, rowDirection, columnDirection, length, player, isAbsolute]
+   * @author Alex Bildner, Jake Heller
    */
   public IsPlayerPieceRay(int[] parameters) {
     super(parameters);
@@ -38,15 +39,16 @@ public class IsPlayerPieceRay extends Condition {
     if (!isAbsolute) {
       startPosition = transformToRelative(startPosition, referencePoint);
     }
-    Collection<PositionState> ray = Ray.getRayOfMaxLength(board, startPosition, direction, length);
-    if (ray.size() < length) {
-      return false;
-    }
-    for (PositionState cell : ray) {
-      if (cell.piece().player() != player) {
-        return false;
-      }
-    }
-    return true;
+    Collection<PositionState> ray = getRayOfMaxLength(board, startPosition, direction, length);
+
+    return longEnough(ray) && allForPlayer(ray);
+  }
+
+  private boolean longEnough(Collection<PositionState> ray) {
+    return ray.size() >= length;
+  }
+
+  private boolean allForPlayer(Collection<PositionState> ray) {
+    return ray.stream().allMatch(positionState -> positionState.player()==player);
   }
 }

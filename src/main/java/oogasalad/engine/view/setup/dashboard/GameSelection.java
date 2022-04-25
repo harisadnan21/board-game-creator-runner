@@ -31,6 +31,7 @@ public class GameSelection extends FlowPane {
     for(File game : allGames) {
       LOG.info("Game: {}", game.getName());
       displayGameIcon(updateInfo, game, getImagePath(new File(IMG_FOLDER_PATH + File.separator + game.getName()), game.getName()), game.getName());
+      System.out.println(IMG_FOLDER_PATH + File.separator + game.getName());
     }
   }
 

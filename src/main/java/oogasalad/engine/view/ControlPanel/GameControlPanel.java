@@ -64,9 +64,9 @@ public class GameControlPanel extends ControlPanel {
     myController.resetGame();
   }
 
-  private void updateBoard(Board b) {
-    updateBoard.accept(b);
-  }
+//  private void updateBoard(Board b) {
+//    updateBoard.accept(b);
+//  }
 
   public Button getPause() {
     return pause;

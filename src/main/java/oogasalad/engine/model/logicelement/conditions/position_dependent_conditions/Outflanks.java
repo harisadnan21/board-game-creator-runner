@@ -3,11 +3,14 @@ package oogasalad.engine.model.logicelement.conditions.position_dependent_condit
 import static java.lang.Math.*;
 import static oogasalad.engine.model.board.cells.Piece.PLAYER_ONE;
 
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.board.cells.Piece;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.utilities.Delta;
 import oogasalad.engine.model.logicelement.conditions.Condition;
+import org.jooq.lambda.Seq;
 
 /**
  * Defines outflanks condition
@@ -45,35 +48,31 @@ public class Outflanks extends Condition {
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
     Position firstPosition = new Position(0,0);
-    Position secondPosition = new Position(0,0);
     //TODO: fix above
-    return samePlayerAtPositions(board, firstPosition, secondPosition) && otherPlayerBetweenPositions(board, firstPosition, secondPosition);
-    
-  }
-
-  private boolean otherPlayerBetweenPositions(Board board, Position firstPosition, Position secondPosition) {
-    Delta delta = new Delta(secondPosition.row() - firstPosition.row(), secondPosition.column() - firstPosition.column());
-    if(notInLine(delta)) return false;
-
-    int incrementDistance = delta.idelta()/ abs(delta.idelta());
-
+//    int startPlayer = board.getPositionStateAt(firstPosition).player();
     int playerNeeded = otherPlayer(board, firstPosition);
-    Delta increment = new Delta(incrementDistance, incrementDistance);
 
-    Position positionToCheck = firstPosition.add(increment);
+    Delta delta = new Delta(this.rowDirection, this.columnDirection);
 
-    while (!positionToCheck.equals(secondPosition)) {
-      if (board.getPositionStateAt(positionToCheck).player() != playerNeeded) {
-        return false;
+    Position positionToCheck = firstPosition.add(delta);
+    if(isInvalidPosition(board, positionToCheck) || isNotPlayer(board, playerNeeded, positionToCheck)) return false;
+
+    while(board.isValidPosition(positionToCheck)) {
+      if(samePlayerAtPositions(board, firstPosition, positionToCheck)) {
+        return true;
       }
-      positionToCheck = positionToCheck.add(increment);
+      positionToCheck = positionToCheck.add(delta);
     }
-    return true;
+    return false;
 
   }
 
-  private boolean notInLine(Delta delta) {
-    return abs(delta.idelta()) != abs(delta.jdelta());
+  private boolean isNotPlayer(Board board, int playerNeeded, Position positionToCheck) {
+    return board.getPositionStateAt(positionToCheck).player() != playerNeeded;
+  }
+
+  private boolean isInvalidPosition(Board board, Position positionToCheck) {
+    return !board.isValidPosition(positionToCheck);
   }
 
   private int otherPlayer(Board board, Position firstPosition) {

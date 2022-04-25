@@ -60,7 +60,7 @@ public class GameViewTest extends DukeApplicationTest {
 
   @Test
   void testCSS() throws AWTException {
-    clickOn("#settings-button");
+    clickOn("#cp-button");
     clickOn(gameView.getCssDropdown());
     type(KeyEvent.VK_DOWN);
     type(KeyEvent.VK_ENTER);

@@ -6,10 +6,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import javafx.stage.Stage;
-import javax.swing.text.html.Option;
 import oogasalad.engine.view.OptionSelect.CSSSelect;
 import oogasalad.engine.view.OptionSelect.MouseSoundSelect;
-import oogasalad.engine.view.OptionSelect.OptionSelect;
+import oogasalad.engine.view.Popup.SettingsEntry.MouseSoundEntry;
+import oogasalad.engine.view.Popup.SettingsEntry.ThemeSoundEntry;
 
 public class SettingsView extends PopupView {
 
@@ -68,13 +68,9 @@ public class SettingsView extends PopupView {
   }
 
   private void makeTheme() {
-    themeMenu = new HBox();
-    themeMenu.setId("theme-menu");
-    theme = new Text(myResources.getString("ThemeSelect"));
-    theme.setId("theme-text");
     cssDropdown = new CSSSelect();
-    themeMenu.getChildren().addAll(theme, cssDropdown);
-    layout.getChildren().add(themeMenu);
+    ThemeSoundEntry themeDropdown = new ThemeSoundEntry(myResources.getString("ThemeSelect"), cssDropdown);
+    layout.getChildren().add(themeDropdown);
   }
 
   private void makeButton() {
