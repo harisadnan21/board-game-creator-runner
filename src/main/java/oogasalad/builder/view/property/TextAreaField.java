@@ -26,6 +26,7 @@ public class TextAreaField extends Field {
     super(property, dispatcher);
     textArea = new TextArea(property.valueAsString());
     textArea.setWrapText(true);
+    textArea.setId("textArea-"+property.shortName());
   }
 
   @Override
