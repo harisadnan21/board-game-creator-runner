@@ -32,8 +32,8 @@ public class SettingsWindow implements SettingsView {
     public static final String FONT_OPTIONS_PATH = "FontList";
     public static final String DEFAULT_STYLE_PACKAGE = "/builder/view/css/";
     public static final String DEFAULT_TAB_FORMAT = "tabFormat.css";
-    public static final String STYLE_LABEL = "formatPrompt";
-    public static final String FONT_LABEL = "fontPrompt";
+    public static final String THEME = "theme";
+    public static final String FONT = "font";
 
 
     private VBox topLayout;
@@ -80,7 +80,7 @@ public class SettingsWindow implements SettingsView {
     // create special combo box for choosing theme
     private void makeTheme() {
         middleLayout = new VBox();
-        themeSelector = new FormatDropDown(ourBuild, THEME_OPTIONS_PATH, STYLE_LABEL);
+        themeSelector = new FormatDropDown(THEME);
         middleLayout.getChildren().addAll(themeSelector);
         middleLayout.setAlignment(Pos.CENTER);
         layout.getChildren().addAll(middleLayout);
@@ -90,7 +90,7 @@ public class SettingsWindow implements SettingsView {
     // create special combo box for choosing font
     private void makeFont() {
         bottomLayout = new VBox();
-        fontSelector = new FormatDropDown(ourBuild, FONT_OPTIONS_PATH, FONT_LABEL);
+        fontSelector = new FormatDropDown(FONT);
         bottomLayout.getChildren().addAll(fontSelector);
         bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
         layout.getChildren().addAll(bottomLayout);

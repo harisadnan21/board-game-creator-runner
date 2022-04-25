@@ -17,10 +17,9 @@ public class FormatDropDown extends ComboBox<String> {
 
   public static final String FORMAT_RESOURCE_PATH = "FormatOptions";
   public static final String STYLE_KEY = "-choices";
-  public static final String DELINIMATOR = "-";
-  ResourceBundle styleOptions;
+  public static final String DELINIMATOR = ",";
+  private ResourceBundle styleOptions;
   private String styleChoice;
-  private String keyToButton;
 
   /**
    * Constructs the drop-down and sets the ChangeListener to call view.setFormat()
@@ -35,13 +34,13 @@ public class FormatDropDown extends ComboBox<String> {
   //fills DropDown from a file
   private void fillDropDown() {
     styleOptions = ResourceBundle.getBundle(
-        DEFAULT_PROPERTY_PACKAGE + DEFAULT_PROPERTY_PACKAGE);
-    String[] formatKeys = ViewResourcesSingleton.getInstance().getString(styleChoice+STYLE_KEY).split(DELINIMATOR);
+        DEFAULT_PROPERTY_PACKAGE + FORMAT_RESOURCE_PATH);
+    String[] formatKeys = styleOptions.getString(styleChoice+STYLE_KEY).split(DELINIMATOR);
     for(String key : formatKeys) {
       this.getItems()
           .add(ViewResourcesSingleton.getInstance().getString(key));
     }
-    this.setValue(formatKeys[0]);
+    this.setValue(ViewResourcesSingleton.getInstance().getString(formatKeys[0]));
   }
 
   // allows us to add a format on top of the styling/theme
