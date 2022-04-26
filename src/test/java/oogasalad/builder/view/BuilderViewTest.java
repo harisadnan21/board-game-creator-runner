@@ -1,10 +1,7 @@
 package oogasalad.builder.view;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import oogasalad.builder.model.property.IntegerProperty;
 import oogasalad.builder.model.property.StringProperty;
@@ -14,10 +11,18 @@ import oogasalad.builder.view.callback.GetElementNamesCallback;
 import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetHeightCallback;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
-import oogasalad.builder.view.callback.GetWidthCallback;;
+import oogasalad.builder.view.callback.GetWidthCallback;
+import oogasalad.builder.view.tab.boardTab.BoardTab;
+import oogasalad.builder.view.tab.boardTab.BoardTabAccessor;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+;
 
 class BuilderViewTest extends DukeApplicationTest {
 
@@ -40,7 +45,6 @@ class BuilderViewTest extends DukeApplicationTest {
             new IntegerProperty("required-id", 0, "oogasalad.builder.view.property.IntegerSelector")) : List.of(
              new StringProperty("required-author", "me", "oogasalad.builder.view.property.StringField"),
             new StringProperty("required-description", "descriptionTEST", "oogasalad.builder.view.property.TextAreaField" )));
-    //clickOn("#loginButton");
   }
 
   @Test
@@ -55,11 +59,10 @@ class BuilderViewTest extends DukeApplicationTest {
 
   @Test
   public void testLoading(){
-    //clickOn("#loadGameButton");
+    clickOn("#loadGameButton");
     builderView.getAllTabs().loadAllTabs();
     clickOn("#pieceTab");
     assertTrue(lookup("#testCell").tryQuery().isPresent());
-   // assertEquals(Color.valueOf("0xffffffff"),BoardTabAccessor.getColor(lookup("#boardTabPane").queryAs(BoardTab.class), 1));
   }
 
 }
