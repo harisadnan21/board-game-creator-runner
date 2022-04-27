@@ -1,0 +1,1246 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/letter_B.png",
+            "name": "Keyboard_B",
+            "id": 1,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_C.png",
+            "name": "Keyboard_C",
+            "id": 2,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_A.png",
+            "name": "Keyboard_A",
+            "id": 0,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_F.png",
+            "name": "Keyboard_F",
+            "id": 5,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_M.png",
+            "name": "Chosen_M",
+            "id": 37,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_G.png",
+            "name": "Keyboard_G",
+            "id": 6,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_N.png",
+            "name": "Chosen_N",
+            "id": 38,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_D.png",
+            "name": "Keyboard_D",
+            "id": 3,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_E.png",
+            "name": "Keyboard_E",
+            "id": 4,
+            "player": 0
+        },
+        {
+            "image": "/resources/greenSquare.png",
+            "name": "greenSquare",
+            "id": -6,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_R.png",
+            "name": "Keyboard_R",
+            "id": 17,
+            "player": 0
+        },
+        {
+            "image": "/resources/blank.png",
+            "name": "secret_A",
+            "id": 26,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_S.png",
+            "name": "Keyboard_S",
+            "id": 18,
+            "player": 0
+        },
+        {
+            "image": "/resources/blank.png",
+            "name": "secret_B",
+            "id": 27,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_P.png",
+            "name": "Keyboard_P",
+            "id": 15,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_Q.png",
+            "name": "Keyboard_Q",
+            "id": 16,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_V.png",
+            "name": "Keyboard_V",
+            "id": 21,
+            "player": 0
+        },
+        {
+            "image": "/resources/blank.png",
+            "name": "secret_E",
+            "id": 30,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_W.png",
+            "name": "Keyboard_W",
+            "id": 22,
+            "player": 0
+        },
+        {
+            "image": "/resources/blank.png",
+            "name": "secret_F",
+            "id": 31,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_T.png",
+            "name": "Keyboard_T",
+            "id": 19,
+            "player": 0
+        },
+        {
+            "image": "/resources/blank.png",
+            "name": "secret_C",
+            "id": 28,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_U.png",
+            "name": "Keyboard_U",
+            "id": 20,
+            "player": 0
+        },
+        {
+            "image": "/resources/blank.png",
+            "name": "secret_D",
+            "id": 29,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_J.png",
+            "name": "Keyboard_J",
+            "id": 9,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_K.png",
+            "name": "Keyboard_K",
+            "id": 10,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_H.png",
+            "name": "Keyboard_H",
+            "id": 7,
+            "player": 0
+        },
+        {
+            "image": "/resources/block.png",
+            "name": "block",
+            "id": -5,
+            "player": 0
+        },
+        {
+            "image": "/resources/blank.png",
+            "name": "secret_G",
+            "id": 32,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_I.png",
+            "name": "Keyboard_I",
+            "id": 8,
+            "player": 0
+        },
+        {
+            "image": "/resources/blank.png",
+            "name": "secret_H",
+            "id": 33,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_N.png",
+            "name": "Keyboard_N",
+            "id": 13,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_O.png",
+            "name": "Keyboard_O",
+            "id": 14,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_L.png",
+            "name": "Keyboard_L",
+            "id": 11,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_M.png",
+            "name": "Keyboard_M",
+            "id": 12,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_Z.png",
+            "name": "Keyboard_Z",
+            "id": 25,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_X.png",
+            "name": "Keyboard_X",
+            "id": 23,
+            "player": 0
+        },
+        {
+            "image": "/resources/letter_Y.png",
+            "name": "Keyboard_Y",
+            "id": 24,
+            "player": 0
+        },
+        {
+            "image": "/resources/blank.png",
+            "name": "blank",
+            "id": -4,
+            "player": 0
+        },
+        {
+            "image": "/resources/submit.png",
+            "name": "submit",
+            "id": -2,
+            "player": 0
+        },
+        {
+            "image": "/resources/yellowSquare.png",
+            "name": "yellowSquare",
+            "id": -7,
+            "player": 0
+        },
+        {
+            "image": "/resources/greenArrow.png",
+            "name": "greenArrow",
+            "id": -3,
+            "player": 0
+        }
+    ],
+    "metadata": {
+        "gameName": "Wordle",
+        "author": "Jake Heller",
+        "name": "metadata",
+        "description": "Wordle"
+    },
+    "winDecisions": [],
+    "rules": [
+        {
+            "representativeX": -2,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move A 1",
+            "conditions": ["IsOnKeyboardA"],
+            "actions": ["Choose A 1"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move A 2",
+            "conditions": ["IsOnKeyboardA"],
+            "actions": ["Choose A 2"]
+        },
+        {
+            "representativeX": -3,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move B 1",
+            "conditions": ["IsOnKeyboardB"],
+            "actions": ["Choose B 1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move A 3",
+            "conditions": ["IsOnKeyboardA"],
+            "actions": ["Choose A 3"]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move B 2",
+            "conditions": ["IsOnKeyboardB"],
+            "actions": ["Choose B 2"]
+        },
+        {
+            "representativeX": -4,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move C 1",
+            "conditions": ["IsOnKeyboardC"],
+            "actions": ["Choose C 1"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move B 3",
+            "conditions": ["IsOnKeyboardB"],
+            "actions": ["Choose B 3"]
+        },
+        {
+            "representativeX": -3,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move C 2",
+            "conditions": ["IsOnKeyboardC"],
+            "actions": ["Choose C 2"]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move C 3",
+            "conditions": ["IsOnKeyboardC"],
+            "actions": ["Choose C 3"]
+        }
+    ],
+    "conditions": [
+        {
+            "col": 4,
+            "invert": 0,
+            "name": "Attemp2Active",
+            "isAbsolute": 1,
+            "id": -5,
+            "row": 10,
+            "type": "IsPieceType"
+        },
+        {
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "IsInAttempt1",
+            "type": "IsInRow",
+            "absoluteRow": 12
+        },
+        {
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "IsInAttempt3",
+            "type": "IsInRow",
+            "absoluteRow": 8
+        },
+        {
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "IsInAttempt2",
+            "type": "IsInRow",
+            "absoluteRow": 10
+        },
+        {
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "IsInAttempt4",
+            "type": "IsInRow",
+            "absoluteRow": 6
+        },
+        {
+            "col": 4,
+            "invert": 0,
+            "name": "Attemp4Active",
+            "isAbsolute": 1,
+            "id": -5,
+            "row": 6,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 0,
+            "name": "SecretHasA",
+            "id": 0,
+            "type": "HasPiece"
+        },
+        {
+            "col": 4,
+            "invert": 0,
+            "name": "Attemp3Active",
+            "isAbsolute": 1,
+            "id": -5,
+            "row": 8,
+            "type": "IsPieceType"
+        },
+        {
+            "absoluteColumn": 9,
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "IsOnKeyboardF",
+            "relativeColumn": 0,
+            "type": "IsAtAbsolute",
+            "absoluteRow": 3
+        },
+        {
+            "relativeRow": 0,
+            "absoluteColumn": 7,
+            "invert": 0,
+            "name": "IsOnKeyboardD",
+            "relativeColumn": 0,
+            "type": "IsAtAbsolute",
+            "absoluteRow": 3
+        },
+        {
+            "absoluteColumn": 8,
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "IsOnKeyboardE",
+            "relativeColumn": 0,
+            "type": "IsAtAbsolute",
+            "absoluteRow": 3
+        },
+        {
+            "absoluteColumn": 5,
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "IsOnKeyboardB",
+            "relativeColumn": 0,
+            "type": "IsAtAbsolute",
+            "absoluteRow": 3
+        },
+        {
+            "absoluteColumn": 6,
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "IsOnKeyboardC",
+            "relativeColumn": 0,
+            "type": "IsAtAbsolute",
+            "absoluteRow": 3
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsA",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "absoluteColumn": 4,
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "IsOnKeyboardA",
+            "relativeColumn": 0,
+            "type": "IsAtAbsolute",
+            "absoluteRow": 3
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsC",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 2,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsB",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 4,
+            "invert": 0,
+            "name": "Attemp1Active",
+            "isAbsolute": 1,
+            "row": 12,
+            "id": -5,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsE",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 4,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsD",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 3,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsG",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 6,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 0,
+            "name": "IsPlayer0",
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsF",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 5,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsI",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 8,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsH",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 7,
+            "type": "IsPieceType"
+        }
+    ],
+    "actions": [
+        {
+            "col": 5,
+            "name": "Choose C 4",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 2,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 5,
+            "name": "Choose B 4",
+            "isAbsolute": 1,
+            "id": 1,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 4,
+            "name": "Choose C 3",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 2,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 5,
+            "name": "Choose A 4",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 4,
+            "name": "Choose B 3",
+            "isAbsolute": 1,
+            "id": 1,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 3,
+            "name": "Choose C 2",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 2,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 4,
+            "name": "Choose A 3",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 3,
+            "name": "Choose B 2",
+            "isAbsolute": 1,
+            "id": 1,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 2,
+            "name": "Choose C 1",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 2,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 3,
+            "name": "Choose A 2",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 2,
+            "name": "Choose B 1",
+            "isAbsolute": 1,
+            "id": 1,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 2,
+            "name": "Choose A 1",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 0,
+            "type": "Place",
+            "player": 0
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                22,
+                14,
+                17,
+                3,
+                11,
+                4,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -3,
+                -1,
+                -1,
+                -1,
+                -1,
+                -5,
+                -2,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -4,
+                -4,
+                -4,
+                -4,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                16,
+                22,
+                4,
+                17,
+                19,
+                24,
+                20,
+                8,
+                14,
+                15,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                0,
+                18,
+                3,
+                5,
+                6,
+                7,
+                9,
+                10,
+                11,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                25,
+                23,
+                2,
+                21,
+                1,
+                13,
+                37,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff"
+            ],
+            [
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff"
+            ],
+            [
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff"
+            ],
+            [
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff"
+            ],
+            [
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff"
+            ],
+            [
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff"
+            ],
+            [
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff"
+            ],
+            [
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff"
+            ],
+            [
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff"
+            ],
+            [
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff"
+            ],
+            [
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff"
+            ],
+            [
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff"
+            ],
+            [
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff"
+            ],
+            [
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff"
+            ],
+            [
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff"
+            ],
+            [
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff",
+                "0x4d8080ff",
+                "0x669999ff"
+            ]
+        ],
+        "width": 16,
+        "activePlayer": 0,
+        "height": 16
+    }
+}
