@@ -1,6 +1,6 @@
 ## Description
 
-Summary of the feature's bug (without describing implementation details)
+Incrementing player turns between moves has a bug.
 
 ## Expected Behavior
 
