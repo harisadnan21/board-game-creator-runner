@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTurnTest {
-  private final String CHECKERS_CONFIG = "resources/games/AI-Bug-Checkers/config.json";
+  private final String CHECKERS_CONFIG = "src/test/resources/games/AI-Bug-Checkers/config.json";
 
   GameParser parser = new GameParser(new File(CHECKERS_CONFIG));
   private Oracle myOracle;
@@ -41,16 +41,31 @@ public class PlayerTurnTest {
     assertEquals(0, playerTurn);
 
     for (int i = 0; i < 2; i++) {
-      Board board = myGame.getBoard();
-      Stream<Choice> choices = myOracle.getValidChoices(board);
-      Choice choice = choices.findAny().get();
-
-      myEngine.playTurn(myPlayerManager.getPlayer(playerTurn), choice);
+      playRandomMove();
 
       playerTurn = myGame.getBoard().getPlayer();
+
       assertEquals((i+1)%2, playerTurn);
     }
 
+    // at this point it should be player 0's turn, but once player 0 moves
+    // player 1 should have no moves, so the next player should be player 0 again
+
+    playRandomMove();
+
+    Board board = myGame.getBoard();
+
+    // the turn should go back to the next player with moves,
+    // which in this case is 0
+    assertEquals(0, board.getPlayer());
+  }
+
+  void playRandomMove() {
+    Board board = myGame.getBoard();
+    Stream<Choice> choices = myOracle.getValidChoices(board);
+    Choice choice = choices.findAny().get();
+
+    myEngine.playTurn(myPlayerManager.getPlayer(board.getPlayer()), choice);
 
   }
 }
