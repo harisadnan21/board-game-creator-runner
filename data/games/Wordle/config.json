@@ -610,7 +610,10 @@
             "representativeY": 0,
             "isPersistent": 0,
             "name": "Submit",
-            "conditions": ["SubmitExists"],
+            "conditions": [
+                "SubmitExists",
+                "onSubmitOrNext"
+            ],
             "actions": [
                 "Place Next",
                 "Block Typing"
@@ -623,55 +626,55 @@
             "invert": 0,
             "name": "Attemp2Active",
             "isAbsolute": 1,
-            "id": -5,
             "row": 10,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
             "relativeRow": 0,
             "invert": 0,
             "name": "IsInAttempt1",
-            "type": "IsInRow",
-            "absoluteRow": 12
+            "absoluteRow": 12,
+            "type": "IsInRow"
         },
         {
             "col": 0,
             "invert": 1,
             "name": "PlacementNotBlocked",
             "isAbsolute": 1,
-            "row": 0,
             "id": -5,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
             "relativeRow": 0,
             "invert": 0,
             "name": "IsInAttempt3",
-            "type": "IsInRow",
-            "absoluteRow": 8
+            "absoluteRow": 8,
+            "type": "IsInRow"
         },
         {
             "col": 7,
             "invert": 0,
             "name": "NextExists",
             "isAbsolute": 1,
-            "row": 13,
             "id": -8,
+            "row": 13,
             "type": "IsPieceType"
         },
         {
             "relativeRow": 0,
             "invert": 0,
             "name": "IsInAttempt2",
-            "type": "IsInRow",
-            "absoluteRow": 10
+            "absoluteRow": 10,
+            "type": "IsInRow"
         },
         {
             "relativeRow": 0,
             "invert": 0,
             "name": "IsInAttempt4",
-            "type": "IsInRow",
-            "absoluteRow": 6
+            "absoluteRow": 6,
+            "type": "IsInRow"
         },
         {
             "startRow": 13,
@@ -682,8 +685,8 @@
             "name": "SelectionIsFull",
             "isAbsolute": 1,
             "type": "IsPlayerPieceRay",
-            "rowDirection": 0,
-            "player": 0
+            "player": 0,
+            "rowDirection": 0
         },
         {
             "returnsTrue": 1,
@@ -695,8 +698,8 @@
             "invert": 0,
             "name": "PlacementBlocked",
             "isAbsolute": 1,
-            "row": 0,
             "id": -5,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -704,18 +707,18 @@
             "invert": 0,
             "name": "Attemp4Active",
             "isAbsolute": 1,
-            "id": -5,
             "row": 6,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
-            "relativeRow": 0,
             "absoluteColumn": 0,
+            "relativeRow": 0,
             "invert": 0,
             "name": "onSubmitOrNext",
             "relativeColumn": 7,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 13
+            "absoluteRow": 13,
+            "type": "IsAtAbsolute"
         },
         {
             "invert": 0,
@@ -734,8 +737,8 @@
             "invert": 0,
             "name": "Attemp3Active",
             "isAbsolute": 1,
-            "id": -5,
             "row": 8,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
@@ -747,8 +750,8 @@
             "name": "SelectionNotFull",
             "isAbsolute": 1,
             "type": "IsPlayerPieceRay",
-            "rowDirection": 0,
-            "player": 0
+            "player": 0,
+            "rowDirection": 0
         },
         {
             "invert": 0,
@@ -773,8 +776,8 @@
             "invert": 0,
             "name": "SubmitExists",
             "isAbsolute": 1,
-            "row": 13,
             "id": -2,
+            "row": 13,
             "type": "IsPieceType"
         },
         {
@@ -783,61 +786,61 @@
             "invert": 0,
             "name": "IsOnKeyboardF",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
             "col": 0,
             "invert": 0,
             "name": "InEvaluationPhase",
             "isAbsolute": 1,
-            "row": 0,
             "id": -5,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
-            "relativeRow": 0,
             "absoluteColumn": 7,
+            "relativeRow": 0,
             "invert": 0,
             "name": "IsOnKeyboardD",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
-            "absoluteColumn": 8,
             "relativeRow": 0,
+            "absoluteColumn": 8,
             "invert": 0,
             "name": "IsOnKeyboardE",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
-            "absoluteColumn": 5,
             "relativeRow": 0,
+            "absoluteColumn": 5,
             "invert": 0,
             "name": "IsOnKeyboardB",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
-            "absoluteColumn": 6,
             "relativeRow": 0,
+            "absoluteColumn": 6,
             "invert": 0,
             "name": "IsOnKeyboardC",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
             "col": 0,
             "invert": 0,
             "name": "IsA",
             "isAbsolute": 0,
-            "id": 0,
             "row": 0,
+            "id": 0,
             "type": "IsPieceType"
         },
         {
@@ -845,26 +848,26 @@
             "invert": 0,
             "name": "IsSecretA",
             "isAbsolute": 0,
-            "id": 26,
             "row": -7,
+            "id": 26,
             "type": "IsPieceType"
         },
         {
-            "absoluteColumn": 4,
             "relativeRow": 0,
+            "absoluteColumn": 4,
             "invert": 0,
             "name": "IsOnKeyboardA",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
             "col": 0,
             "invert": 0,
             "name": "IsC",
             "isAbsolute": 0,
-            "row": 0,
             "id": 2,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -872,8 +875,8 @@
             "invert": 0,
             "name": "IsSecretC",
             "isAbsolute": 0,
-            "id": 28,
             "row": -7,
+            "id": 28,
             "type": "IsPieceType"
         },
         {
@@ -887,8 +890,8 @@
             "invert": 0,
             "name": "IsB",
             "isAbsolute": 0,
-            "row": 0,
             "id": 1,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -896,8 +899,8 @@
             "invert": 0,
             "name": "IsSecretB",
             "isAbsolute": 0,
-            "id": 27,
             "row": -7,
+            "id": 27,
             "type": "IsPieceType"
         },
         {
@@ -911,8 +914,8 @@
             "invert": 0,
             "name": "Attemp1Active",
             "isAbsolute": 1,
-            "row": 12,
             "id": -5,
+            "row": 12,
             "type": "IsPieceType"
         },
         {
@@ -920,8 +923,8 @@
             "invert": 0,
             "name": "IsE",
             "isAbsolute": 0,
-            "row": 0,
             "id": 4,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -938,8 +941,8 @@
             "invert": 0,
             "name": "IsD",
             "isAbsolute": 0,
-            "row": 0,
             "id": 3,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -947,8 +950,8 @@
             "invert": 0,
             "name": "IsSecretD",
             "isAbsolute": 0,
-            "id": 29,
             "row": -7,
+            "id": 29,
             "type": "IsPieceType"
         },
         {
@@ -956,8 +959,8 @@
             "invert": 0,
             "name": "IsG",
             "isAbsolute": 0,
-            "row": 0,
             "id": 6,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -971,8 +974,8 @@
             "invert": 0,
             "name": "IsF",
             "isAbsolute": 0,
-            "row": 0,
             "id": 5,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -980,8 +983,8 @@
             "invert": 0,
             "name": "IsSecretF",
             "isAbsolute": 0,
-            "row": -7,
             "id": 31,
+            "row": -7,
             "type": "IsPieceType"
         },
         {
@@ -989,8 +992,8 @@
             "invert": 0,
             "name": "IsI",
             "isAbsolute": 0,
-            "row": 0,
             "id": 8,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -998,8 +1001,8 @@
             "invert": 0,
             "name": "IsH",
             "isAbsolute": 0,
-            "row": 0,
             "id": 7,
+            "row": 0,
             "type": "IsPieceType"
         }
     ],
@@ -1008,16 +1011,16 @@
             "col": 7,
             "name": "Place Next",
             "isAbsolute": 1,
-            "row": 13,
             "id": -8,
+            "row": 13,
             "type": "Place",
             "player": 0
         },
         {
             "directionRow": 0,
             "sourceCol": 2,
-            "directionCol": 1,
             "length": 4,
+            "directionCol": 1,
             "name": "Clear Word",
             "isAbsolute": 1,
             "sourceRow": 13,
@@ -1027,8 +1030,8 @@
             "col": 10,
             "name": "put random block",
             "isAbsolute": 1,
-            "id": -5,
             "row": 6,
+            "id": -5,
             "type": "Place",
             "player": 0
         },
@@ -1049,8 +1052,8 @@
         {
             "directionRow": 0,
             "sourceCol": 2,
-            "directionCol": 1,
             "length": 4,
+            "directionCol": 1,
             "name": "Clear Hints",
             "isAbsolute": 1,
             "sourceRow": 12,
@@ -1060,8 +1063,8 @@
             "col": 0,
             "name": "CorrectLetter",
             "isAbsolute": 0,
-            "row": -1,
             "id": -7,
+            "row": -1,
             "type": "Place",
             "player": 0
         },
@@ -1069,8 +1072,8 @@
             "col": 0,
             "name": "CorrectPosition",
             "isAbsolute": 0,
-            "row": -1,
             "id": -6,
+            "row": -1,
             "type": "Place",
             "player": 0
         },
@@ -1078,8 +1081,8 @@
             "col": 7,
             "name": "Place Submit",
             "isAbsolute": 1,
-            "row": 13,
             "id": -2,
+            "row": 13,
             "type": "Place",
             "player": 0
         },
@@ -1087,8 +1090,8 @@
             "col": 5,
             "name": "Choose C 4",
             "isAbsolute": 1,
-            "row": 13,
             "id": 2,
+            "row": 13,
             "type": "Place",
             "player": 0
         },
@@ -1096,8 +1099,8 @@
             "col": 5,
             "name": "Choose B 4",
             "isAbsolute": 1,
-            "id": 1,
             "row": 13,
+            "id": 1,
             "type": "Place",
             "player": 0
         },
@@ -1105,8 +1108,8 @@
             "col": 4,
             "name": "Choose C 3",
             "isAbsolute": 1,
-            "row": 13,
             "id": 2,
+            "row": 13,
             "type": "Place",
             "player": 0
         },
@@ -1114,8 +1117,8 @@
             "col": 0,
             "name": "Block Typing",
             "isAbsolute": 1,
-            "row": 0,
             "id": -5,
+            "row": 0,
             "type": "Place",
             "player": 0
         },
@@ -1123,8 +1126,8 @@
             "col": 5,
             "name": "Choose A 4",
             "isAbsolute": 1,
-            "id": 0,
             "row": 13,
+            "id": 0,
             "type": "Place",
             "player": 0
         },
@@ -1132,8 +1135,8 @@
             "col": 4,
             "name": "Choose B 3",
             "isAbsolute": 1,
-            "id": 1,
             "row": 13,
+            "id": 1,
             "type": "Place",
             "player": 0
         },
@@ -1141,8 +1144,8 @@
             "col": 3,
             "name": "Choose C 2",
             "isAbsolute": 1,
-            "row": 13,
             "id": 2,
+            "row": 13,
             "type": "Place",
             "player": 0
         },
@@ -1150,8 +1153,8 @@
             "col": 4,
             "name": "Choose A 3",
             "isAbsolute": 1,
-            "id": 0,
             "row": 13,
+            "id": 0,
             "type": "Place",
             "player": 0
         },
@@ -1159,8 +1162,8 @@
             "col": 3,
             "name": "Choose B 2",
             "isAbsolute": 1,
-            "id": 1,
             "row": 13,
+            "id": 1,
             "type": "Place",
             "player": 0
         },
@@ -1168,8 +1171,8 @@
             "col": 2,
             "name": "Choose C 1",
             "isAbsolute": 1,
-            "row": 13,
             "id": 2,
+            "row": 13,
             "type": "Place",
             "player": 0
         },
@@ -1177,8 +1180,8 @@
             "col": 3,
             "name": "Choose A 2",
             "isAbsolute": 1,
-            "id": 0,
             "row": 13,
+            "id": 0,
             "type": "Place",
             "player": 0
         },
@@ -1186,8 +1189,8 @@
             "col": 2,
             "name": "Choose B 1",
             "isAbsolute": 1,
-            "id": 1,
             "row": 13,
+            "id": 1,
             "type": "Place",
             "player": 0
         },
@@ -1195,8 +1198,8 @@
             "col": 2,
             "name": "Choose A 1",
             "isAbsolute": 1,
-            "id": 0,
             "row": 13,
+            "id": 0,
             "type": "Place",
             "player": 0
         }

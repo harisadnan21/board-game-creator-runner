@@ -19,8 +19,8 @@
             "isPersistent": 1,
             "name": "RandomSpread",
             "conditions": [
-                "TopLeftCorner Occupied",
-                "Random"
+                "Random",
+                "TopLeftCorner-1 Occupied"
             ],
             "actions": ["Place0"]
         },
@@ -29,7 +29,7 @@
             "representativeY": -1,
             "isPersistent": 0,
             "name": "Remove 3 under",
-            "conditions": ["[]"],
+            "conditions": [],
             "actions": ["Remove3under"]
         },
         {
@@ -60,7 +60,15 @@
             "invert": 0,
             "name": "TopLeftCorner Occupied",
             "isAbsolute": 1,
-            "row": 0,
+            "row": 7,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "TopLeftCorner-1 Occupied",
+            "isAbsolute": 1,
+            "row": 6,
             "type": "IsOccupied"
         }
     ],
@@ -68,8 +76,8 @@
         {
             "directionRow": -1,
             "sourceCol": 0,
-            "length": 3,
             "directionCol": 0,
+            "length": 3,
             "name": "Remove3under",
             "isAbsolute": 0,
             "sourceRow": 0,
@@ -79,8 +87,8 @@
             "col": 0,
             "name": "Place0",
             "isAbsolute": 0,
-            "id": 0,
             "row": 0,
+            "id": 0,
             "type": "Place",
             "player": 0
         }
