@@ -4,7 +4,7 @@ RemoveRay class has indexing error
 
 ## Expected Behavior
 
-RemoveRay class takes in size 5 array
+RemoveRay class takes in size 6 array
 
 ## Current Behavior
 
