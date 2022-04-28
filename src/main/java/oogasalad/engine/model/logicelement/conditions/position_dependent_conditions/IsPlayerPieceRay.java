@@ -17,19 +17,22 @@ public class IsPlayerPieceRay extends Condition {
   private int length;
   private int player;
   private boolean isAbsolute;
+  private boolean invert;
+
   /**
-   * @param parameters size 6 array [startRow, startColumn, rowDirection, columnDirection, length, player, isAbsolute]
+   * @param parameters size 8 array [startRow, startColumn, rowDirection, columnDirection, length, player, isAbsolute, invert]
    * @author Alex Bildner, Jake Heller
    */
   public IsPlayerPieceRay(int[] parameters) {
     super(parameters);
-    startRow = myParameters[0];
-    startColumn = myParameters[1];
-    rowDirection = myParameters[2];
-    columnDirection = myParameters[3];
-    length = myParameters[4];
-    player = myParameters[5];
-    isAbsolute = myParameters[6] != 0;
+    startRow = getParameter(0);
+    startColumn = getParameter(1);
+    rowDirection = getParameter(2);
+    columnDirection = getParameter(3);
+    length = getParameter(4);
+    player = getParameter(5);
+    isAbsolute = getParameter(6) != 0;
+    invert = getParameter(7) != 0;
   }
 
   @Override
@@ -41,7 +44,7 @@ public class IsPlayerPieceRay extends Condition {
     }
     Collection<PositionState> ray = getRayOfMaxLength(board, startPosition, direction, length);
 
-    return longEnough(ray) && allForPlayer(ray);
+    return invertIfTrue(longEnough(ray) && allForPlayer(ray), invert);
   }
 
   private boolean longEnough(Collection<PositionState> ray) {
@@ -49,6 +52,6 @@ public class IsPlayerPieceRay extends Condition {
   }
 
   private boolean allForPlayer(Collection<PositionState> ray) {
-    return ray.stream().allMatch(positionState -> positionState.player()==player);
+    return ray.stream().allMatch(positionState -> positionState.player() == player);
   }
 }

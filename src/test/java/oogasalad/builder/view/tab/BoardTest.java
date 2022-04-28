@@ -55,7 +55,6 @@ public class BoardTest extends DukeApplicationTest {
       makeBoardCB.push(cb);
       return null;
     });
-    clickOn("#loginButton");
   }
 
   void boardSetup() {

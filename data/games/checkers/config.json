@@ -109,45 +109,52 @@
     "conditions": [
         {
             "name": "noPiecesLeftEitherPlayer",
-            "type": "PlayerHasNoPieces"
+            "type": "PlayerHasNoPieces",
+            "invert": 0
         },
         {
             "name": "emptyDownRight",
             "type": "IsEmpty",
             "col": 1,
             "row": -1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "emptyDownLeft",
             "type": "IsEmpty",
             "col": -1,
             "row": -1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "emptyUpRight",
             "type": "IsEmpty",
             "col": 1,
             "row": 1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "emptyUpLeft",
             "type": "IsEmpty",
             "col": -1,
             "row": 1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "whiteTurn",
             "type": "IsPlayer",
-            "id": 0
+            "id": 0,
+            "invert": 0
         },
         {
             "name": "blackTurn",
             "type": "IsPlayer",
-            "id": 1
+            "id": 1,
+            "invert": 0
         },
         {
             "name": "belongsToWhite",
@@ -155,7 +162,8 @@
             "col": 0,
             "row": 0,
             "id": 0,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "belongsToBlack",
@@ -163,7 +171,8 @@
             "col": 0,
             "row": 0,
             "id": 1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "belongsToBlackDownRight",
@@ -171,7 +180,8 @@
             "col": 1,
             "row": -1,
             "id": 1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "belongsToBlackDownLeft",
@@ -179,7 +189,8 @@
             "col": -1,
             "row": -1,
             "id": 1,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "belongsToWhiteUpRight",
@@ -187,7 +198,8 @@
             "col": 1,
             "row": 1,
             "id": 0,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "belongsToWhiteUpLeft",
@@ -195,35 +207,40 @@
             "col": -1,
             "row": 1,
             "id": 0,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "emptyDoubleDownRight",
             "type": "IsEmpty",
             "col": 2,
             "row": -2,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "emptyDoubleDownLeft",
             "type": "IsEmpty",
             "col": -2,
             "row": -2,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "emptyDoubleUpRight",
             "type": "IsEmpty",
             "col": 2,
             "row": 2,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         },
         {
             "name": "emptyDoubleUpLeft",
             "type": "IsEmpty",
             "col": -2,
             "row": 2,
-            "isAbsolute": 0
+            "isAbsolute": 0,
+            "invert": 0
         }
     ],
     "actions": [

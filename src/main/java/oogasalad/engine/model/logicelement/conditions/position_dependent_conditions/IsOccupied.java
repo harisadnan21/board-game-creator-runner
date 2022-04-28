@@ -9,15 +9,17 @@ public class IsOccupied extends Condition {
   private int row;
   private int column;
   private boolean isAbsolute;
+  private boolean invert;
   /**
    * row,column are absolute position if isAbsolute is not 0
-   * @param parameters size 3 array [row,column,isAbsolute]
+   * @param parameters size 4 array [row, column, isAbsolute, invert]
    */
   public IsOccupied(int[] parameters) {
     super(parameters);
-    row = myParameters[0];
-    column = myParameters[1];
-    isAbsolute = myParameters[2] != 0;
+    row = getParameter(0);
+    column = getParameter(1);
+    isAbsolute = getParameter(2) != 0;
+    invert = getParameter(3) != 0;
   }
 
   @Override
@@ -27,8 +29,8 @@ public class IsOccupied extends Condition {
       position = transformToRelative(position, referencePoint);
     }
     if (!board.isValidPosition(position)) {
-      return false;
+      return invertIfTrue(false, invert);
     }
-    return !board.isEmpty(position.row(), position.column());
+    return invertIfTrue(board.isOccupied(position.row(), position.column()), invert);
   }
 }

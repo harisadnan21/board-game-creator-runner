@@ -19,7 +19,7 @@ class IsInRowTest {
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{0,1};
+    int[] paramarray = new int[]{0, 1, 0};
     IsInRow isInRow= new IsInRow(paramarray);
     Position position = new Position(1,1);
     boolean answer = isInRow.isTrue(TestBoard, position);

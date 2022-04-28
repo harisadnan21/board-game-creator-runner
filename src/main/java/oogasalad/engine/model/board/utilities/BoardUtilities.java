@@ -53,11 +53,11 @@ public class BoardUtilities {
   }
 
   public static Map<Integer, List<PositionState>> getRows(Board board) {
-    return board.getPositionStatesSeq().groupBy(PositionState::i);
+    return board.getPositionStatesSeq().groupBy(PositionState::row);
   }
 
   public static Map<Integer, List<PositionState>> getCols(Board board) {
-    return board.getPositionStatesSeq().groupBy(PositionState::j);
+    return board.getPositionStatesSeq().groupBy(PositionState::column);
   }
 
   public static Optional<Position> getNeighbor(Position pos, Board board, Direction direction) {

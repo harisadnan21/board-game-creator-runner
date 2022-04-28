@@ -1,0 +1,604 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/whiteKing.png",
+            "name": "Player0",
+            "id": 0,
+            "player": 0
+        },
+        {
+            "image": "/resources/blackKing.png",
+            "name": "Player1",
+            "id": 1,
+            "player": 1
+        }
+    ],
+    "metadata": {
+        "gameName": "Jenk Othello",
+        "author": "Jake Heller",
+        "name": "metadata",
+        "description": "Othello except you can place on any empty square"
+    },
+    "winDecisions": [{
+        "name": "Draw",
+        "type": "MostPieces",
+        "conditions": []
+    }],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Player 0 move",
+            "conditions": ["Empty"],
+            "actions": [
+                "Place 0",
+                "Outflank N",
+                "Outflank E",
+                "Outflank S",
+                "Outflank NE",
+                "Outflank NW",
+                "Outflank W",
+                "Outflank SE",
+                "Outflank SW"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Player 1 move",
+            "conditions": ["Empty"],
+            "actions": [
+                "Outflank N",
+                "Outflank E",
+                "Outflank S",
+                "Outflank NE",
+                "Outflank NW",
+                "Outflank W",
+                "Outflank SE",
+                "Outflank SW",
+                "Place 1"
+            ]
+        }
+    ],
+    "conditions": [
+        {
+            "directionRow": 1,
+            "invert": 0,
+            "startRow": 0,
+            "startColumn": 0,
+            "name": "Outflanks N",
+            "isAbsolute": 0,
+            "type": "Outflanks",
+            "directionColumn": 0
+        },
+        {
+            "directionRow": 1,
+            "invert": 0,
+            "startRow": 0,
+            "startColumn": 1,
+            "name": "Outflanks NE",
+            "isAbsolute": 0,
+            "type": "Outflanks",
+            "directionColumn": 0
+        },
+        {
+            "directionRow": 0,
+            "invert": 0,
+            "startRow": 0,
+            "startColumn": 0,
+            "name": "Empty",
+            "isAbsolute": 0,
+            "type": "Outflanks",
+            "directionColumn": 0
+        },
+        {
+            "directionRow": 0,
+            "invert": 0,
+            "startRow": 0,
+            "startColumn": -1,
+            "name": "Outflanks W",
+            "isAbsolute": 0,
+            "type": "Outflanks",
+            "directionColumn": 0
+        },
+        {
+            "directionRow": -1,
+            "invert": 0,
+            "startRow": 0,
+            "startColumn": 1,
+            "name": "Outflanks SE",
+            "isAbsolute": 0,
+            "type": "Outflanks",
+            "directionColumn": 0
+        },
+        {
+            "directionRow": -1,
+            "invert": 0,
+            "startRow": 0,
+            "startColumn": -1,
+            "name": "Outflanks SW",
+            "isAbsolute": 0,
+            "type": "Outflanks",
+            "directionColumn": 0
+        },
+        {
+            "directionRow": -1,
+            "invert": 0,
+            "startRow": 0,
+            "startColumn": 0,
+            "name": "Outflanks S",
+            "isAbsolute": 0,
+            "type": "Outflanks",
+            "directionColumn": 0
+        },
+        {
+            "directionRow": 0,
+            "invert": 0,
+            "startRow": 0,
+            "startColumn": 1,
+            "name": "Outflanks E",
+            "isAbsolute": 0,
+            "type": "Outflanks",
+            "directionColumn": 0
+        },
+        {
+            "directionRow": 1,
+            "invert": 0,
+            "startRow": 0,
+            "startColumn": -1,
+            "name": "Outflanks NW",
+            "isAbsolute": 0,
+            "type": "Outflanks",
+            "directionColumn": 0
+        }
+    ],
+    "actions": [
+        {
+            "directionRow": 1,
+            "sourceCol": 0,
+            "directionCol": 0,
+            "name": "Outflank N",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Outflank"
+        },
+        {
+            "col": 0,
+            "name": "Place 0",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "directionRow": 0,
+            "sourceCol": 0,
+            "directionCol": 1,
+            "name": "Outflank E",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Outflank"
+        },
+        {
+            "directionRow": -1,
+            "sourceCol": 0,
+            "directionCol": 0,
+            "name": "Outflank S",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Outflank"
+        },
+        {
+            "directionRow": 1,
+            "sourceCol": 0,
+            "directionCol": 1,
+            "name": "Outflank NE",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Outflank"
+        },
+        {
+            "directionRow": 1,
+            "sourceCol": 0,
+            "directionCol": -1,
+            "name": "Outflank NW",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Outflank"
+        },
+        {
+            "directionRow": 0,
+            "sourceCol": 0,
+            "directionCol": -1,
+            "name": "Outflank W",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Outflank"
+        },
+        {
+            "col": 0,
+            "name": "Place 1",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "directionRow": -1,
+            "sourceCol": 0,
+            "directionCol": 1,
+            "name": "Outflank SE",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Outflank"
+        },
+        {
+            "directionRow": -1,
+            "sourceCol": 0,
+            "directionCol": -1,
+            "name": "Outflank SW",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Outflank"
+        },
+        {
+            "col": 0,
+            "name": "Place",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                0,
+                1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                0,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff"
+            ],
+            [
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff"
+            ],
+            [
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff"
+            ],
+            [
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff"
+            ],
+            [
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff"
+            ],
+            [
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff"
+            ],
+            [
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff",
+                "0xb3b3b3ff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 12,
+        "activePlayer": 0,
+        "height": 12
+    }
+}

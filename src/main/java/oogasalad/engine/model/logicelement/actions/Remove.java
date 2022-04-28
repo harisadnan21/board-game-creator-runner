@@ -10,13 +10,13 @@ public class Remove extends Action {
   private boolean isAbsolute;
   /**
    *
-   * @param parameters size 2 array [row, column, isAbsolute]
+   * @param parameters size 3 array [row, column, isAbsolute]
    */
   public Remove(int[] parameters) {
     super(parameters);
-    row = myParameters[0];
-    column = myParameters[1];
-    isAbsolute = myParameters[2] != 0;
+    row = getParameter(0);
+    column = getParameter(1);
+    isAbsolute = getParameter(2) != 0;
   }
 
   @Override

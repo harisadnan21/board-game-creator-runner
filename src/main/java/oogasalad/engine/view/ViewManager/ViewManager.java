@@ -2,6 +2,7 @@ package oogasalad.engine.view.ViewManager;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import oogasalad.engine.cheat_codes.CheatCode;
 import oogasalad.engine.cheat_codes.IncrementPlayer;
-import oogasalad.engine.cheat_codes.PlaceRandomPiece;
+import oogasalad.engine.cheat_codes.CopyRandomPiece;
 import oogasalad.engine.cheat_codes.Player1Turn;
 import oogasalad.engine.cheat_codes.Player2Turn;
 import oogasalad.engine.cheat_codes.PlayerOneWins;
@@ -34,7 +35,6 @@ import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.view.ApplicationAlert;
 import oogasalad.engine.view.MouseSound;
 import oogasalad.engine.view.game.BoardView;
-import oogasalad.engine.view.game.Cell;
 import oogasalad.engine.view.game.GameView;
 import oogasalad.engine.view.setup.SelectionView.AISelectView;
 import oogasalad.engine.view.setup.SelectionView.PlayerModeView;
@@ -63,7 +63,7 @@ public class ViewManager {
       KeyCode.L, new Player1Turn(),
       KeyCode.K, new Player2Turn(),
       KeyCode.I, new IncrementPlayer(),
-      KeyCode.P, new PlaceRandomPiece());
+      KeyCode.P, new CopyRandomPiece());
 
   public static double WIDTH;
   public static double HEIGHT;
@@ -77,7 +77,7 @@ public class ViewManager {
 
   public static double BOARDX;
   public static double BOARDY ;
-  public static String CSS_RESOURCE = "/css/";
+  public static String CSS_RESOURCE = "/engine-view/css/";
   public static String DEFAULT_CSS = "light";
   public static String CSS_EXTENSION = ".css";
   public static String DEFAULT_LANGUAGE = "English";
@@ -183,8 +183,24 @@ public class ViewManager {
     newScene.getStylesheets().add(getClass().getResource(cssFilepath).toExternalForm());
     gameScenes.add(newScene);
     pmv.getOnePlayer().setOnAction(e -> selectAI(game, newStage));
-    pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage, new String[]{"human", "human"}));
+    pmv.getTwoPlayer().setOnAction(e -> startGame(game, newStage, new String[]{"multiPlayer", null}));
+    try {
+      int numPlayers = getParser(game).readNumberOfPlayers();
+      pmv.getOnePlayer().setDisable(numPlayers > 2);
+      if (numPlayers == 1) {
+        pmv.getTwoPlayer().setDisable(true);
+        pmv.getOnePlayer().setOnAction(e -> startGame(game, newStage, new String[]{"singlePlayer", null}));
+      }
+    } catch (FileNotFoundException e) {
+      // don't do anything if parser throws error here (it will throw an error later)
+    }
+
     newStage.show();
+  }
+
+  private GameParser getParser(File game) {
+    return new GameParser(
+        Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
   }
 
   private void selectAI(File game, Stage newStage) {
@@ -192,23 +208,22 @@ public class ViewManager {
     newStage.setScene(aiView.makeScene());
   }
 
-  private void startGame(File game, Stage newStage, String[]players) {
+  private void startGame(File game, Stage newStage, String[] players) {
     try {
       GameParser parser;
       try {
-        parser = new GameParser(
-            Objects.requireNonNull(game.listFiles(GameIcon.getConfigFile))[0]);
+        parser = getParser(game);
       }
       catch (NullPointerException e) {
         LOG.info(e);
         parser = new GameParser(game);
       }
       Board board = parser.parseBoard();
-      controller = new Controller(players);
+      controller = new Controller();
       BoardView boardView = new BoardView(controller, game, board, BOARDX, BOARDY, cssFilepath, language);
 
       Consumer<Set<Position>> setMarkersLambda = boardView::setValidMarkers;
-      controller.startEngine(parser, setMarkersLambda, boardView::endGame);
+      controller.startEngine(players, parser, setMarkersLambda, boardView::endGame);
       controller.getGame().addListener(boardView);
 
       GameView gameView = createGameView(boardView, controller, game);

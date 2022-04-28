@@ -11,15 +11,14 @@ import org.junit.jupiter.api.Test;
  * @author Haris Adnan
  */
 class IsInColumnTest {
-  PositionState[][] positionStates = new PositionState[4][4];
-  Board TestBoard = new Board(positionStates);
+  Board TestBoard = new Board(4,4);
 
   /**
    * test for the IsTrue Function in the IsInColumn Class
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{0,1};
+    int[] paramarray = new int[]{0,1,0};
     IsInColumn isInColumn= new IsInColumn(paramarray);
     Position position = new Position(1,1);
     boolean answer = isInColumn.isTrue(TestBoard, position);

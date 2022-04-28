@@ -3,25 +3,14 @@ package oogasalad.engine.controller;
 
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import oogasalad.engine.model.ai.enums.Difficulty;
-import oogasalad.engine.model.ai.enums.WinType;
 import oogasalad.engine.model.board.exceptions.OutOfBoardException;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.driver.BoardHistoryException;
 import oogasalad.engine.model.engine.Oracle;
-import oogasalad.engine.model.player.AIPlayerFactory;
-import oogasalad.engine.model.player.HumanPlayer;
-import oogasalad.engine.model.player.Player;
 import oogasalad.engine.model.player.PlayerFactory;
 import oogasalad.engine.model.player.PlayerManager;
 import oogasalad.engine.model.rule.Rule;
@@ -73,8 +62,7 @@ public class Controller {
     }
   }
 
-  public Controller(String[] players) {
-    myPlayers = players;
+  public Controller() {
   }
 
   /**
@@ -82,15 +70,18 @@ public class Controller {
    * Requires two functions from the active BoardView class
    *
    * Additionally, the board view needs to be added as a listener to the game
+   *
+   * @param players
    * @param parser
    * @param setValidMarks
    * @param endGame
    * @throws FileNotFoundException
    */
-  public void startEngine(GameParser parser, Consumer<Set<Position>> setValidMarks, IntConsumer endGame)
+  public void startEngine(String[] players, GameParser parser,
+      Consumer<Set<Position>> setValidMarks, IntConsumer endGame)
       throws FileNotFoundException {
     Board board = parser.parseBoard();
-
+    myPlayers = players;
     myParser = parser;
     myInitialBoard = board;
     myGame = new Game(myInitialBoard);
@@ -106,13 +97,22 @@ public class Controller {
     myEngine = new Engine(myGame, myPlayerManager, myOracle, endGame);
   }
 
-  public PlayerManager makePlayerManager(Oracle oracle, Consumer<Set<Position>> setValidMarks) {
+  public PlayerManager makePlayerManager(Oracle oracle, Consumer<Set<Position>> setValidMarks)
+      throws FileNotFoundException {
     PlayerFactory factory = new PlayerFactory(oracle, setValidMarks);
     PlayerManager manager = new PlayerManager();
-
-    for(int i = 0; i< myPlayers.length; i++) {
-      manager.addPlayer(i, factory.create(myPlayers[i]));
+    if(myPlayers[0].equals("singlePlayer")){
+      manager.addPlayer(0, factory.create("human"));
+      for(int i = 1; i< myParser.readNumberOfPlayers(); i++) {
+        manager.addPlayer(i, factory.create(myPlayers[1]));
+      }
     }
+    else{
+      for(int i = 0; i< myParser.readNumberOfPlayers(); i++) {
+        manager.addPlayer(i, factory.create("human"));
+      }
+    }
+
 
     return manager;
   }
@@ -175,5 +175,9 @@ public class Controller {
   }
   public void saveGame(){
 
+  }
+
+  public Board getInitialBoard(){
+    return myInitialBoard;
   }
 }

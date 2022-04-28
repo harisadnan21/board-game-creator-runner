@@ -3,7 +3,6 @@ package oogasalad.engine.view;
 import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import oogasalad.engine.view.setup.OpeningView;
 import oogasalad.engine.view.setup.SelectionView.PlayerModeView;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ public class PlayerModeViewTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) throws IOException {
-    pmv = new PlayerModeView(800, 800, "/css/light.css", "English");
+    pmv = new PlayerModeView(800, 800, "/engine-view/css/light.css", "English");
     Scene scene = pmv.makeScene();
 
     stage.setTitle("OOGABOOGA Engine");

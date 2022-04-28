@@ -32,7 +32,7 @@ class OutflanksTest {
    */
   @Test
   void isTrue() {
-    int[] params = new int[]{0, 0, 0, 1, 1};
+    int[] params = new int[]{0, 0, 0, 1, 1, 0};
     Outflanks outflanks = new Outflanks(params);
     Position position = new Position(2,1);
     assertTrue(outflanks.isTrue(TestBoard, position));
@@ -41,11 +41,11 @@ class OutflanksTest {
     outflanks = new Outflanks(params);
     assertFalse(outflanks.isTrue(TestBoard, position));
 
-    params = new int[]{0, 0, 1, 1, 1};
+    params = new int[]{0, 0, 1, 1, 1, 0};
     outflanks = new Outflanks(params);
     assertTrue(outflanks.isTrue(TestBoard, position));
 
-    params = new int[]{0, 0, 0, 1, 0};
+    params = new int[]{0, 0, 0, 1, 0, 0};
     outflanks = new Outflanks(params);
     assertFalse(outflanks.isTrue(TestBoard, position));
   }

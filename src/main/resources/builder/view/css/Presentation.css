@@ -1,0 +1,8 @@
+.label{
+    -fx-font-family: "Papyrus";
+}
+
+.text{
+    -fx-font-weight: bold;
+    -fx-font-family: "Papyrus";
+}

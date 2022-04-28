@@ -11,17 +11,15 @@ import org.junit.jupiter.api.Test;
  * @author Haris Adnan
  */
 class IsPieceTypeTest {
-  PositionState[][] positionStates = new PositionState[4][4];
-  Board TestBoard = new Board(positionStates);
+  Board TestBoard = new Board(4, 4).placeNewPiece(2,3,4,0);
   /**
    * test for the IsTrue Function in the IsPieceType Class
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{1,1,1,1};
-    IsOccupied isOccupied= new IsOccupied(paramarray);
-    Position position = new Position(1,1);
-    boolean answer = isOccupied.isTrue(TestBoard, position);
-    assertFalse(answer);
+    int[] paramarray = new int[]{0,0,4,0,0};
+    IsPieceType isPieceType = new IsPieceType(paramarray);
+    assertTrue(isPieceType.isTrue(TestBoard, new Position(2,3)));
+    assertFalse(isPieceType.isTrue(TestBoard, new Position(3,3)));
   }
 }

@@ -14,16 +14,18 @@ public class IsPlayerPiece extends Condition {
   private int column;
   private int player;
   private boolean isAbsolute;
+  private boolean invert;
   /**
    *
-   * @param parameters size 3 array of [row, column, owner, isAbsolute]
+   * @param parameters size 5 array of [row, column, owner, isAbsolute, invert]
    */
   public IsPlayerPiece(int[] parameters) {
     super(parameters);
-    row = myParameters[0];
-    column = myParameters[1];
-    player = myParameters[2];
-    isAbsolute = myParameters[3] != 0;
+    row = getParameter(0);
+    column = getParameter(1);
+    player = getParameter(2);
+    isAbsolute = getParameter(3) != 0;
+    invert = getParameter(4) != 0;
   }
 
   @Override
@@ -33,8 +35,8 @@ public class IsPlayerPiece extends Condition {
       position = transformToRelative(position, referencePoint);
     }
     if (!board.isValidPosition(position)) {
-      return false;
+      return invertIfTrue(false, invert);
     }
-    return board.getPositionStateAt(position).player() == player;
+    return invertIfTrue(board.getPositionStateAt(position).player() == player, invert);
   }
 }

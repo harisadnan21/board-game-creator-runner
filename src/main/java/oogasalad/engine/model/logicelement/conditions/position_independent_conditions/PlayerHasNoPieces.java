@@ -10,12 +10,21 @@ import org.jooq.lambda.Seq;
 
 /**
  * Condition that evaluates to true when either player has no more pieces on the board
+ *
+ * Assumes a two player game
+ *
  * @author Alex Bildner, Robert Cranston
  */
 public class PlayerHasNoPieces extends BoardCondition{
+  private boolean invert;
 
+  /**
+   *
+   * @param parameters size 1 array [invert]
+   */
   public PlayerHasNoPieces(int[] parameters){
     super(parameters);
+    invert = getParameter(0) != 0;
   }
 
   /**
@@ -26,7 +35,7 @@ public class PlayerHasNoPieces extends BoardCondition{
    */
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return numPiecesByPlayer(board).containsValue(0);
+    return invertIfTrue(numPiecesByPlayer(board).containsValue(0), invert);
   }
 
 }

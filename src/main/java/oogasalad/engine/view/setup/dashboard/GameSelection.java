@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 import javafx.scene.layout.FlowPane;
@@ -18,17 +19,20 @@ public class GameSelection extends FlowPane {
   private static final Logger LOG = LogManager.getLogger(GameSelection.class);
   public static final double GRID_WIDTH = 3;
   private double grid_length;
-  public static final String DEFAULT_PATH = "default.png";
+  private ResourceBundle resources = ResourceBundle.getBundle("engine-view/resource-names/Image");
+  public static final String DEFAULT_PATH = "default1.jpeg";
 
   private Map<String, String> availableGames;
   private File[] allGames;
   private final String GAME_PATH= "games";
   private final String IMG_FOLDER_PATH = "data/" + GAME_PATH;
+
   private final String LOGO_NAME = "logo";
   private final String RESOURCES_PATH = "/";
   private final String[] imageTypes= { ".jpeg", ".jpg", ".png" };
 
   public GameSelection(BiConsumer<Map<String, String>, File> updateInfo){
+
     File gameFolder = new File(IMG_FOLDER_PATH);
     allGames = gameFolder.listFiles(file -> !file.isHidden());
     this.getStyleClass().add("gameSelection");
@@ -54,9 +58,8 @@ public class GameSelection extends FlowPane {
         .map(File::getName)
         .filter(fileName -> stringContainsAny(fileName, imageTypes))
         .findFirst();
-    LOG.info("Image file: {}", file.get());
     return file.map(s -> GAME_PATH + RESOURCES_PATH + folder.getName() + RESOURCES_PATH + s)
-        .orElse(DEFAULT_PATH);
+        .orElse(resources.getString("Default"));
 
   }
 

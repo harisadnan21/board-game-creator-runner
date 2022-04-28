@@ -10,7 +10,7 @@ import oogasalad.builder.view.callback.CallbackDispatcher;
  */
 public class RulesTab extends GameElementTab {
 
-  public static String RULE = "rule";
+  public static final String RULE = "rule";
 
   /**
    * initializes the RulesTab by calling the GameElementTab super class

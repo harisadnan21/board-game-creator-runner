@@ -1,6 +1,7 @@
 package oogasalad.builder.view.tab;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,22 +24,28 @@ import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
 public class TabTests extends DukeApplicationTest {
+
   private BuilderView builderView;
+
   @Override
   public void start(Stage stage) {
     builderView = new BuilderView(stage);
     builderView.registerCallbackHandler(GetElementNamesCallback.class, cb -> List.of("test"));
     builderView.registerCallbackHandler(
-        GetPropertiesCallback.class, cb -> switch(cb.type()) {
-              case "piece" -> List.of(new IntegerProperty("required-id", 0, "oogasalad.builder.view.property.IntegerSelector"));
-              case "condition" -> List.of(new StringListProperty("required-actions", "action1,action2", "oogasalad.builder.view.property.ActionListSelector"),
-                      new StringListProperty("required-conditions", "", "oogasalad.builder.view.property.ConditionListSelector"));
-              default -> List.of(new StringProperty("required-type", "Place", "oogasalad.builder.view.property.DropDown"),
-                      new IntegerProperty("Place-col", 0, "oogasalad.builder.view.property.IntegerSelector"));
-            });
+        GetPropertiesCallback.class, cb -> switch (cb.type()) {
+          case "piece" -> List.of(new IntegerProperty("required-id", 0,
+              "oogasalad.builder.view.property.IntegerSelector"));
+          case "condition" -> List.of(new StringListProperty("required-actions", "action1,action2",
+                  "oogasalad.builder.view.property.ActionListSelector"),
+              new StringListProperty("required-conditions", "",
+                  "oogasalad.builder.view.property.ConditionListSelector"));
+          default -> List.of(new StringProperty("required-type", "Place",
+                  "oogasalad.builder.view.property.DropDown"),
+              new IntegerProperty("Place-col", 0,
+                  "oogasalad.builder.view.property.IntegerSelector"));
+        });
     builderView.registerCallbackHandler(GetElementPropertyByKeyCallback.class,
         cb -> cb.key().equals("image") ? "checkers/pieces/normalWhite.png" : null);
-    clickOn("#loginButton");
   }
 
   @Test

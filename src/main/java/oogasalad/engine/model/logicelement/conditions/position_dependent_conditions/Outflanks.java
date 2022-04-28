@@ -10,6 +10,7 @@ import oogasalad.engine.model.board.cells.Piece;
 import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.utilities.Delta;
 import oogasalad.engine.model.logicelement.conditions.Condition;
+import oogasalad.engine.model.utilities.Flanking;
 import org.jooq.lambda.Seq;
 
 /**
@@ -20,14 +21,13 @@ import org.jooq.lambda.Seq;
  *
  * @author Alex Bildner, Jake Heller, Ricky Weerts
  */
-public class Outflanks extends Condition {
-
-
+public class Outflanks extends Condition implements Flanking {
   private int startRow;
   private int startColumn;
   private int rowDirection;
   private int columnDirection;
   private boolean isAbsolute;
+  private boolean invert;
 
   /**
    * Returns true if there exists a line starting from the start position moving in the specified direction
@@ -39,42 +39,25 @@ public class Outflanks extends Condition {
    *
    * isAbsolute specifies whether the starting position should add in the reference point or ignore it
    *
-   * @param parameters array of size 5 [startRow, startColumn, directionRow, directionColumn, isAbsolute]
+   * @param parameters array of size 6 [startRow, startColumn, directionRow, directionColumn, isAbsolute, invert]
    */
   public Outflanks(int[] parameters) {
     super(parameters);
-    startRow = parameters[0];
-    startColumn = parameters[1];
-    rowDirection = parameters[2];
-    columnDirection = parameters[3];
-    isAbsolute = parameters[4] != 0;
+    startRow = getParameter(0);
+    startColumn = getParameter(1);
+    rowDirection = getParameter(2);
+    columnDirection = getParameter(3);
+    isAbsolute = getParameter(4) != 0;
+    invert = getParameter(5) != 0;
   }
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    Position firstPosition = new Position(startRow, startColumn);
+    Position start = new Position(startRow, startColumn);
     if (!isAbsolute) {
-      firstPosition = transformToRelative(firstPosition, referencePoint);
+      start = transformToRelative(start, referencePoint);
     }
-
-    Delta delta = new Delta(rowDirection, columnDirection);
-
-    Position positionToCheck = firstPosition;
-    int flankSize = -1;
-    do {
-      if(board.isEmpty(positionToCheck.row(), positionToCheck.column())) {
-        return false;
-      }
-      flankSize++;
-      positionToCheck = positionToCheck.add(delta);
-    } while(board.isValidPosition(positionToCheck) && !samePlayerAtPositions(board, firstPosition, positionToCheck));
-
-    return flankSize > 0;
-
-  }
-
-  private boolean samePlayerAtPositions(Board board, Position firstPosition, Position secondPosition) {
-    return board.getPositionStateAt(firstPosition).player() == board.getPositionStateAt(secondPosition).player();
+    return invertIfTrue(getFlankLength(board, start, new Delta(rowDirection, columnDirection)) > 0, invert);
   }
 
 }

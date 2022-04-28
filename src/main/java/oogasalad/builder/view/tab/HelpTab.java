@@ -14,6 +14,10 @@ import oogasalad.builder.model.property.Property;
 import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.property.PropertyNameAnalyzer;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Displays help to explain how all the other tabs work
@@ -22,8 +26,13 @@ import oogasalad.builder.view.callback.GetPropertiesCallback;
  */
 public class HelpTab extends AbstractTab {
 
-  public static String HELP = "help";
+  public static final String HELP = "help";
+  private static final String CANT_HELP_MESSAGE_KEY = "cantFindHelp";
+  private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
+  public static String NEW_LINE = "\n";
   private TextArea leftDisplay;
+  private final Logger logger = LogManager.getLogger(HelpTab.class);
+  private boolean hasRequiredType;
 
   /**
    * Initializes the HelpTab by calling the Abstract Tab superclass
@@ -67,32 +76,25 @@ public class HelpTab extends AbstractTab {
   //Displays the help for each Element and checks for specific types to preserve order
   private void displayHelpForElement(String type) {
     leftDisplay.clear();
-    leftDisplay.setText(ViewResourcesSingleton.getInstance().getString(type) + " Tab");
-    leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
-        .getString(type + "-" + HELP) + "\n");
+    leftDisplay.setText(getViewResourceString(type) + " Tab");
+    leftDisplay.setText(
+        leftDisplay.getText() + NEW_LINE + getViewResourceString(type + DELIMINATOR + HELP)
+            + NEW_LINE);
+    getPropertiesHelp(type);
 
-    boolean hasRequiredType = false;
+  }
+
+  private void getPropertiesHelp(String type) {
+    hasRequiredType = false;
     StringBuilder textToDisplay = new StringBuilder();
     textToDisplay.append(leftDisplay.getText());
-    if (!(type.equals(BOARD_TYPE) || type.equals(HELP))) {
+    if (!type.equals(BOARD_TYPE) && !type.equals(HELP)) {
       Collection<Property> elementProperties = getCallbackDispatcher().call(
           new GetPropertiesCallback(type)).orElseThrow();
       for (Property property : elementProperties) {
-        String propertyName = property.name();
-        if (propertyName.contains("required-")) {
-          propertyName = propertyName.replace("required", type);
-        }
-        if (propertyName.contains("-type")) {
-          String[] typeOptions = property.valueAsString().split("-");
-          leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
-              .getString(propertyName + "-" + HELP));
-          for (String propType : typeOptions) {
-            displayCorrespondingPropertiesOfType(propType, type);
-            hasRequiredType = true;
-          }
-        }
-        textToDisplay.append("\n")
-            .append(ViewResourcesSingleton.getInstance().getString(propertyName + "-" + HELP));
+        addHelpForNonTypeProperties(property, type, textToDisplay);
+
+        checkAndGetTypeProperties(property, type);
       }
       if (!hasRequiredType) {
         leftDisplay.setText(String.valueOf(textToDisplay));
@@ -100,19 +102,50 @@ public class HelpTab extends AbstractTab {
     }
   }
 
-  //Displays the help for the properties of a type
-  private void displayCorrespondingPropertiesOfType(String propType, String type) {
-    leftDisplay.setText(leftDisplay.getText() + "\n \n" + ViewResourcesSingleton.getInstance()
-        .getString(propType + "-" + HELP));
-    Collection<Property> elementProperties = getCallbackDispatcher().call(
-        new GetPropertiesCallback(type)).orElseThrow();
-    for (Property prop : elementProperties) {
-      if (prop.name().contains(propType + "-")) {
-        leftDisplay.setText(leftDisplay.getText() + "\n" + ViewResourcesSingleton.getInstance()
-            .getString(prop.name() + "-" + HELP));
+  private void addHelpForNonTypeProperties(Property property, String type, StringBuilder textToDisplay){
+    String propertyName = property.name();
+    if (propertyNameAnalyzer.isRequiredProperty(property)) {
+      propertyName = propertyName.replace(PropertyNameAnalyzer.REQUIRED, type);
+    }
+    textToDisplay.append(NEW_LINE)
+        .append(getViewResourceString(propertyName + DELIMINATOR + HELP));
+  }
+
+  private void checkAndGetTypeProperties(Property property, String type) {
+    if (propertyNameAnalyzer.isTypeProperty(property)) {
+      String[] typeOptions = property.valueAsString().split(PropertyNameAnalyzer.DELIMITER);
+      leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(
+          property.name() + PropertyNameAnalyzer.DELIMITER + HELP));
+      for (String propType : typeOptions) {
+        displayCorrespondingPropertiesOfType(propType, type);
+        hasRequiredType = true;
       }
     }
   }
+
+  //Displays the help for the properties of a type
+  private void displayCorrespondingPropertiesOfType(String propType, String type) {
+    leftDisplay.setText(leftDisplay.getText() + NEW_LINE + NEW_LINE + getViewResourceString(
+        propType + DELIMINATOR + HELP));
+    Collection<Property> elementProperties = getCallbackDispatcher().call(
+        new GetPropertiesCallback(type)).orElseThrow();
+    for (Property prop : elementProperties) {
+      if (propertyNameAnalyzer.getPropertyNamespace(prop).equals(propType)) {
+        leftDisplay.setText(leftDisplay.getText() + NEW_LINE + getViewResourceString(
+            prop.name() + PropertyNameAnalyzer.DELIMITER + HELP));
+      }
+    }
+  }
+
+  private String getViewResourceString(String key) {
+    try {
+      return ViewResourcesSingleton.getInstance().getString(key);
+    } catch (Exception e) {
+      logger.log(Level.ERROR, e.getMessage());
+    }
+    return ViewResourcesSingleton.getInstance().getString(CANT_HELP_MESSAGE_KEY, key);
+  }
+
 
   /**
    * implements abstract method for loading elements, but nothing needs to be loaded

@@ -7,6 +7,11 @@ import oogasalad.engine.model.board.cells.PositionState;
 import oogasalad.engine.model.board.utilities.Ray;
 import oogasalad.engine.model.logicelement.conditions.Condition;
 
+/**
+ * Returns true if every piece in a ray is of given type
+ *
+ * @author Jake Heller
+ */
 public class IsPieceTypeRay extends Condition {
 
   private int startRow;
@@ -16,19 +21,22 @@ public class IsPieceTypeRay extends Condition {
   private int length;
   private int type;
   private boolean isAbsolute;
+  private boolean invert;
+
   /**
    *
-   * @param parameters size 6 array [startRow, startColumn, rowDirection, columnDirection, length, type, isAbsolute]
+   * @param parameters size 8 array [startRow, startColumn, rowDirection, columnDirection, length, type, isAbsolute, invert]
    */
   protected IsPieceTypeRay(int[] parameters) {
     super(parameters);
-    startRow = myParameters[0];
-    startColumn = myParameters[1];
-    rowDirection = myParameters[2];
-    columnDirection = myParameters[3];
-    length = myParameters[4];
-    type = myParameters[5];
-    isAbsolute = myParameters[6] != 0;
+    startRow = getParameter(0);
+    startColumn = getParameter(1);
+    rowDirection = getParameter(2);
+    columnDirection = getParameter(3);
+    length = getParameter(4);
+    type = getParameter(5);
+    isAbsolute = getParameter(6) != 0;
+    invert = getParameter(7) != 0;
   }
 
   @Override
@@ -40,13 +48,13 @@ public class IsPieceTypeRay extends Condition {
     }
     Collection<PositionState> ray = Ray.getRayOfMaxLength(board, startPosition, direction, length);
     if (ray.size() < length) {
-      return false;
+      return invertIfTrue(false, invert);
     }
     for (PositionState cell : ray) {
       if (cell.piece().type() != type) {
-        return false;
+        return invertIfTrue(false, invert);
       }
     }
-    return true;
+    return invertIfTrue(true, invert);
   }
 }

@@ -12,14 +12,13 @@ import org.junit.jupiter.api.Test;
  */
 
 class IsPlayerPieceRayTest {
-  PositionState[][] positionStates = new PositionState[10][10];
-  Board TestBoard = new Board(positionStates);
+  Board TestBoard = new Board(10,10);
   /**
    * test for the IsTrue Function in the IsPlayerPieceRay Class
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{1,1,1,1,5,1,1};
+    int[] paramarray = new int[]{1,1,1,1,5,1,1,0};
     IsPlayerPieceRay isPlayerPieceRay= new IsPlayerPieceRay(paramarray);
     Position position = new Position(1,1);
     boolean answer = isPlayerPieceRay.isTrue(TestBoard, position);

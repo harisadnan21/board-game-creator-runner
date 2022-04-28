@@ -19,7 +19,7 @@ class IsPlayerPieceTest {
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{1,1,1,1};
+    int[] paramarray = new int[]{1,1,1,1,0};
     IsPlayerPiece isPlayerPiece= new IsPlayerPiece(paramarray);
     Position position = new Position(1,1);
     boolean answer = isPlayerPiece.isTrue(TestBoard, position);

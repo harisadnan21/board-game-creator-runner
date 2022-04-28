@@ -9,18 +9,22 @@ import oogasalad.engine.model.board.cells.Position;
 import oogasalad.engine.model.board.cells.PositionState;
 
 
-public class NInARow extends BoardCondition{
+public class NInARow extends BoardCondition {
   private int currentPlayer = -100;
 
   private int n;
+  private int player;
+  private boolean invert;
 
   /**
-   * Returns true if there exists n in a row in any direction
-   * @param parameters [n]
+   * Returns true if there exists n in a row in any direction of one player's pieces
+   * @param parameters [n, player, invert]
    */
   public NInARow(int[] parameters){
     super(parameters);
-    n = myParameters[0];
+    n = getParameter(0);
+    player = getParameter(1);
+    invert = getParameter(2) != 0;
   }
 
   /**
@@ -30,7 +34,7 @@ public class NInARow extends BoardCondition{
    */
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    return checkForHorizontal(board) || checkForVertical(board) || checkForDiagonal(board);
+    return invertIfTrue(checkForHorizontal(board) || checkForVertical(board) || checkForDiagonal(board), invert);
   }
 
 
@@ -61,8 +65,7 @@ public class NInARow extends BoardCondition{
 
     int count = 0;
     for(PositionState positionState : positionStates) {
-      count = positionState.player()== currentPlayer ? count+1 : (positionState.isEmpty() ? 0 : 1);
-      currentPlayer = positionState.isEmpty() ? -100 : positionState.player();
+      count = positionState.player() == player ? count + 1 : 0;
       if (count == n) { return true; }
     }
     return false;

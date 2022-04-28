@@ -25,24 +25,24 @@ Finish Date: 4/25/22
 Hours Spent:
 
 * Ricky - 70 Hours
-* Jake -
 * Robert - 55 Hours
+* Jake - 100 Hours
 * Haris -
-* Alexander -
+* Alexander - 80 Hours
 * Thivya -
-* Cynthia - 
+* Cynthia - 60 Hours
 * Mike - 65 Hours
-* Shaan - 80 Hours
+* Shaan - 90 Hours
 
 ### Primary Roles
 
 #### Engine
-* Cynthia -
-* Robert - Worked a lot on linking the front end and backend as well as designing elements in each
-* Haris -
-* Alexander -
-* Jake -
 
+* Cynthia - Worked entirely on the engine view, including all View classes with the exception of Dashboard
+* Robert - Worked a lot on linking the front end and backend as well as designing elements in each
+* Haris - Engine model
+* Alexander - Engine model, mostly Board (Board itself, Board utilities, Ray, etc), AI package, and some Win Conditions
+* Jake - Engine model
 
 #### Builder
 
@@ -57,7 +57,7 @@ Hours Spent:
 * [JSON Parsing](https://kodejava.org/how-do-i-read-json-file-using-json-java-org-json-library/)
 * [JSON Serialization](https://www.baeldung.com/java-org-json)
 * [Log4j2 Logging](https://www.baeldung.com/java-system-out-println-vs-loggers)
-* 
+* [Function Memoization](https://github.com/ben-manes/caffeine/wiki/Population#loading)
 
 
 ### Running the Program
@@ -81,10 +81,13 @@ Features implemented:
 * Game Builder that allows creation and modification of customizable 2-dimensional board strategy games
 * Game Engine that allows the playing of 2-dimensional board strategy games
 * Saving and loading of custom JSON game configurations
-* AI players with multiple difficulty levels that are not game-specific
+* AI capable of playing any game created in the builder, with customizable difficulty levels, including the ability to adapt its strength to match the player
 * Localization support for multiple languages
 * Help page that describes all possible Actions, Conditions, Win Conditions, and other parameters of games during creation
 * Support for multiple themes
+* Support for multiple langauges
+* user-interactive sounds
+* Support for multiple/no sounds
 
 
 ### Notes/Assumptions
@@ -104,6 +107,27 @@ Extensions completed:
 * AI Players
 * Fully customizable game layout
 
+### Cheat Codes
+
+O -> RemovePlayer1Piece(),
+
+Z -> new RemovePlayer0Piece(),
+
+S -> ShuffleBoard(),
+
+1 -> PlayerOneWins(),
+
+2 -> PlayerTwoWins(),
+
+R -> Reset(),
+
+L -> Player1Turn(),
+
+K -> Player2Turn(),
+
+I -> IncrementPlayer(),
+
+P -> CopyRandomPiece());
 
 ### Impressions
 

@@ -290,7 +290,7 @@ public class BoardView implements PropertyChangeListener {
     root.setEffect(new GaussianBlur());
 
     MessageView pauseView = new MessageView(
-        MessageFormat.format(myResources.getString(winner==-1 ? "Draw" : "GameOver"), (winner+1)),
+        getGameOverText(winner),
         myResources.getString("NewGame"), cssFilePath, language);
 
     Stage popupStage = pauseView.getStage();
@@ -299,6 +299,23 @@ public class BoardView implements PropertyChangeListener {
       popupStage.hide();
     });
     popupStage.show();
+  }
+
+  private String getGameOverText(int winner) {
+    System.out.println(myController.getPlayerManager().getScores().toString());
+    return MessageFormat.format(myResources.getString(winner==-1 ? "Draw" : "GameOver") +
+        getScoreboard(), (winner+1));
+  }
+
+  private String getScoreboard() {
+    String scoreboard = "";
+    Map<Integer, Integer> scores = myController.getPlayerManager().getScores();
+    for (int player : scores.keySet()) {
+      scoreboard = scoreboard + MessageFormat.format(myResources.getString("Scoreboard"),
+          player+1, scores.get(player));
+    }
+    System.out.println(scoreboard);
+    return scoreboard;
   }
 
   /**

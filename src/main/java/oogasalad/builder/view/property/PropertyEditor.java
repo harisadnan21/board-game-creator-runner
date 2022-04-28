@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import oogasalad.builder.model.exception.InvalidFormException;
 import oogasalad.builder.model.property.Property;
+import oogasalad.builder.view.ViewResourcesSingleton;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 
 import java.lang.reflect.Constructor;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import oogasalad.view.SplashWelcome;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,16 +29,15 @@ import org.apache.logging.log4j.Logger;
  */
 public class PropertyEditor extends VBox {
 
-  private static final String TYPE_PROPERTY_NAME = "type";
-  private static final String REQUIRED = "required";
-  private static final String DELIMITER = "-";
-
   private final CallbackDispatcher callbackDispatcher;
 
   private final Map<Property, PropertySelector> selectors = new HashMap<>();
   private final Map<Property, Node> selectorNodes = new HashMap<>();
+  private final Logger logger = LogManager.getLogger(PropertyEditor.class);
 
   private Collection<Property> allProperties;
+
+  private final PropertyNameAnalyzer propertyNameAnalyzer = new PropertyNameAnalyzer();
 
   /**
    * Creates a new PropertyEditor.
@@ -66,7 +66,7 @@ public class PropertyEditor extends VBox {
     // Remove all non-type and non-required properties
     List<Property> nonType = new ArrayList<>();
     selectors.forEach((prop, selector) -> {
-      if(!(isTypeProperty(prop) || isRequiredProperty(prop)) ) {
+      if(!propertyNameAnalyzer.isTypeProperty(prop) && !propertyNameAnalyzer.isRequiredProperty(prop)) {
         getChildren().remove(selectorNodes.get(prop).getParent());
         selectorNodes.remove(prop);
         nonType.add(prop);
@@ -75,26 +75,10 @@ public class PropertyEditor extends VBox {
     nonType.forEach(selectors::remove);
 
     for (Property prop : allProperties) {
-      if (prop.name().contains(typeName)) {
+      if (propertyNameAnalyzer.getPropertyNamespace(prop).equals(typeName)) {
         addProperty(prop);
       }
     }
-  }
-
-  // Returns whether the property is a type property
-  private boolean isTypeProperty(Property prop) {
-    return getLastPropertyNameSegment(prop).equals(TYPE_PROPERTY_NAME);
-  }
-
-  // Returns true if the property is in the required namespace
-  private boolean isRequiredProperty(Property prop) {
-    return prop.name().split(DELIMITER)[0].equals(REQUIRED);
-  }
-
-  // Gets the last name of a property, disregarding namespace
-  private String getLastPropertyNameSegment(Property prop) {
-    String[] nameParts = prop.name().split(DELIMITER);
-    return nameParts[nameParts.length - 1];
   }
 
   /**
@@ -108,7 +92,7 @@ public class PropertyEditor extends VBox {
     allProperties = properties;
     selectors.clear();
     for (Property prop : properties) {
-      if (isTypeProperty(prop) || isRequiredProperty(prop)) {
+      if (propertyNameAnalyzer.isTypeProperty(prop) || propertyNameAnalyzer.isRequiredProperty(prop)) {
         addProperty(prop);
       }
     }
@@ -144,18 +128,27 @@ public class PropertyEditor extends VBox {
     HBox propertyBox = new HBox();
     PropertySelector propertySelector = makePropertySelector(property);
     selectors.put(property, propertySelector);
-    if (isTypeProperty(property)) {
+    if (propertyNameAnalyzer.isTypeProperty(property)) {
       propertySelector.addListener(
           (observable, oldValue, newValue) -> setCorrespondingElementProperties(
               (String) newValue));
     }
-    String[] propertyNameParts = property.name().split("-");
+
     selectorNodes.put(property, propertySelector.display());
     propertyBox.getChildren().addAll(
-        new Label(propertyNameParts[propertyNameParts.length - 1]),
+        new Label(getAndCatchResource(property.shortName())),
         selectorNodes.get(property)
     );
     getChildren().add(propertyBox);
+  }
+
+  private String getAndCatchResource(String key){
+    try{
+      return ViewResourcesSingleton.getInstance().getString(key);
+    } catch (Exception e) {
+      logger.log(Level.ERROR, e.getMessage());
+    }
+    return key;
   }
 
   // Makes a PropertySelector Using reflection, based on the form of the required property

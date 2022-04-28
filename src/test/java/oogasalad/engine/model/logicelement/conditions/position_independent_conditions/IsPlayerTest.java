@@ -18,7 +18,7 @@ class IsPlayerTest {
    */
   @Test
   void isTrue() {
-    int[] paramarray = new int[]{1};
+    int[] paramarray = new int[]{1,0};
     IsPlayer isPlayer = new IsPlayer(paramarray);
     boolean answer = isPlayer.isTrue(TestBoard, new Position(1,1));
     assertEquals(TestBoard.getPlayer(), 0);
