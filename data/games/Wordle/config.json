@@ -7,6 +7,12 @@
             "player": 0
         },
         {
+            "image": "/resources/nextButton.png",
+            "name": "next",
+            "id": -8,
+            "player": 0
+        },
+        {
             "image": "/resources/letter_C.png",
             "name": "Keyboard_C",
             "id": 2,
@@ -19,6 +25,12 @@
             "player": 0
         },
         {
+            "image": "/resources/blank.png",
+            "name": "blank",
+            "id": -4,
+            "player": 0
+        },
+        {
             "image": "/resources/letter_F.png",
             "name": "Keyboard_F",
             "id": 5,
@@ -28,6 +40,12 @@
             "image": "/resources/letter_M.png",
             "name": "Chosen_M",
             "id": 37,
+            "player": 0
+        },
+        {
+            "image": "/resources/submit.png",
+            "name": "submit",
+            "id": -2,
             "player": 0
         },
         {
@@ -229,18 +247,6 @@
             "player": 0
         },
         {
-            "image": "/resources/blank.png",
-            "name": "blank",
-            "id": -4,
-            "player": 0
-        },
-        {
-            "image": "/resources/submit.png",
-            "name": "submit",
-            "id": -2,
-            "player": 0
-        },
-        {
             "image": "/resources/yellowSquare.png",
             "name": "yellowSquare",
             "id": -7,
@@ -262,11 +268,199 @@
     "winDecisions": [],
     "rules": [
         {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "IfSelectionFullPlaceSubmit",
+            "conditions": ["SelectionIsFull"],
+            "actions": ["Place Submit"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealHint_A",
+            "conditions": [
+                "IsA",
+                "IsSecretA"
+            ],
+            "actions": ["CorrectPosition"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealYellow_F",
+            "conditions": [
+                "InEvaluationPhase",
+                "SecretHas_F",
+                "IsF"
+            ],
+            "actions": ["CorrectLetter"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealGreen_B",
+            "conditions": [
+                "IsB",
+                "IsSecretB",
+                "InEvaluationPhase"
+            ],
+            "actions": ["CorrectPosition"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealYellow_A",
+            "conditions": [
+                "IsA",
+                "SecretHas_A",
+                "InEvaluationPhase"
+            ],
+            "actions": ["CorrectLetter"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealGreen_A",
+            "conditions": [
+                "IsA",
+                "IsSecretA",
+                "InEvaluationPhase"
+            ],
+            "actions": ["CorrectPosition"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealGreen_D",
+            "conditions": [
+                "IsSecretD",
+                "IsD",
+                "InEvaluationPhase"
+            ],
+            "actions": ["CorrectPosition"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealGreen_C",
+            "conditions": [
+                "IsC",
+                "IsSecretC",
+                "InEvaluationPhase"
+            ],
+            "actions": ["CorrectPosition"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealGreen_F",
+            "conditions": [
+                "IsSecretF",
+                "IsF",
+                "InEvaluationPhase"
+            ],
+            "actions": ["CorrectPosition"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealYellow_E",
+            "conditions": [
+                "InEvaluationPhase",
+                "SecretHas_E",
+                "IsE"
+            ],
+            "actions": ["CorrectLetter"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealGreen_E",
+            "conditions": [
+                "IsSecretE",
+                "IsE",
+                "InEvaluationPhase"
+            ],
+            "actions": ["CorrectPosition"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealYellow_D",
+            "conditions": [
+                "InEvaluationPhase",
+                "IsD",
+                "SecretHas_D"
+            ],
+            "actions": ["CorrectLetter"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealYellow_C",
+            "conditions": [
+                "InEvaluationPhase",
+                "SecretHas_C",
+                "IsC"
+            ],
+            "actions": ["CorrectLetter"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "RevealYellow_B",
+            "conditions": [
+                "InEvaluationPhase",
+                "IsB",
+                "SecretHas_B"
+            ],
+            "actions": ["CorrectLetter"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move C 4",
+            "conditions": [
+                "IsOnKeyboardC",
+                "PlacementNotBlocked"
+            ],
+            "actions": ["Choose C 4"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "IfSelectionNotFullPlaceRemoveSubmit",
+            "conditions": [
+                "SelectionNotFull",
+                "SubmitExists"
+            ],
+            "actions": ["Remove Submit"]
+        },
+        {
             "representativeX": -2,
             "representativeY": 10,
             "isPersistent": 0,
             "name": "Move A 1",
-            "conditions": ["IsOnKeyboardA"],
+            "conditions": [
+                "IsOnKeyboardA",
+                "PlacementNotBlocked"
+            ],
             "actions": ["Choose A 1"]
         },
         {
@@ -274,7 +468,10 @@
             "representativeY": 10,
             "isPersistent": 0,
             "name": "Move A 2",
-            "conditions": ["IsOnKeyboardA"],
+            "conditions": [
+                "IsOnKeyboardA",
+                "PlacementNotBlocked"
+            ],
             "actions": ["Choose A 2"]
         },
         {
@@ -282,7 +479,10 @@
             "representativeY": 10,
             "isPersistent": 0,
             "name": "Move B 1",
-            "conditions": ["IsOnKeyboardB"],
+            "conditions": [
+                "IsOnKeyboardB",
+                "PlacementNotBlocked"
+            ],
             "actions": ["Choose B 1"]
         },
         {
@@ -290,7 +490,10 @@
             "representativeY": 10,
             "isPersistent": 0,
             "name": "Move A 3",
-            "conditions": ["IsOnKeyboardA"],
+            "conditions": [
+                "IsOnKeyboardA",
+                "PlacementNotBlocked"
+            ],
             "actions": ["Choose A 3"]
         },
         {
@@ -298,7 +501,10 @@
             "representativeY": 10,
             "isPersistent": 0,
             "name": "Move B 2",
-            "conditions": ["IsOnKeyboardB"],
+            "conditions": [
+                "IsOnKeyboardB",
+                "PlacementNotBlocked"
+            ],
             "actions": ["Choose B 2"]
         },
         {
@@ -306,7 +512,10 @@
             "representativeY": 10,
             "isPersistent": 0,
             "name": "Move C 1",
-            "conditions": ["IsOnKeyboardC"],
+            "conditions": [
+                "IsOnKeyboardC",
+                "PlacementNotBlocked"
+            ],
             "actions": ["Choose C 1"]
         },
         {
@@ -314,7 +523,10 @@
             "representativeY": 10,
             "isPersistent": 0,
             "name": "Move B 3",
-            "conditions": ["IsOnKeyboardB"],
+            "conditions": [
+                "IsOnKeyboardB",
+                "PlacementNotBlocked"
+            ],
             "actions": ["Choose B 3"]
         },
         {
@@ -322,16 +534,71 @@
             "representativeY": 10,
             "isPersistent": 0,
             "name": "Move C 2",
-            "conditions": ["IsOnKeyboardC"],
+            "conditions": [
+                "IsOnKeyboardC",
+                "PlacementNotBlocked"
+            ],
             "actions": ["Choose C 2"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move A 4",
+            "conditions": [
+                "IsOnKeyboardA",
+                "PlacementNotBlocked"
+            ],
+            "actions": ["Choose A 4"]
         },
         {
             "representativeX": -2,
             "representativeY": 10,
             "isPersistent": 0,
             "name": "Move C 3",
-            "conditions": ["IsOnKeyboardC"],
+            "conditions": [
+                "IsOnKeyboardC",
+                "PlacementNotBlocked"
+            ],
             "actions": ["Choose C 3"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move B 4",
+            "conditions": [
+                "IsOnKeyboardB",
+                "PlacementNotBlocked"
+            ],
+            "actions": ["Choose B 4"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Next",
+            "conditions": [
+                "onSubmitOrNext",
+                "NextExists"
+            ],
+            "actions": [
+                "Place Submit",
+                "Clear Word",
+                "Clear Hints",
+                "Allow Typing"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Submit",
+            "conditions": ["SubmitExists"],
+            "actions": [
+                "Place Next",
+                "Block Typing"
+            ]
         }
     ],
     "conditions": [
@@ -352,18 +619,36 @@
             "absoluteRow": 12
         },
         {
+            "col": 0,
+            "invert": 1,
+            "name": "PlacementNotBlocked",
+            "isAbsolute": 1,
+            "id": -5,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
             "relativeRow": 0,
             "invert": 0,
             "name": "IsInAttempt3",
-            "type": "IsInRow",
-            "absoluteRow": 8
+            "absoluteRow": 8,
+            "type": "IsInRow"
+        },
+        {
+            "col": 7,
+            "invert": 0,
+            "name": "NextExists",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": -8,
+            "type": "IsPieceType"
         },
         {
             "relativeRow": 0,
             "invert": 0,
             "name": "IsInAttempt2",
-            "type": "IsInRow",
-            "absoluteRow": 10
+            "absoluteRow": 10,
+            "type": "IsInRow"
         },
         {
             "relativeRow": 0,
@@ -371,6 +656,27 @@
             "name": "IsInAttempt4",
             "type": "IsInRow",
             "absoluteRow": 6
+        },
+        {
+            "invert": 0,
+            "startRow": 13,
+            "columnDirection": 1,
+            "startColumn": 2,
+            "length": 4,
+            "name": "SelectionIsFull",
+            "isAbsolute": 1,
+            "type": "IsPlayerPieceRay",
+            "rowDirection": 0,
+            "player": 0
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "PlacementBlocked",
+            "isAbsolute": 1,
+            "id": -5,
+            "row": 0,
+            "type": "IsPieceType"
         },
         {
             "col": 4,
@@ -382,9 +688,24 @@
             "type": "IsPieceType"
         },
         {
+            "relativeRow": 0,
+            "absoluteColumn": 0,
+            "invert": 0,
+            "name": "onSubmitOrNext",
+            "relativeColumn": 7,
+            "absoluteRow": 13,
+            "type": "IsAtAbsolute"
+        },
+        {
             "invert": 0,
             "name": "SecretHasA",
             "id": 0,
+            "type": "HasPiece"
+        },
+        {
+            "invert": 0,
+            "name": "SecretHas_A",
+            "id": 26,
             "type": "HasPiece"
         },
         {
@@ -397,13 +718,61 @@
             "type": "IsPieceType"
         },
         {
+            "startRow": 13,
+            "invert": 1,
+            "columnDirection": 1,
+            "startColumn": 2,
+            "length": 4,
+            "name": "SelectionNotFull",
+            "isAbsolute": 1,
+            "type": "IsPlayerPieceRay",
+            "rowDirection": 0,
+            "player": 0
+        },
+        {
+            "invert": 0,
+            "name": "SecretHas_B",
+            "id": 27,
+            "type": "HasPiece"
+        },
+        {
+            "invert": 0,
+            "name": "SecretHas_C",
+            "id": 28,
+            "type": "HasPiece"
+        },
+        {
+            "invert": 0,
+            "name": "SecretHas_D",
+            "id": 29,
+            "type": "HasPiece"
+        },
+        {
+            "col": 7,
+            "invert": 0,
+            "name": "SubmitExists",
+            "isAbsolute": 1,
+            "id": -2,
+            "row": 13,
+            "type": "IsPieceType"
+        },
+        {
             "absoluteColumn": 9,
             "relativeRow": 0,
             "invert": 0,
             "name": "IsOnKeyboardF",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "InEvaluationPhase",
+            "isAbsolute": 1,
+            "id": -5,
+            "row": 0,
+            "type": "IsPieceType"
         },
         {
             "relativeRow": 0,
@@ -411,8 +780,8 @@
             "invert": 0,
             "name": "IsOnKeyboardD",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
             "absoluteColumn": 8,
@@ -420,44 +789,53 @@
             "invert": 0,
             "name": "IsOnKeyboardE",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
-            "absoluteColumn": 5,
             "relativeRow": 0,
+            "absoluteColumn": 5,
             "invert": 0,
             "name": "IsOnKeyboardB",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
-            "absoluteColumn": 6,
             "relativeRow": 0,
+            "absoluteColumn": 6,
             "invert": 0,
             "name": "IsOnKeyboardC",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
             "col": 0,
             "invert": 0,
             "name": "IsA",
             "isAbsolute": 0,
-            "row": 0,
             "id": 0,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
-            "absoluteColumn": 4,
+            "col": 0,
+            "invert": 0,
+            "name": "IsSecretA",
+            "isAbsolute": 0,
+            "id": 26,
+            "row": -7,
+            "type": "IsPieceType"
+        },
+        {
             "relativeRow": 0,
+            "absoluteColumn": 4,
             "invert": 0,
             "name": "IsOnKeyboardA",
             "relativeColumn": 0,
-            "type": "IsAtAbsolute",
-            "absoluteRow": 3
+            "absoluteRow": 3,
+            "type": "IsAtAbsolute"
         },
         {
             "col": 0,
@@ -471,6 +849,21 @@
         {
             "col": 0,
             "invert": 0,
+            "name": "IsSecretC",
+            "isAbsolute": 0,
+            "id": 28,
+            "row": -7,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 0,
+            "name": "SecretHas_E",
+            "id": 30,
+            "type": "HasPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
             "name": "IsB",
             "isAbsolute": 0,
             "row": 0,
@@ -478,12 +871,27 @@
             "type": "IsPieceType"
         },
         {
+            "col": 0,
+            "invert": 0,
+            "name": "IsSecretB",
+            "isAbsolute": 0,
+            "id": 27,
+            "row": -7,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 0,
+            "name": "SecretHas_F",
+            "id": 31,
+            "type": "HasPiece"
+        },
+        {
             "col": 4,
             "invert": 0,
             "name": "Attemp1Active",
             "isAbsolute": 1,
-            "row": 12,
             "id": -5,
+            "row": 12,
             "type": "IsPieceType"
         },
         {
@@ -498,10 +906,28 @@
         {
             "col": 0,
             "invert": 0,
+            "name": "IsSecretE",
+            "isAbsolute": 0,
+            "id": 30,
+            "row": -7,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
             "name": "IsD",
             "isAbsolute": 0,
             "row": 0,
             "id": 3,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "IsSecretD",
+            "isAbsolute": 0,
+            "id": 29,
+            "row": -7,
             "type": "IsPieceType"
         },
         {
@@ -531,10 +957,19 @@
         {
             "col": 0,
             "invert": 0,
+            "name": "IsSecretF",
+            "isAbsolute": 0,
+            "id": 31,
+            "row": -7,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
             "name": "IsI",
             "isAbsolute": 0,
-            "row": 0,
             "id": 8,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -542,12 +977,82 @@
             "invert": 0,
             "name": "IsH",
             "isAbsolute": 0,
-            "row": 0,
             "id": 7,
+            "row": 0,
             "type": "IsPieceType"
         }
     ],
     "actions": [
+        {
+            "col": 7,
+            "name": "Place Next",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": -8,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "directionRow": 0,
+            "sourceCol": 2,
+            "length": 4,
+            "directionCol": 1,
+            "name": "Clear Word",
+            "isAbsolute": 1,
+            "sourceRow": 13,
+            "type": "RemoveRay"
+        },
+        {
+            "col": 7,
+            "name": "Remove Submit",
+            "isAbsolute": 0,
+            "row": 13,
+            "type": "Remove"
+        },
+        {
+            "col": 0,
+            "name": "Allow Typing",
+            "isAbsolute": 1,
+            "row": 0,
+            "type": "Remove"
+        },
+        {
+            "directionRow": 0,
+            "sourceCol": 2,
+            "length": 4,
+            "directionCol": 1,
+            "name": "Clear Hints",
+            "isAbsolute": 1,
+            "sourceRow": 12,
+            "type": "RemoveRay"
+        },
+        {
+            "col": 0,
+            "name": "CorrectLetter",
+            "isAbsolute": 0,
+            "row": -1,
+            "id": -7,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "CorrectPosition",
+            "isAbsolute": 0,
+            "row": -1,
+            "id": -6,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 7,
+            "name": "Place Submit",
+            "isAbsolute": 1,
+            "id": -2,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
         {
             "col": 5,
             "name": "Choose C 4",
@@ -576,11 +1081,20 @@
             "player": 0
         },
         {
+            "col": 0,
+            "name": "Block Typing",
+            "isAbsolute": 1,
+            "id": -5,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
             "col": 5,
             "name": "Choose A 4",
             "isAbsolute": 1,
-            "row": 13,
             "id": 0,
+            "row": 13,
             "type": "Place",
             "player": 0
         },
@@ -606,8 +1120,8 @@
             "col": 4,
             "name": "Choose A 3",
             "isAbsolute": 1,
-            "row": 13,
             "id": 0,
+            "row": 13,
             "type": "Place",
             "player": 0
         },
@@ -633,8 +1147,8 @@
             "col": 3,
             "name": "Choose A 2",
             "isAbsolute": 1,
-            "row": 13,
             "id": 0,
+            "row": 13,
             "type": "Place",
             "player": 0
         },
@@ -651,8 +1165,8 @@
             "col": 2,
             "name": "Choose A 1",
             "isAbsolute": 1,
-            "row": 13,
             "id": 0,
+            "row": 13,
             "type": "Place",
             "player": 0
         }
@@ -824,10 +1338,10 @@
             [
                 -1,
                 -1,
-                -1,
-                -1,
-                -1,
-                -1,
+                -4,
+                -4,
+                -4,
+                -4,
                 -1,
                 -1,
                 -1,
@@ -842,10 +1356,10 @@
             [
                 -1,
                 -1,
-                -4,
-                -4,
-                -4,
-                -4,
+                -1,
+                -1,
+                -1,
+                -1,
                 -1,
                 -1,
                 -1,

@@ -1,0 +1,230 @@
+{
+    "pieces": [{
+        "image": "/resources/black.png",
+        "name": "piece0",
+        "id": 0,
+        "player": 0
+    }],
+    "metadata": {
+        "gameName": "Has piece test",
+        "author": "Jake Heller",
+        "name": "metadata",
+        "description": "Tests Has Piece"
+    },
+    "winDecisions": [],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Remove 3 under",
+            "conditions": [],
+            "actions": ["Remove3under"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "IfHas0 place",
+            "conditions": ["Has0"],
+            "actions": ["Place0"]
+        }
+    ],
+    "conditions": [{
+        "invert": 0,
+        "name": "Has0",
+        "id": 0,
+        "type": "HasPiece"
+    }],
+    "actions": [
+        {
+            "directionRow": -1,
+            "sourceCol": 0,
+            "length": 3,
+            "directionCol": 0,
+            "name": "Remove3under",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "RemoveRay"
+        },
+        {
+            "col": 0,
+            "name": "Place0",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                0,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                0,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff"
+            ],
+            [
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff"
+            ],
+            [
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff"
+            ],
+            [
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff"
+            ],
+            [
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff",
+                "0x663366ff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 8,
+        "activePlayer": 0,
+        "height": 8
+    }
+}
