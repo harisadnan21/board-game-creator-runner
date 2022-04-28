@@ -106,11 +106,10 @@ public abstract class GameElementFactory<T extends GameElement> implements Eleme
     try{
       JSONArray arr = new JSONArray(orig);
       StringBuilder s = new StringBuilder();
-      for (int i = 0; i < arr.length() - 1 ; i++) {
+      for (int i = 0; i < arr.length(); i++) {
         s.append(arr.getString(i));
         s.append(LIST_DELIMITER);
       }
-      s.append(arr.getString(arr.length() - 1));
       return s.toString();
     } catch (JSONException e) {
       LOG.info(e);
