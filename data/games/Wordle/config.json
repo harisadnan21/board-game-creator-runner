@@ -289,7 +289,19 @@
         "name": "metadata",
         "description": "Wordle"
     },
-    "winDecisions": [],
+    "winDecisions": [
+        {
+            "name": "Lose",
+            "conditions": ["Game over"],
+            "type": "Draw"
+        },
+        {
+            "name": "All green",
+            "id": 0,
+            "type": "PlayerWins",
+            "conditions": ["PlayerWins"]
+        }
+    ],
     "rules": [
         {
             "representativeX": 0,
@@ -298,7 +310,8 @@
             "name": "IfSelectionFullPlaceSubmit",
             "conditions": [
                 "SelectionIsFull",
-                "NotInEvaluationPhase"
+                "NotInEvaluationPhase",
+                "Not in movement phase"
             ],
             "actions": ["Place Submit"]
         },
@@ -358,6 +371,20 @@
             "actions": [
                 "Translate to 2",
                 "Translate hint to 2"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "Change 3 to block",
+            "conditions": [
+                "In change number phase",
+                "IsInAttempt3"
+            ],
+            "actions": [
+                "Exit change number phase",
+                "Put in game over"
             ]
         },
         {
@@ -585,6 +612,105 @@
             "actions": ["Choose C 4"]
         },
         {
+            "representativeX": -3,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move D 3",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardD"
+            ],
+            "actions": ["Choose D 3"]
+        },
+        {
+            "representativeX": -5,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move E 2",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardE"
+            ],
+            "actions": ["Choose E 2"]
+        },
+        {
+            "representativeX": -7,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move F 1",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardF"
+            ],
+            "actions": ["Choose F 1"]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move D 4",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardD"
+            ],
+            "actions": ["Choose D 4"]
+        },
+        {
+            "representativeX": -4,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move E 3",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardE"
+            ],
+            "actions": ["Choose E 3"]
+        },
+        {
+            "representativeX": -6,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move F 2",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardF"
+            ],
+            "actions": ["Choose F 2"]
+        },
+        {
+            "representativeX": -3,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move E 4",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardE"
+            ],
+            "actions": ["Choose E 4"]
+        },
+        {
+            "representativeX": -5,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move F 3",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardF"
+            ],
+            "actions": ["Choose F 3"]
+        },
+        {
+            "representativeX": -4,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move F 4",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardF"
+            ],
+            "actions": ["Choose F 4"]
+        },
+        {
             "representativeX": 0,
             "representativeY": 0,
             "isPersistent": 1,
@@ -695,6 +821,17 @@
             "actions": ["Choose A 4"]
         },
         {
+            "representativeX": -5,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move D 1",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardD"
+            ],
+            "actions": ["Choose D 1"]
+        },
+        {
             "representativeX": -2,
             "representativeY": 10,
             "isPersistent": 0,
@@ -715,6 +852,28 @@
                 "PlacementNotBlocked"
             ],
             "actions": ["Choose B 4"]
+        },
+        {
+            "representativeX": -4,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move D 2",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardD"
+            ],
+            "actions": ["Choose D 2"]
+        },
+        {
+            "representativeX": -6,
+            "representativeY": 10,
+            "isPersistent": 0,
+            "name": "Move E 1",
+            "conditions": [
+                "PlacementNotBlocked",
+                "IsOnKeyboardE"
+            ],
+            "actions": ["Choose E 1"]
         },
         {
             "representativeX": 0,
@@ -747,8 +906,8 @@
             "invert": 1,
             "name": "PlacementNotBlocked",
             "isAbsolute": 1,
-            "id": -5,
             "row": 0,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
@@ -756,20 +915,41 @@
             "invert": 0,
             "name": "NextExists",
             "isAbsolute": 1,
-            "id": -8,
             "row": 13,
+            "id": -8,
             "type": "IsPieceType"
         },
         {
-            "startRow": 13,
+            "col": 0,
             "invert": 0,
+            "name": "Game over",
+            "isAbsolute": 1,
+            "row": 2,
+            "id": -5,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 0,
+            "startRow": 13,
             "columnDirection": 1,
             "startColumn": 2,
             "length": 4,
             "name": "SelectionIsFull",
             "isAbsolute": 1,
             "type": "IsPlayerPieceRay",
-            "player": 0,
+            "rowDirection": 0,
+            "player": 0
+        },
+        {
+            "startRow": 12,
+            "invert": 0,
+            "columnDirection": 1,
+            "startColumn": 2,
+            "length": 4,
+            "name": "PlayerWins",
+            "isAbsolute": 1,
+            "id": -6,
+            "type": "IsPieceTypeRay",
             "rowDirection": 0
         },
         {
@@ -843,8 +1023,8 @@
             "invert": 0,
             "name": "IsNext2",
             "isAbsolute": 0,
-            "id": -9,
             "row": 0,
+            "id": -9,
             "type": "IsPieceType"
         },
         {
@@ -861,8 +1041,8 @@
             "invert": 1,
             "name": "NotBlock",
             "isAbsolute": 0,
-            "id": -5,
             "row": 0,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
@@ -870,8 +1050,8 @@
             "invert": 0,
             "name": "IsA",
             "isAbsolute": 0,
-            "row": 0,
             "id": 0,
+            "row": 0,
             "type": "IsPieceType"
         },
         {
@@ -879,8 +1059,8 @@
             "invert": 0,
             "name": "IsSecretA",
             "isAbsolute": 0,
-            "row": -7,
             "id": 26,
+            "row": -7,
             "type": "IsPieceType"
         },
         {
@@ -888,8 +1068,8 @@
             "invert": 0,
             "name": "IsC",
             "isAbsolute": 0,
-            "id": 2,
             "row": 0,
+            "id": 2,
             "type": "IsPieceType"
         },
         {
@@ -897,8 +1077,8 @@
             "invert": 0,
             "name": "IsSecretC",
             "isAbsolute": 0,
-            "row": -7,
             "id": 28,
+            "row": -7,
             "type": "IsPieceType"
         },
         {
@@ -912,8 +1092,8 @@
             "invert": 0,
             "name": "IsB",
             "isAbsolute": 0,
-            "id": 1,
             "row": 0,
+            "id": 1,
             "type": "IsPieceType"
         },
         {
@@ -921,8 +1101,8 @@
             "invert": 0,
             "name": "IsSecretB",
             "isAbsolute": 0,
-            "row": -7,
             "id": 27,
+            "row": -7,
             "type": "IsPieceType"
         },
         {
@@ -936,8 +1116,8 @@
             "invert": 0,
             "name": "Attemp1Active",
             "isAbsolute": 1,
-            "id": -5,
             "row": 12,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
@@ -945,8 +1125,8 @@
             "invert": 0,
             "name": "IsE",
             "isAbsolute": 0,
-            "id": 4,
             "row": 0,
+            "id": 4,
             "type": "IsPieceType"
         },
         {
@@ -963,8 +1143,8 @@
             "invert": 0,
             "name": "IsD",
             "isAbsolute": 0,
-            "id": 3,
             "row": 0,
+            "id": 3,
             "type": "IsPieceType"
         },
         {
@@ -972,8 +1152,8 @@
             "invert": 0,
             "name": "IsSecretD",
             "isAbsolute": 0,
-            "row": -7,
             "id": 29,
+            "row": -7,
             "type": "IsPieceType"
         },
         {
@@ -998,8 +1178,8 @@
             "invert": 0,
             "name": "IsG",
             "isAbsolute": 0,
-            "id": 6,
             "row": 0,
+            "id": 6,
             "type": "IsPieceType"
         },
         {
@@ -1013,8 +1193,8 @@
             "invert": 0,
             "name": "IsF",
             "isAbsolute": 0,
-            "id": 5,
             "row": 0,
+            "id": 5,
             "type": "IsPieceType"
         },
         {
@@ -1022,8 +1202,8 @@
             "invert": 0,
             "name": "IsSecretF",
             "isAbsolute": 0,
-            "id": 31,
             "row": -7,
+            "id": 31,
             "type": "IsPieceType"
         },
         {
@@ -1040,8 +1220,8 @@
             "invert": 0,
             "name": "IsH",
             "isAbsolute": 0,
-            "id": 7,
             "row": 0,
+            "id": 7,
             "type": "IsPieceType"
         },
         {
@@ -1058,8 +1238,8 @@
             "invert": 0,
             "name": "IsInAttempt1",
             "isAbsolute": 1,
-            "row": 2,
             "id": -10,
+            "row": 2,
             "type": "IsPieceType"
         },
         {
@@ -1067,8 +1247,8 @@
             "invert": 0,
             "name": "IsInAttempt3",
             "isAbsolute": 1,
-            "row": 2,
             "id": -12,
+            "row": 2,
             "type": "IsPieceType"
         },
         {
@@ -1076,16 +1256,16 @@
             "invert": 0,
             "name": "IsInAttempt2",
             "isAbsolute": 1,
-            "row": 2,
             "id": -11,
+            "row": 2,
             "type": "IsPieceType"
         },
         {
             "relativeRow": 0,
             "invert": 0,
             "name": "IsInAttempt4",
-            "absoluteRow": 6,
-            "type": "IsInRow"
+            "type": "IsInRow",
+            "absoluteRow": 6
         },
         {
             "col": 9,
@@ -1108,16 +1288,16 @@
             "invert": 0,
             "name": "PlacementBlocked",
             "isAbsolute": 1,
-            "id": -5,
             "row": 0,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
             "relativeRow": 0,
             "invert": 0,
             "name": "IsOnTypeLine",
-            "absoluteRow": 13,
-            "type": "IsInRow"
+            "type": "IsInRow",
+            "absoluteRow": 13
         },
         {
             "col": 0,
@@ -1131,10 +1311,19 @@
         {
             "col": 0,
             "invert": 1,
+            "name": "Not in movement phase",
+            "isAbsolute": 1,
+            "row": 1,
+            "id": -5,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 1,
             "name": "NotNext",
             "isAbsolute": 0,
-            "id": -8,
             "row": 0,
+            "id": -8,
             "type": "IsPieceType"
         },
         {
@@ -1142,8 +1331,8 @@
             "invert": 0,
             "name": "IsNext",
             "isAbsolute": 0,
-            "id": -8,
             "row": 0,
+            "id": -8,
             "type": "IsPieceType"
         },
         {
@@ -1151,8 +1340,8 @@
             "invert": 1,
             "name": "NotAlreadyGreen",
             "isAbsolute": 0,
-            "id": -6,
             "row": -1,
+            "id": -6,
             "type": "IsPieceType"
         },
         {
@@ -1169,8 +1358,8 @@
             "invert": 0,
             "name": "InMovementPhase",
             "isAbsolute": 1,
-            "id": -5,
             "row": 1,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
@@ -1191,8 +1380,8 @@
             "name": "SelectionNotFull",
             "isAbsolute": 1,
             "type": "IsPlayerPieceRay",
-            "player": 0,
-            "rowDirection": 0
+            "rowDirection": 0,
+            "player": 0
         },
         {
             "col": 9,
@@ -1207,8 +1396,8 @@
             "invert": 0,
             "name": "In change number phase",
             "isAbsolute": 1,
-            "id": -5,
             "row": 3,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
@@ -1224,16 +1413,16 @@
             "relativeRow": 0,
             "invert": 0,
             "name": "IsOnHintLine",
-            "absoluteRow": 12,
-            "type": "IsInRow"
+            "type": "IsInRow",
+            "absoluteRow": 12
         },
         {
             "col": 0,
             "invert": 1,
             "name": "NotNext2",
             "isAbsolute": 0,
-            "id": -9,
             "row": 0,
+            "id": -9,
             "type": "IsPieceType"
         },
         {
@@ -1241,8 +1430,8 @@
             "invert": 0,
             "name": "InEvaluationPhase",
             "isAbsolute": 1,
-            "id": -5,
             "row": 0,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
@@ -1259,8 +1448,8 @@
             "invert": 1,
             "name": "NotInEvaluationPhase",
             "isAbsolute": 1,
-            "id": -5,
             "row": 0,
+            "id": -5,
             "type": "IsPieceType"
         },
         {
@@ -1273,8 +1462,8 @@
             "type": "IsAtAbsolute"
         },
         {
-            "relativeRow": 0,
             "absoluteColumn": 5,
+            "relativeRow": 0,
             "invert": 0,
             "name": "IsOnKeyboardB",
             "relativeColumn": 0,
@@ -1282,8 +1471,8 @@
             "type": "IsAtAbsolute"
         },
         {
-            "relativeRow": 0,
             "absoluteColumn": 6,
+            "relativeRow": 0,
             "invert": 0,
             "name": "IsOnKeyboardC",
             "relativeColumn": 0,
@@ -1291,8 +1480,8 @@
             "type": "IsAtAbsolute"
         },
         {
-            "relativeRow": 0,
             "absoluteColumn": 4,
+            "relativeRow": 0,
             "invert": 0,
             "name": "IsOnKeyboardA",
             "relativeColumn": 0,
@@ -1310,22 +1499,6 @@
     ],
     "actions": [
         {
-            "col": 7,
-            "name": "Place Next",
-            "isAbsolute": 1,
-            "id": -8,
-            "row": 13,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 0,
-            "name": "Exit Movement Phase",
-            "isAbsolute": 1,
-            "row": 1,
-            "type": "Remove"
-        },
-        {
             "col": 10,
             "name": "put random block",
             "isAbsolute": 1,
@@ -1342,8 +1515,8 @@
             "type": "Remove"
         },
         {
-            "sourceCol": 0,
             "destinationRow": -6,
+            "sourceCol": 0,
             "destinationCol": 9,
             "name": "Translate to 3",
             "isAbsolute": 0,
@@ -1368,6 +1541,228 @@
             "type": "RemoveRay"
         },
         {
+            "col": 0,
+            "name": "CorrectPosition",
+            "isAbsolute": 0,
+            "row": -1,
+            "id": -6,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Put in attempt 2",
+            "isAbsolute": 1,
+            "id": -11,
+            "row": 2,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Put in attempt 3",
+            "isAbsolute": 1,
+            "id": -12,
+            "row": 2,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Put in change number phase",
+            "isAbsolute": 1,
+            "row": 3,
+            "id": -5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Block Typing",
+            "isAbsolute": 1,
+            "row": 15,
+            "id": -5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Put in Movement Phase",
+            "isAbsolute": 1,
+            "row": 1,
+            "id": -5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "directionRow": 0,
+            "sourceCol": 2,
+            "length": 4,
+            "directionCol": 1,
+            "name": "Clear Word",
+            "isAbsolute": 1,
+            "sourceRow": 13,
+            "type": "RemoveRay"
+        },
+        {
+            "col": 0,
+            "name": "Put in game over",
+            "isAbsolute": 1,
+            "row": 2,
+            "id": -5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 4,
+            "name": "Choose F 3",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 5,
+            "name": "Choose F 4",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "CorrectLetter",
+            "isAbsolute": 0,
+            "row": -1,
+            "id": -7,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "ExitEvaluation",
+            "isAbsolute": 1,
+            "row": 0,
+            "type": "Remove"
+        },
+        {
+            "col": 2,
+            "name": "Choose F 1",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 3,
+            "name": "Choose F 2",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 7,
+            "name": "Place Submit",
+            "isAbsolute": 1,
+            "id": -2,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 5,
+            "name": "Choose D 4",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 3,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 4,
+            "name": "Choose D 3",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 3,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 5,
+            "name": "Choose B 4",
+            "isAbsolute": 1,
+            "id": 1,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 3,
+            "name": "Choose D 2",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 3,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 4,
+            "name": "Choose B 3",
+            "isAbsolute": 1,
+            "id": 1,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 2,
+            "name": "Choose D 1",
+            "isAbsolute": 1,
+            "row": 12,
+            "id": 3,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 3,
+            "name": "Choose B 2",
+            "isAbsolute": 1,
+            "id": 1,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 2,
+            "name": "Choose B 1",
+            "isAbsolute": 1,
+            "id": 1,
+            "row": 13,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 7,
+            "name": "Place Next",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": -8,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Exit Movement Phase",
+            "isAbsolute": 1,
+            "row": 1,
+            "type": "Remove"
+        },
+        {
             "sourceCol": 0,
             "destinationRow": -3,
             "destinationCol": 9,
@@ -1377,8 +1772,8 @@
             "type": "Translate"
         },
         {
-            "sourceCol": 0,
             "destinationRow": -7,
+            "sourceCol": 0,
             "destinationCol": 9,
             "name": "Translate hint to 3",
             "isAbsolute": 0,
@@ -1396,99 +1791,46 @@
         },
         {
             "col": 0,
-            "name": "CorrectPosition",
-            "isAbsolute": 0,
-            "id": -6,
-            "row": -1,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 0,
-            "name": "Put in attempt 2",
-            "isAbsolute": 1,
-            "row": 2,
-            "id": -11,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 0,
-            "name": "Put in attempt 3",
-            "isAbsolute": 1,
-            "row": 2,
-            "id": -12,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 0,
-            "name": "Put in change number phase",
-            "isAbsolute": 1,
-            "id": -5,
-            "row": 3,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 0,
-            "name": "Block Typing",
-            "isAbsolute": 1,
-            "id": -5,
-            "row": 15,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 0,
-            "name": "Put in Movement Phase",
-            "isAbsolute": 1,
-            "id": -5,
-            "row": 1,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "directionRow": 0,
-            "sourceCol": 2,
-            "length": 4,
-            "directionCol": 1,
-            "name": "Clear Word",
-            "isAbsolute": 1,
-            "sourceRow": 13,
-            "type": "RemoveRay"
-        },
-        {
-            "col": 0,
             "name": "PutInEvaluation",
             "isAbsolute": 1,
+            "row": 0,
             "id": -5,
-            "row": 0,
             "type": "Place",
             "player": 0
         },
         {
-            "col": 0,
-            "name": "CorrectLetter",
-            "isAbsolute": 0,
-            "id": -7,
-            "row": -1,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 0,
-            "name": "ExitEvaluation",
+            "col": 5,
+            "name": "Choose E 4",
             "isAbsolute": 1,
-            "row": 0,
-            "type": "Remove"
-        },
-        {
-            "col": 7,
-            "name": "Place Submit",
-            "isAbsolute": 1,
-            "id": -2,
             "row": 13,
+            "id": 4,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 2,
+            "name": "Choose E 1",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 4,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 3,
+            "name": "Choose E 2",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 4,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 4,
+            "name": "Choose E 3",
+            "isAbsolute": 1,
+            "row": 13,
+            "id": 4,
             "type": "Place",
             "player": 0
         },
@@ -1505,8 +1847,8 @@
             "col": 5,
             "name": "Choose C 4",
             "isAbsolute": 1,
-            "id": 2,
             "row": 13,
+            "id": 2,
             "type": "Place",
             "player": 0
         },
@@ -1520,20 +1862,11 @@
             "type": "Translate"
         },
         {
-            "col": 5,
-            "name": "Choose B 4",
-            "isAbsolute": 1,
-            "row": 13,
-            "id": 1,
-            "type": "Place",
-            "player": 0
-        },
-        {
             "col": 4,
             "name": "Choose C 3",
             "isAbsolute": 1,
-            "id": 2,
             "row": 13,
+            "id": 2,
             "type": "Place",
             "player": 0
         },
@@ -1541,8 +1874,8 @@
             "col": 0,
             "name": "Place next 2",
             "isAbsolute": 0,
-            "id": -9,
             "row": 0,
+            "id": -9,
             "type": "Place",
             "player": 0
         },
@@ -1550,17 +1883,8 @@
             "col": 5,
             "name": "Choose A 4",
             "isAbsolute": 1,
-            "row": 13,
             "id": 0,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 4,
-            "name": "Choose B 3",
-            "isAbsolute": 1,
             "row": 13,
-            "id": 1,
             "type": "Place",
             "player": 0
         },
@@ -1568,8 +1892,8 @@
             "col": 3,
             "name": "Choose C 2",
             "isAbsolute": 1,
-            "id": 2,
             "row": 13,
+            "id": 2,
             "type": "Place",
             "player": 0
         },
@@ -1577,17 +1901,8 @@
             "col": 4,
             "name": "Choose A 3",
             "isAbsolute": 1,
-            "row": 13,
             "id": 0,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 3,
-            "name": "Choose B 2",
-            "isAbsolute": 1,
             "row": 13,
-            "id": 1,
             "type": "Place",
             "player": 0
         },
@@ -1595,8 +1910,8 @@
             "col": 2,
             "name": "Choose C 1",
             "isAbsolute": 1,
-            "id": 2,
             "row": 13,
+            "id": 2,
             "type": "Place",
             "player": 0
         },
@@ -1604,17 +1919,8 @@
             "col": 3,
             "name": "Choose A 2",
             "isAbsolute": 1,
-            "row": 13,
             "id": 0,
-            "type": "Place",
-            "player": 0
-        },
-        {
-            "col": 2,
-            "name": "Choose B 1",
-            "isAbsolute": 1,
             "row": 13,
-            "id": 1,
             "type": "Place",
             "player": 0
         },
@@ -1629,8 +1935,8 @@
             "col": 2,
             "name": "Choose A 1",
             "isAbsolute": 1,
-            "row": 13,
             "id": 0,
+            "row": 13,
             "type": "Place",
             "player": 0
         }
