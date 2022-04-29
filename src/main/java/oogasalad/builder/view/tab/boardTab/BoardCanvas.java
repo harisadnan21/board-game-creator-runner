@@ -167,6 +167,8 @@ public class BoardCanvas extends Pane {
    * Creates the board that corresponds to the model
    */
   public void loadBoard() {
+    clearBoard();
+    clearGrid();
     int boardHeight = callbackDispatcher.call(new GetHeightCallback()).orElseThrow();
     int boardWidth = callbackDispatcher.call(new GetWidthCallback()).orElseThrow();
     xDimension = boardWidth;
@@ -185,6 +187,7 @@ public class BoardCanvas extends Pane {
         }
       }
     }
+    drawGrid();
   }
 
   //draws the grid
