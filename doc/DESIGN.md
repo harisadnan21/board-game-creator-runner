@@ -56,6 +56,8 @@ separation meant that we could parallelize the work on the player and game autho
 
 ### Engine
 
+**TODO**
+
 
 ### Builder
 The builder implements an MVC architecture. The view dispatches callbacks to the controller, which
@@ -130,6 +132,24 @@ we implemented more features (such as cell background coloring, etc.).
 
 ### Engine
 
+**TODO**
 
 ## How to Add New Features
 
+### New Types of Game Elements
+If a developer wishes to create a new type of action, condition, or win decision:
+* Create the Java class in the engine that implements `Action`, `Condition`, or `WinDecision` accordingly.
+* Add the following required information to `resources/engine-resources/Actions.properties`, `resources/engine-resources/Conditions.properties`, or `resources/engine-resources/WinDecisions.properties` accordingly:
+  * Java classpath to new Game Element for reflection
+  * Required parameter names delimited by hyphens (See any of the properties files for exact format).
+* If support in the builder is desired, add the following required information to `resources/builder/elements/Action.properties`, `resources/builder/elements/Condition.properties`, or `resources/builder/elements/WinCondition.properties` accordingly:
+  * Name of new Game Element (so that it is shown in the options)
+  * Required parameters for new Game Element, including their type (Integer, String, etc.), default value, and how they should be selected in the view.
+* (Optional) Add language-specific descriptions of the new Game Element and the required properties to the help pages in `resources/builder/view/<LANGAUGE>.properties`
+
+### New Games
+If a user wants to add a new game to the engine dashboard
+* Design a game using the builder
+* Save it to a directory directly in the `data` folder.
+* (Optional) Add a game icon to the directory, or stick with the default.
+* Start up the engine and play your game!
