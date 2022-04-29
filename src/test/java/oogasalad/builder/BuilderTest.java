@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import oogasalad.builder.controller.BuilderController;
 import oogasalad.builder.view.BuilderView;
+import oogasalad.builder.view.BuilderViewAccessor;
 import oogasalad.builder.view.callback.CallbackDispatcher;
 import oogasalad.builder.view.callback.GetHeightCallback;
 import oogasalad.builder.view.callback.GetWidthCallback;
@@ -26,7 +27,7 @@ public class BuilderTest extends DukeApplicationTest {
   public void start(Stage stage) {
     BuilderView builderView = new BuilderView(stage);
     new BuilderController(builderView);
-    callbackDispatcher = builderView.getCallbackDispatcher();
+    callbackDispatcher = BuilderViewAccessor.getCallbackDispatcher(builderView);
   }
 
 
