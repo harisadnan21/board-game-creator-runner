@@ -2,6 +2,17 @@
 
 ## Demo
 
+## Members
+* Ricky Weerts
+* Jake Heller
+* Robert Cranston
+* Haris Adnan
+* Alexander Bildner
+* Thivya Sivarajah
+* Cynthia France
+* Mike Keohane
+* Shaan Gondalia
+
 ### Game Player
 
 #### Example Games
