@@ -1,32 +1,44 @@
-### Final Presentation
+# OOGABOOGA Final Presentation
 
+## Demo
 
-## Functionality. Show off at least the following features by running your program(s) from the master branch through a planned series of steps/interactions:
+### Game Player
 
-# Game Player:
-  * selecting and playing all four example games
-  * winning or losing a game
-  * saving a game and restarting from that point
-  * playing two different games at the same time
-  * choosing different color themes and languages
-  * displayed game high scores
-  * any Extension features implemented
-    * Alex: AI Player - show the available options/difficulties and demonstrate AI making moves in Checkers
+#### Example Games
 
-# Authoring Environment:
-  * load and edit an existing game in at least three ways then show the changes by playing the new version
-  * create a very simple game from scratch to show how to choose/create different features and game values
-  * show an example of each kind of data file used by the program and describe which are essential (e.g., internal resources) and which can be user created (e.g., external or example data)
+* Tic-Tac-Toe
+  * Show winning and losing
+* Checkers
+  * Save and restart from that point
+  * Play Tic Tac Toe at the same time
+  * Alex: AI Player - show the available options/difficulties and demonstrate AI making moves in Checkers
+* Minesweeper
+  * Different Color Themes and Languages
+* Wordle
+  * Display High Scores
+  
+### Authoring Environment
+* Load in checkers and make 3 edits
+  * Remove Last Row of Pieces
+  * Add Capturing of own pieces
+  * Add win condition for reaching other side of board
+* Create Simple Piece Placement Game
+* Data Files
+  * Essential - Internal properties files describe the available Game Elements
+  * User Created - Game Configuration Folder
+    * JSON Game configuration
+    * Resources Folder
+    * Game Icons
 
-# Tests:
-  * run all your tests verify they pass
-  * describe six tests, both happy and sad path tests of a backend Unit test, a frontend TestFX test, and an integration test
-    * Backend Unit Tests
-      * Alex: I can show an example of a backend unit test from the Engine, I'll probably show something from the Board or AI
-    * Frontend TestFX
-    * Integration Test
+### Tests
+* Run all tests, verifying that they pass
+* Describe Tests
+  * Alex: Backend Unit Tests - Board/AI
+  * Frontend TestFX - TODO
+  * Integration Tests - Game Configuration Saving/Loading
 
-# Anything else that makes your project unique and interesting
+### Additional Features
+
 
 ## Design
 
