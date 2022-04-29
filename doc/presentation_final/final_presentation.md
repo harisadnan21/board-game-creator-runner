@@ -44,59 +44,7 @@
 
 ### High Level Design
 
-#### Engine
-
-**TODO**
-
-
-#### Builder
-The builder implements an MVC architecture. The view dispatches callbacks to the controller, which
-calls the model to update the game configuration accordingly.
-
-###### Model
-
-The model is composed of a few major APIs that dictate how information is stored in the back-end of
-the builder. The `BuilderModel` is a single API that provides access methods for modifying all data in
-the model (so that the controller has a single external API to call).
-
-The `Property` API describes how properties are stored in the builder. A Property is just some
-information about a game element (such as the name of a piece or rule). Properties are immutable,
-but were opted to be a class instead of a record because we felt that an `AbstractProperty` class
-would reduce code repetition.
-
-The `Element` API represents a single game element in the configuration (i.e. an entire piece or
-rule). Elements are essentially collections of properties. The `ElementFactory` API has methods for
-creating elements, including retrieving the required properties for certain types of elements. The
-`FactoryProvider` implements the [Abstract Factory Pattern](https://www.tutorialspoint.com/design_pattern/abstract_factory_pattern.htm),
-providing methods for creating elements without the need for concrete declarations of ElementFactories.
-
-The `Board` API stores information about the board. This includes size, shape, piece configuration,
-and cell colors. While the cell colors are only needed in the view for display purposes, they must
-be stored in the model in order to be serialized to JSON.
-
-The `JSONParseable` and `JSONSerializable` interfaces each provide a single method that determines how
-a class is parsed or serialized (reading or loading from JSON). Using this interface standardized
-the process of parsing and serialization, and meant that there did not need to be a single
-Parser/Serializer that held all information about saving and loading a game configuration from JSON.
-We felt that this design better adhered to the Single Responsibility Principle and active classes.
-
-###### View
-
-The view is composed of several basic JavaFX view classes as well as several abstractions. The view
-is split into Tabs, which are each responsible for the creation of a single game element. These tabs
-all implement the `BasicTab`, which is the internal API for creating a tab in the builder.
-
-Each tab has a `GameElementList` (lists existing game elements) and PropertySelectors.
-`PropertySelector` is an API that defines general methods for allowing users to set the values of
-certain properties. For instance, an `IntegerSelector` prompts users to select integers and a
-`BooleanSelector` prompts users to select a boolean value.
-
-The view communicates with the controller by dispatching `Callback`s, which are handled by the
-controller using a Listener based system. The view obtains information about the existing game
-configuration from the model using these Callbacks. The view does not store any information about
-the game elements other than their names, and retrieves the necessary information if users wish
-to edit existing elements.
-
+**TODO: ADD GENERIC DESIGN DIAGRAM HERE**
 
 ### Design Goals: Flexibility 
 
@@ -155,16 +103,134 @@ public interface JSONParseable<T> {
 }
 ```
 
-* How does it provide a service that is open for extension to support easily adding new features?
-  * The interfaces are generic, meaning they can be applied to any class. Their method signatures 
-  are primitive types and generics, so they are not implementation specfic.
-* How does it support users (your team mates) to write readable, well design code?
-  * Instead of having a single Parsing Object responsible for knowing how to parse/serialize each
-  class in the game, we can define how classes are parsed and serialized in the class itself. These
-  classes are now more active.
-* How has it changed during the Sprints (if at all)?
-  * It was split into two, originally it was just JSONSerializable which held the toJSON and fromJSON
+###### Open/Closed Principle
+The interfaces are generic, meaning they can be applied to any class. Their method signatures 
+are primitive types and generics, so they are not implementation specfic.
+
+###### Supports Readable and Well Designed Code
+Instead of having a single Parsing Object responsible for knowing how to parse/serialize each
+class in the game, we can define how classes are parsed and serialized in the class itself. These
+classes are now more active.
+
+###### Changes
+It was split into two, originally it was just JSONSerializable which held the toJSON and fromJSON
   methods.
+
+###### Use Cases
+
+1. Loading an entire game configuration:
+
+In Controller
+```java
+Void load(LoadCallback callback) {
+    LOG.info("Attempting to load configuration from folder {}", callback.directory().getAbsolutePath());
+    File configFile = new File(callback.directory().toString() + JSON_FILENAME);
+    try {
+        InputStream is = new DataInputStream(new FileInputStream(configFile));
+        JSONTokener tokener = new JSONTokener(is);
+        JSONObject object = new JSONObject(tokener);
+        gameConfig.fromJSON(object.toString(), callback.directory().toString());
+    } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
+    }
+    LOG.info("Successfully loaded {}", gameConfig.getElementNames(GameConfiguration.METADATA).stream().findFirst().orElse("Untitled"));
+    return null;
+}
+```
+In GameConfiguration
+```java
+public void fromJSON(String json, String workingDirectory) {
+  JSONObject obj = new JSONObject(json);
+  board = new RectangularBoard(0, 0).fromJSON(obj.getJSONObject("board").toString());
+  resetElements();
+  try{
+    for (String key : Collections.list(resources.getKeys())) {
+      addJSONArray(obj.getJSONArray(resources.getString(key)), key, workingDirectory);
+    }
+    addJSONObject(obj.getJSONObject(METADATA), METADATA, workingDirectory);
+  } catch (JSONException e) {
+    throw new MalformedConfigurationException(e);
+  }
+}
+
+// Adds the contents of a json array to the map of game elements
+private void addJSONArray(JSONArray arr, String type, String workingDir) {
+  for (int i = 0; i < arr.length(); i++) {
+    JSONObject obj = arr.getJSONObject(i);
+    addJSONObject(obj, type, workingDir);
+  }
+}
+
+// Adds the contents of a json object to the map of game elements
+private void addJSONObject(JSONObject obj, String type, String workingDir) {
+  if (obj.has(NAME)) {
+    GameElement element = provider.fromJSON(type, obj.toString());
+    Collection<Property> resolvedProperties = mapper.resolveResourcePaths(element.toRecord()
+        .properties(), workingDir);
+    addGameElement(type, element.toRecord().name(), resolvedProperties);
+  }
+}
+
+```
+
+2. Saving an entire game configuration:
+
+In Controller
+```java
+Void save(SaveCallback callback) throws NullBoardException {
+    LOG.info("Attempting to save configuration to folder {}", callback.file().getAbsolutePath());
+    File configFile = new File(callback.file().toString() + JSON_FILENAME);
+    try {
+        FileWriter writer = new FileWriter(configFile);
+        writer.write(gameConfig.toJSON());
+        writer.close();
+        gameConfig.copyFiles(callback.file());
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+    LOG.info("Successfully saved {}", gameConfig.getElementNames(GameConfiguration.METADATA).stream().findFirst().orElse("Untitled"));
+    return null;
+}
+```
+In GameConfiguration
+```java
+public String toJSON() throws NullBoardException, ElementNotFoundException {
+  checkBoardCreated();
+  JSONObject obj = new JSONObject();
+  obj.put(METADATA, metaDataToJSON());
+  obj.put(BOARD, new JSONObject(board.toJSON()));
+  for (String key : Collections.list(resources.getKeys())) {
+    obj.put(resources.getString(key), elementsToJSONArray(key));
+  }
+  return obj.toString(INDENT_FACTOR);
+}
+
+// Converts all elements of a certain type to a JSONArray
+private JSONArray elementsToJSONArray(String type) throws ElementNotFoundException {
+  JSONArray arr = new JSONArray();
+  if (!elements.containsKey(type)) {
+    return arr;
+  }
+  for (GameElement element : elements.get(type).values()) {
+    ElementRecord record = element.toRecord();
+    arr.put(new JSONObject(record.toJSON()));
+  }
+  return arr;
+}
+```
+In ElementRecord
+```java
+public String toJSON() {
+  JSONObject obj = new JSONObject();
+  for (Property property : properties) {
+    obj.put(property.name(), property.value());
+  }
+  obj.put(NAME, name);
+  return obj.toString();
+}
+```
+
+
 
 #### Alex: AI - Interface of Selects & State Evaluator
 * Show the public methods for the API
@@ -172,14 +238,20 @@ public interface JSONParseable<T> {
 * How does it support users (your team mates) to write readable, well design code?
 * How has it changed during the Sprints (if at all)?
 
-  * Show two Use Cases implemented in Java code in detail that show off how to use each of the APIs described above
-    * API One: ALex
-      * Use Case 1: AI Player using Selects
-      * Use Case 2: Selects using StateEvaluator
-* Describe two designs
-  * One that has remained stable during the project
-  * One that has changed significantly based on your deeper understanding of the project: how were those changes discussed and what trade-offs ultimately led to the changes
-    * Alex: discuss change to Board, going from mutating one Board to having persistent Boards
+###### Use Cases
+
+* Show two Use Cases implemented in Java code in detail that show off how to use each of the APIs described above
+    * Use Case 1: AI Player using Selects
+    * Use Case 2: Selects using StateEvaluator
+
+
+### Designs
+
+#### Stable
+
+#### Significantly Changed - Immutable Boards 
+
+
 
 ## Team
 
