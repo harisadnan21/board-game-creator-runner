@@ -33,7 +33,24 @@
 ### Tests
 * Run all tests, verifying that they pass
 * Describe Tests
-  * Alex: Backend Unit Tests - Board/AI
+  * Alex: Happy AI Test:
+    * ```java
+      @Test
+  void emptyBoardEvaluation() { }
+
+  @Test
+  void fullOneSidedBoardEvaluation() { }
+
+  @Test
+  void testSplitBoard() { }
+
+  ```
+    * Sad Board Test:
+      ```java
+  @ParameterizedTest
+  @MethodSource("testErrorsSource")
+  void testErrors(Tuple3<Board, Integer, Integer> vals) {}
+  ```
   * Frontend TestFX - TODO
   * Integration Tests - Game Configuration Saving/Loading
 
