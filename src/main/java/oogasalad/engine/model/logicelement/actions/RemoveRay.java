@@ -18,7 +18,7 @@ public class RemoveRay extends Action {
 
   /**
    *
-   * @param parameters size 5 array [startRow, startColumn, rowDirection, columnDirection, length, isAbsolute]
+   * @param parameters size 6 array [startRow, startColumn, rowDirection, columnDirection, length, isAbsolute]
    */
   public RemoveRay(int[] parameters) {
     super(parameters);
@@ -27,7 +27,7 @@ public class RemoveRay extends Action {
     rowDirection = getParameter(2);
     columnDirection = getParameter(3);
     length = getParameter(4);
-    isAbsolute = getParameter(7) != 0;
+    isAbsolute = getParameter(5) != 0;
   }
 
   @Override

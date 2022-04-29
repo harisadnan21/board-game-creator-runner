@@ -25,24 +25,24 @@ Finish Date: 4/25/22
 Hours Spent:
 
 * Ricky - 70 Hours
-* Jake - 100
-* Robert -
-* Haris -
+* Robert - 55 Hours
+* Jake - 100 Hours
+* Haris - 60 Hours
 * Alexander - 80 Hours
 * Thivya -
 * Cynthia - 60 Hours
 * Mike - 65 Hours
-* Shaan - 80 Hours
+* Shaan - 90 Hours
 
 ### Primary Roles
 
 #### Engine
+
 * Cynthia - Worked entirely on the engine view, including all View classes with the exception of Dashboard
-* Robert - view/, controller, win conditions
+* Robert - Worked a lot on linking the front end and backend as well as designing elements in each
 * Haris - Engine model
 * Alexander - Engine model, mostly Board (Board itself, Board utilities, Ray, etc), AI package, and some Win Conditions
 * Jake - Engine model
-
 
 #### Builder
 
@@ -107,17 +107,28 @@ Extensions completed:
 * AI Players
 * Fully customizable game layout
 
-###CheatCodes
+### Cheat Codes
+
 O -> RemovePlayer1Piece(),
+
 Z -> new RemovePlayer0Piece(),
+
 S -> ShuffleBoard(),
+
 1 -> PlayerOneWins(),
+
 2 -> PlayerTwoWins(),
+
 R -> Reset(),
+
 L -> Player1Turn(),
+
 K -> Player2Turn(),
+
 I -> IncrementPlayer(),
+
 P -> CopyRandomPiece());
+
 ### Impressions
 
 This project was difficult, and it took a lot of teamwork and communication to make sure we were able to 

@@ -27,7 +27,7 @@ public class IsPieceTypeRay extends Condition {
    *
    * @param parameters size 8 array [startRow, startColumn, rowDirection, columnDirection, length, type, isAbsolute, invert]
    */
-  protected IsPieceTypeRay(int[] parameters) {
+  public IsPieceTypeRay(int[] parameters) {
     super(parameters);
     startRow = getParameter(0);
     startColumn = getParameter(1);

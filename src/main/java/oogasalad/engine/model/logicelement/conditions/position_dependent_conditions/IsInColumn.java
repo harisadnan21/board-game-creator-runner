@@ -27,7 +27,7 @@ public class IsInColumn extends Condition {
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    relativeColumn += referencePoint.column();
-    return invertIfTrue(relativeColumn == absoluteColumn, invert);
+    int column = relativeColumn + referencePoint.column();
+    return invertIfTrue(column == absoluteColumn, invert);
   }
 }

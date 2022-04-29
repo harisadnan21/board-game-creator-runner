@@ -1,0 +1,539 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/undiscovered.jpg",
+            "name": "unexplored1",
+            "id": 2,
+            "player": 1
+        },
+        {
+            "image": "/resources/undiscovered.jpg",
+            "name": "ship1",
+            "id": 8,
+            "player": 1
+        },
+        {
+            "image": "/resources/undiscovered.jpg",
+            "name": "unexplored0",
+            "id": 1,
+            "player": 0
+        },
+        {
+            "image": "/resources/undiscovered.jpg",
+            "name": "ship0",
+            "id": 7,
+            "player": 0
+        },
+        {
+            "image": "/resources/miss.png",
+            "name": "miss1",
+            "id": 4,
+            "player": 1
+        },
+        {
+            "image": "/resources/miss.png",
+            "name": "miss0",
+            "id": 3,
+            "player": 0
+        },
+        {
+            "image": "/resources/hit.jpg",
+            "name": "hit0",
+            "id": 6,
+            "player": 0
+        },
+        {
+            "image": "/resources/hit.jpg",
+            "name": "hit1",
+            "id": 5,
+            "player": 1
+        }
+    ],
+    "metadata": {
+        "gameName": "Battleship",
+        "author": "Robert Cranston",
+        "name": "metadata",
+        "description": "2 player battleship without in game setup"
+    },
+    "winDecisions": [],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "miss player 1",
+            "conditions": [
+                "player0turn",
+                "miss on player 1 side"
+            ],
+            "actions": ["Miss1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "miss player 0",
+            "conditions": [
+                "player 1 turn",
+                "miss on player 0 side"
+            ],
+            "actions": ["Miss0"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "hit player 1",
+            "conditions": [
+                "player0turn",
+                "player1ship"
+            ],
+            "actions": ["Hit1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "hit player 0",
+            "conditions": [
+                "player 1 turn",
+                "player0ship"
+            ],
+            "actions": ["Hit0"]
+        }
+    ],
+    "conditions": [
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "player1ship",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 8,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 0,
+            "name": "player0turn",
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "player0ship",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 7,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "miss on player 0 side",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 1,
+            "type": "IsPieceType"
+        },
+        {
+            "invert": 0,
+            "name": "player 1 turn",
+            "id": 1,
+            "type": "IsPlayer"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "miss on player 1 side",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 2,
+            "type": "IsPieceType"
+        }
+    ],
+    "actions": [
+        {
+            "col": 0,
+            "name": "Miss0",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 3,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "Miss1",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 4,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Hit1",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 5,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Hit0",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 6,
+            "type": "Place",
+            "player": 0
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                1,
+                1,
+                1,
+                7,
+                7,
+                -1,
+                -1,
+                2,
+                2,
+                2,
+                2,
+                2
+            ],
+            [
+                7,
+                7,
+                7,
+                7,
+                1,
+                -1,
+                -1,
+                2,
+                8,
+                8,
+                8,
+                2
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                2,
+                2,
+                2,
+                2,
+                2
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                2,
+                2,
+                2,
+                2,
+                2
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                2,
+                2,
+                2,
+                8,
+                2
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                2,
+                8,
+                2,
+                8,
+                2
+            ],
+            [
+                1,
+                7,
+                7,
+                7,
+                1,
+                -1,
+                -1,
+                2,
+                8,
+                2,
+                8,
+                2
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                2,
+                2,
+                2,
+                8,
+                2
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                2,
+                2,
+                2,
+                2,
+                2
+            ],
+            [
+                7,
+                1,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                2,
+                2,
+                2,
+                2,
+                2
+            ],
+            [
+                7,
+                1,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                2,
+                8,
+                8,
+                8,
+                8
+            ],
+            [
+                7,
+                1,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                2,
+                2,
+                2,
+                2,
+                2
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0x00ffffff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff"
+            ],
+            [
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0x0000ffff",
+                "0x0000ffff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff",
+                "0x000000ff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 12,
+        "activePlayer": 0,
+        "height": 12
+    }
+}

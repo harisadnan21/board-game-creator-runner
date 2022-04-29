@@ -1,0 +1,444 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/blackKing.png",
+            "name": "player1",
+            "id": 1,
+            "player": 1
+        },
+        {
+            "image": "/resources/whiteKing.png",
+            "name": "player0",
+            "id": 0,
+            "player": 0
+        }
+    ],
+    "metadata": {
+        "gameName": "Knock Knock",
+        "author": "Jake Heller",
+        "name": "metadata",
+        "description": "Testing neighbors condition"
+    },
+    "winDecisions": [],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "emptyRule",
+            "conditions": [],
+            "actions": ["Place0"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Player 1 rule",
+            "conditions": [
+                "has 3 p1 neighbors",
+                "player1 turn"
+            ],
+            "actions": ["Place1"]
+        }
+    ],
+    "conditions": [
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "has 3 p0 neighbors",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 0,
+            "type": "HasNNeighborsOfType",
+            "n": 3
+        },
+        {
+            "invert": 0,
+            "name": "player0 turn",
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "invert": 0,
+            "name": "player1 turn",
+            "id": 1,
+            "type": "IsPlayer"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "has 3 p1 neighbors",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "HasNNeighborsOfType",
+            "n": 3
+        }
+    ],
+    "actions": [
+        {
+            "col": 0,
+            "name": "Place1",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "Place0",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "Place",
+            "player": 0
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                0,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                0,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                0,
+                -1,
+                -1,
+                -1,
+                0,
+                0,
+                0,
+                0
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                0,
+                0,
+                0,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                0,
+                -1,
+                -1,
+                -1,
+                1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                1,
+                1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                1,
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff"
+            ],
+            [
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff"
+            ],
+            [
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff"
+            ],
+            [
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff"
+            ],
+            [
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff"
+            ],
+            [
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff"
+            ],
+            [
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff",
+                "0x999999ff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 12,
+        "activePlayer": 0,
+        "height": 12
+    }
+}
