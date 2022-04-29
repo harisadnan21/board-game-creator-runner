@@ -8,8 +8,10 @@
 
 * Tic-Tac-Toe
   * Show winning and losing
+  * Show 3 player tic tac toe
 * Checkers
   * Save and restart from that point
+  * back button reset button
   * Play Tic Tac Toe at the same time
   * Alex: AI Player - show the available options/difficulties and demonstrate AI making moves in Checkers
 * Minesweeper
@@ -36,9 +38,7 @@
   * Alex: Backend Unit Tests - Board/AI
   * Frontend TestFX - TODO
   * Integration Tests - Game Configuration Saving/Loading
-
-### Additional Features
-
+  
 
 ## Design
 
