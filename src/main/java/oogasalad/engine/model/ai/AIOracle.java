@@ -10,6 +10,6 @@ import oogasalad.engine.model.engine.Choice;
 public interface AIOracle {
   Stream<Choice> getChoices(Board board, int player);
 
-  boolean isWinningState(Board board);
+  boolean isTerminalState(Board board);
 
 }

@@ -190,7 +190,7 @@ public class Oracle implements AIOracle {
   }
 
   @Override
-  public boolean isWinningState(Board board) {
+  public boolean isTerminalState(Board board) {
     Optional<EndRule> satisfyingEndRule = getValidEndRules(board).findFirst();
     return satisfyingEndRule.isPresent();
   }

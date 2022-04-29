@@ -12,7 +12,6 @@ import oogasalad.engine.model.ai.evaluation.Evaluation;
 import oogasalad.engine.model.ai.evaluation.StateEvaluator;
 import oogasalad.engine.model.ai.timeLimiting.TimeLimit;
 import oogasalad.engine.model.board.Board;
-import oogasalad.engine.model.engine.Oracle;
 import org.jooq.lambda.Seq;
 
 /**
@@ -48,7 +47,7 @@ public class TreeSearcher implements Selects {
 
     var boards = getNextBoards(board, player);
     int nextPlayer = getNextPlayer(player);
-    return boards.mapToInt(currBoard -> runMinimax(currBoard, nextPlayer, depth-1)).max().orElseGet(() -> getEvaluationForPlayer(board, nextPlayer));
+    return boards.mapToInt(currBoard -> runMinimax(currBoard, nextPlayer, depth-1)).max().orElse(getEvaluationForPlayer(board, player));
   }
 
   protected Seq<Board> getNextBoards(Board board, int player) {
@@ -72,7 +71,7 @@ public class TreeSearcher implements Selects {
   }
 
   protected boolean limitReached(Board board, int depth) {
-    return (depth == 0 || timeLimit.isTimeUp()) || aiOracle.isWinningState(board);
+    return (depth == 0 || timeLimit.isTimeUp()) || aiOracle.isTerminalState(board);
   }
 
   public int getDepthLimit() {

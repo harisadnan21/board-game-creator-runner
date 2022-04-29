@@ -2,7 +2,6 @@ package oogasalad.engine.model.engine;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -126,7 +125,7 @@ public class Engine implements PropertyChangeListener {
 
 
   public void checkWin() {
-    if (myOracle.isWinningState(getGameBoard())) {
+    if (myOracle.isTerminalState(getGameBoard())) {
       int winner = myOracle.getWinner(getGameBoard());
       endGame(winner);
     }
