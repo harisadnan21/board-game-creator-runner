@@ -157,5 +157,9 @@ public class BuilderView {
   AllTabs getAllTabs() {
     return allTabs;
   }
+  //Gets the callback dispatcher FOR TESTING PURPOSES
+  CallbackDispatcher getCallbackDispatcher() {
+    return callbackDispatcher;
+  }
 }
 

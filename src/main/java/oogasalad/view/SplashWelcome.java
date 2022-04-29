@@ -100,6 +100,7 @@ public class SplashWelcome {
 
     private void startEngine() {
         try {
+            Stage stage = new Stage();
             ViewManager manager = new ViewManager(stage);
             Scene scene = manager.getCurrScene();
             stage.setTitle("OOGABOOGA Engine");
