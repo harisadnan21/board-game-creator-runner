@@ -24,8 +24,9 @@ public class BuilderTest extends DukeApplicationTest {
   private CallbackDispatcher callbackDispatcher;
   @Override
   public void start(Stage stage) {
-    new BuilderController(new BuilderView(stage));
-    callbackDispatcher = new CallbackDispatcher();
+    BuilderView builderView = new BuilderView(stage);
+    new BuilderController(builderView);
+    callbackDispatcher = builderView.getCallbackDispatcher();
   }
 
 
@@ -39,6 +40,7 @@ public class BuilderTest extends DukeApplicationTest {
     xSpinner.commitValue();
     ySpinner.commitValue();
     lookup("#colorPickerA").queryAs(ColorPicker.class).setValue(Color.BLUE);
+    clickOn("#drawBoard");
     assertEquals(callbackDispatcher.call(new GetHeightCallback()).orElseThrow(), Y_DIM);
     assertEquals(callbackDispatcher.call(new GetWidthCallback()).orElseThrow(), X_DIM);
   }
