@@ -1,5 +1,6 @@
 package oogasalad.builder.view.tab;
 
+import static oogasalad.builder.view.BuilderViewAccessor.getAllTabs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -10,13 +11,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import oogasalad.builder.model.property.IntegerProperty;
-import oogasalad.builder.model.property.StringProperty;
 import oogasalad.builder.view.BuilderView;
+import oogasalad.builder.view.BuilderViewAccessor;
 import oogasalad.builder.view.callback.ClearCellCallback;
+import oogasalad.builder.view.callback.FindCellBackgroundCallback;
+import oogasalad.builder.view.callback.FindPieceAtCallback;
 import oogasalad.builder.view.callback.GetElementNamesCallback;
+import oogasalad.builder.view.callback.GetElementPropertiesCallback;
 import oogasalad.builder.view.callback.GetElementPropertyByKeyCallback;
-import oogasalad.builder.view.callback.GetPropertiesCallback;
+import oogasalad.builder.view.callback.GetHeightCallback;
+import oogasalad.builder.view.callback.GetWidthCallback;
 import oogasalad.builder.view.callback.MakeBoardCallback;
 import oogasalad.builder.view.callback.PlacePieceCallback;
 import oogasalad.builder.view.tab.boardTab.BoardTab;
@@ -55,6 +59,11 @@ public class BoardTest extends DukeApplicationTest {
       makeBoardCB.push(cb);
       return null;
     });
+    builderView.registerCallbackHandler(FindPieceAtCallback.class, cb -> "test");
+    builderView.registerCallbackHandler(GetHeightCallback.class, cb -> X_DIM);
+    builderView.registerCallbackHandler(GetWidthCallback.class, cb -> Y_DIM);
+    builderView.registerCallbackHandler(FindCellBackgroundCallback.class, cb -> "0xffffffff");
+    builderView.registerCallbackHandler(GetElementPropertiesCallback.class, cb -> List.of());
   }
 
   void boardSetup() {
@@ -113,5 +122,13 @@ public class BoardTest extends DukeApplicationTest {
     // We don't care if it clears all the cells or just the minimum it has to
     assertTrue(pieceErasedCB.size() > 1);
     assertTrue(pieceErasedCB.contains(new ClearCellCallback(X_CLICKED, Y_CLICKED)));
+  }
+
+  @Test
+  public void testClearBoardBeforeLoad(){
+    boardSetup();
+    pieceErasedCB.clear();
+    BuilderViewAccessor.getAllTabs(builderView).loadAllTabs();
+    assertEquals(X_DIM*Y_DIM, pieceErasedCB.size());
   }
 }
