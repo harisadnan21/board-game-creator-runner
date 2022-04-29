@@ -141,7 +141,7 @@ public class BoardCanvas extends Pane {
     pieceGraphics.clearRect(0, 0, pieceCanvas.getWidth(), pieceCanvas.getHeight());
     for (int i = 0; i < xDimension; i++) {
       for (int j = 0; j < yDimension; j++) {
-        callbackDispatcher.call(new ClearCellCallback(j, i));
+        callbackDispatcher.call(new ClearCellCallback(i, j));
       }
     }
   }
