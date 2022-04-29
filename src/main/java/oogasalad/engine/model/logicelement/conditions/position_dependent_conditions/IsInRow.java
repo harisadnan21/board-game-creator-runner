@@ -27,7 +27,7 @@ public class IsInRow extends Condition {
 
   @Override
   public boolean isTrue(Board board, Position referencePoint) {
-    relativeRow += referencePoint.row();
-    return invertIfTrue(relativeRow == absoluteRow, invert);
+    int row = relativeRow + referencePoint.row();
+    return invertIfTrue(row == absoluteRow, invert);
   }
 }
