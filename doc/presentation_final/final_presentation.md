@@ -44,7 +44,14 @@
 
 ### High Level Design
 
-**TODO: ADD GENERIC DESIGN DIAGRAM HERE**
+#### Builder
+
+![High Level Builder Design](diagrams/builder.png "Design of our game builder")
+
+#### Engine
+
+![High Level Engine Design](diagrams/engine.png "Design of our game builder")
+
 
 ### Design Goals: Flexibility 
 
