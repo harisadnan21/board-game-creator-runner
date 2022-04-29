@@ -253,6 +253,29 @@ public String toJSON() {
 
 #### Alex: AI - Interface of Selects & State Evaluator
 * Show the public methods for the API
+  * 
+```java
+@FunctionalInterface
+public interface Selects {
+
+AIChoice selectChoice(Board board, int forPlayer);
+
+}
+
+@FunctionalInterface
+public interface StateEvaluator {
+
+Evaluation evaluate(Board board);
+
+static void throwIfInvalid(Board board) {
+if (board == null) {
+throw new InvalidBoardException();
+}
+}
+
+}
+
+  ```
 * How does it provide a service that is open for extension to support easily adding new features?
 * How does it support users (your team mates) to write readable, well design code?
 * How has it changed during the Sprints (if at all)?
@@ -261,7 +284,26 @@ public String toJSON() {
 
 * Show two Use Cases implemented in Java code in detail that show off how to use each of the APIs described above
     * Use Case 1: AI Player using Selects
+```java
+public AIChoice chooseAction(Board board) {
+        return selector.selectChoice(board, this.playerNumber);
+}
+
+
+```
     * Use Case 2: Selects using StateEvaluator
+
+```java
+
+protected Evaluation getEvaluation(Board board) {
+        return getStateEvaluator().evaluate(board);
+        }
+
+protected StateEvaluator getStateEvaluator() {
+        return this.stateEvaluator;
+        }
+
+```
     
 ### Designs
 
