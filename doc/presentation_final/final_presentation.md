@@ -1,6 +1,6 @@
-### Functionality. Show off at least the following features by running your program(s) from the master branch through a planned series of steps/interactions:
+## Functionality. Show off at least the following features by running your program(s) from the master branch through a planned series of steps/interactions:
 
-## Game Player:
+# Game Player:
   * selecting and playing all four example games
   * winning or losing a game
   * saving a game and restarting from that point
@@ -9,11 +9,12 @@
   * displayed game high scores
   * any Extension features implemented
 
-## Authoring Environment:
+# Authoring Environment:
   * load and edit an existing game in at least three ways then show the changes by playing the new version
   * create a very simple game from scratch to show how to choose/create different features and game values
   * show an example of each kind of data file used by the program and describe which are essential (e.g., internal resources) and which can be user created (e.g., external or example data)
-## Tests:
+
+# Tests:
   * run all your tests verify they pass
   * describe six tests, both happy and sad path tests of a backend Unit test, a frontend TestFX test, and an integration test
   * anything else that makes your project unique and interesting
