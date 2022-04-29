@@ -58,6 +58,7 @@ public class Ray {
     while(board.isValidPosition(currentPosition) && currentLength < length){
       ray.add(board.getPositionStateAt(currentPosition));
       currentPosition = currentPosition.add(direction);
+      currentLength++;
     }
     return ray;
   }
