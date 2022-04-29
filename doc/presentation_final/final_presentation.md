@@ -316,6 +316,9 @@ protected StateEvaluator getStateEvaluator() {
 
 #### Significantly Changed - Immutable Boards
 
+ * Immutable boards in the backend is the board on to which pieces can be added
+ * Has Rows, Column, Current player
+ * Changed from mutable to immutable so that board can not be forcefully changed by accessing a public method
 ## Team
 
 ### What we learned from the Agile Process
