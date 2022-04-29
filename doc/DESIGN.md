@@ -24,7 +24,7 @@
 #### Builder
 
 * Ricky - Initially worked on builder model, then moved to doing whatever needed to be done across the builder
-* Thivya -
+* Thivya - Worked on frontend of Builder View and creating UI
 * Mike - Implemented the Tabs and worked everywhere in the builder view
 * Shaan - Implemented much of the builder model (elements, properties, board, and game configuration) and game configuration parsing/serialization for the builder and engine.
 
