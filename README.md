@@ -27,7 +27,7 @@ Hours Spent:
 * Ricky - 70 Hours
 * Robert - 55 Hours
 * Jake - 100 Hours
-* Haris -
+* Haris - 60 Hours
 * Alexander - 80 Hours
 * Thivya -
 * Cynthia - 60 Hours
