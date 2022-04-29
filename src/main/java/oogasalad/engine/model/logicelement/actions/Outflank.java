@@ -30,7 +30,7 @@ public class Outflank extends Action implements Flanking {
    *
    * @param parameters size - x array [startRow, startColumn, directionRow, directionColumn, isAbsolute]
    */
-  protected Outflank(int[] parameters) {
+  public Outflank(int[] parameters) {
     super(parameters);
     startRow = parameters[0];
     startColumn = parameters[1];
