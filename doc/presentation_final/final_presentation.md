@@ -37,9 +37,6 @@
   * Frontend TestFX - TODO
   * Integration Tests - Game Configuration Saving/Loading
 
-### Additional Features
-
-
 ## Design
 
 ### High Level Design
@@ -237,8 +234,6 @@ public String toJSON() {
 }
 ```
 
-
-
 #### Alex: AI - Interface of Selects & State Evaluator
 * Show the public methods for the API
 * How does it provide a service that is open for extension to support easily adding new features?
@@ -250,8 +245,7 @@ public String toJSON() {
 * Show two Use Cases implemented in Java code in detail that show off how to use each of the APIs described above
     * Use Case 1: AI Player using Selects
     * Use Case 2: Selects using StateEvaluator
-
-
+    
 ### Designs
 
 #### Stable - Property
@@ -261,29 +255,14 @@ public String toJSON() {
   * Convenience methods to create copies of a property but with a different value or different value and name, etc
 * The value and default value of the property are stored as actual objects internally, but they can be converted to and from strings
 
-#### Significantly Changed - Immutable Boards 
-
-
+#### Significantly Changed - Immutable Boards
 
 ## Team
 
-
 ### What we learned from the Agile Process
-
 
 ### What we learned from trying to manage such a large project
 
-
 ### What we learned about creating a positive team culture
 
-
 ### What we learned about communication and collective problem solving
-
-* contrast the completed project with where you planned it to be in your initial Wireframe and the initial planned priorities and Sprints with the reality of when things were implemented
-  Individually, share one thing each person learned from using the Agile/Scrum process to manage the project
-* show a timeline of at least four significant events (not including the Sprint deadlines) and how communication was handled for each (i.e., how each person was involved or learned about it later)
-  Individually, share one thing each person learned from trying to manage a large project yourselves
-* describe specific things the team actively worked to improve on during the project and one thing that could still be improved
-  Individually, share one thing each person learned about creating a positive team culture
-* revisit your Team Contract to assess what parts of the contract are still useful and what parts need to be updated (or if something new needs to be added)
-  Individually, share one thing each person learned about how to communicate and solve problems collectively, especially ways to handle negative team situations
