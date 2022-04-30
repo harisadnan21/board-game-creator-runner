@@ -8,14 +8,14 @@
 
 * Tic-Tac-Toe
   * Show winning and losing
+  * Display High Scores
 * Checkers
   * Save and restart from that point
   * Play Tic Tac Toe at the same time
   * Alex: AI Player - show the available options/difficulties and demonstrate AI making moves in Checkers
-* Minesweeper
+* Battleship
   * Different Color Themes and Languages
 * Wordle
-  * Display High Scores
   
 ### Authoring Environment
 * Load in checkers and make 3 edits
@@ -258,6 +258,13 @@ public String toJSON() {
 #### Significantly Changed - Immutable Boards
 
 ## Team
+
+### Significant Events
+
+1. Switch to ImmutableBoard - Large API change in the engine model required a lot of communication between team members. Issues, Merge Requests, and slack messages were important in this process.
+2. Making Game Configurations folders instead of JSON files.
+3. Sprint prioritization for Complete Sprint
+4. Final Implementation of logic elements
 
 ### What we learned from the Agile Process
 
