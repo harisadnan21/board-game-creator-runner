@@ -55,8 +55,36 @@ single splash screen that would allow users to navigate to the Builder or Engine
 separation meant that we could parallelize the work on the player and game authoring environment.
 
 ### Engine
+The engine implements an MVC architecture. The view waits for user input and controller starts the 
+appropriate action in the model. After completing the action the model implements changes in the view 
+through the use of callbacks passed to it through the controller. 
 
-**TODO**
+####Model
+The model consists of four major classes that controls the game flow. These include the: Engine, Player,
+Oracle, and Game. 
+
+The `Engine` class is the main contact with the controller and also controls the flow of the game. 
+It pings each player that it is their turn to make a move and awaits for the choice before validating
+and sending the updated board to the game.
+
+The `Player` API represents the players for the game. This API can be extended to make multiple types 
+of players. Currently, there is a human player and a player Artificial Intelligence player. The player 
+api defines the ability to choose a move and each player implements them separately.
+
+The `Oracle` class is used as a service to determine if a selected moves are valid moves. It does 
+this by checking the list of valid Rules and returning which moves are valid.
+
+The `Game` class keeps track of the current state of the board and is observable so that when the board 
+changes for whatever reason the model and the view are both alerted.
+
+####View
+The View is divided into multiple sections and is designed to be completely closed. When new games are 
+created they are immediately added to the dashboard and can be played immediately. The main elements 
+are the dashboard and the boardview.
+
+The `Dashboard` consists of a Game Selection window that displays multiple `GameIcons`. These game icons
+are a template class that are created based on the game folders in a specified directory. Each icon 
+selects an image based on the game folders and auto-populates the info panel when selected.
 
 
 ### Builder
