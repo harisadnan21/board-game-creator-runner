@@ -1,13 +1,17 @@
 package oogasalad.engine.view.ControlPanel;
 
 import java.util.function.Consumer;
-import javafx.scene.Node;
+import java.util.function.Supplier;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import oogasalad.engine.controller.Controller;
-import oogasalad.engine.model.board.Board;
 import oogasalad.engine.model.driver.BoardHistoryException;
-import oogasalad.engine.model.parser.CreateJSONFile;
 import oogasalad.engine.view.ApplicationAlert;
+import oogasalad.engine.view.ControlPanel.ControlButton.HomeButton;
+import oogasalad.engine.view.ControlPanel.ControlButton.PauseButton;
+import oogasalad.engine.view.ControlPanel.ControlButton.RestartButton;
+import oogasalad.engine.view.ControlPanel.ControlButton.SaveButton;
+import oogasalad.engine.view.ControlPanel.ControlButton.UndoButton;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,11 +23,6 @@ import org.apache.logging.log4j.Logger;
  * @author Cynthia France
  */
 public class GameControlPanel extends ControlPanel {
-  public static String HOME_IMAGE = IMAGES_FOLDER + imBundle.getString("Home");
-  public static String RESTART_IMAGE = IMAGES_FOLDER + imBundle.getString("Restart");
-  public static String BACK_IMAGE = IMAGES_FOLDER + imBundle.getString("Back");
-  public static String PAUSE_IMAGE = IMAGES_FOLDER + imBundle.getString("Pause");
-  public static String SAVE_IMAGE = IMAGES_FOLDER + imBundle.getString("Save");
 
   private static final Logger LOG = LogManager.getLogger(GameControlPanel.class);
 
@@ -33,69 +32,40 @@ public class GameControlPanel extends ControlPanel {
   private Button undo;
   private Button pause;
   private Button save;
-  private Consumer<Board> updateBoard;
+  private Runnable setPauseButton;
+  private Consumer<Scene> setHomeButton;
+  private Runnable setSaveButton;
+  private Supplier<Scene> getMyScene;
 
   /**
    *
    * creates a control panel that handles game-related requests
    *
    * @param controller the game controller
-   * @param updateBoard consumer, updates the backend board
    * @param language user-specified language in which the UI is displayed in
    */
-  public GameControlPanel(Controller controller, Consumer<Board> updateBoard, String language) {
+  public GameControlPanel(Controller controller, String language, Runnable setPause,
+      Consumer<Scene> setHome, Runnable setSave, Supplier<Scene> getScene) {
     super(language);
     myController = controller;
-    this.updateBoard = updateBoard;
+    setPauseButton = setPause;
+    setHomeButton  = setHome;
+    setSaveButton = setSave;
+    getMyScene = getScene;
+    createButtons(language);
   }
 
-  /**
-   *
-   * returns the pause button for GameView to use
-   *
-   * @return the pause button in this panel
-   */
-  public Button getPause() {
-    return pause;
-  }
-
-  /**
-   *
-   * returns the home button for ViewManager to use
-   *
-   * @return the home button in this panel
-   */
-  public Button getHome() {
-    return home;
-  }
-
-  /**
-   *
-   * returns the save button for GameView to use
-   *
-   * @return the save button in this panel
-   */
-  public Button getSave(){
-    return save;
-  }
 
   //creates all the buttons in the given panel and adds to the root
-  protected void createButtons() {
-    home = createButton(HOME_IMAGE);
-    restart = createButton(RESTART_IMAGE);
-    restart.setOnAction(e -> restartGame());
-    undo = createButton(BACK_IMAGE);
-    undo.setOnAction(e -> undoMove());
-    pause = createButton(PAUSE_IMAGE);
-    save = createButton(SAVE_IMAGE);
-    save.setOnAction(e -> saveGame());
+  @Override
+  protected void createButtons(String language) {
+    home = new HomeButton(language, setHomeButton, getMyScene);
+    restart = new RestartButton(language, this::restartGame);
+    undo = new UndoButton(language, this::undoMove);
+    pause = new PauseButton(language, setPauseButton);
+    save = new SaveButton(language, setSaveButton);
     root.getChildren().addAll(home, restart, undo, pause, save);
 
-  }
-
-  private void saveGame() {
-    CreateJSONFile jsonCreator = new CreateJSONFile(myController);
-    jsonCreator.createFile();
   }
 
   private void undoMove() {
