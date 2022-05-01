@@ -26,8 +26,22 @@ import org.json.JSONObject;
  * required parameters and creating game elements based on properties (performing validation when
  * required).
  *
+ * This class is well-designed as it contains common methods that all Game Element Factories
+ * require. By creating this abstract class, we are able to reduce the amount of repeated code
+ * that is in each concrete factory class. It also has short, well-named methods that make
+ * the code easier to understand.
+ *
+ * Commits:
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/55505ff7e5c7f6eb167956c73a3972cc0dc5bc50
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/aa761c5f7e0566063d335ff40994d794ffba2b94
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/4d44e32370a04e89292e0720148a41f97aebb21c
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/620acec1f4ae34ea08035b55de4300d6320b71dd
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/46f25462dbc7bc9d8b42ba9a447b62d7b2e68cda
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/55860a9e82e93c901098a10b9ad5c1fd8b083258
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/e68d1c81fbdb0b5bd292662369356cc7de492d9f
+ *
  * @param <T> The type of game element that the factory should return
- * @author Ricky Weerts
+ * @author Ricky Weerts & Shaan Gondalia
  */
 public abstract class GameElementFactory<T extends GameElement> implements ElementFactory {
 
