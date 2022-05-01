@@ -3,9 +3,9 @@ package oogasalad.engine.view.game;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -55,7 +55,7 @@ public class GameView {
    * @param language user-specified language in which the UI is displayed in
    * @param game game folder
    */
-  public GameView(BoardView board, Controller controller, double w, double h, String css, String language, File game) {
+  public GameView(BoardView board, Controller controller, double w, double h, String css, String language, File game, Consumer<Scene> setHome) {
     this.language = language;
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     cssFilePath = css;
@@ -63,8 +63,8 @@ public class GameView {
     height = h;
     myBoard = board;
     myController = controller;
-    myGameControl = new GameControlPanel(controller, board::updateBoard, language);
-    mySettingsControl = new SettingsControlPanel(language);
+    myGameControl = new GameControlPanel(controller, language, this::setPause, setHome, this::saveGame, this::getScene);
+    mySettingsControl = new SettingsControlPanel(language, this::setInfo, this::setSettings);
     myPlayerText = board.getText();
     settings = new SettingsView(cssFilePath, language);
     this.game = game;
@@ -77,7 +77,7 @@ public class GameView {
    *
    * @return gameView scene
    */
-  public Scene getScene() {
+  private Scene getScene() {
     return myScene;
   }
 
@@ -90,26 +90,12 @@ public class GameView {
   public Scene makeScene() {
     root.setCenter(myBoard.getRoot());
     root.setLeft(myGameControl.getRoot());
-    setPause();
-    setInfo();
-    setSettings();
-    setSave();
     root.setRight(mySettingsControl.getRoot());
     root.setBottom(myPlayerText);
     root.setAlignment(myPlayerText, Pos.CENTER);
     myScene = new Scene(root, width, height);
     myScene.getStylesheets().add(getClass().getResource(cssFilePath).toExternalForm());
     return myScene;
-  }
-
-  /**
-   *
-   * the home button for ViewManager use
-   *
-   * @return home button
-   */
-  public Button getHome() {
-    return myGameControl.getHome();
   }
 
   /**
@@ -138,7 +124,6 @@ public class GameView {
   }
 
   private void setPause() {
-    myGameControl.getPause().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
       MessageView pauseView = new MessageView(myResources.getString("PauseMessage"),
           myResources.getString("Resume"), cssFilePath, language);
@@ -149,11 +134,9 @@ public class GameView {
       });
 
       popupStage.show();
-    });
   }
 
   private void setInfo(){
-    mySettingsControl.getInfoButton().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
       String infoMessage = myBoard.getGameInfo();
       MessageView infoView = new MessageView(infoMessage,
@@ -164,11 +147,9 @@ public class GameView {
         popupStage.hide();
       });
       popupStage.show();
-    });
   }
 
   private void setSettings(){
-    mySettingsControl.getSettingsButton().setOnAction(e -> {
       root.setEffect(new GaussianBlur());
       Stage popupStage = settings.getStage();
       settings.getReturnToGame().setOnAction(event -> {
@@ -176,11 +157,6 @@ public class GameView {
         popupStage.hide();
       });
       popupStage.show();
-    });
-  }
-
-  private void setSave() {
-    myGameControl.getSave().setOnAction( e -> saveGame());
   }
 
   private void saveGame() {

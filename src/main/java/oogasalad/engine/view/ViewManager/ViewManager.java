@@ -155,8 +155,7 @@ public class ViewManager {
    * @return the game view
    */
   public GameView createGameView(BoardView board, Controller controller, File game) {
-    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath, language, game);
-    gameView.getHome().setOnAction(e -> goHome(gameView.getScene()));
+    GameView gameView = new GameView(board, controller, WIDTH, HEIGHT, cssFilepath, language, game, this::goHome);
     return gameView;
   }
 
