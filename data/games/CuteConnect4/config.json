@@ -1,0 +1,568 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/Deco_Flower_PNG_Transparent_Clip_Art_Image.png",
+            "name": "Flower2",
+            "id": 2,
+            "player": 1
+        },
+        {
+            "image": "/resources/image-from-rawpixel-id-5998732-original.png",
+            "name": "Flower1",
+            "id": 1,
+            "player": 0
+        }
+    ],
+    "metadata": {
+        "gameName": "CuteConnect4",
+        "author": "Mike Keohane",
+        "name": "metadata",
+        "description": "Game of connect-4 using flowers. Have to click on top row to place piece in that column. Board colors don't work though :("
+    },
+    "winDecisions": [
+        {
+            "name": "Player0Wins",
+            "id": 0,
+            "type": "PlayerWins",
+            "conditions": ["4inARow_0"]
+        },
+        {
+            "name": "Player1Wins",
+            "id": 1,
+            "type": "PlayerWins",
+            "conditions": ["4inARow_1"]
+        }
+    ],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece2FifthRow",
+            "conditions": [
+                "pieceInFourthRow",
+                "noPieceInFifthRow",
+                "player1Turn"
+            ],
+            "actions": ["PlacePiece2_row5"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece1FifthRow",
+            "conditions": [
+                "pieceInFourthRow",
+                "noPieceInFifthRow",
+                "player0Turn"
+            ],
+            "actions": ["PlacePiece1_row5"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece2SecondRow",
+            "conditions": [
+                "pieceInBottomRow",
+                "noPieceInSecondRow",
+                "player1Turn"
+            ],
+            "actions": ["PlacePiece2_row2"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece2ThirdRow",
+            "conditions": [
+                "noPieceInThirdRow",
+                "pieceInSecondRow",
+                "player1Turn"
+            ],
+            "actions": ["PlacePiece2_row3"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece1SecondRow",
+            "conditions": [
+                "player0Turn",
+                "pieceInBottomRow",
+                "noPieceInSecondRow"
+            ],
+            "actions": ["PlacePiece1_row2"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece1ThirdRow",
+            "conditions": [
+                "player0Turn",
+                "noPieceInThirdRow",
+                "pieceInSecondRow"
+            ],
+            "actions": ["PlacePiece1_row3"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece1forthRow",
+            "conditions": [
+                "noPieceInFourthRow",
+                "pieceInThirdRow",
+                "player0Turn"
+            ],
+            "actions": ["PlacePiece1_row4"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece2FirstRow",
+            "conditions": [
+                "noPieceInBottomRow",
+                "player1Turn"
+            ],
+            "actions": ["PlacePiece2_row1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece2forthRow",
+            "conditions": [
+                "noPieceInFourthRow",
+                "pieceInThirdRow",
+                "player1Turn"
+            ],
+            "actions": ["PlacePiece2_row4"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece2SixthRow",
+            "conditions": [
+                "pieceInFifthRow",
+                "noPieceInTopRow",
+                "player1Turn"
+            ],
+            "actions": ["PlacePiece2_row6"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece1SixthRow",
+            "conditions": [
+                "pieceInFifthRow",
+                "noPieceInTopRow",
+                "player0Turn"
+            ],
+            "actions": ["PlacePiece1_row6"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "PlacePiece1FirstRow",
+            "conditions": [
+                "noPieceInBottomRow",
+                "player0Turn"
+            ],
+            "actions": ["PlacePiece1_row1"]
+        }
+    ],
+    "conditions": [
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "pieceInTopRow",
+            "isAbsolute": 0,
+            "row": 0,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "pieceInFifthRow",
+            "isAbsolute": 0,
+            "row": -1,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "pieceInFourthRow",
+            "isAbsolute": 0,
+            "row": -2,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "noPieceInFifthRow",
+            "isAbsolute": 0,
+            "row": -1,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "pieceInBottomRow",
+            "isAbsolute": 0,
+            "row": -5,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "noPieceInThirdRow",
+            "isAbsolute": 0,
+            "row": -3,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "noPieceInBottomRow",
+            "isAbsolute": 0,
+            "row": -5,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "noPieceInFourthRow",
+            "isAbsolute": 0,
+            "row": -2,
+            "type": "IsOccupied"
+        },
+        {
+            "invert": 0,
+            "name": "4inARow_0",
+            "type": "NInARow",
+            "n": 4,
+            "player": 0
+        },
+        {
+            "invert": 0,
+            "name": "player1Turn",
+            "id": 1,
+            "type": "IsPlayer"
+        },
+        {
+            "invert": 0,
+            "name": "4inARow_1",
+            "type": "NInARow",
+            "n": 4,
+            "player": 1
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "noPieceInTopRow",
+            "isAbsolute": 0,
+            "row": 0,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "noPieceInSecondRow",
+            "isAbsolute": 0,
+            "row": -4,
+            "type": "IsOccupied"
+        },
+        {
+            "invert": 0,
+            "name": "player0Turn",
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "pieceInThirdRow",
+            "isAbsolute": 0,
+            "row": -3,
+            "type": "IsOccupied"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "pieceInSecondRow",
+            "isAbsolute": 0,
+            "row": -4,
+            "type": "IsOccupied"
+        }
+    ],
+    "actions": [
+        {
+            "col": 0,
+            "name": "PlacePiece2_row6",
+            "isAbsolute": 0,
+            "id": 2,
+            "row": 0,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece1",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece2",
+            "isAbsolute": 0,
+            "id": 2,
+            "row": 0,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece1_row6",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece1_row5",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": -1,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece1_row4",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": -2,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece1_row3",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": -3,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece1_row2",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": -4,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece1_row1",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": -5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece1_row0",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": -5,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece2_row2",
+            "isAbsolute": 0,
+            "id": 2,
+            "row": -4,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece2_row3",
+            "isAbsolute": 0,
+            "id": 2,
+            "row": -3,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece2_row4",
+            "isAbsolute": 0,
+            "id": 2,
+            "row": -2,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece2_row5",
+            "isAbsolute": 0,
+            "id": 2,
+            "row": -1,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece2_row0",
+            "isAbsolute": 0,
+            "id": 2,
+            "row": -5,
+            "type": "Place",
+            "player": 1
+        },
+        {
+            "col": 0,
+            "name": "PlacePiece2_row1",
+            "isAbsolute": 0,
+            "id": 2,
+            "row": -5,
+            "type": "Place",
+            "player": 1
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff"
+            ],
+            [
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff"
+            ],
+            [
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff"
+            ],
+            [
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff"
+            ],
+            [
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff",
+                "0xffccffff"
+            ],
+            [
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff",
+                "0xe6ccffff"
+            ]
+        ],
+        "width": 7,
+        "activePlayer": 0,
+        "height": 6
+    }
+}

@@ -83,7 +83,9 @@ public class BoardCanvas extends Pane {
    * @param xDim - number of columns in the board
    * @param yDim - number of rows in the board
    */
-  public void drawBoard(int xDim, int yDim) throws NullBoardException {
+  public void drawBoard(Paint color1, Paint color2, int xDim, int yDim) throws NullBoardException {
+    colorOne = color1;
+    colorTwo = color2;
     xDimension = xDim;
     yDimension = yDim;
     boardGraphics.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());

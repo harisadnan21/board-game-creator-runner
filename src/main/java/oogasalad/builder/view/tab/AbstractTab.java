@@ -1,5 +1,14 @@
 package oogasalad.builder.view.tab;
 
+// Commit bf3358f6, 3f995f71, 30a2d94f
+// This code is designed well because it abstracts all of the differnet tabs into
+// one superclass that extends borderpane. Extending borderpane helps each of the
+// tabs use the same pane set up and also have the properties of Nodes to be added to
+// the tabs in AllTabs. The abstraction lets us create all of the tabs using reflection because
+// they are all part of the same super class. The GameElementTab class is done really well,
+// but adding this next level of abstraction helps eliminate duplicate code and lets us use
+// Liskov-substitution between the different types of tab such as board and element.
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -35,10 +44,12 @@ public abstract class AbstractTab extends BorderPane implements BasicTab {
     setupSplitPane();
   }
 
+  //Creates the title based on the type of the tab
   private void setupTitle() {
     setTop(new TitlePane(type + "Title"));
   }
 
+  //Sets up the splitPane and sets it to the center of the boarderpane
   private void setupSplitPane() {
     splitPane = new SplitPane(setupLeftSide(), setupRightSide());
     splitPane.setDividerPositions(BASIC_TAB_DIVIDER_POSITION);

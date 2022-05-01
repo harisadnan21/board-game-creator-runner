@@ -1,3 +1,11 @@
+// Commits: Commit 5b450996, 3c4e7e4c, c433189b, 959e59c4
+// This code is well-designed because it uses the abstraction well to create separate sections
+// left/right. The left section is then just the BoardCanvas class which is contained separately
+// and handles the grid itself (along with pieces/grid). The right side is then just constructed
+// with the different javaFX selectors and buttons that are attached to functions in the boardCanvas.
+// These are done well because each selector option is put into its own method and then called in
+// the larger boxes when added to the right pane. Each different type of options is separated into
+// its own group of methods which work together but then delegate the "work" to the boardCanvas.
 package oogasalad.builder.view.tab.boardTab;
 
 import static oogasalad.builder.view.BuilderView.tabProperties;
@@ -28,6 +36,7 @@ import oogasalad.builder.view.tab.AbstractTab;
  * @author Mike Keohane
  */
 public class BoardTab extends AbstractTab {
+
   private static final String PIECE_TYPE = "piece";
   public static final String BOARD_TYPE = "board";
   public static final int A_NUM = 1;
@@ -59,7 +68,7 @@ public class BoardTab extends AbstractTab {
     VBox rightBox = new VBox();
 
     rightBox.getChildren()
-        .addAll(setupButtonBar(), setupBoardEditChoiceToggle(), setupBoardConfigInput());
+        .addAll(setupPiecesOptionsArea(), setupBoardEditChoiceToggle(), setupBoardConfigInput());
     rightBox.setId("rightBoardPane");
     rightBox.getStyleClass().add("rightPane");
     return rightBox;
@@ -84,25 +93,24 @@ public class BoardTab extends AbstractTab {
   @Override
   protected Node setupLeftSide() {
     boardCanvas = new BoardCanvas(getCallbackDispatcher());
-
     return boardCanvas;
   }
 
+  //sets up the box that contains the board configuration options
   private Node setupBoardConfigInput() {
     VBox boardConfigBox = new VBox();
 
-    Button confirmBoardButton = makeButton("drawBoard", e ->
-        createBoard());
+    Button confirmBoardButton = makeButton("drawBoard", e -> createBoard());
     confirmBoardButton.setId("drawBoard");
 
     boardConfigBox.getChildren()
-        .addAll(setupColorChoiceBox(), setupDimensionChoiceBox(),
-            confirmBoardButton);
+        .addAll(setupColorChoiceBox(), setupDimensionChoiceBox(), confirmBoardButton);
     boardConfigBox.setId("boardConfigBox");
     boardConfigBox.getStyleClass().add("boardConfigBox");
     return boardConfigBox;
   }
 
+  // created the box that contains the  Color PIckers for the board
   private Node setupColorChoiceBox() {
     HBox colorChoiceBox = new HBox();
 
@@ -119,49 +127,42 @@ public class BoardTab extends AbstractTab {
     Label xDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("xDimLabel"));
     Label yDimLabel = new Label(ViewResourcesSingleton.getInstance().getString("yDimLabel"));
 
-
-
     xDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("minBoardSize")),
-            Integer.MAX_VALUE,
-            Integer.parseInt(tabProperties.getString("defaultBoardX")),
-            1);
+        Integer.MAX_VALUE, Integer.parseInt(tabProperties.getString("defaultBoardX")), 1);
     yDimensionPicker = new Spinner<>(Integer.parseInt(tabProperties.getString("minBoardSize")),
-            Integer.MAX_VALUE,
-            Integer.parseInt(tabProperties.getString("defaultBoardY")),
-            1);
+        Integer.MAX_VALUE, Integer.parseInt(tabProperties.getString("defaultBoardY")), 1);
     xDimensionPicker.setEditable(true);
     yDimensionPicker.setEditable(true);
     xDimensionPicker.setId("xDimEntry");
     yDimensionPicker.setId("yDimEntry");
 
-    VBox xDimBox = new VBox(xDimLabel, xDimensionPicker);
-    VBox yDimBox = new VBox(yDimLabel, yDimensionPicker);
-
-    numberPickerBox.getChildren().addAll(xDimBox, yDimBox);
+    numberPickerBox.getChildren()
+        .addAll(new VBox(xDimLabel, xDimensionPicker), new VBox(yDimLabel, yDimensionPicker));
     return numberPickerBox;
   }
 
+  //creates the boardCanvas based on the colorPickers and the dimension choices
   private void createBoard() {
-    boardCanvas.setColor(colorPickerA.getValue(), A_NUM);
-    boardCanvas.setColor(colorPickerB.getValue(), B_NUM);
     boardCanvas.changeCanvasSize(
         getCenter().getBoundsInParent().getWidth() * getSplitPane().getDividerPositions()[0],
         getCenter().getBoundsInParent().getHeight());
-    boardCanvas.drawBoard(xDimensionPicker.getValue(), yDimensionPicker.getValue());
+    boardCanvas.drawBoard(colorPickerA.getValue(), colorPickerB.getValue(),
+        xDimensionPicker.getValue(), yDimensionPicker.getValue());
   }
 
-  private Node setupButtonBar() {
+  //Creates the Vbox that contains the buttons/comboBox that correspond to teh pieces
+  private Node setupPiecesOptionsArea() {
     VBox buttonBox = new VBox();
 
     Button resetPiecesButton = makeButton("clearPieces", e -> boardCanvas.clearBoard());
     resetPiecesButton.setId("clearPieces");
-    buttonBox.getChildren()
-        .addAll(setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
+    buttonBox.getChildren().addAll(setupPieceChoiceBox(), createEraserButton(), resetPiecesButton);
     buttonBox.setId("buttonBox");
     buttonBox.getStyleClass().add("boardConfigBox");
     return buttonBox;
   }
 
+  //Creates the eraser button
   private ToggleButton createEraserButton() {
     ToggleButton eraseButton = new ToggleButton(
         ViewResourcesSingleton.getInstance().getString("eraser"));
@@ -170,6 +171,7 @@ public class BoardTab extends AbstractTab {
     return eraseButton;
   }
 
+  //Checks the state of the eraser and sets the corresponding condition in boardCanvas
   private void toggleErase(ToggleButton eraser) {
     if (eraser.isSelected()) {
       boardCanvas.setClickToErase();
@@ -180,20 +182,21 @@ public class BoardTab extends AbstractTab {
     }
   }
 
-
+  //Sets up the ComboBox that chooses to place a piece
   private ComboBox setupPieceChoiceBox() {
     ComboBox<String> choosePieceBox = new ComboBox<>();
 
     choosePieceBox.setOnMouseEntered(e -> updatePieceOptions(choosePieceBox));
 
     choosePieceBox.setPromptText(ViewResourcesSingleton.getInstance().getString("placePiece"));
-    choosePieceBox.valueProperty().addListener(
-        (observableValue, s, t1) -> boardCanvas.setCurrentPiece(t1));
+    choosePieceBox.valueProperty()
+        .addListener((observableValue, s, t1) -> boardCanvas.setCurrentPiece(t1));
     choosePieceBox.setId("choosePieceBox");
 
     return choosePieceBox;
   }
 
+  //Creates the box that contains the edit grid toggle
   private Node setupBoardEditChoiceToggle() {
     VBox editBoardBox = new VBox();
     ColorPicker boardEditColorPicker = new ColorPicker();
@@ -207,6 +210,7 @@ public class BoardTab extends AbstractTab {
     return editBoardBox;
   }
 
+  //Checks the state of the edit board toggle and sets the corresponding action in boardCanvas
   private void toggleEditBoard(ToggleButton editBoardToggle, ColorPicker colorPicker) {
     if (editBoardToggle.isSelected()) {
       boardCanvas.setClickToEditBoard(colorPicker);
@@ -217,17 +221,13 @@ public class BoardTab extends AbstractTab {
     }
   }
 
+  //Updates the pieces in the ComboBox if the cursor is moved into the box
   private void updatePieceOptions(ComboBox<String> pieceBox) {
     String currVal = pieceBox.getValue();
     Collection<String> pieceNames = getCallbackDispatcher().call(
         new GetElementNamesCallback(PIECE_TYPE)).orElse(new ArrayList<>());
     pieceBox.getItems().setAll(pieceNames);
     pieceBox.setValue(currVal);
-  }
-
-  // For testing
-  BoardCanvas getBoardCanvas() {
-    return boardCanvas;
   }
 
 
