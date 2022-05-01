@@ -21,6 +21,13 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+     * Creates a splash screen that allows the user to access engine and builder
+     *
+     * @author Thivya Sivarajah
+     */
+
+
 
 public class SplashWelcome {
     public static final String DEFAULT_RESOURCE_PACKAGE = "/builder/view/css/";
@@ -42,6 +49,8 @@ public class SplashWelcome {
     private ImageView myImageView;
     private ChoiceBox<String> languageBox;
 
+
+// constructor to set up Welcome screen
     public SplashWelcome() {
         createElements();
         setupHolders();
@@ -52,6 +61,7 @@ public class SplashWelcome {
     }
 
 
+// create the actual scene and apply the CSS files
     private void createScreen() {
         myWelcomeScene = new Scene(elementHolder, 600, 650);
         myWelcomeScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + SPLASH_PACKAGE).toExternalForm());
@@ -63,6 +73,7 @@ public class SplashWelcome {
 
     }
 
+// create individual elements or nodes within the scene
     private void createElements() {
         Image welcomeImage = new Image(getClass().getResourceAsStream(WELCOME_IMAGE));
         myImageView = new ImageView(welcomeImage);
@@ -74,6 +85,7 @@ public class SplashWelcome {
         myWelcome = new Label(ViewResourcesSingleton.getInstance().getString("Welcome"));
     }
 
+// setup holders for nodes
     private void setupHolders() {
         elementHolder = new BorderPane();
         buttonHolder = new HBox();
@@ -94,10 +106,12 @@ public class SplashWelcome {
         return result;
     }
 
+// for testing
     private void startBuilder() {
         new BuilderController(new BuilderView(stage));
     }
 
+    // for testings
     private void startEngine() {
         try {
             Stage stage = new Stage();
@@ -111,7 +125,7 @@ public class SplashWelcome {
             LOG.fatal(e);
         }
     }
-
+// change language for builder
     private void getLanguage(ActionEvent event) {
         String myLanguage = languageBox.getValue();
         ViewResourcesSingleton.getInstance().setLanguage(myLanguage);
