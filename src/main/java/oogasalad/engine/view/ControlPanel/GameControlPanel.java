@@ -16,11 +16,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * The purpose of this class is to hold and control all game-related controls, including restart,
+ * undo, pause, save, home. It inherits from ControlPanel
  *
- * Holds all game-related controls, including restart, undo, pause, save, home
- * Inherits from ControlPanel
+ * Note: Please see full explanation for good design in ControlPanel.java
+ *
+ * This class demonstrates the "open to extension" part of the Single Responsibility Principle. As
+ * can be seen, the abstract ControlPanel class has been extended so that more specific panels can
+ * be made.
+ *
+ * GIT Commits:
+ * - All commits authored by Cynthia France that have "controlpanel" or "control panel" in it:
+ *    - refactored Setings Control Panel, refactored GameControlPanel, refactored ControlPanel
+ *    - make ControlButton super class with subclasses for all Control Panel Buttons
+ *    - ControlPanel parent class, ControlPanel package,
+ *    - game control panel (home, restart, undo, pause)
+ *    - get rid of control panel magic values
  *
  * @author Cynthia France
+ * @see ControlPanel, SettingsControlPanel
  */
 public class GameControlPanel extends ControlPanel {
 
@@ -43,6 +57,10 @@ public class GameControlPanel extends ControlPanel {
    *
    * @param controller the game controller
    * @param language user-specified language in which the UI is displayed in
+   * @param setPause Runnable that defines how the pause button behaves when clicked
+   * @param setHome Consumer that defines how the home button behaves when clicked
+   * @param setSave Runnable that defines how the save button behaves when clicked
+   * @param getScene Supplier that obtains the scene in which the home button is clicked
    */
   public GameControlPanel(Controller controller, String language, Runnable setPause,
       Consumer<Scene> setHome, Runnable setSave, Supplier<Scene> getScene) {
@@ -68,6 +86,7 @@ public class GameControlPanel extends ControlPanel {
 
   }
 
+  //method to undo a move in the game
   private void undoMove() {
     try {
       myController.undoGameOnce();
@@ -77,6 +96,7 @@ public class GameControlPanel extends ControlPanel {
     }
   }
 
+  //method to restart the game from the starting configuration
   private void restartGame() {
     myController.resetGame();
   }
