@@ -1,0 +1,791 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/blackPawn.png",
+            "name": "Black Pawn",
+            "id": 2,
+            "player": 1
+        },
+        {
+            "image": "/resources/whitePawn.png",
+            "name": "White Pawn",
+            "id": 0,
+            "player": 0
+        },
+        {
+            "image": "/resources/blackKing.png",
+            "name": "Black King",
+            "id": 3,
+            "player": 1
+        },
+        {
+            "image": "/resources/whiteKing.png",
+            "name": "White King",
+            "id": 1,
+            "player": 0
+        }
+    ],
+    "metadata": {
+        "gameName": "Checkers",
+        "author": "Shaan Gondalia",
+        "name": "metadata",
+        "description": "This game is checkers without double jumps"
+    },
+    "winDecisions": [{
+        "name": "Player with no pieces loses",
+        "conditions": ["noPiecesLeftEitherPlayer"],
+        "type": "MostPieces"
+    }],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "Transform White Pawns",
+            "conditions": [
+                "belongsToWhite",
+                "Top Row"
+            ],
+            "actions": ["Transform White Pawn to King"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "White King Move Down Right",
+            "conditions": [
+                "White King",
+                "whiteTurn",
+                "emptyDownRight"
+            ],
+            "actions": ["moveDownRight"]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": 2,
+            "isPersistent": 0,
+            "name": "White capture up left",
+            "conditions": [
+                "emptyDoubleUpLeft",
+                "belongsToBlackUpLeft",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": [
+                "moveDoubleUpLeft",
+                "captureUpLeft"
+            ]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "Black King Move Up Right",
+            "conditions": [
+                "blackTurn",
+                "Black King",
+                "emptyUpRight"
+            ],
+            "actions": ["moveUpRight"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "White King Move Down Left",
+            "conditions": [
+                "White King",
+                "whiteTurn",
+                "emptyDownLeft"
+            ],
+            "actions": ["moveDownLeft"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Black move down and right",
+            "conditions": [
+                "emptyDownRight",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": ["moveDownRight"]
+        },
+        {
+            "representativeX": 2,
+            "representativeY": 2,
+            "isPersistent": 0,
+            "name": "White capture up right",
+            "conditions": [
+                "emptyDoubleUpRight",
+                "belongsToBlackUpRight",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": [
+                "moveDoubleUpRight",
+                "captureUpRight"
+            ]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 0,
+            "isPersistent": 1,
+            "name": "Transform Black Pawns",
+            "conditions": [
+                "belongsToBlack",
+                "Bottom Row"
+            ],
+            "actions": ["Transform Black Pawn to King"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "White move up and right",
+            "conditions": [
+                "emptyUpRight",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": ["moveUpRight"]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": -2,
+            "isPersistent": 0,
+            "name": "Black capture down left",
+            "conditions": [
+                "emptyDoubleDownLeft",
+                "belongsToWhiteDownLeft",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": [
+                "moveDoubleDownLeft",
+                "captureDownLeft"
+            ]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "Black King Move Up Left",
+            "conditions": [
+                "blackTurn",
+                "Black King",
+                "emptyUpLeft"
+            ],
+            "actions": ["moveUpLeft"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Black move down and left",
+            "conditions": [
+                "emptyDownLeft",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": ["moveDownLeft"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "White move up and left",
+            "conditions": [
+                "emptyUpLeft",
+                "belongsToWhite",
+                "whiteTurn"
+            ],
+            "actions": ["moveUpLeft"]
+        },
+        {
+            "representativeX": 2,
+            "representativeY": -2,
+            "isPersistent": 0,
+            "name": "Black capture down right",
+            "conditions": [
+                "emptyDoubleDownRight",
+                "belongsToWhiteDownRight",
+                "belongsToBlack",
+                "blackTurn"
+            ],
+            "actions": [
+                "moveDoubleDownRight",
+                "captureDownRight"
+            ]
+        },
+        {
+            "representativeX": 2,
+            "representativeY": -2,
+            "isPersistent": 0,
+            "name": "White King capture down right",
+            "conditions": [
+                "emptyDoubleDownRight",
+                "belongsToBlackDownRight",
+                "White King",
+                "whiteTurn"
+            ],
+            "actions": [
+                "moveDoubleDownRight",
+                "captureDownRight"
+            ]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": -2,
+            "isPersistent": 0,
+            "name": "White King capture down left",
+            "conditions": [
+                "emptyDoubleDownLeft",
+                "belongsToBlackDownLeft",
+                "White King",
+                "whiteTurn"
+            ],
+            "actions": [
+                "moveDoubleDownLeft",
+                "captureDownLeft"
+            ]
+        },
+        {
+            "representativeX": 2,
+            "representativeY": 2,
+            "isPersistent": 0,
+            "name": "Black King capture up right",
+            "conditions": [
+                "emptyDoubleUpRight",
+                "belongsToWhiteUpRight",
+                "Black King",
+                "blackTurn"
+            ],
+            "actions": [
+                "moveDoubleUpRight",
+                "captureUpRight"
+            ]
+        },
+        {
+            "representativeX": -2,
+            "representativeY": 2,
+            "isPersistent": 0,
+            "name": "Black King capture up left",
+            "conditions": [
+                "emptyDoubleUpLeft",
+                "belongsToWhiteUpLeft",
+                "Black King",
+                "blackTurn"
+            ],
+            "actions": [
+                "moveDoubleUpLeft",
+                "captureUpLeft"
+            ]
+        }
+    ],
+    "conditions": [
+        {
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "Top Row",
+            "type": "IsInRow",
+            "absoluteRow": 7
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "belongsToBlackUpRight",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "belongsToBlackDownRight",
+            "isAbsolute": 0,
+            "row": -1,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": -1,
+            "invert": 0,
+            "name": "belongsToBlackDownLeft",
+            "isAbsolute": 0,
+            "row": -1,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 2,
+            "invert": 0,
+            "name": "emptyDoubleUpRight",
+            "isAbsolute": 0,
+            "row": 2,
+            "type": "IsEmpty"
+        },
+        {
+            "invert": 0,
+            "name": "whiteTurn",
+            "id": 1,
+            "type": "IsPlayer"
+        },
+        {
+            "col": -2,
+            "invert": 0,
+            "name": "emptyDoubleDownLeft",
+            "isAbsolute": 0,
+            "row": -2,
+            "type": "IsEmpty"
+        },
+        {
+            "col": -1,
+            "invert": 0,
+            "name": "emptyUpLeft",
+            "isAbsolute": 0,
+            "row": 1,
+            "type": "IsEmpty"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "belongsToBlack",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 2,
+            "invert": 0,
+            "name": "emptyDoubleDownRight",
+            "isAbsolute": 0,
+            "row": -2,
+            "type": "IsEmpty"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "emptyDownRight",
+            "isAbsolute": 0,
+            "row": -1,
+            "type": "IsEmpty"
+        },
+        {
+            "invert": 0,
+            "name": "blackTurn",
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "relativeRow": 0,
+            "invert": 0,
+            "name": "Bottom Row",
+            "type": "IsInRow",
+            "absoluteRow": 0
+        },
+        {
+            "col": -1,
+            "invert": 0,
+            "name": "belongsToWhiteDownLeft",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": -1,
+            "invert": 0,
+            "name": "belongsToWhiteUpLeft",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "belongsToWhiteDownRight",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "belongsToWhiteUpRight",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": -1,
+            "invert": 0,
+            "name": "belongsToBlackUpLeft",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": -2,
+            "invert": 0,
+            "name": "emptyDoubleUpLeft",
+            "isAbsolute": 0,
+            "row": 2,
+            "type": "IsEmpty"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "belongsToWhite",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "emptyUpRight",
+            "isAbsolute": 0,
+            "row": 1,
+            "type": "IsEmpty"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "belongsToWhiteDownRight",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "invert": 0,
+            "name": "noPiecesLeftEitherPlayer",
+            "type": "PlayerHasNoPieces"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "White King",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Black King",
+            "isAbsolute": 0,
+            "id": 3,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": -1,
+            "invert": 0,
+            "name": "emptyDownLeft",
+            "isAbsolute": 0,
+            "row": -1,
+            "type": "IsEmpty"
+        }
+    ],
+    "actions": [
+        {
+            "col": 1,
+            "name": "captureDownRight",
+            "isAbsolute": 0,
+            "row": -1,
+            "type": "Remove"
+        },
+        {
+            "destinationRow": -2,
+            "sourceCol": 0,
+            "destinationCol": -2,
+            "name": "moveDoubleDownLeft",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "col": -1,
+            "name": "captureUpLeft",
+            "isAbsolute": 0,
+            "row": 1,
+            "type": "Remove"
+        },
+        {
+            "col": 0,
+            "name": "Transform White Pawn to King",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "Place",
+            "player": 0
+        },
+        {
+            "sourceCol": 0,
+            "destinationRow": 1,
+            "destinationCol": 1,
+            "name": "moveUpRight",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "sourceCol": 0,
+            "destinationRow": 2,
+            "destinationCol": -2,
+            "name": "moveDoubleUpLeft",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "col": 1,
+            "name": "captureUpRight",
+            "isAbsolute": 0,
+            "row": 1,
+            "type": "Remove"
+        },
+        {
+            "destinationRow": -1,
+            "sourceCol": 0,
+            "destinationCol": -1,
+            "name": "moveDownLeft",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "sourceCol": 0,
+            "destinationRow": 2,
+            "destinationCol": 2,
+            "name": "moveDoubleUpRight",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": -2,
+            "sourceCol": 0,
+            "destinationCol": 2,
+            "name": "moveDoubleDownRight",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "sourceCol": 0,
+            "destinationRow": 1,
+            "destinationCol": -1,
+            "name": "moveUpLeft",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": -1,
+            "sourceCol": 0,
+            "destinationCol": 1,
+            "name": "moveDownRight",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "col": -1,
+            "name": "captureDownLeft",
+            "isAbsolute": 0,
+            "row": -1,
+            "type": "Remove"
+        },
+        {
+            "col": 0,
+            "name": "Transform Black Pawn to King",
+            "isAbsolute": 0,
+            "id": 3,
+            "row": 0,
+            "type": "Place",
+            "player": 1
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                2,
+                -1,
+                2,
+                -1,
+                2,
+                -1,
+                2,
+                -1
+            ],
+            [
+                -1,
+                2,
+                -1,
+                2,
+                -1,
+                2,
+                -1,
+                2
+            ],
+            [
+                2,
+                -1,
+                -1,
+                -1,
+                2,
+                -1,
+                2,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                0,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                0,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                0,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                0
+            ],
+            [
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                -1
+            ],
+            [
+                -1,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                -1,
+                0
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff"
+            ],
+            [
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff"
+            ],
+            [
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff"
+            ],
+            [
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff"
+            ],
+            [
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff"
+            ],
+            [
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff"
+            ],
+            [
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff"
+            ],
+            [
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff",
+                "0xccccccff",
+                "0x800000ff"
+            ]
+        ],
+        "width": 8,
+        "activePlayer": 0,
+        "height": 8
+    }
+}
