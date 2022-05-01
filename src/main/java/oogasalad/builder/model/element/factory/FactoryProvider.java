@@ -1,21 +1,26 @@
 package oogasalad.builder.model.element.factory;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import oogasalad.builder.model.element.FileMapper;
 import oogasalad.builder.model.element.GameElement;
 import oogasalad.builder.model.exception.InvalidTypeException;
 import oogasalad.builder.model.exception.MissingRequiredPropertyException;
 import oogasalad.builder.model.property.Property;
-import oogasalad.builder.model.property.PropertyFactory;
 
 /**
  * Class that provides a specific GameElementFactory based on the type of the desired game element.
+ * Originally was designed to provide Factory Objects, but we realized that the API was small enough
+ * for this to actually return GameElements instead of the factories themselves
+ *
+ * This code is well-designed because it implements the AbstractFactory Pattern. Users should not
+ * care about what kind of factory they have to create when creating game elements, they just want
+ * to call an API that provides the data that they need. The API is quite small and hard to misuse,
+ * as only immutable objects are returned.
+ *
+ * Commits:
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/769d05070b83ef1894c591ae4f8661113748bdfc
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/579b9b1682d79d9b9b27935ed83ad977189b5603
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/d8429f88d30f720df9ba82000cfcd28c353d98e4
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/d05fab7bce27255638f5c244d9948f687d2c75ee
  *
  * @author Shaan Gondalia
  */
