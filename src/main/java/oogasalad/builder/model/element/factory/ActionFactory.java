@@ -9,16 +9,26 @@ import oogasalad.builder.model.property.Property;
  * Factory responsible for creating Action objects based on name and properties. Performs validation
  * on input to make sure all required properties are present.
  *
+ * This code is an extension of the Abstract GameElementFactory, detailing how concrete factory
+ * classes are implemented from the interface and abstractions.
+ *
+ * Commits:
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/4e5d5349f8aa50f652d823c64afd9dfded29c777
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/4d44e32370a04e89292e0720148a41f97aebb21c
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/d8429f88d30f720df9ba82000cfcd28c353d98e4
+ *
  * @author Shaan Gondalia
  */
 public class ActionFactory extends GameElementFactory<Action> {
+
+  private static final String ACTION_PROPERTY_PATH = "builder.elements.Action";
 
   /**
    * Creates a new ActionFactory. See elements.Action properties file for the required properties of
    * an Action.
    */
   public ActionFactory() {
-    super("builder.elements.Action");
+    super(ACTION_PROPERTY_PATH);
   }
 
   /**
