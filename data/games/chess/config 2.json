@@ -1,0 +1,908 @@
+{
+    "pieces": [
+        {
+            "image": "/resources/whiteBishop.png",
+            "name": "White Bishop",
+            "id": 6,
+            "player": 0
+        },
+        {
+            "image": "/resources/Chess_pdt60.png",
+            "name": "Black Pawn",
+            "id": 11,
+            "player": 1
+        },
+        {
+            "image": "/resources/Chess_rdt60.png",
+            "name": "Black Rook",
+            "id": 5,
+            "player": 1
+        },
+        {
+            "image": "/resources/Chess_rlt60.png",
+            "name": "White Rook",
+            "id": 4,
+            "player": 0
+        },
+        {
+            "image": "/resources/Chess_nlt60.png",
+            "name": "White Knight",
+            "id": 8,
+            "player": 0
+        },
+        {
+            "image": "/resources/Chess_qlt60.png",
+            "name": "White Queen",
+            "id": 2,
+            "player": 0
+        },
+        {
+            "image": "/resources/blackBishop.png",
+            "name": "Black Bishop",
+            "id": 7,
+            "player": 1
+        },
+        {
+            "image": "/resources/Chess_plt60.png",
+            "name": "White Pawn",
+            "id": 10,
+            "player": 0
+        },
+        {
+            "image": "/resources/Chess_ndt60.png",
+            "name": "Black Knight",
+            "id": 9,
+            "player": 1
+        },
+        {
+            "image": "/resources/Chess_klt60.png",
+            "name": "White King",
+            "id": 0,
+            "player": 0
+        },
+        {
+            "image": "/resources/Chess_kdt60.png",
+            "name": "Black King",
+            "id": 1,
+            "player": 1
+        },
+        {
+            "image": "/resources/Chess_qdt60.png",
+            "name": "Black Queen",
+            "id": 3,
+            "player": 1
+        }
+    ],
+    "metadata": {
+        "gameName": "Chess",
+        "author": "Shaan",
+        "name": "metadata",
+        "description": "Chess with Basic Rules"
+    },
+    "winDecisions": [],
+    "rules": [
+        {
+            "representativeX": 0,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Pawn Move Single Square Down",
+            "conditions": [
+                "Black Turn",
+                "Is Black Pawn",
+                "Empty down 1"
+            ],
+            "actions": ["Move down 1"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "Black King Up Right",
+            "conditions": [
+                "Is Black King",
+                "Black Turn",
+                "Not Black Up Right"
+            ],
+            "actions": ["Move up right 1"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "White King Right",
+            "conditions": [
+                "Not White Right",
+                "Is White King",
+                "White Turn"
+            ],
+            "actions": ["Move right 1"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Pawn Capture Down Right",
+            "conditions": [
+                "Black Turn",
+                "Is Black Pawn",
+                "White Down Right"
+            ],
+            "actions": ["Move down right 1"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Black King Left",
+            "conditions": [
+                "Not Black Left",
+                "Black Turn",
+                "Is Black King"
+            ],
+            "actions": ["Move left 1"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "White King Left",
+            "conditions": [
+                "Not White Left",
+                "White Turn",
+                "Is White King"
+            ],
+            "actions": ["Move left 1"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Black King Down Left",
+            "conditions": [
+                "Is Black King",
+                "Black Turn",
+                "Not Black Down Left"
+            ],
+            "actions": ["Move down left 1"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "Pawn Capture Up Right",
+            "conditions": [
+                "White Turn",
+                "Black Up Right",
+                "Is White Pawn"
+            ],
+            "actions": ["Move up right 1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "Pawn Move Single Square",
+            "conditions": [
+                "White Turn",
+                "Empty up 1",
+                "Is White Pawn"
+            ],
+            "actions": ["Move up 1"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "Black King Up Left",
+            "conditions": [
+                "Is Black King",
+                "Black Turn",
+                "Not Black Up Left"
+            ],
+            "actions": ["Move up left 1"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "White King Down Left",
+            "conditions": [
+                "Is White King",
+                "White Turn",
+                "Not White Down Left"
+            ],
+            "actions": ["Move down left 1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 2,
+            "isPersistent": 0,
+            "name": "Pawn Move Double Square Up",
+            "conditions": [
+                "White Turn",
+                "Empty up 2",
+                "Empty up 1",
+                "Is White Pawn"
+            ],
+            "actions": ["Move up 2"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "Black King Up",
+            "conditions": [
+                "Black Turn",
+                "Is Black King",
+                "Not Black Up"
+            ],
+            "actions": ["Move up 1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "White King Up",
+            "conditions": [
+                "White Turn",
+                "Is White King",
+                "Not White Up"
+            ],
+            "actions": ["Move up 1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": -2,
+            "isPersistent": 0,
+            "name": "Pawn Move Double Square Down",
+            "conditions": [
+                "Black Turn",
+                "Empty down 2",
+                "Empty down 1",
+                "Is Black Pawn"
+            ],
+            "actions": ["Move down 2"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Pawn Capture Down Left",
+            "conditions": [
+                "Black Turn",
+                "Is Black Pawn",
+                "White Down Left"
+            ],
+            "actions": ["Move down left 1"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "White King Up Right",
+            "conditions": [
+                "Is White King",
+                "White Turn",
+                "Not White Up Right"
+            ],
+            "actions": ["Move up right 1"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "Pawn Capture Up Left",
+            "conditions": [
+                "White Turn",
+                "Black Up Left",
+                "Is White Pawn"
+            ],
+            "actions": ["Move up left 1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Black King Down",
+            "conditions": [
+                "Is Black King",
+                "Black Turn",
+                "Not Black Down"
+            ],
+            "actions": ["Move down 1"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": 0,
+            "isPersistent": 0,
+            "name": "Black King Right",
+            "conditions": [
+                "Not Black Right",
+                "Is Black King",
+                "Black Turn"
+            ],
+            "actions": ["Move right 1"]
+        },
+        {
+            "representativeX": 0,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "White King Down",
+            "conditions": [
+                "Is White King",
+                "White Turn",
+                "Not White Down"
+            ],
+            "actions": ["Move down 1"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "Black King Down Right",
+            "conditions": [
+                "Is Black King",
+                "Black Turn",
+                "Not Black Down Right"
+            ],
+            "actions": ["Move down right 1"]
+        },
+        {
+            "representativeX": 1,
+            "representativeY": -1,
+            "isPersistent": 0,
+            "name": "White King Down Right",
+            "conditions": [
+                "Is White King",
+                "White Turn",
+                "Not White Down Right"
+            ],
+            "actions": ["Move down right 1"]
+        },
+        {
+            "representativeX": -1,
+            "representativeY": 1,
+            "isPersistent": 0,
+            "name": "White King Up Left",
+            "conditions": [
+                "Is White King",
+                "White Turn",
+                "Not White Up Left"
+            ],
+            "actions": ["Move up left 1"]
+        }
+    ],
+    "conditions": [
+        {
+            "col": -1,
+            "invert": 1,
+            "name": "Not White Left",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "White Down Right",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Empty up 1",
+            "isAbsolute": 0,
+            "row": 1,
+            "type": "IsEmpty"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Is White Pawn",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 10,
+            "type": "IsPieceType"
+        },
+        {
+            "col": -1,
+            "invert": 1,
+            "name": "Not Black Down Left",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Is Black King",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": -1,
+            "invert": 1,
+            "name": "Not Black Left",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Empty down 2",
+            "isAbsolute": 0,
+            "row": -2,
+            "type": "IsEmpty"
+        },
+        {
+            "invert": 0,
+            "name": "Black Turn",
+            "id": 1,
+            "type": "IsPlayer"
+        },
+        {
+            "col": -1,
+            "invert": 0,
+            "name": "Black Up Left",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "Not White Up",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Empty down 1",
+            "isAbsolute": 0,
+            "row": -1,
+            "type": "IsEmpty"
+        },
+        {
+            "col": 1,
+            "invert": 1,
+            "name": "Not White Up Right",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 1,
+            "name": "Not Black Down Right",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 1,
+            "name": "Not Black Right",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": -1,
+            "invert": 1,
+            "name": "Not Black Up Left",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 1,
+            "name": "Not White Right",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "Not Black Up",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "Not White Down",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": -1,
+            "invert": 1,
+            "name": "Not White Down Left",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "invert": 0,
+            "name": "White Turn",
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "col": -1,
+            "invert": 1,
+            "name": "Not White Up Left",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 0,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 1,
+            "name": "Not Black Up Right",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "Not Black Down",
+            "isAbsolute": 0,
+            "id": 1,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": -1,
+            "invert": 0,
+            "name": "White Down Left",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 1,
+            "invert": 1,
+            "name": "Not White Down Right",
+            "isAbsolute": 0,
+            "id": 0,
+            "row": -1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Is White King",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 0,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Is Black Pawn",
+            "isAbsolute": 0,
+            "row": 0,
+            "id": 11,
+            "type": "IsPieceType"
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Empty up 2",
+            "isAbsolute": 0,
+            "row": 2,
+            "type": "IsEmpty"
+        },
+        {
+            "col": 1,
+            "invert": 0,
+            "name": "Black Up Right",
+            "isAbsolute": 0,
+            "row": 1,
+            "id": 1,
+            "type": "IsPlayerPiece"
+        },
+        {
+            "col": 0,
+            "invert": 1,
+            "name": "Not White Up 2",
+            "isAbsolute": 0,
+            "row": 2,
+            "id": 0,
+            "type": "IsPlayerPiece"
+        }
+    ],
+    "actions": [
+        {
+            "destinationRow": -2,
+            "sourceCol": 0,
+            "destinationCol": 0,
+            "name": "Move down 2",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": -1,
+            "sourceCol": 0,
+            "destinationCol": 0,
+            "name": "Move down 1",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": 1,
+            "sourceCol": 0,
+            "destinationCol": 0,
+            "name": "Move up 1",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": 1,
+            "sourceCol": 0,
+            "destinationCol": -1,
+            "name": "Move up left 1",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": 0,
+            "sourceCol": 0,
+            "destinationCol": -1,
+            "name": "Move left 1",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": -1,
+            "sourceCol": 0,
+            "destinationCol": -1,
+            "name": "Move down left 1",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": 1,
+            "sourceCol": 0,
+            "destinationCol": 1,
+            "name": "Move up right 1",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": 2,
+            "sourceCol": 0,
+            "destinationCol": 0,
+            "name": "Move up 2",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": -1,
+            "sourceCol": 0,
+            "destinationCol": 1,
+            "name": "Move down right 1",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        },
+        {
+            "destinationRow": 0,
+            "sourceCol": 0,
+            "destinationCol": 1,
+            "name": "Move right 1",
+            "isAbsolute": 0,
+            "sourceRow": 0,
+            "type": "Translate"
+        }
+    ],
+    "board": {
+        "pieceConfiguration": [
+            [
+                5,
+                9,
+                7,
+                3,
+                1,
+                7,
+                9,
+                5
+            ],
+            [
+                11,
+                11,
+                11,
+                11,
+                11,
+                11,
+                11,
+                11
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            ],
+            [
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10
+            ],
+            [
+                4,
+                8,
+                6,
+                2,
+                0,
+                6,
+                8,
+                4
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff"
+            ],
+            [
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff"
+            ],
+            [
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff"
+            ],
+            [
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff"
+            ],
+            [
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff"
+            ],
+            [
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff"
+            ],
+            [
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff"
+            ],
+            [
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff",
+                "0xb3661aff",
+                "0xf0e8b4ff"
+            ]
+        ],
+        "width": 8,
+        "activePlayer": 0,
+        "height": 8
+    }
+}
