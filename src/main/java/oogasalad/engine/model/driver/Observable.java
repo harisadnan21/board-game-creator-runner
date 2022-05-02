@@ -7,30 +7,36 @@ import java.util.List;
 
 
 /**
- * Example of managing listeners so other classes do not have to do it themselves.
+ * Example of managing listeners so other classes do not have to do it themselves. This code was
+ * shown to us in class that we can use to make an obervable class. In this case, we make an
+ * observable for Boards to implement listeners. Git commit links:
  *
- * Note, this is the heart of an interactive system: notify all abstractions that have registered interest.
- *
- * This level is generic even though the bean classes it uses are not (they pass around simple Object classes).
- *
- * @author Robert C. Duvall
+ * @author Haris Adnan
  */
 public class Observable<T> {
+
   private List<PropertyChangeListener> myListeners;
 
-  public Observable () {
+  /**
+   * Constructor for the Observable Class
+   */
+  public Observable() {
     myListeners = new ArrayList<>();
   }
 
-  public void addListener (PropertyChangeListener listener) {
+  /**
+   * Method adds Listener to the list of listeners.
+   *
+   * @param listener : listener to be added
+   */
+  public void addListener(PropertyChangeListener listener) {
     if (listener != null) {
       myListeners.add(listener);
     }
-    // FIXME: throw error to report or just ignore?
   }
 
-  // control access to only allow subclasses to call it
-  protected void notifyListeners (String property, T oldValue, T newValue) {
+  // notifies listeners by updating the property.
+  protected void notifyListeners(String property, T oldValue, T newValue) {
     for (PropertyChangeListener l : myListeners) {
       l.propertyChange(new PropertyChangeEvent(this, property, oldValue, newValue));
     }
