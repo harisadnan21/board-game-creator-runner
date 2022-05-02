@@ -82,7 +82,6 @@
       "isPersistent": 0,
       "name": "Place O piece on Os turn",
       "conditions": [
-        "Placement Square is Empty",
         "O turn"
       ],
       "actions": ["PlaceOPiece"]
@@ -93,8 +92,7 @@
       "isPersistent": 0,
       "name": "Place X piece on Xs turn",
       "conditions": [
-        "X turn",
-        "Placement Square is Empty"
+        "X turn"
       ],
       "actions": ["PlaceXPiece"]
     }
