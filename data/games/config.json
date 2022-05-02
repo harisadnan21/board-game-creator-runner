@@ -1,0 +1,174 @@
+{
+    "pieces": [{
+        "image": "/resources/whiteKing.png",
+        "name": "X",
+        "id": 0,
+        "player": 0
+    }],
+    "metadata": {
+        "gameName": "Tic-Tac-Toe",
+        "author": "Haris Adnan",
+        "name": "metadata",
+        "description": "Modified Tic Tac Toe configuration file created with the builder for analysis"
+    },
+    "winDecisions": [
+        {
+            "name": "X neg diag win",
+            "id": 0,
+            "type": "PlayerWins",
+            "conditions": ["X neg diag"]
+        },
+        {
+            "name": "X col win",
+            "id": 0,
+            "conditions": ["X col"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "Draw",
+            "type": "Draw",
+            "conditions": []
+        },
+        {
+            "name": "X row win",
+            "id": 0,
+            "conditions": ["X row"],
+            "type": "PlayerWins"
+        },
+        {
+            "name": "X pos diag win",
+            "id": 0,
+            "type": "PlayerWins",
+            "conditions": ["X pos diag"]
+        }
+    ],
+    "rules": [{
+        "representativeX": 0,
+        "representativeY": 0,
+        "isPersistent": 0,
+        "name": "Place X piece on Xs turn",
+        "conditions": [
+            "X turn",
+            "Placement Square is Empty"
+        ],
+        "actions": ["PlaceXPiece"]
+    }],
+    "conditions": [
+        {
+            "invert": 0,
+            "name": "board full",
+            "type": "BoardFull"
+        },
+        {
+            "invert": 0,
+            "startRow": 0,
+            "columnDirection": 0,
+            "startColumn": 0,
+            "length": 3,
+            "name": "X col",
+            "isAbsolute": 0,
+            "type": "IsPlayerPieceRay",
+            "player": 0,
+            "rowDirection": 1
+        },
+        {
+            "col": 0,
+            "invert": 0,
+            "name": "Placement Square is Empty",
+            "isAbsolute": 0,
+            "row": 0,
+            "type": "IsEmpty"
+        },
+        {
+            "invert": 0,
+            "name": "X turn",
+            "id": 0,
+            "type": "IsPlayer"
+        },
+        {
+            "invert": 0,
+            "startRow": 0,
+            "columnDirection": 1,
+            "startColumn": 0,
+            "length": 3,
+            "name": "X row",
+            "isAbsolute": 0,
+            "type": "IsPlayerPieceRay",
+            "player": 0,
+            "rowDirection": 0
+        },
+        {
+            "invert": 0,
+            "startRow": 0,
+            "columnDirection": -1,
+            "startColumn": 0,
+            "length": 3,
+            "name": "X neg diag",
+            "isAbsolute": 0,
+            "type": "IsPlayerPieceRay",
+            "player": 0,
+            "rowDirection": 1
+        },
+        {
+            "invert": 0,
+            "startRow": 0,
+            "columnDirection": 1,
+            "startColumn": 0,
+            "length": 3,
+            "name": "X pos diag",
+            "isAbsolute": 0,
+            "type": "IsPlayerPieceRay",
+            "player": 0,
+            "rowDirection": 1
+        }
+    ],
+    "actions": [{
+        "col": 0,
+        "name": "PlaceXPiece",
+        "isAbsolute": 0,
+        "id": 0,
+        "row": 0,
+        "type": "Place",
+        "player": 0
+    }],
+    "board": {
+        "pieceConfiguration": [
+            [
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1
+            ],
+            [
+                -1,
+                -1,
+                -1
+            ]
+        ],
+        "shape": "rectangle",
+        "colorConfiguration": [
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ],
+            [
+                "0xffffffff",
+                "0xffffffff",
+                "0xffffffff"
+            ]
+        ],
+        "width": 3,
+        "activePlayer": 0,
+        "height": 3
+    }
+}
