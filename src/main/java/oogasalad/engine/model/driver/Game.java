@@ -12,7 +12,9 @@ import oogasalad.engine.model.board.Board;
  * have to be concerned about how methods are implemented at all. The get methods always return an
  * immutable board and the class shows inheritance heirarchy and polymorphism as it extends Observable<Board>.
  *
- * Git links:
+ * Git links: https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/22a97c1895c1971f4dcd4adc0e9fb4e3b97d952b
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/cf86b10db074222daf8e94511c09e519bb68fa04
+ * https://coursework.cs.duke.edu/compsci308_2022spring/oogasalad_OOGABOOGA/-/commit/73dab24dfe6366445b1f1f478e526d30ba0304c2
  * @author: Jake Heller, Haris Adnan
  */
 public class Game extends Observable<Board> {
