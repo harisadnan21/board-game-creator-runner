@@ -3,17 +3,26 @@ oogasalad
 
 This project implements an authoring environment and player for multiple related games.
 
-Names:
+<img width="597" alt="Screen Shot 2022-08-17 at 6 09 11 PM" src="https://user-images.githubusercontent.com/91027112/185253098-53b1c585-5495-4a8a-8bca-8619fdca837e.png">
 
-* Ricky Weerts
-* Jake Heller
-* Robert Cranston
-* Haris Adnan
-* Alexander Bildner
-* Thivya Sivarajah
-* Cynthia France
-* Mike Keohane
-* Shaan Gondalia
+
+<img width="892" alt="Screen Shot 2022-08-17 at 6 11 36 PM" src="https://user-images.githubusercontent.com/91027112/185253063-11bbd4c3-125c-49d8-bb27-d2a4ddc8f7b7.png">
+
+<img width="795" alt="Screen Shot 2022-08-17 at 6 22 55 PM" src="https://user-images.githubusercontent.com/91027112/185254146-967698c4-9300-4ffe-b4ae-6ff9f82d5b64.png">
+
+<img width="795" alt="Screen Shot 2022-08-17 at 6 22 44 PM" src="https://user-images.githubusercontent.com/91027112/185254169-d08ed61c-2423-4d2c-b25b-18d18ec9edb0.png">
+
+<img width="792" alt="Screen Shot 2022-08-17 at 6 23 58 PM" src="https://user-images.githubusercontent.com/91027112/185254195-7e8bc802-0f84-4d81-b641-5b6f8509df03.png">
+
+
+
+Builder:
+
+<img width="574" alt="builder" src="https://user-images.githubusercontent.com/91027112/185253649-2aafb512-27f7-41f1-8103-89d0ef32a4a2.png">
+
+Engine:
+
+<img width="582" alt="engine" src="https://user-images.githubusercontent.com/91027112/185253683-149a8b18-6ade-4bfa-ba28-8369871ec8eb.png">
 
 
 ### Timeline
@@ -22,34 +31,6 @@ Start Date: 3/17/22
 
 Finish Date: 4/25/22
 
-Hours Spent:
-
-* Ricky - 70 Hours
-* Robert - 55 Hours
-* Jake - 100 Hours
-* Haris - 60 Hours
-* Alexander - 80 Hours
-* Thivya -
-* Cynthia - 60 Hours
-* Mike - 65 Hours
-* Shaan - 90 Hours
-
-### Primary Roles
-
-#### Engine
-
-* Cynthia - Worked entirely on the engine view, including all View classes with the exception of Dashboard
-* Robert - Worked a lot on linking the front end and backend as well as designing elements in each
-* Haris - Engine model
-* Alexander - Engine model, mostly Board (Board itself, Board utilities, Ray, etc), AI package, and some Win Conditions
-* Jake - Engine model
-
-#### Builder
-
-* Ricky - Initially worked on builder model, then moved to doing whatever needed to be done across the builder
-* Thivya -
-* Mike - Implemented the Tabs and worked everywhere in the builer view
-* Shaan - Implemented much of the builder model and game configuration parsing/serialization for the builder and engine.
 
 
 ### Resources Used
