@@ -1,7 +1,7 @@
 oogasalad
 ====
 
-This project implements an authoring environment and player for multiple related games.
+This project implements an authoring environment and player for multiple related games in multiple languages and with the option to play every game with computer.
 
 <img width="597" alt="Screen Shot 2022-08-17 at 6 09 11 PM" src="https://user-images.githubusercontent.com/91027112/185253098-53b1c585-5495-4a8a-8bca-8619fdca837e.png">
 
